@@ -1,0 +1,7 @@
+{
+  "id": "dom-structure",
+  "name": "Dom Structure",
+  "srcdoc": "./build/index.html",
+  "sidebar": false,
+  "fieldTypes": ["Object"]
+}

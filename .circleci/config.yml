@@ -1,0 +1,75 @@
+vrsion: 2
+
+jobs:
+  "Build - Color Chart Specification extension":
+    docker:
+      # Image built from the Dockerfile in the current repository
+      - image: xebiafrance/contentful-extensions-build-container:v1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # Find a cache corresponding to this specific package-lock.json checksum
+            # when this file is changed, this key will fail
+            - color-chart/v1-npm-deps-{{ checksum "color-chart/package-lock.json" }}
+            # Find the most recently generated cache used from any branch
+            - color-chart/v1-npm-deps-
+      - run:
+          name: Build React app
+          command: |
+            cd color-chart/
+            npm install
+            npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - color-chart/build
+            - color-chart/serverless.yml
+      - save_cache:
+          key: color-chart/v1-npm-deps-{{ checksum "color-chart/package-lock.json" }}
+          paths:
+            - "color-chart/.node_modules"
+
+  "Package Serverless - Color Chart Specification extension":
+    docker:
+      # Image built from the Dockerfile in the current repository
+      - image: xebiafrance/contentful-extensions-build-container:v1
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Create Serverless packages
+          command: |
+            cd color-chart/
+            serverless package -p package-prod -s prod
+      - persist_to_workspace:
+          root: .
+          paths:
+            - color-chart/build
+            - color-chart/package-prod
+            - color-chart/serverless.yml
+
+  "Deploy - Color Chart Specification extension":
+    docker:
+      # Image built from the Dockerfile in the current repository
+      - image: xebiafrance/contentful-extensions-build-container:v1
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Deploy to AWS S3
+          command: |
+            cd color-chart/
+            serverless deploy --force -p package-prod -s prod
+
+workflows:
+  version: 2
+  full:
+    jobs:
+      - "Build - Color Chart Specification extension"
+      - "Package Serverless - Color Chart Specification extension":
+          requires:
+            - "Build - Color Chart Specification extension"
+      - "Deploy - Color Chart Specification extension":
+          requires:
+            - "Package Serverless - Color Chart Specification extension"
