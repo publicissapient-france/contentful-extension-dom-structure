@@ -7,8 +7,10 @@ export const Extension = styled.div`
     p {
         margin : 0;
     }
+    
+    
 `;
-export const Container = styled.div`
+export const MainContainer = styled.div`
     border-radius : 2px;
     box-shadow : 0 1px 3px rgba(0,0,0,0.08);
     padding-bottom : 20px;
@@ -61,12 +63,12 @@ export const Container = styled.div`
         border-image-source :url("https://static.contentful.com/app/svg/dotted-border.svg");
         border-image-repeat : round;
         border-image-slice : 1.1; 
-        max-width : 80px;
-        height : 25px;
+        height : 30px;
+        background : transparent;
     }
     
     label{
-        font-size : 14px;
+        font-size : 13px;
         line-height : 24px;
         color : ${ contentfulTheme.grey };
         font-family :${ contentfulTheme.basicFont };
@@ -123,6 +125,98 @@ export const Container = styled.div`
         opacity : 0.6;
     }
     
+    .hidden{
+        display : none;
+    }
     
+    
+`;
+
+export const Container = styled.div`
+  border: 1px solid ${ extensionTheme.grey };
+  border-left : 5px solid ${ extensionTheme.orange };
+  background : ${ extensionTheme.grey10 };
+  margin-bottom : 10px;
+  padding-left : 8px;
+  padding-right :8px;
+
+  
+  h3, h4{
+    font-size : 13px;
+    width : fit-content;
+    padding : 0 5px;
+    margin : 0;line-height : 40px;
+
+  }
+  h3{
+    font-weight : 400;
+   }
+   h4{
+    color :  ${ extensionTheme.grey };
+    font-weight : 300;
+   }
+  
+  .hidden{
+    display : none;
+  }
+  
+  
+`;
+
+
+export const ButtonBasic = styled.button`
+   background :  ${ extensionTheme.grey60 };
+   color : white;
+   font-family:${ contentfulTheme.basicFont };
+   font-size : 14px;
+   cursor : pointer;xz
+   height : fit-content;
+   border : 1px solid  ${ extensionTheme.white };
+   border-radius : 4px;
+   padding : 10px;
+   line-height : 11px;
+   font-weight : 300;
+   height : 33px;
+   transition : background .2s ease, background-image .2s ease,opacity .2s ease-in-out,border-color .2s ease;
+
+   
+   &:hover{
+    background :  ${ extensionTheme.grey50 };
+   }
+  
+`;
+
+
+export const ButtonGreen = styled.button`
+   background :  ${ extensionTheme.grey20 };
+   color : white;
+   font-family:${ contentfulTheme.basicFont };
+   font-size : 14px;
+   cursor : pointer;
+   height : fit-content;
+   border : 1px solid  ${ extensionTheme.grey10 };
+   border-radius : 4px;
+   padding : 10px;
+   line-height : 11px;
+   font-weight : 300;
+   height : 33px;
+   transition : background .2s ease, background-image .2s ease,opacity .2s ease-in-out,border-color .2s ease;
+
+   
+   &.active{
+    background : ${ contentfulTheme.greenM };
+    background-image : -webkit-gradient(linear,left bottom,left top,from(#0eb87f),to(#14d997));
+    background-size : 100% 200%;
+    border : 1px solid  ${ contentfulTheme.greyL };
+    color : white;
+    
+        &:hover{
+          background : ${ contentfulTheme.greenXL };
+          background-image : transparent;
+          cursor : pointer !important;
+        }
+    
+    }
+  
 `;
 

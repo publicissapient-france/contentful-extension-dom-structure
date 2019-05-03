@@ -1,7 +1,6 @@
 import debounce from 'debounce-fn';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { render } from 'react-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import rootReducer from './reducers'
@@ -12,7 +11,7 @@ import '@contentful/forma-36-fcss/dist/styles.css';
 import { init } from 'contentful-ui-extensions-sdk';
 import './style/index.css';
 import { defaultConfig, sections, components } from './config/defaultConfig';
-import { Extension, Container } from './style/styledComponents';
+import { Extension, MainContainer } from './style/styledComponents';
 import { createSlug, hexToRgb, RGBtoString, slugIsUnique } from './utils/functions';
 import _ from 'lodash';
 
@@ -32,7 +31,8 @@ class App extends React.Component {
     this.availableComponents = components;
 
     this.state = {
-
+        dom : null,
+        openAddSectionTop : false
     };
 
     this.onViewingEntryUpdated = debounce(this.onViewingEntryUpdated, {
@@ -43,6 +43,8 @@ class App extends React.Component {
     componentDidMount = async () => {
 
       console.log('STORE ',store.getState());
+      this.setFieldValue();
+      console.log('field value ',this.props.extension.field.getValue());
       this.detachFns = [];
 
       // Update component state when a field value changes
@@ -69,9 +71,12 @@ class App extends React.Component {
     }
 
     setFieldValue = () => {
-      this.props.extension.field.setValue({
-
-      });
+      this.setState({
+          dom : store.getState().dom
+      })
+       this.props.extension.field.setValue(
+           store.getState().dom
+       )
     }
 
 
@@ -118,7 +123,7 @@ class App extends React.Component {
               <AddTodo />
               <AddSection/>
               <VisibleTodoList />
-              <Footer />
+              <Footer/>
           </div>
         </Extension>
 
@@ -128,29 +133,21 @@ class App extends React.Component {
     renderExtension = () => {
       return (
         <section>
-          <Container className={'container'} >
-            <ButtonAddSection/>
-            { this.renderCreateNewSection() }
+          <MainContainer className={'container'} >
+            <ButtonAddSection parent={this}/>
+            <AddSection open={this.state.openAddSectionTop} parent={this}/>
             { this.renderDomStructure() }
-          </Container>
+          </MainContainer>
         </section>
       );
     }
 
-    renderCreateNewSection = () => {
-        return (
-            <section>
-               Here the futur form to create a new section
-            </section>
-        );
-    }
     renderDomStructure = () => {
         return (
             <section>
                 {
                     store.getState().dom.map((section, i) =>
-                        <Section key={i} section={section}/>
-
+                        <Section key={i} section={section} index={i}/>
                     )
                 }
             </section>
@@ -172,8 +169,8 @@ const initialState = {
                     type : 'components',
                     name : 'Introduction',
                     model : 'TextContent',
-                    specs : ['background', 'color'],
-                    content :['title', 'subtitle', 'content']
+                    specs : [],
+                    content :[]
                 }
             ]
         },
@@ -188,13 +185,14 @@ const initialState = {
 
 
 };
-const store = createStore(rootReducer, initialState)
+
+const store = createStore(rootReducer, initialState);
 
 
 init(extension => {
-    render(
+    ReactDOM.render(
         <Provider store={store}>
-          <App extension={extension} />,
+          <App extension={extension} />
         </Provider>,
         document.getElementById('root')
   );

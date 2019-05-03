@@ -2,12 +2,15 @@ const dom = (state = [], action) => {
     switch (action.type) {
         case 'ADD_SECTION':
             console.log('state on dom.js', state);
+            console.log('action :', action);
             return [
                 ...state,
                 {
-                    id: action.id,
-                    text: action.text,
-                    completed: false
+                    type: action.section.type,
+                    name: action.section.name,
+                    model: action.section.model,
+                    specs: action.section.specs,
+                    components : action.section.components
                 }
             ]
         case 'TOGGLE_TODO':

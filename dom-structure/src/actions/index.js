@@ -23,6 +23,6 @@ export const VisibilityFilters = {
 
 export const addSection = object => ({
     type: 'ADD_SECTION',
-    id: nextTodoId++,
-    object
+    section: object
+
 })

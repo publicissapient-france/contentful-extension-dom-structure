@@ -5,33 +5,10 @@ import SvgAdd from './SvgAdd';
 import SvgSpecs from './SvgSpecs';
 import SvgRange from './SvgRange';
 import SvgTrash from './SvgTrash';
-import ComponentDOM from './Component';
+import ComponentDOM from './ComponentDOM';
+import SelectSectionModel from './SelectSectionModel';
+import { Container} from "../style/styledComponents";
 
-
-const Container = styled.div`
-  border: 1px solid ${ extensionTheme.grey };
-  border-left : 5px solid ${ extensionTheme.orange };
-  background : ${ extensionTheme.lightGrey };
-  margin-bottom : 10px;
-  padding : 0 8px;
-  
-  h3, h4{
-    font-size : 13px;
-    width : fit-content;
-    padding : 0 5px;
-    margin : 0;line-height : 40px;
-
-  }
-  
-  h3{
-    font-weight : 400;
-   }
-   h4{
-    color :  ${ extensionTheme.grey };
-    font-weight : 300;
-   }
-  
-`;
 
 const TopBar = styled.div`
   width : 100%;
@@ -48,12 +25,17 @@ const Description = styled.div`
 const Actions = styled.div`
   display : flex;
   width : fit-content;
-  padding-right : 10px;
   
 `;
 const Icon = styled.div`
   width : 40px;
   height : 40px;
+
+  &.active{
+    & svg g path, & svg  path {
+        fill : ${ extensionTheme.greenM };
+    }
+  }
 `;
 const Range = styled.div`
   display : flex;
@@ -62,33 +44,70 @@ const Range = styled.div`
   
   & ${Icon}{
     height : 20px;
-    & svg{
-        height : 20px;
+    
+    &:nth-child(2){
+        transform:rotate(180deg);
     }
   }
 `;
 
 const Children = styled.div`
   display : flex;
+`;
+
+const Specs = styled.div`
+  display : flex;
   
+  &>div{
+    display : flex;
+    flex-direction : column;
+    padding : 0 5px;
+  }
 `;
 
 
 class Section extends Component {
-    render () {
-        const { section } = this.props;
+    constructor (props) {
+        super(props);
+
+        this.state = {
+            openSpec: false,
+            openAdd: false,
+            section : null
+        };
+
+    }
+
+    componentDidMount = () => {
+        this.setState({ section: this.props.section });
+        console.log('state section :', this.state );
+    }
+
+    render (){
+        const { section, index } = this.props;
         console.log('section on props',section);
+
+        let children = (section.components && section.components.length != 0 ) ? section.components.map((component, i) =>
+            <ComponentDOM key={i} component={component}/>
+
+        ): null
 
         return (
             <Container>
                 <TopBar>
                     <Description>
-                        <h3>{section.name} </h3>
+                        <h3>{section.name} { index } </h3>
                         <h4>{section.model} </h4>
                     </Description>
                     <Actions>
-                        <Icon><SvgAdd/></Icon>
-                        <Icon><SvgSpecs/></Icon>
+                        <Icon className={this.state.openAdd ? 'active' : ''}
+                              onClick={() => this.setState({ openAdd: !this.state.openAdd })}>
+                            <SvgAdd/>
+                        </Icon>
+                        <Icon className={this.state.openSpec ? 'active' : ''}
+                              onClick={() => this.setState({ openSpec: !this.state.openSpec })}>
+                            <SvgSpecs/>
+                        </Icon>
                         <Range>
                             <Icon><SvgRange/></Icon>
                             <Icon><SvgRange/></Icon>
@@ -98,12 +117,23 @@ class Section extends Component {
 
 
                 </TopBar>
+                <Specs className={!this.state.openSpec ? 'hidden' : ''}>
+                    <div>
+                        <label>Section Name</label>
+                        <input type={'text'} defaultValue={ section.name ? section.name : '' }/>
+                    </div>
+                    <div>
+                        <label>Model</label>
+                        <SelectSectionModel parent={this} section={section}/>
+                    </div>
+                    <div>
+                        <button>Cancel</button>
+                        <button>Update</button>
+                    </div>
+                </Specs>
                 <Children>
                     {
-                        section.components.map((component, i) =>
-                            <ComponentDOM key={i} component={component}/>
-
-                        )
+                        children
                     }
                 </Children>
 

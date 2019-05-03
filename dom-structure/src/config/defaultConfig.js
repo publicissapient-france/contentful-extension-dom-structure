@@ -104,6 +104,8 @@ const sections = [
         content : ['title', 'content']
     }
 ]
+
+
 const components = [
     {
       name : 'TextContent',

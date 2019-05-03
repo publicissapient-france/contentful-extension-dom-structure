@@ -24,9 +24,10 @@ const Button = styled.button`
 
 class ButtonAddSection extends Component {
   render () {
-    const { parent, basic, currentColor, currentAction } = this.props;
+    const { parent } = this.props;
+    console.log('parent', parent);
 
-    return (<Button>+ Add section</Button>);
+    return <Button onClick={() => parent.setState({ openAddSectionTop: !parent.state.openAddSectionTop })}>+ Add section</Button>;
   }
 };
 

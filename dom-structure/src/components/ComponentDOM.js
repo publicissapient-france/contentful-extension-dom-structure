@@ -5,32 +5,15 @@ import SvgContent from './SvgContent';
 import SvgSpecs from './SvgSpecs';
 import SvgRange from './SvgRange';
 import SvgTrash from './SvgTrash';
+import { Container} from "../style/styledComponents";
 
 
-const Container = styled.div`
+const ContainerComponent = styled(Container)`
   border: 1px solid ${ extensionTheme.grey };
-  border-left : 5px solid ${ extensionTheme.blue };
-  background : white;
-  margin-bottom : 10px;
-  padding : 0 8px;
+  border-left : 5px solid ${ extensionTheme.blue }; 
   width : 100%;
-  
-  h3, h4{
-    font-size : 13px;
-    width : fit-content;
-    padding : 0 5px;
-    margin : 0;line-height : 40px;
+  padding-right :0px;
 
-  }
-  
-  h3{
-    font-weight : 400;
-   }
-   h4{
-    color :  ${ extensionTheme.grey };
-    font-weight : 300;
-   }
-  
 `;
 
 const TopBar = styled.div`
@@ -61,8 +44,9 @@ const Range = styled.div`
   
   & ${Icon}{
     height : 20px;
-    & svg{
-        height : 20px;
+    
+    :nth-child(2){
+        transform:rotate(180deg);
     }
   }
 `;
@@ -74,7 +58,7 @@ class ComponentDOM extends Component {
         console.log('section on props',component);
 
         return (
-            <Container>
+            <ContainerComponent>
                 <TopBar>
                     <Description>
                         <h3>{component.name} </h3>
@@ -94,7 +78,7 @@ class ComponentDOM extends Component {
                 </TopBar>
 
 
-            </Container>
+            </ContainerComponent>
         );
     }
 };

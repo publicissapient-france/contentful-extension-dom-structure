@@ -8,8 +8,19 @@ export const contentfulTheme = {
 };
 
 export const extensionTheme = {
+    white : '#FFFFFF',
+    grey10 : '#F7F9FA',
+    grey20 : '#eeeeef',
+    grey30 : '#C3CFD5',
+    grey40 : '#C5D1D8',
+    grey50 : '#CBCBCB',
+    grey60 : '#B2B2B2',
+    greenM : '#14D292',
+    greenL : '#0CAA75',
+    greenXL : '#0baa75',
     extraLightGrey: '#EDF2F3',
-    lightGrey: '#F7F9FA',
+    semiGrey : '#CBCBCB',
+    semiGreyBorder : '#B2B2B2',
     grey: '#8091A5',
     red: '#A00000',
     orange : '#FFB100',
