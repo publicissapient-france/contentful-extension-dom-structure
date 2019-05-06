@@ -1,10 +1,10 @@
+import update from 'react-addons-update';
+
 const dom = (state = [], action) => {
     switch (action.type) {
         case 'INIT_DOM' :
             return [...action.dom]
         case 'ADD_SECTION':
-            console.log('state on dom.js', state);
-            console.log('action :', action);
             return [
                 ...state,
                 {
@@ -15,6 +15,13 @@ const dom = (state = [], action) => {
                     components : action.section.components
                 }
             ]
+        case 'UPDATE_SECTION':
+            return update(state, {
+                    [action.index]: {
+                        name: {$set: action.section.name},
+                        model: {$set: action.section.model}
+                    }
+            })
         case 'REMOVE_SECTION':
             return [
                 ...state.slice(0, action.index),
@@ -26,10 +33,6 @@ const dom = (state = [], action) => {
             )
         default:
             return state
-
-
-
-
     }
 }
 

@@ -16,10 +16,6 @@ const todos = (state = [], action) => {
             )
         default:
             return state
-
-
-
-
     }
 }
 

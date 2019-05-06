@@ -26,12 +26,20 @@ export const initDOM = object => ({
     dom: object
 
 })
-export const removeSection = number => ({
-    type: 'REMOVE_SECTION',
-    index: number
-})
+
 export const addSection = object => ({
     type: 'ADD_SECTION',
     section: object
 
+})
+
+export const updateSection = (object, number) => ({
+    type: 'UPDATE_SECTION',
+    section: object,
+    index : number
+
+})
+export const removeSection = number => ({
+    type: 'REMOVE_SECTION',
+    index: number
 })

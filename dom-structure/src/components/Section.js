@@ -9,7 +9,9 @@ import SvgTrash from './SvgTrash';
 import ComponentDOM from './ComponentDOM';
 import SelectSectionModel from './SelectSectionModel';
 import { Container, ButtonBasic, ButtonGreen, Form} from "../style/styledComponents";
-import {addSection, removeSection} from "../actions";
+import {updateSection, removeSection, addSection} from "../actions";
+import {sections} from "../config/defaultConfig";
+import update from "react-addons-update";
 
 
 const TopBar = styled.div`
@@ -59,12 +61,8 @@ const Children = styled.div`
 
 const Specs = styled.div`
   display : flex;
-  
-  &>div{
-    display : flex;
-    flex-direction : column;
-    padding : 0 5px;
-  }
+  width : 100%;
+ 
 `;
 
 
@@ -85,14 +83,40 @@ class Section extends Component {
         this.setState({ section: this.props.section });
         console.log('state section :', this.state );
     }
+    updateModel = (model) => {
 
-    isUpdated = () => (this.state.section != this.props.section)
+        return new Promise((resolve, reject) => {
+            this.setState(
+                {
+                    section: update(this.state.section, {
+                        model: { $set: model },
+                    })
+                }
+            );
+            resolve();
+        }).then(() => {
+            console.log('UPDATE: this.state.section', this.state.section);
+            console.log('UPDATE: this.props.section', this.props.section);
+        });
+
+    }
+
+    updateName = (name) => {
+        this.setState(
+            {
+                section: update(this.state.section, {
+                    name: { $set: name },
+                })
+            }
+        );
+    }
+
+    isUpdated = () => (this.state.section && (this.state.section.name != this.props.section.name  || this.state.section.model != this.props.section.model))
 
 
     render (){
         const { dispatch, parent, section, index } = this.props;
-        console.log('section on props',section);
-
+        let inputName, selectModel;
         let children = (section.components && section.components.length != 0 ) ? section.components.map((component, i) =>
             <ComponentDOM key={i} component={component}/>
 
@@ -106,12 +130,10 @@ class Section extends Component {
                         <h4>{section.model} </h4>
                     </Description>
                     <Actions>
-                        <Icon className={this.state.openAdd ? 'active' : ''}
-                              onClick={() => this.setState({ openAdd: !this.state.openAdd })}>
+                        <Icon className={this.state.openAdd ? 'active' : ''} onClick={() => this.setState({ openAdd: !this.state.openAdd })}>
                             <SvgAdd/>
                         </Icon>
-                        <Icon className={this.state.openSpec ? 'active' : ''}
-                              onClick={() => this.setState({ openSpec: !this.state.openSpec })}>
+                        <Icon className={this.state.openSpec ? 'active' : ''} onClick={() => this.setState({ openSpec: !this.state.openSpec })}>
                             <SvgSpecs/>
                         </Icon>
                         <Range>
@@ -134,18 +156,41 @@ class Section extends Component {
                 <Specs className={!this.state.openSpec ? 'hidden' : ''}>
                     <Form onSubmit={e => {
                         e.preventDefault();
+                        if (!this.isUpdated()) { return }
+                        return new Promise((resolve, reject) => {
+                            dispatch(updateSection(this.state.section, index))
+                            resolve();
+                        }).then(() => {
+                            parent.setFieldValue();
+                        });
                     }}
                     >
                     <div>
                         <label>Section Name</label>
-                        <input type={'text'} defaultValue={ section.name ? section.name : '' }/>
+                        <input ref={node => (inputName = node)} type={'text'}
+                               defaultValue={ section.name ? section.name : '' }
+                               onChange={e => { this.updateName(e.target.value); }}/>
                     </div>
                     <div>
                         <label>Model</label>
-                        <SelectSectionModel parent={this} section={section}/>
+                        <select ref={node => (selectModel = node)} defaultValue={section.model ? section.model : null}
+                                onChange={e => { this.updateModel(e.target.value); }}>
+                                { sections.map((model, i) => <option value={model.name} key={i}>{ model.name }</option>) }
+                        </select>
                     </div>
                     <div className={'buttons'}>
-                        <ButtonBasic>Cancel</ButtonBasic>
+                        <ButtonBasic
+                            onClick={(e) => {
+                                e.preventDefault();
+                                this.setState({
+                                    openSpec: !this.state.openSpec,
+                                    section: this.props.section
+                                });
+
+                                inputName.value = section.name;
+                                selectModel.value = section.model;
+                            }}
+                        >Cancel</ButtonBasic>
                         <ButtonGreen
                             disabled={!this.isUpdated()}
                             className={ this.isUpdated() ? 'active' : ''}>Update</ButtonGreen>
@@ -157,9 +202,6 @@ class Section extends Component {
                         children
                     }
                 </Children>
-
-
-
             </Container>
         );
     }

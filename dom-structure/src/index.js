@@ -17,29 +17,12 @@ const initialState = {
     dom: [
         {
             type : 'section',
-            name : 'Presentation',
+            name : 'Example',
             model : 'BasicLayout',
-            specs : ['background'],
-            components : [
-                {
-                    type : 'components',
-                    name : 'Introduction',
-                    model : 'TextContent',
-                    specs : [],
-                    content :[]
-                }
-            ]
-        },
-        {
-            type : 'section',
-            name : 'Header',
-            model : 'FullLayout',
             specs : ['background'],
             components : []
         }
     ]
-
-
 };
 
 const store = createStore(rootReducer, initialState);
