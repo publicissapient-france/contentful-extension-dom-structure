@@ -21,6 +21,15 @@ export const VisibilityFilters = {
     SHOW_ACTIVE: 'SHOW_ACTIVE'
 }
 
+export const initDOM = object => ({
+    type: 'INIT_DOM',
+    dom: object
+
+})
+export const removeSection = number => ({
+    type: 'REMOVE_SECTION',
+    index: number
+})
 export const addSection = object => ({
     type: 'ADD_SECTION',
     section: object

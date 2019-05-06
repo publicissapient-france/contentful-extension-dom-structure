@@ -220,3 +220,24 @@ export const ButtonGreen = styled.button`
   
 `;
 
+
+export const Form = styled.form`
+  display : flex;
+  justify-content: space-between;
+  padding : 10px 0;
+  
+  button:not(:first-child){
+    margin-left : 10px;
+  }
+  
+  &>div{
+    display: flex;
+    flex-direction : column;
+    
+    &.buttons{
+        flex-direction : row;
+       align-items : flex-end;
+    }
+    
+  }
+`;

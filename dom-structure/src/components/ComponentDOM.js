@@ -13,6 +13,7 @@ const ContainerComponent = styled(Container)`
   border-left : 5px solid ${ extensionTheme.blue }; 
   width : 100%;
   padding-right :0px;
+  margin-top :10px;
 
 `;
 

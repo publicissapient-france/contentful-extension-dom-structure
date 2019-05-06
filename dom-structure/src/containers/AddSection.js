@@ -2,30 +2,10 @@ import React, {Component} from 'react'
 import styled from 'styled-components';
 import { connect } from 'react-redux'
 import { addSection } from '../actions'
-import { Container, ButtonBasic, ButtonGreen} from "../style/styledComponents";
+import { Container, ButtonBasic, ButtonGreen, Form} from "../style/styledComponents";
 import update from "react-addons-update";
 import {sections} from "../config/defaultConfig";
 
-const Form = styled.form`
-  display : flex;
-  justify-content: space-between;
-  padding : 10px 0;
-  
-  button:not(:first-child){
-    margin-left : 10px;
-  }
-  
-  &>div{
-    display: flex;
-    flex-direction : column;
-    
-    &.buttons{
-        flex-direction : row;
-       align-items : flex-end;
-    }
-    
-  }
-`;
 
 class AddSection extends Component {
 
@@ -39,7 +19,6 @@ class AddSection extends Component {
                 components : []
             }
         };
-
     }
 
     updateName = (name) => {
@@ -50,7 +29,6 @@ class AddSection extends Component {
                 })
             }
         );
-        console.log('state on addSection : ', this.state);
     }
 
 
@@ -65,6 +43,14 @@ class AddSection extends Component {
         console.log('state on addSection : ', this.state);
     }
 
+    clearForm = () => {
+        this.setState({ section: {
+            type : 'section',
+            specs : [],
+            components : []
+        } });
+    }
+
     isComplete = () => (this.state.section.name && this.state.section.model)
 
     render(){
@@ -77,15 +63,19 @@ class AddSection extends Component {
                 <Form
                     onSubmit={e => {
                         e.preventDefault()
-                        console.log('inputName.value : ', inputName.value );
-                        console.log('selectModel.value : ', selectModel.value );
                         if (!this.isComplete()) {
                             return
                         }
-                        dispatch(addSection(this.state.section))
-                        inputName.value = ''
-                        selectModel.value = ''
-                        parent.setState({ openAddSectionTop: !parent.state.openAddSectionTop });
+                        return new Promise((resolve, reject) => {
+                            dispatch(addSection(this.state.section))
+                            inputName.value = ''
+                            selectModel.value = ''
+                            parent.setState({ openAddSectionTop: !parent.state.openAddSectionTop });
+                            resolve();
+                        }).then(() => {
+                            parent.setFieldValue();
+                        });
+
                     }}
                 >
                     <div>
@@ -103,7 +93,14 @@ class AddSection extends Component {
                         </select>
                     </div>
                     <div className={'buttons'}>
-                        <ButtonBasic>Cancel</ButtonBasic>
+                        <ButtonBasic
+                            onClick={e => {
+                                this.clearForm();
+                                inputName.value = ''
+                                selectModel.value = ''
+                                parent.setState({ openAddSectionTop: !parent.state.openAddSectionTop });
+                            }}
+                        >Cancel</ButtonBasic>
                         <ButtonGreen
                             disabled={!this.isComplete()}
                             className={ this.isComplete() ? 'active' : ''} type="submit">Add Todo</ButtonGreen>

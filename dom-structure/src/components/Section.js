@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import styled from 'styled-components';
+import { connect } from 'react-redux'
 import { extensionTheme} from "../style/theme";
 import SvgAdd from './SvgAdd';
 import SvgSpecs from './SvgSpecs';
@@ -7,7 +8,8 @@ import SvgRange from './SvgRange';
 import SvgTrash from './SvgTrash';
 import ComponentDOM from './ComponentDOM';
 import SelectSectionModel from './SelectSectionModel';
-import { Container} from "../style/styledComponents";
+import { Container, ButtonBasic, ButtonGreen, Form} from "../style/styledComponents";
+import {addSection, removeSection} from "../actions";
 
 
 const TopBar = styled.div`
@@ -73,7 +75,8 @@ class Section extends Component {
         this.state = {
             openSpec: false,
             openAdd: false,
-            section : null
+            section : null,
+            openSecureDelete : false
         };
 
     }
@@ -83,8 +86,11 @@ class Section extends Component {
         console.log('state section :', this.state );
     }
 
+    isUpdated = () => (this.state.section != this.props.section)
+
+
     render (){
-        const { section, index } = this.props;
+        const { dispatch, parent, section, index } = this.props;
         console.log('section on props',section);
 
         let children = (section.components && section.components.length != 0 ) ? section.components.map((component, i) =>
@@ -96,7 +102,7 @@ class Section extends Component {
             <Container>
                 <TopBar>
                     <Description>
-                        <h3>{section.name} { index } </h3>
+                        <h3>{section.name} </h3>
                         <h4>{section.model} </h4>
                     </Description>
                     <Actions>
@@ -112,12 +118,24 @@ class Section extends Component {
                             <Icon><SvgRange/></Icon>
                             <Icon><SvgRange/></Icon>
                         </Range>
-                        <Icon><SvgTrash/></Icon>
+                        <Icon onClick={() => {
+                            return new Promise((resolve, reject) => {
+                                dispatch(removeSection(index))
+                                this.setState({ openSecureDelete: !this.state.openSecureDelete });
+                                resolve();
+                            }).then(() => {
+                                parent.setFieldValue();
+                            });
+                        } }><SvgTrash/></Icon>
                     </Actions>
 
 
                 </TopBar>
                 <Specs className={!this.state.openSpec ? 'hidden' : ''}>
+                    <Form onSubmit={e => {
+                        e.preventDefault();
+                    }}
+                    >
                     <div>
                         <label>Section Name</label>
                         <input type={'text'} defaultValue={ section.name ? section.name : '' }/>
@@ -126,10 +144,13 @@ class Section extends Component {
                         <label>Model</label>
                         <SelectSectionModel parent={this} section={section}/>
                     </div>
-                    <div>
-                        <button>Cancel</button>
-                        <button>Update</button>
+                    <div className={'buttons'}>
+                        <ButtonBasic>Cancel</ButtonBasic>
+                        <ButtonGreen
+                            disabled={!this.isUpdated()}
+                            className={ this.isUpdated() ? 'active' : ''}>Update</ButtonGreen>
                     </div>
+                    </Form>
                 </Specs>
                 <Children>
                     {
@@ -144,4 +165,4 @@ class Section extends Component {
     }
 };
 
-export default Section;
+export default connect()(Section);
