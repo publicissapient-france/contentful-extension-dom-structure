@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { contentfulTheme , extensionTheme} from "./theme";
+import { contentfulTheme, extensionTheme } from './theme';
 
 export const Extension = styled.div`
     width : auto;
@@ -139,6 +139,9 @@ export const Container = styled.div`
   margin-bottom : 10px;
   padding-left : 8px;
   padding-right :8px;
+  width : 100%;
+  
+  box-sizing : border-box;
 
   
   h3, h4{
@@ -163,7 +166,6 @@ export const Container = styled.div`
   
 `;
 
-
 export const ButtonBasic = styled.button`
    background :  ${ extensionTheme.grey60 };
    color : white;
@@ -185,7 +187,6 @@ export const ButtonBasic = styled.button`
    }
   
 `;
-
 
 export const ButtonGreen = styled.button`
    background :  ${ extensionTheme.grey20 };
@@ -220,7 +221,6 @@ export const ButtonGreen = styled.button`
   
 `;
 
-
 export const Form = styled.form`
   display : flex;
   width : 100%;
@@ -240,5 +240,37 @@ export const Form = styled.form`
        align-items : flex-end;
     }
     
+  }
+`;
+
+
+export const Specs = styled.div`
+  display : flex;
+  width : 100%;
+ 
+`;
+
+export const Icon = styled.div`
+  width : 40px;
+  height : 40px;
+
+  &.active{
+    & svg g path, & svg  path {
+        fill : ${ extensionTheme.greenM };
+    }
+  }
+`;
+
+export const Range = styled.div`
+  display : flex;
+  flex-direction : column;
+  width : 40px;
+  
+  & ${ Icon }{
+    height : 20px;
+    
+    &:nth-child(2){
+        transform:rotate(180deg);
+    }
   }
 `;

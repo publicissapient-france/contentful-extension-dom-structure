@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { contentfulTheme } from "../style/theme";
+import { contentfulTheme } from '../style/theme';
+import { connect } from 'react-redux';
+import { toogleFormAddSection } from '../actions';
 
 const Button = styled.button`
   border : none;
@@ -21,14 +23,11 @@ const Button = styled.button`
   
 `;
 
-
 class ButtonAddSection extends Component {
   render () {
-    const { parent } = this.props;
-    console.log('parent', parent);
-
-    return <Button onClick={() => parent.setState({ openAddSectionTop: !parent.state.openAddSectionTop })}>+ Add section</Button>;
+    const { dispatch } = this.props;
+    return <Button onClick={() => dispatch(toogleFormAddSection())}>+ Add section</Button>;
   }
 };
 
-export default ButtonAddSection;
+export default connect()(ButtonAddSection);
