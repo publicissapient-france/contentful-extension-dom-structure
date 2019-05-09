@@ -18,11 +18,11 @@ export const extensionTheme = {
   greenM: '#14D292',
   greenL: '#0CAA75',
   greenXL: '#0baa75',
+  redM: '#A00000',
   extraLightGrey: '#EDF2F3',
   semiGrey: '#CBCBCB',
   semiGreyBorder: '#B2B2B2',
   grey: '#8091A5',
-  red: '#A00000',
   orange: '#FFB100',
   blue: '#00C7D8'
 };

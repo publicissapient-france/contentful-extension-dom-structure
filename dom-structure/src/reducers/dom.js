@@ -30,6 +30,21 @@ const dom = (state = [], action) => {
                 ...state.slice(action.index + 1)
             ];
 
+        case 'MOVE_SECTION_TO_TOP':
+            const toTop = state[action.index];
+            const toDown = state[action.index - 1];
+            return update(state, {
+                [action.index]: {$set: toDown },
+                [action.index - 1]: {$set: toTop }
+            })
+        case 'MOVE_SECTION_TO_DOWN':
+            const moveDown = state[action.index];
+            const moveTop = state[action.index + 1];
+            return update(state, {
+                [action.index]: {$set: moveTop },
+                [action.index + 1]: {$set: moveDown }
+            })
+
         case 'ADD_COMPONENT':
             return update(state, {
                 [action.index]: {
@@ -64,6 +79,28 @@ const dom = (state = [], action) => {
                             ...state[action.indexParent].components.slice(0, action.index),
                             ...state[action.indexParent].components.slice(action.index + 1)
                         ]
+                    }
+                }
+            })
+        case 'MOVE_COMPONENT_TO_TOP':
+            const componentToTop = state[action.indexParent].components[action.index];
+            const componentToDown = state[action.indexParent].components[action.index - 1];
+            return update(state, {
+                [action.indexParent]: {
+                    components: {
+                        [action.index]: {$set: componentToDown },
+                        [action.index - 1]: {$set: componentToTop }
+                    }
+                }
+            })
+        case 'MOVE_COMPONENT_TO_DOWN':
+            const componentMoveToDown = state[action.indexParent].components[action.index];
+            const componentMoveToTop = state[action.indexParent].components[action.index + 1];
+            return update(state, {
+                [action.indexParent]: {
+                    components: {
+                        [action.index]: {$set: componentMoveToTop },
+                        [action.index + 1]: {$set: componentMoveToDown }
                     }
                 }
             })

@@ -8,7 +8,7 @@ import SvgRange from './SvgRange';
 import SvgTrash from './SvgTrash';
 import { Container, Specs, Form, ButtonGreen, ButtonBasic, Icon, Range } from '../style/styledComponents';
 import {components} from "../config/defaultConfig";
-import {removeComponent, updateComponent} from "../actions";
+import {moveComponentToTop, moveComponentToDown, removeComponent, updateComponent, moveSectionToDown} from "../actions";
 import update from "react-addons-update";
 
 const ContainerComponent = styled(Container)`
@@ -18,6 +18,7 @@ const ContainerComponent = styled(Container)`
   padding-right :0px;
   margin-top :0px;
   background : ${ extensionTheme.white };
+  border-radius : 0px 20px 20px 0px;
   
   & div.buttons{
     padding-right : 10px;
@@ -77,7 +78,7 @@ class ComponentDOM extends Component {
     isUpdated = () => (this.state.component && (this.state.component.name != this.props.component.name || this.state.component.model != this.props.component.model))
 
     render () {
-    const { dispatch, component, index, indexParent } = this.props;
+    const { dispatch, component, index, indexParent, lengthParent } = this.props;
     let inputName, selectModel;
 
         return (
@@ -91,8 +92,12 @@ class ComponentDOM extends Component {
             <Icon><SvgContent/></Icon>
             <Icon className={this.state.openSpec ? 'active' : ''} onClick={() => this.setState({ openSpec: !this.state.openSpec,  openContent: false  })}><SvgSpecs/></Icon>
             <Range>
-              <Icon><SvgRange/></Icon>
-              <Icon><SvgRange/></Icon>
+              <Icon className={ index == 0 ? 'disable' : ''} onClick={() => {
+                  if(index != 0){ dispatch(moveComponentToTop(index, indexParent)); }
+              } }><SvgRange/></Icon>
+              <Icon className={ index == (lengthParent - 1) ? 'disable' : ''} onClick={() => {
+                  if(index != (lengthParent - 1)){ dispatch(moveComponentToDown(index, indexParent)); }
+              }}><SvgRange/></Icon>
             </Range>
             <Icon onClick={() => {
                 dispatch(removeComponent(index, indexParent));

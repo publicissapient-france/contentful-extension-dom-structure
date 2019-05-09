@@ -44,6 +44,17 @@ export const removeSection = number => ({
   index: number
 });
 
+export const moveSectionToTop = number => ({
+  type: 'MOVE_SECTION_TO_TOP',
+  index: number
+});
+
+
+export const moveSectionToDown = number => ({
+  type: 'MOVE_SECTION_TO_DOWN',
+  index: number
+});
+
 
 export const addComponent = (object, number) => ({
     type: 'ADD_COMPONENT',
@@ -67,6 +78,19 @@ export const removeComponent = (number, numberParent) => ({
     indexParent : numberParent
 
 });
+
+export const moveComponentToTop = (number, numberParent) => ({
+    type: 'MOVE_COMPONENT_TO_TOP',
+    index: number,
+    indexParent : numberParent
+});
+
+export const moveComponentToDown = (number, numberParent) => ({
+    type: 'MOVE_COMPONENT_TO_DOWN',
+    index: number,
+    indexParent : numberParent
+});
+
 
 
 export const toogleFormAddSection = () => ({

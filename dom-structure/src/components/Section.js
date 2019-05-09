@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { extensionTheme } from '../style/theme';
 import SvgAdd from './SvgAdd';
 import SvgSpecs from './SvgSpecs';
 import SvgRange from './SvgRange';
 import SvgTrash from './SvgTrash';
 import ComponentDOM from './ComponentDOM';
 import { Container, ButtonBasic, ButtonGreen, Form, Specs, Icon, Range } from '../style/styledComponents';
-import { updateSection, removeSection } from '../actions';
+import { updateSection, removeSection, moveSectionToTop, moveSectionToDown } from '../actions';
 import { sections } from '../config/defaultConfig';
 import update from 'react-addons-update';
 import AddComponent from '../containers/AddComponent';
@@ -80,10 +79,10 @@ class Section extends Component {
     isUpdated = () => (this.state.section && (this.state.section.name != this.props.section.name || this.state.section.model != this.props.section.model))
 
     render () {
-      const { dispatch, section, index } = this.props;
+      const { dispatch, domLength,  section, index } = this.props;
       let inputName, selectModel;
       let children = (section.components && section.components.length != 0) ? section.components.map((component, i) =>
-        <ComponentDOM key={i} component={component} index={i} indexParent={index}/>
+        <ComponentDOM key={i} component={component} index={i} indexParent={index} lengthParent={section.components.length}/>
 
       ) : null;
 
@@ -102,10 +101,14 @@ class Section extends Component {
                 <SvgSpecs/>
               </Icon>
               <Range>
-                <Icon><SvgRange/></Icon>
-                <Icon><SvgRange/></Icon>
+                <Icon className={ index == 0 ? 'disable' : ''} onClick={() => {
+                    if(index != 0){ dispatch(moveSectionToTop(index)); }
+                } }><SvgRange/></Icon>
+                <Icon className={ index == (domLength - 1) ? 'disable' : ''} onClick={() => {
+                    if(index != (domLength - 1)){ dispatch(moveSectionToDown(index)); }
+                } }><SvgRange/></Icon>
               </Range>
-              <Icon onClick={() => {
+              <Icon className={'trash'} onClick={() => {
                 dispatch(removeSection(index));
                 this.setState({ openSecureDelete: !this.state.openSecureDelete });
               } }><SvgTrash/></Icon>

@@ -253,12 +253,32 @@ export const Specs = styled.div`
 export const Icon = styled.div`
   width : 40px;
   height : 40px;
+  cursor  : pointer;
 
   &.active{
     & svg g path, & svg  path {
         fill : ${ extensionTheme.greenM };
     }
   }
+  
+  &.disable{
+    & svg g path, & svg  path {
+        fill : ${ extensionTheme.grey20 };
+    }
+  }
+  
+  &:not(.disable):hover{
+    & svg g path, & svg  path {
+        fill : ${ extensionTheme.greenM };
+    }
+  }
+  
+   &.trash:hover{
+    & svg g path, & svg  path {
+        fill : ${ extensionTheme.redM };
+    }
+  }
+  
 `;
 
 export const Range = styled.div`

@@ -139,7 +139,7 @@ class App extends React.Component {
         <section>
           {
             this.props.store.getState().dom.map((section, i) =>
-              <Section key={i} section={section} index={i}/>
+              <Section key={i} section={section} index={i} domLength={this.props.store.getState().dom.length}/>
             )
           }
         </section>
