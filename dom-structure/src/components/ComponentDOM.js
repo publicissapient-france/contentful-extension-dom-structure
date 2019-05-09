@@ -8,7 +8,7 @@ import SvgRange from './SvgRange';
 import SvgTrash from './SvgTrash';
 import { Container, Specs, Form, ButtonGreen, ButtonBasic, Icon, Range } from '../style/styledComponents';
 import {components} from "../config/defaultConfig";
-import {removeComponent, removeSection, updateComponent} from "../actions";
+import {removeComponent, updateComponent} from "../actions";
 import update from "react-addons-update";
 
 const ContainerComponent = styled(Container)`

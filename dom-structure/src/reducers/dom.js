@@ -57,7 +57,16 @@ const dom = (state = [], action) => {
                 }
             });
         case 'REMOVE_COMPONENT':
-            return state
+            return update(state, {
+                [action.indexParent]: {
+                    components: {
+                        $set: [
+                            ...state[action.indexParent].components.slice(0, action.index),
+                            ...state[action.indexParent].components.slice(action.index + 1)
+                        ]
+                    }
+                }
+            })
 
         default:
             return state;
