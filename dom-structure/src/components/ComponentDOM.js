@@ -120,6 +120,10 @@ class ComponentDOM extends Component {
 
     TC = React.lazy(() => import('../boxes/content/Title'));
 
+    getContentAvailable(){
+      return  components.find(c => c.name == this.props.component.model ).content
+    }
+
 
     render () {
       const { dispatch, component, index, indexParent, lengthParent } = this.props;
@@ -127,7 +131,7 @@ class ComponentDOM extends Component {
 
       console.log('components : ', components);
       console.log('model : ', component.model );
-      console.log('content : ', components.find(c => c.name == component.model ) );
+      console.log('content : ', this.getContentAvailable() );
 
 
 
