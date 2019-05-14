@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { addSection, toogleFormAddSection } from '../actions';
 import { Container, ButtonBasic, ButtonGreen, Form } from '../style/styledComponents';
 import update from 'react-addons-update';
-import { sections } from '../config/defaultConfig';
+import sections from '../config/sections';
 
 class AddSection extends Component {
   constructor (props) {
@@ -51,7 +51,6 @@ class AddSection extends Component {
       const { dispatch, open } = this.props;
       let inputName, selectModel;
 
-
       return (
         <Container className={!open ? 'hidden' : ''}>
           <Form
@@ -63,7 +62,6 @@ class AddSection extends Component {
               selectModel.value = '';
               dispatch(toogleFormAddSection());
               this.clearForm();
-
             }}
           >
             <div>

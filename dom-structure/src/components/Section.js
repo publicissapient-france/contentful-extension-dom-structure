@@ -8,15 +8,15 @@ import SvgTrash from './SvgTrash';
 import ComponentDOM from './ComponentDOM';
 import { Container, ButtonBasic, ButtonGreen, Form, Specs, Icon, Range } from '../style/styledComponents';
 import { updateSection, removeSection, moveSectionToTop, moveSectionToDown } from '../actions';
-import { sections } from '../config/defaultConfig';
+import sections from '../config/sections';
 import update from 'react-addons-update';
 import AddComponent from '../containers/AddComponent';
+import { extensionTheme } from '../style/theme';
 
 const TopBar = styled.div`
   width : 100%;
   display : flex;
   justify-content: space-between;
-  
 `;
 
 const Description = styled.div`
@@ -27,9 +27,7 @@ const Description = styled.div`
 const Actions = styled.div`
   display : flex;
   width : fit-content;
-  
 `;
-
 
 const Children = styled.div`
   display : flex;
@@ -39,10 +37,12 @@ const Children = styled.div`
 const AddChild = styled.div`
   display : flex;
   width : 100%;
- 
 `;
 
-
+const FormSection = styled(Form)`
+    padding-left : 10px;
+    box-sizing: border-box;
+`;
 
 class Section extends Component {
   constructor (props) {
@@ -79,7 +79,7 @@ class Section extends Component {
     isUpdated = () => (this.state.section && (this.state.section.name != this.props.section.name || this.state.section.model != this.props.section.model))
 
     render () {
-      const { dispatch, domLength,  section, index } = this.props;
+      const { dispatch, domLength, section, index } = this.props;
       let inputName, selectModel;
       let children = (section.components && section.components.length != 0) ? section.components.map((component, i) =>
         <ComponentDOM key={i} component={component} index={i} indexParent={index} lengthParent={section.components.length}/>
@@ -94,18 +94,18 @@ class Section extends Component {
               <h4>{section.model} </h4>
             </Description>
             <Actions>
-              <Icon className={this.state.openAdd ? 'active' : ''} onClick={() => this.setState({ openAdd: !this.state.openAdd,  openSpec: false })}>
+              <Icon className={this.state.openAdd ? 'active' : ''} onClick={() => this.setState({ openAdd: !this.state.openAdd, openSpec: false })}>
                 <SvgAdd/>
               </Icon>
-              <Icon className={this.state.openSpec ? 'active' : ''} onClick={() => this.setState({ openSpec: !this.state.openSpec,  openAdd: false  })}>
+              <Icon className={this.state.openSpec ? 'active' : ''} onClick={() => this.setState({ openSpec: !this.state.openSpec, openAdd: false })}>
                 <SvgSpecs/>
               </Icon>
               <Range>
                 <Icon className={ index == 0 ? 'disable' : ''} onClick={() => {
-                    if(index != 0){ dispatch(moveSectionToTop(index)); }
+                  if (index != 0) { dispatch(moveSectionToTop(index)); }
                 } }><SvgRange/></Icon>
                 <Icon className={ index == (domLength - 1) ? 'disable' : ''} onClick={() => {
-                    if(index != (domLength - 1)){ dispatch(moveSectionToDown(index)); }
+                  if (index != (domLength - 1)) { dispatch(moveSectionToDown(index)); }
                 } }><SvgRange/></Icon>
               </Range>
               <Icon className={'trash'} onClick={() => {
@@ -116,7 +116,7 @@ class Section extends Component {
 
           </TopBar>
           <Specs className={!this.state.openSpec ? 'hidden' : ''}>
-            <Form onSubmit={e => {
+            <FormSection onSubmit={e => {
               e.preventDefault();
               if (!this.isUpdated()) { return; }
               dispatch(updateSection(this.state.section, index));
@@ -151,10 +151,10 @@ class Section extends Component {
                   disabled={!this.isUpdated()}
                   className={ this.isUpdated() ? 'active' : ''}>Update</ButtonGreen>
               </div>
-            </Form>
+            </FormSection>
           </Specs>
           <AddChild>
-                <AddComponent index={index} open={this.state.openAdd} parent={this}/>
+            <AddComponent index={index} open={this.state.openAdd} parent={this}/>
           </AddChild>
           <Children>{ children }</Children>
         </Container>

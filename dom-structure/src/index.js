@@ -13,13 +13,7 @@ import App from './containers/App';
 
 const initialState = {
   dom: [
-    {
-      type: 'section',
-      name: 'Example',
-      model: 'BasicLayout',
-      specs: ['background'],
-      components: []
-    }
+
   ]
 };
 

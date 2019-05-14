@@ -2,7 +2,9 @@ import debounce from 'debounce-fn';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { defaultConfig, sections, components } from '../config/defaultConfig';
+import { defaultConfig } from '../config/defaultConfig';
+import sections from '../config/sections';
+import components from '../config/components';
 import { Extension, MainContainer } from '../style/styledComponents';
 import ButtonAddSection from '../components/ButtonAddSection';
 import Section from '../components/Section';

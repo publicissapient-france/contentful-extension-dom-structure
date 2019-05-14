@@ -92,30 +92,4 @@ const defaultConfig = [
 
 ];
 
-const sections = [
-  {
-    name: 'FullLayout',
-    specs: ['backgroundColor'],
-    content: []
-  },
-  {
-    name: 'BasicLayout',
-    specs: ['backgroundColor'],
-    content: ['title', 'content']
-  }
-];
-
-const components = [
-  {
-    name: 'TextContent',
-    specs: ['backgroundColor'],
-    content: ['title', 'content']
-  },
-  {
-    name: 'MainTitle',
-    specs: ['backgroundColor', 'color'],
-    content: ['title']
-  }
-];
-
-export { defaultConfig, sections, components };
+export { defaultConfig };

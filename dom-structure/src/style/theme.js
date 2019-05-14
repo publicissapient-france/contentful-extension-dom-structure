@@ -1,4 +1,3 @@
-
 export const contentfulTheme = {
   black: '#2a3039',
   grey: '#8091a5',
@@ -11,10 +10,11 @@ export const extensionTheme = {
   white: '#FFFFFF',
   grey10: '#F7F9FA',
   grey20: '#eeeeef',
-  grey30: '#C3CFD5',
+  grey30: '#d5dde2',
   grey40: '#C5D1D8',
   grey50: '#CBCBCB',
   grey60: '#B2B2B2',
+  grey80: '#969FA6',
   greenM: '#14D292',
   greenL: '#0CAA75',
   greenXL: '#0baa75',
@@ -24,5 +24,5 @@ export const extensionTheme = {
   semiGreyBorder: '#B2B2B2',
   grey: '#8091A5',
   orange: '#FFB100',
-  blue: '#00C7D8'
+  blueM: '#00C7D8'
 };

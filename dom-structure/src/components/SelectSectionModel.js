@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { sections } from '../config/defaultConfig';
+import sections from '../config/sections';
 import update from 'react-addons-update'; // ES6
 
 class SelectSectionModel extends Component {

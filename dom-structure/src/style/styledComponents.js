@@ -133,11 +133,10 @@ export const MainContainer = styled.div`
 `;
 
 export const Container = styled.div`
-  border: 1px solid ${ extensionTheme.grey };
+  border: 1px solid ${ extensionTheme.grey30 };
   border-left : 5px solid ${ extensionTheme.orange };
   background : ${ extensionTheme.grey10 };
   margin-bottom : 10px;
-  padding-left : 8px;
   padding-right :8px;
   width : 100%;
   
@@ -147,7 +146,7 @@ export const Container = styled.div`
   h3, h4{
     font-size : 13px;
     width : fit-content;
-    padding : 0 5px;
+    padding : 0 10px;
     margin : 0;line-height : 40px;
 
   }
@@ -171,7 +170,7 @@ export const ButtonBasic = styled.button`
    color : white;
    font-family:${ contentfulTheme.basicFont };
    font-size : 14px;
-   cursor : pointer;xz
+   cursor : pointer;
    height : fit-content;
    border : 1px solid  ${ extensionTheme.white };
    border-radius : 4px;
@@ -242,7 +241,6 @@ export const Form = styled.form`
     
   }
 `;
-
 
 export const Specs = styled.div`
   display : flex;
