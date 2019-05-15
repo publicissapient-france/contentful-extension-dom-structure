@@ -72,40 +72,40 @@ const FormComponent = styled(Form)`
 `;
 
 class ComponentDOM extends Component {
-  constructor (props) {
-    super(props);
+    constructor (props) {
+        super(props);
 
-    this.state = {
-      openSpec: false,
-      openContent: true,
-      component: null,
-      openSecureDelete: false
-    };
-  }
-  // content = require('../boxes/content/Title').default;
+        this.state = {
+            openSpec: false,
+            openContent: true,
+            component: null,
+            openSecureDelete: false
+        };
+    }
+    // content = require('../boxes/content/Title').default;
 
     componentDidMount = () => {
-      this.setState({ component: this.props.component });
+        this.setState({ component: this.props.component });
     }
 
     getLazyComponent = path => {
-      return React.lazy(() => import(path));
+        return React.lazy(() => import(path));
     }
 
     updateModel = model => {
-      this.setState({
-        component: update(this.state.component, {
-          model: { $set: model },
-        })
-      });
+        this.setState({
+            component: update(this.state.component, {
+                model: { $set: model },
+            })
+        });
     }
 
     updateName = name => {
-      this.setState({
-        component: update(this.state.component, {
-          name: { $set: name },
-        })
-      });
+        this.setState({
+            component: update(this.state.component, {
+                name: { $set: name },
+            })
+        });
     }
 
     isUpdated = () => (this.state.component && (this.state.component.name != this.props.component.name ||
@@ -116,96 +116,96 @@ class ComponentDOM extends Component {
     // TestC = React.lazy(() => import('../boxes/content/Title'));
 
     render () {
-      const { dispatch, component, index, indexParent, lengthParent } = this.props;
-      let inputName, selectModel;
-      return (
-        <ContainerComponent>
-          <TopBar>
-            <Description>
-              <h3>{component.name} </h3>
-              <h4>{component.model} </h4>
-            </Description>
-            <Actions>
-              <Icon className={this.state.openContent ? 'active' : ''} onClick={() => this.setState({
-                openContent: !this.state.openContent,
-                openSpec: false
-              })}><SvgContent/></Icon>
-              <Icon className={this.state.openSpec ? 'active' : ''} onClick={() => this.setState({
-                openSpec: !this.state.openSpec,
-                openContent: false
-              })}><SvgSpecs/></Icon>
-              <Range>
-                <Icon className={index == 0 ? 'disable' : ''} onClick={() => {
-                  if (index != 0) {
-                    dispatch(moveComponentToTop(index, indexParent));
-                  }
-                }}><SvgRange/>
-                </Icon>
-                <Icon className={index == (lengthParent - 1) ? 'disable' : ''} onClick={() => {
-                  if (index != (lengthParent - 1)) {
-                    dispatch(moveComponentToDown(index, indexParent));
-                  }
-                }}><SvgRange/>
-                </Icon>
-              </Range>
-              <Icon onClick={() => {
-                dispatch(removeComponent(index, indexParent));
-                this.setState({ openSecureDelete: !this.state.openSecureDelete });
-              }}><SvgTrash/>
-              </Icon>
-            </Actions>
+        const { dispatch, component, index, indexParent, lengthParent } = this.props;
+        let inputName, selectModel;
+        return (
+            <ContainerComponent>
+                <TopBar>
+                    <Description>
+                        <h3>{component.name} </h3>
+                        <h4>{component.model} </h4>
+                    </Description>
+                    <Actions>
+                        <Icon className={this.state.openContent ? 'active' : ''} onClick={() => this.setState({
+                            openContent: !this.state.openContent,
+                            openSpec: false
+                        })}><SvgContent/></Icon>
+                        <Icon className={this.state.openSpec ? 'active' : ''} onClick={() => this.setState({
+                            openSpec: !this.state.openSpec,
+                            openContent: false
+                        })}><SvgSpecs/></Icon>
+                        <Range>
+                            <Icon className={index == 0 ? 'disable' : ''} onClick={() => {
+                                if (index != 0) {
+                                    dispatch(moveComponentToTop(index, indexParent));
+                                }
+                            }}><SvgRange/>
+                            </Icon>
+                            <Icon className={index == (lengthParent - 1) ? 'disable' : ''} onClick={() => {
+                                if (index != (lengthParent - 1)) {
+                                    dispatch(moveComponentToDown(index, indexParent));
+                                }
+                            }}><SvgRange/>
+                            </Icon>
+                        </Range>
+                        <Icon onClick={() => {
+                            dispatch(removeComponent(index, indexParent));
+                            this.setState({ openSecureDelete: !this.state.openSecureDelete });
+                        }}><SvgTrash/>
+                        </Icon>
+                    </Actions>
 
-          </TopBar>
-          <Specs className={!this.state.openSpec ? 'hidden' : ''}>
-            <FormComponent onSubmit={e => {
-              e.preventDefault();
-              if (!this.isUpdated()) {
-                return;
-              }
-              dispatch(updateComponent(this.state.component, index, indexParent));
-            }}
-            >
-              <div>
-                <label>Component Name</label>
-                <input ref={node => (inputName = node)} type={'text'}
-                  defaultValue={component.name ? component.name : ''}
-                  onChange={e => { this.updateName(e.target.value); }}/>
-              </div>
-              <div>
-                <label>Model</label>
-                <select ref={node => (selectModel = node)}
-                  defaultValue={component.model ? component.model : null}
-                  onChange={e => {
-                    this.updateModel(e.target.value);
-                  }}>
-                  {components.map((model, i) => <option value={model.name} key={i}>{model.name}</option>)}
-                </select>
-              </div>
-              <div className={'buttons'}>
-                <ButtonBasic
-                  onClick={e => {
-                    e.preventDefault();
-                    this.setState({
-                      openSpec: !this.state.openSpec,
-                      component: this.props.component
-                    });
-                    inputName.value = component.name;
-                    selectModel.value = component.model;
-                  }}
-                >Cancel</ButtonBasic>
-                <ButtonGreen
-                  disabled={!this.isUpdated()}
-                  className={this.isUpdated() ? 'active' : ''}>Update</ButtonGreen>
-              </div>
-            </FormComponent>
-          </Specs>
-          <Content className={!this.state.openContent ? 'hidden' : ''}>
-            <Banner><p>Content</p></Banner>
-            <Boxes fields={this.getContentAvailable()} index={index} indexParent={indexParent}/>
-          </Content>
+                </TopBar>
+                <Specs className={!this.state.openSpec ? 'hidden' : ''}>
+                    <FormComponent onSubmit={e => {
+                        e.preventDefault();
+                        if (!this.isUpdated()) {
+                            return;
+                        }
+                        dispatch(updateComponent(this.state.component, index, indexParent));
+                    }}
+                    >
+                        <div>
+                            <label>Component Name</label>
+                            <input ref={node => (inputName = node)} type={'text'}
+                                defaultValue={component.name ? component.name : ''}
+                                onChange={e => { this.updateName(e.target.value); }}/>
+                        </div>
+                        <div>
+                            <label>Model</label>
+                            <select ref={node => (selectModel = node)}
+                                defaultValue={component.model ? component.model : null}
+                                onChange={e => {
+                                    this.updateModel(e.target.value);
+                                }}>
+                                {components.map((model, i) => <option value={model.name} key={i}>{model.name}</option>)}
+                            </select>
+                        </div>
+                        <div className={'buttons'}>
+                            <ButtonBasic
+                                onClick={e => {
+                                    e.preventDefault();
+                                    this.setState({
+                                        openSpec: !this.state.openSpec,
+                                        component: this.props.component
+                                    });
+                                    inputName.value = component.name;
+                                    selectModel.value = component.model;
+                                }}
+                            >Cancel</ButtonBasic>
+                            <ButtonGreen
+                                disabled={!this.isUpdated()}
+                                className={this.isUpdated() ? 'active' : ''}>Update</ButtonGreen>
+                        </div>
+                    </FormComponent>
+                </Specs>
+                <Content className={!this.state.openContent ? 'hidden' : ''}>
+                    <Banner><p>Content</p></Banner>
+                    <Boxes fields={this.getContentAvailable()} index={index} indexParent={indexParent}/>
+                </Content>
 
-        </ContainerComponent>
-      );
+            </ContainerComponent>
+        );
     }
 };
 

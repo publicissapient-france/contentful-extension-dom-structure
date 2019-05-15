@@ -24,10 +24,10 @@ const Button = styled.button`
 `;
 
 class ButtonAddSection extends Component {
-  render () {
-    const { dispatch } = this.props;
-    return <Button onClick={() => dispatch(toogleFormAddSection())}>+ Add section</Button>;
-  }
+    render () {
+        const { dispatch } = this.props;
+        return <Button onClick={() => dispatch(toogleFormAddSection())}>+ Add section</Button>;
+    }
 };
 
 export default connect()(ButtonAddSection);

@@ -61,8 +61,20 @@ export const Fields = styled.div`
   &.closed{
     display: none;
   }
-  
- 
-  
-  
+`;
+
+export const CheckBox = styled.button`
+    height  : 12px;
+    width : 12px;
+    color : white;
+    background : transparent;
+    display:flex;
+    align-self : center;
+    border-radius : 3px;
+    cursor:pointer;
+    padding : 0;
+    
+    &.active{
+        background:  ${ extensionTheme.orange }; 
+    }
 `;

@@ -12,18 +12,18 @@ import './style/index.css';
 import App from './containers/App';
 
 const initialState = {
-  dom: [
+    dom: [
 
-  ]
+    ]
 };
 
 const store = createStore(rootReducer, initialState);
 
 init(extension => {
-  ReactDOM.render(
-    <Provider store={store}>
-      <App extension={extension} store={store} />
-    </Provider>,
-    document.getElementById('root')
-  );
+    ReactDOM.render(
+        <Provider store={store}>
+            <App extension={extension} store={store} />
+        </Provider>,
+        document.getElementById('root')
+    );
 });

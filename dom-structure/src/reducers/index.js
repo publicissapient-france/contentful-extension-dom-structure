@@ -5,8 +5,8 @@ import visibility from './visibility';
 import dom from './dom';
 
 export default combineReducers({
-  todos,
-  VisibilityFilter,
-  visibility,
-  dom
+    todos,
+    VisibilityFilter,
+    visibility,
+    dom
 });
