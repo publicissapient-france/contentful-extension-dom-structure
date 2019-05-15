@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import SvgAdd from './SvgAdd';
-import SvgSpecs from './SvgSpecs';
-import SvgRange from './SvgRange';
-import SvgTrash from './SvgTrash';
+import SvgAdd from '../components/SvgAdd';
+import SvgSpecs from '../components/SvgSpecs';
+import SvgRange from '../components/SvgRange';
+import SvgTrash from '../components/SvgTrash';
 import ComponentDOM from './ComponentDOM';
 import { Container, ButtonBasic, ButtonGreen, Form, Specs, Icon, Range } from '../style/styledComponents';
-import { updateSection, removeSection, moveSectionToTop, moveSectionToDown } from '../actions';
+import { updateSection, removeSection, moveSectionToTop, moveSectionToDown } from '../actions/index';
 import sections from '../config/sections';
 import update from 'react-addons-update';
-import AddComponent from '../containers/AddComponent';
-import { extensionTheme } from '../style/theme';
+import AddComponent from './AddComponent';
 
 const TopBar = styled.div`
   width : 100%;
@@ -24,10 +23,7 @@ const Description = styled.div`
   width : fit-content
   
 `;
-const Actions = styled.div`
-  display : flex;
-  width : fit-content;
-`;
+const Actions = styled(Description)``;
 
 const Children = styled.div`
   display : flex;
@@ -51,8 +47,8 @@ class Section extends Component {
     this.state = {
       openSpec: false,
       openAdd: false,
-      section: null,
-      openSecureDelete: false
+      openSecureDelete: false,
+      section: null
     };
   }
 
@@ -82,8 +78,8 @@ class Section extends Component {
       const { dispatch, domLength, section, index } = this.props;
       let inputName, selectModel;
       let children = (section.components && section.components.length != 0) ? section.components.map((component, i) =>
-        <ComponentDOM key={i} component={component} index={i} indexParent={index} lengthParent={section.components.length}/>
-
+        <ComponentDOM key={i} component={component} index={i} indexParent={index}
+          lengthParent={section.components.length}/>
       ) : null;
 
       return (
@@ -94,45 +90,57 @@ class Section extends Component {
               <h4>{section.model} </h4>
             </Description>
             <Actions>
-              <Icon className={this.state.openAdd ? 'active' : ''} onClick={() => this.setState({ openAdd: !this.state.openAdd, openSpec: false })}>
+              <Icon className={this.state.openAdd ? 'active' : ''}
+                onClick={() => this.setState({ openAdd: !this.state.openAdd, openSpec: false })}>
                 <SvgAdd/>
               </Icon>
-              <Icon className={this.state.openSpec ? 'active' : ''} onClick={() => this.setState({ openSpec: !this.state.openSpec, openAdd: false })}>
+              <Icon className={this.state.openSpec ? 'active' : ''}
+                onClick={() => this.setState({ openSpec: !this.state.openSpec, openAdd: false })}>
                 <SvgSpecs/>
               </Icon>
               <Range>
-                <Icon className={ index == 0 ? 'disable' : ''} onClick={() => {
-                  if (index != 0) { dispatch(moveSectionToTop(index)); }
-                } }><SvgRange/></Icon>
-                <Icon className={ index == (domLength - 1) ? 'disable' : ''} onClick={() => {
-                  if (index != (domLength - 1)) { dispatch(moveSectionToDown(index)); }
-                } }><SvgRange/></Icon>
+                <Icon className={index == 0 ? 'disable' : ''} onClick={() => {
+                  if (index != 0) {
+                    dispatch(moveSectionToTop(index));
+                  }
+                }}><SvgRange/></Icon>
+                <Icon className={index == (domLength - 1) ? 'disable' : ''} onClick={() => {
+                  if (index != (domLength - 1)) {
+                    dispatch(moveSectionToDown(index));
+                  }
+                }}><SvgRange/></Icon>
               </Range>
               <Icon className={'trash'} onClick={() => {
                 dispatch(removeSection(index));
                 this.setState({ openSecureDelete: !this.state.openSecureDelete });
-              } }><SvgTrash/></Icon>
+              }}><SvgTrash/></Icon>
             </Actions>
-
           </TopBar>
           <Specs className={!this.state.openSpec ? 'hidden' : ''}>
             <FormSection onSubmit={e => {
               e.preventDefault();
-              if (!this.isUpdated()) { return; }
+              if (!this.isUpdated()) {
+                return;
+              }
               dispatch(updateSection(this.state.section, index));
             }}
             >
               <div>
                 <label>Section Name</label>
                 <input ref={node => (inputName = node)} type={'text'}
-                  defaultValue={ section.name ? section.name : '' }
-                  onChange={e => { this.updateName(e.target.value); }}/>
+                  defaultValue={section.name ? section.name : ''}
+                  onChange={e => {
+                    this.updateName(e.target.value);
+                  }}/>
               </div>
               <div>
                 <label>Model</label>
-                <select ref={node => (selectModel = node)} defaultValue={section.model ? section.model : null}
-                  onChange={e => { this.updateModel(e.target.value); }}>
-                  { sections.map((model, i) => <option value={model.name} key={i}>{ model.name }</option>) }
+                <select ref={node => (selectModel = node)}
+                  defaultValue={section.model ? section.model : null}
+                  onChange={e => {
+                    this.updateModel(e.target.value);
+                  }}>
+                  {sections.map((model, i) => <option value={model.name} key={i}>{model.name}</option>)}
                 </select>
               </div>
               <div className={'buttons'}>
@@ -149,14 +157,14 @@ class Section extends Component {
                 >Cancel</ButtonBasic>
                 <ButtonGreen
                   disabled={!this.isUpdated()}
-                  className={ this.isUpdated() ? 'active' : ''}>Update</ButtonGreen>
+                  className={this.isUpdated() ? 'active' : ''}>Update</ButtonGreen>
               </div>
             </FormSection>
           </Specs>
           <AddChild>
             <AddComponent index={index} open={this.state.openAdd} parent={this}/>
           </AddChild>
-          <Children>{ children }</Children>
+          <Children>{children}</Children>
         </Container>
       );
     }

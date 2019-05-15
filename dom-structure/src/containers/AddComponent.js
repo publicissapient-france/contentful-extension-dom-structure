@@ -9,6 +9,7 @@ import { extensionTheme } from '../style/theme';
 
 const ContainerForm = styled(Container)`
     padding-right : 0px;
+    margin-left : 8px;
 `;
 const FormComponent = styled(Form)`
     background :  ${ extensionTheme.white };

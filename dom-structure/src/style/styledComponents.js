@@ -277,6 +277,10 @@ export const Icon = styled.div`
     }
   }
   
+  &.rotate{
+    transform : rotate(180deg);
+  }
+  
 `;
 
 export const Range = styled.div`

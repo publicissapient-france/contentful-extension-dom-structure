@@ -9,7 +9,7 @@ class Tagline extends Component {
     const { } = this.props;
     const maxLength = 140;
 
-      return (
+    return (
       <div>
         <Banner>
           <div>

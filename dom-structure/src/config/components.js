@@ -7,7 +7,7 @@ const config = [
   {
     name: 'MainTitle',
     specs: ['backgroundColor', 'color'],
-    content: ['Title']
+    content: ['Title', 'Subtitle']
   },
   {
     name: 'Leading',
@@ -21,6 +21,6 @@ config.forEach((items, i) => {
   components[i] = items;
 });
 
-console.log('components on CONFIGURATION', components);*/
+console.log('components on CONFIGURATION', components); */
 
 export default config;

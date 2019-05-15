@@ -7,7 +7,7 @@ import sections from '../config/sections';
 import components from '../config/components';
 import { Extension, MainContainer } from '../style/styledComponents';
 import ButtonAddSection from '../components/ButtonAddSection';
-import Section from '../components/Section';
+import Section from './Section';
 import AddSection from './AddSection';
 import { initDOM } from '../actions';
 
@@ -54,14 +54,15 @@ class App extends React.Component {
       );
 
       this.subscribe();
+      this.props.extension.window.startAutoResizer();
     }
 
     componentDidUpdate = () => {
-      this.props.extension.window.updateHeight();
     }
 
     componentWillUnmount = () => {
       this.detachFns.forEach(detach => detach());
+      this.props.extension.window.stopAutoResizer();
     }
 
     setFieldValue = () => {
@@ -77,7 +78,6 @@ class App extends React.Component {
       this.props.store.subscribe(() => {
         console.log('STORE COMPLET', this.props.store.getState());
         this.setFieldValue();
-        this.props.extension.window.updateHeight();
       });
     }
 

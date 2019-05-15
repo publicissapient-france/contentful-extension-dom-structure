@@ -50,11 +50,16 @@ export const Fields = styled.div`
   input{
     border : 1px solid  ${ extensionTheme.grey80 };
     width : 100%;
+    padding-left: 10px;
   }
   
   span {
     font-size : 11px;
     color :  ${ extensionTheme.grey80 };
+  }
+  
+  &.closed{
+    display: none;
   }
   
  

@@ -2,18 +2,17 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { extensionTheme } from '../style/theme';
-import SvgContent from './SvgContent';
-import SvgSpecs from './SvgSpecs';
-import SvgRange from './SvgRange';
-import SvgTrash from './SvgTrash';
+import SvgContent from '../components/SvgContent';
+import SvgSpecs from '../components/SvgSpecs';
+import SvgRange from '../components/SvgRange';
+import SvgTrash from '../components/SvgTrash';
+import Boxes from './Boxes';
 import { Container, Specs, Form, ButtonGreen, ButtonBasic, Icon, Range } from '../style/styledComponents';
 import components from '../config/components';
-import { moveComponentToTop, moveComponentToDown, removeComponent, updateComponent } from '../actions';
+import { moveComponentToTop, moveComponentToDown, removeComponent, updateComponent } from '../actions/index';
 import update from 'react-addons-update';
-//import Title from '../boxes/content/Title';
 
-const TC = React.lazy(() => import('../boxes/content/Title'));
-
+// const TC = React.lazy(() => import('../boxes/content/Title'));
 
 const ContainerComponent = styled(Container)`
   border: 1px solid ${ extensionTheme.grey };
@@ -60,25 +59,17 @@ const Banner = styled.div`
   width : 100%;
   background : ${ extensionTheme.blueM }; 
   color :  ${ extensionTheme.white }; 
-  padding : 5px 0px;
+  padding : 8px 0px;
   
   & p{
     padding-left : 10px;
   }
   
 `;
-const Boxes = styled.div`
-  display : flex;
-  flex-direction : column;
-  width : 100%;
-  
-`;
+
 const FormComponent = styled(Form)`
   padding : 10px;
-  
 `;
-
-
 
 class ComponentDOM extends Component {
   constructor (props) {
@@ -91,13 +82,14 @@ class ComponentDOM extends Component {
       openSecureDelete: false
     };
   }
-
   // content = require('../boxes/content/Title').default;
 
     componentDidMount = () => {
       this.setState({ component: this.props.component });
+    }
 
-      console.log('component : ', this.props.component);
+    getLazyComponent = path => {
+      return React.lazy(() => import(path));
     }
 
     updateModel = model => {
@@ -116,26 +108,16 @@ class ComponentDOM extends Component {
       });
     }
 
-    isUpdated = () => (this.state.component && (this.state.component.name != this.props.component.name || this.state.component.model != this.props.component.model))
+    isUpdated = () => (this.state.component && (this.state.component.name != this.props.component.name ||
+                    this.state.component.model != this.props.component.model))
 
-    TC = React.lazy(() => import('../boxes/content/Title'));
+    getContentAvailable = () => components.find(c => c.name == this.props.component.model).content;
 
-    getContentAvailable(){
-      return  components.find(c => c.name == this.props.component.model ).content
-    }
-
+    // TestC = React.lazy(() => import('../boxes/content/Title'));
 
     render () {
       const { dispatch, component, index, indexParent, lengthParent } = this.props;
       let inputName, selectModel;
-
-      console.log('components : ', components);
-      console.log('model : ', component.model );
-      console.log('content : ', this.getContentAvailable() );
-
-
-
-
       return (
         <ContainerComponent>
           <TopBar>
@@ -187,9 +169,7 @@ class ComponentDOM extends Component {
                 <label>Component Name</label>
                 <input ref={node => (inputName = node)} type={'text'}
                   defaultValue={component.name ? component.name : ''}
-                  onChange={e => {
-                    this.updateName(e.target.value);
-                  }}/>
+                  onChange={e => { this.updateName(e.target.value); }}/>
               </div>
               <div>
                 <label>Model</label>
@@ -198,7 +178,7 @@ class ComponentDOM extends Component {
                   onChange={e => {
                     this.updateModel(e.target.value);
                   }}>
-                  { components.map((model, i) => <option value={model.name} key={i}>{model.name}</option>) }
+                  {components.map((model, i) => <option value={model.name} key={i}>{model.name}</option>)}
                 </select>
               </div>
               <div className={'buttons'}>
@@ -221,15 +201,7 @@ class ComponentDOM extends Component {
           </Specs>
           <Content className={!this.state.openContent ? 'hidden' : ''}>
             <Banner><p>Content</p></Banner>
-            <Boxes>
-            </Boxes>
-              <React.Suspense fallback={<div>Loading Component...</div>}>
-                  <TC/>
-                  { React.createElement(this.TC, {  })}
-              </React.Suspense>
-
-
-
+            <Boxes fields={this.getContentAvailable()} index={index} indexParent={indexParent}/>
           </Content>
 
         </ContainerComponent>

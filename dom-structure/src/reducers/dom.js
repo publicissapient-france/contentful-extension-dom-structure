@@ -4,6 +4,8 @@ const dom = (state = [], action) => {
   switch (action.type) {
   case 'INIT_DOM' :
     return [...action.dom];
+  case 'GET_DOM' :
+    return action.state;
   case 'ADD_SECTION':
     return [
       ...state,
@@ -51,7 +53,9 @@ const dom = (state = [], action) => {
             {
               type: action.component.type,
               name: action.component.name,
-              model: action.component.model
+              model: action.component.model,
+              content: {},
+              specs: {}
             }
           ]
         }
@@ -99,6 +103,22 @@ const dom = (state = [], action) => {
         components: {
           [action.index]: { $set: componentMoveToTop },
           [action.index + 1]: { $set: componentMoveToDown }
+        }
+      }
+    });
+
+  case 'UPDATE_CONTENT_TITLE':
+    console.log('action on UPDATE_CONTENT_TITLE', action);
+    console.log('state on UPDATE_CONTENT_TITLE', state);
+    // return state;
+    return update(state, {
+      [action.indexSection]: {
+        components: {
+          [action.indexComponent]: {
+            content: {
+              'Title': { $set: { value: action.value, active: action.active } }
+            }
+          }
         }
       }
     });

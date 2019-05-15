@@ -27,6 +27,11 @@ export const initDOM = object => ({
 
 });
 
+export const getCurrentDOM = state => ({
+  type: 'GET_DOM',
+  sections: state.dom
+});
+
 export const addSection = object => ({
   type: 'ADD_SECTION',
   section: object
@@ -93,4 +98,13 @@ export const toogleFormAddSection = () => ({
 });
 export const openFormAddSection = () => ({
   type: 'GET_VISIBILITY_FORM_ADD_SECTION',
+});
+
+// UPDATE CONTENT
+export const updateContentTitle = (value, bool, number, numberParent) => ({
+  type: 'UPDATE_CONTENT_TITLE',
+  value: value,
+  active: bool,
+  indexComponent: number,
+  indexSection: numberParent
 });
