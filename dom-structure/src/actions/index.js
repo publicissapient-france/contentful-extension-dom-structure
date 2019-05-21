@@ -21,6 +21,14 @@ export const VisibilityFilters = {
     SHOW_ACTIVE: 'SHOW_ACTIVE'
 };
 
+
+
+export const initDOMbuild = object => ({
+    type: 'INIT_DOM_BUILD',
+    dom: object
+
+});
+
 export const initDOM = object => ({
     type: 'INIT_DOM',
     dom: object
@@ -46,6 +54,12 @@ export const updateSection = (object, number) => ({
 });
 export const removeSection = number => ({
     type: 'REMOVE_SECTION',
+    index: number
+});
+
+export const toogleSectionActive = (bool, number) => ({
+    type: 'TOOGLE_SECTION_ACTIVE',
+    active: bool,
     index: number
 });
 
@@ -93,6 +107,13 @@ export const moveComponentToDown = (number, numberParent) => ({
     indexParent: numberParent
 });
 
+export const toogleComponentActive = (bool, number, numberParent) => ({
+    type: 'TOOGLE_COMPONENT_ACTIVE',
+    active: bool,
+    index: number,
+    indexParent: numberParent
+});
+
 export const toogleFormAddSection = () => ({
     type: 'TOGGLE_FORM_ADD_SECTION',
 });
@@ -101,6 +122,7 @@ export const openFormAddSection = () => ({
 });
 
 // UPDATE CONTENT
+
 export const updateContentTitle = (value, bool, number, numberParent) => ({
     type: 'UPDATE_CONTENT_TITLE',
     value: value,

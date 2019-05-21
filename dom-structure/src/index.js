@@ -12,9 +12,7 @@ import './style/index.css';
 import App from './containers/App';
 
 const initialState = {
-    dom: [
-
-    ]
+    dom: []
 };
 
 const store = createStore(rootReducer, initialState);

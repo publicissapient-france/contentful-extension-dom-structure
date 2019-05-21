@@ -10,15 +10,15 @@ class Boxes extends Component {
                 <React.Suspense fallback={<div>Loading Component...</div>}>
 
                     {
-                        fields.map((option, i) => {
-                            switch (option) {
+                        fields.map((boxe, i) => {
+                            switch (boxe) {
                             case 'Title':
-                                return React.createElement(React.lazy(() => import('../boxes/content/Title')), { indexComponent: index, indexSection: indexParent, maxLength: 140, option: option });
+                                return React.createElement(React.lazy(() => import('../boxes/content/Title')), { indexComponent: index, indexSection: indexParent, maxLength: 140, name: boxe });
 
                             case 'Tagline':
                                 return React.createElement(React.lazy(() => import('../boxes/content/Tagline')), {});
                             default :
-                                return <span>No content-box <strong>{option}</strong> matches</span>;
+                                return <span>No content-box <strong>{boxe}</strong> matches</span>;
                             }
                         })
                     }

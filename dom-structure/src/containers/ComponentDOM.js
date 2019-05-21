@@ -7,10 +7,12 @@ import SvgSpecs from '../components/SvgSpecs';
 import SvgRange from '../components/SvgRange';
 import SvgTrash from '../components/SvgTrash';
 import Boxes from './Boxes';
-import { Container, Specs, Form, ButtonGreen, ButtonBasic, Icon, Range } from '../style/styledComponents';
+import { Container, Settings, Form, ButtonGreen, ButtonBasic, Icon, Range } from '../style/styledComponents';
+import { CheckBox } from '../style/styledComponentsBoxes';
 import components from '../config/components';
 import { moveComponentToTop, moveComponentToDown, removeComponent, updateComponent } from '../actions/index';
 import update from 'react-addons-update';
+import {updateContentTitle, toogleComponentActive} from "../actions";
 
 // const TC = React.lazy(() => import('../boxes/content/Title'));
 
@@ -71,6 +73,13 @@ const FormComponent = styled(Form)`
   padding : 10px;
 `;
 
+export const Active = styled(CheckBox)`
+    margin-left : 5px;
+    &.active{
+        background:  ${ extensionTheme.blueM }; 
+    }
+`;
+
 class ComponentDOM extends Component {
     constructor (props) {
         super(props);
@@ -78,6 +87,7 @@ class ComponentDOM extends Component {
         this.state = {
             openSpec: false,
             openContent: true,
+            openContentField: true,
             component: null,
             openSecureDelete: false
         };
@@ -107,6 +117,13 @@ class ComponentDOM extends Component {
             })
         });
     }
+    toogleActive = () => {
+        this.setState({
+            component: update(this.state.component, {
+                active: { $set: !this.state.component.active },
+            })
+        });
+    }
 
     isUpdated = () => (this.state.component && (this.state.component.name != this.props.component.name ||
                     this.state.component.model != this.props.component.model))
@@ -118,10 +135,21 @@ class ComponentDOM extends Component {
     render () {
         const { dispatch, component, index, indexParent, lengthParent } = this.props;
         let inputName, selectModel;
+        if(!this.state.component) return null
         return (
             <ContainerComponent>
                 <TopBar>
                     <Description>
+                        <Active
+                            className={this.state.component.active ? 'active' : ''}
+                            onClick={e => {
+                                return new Promise((resolve, reject) => {
+                                    this.toogleActive();
+                                    resolve();
+                                }).then(() => {
+                                    dispatch(toogleComponentActive( this.state.component.active, index, indexParent));
+                                });
+                            }}/>
                         <h3>{component.name} </h3>
                         <h4>{component.model} </h4>
                     </Description>
@@ -156,7 +184,7 @@ class ComponentDOM extends Component {
                     </Actions>
 
                 </TopBar>
-                <Specs className={!this.state.openSpec ? 'hidden' : ''}>
+                <Settings className={!this.state.openSpec ? 'hidden' : ''}>
                     <FormComponent onSubmit={e => {
                         e.preventDefault();
                         if (!this.isUpdated()) {
@@ -198,7 +226,7 @@ class ComponentDOM extends Component {
                                 className={this.isUpdated() ? 'active' : ''}>Update</ButtonGreen>
                         </div>
                     </FormComponent>
-                </Specs>
+                </Settings>
                 <Content className={!this.state.openContent ? 'hidden' : ''}>
                     <Banner><p>Content</p></Banner>
                     <Boxes fields={this.getContentAvailable()} index={index} indexParent={indexParent}/>

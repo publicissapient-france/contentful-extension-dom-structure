@@ -172,7 +172,7 @@ export const ButtonBasic = styled.button`
    font-size : 14px;
    cursor : pointer;
    height : fit-content;
-   border : 1px solid  ${ extensionTheme.white };
+   border : 1px solid  transparent;
    border-radius : 4px;
    padding : 10px;
    line-height : 11px;
@@ -193,7 +193,6 @@ export const ButtonGreen = styled.button`
    font-family:${ contentfulTheme.basicFont };
    font-size : 14px;
    cursor : pointer;
-   height : fit-content;
    border : 1px solid  ${ extensionTheme.grey10 };
    border-radius : 4px;
    padding : 10px;
@@ -220,6 +219,29 @@ export const ButtonGreen = styled.button`
   
 `;
 
+export const ButtonDelete = styled.button`
+  align-self : center;
+  cursor : pointer;
+  border : 1px solid  ${ extensionTheme.redM };
+  font-size : 14px;
+  transition : background .2s ease, background-image .2s ease,opacity .2s ease-in-out,border-color .2s ease;
+  background : ${ extensionTheme.redL } !important;  
+  color : white !important;
+  border-radius : 4px;
+  padding : 10px;
+  line-height : 11px;
+  font-weight : 300;
+  height : 33px;
+   
+  &:hover{
+     background : ${ extensionTheme.redM } !important;
+     border : 1px solid ${ extensionTheme.redM };
+    }
+  &:focus{
+    outline : none;
+  }
+`;
+
 export const Form = styled.form`
   display : flex;
   width : 100%;
@@ -242,7 +264,7 @@ export const Form = styled.form`
   }
 `;
 
-export const Specs = styled.div`
+export const Settings = styled.div`
   display : flex;
   width : 100%;
  
@@ -273,7 +295,7 @@ export const Icon = styled.div`
   
    &.trash:hover{
     & svg g path, & svg  path {
-        fill : ${ extensionTheme.redM };
+        fill : ${ extensionTheme.redL };
     }
   }
   

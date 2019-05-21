@@ -34,7 +34,7 @@ class Title extends Component {
     }
 
     render () {
-        const { dispatch, dom, indexComponent, indexSection, maxLength, option } = this.props;
+        const { dispatch, dom, indexComponent, indexSection, maxLength, name } = this.props;
         return (
             <div>
                 <Banner>
@@ -49,7 +49,7 @@ class Title extends Component {
                                     dispatch(updateContentTitle(this.state.title, this.state.active, indexComponent, indexSection));
                                 });
                             }}/>
-                        <p>{ option }</p>
+                        <p>{ name }</p>
                     </div>
                     <Icon className={this.state.open ? '' : 'rotate'}
                         onClick={() => { this.setState({ open: !this.state.open }); }}><SvgArrow/></Icon>
@@ -77,7 +77,7 @@ Title.propTypes = {
     indexSection: PropTypes.number.isRequired,
     indexComponent: PropTypes.number.isRequired,
     maxLength: PropTypes.number.isRequired,
-    option: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired
 };
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state)

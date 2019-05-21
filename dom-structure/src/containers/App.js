@@ -7,7 +7,8 @@ import { Extension, MainContainer } from '../style/styledComponents';
 import ButtonAddSection from '../components/ButtonAddSection';
 import Section from './Section';
 import AddSection from './AddSection';
-import { initDOM } from '../actions';
+import { initDOM, initDOMbuild } from '../actions';
+import { extractActiveValue } from '../utils/functions'
 
 class App extends React.Component {
     constructor (props) {
@@ -29,7 +30,8 @@ class App extends React.Component {
     componentDidMount = async () => {
         console.log('STORE MOUNT ', this.props.store.getState());
         if (this.props.extension.field && this.props.extension.field.getValue()) {
-            this.props.dispatch(initDOM(this.props.extension.field.getValue()));
+            this.props.dispatch(initDOM(this.props.extension.field.getValue().dom));
+            this.props.dispatch(initDOMbuild(this.props.extension.field.getValue().domBuild));
             this.setState({ state: this.state });
         }
 
@@ -57,11 +59,16 @@ class App extends React.Component {
     }
 
     setFieldValue = () => {
+        extractActiveValue( this.props.store.getState().dom );
         this.setState({
             dom: this.props.store.getState().dom
         });
         this.props.extension.field.setValue(
-            this.props.store.getState().dom
+            {
+                dom: this.props.store.getState().dom,
+                domBuild : extractActiveValue(this.props.store.getState().dom)
+            }
+
         );
     }
 
