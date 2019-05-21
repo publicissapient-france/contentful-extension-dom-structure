@@ -318,3 +318,24 @@ export const Range = styled.div`
     }
   }
 `;
+
+
+export const SafeDelete = styled.div`
+  display : flex;
+  justify-content : space-between;
+  width : 100%;
+  background: ${ extensionTheme.redXS };  
+  padding-left : 8px; 
+  padding-top : 15px;
+  padding-bottom : 15px;
+  align-items : center;
+  
+  & div.buttons{
+    margin-left : 10px;
+    min-width : 150px;
+  }
+  
+  & ${ ButtonBasic },& ${ ButtonDelete }{
+    margin-right : 8px;
+  }
+`;

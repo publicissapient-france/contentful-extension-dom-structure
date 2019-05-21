@@ -130,3 +130,11 @@ export const updateContentTitle = (value, bool, number, numberParent) => ({
     indexComponent: number,
     indexSection: numberParent
 });
+
+export const updateContentTagline = (value, bool, number, numberParent) => ({
+    type: 'UPDATE_CONTENT_TAGLINE',
+    value: value,
+    active: bool,
+    indexComponent: number,
+    indexSection: numberParent
+});

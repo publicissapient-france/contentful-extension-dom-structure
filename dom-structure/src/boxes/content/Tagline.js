@@ -1,25 +1,68 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from '../../style/styledComponents';
-import { Banner, Fields } from '../../style/styledComponentsBoxes';
+import {Icon} from '../../style/styledComponents';
+import {Banner, Fields, ActiveContent} from '../../style/styledComponentsBoxes';
 import SvgArrow from '../../components/SvgArrow';
+import {connect} from "react-redux";
+import {updateContentTagline, getCurrentDOM} from "../../actions";
 
 class Tagline extends Component {
-    render () {
-        const { } = this.props;
-        const maxLength = 140;
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            open: true,
+            value: '',
+            active: true
+        };
+    }
+
+    componentDidMount = () => {
+        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
+
+        this.setState({
+            value: componentStore.content.Tagline ? componentStore.content.Tagline.value : '',
+            active: componentStore.content.value ? componentStore.content.Title.active : true
+        });
+    }
+
+    render() {
+        const {dispatch, dom, indexComponent, indexSection, maxLength, name} = this.props;
 
         return (
             <div>
                 <Banner>
                     <div>
-                        <input type={'checkbox'}/>
-                        <p>Tagline</p>
+                        <ActiveContent
+                            className={this.state.active ? 'active' : ''}
+                            onClick={e => {
+                                return new Promise((resolve, reject) => {
+                                    this.setState({active: !this.state.active});
+                                    resolve();
+                                }).then(() => {
+                                    dispatch(updateContentTagline(this.state.value, this.state.active, indexComponent, indexSection));
+                                });
+                            }}/>
+                        <p>{name}</p>
                     </div>
-                    <Icon><SvgArrow/></Icon>
+                    <Icon className={this.state.open ? '' : 'rotate'}
+                          onClick={() => {
+                              this.setState({open: !this.state.open});
+                          }}><SvgArrow/></Icon>
                 </Banner>
-                <Fields>
-                    <input type={'text'} maxLength={maxLength}/>
+                <Fields className={this.state.open ? '' : 'closed'}>
+                    <input type={'text'} maxLength={maxLength}
+                           defaultValue={this.state.value}
+                           onBlur={e => {
+                               return new Promise((resolve, reject) => {
+                                   this.setState({value: e.target.value});
+                                   resolve();
+                               }).then(() => {
+                                   console.log(this.state);
+                                   dispatch(updateContentTagline(this.state.value, this.state.active, indexComponent, indexSection));
+                               });
+                           }}/>
                     <span>{maxLength} characters</span>
                 </Fields>
             </div>
@@ -28,7 +71,13 @@ class Tagline extends Component {
 };
 
 Tagline.propTypes = {
-
+    indexSection: PropTypes.number.isRequired,
+    indexComponent: PropTypes.number.isRequired,
+    maxLength: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired
 };
 
-export default Tagline;
+const mapStateToProps = state => ({
+    dom: getCurrentDOM(state)
+});
+export default connect(mapStateToProps)(Tagline);

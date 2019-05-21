@@ -144,6 +144,19 @@ const dom = (state = [], action) => {
                 }
             });
 
+        case 'UPDATE_CONTENT_TAGLINE':
+            return update(state, {
+                [action.indexSection]: {
+                    components: {
+                        [action.indexComponent]: {
+                            content: {
+                                'Tagline': {$set: {value: action.value, active: action.active}}
+                            }
+                        }
+                    }
+                }
+            });
+
         default:
             return state;
     }

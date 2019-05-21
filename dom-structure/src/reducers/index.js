@@ -1,14 +1,10 @@
 import { combineReducers } from 'redux';
-import todos from './todos';
-import VisibilityFilter from './visibilityFilter';
 import visibility from './visibility';
 import dom from './dom';
-import domBuild from './domBuild';
+import build from './build';
 
 export default combineReducers({
-    todos,
-    VisibilityFilter,
     visibility,
     dom,
-    domBuild
+    build
 });

@@ -16,7 +16,7 @@ class Boxes extends Component {
                                 return React.createElement(React.lazy(() => import('../boxes/content/Title')), { indexComponent: index, indexSection: indexParent, maxLength: 140, name: boxe });
 
                             case 'Tagline':
-                                return React.createElement(React.lazy(() => import('../boxes/content/Tagline')), {});
+                                return React.createElement(React.lazy(() => import('../boxes/content/Tagline')),  { indexComponent: index, indexSection: indexParent, maxLength: 140, name: boxe });
                             default :
                                 return <span>No content-box <strong>{boxe}</strong> matches</span>;
                             }

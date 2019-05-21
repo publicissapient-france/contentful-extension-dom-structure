@@ -1,6 +1,6 @@
 import update from 'react-addons-update';
 
-const dom = (state = [], action) => {
+const build = (state = [], action) => {
     switch (action.type) {
         case 'INIT_DOM_BUILD' :
             console.log('on est dans init dom build');
@@ -10,4 +10,4 @@ const dom = (state = [], action) => {
     }
 };
 
-export default dom;
+export default build;

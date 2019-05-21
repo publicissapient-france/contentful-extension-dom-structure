@@ -78,3 +78,9 @@ export const CheckBox = styled.button`
         background:  ${ extensionTheme.orange }; 
     }
 `;
+
+export const ActiveContent = styled(CheckBox)`
+    &.active{
+        background:  ${ extensionTheme.blueM }; 
+    }
+`;

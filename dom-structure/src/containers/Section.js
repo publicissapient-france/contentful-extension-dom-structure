@@ -14,7 +14,8 @@ import {
     Settings,
     Icon,
     Range,
-    ButtonDelete
+    ButtonDelete,
+    SafeDelete
 } from '../style/styledComponents';
 import {CheckBox} from '../style/styledComponentsBoxes';
 import {updateSection, removeSection, moveSectionToTop, moveSectionToDown} from '../actions/index';
@@ -52,25 +53,11 @@ const FormSection = styled(Form)`
     box-sizing: border-box;
 `;
 
-export const Active = styled(CheckBox)`
+const Active = styled(CheckBox)`
     margin-left : 5px;
     &.active{
         background:  ${ extensionTheme.orange }; 
     }
-`;
-export const SafeDelete = styled.div`
-  display : flex;
-  justify-content : space-between;
-  width : 100%;
-  background: ${ extensionTheme.redXS };  
-  padding-left : 8px; 
-  padding-top : 15px;
-  padding-bottom : 15px;
-  align-items : center;
-  
-  & ${ ButtonBasic },& ${ ButtonDelete }{
-    margin-right : 8px;
-  }
 `;
 
 class Section extends Component {
@@ -112,9 +99,17 @@ class Section extends Component {
             })
         });
     }
-    toogleSafeSecure = () => this.setState({openSafeDelete: !this.state.openSafeDelete, openAdd: false, openSettings: false})
+    toogleSafeSecure = () => this.setState({
+        openSafeDelete: !this.state.openSafeDelete,
+        openAdd: false,
+        openSettings: false
+    })
     toogleOpenAdd = () => this.setState({openAdd: !this.state.openAdd, openSettings: false, openSafeDelete: false})
-    toogleOpenSettings = () => this.setState({openSettings: !this.state.openSettings, openAdd: false, openSafeDelete: false})
+    toogleOpenSettings = () => this.setState({
+        openSettings: !this.state.openSettings,
+        openAdd: false,
+        openSafeDelete: false
+    })
 
     isUpdated = () => (this.state.section && (this.state.section.name != this.props.section.name ||
         this.state.section.model != this.props.section.model))
@@ -145,33 +140,38 @@ class Section extends Component {
                         <h4>{section.model} </h4>
                     </Description>
                     <Actions>
-                        <Icon className={this.state.openAdd ? 'active' : ''} onClick={() => this.toogleOpenAdd() }>
+                        <Icon className={this.state.openAdd ? 'active' : ''} onClick={() => this.toogleOpenAdd()}>
                             <SvgAdd/>
                         </Icon>
-                        <Icon className={this.state.openSettings ? 'active' : ''} onClick={() => this.toogleOpenSettings()}>
+                        <Icon className={this.state.openSettings ? 'active' : ''}
+                              onClick={() => this.toogleOpenSettings()}>
                             <SvgSpecs/>
                         </Icon>
                         <Range>
-                            <Icon className={index == 0 ? 'disable' : ''} onClick={() => { if (index != 0) dispatch(moveSectionToTop(index));}}>
+                            <Icon className={index == 0 ? 'disable' : ''} onClick={() => {
+                                if (index != 0) dispatch(moveSectionToTop(index));
+                            }}>
                                 <SvgRange/>
                             </Icon>
                             <Icon className={index == (domLength - 1) ? 'disable' : ''} onClick={() => {
-                                if (index != (domLength - 1)) dispatch(moveSectionToDown(index)); }}>
+                                if (index != (domLength - 1)) dispatch(moveSectionToDown(index));
+                            }}>
                                 <SvgRange/>
                             </Icon>
                         </Range>
-                        <Icon className={'trash'} onClick={() => this.toogleSafeSecure() }><SvgTrash/></Icon>
+                        <Icon className={'trash'} onClick={() => this.toogleSafeSecure()}><SvgTrash/></Icon>
                     </Actions>
                 </TopBar>
                 <SafeDelete className={!this.state.openSafeDelete ? 'hidden' : ''}>
-                    <p>The deletion is final. Are you sure you want to delete this item?</p>
+                    <p>The deletion is final. Are you sure you want to delete this section?</p>
                     <div className={'buttons'}>
-                        <ButtonBasic onClick={() => this.toogleSafeSecure() }
-                        >Cancel</ButtonBasic>
+                        <ButtonBasic onClick={() => this.toogleSafeSecure()}>Cancel</ButtonBasic>
                         <ButtonDelete onClick={() => {
                             dispatch(removeSection(index));
-                            this.setState({openSafeDelete: false});
-                        }}>Delete</ButtonDelete>
+                            this.setState({openSafeDelete: false})
+                        }}>
+                            Delete
+                        </ButtonDelete>
                     </div>
                 </SafeDelete>
                 <Settings className={!this.state.openSettings ? 'hidden' : ''}>
@@ -185,13 +185,17 @@ class Section extends Component {
                             <label>Section Name</label>
                             <input ref={node => (inputName = node)} type={'text'}
                                    defaultValue={section.name ? section.name : ''}
-                                   onChange={e => { this.updateName(e.target.value); }}/>
+                                   onChange={e => {
+                                       this.updateName(e.target.value);
+                                   }}/>
                         </div>
                         <div>
                             <label>Model</label>
                             <select ref={node => (selectModel = node)}
                                     defaultValue={section.model ? section.model : null}
-                                    onChange={e => { this.updateModel(e.target.value); }}>
+                                    onChange={e => {
+                                        this.updateModel(e.target.value);
+                                    }}>
                                 {sections.map((model, i) => <option value={model.name} key={i}>{model.name}</option>)}
                             </select>
                         </div>
@@ -200,11 +204,12 @@ class Section extends Component {
                                 onClick={e => {
                                     e.preventDefault();
                                     this.toogleOpenSettings();
-                                    this.setState({ section: this.props.section });
+                                    this.setState({section: this.props.section});
                                     inputName.value = section.name;
                                     selectModel.value = section.model;
-                                }}
-                            >Cancel</ButtonBasic>
+                                }}>
+                                Cancel
+                            </ButtonBasic>
                             <ButtonGreen
                                 disabled={!this.isUpdated()}
                                 className={this.isUpdated() ? 'active' : ''}>Update</ButtonGreen>

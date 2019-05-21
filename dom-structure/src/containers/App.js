@@ -31,7 +31,7 @@ class App extends React.Component {
         console.log('STORE MOUNT ', this.props.store.getState());
         if (this.props.extension.field && this.props.extension.field.getValue()) {
             this.props.dispatch(initDOM(this.props.extension.field.getValue().dom));
-            this.props.dispatch(initDOMbuild(this.props.extension.field.getValue().domBuild));
+            this.props.dispatch(initDOMbuild(this.props.extension.field.getValue().build));
             this.setState({ state: this.state });
         }
 
@@ -66,7 +66,7 @@ class App extends React.Component {
         this.props.extension.field.setValue(
             {
                 dom: this.props.store.getState().dom,
-                domBuild : extractActiveValue(this.props.store.getState().dom)
+                build : extractActiveValue(this.props.store.getState().dom)
             }
 
         );
