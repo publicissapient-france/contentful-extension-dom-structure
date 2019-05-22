@@ -27,7 +27,7 @@ class Tagline extends Component {
     }
 
     render () {
-        const { dispatch, dom, indexComponent, indexSection, name } = this.props;
+        const { dispatch, indexComponent, indexSection, name } = this.props;
         const maxLength = 140;
 
         return (
@@ -37,9 +37,9 @@ class Tagline extends Component {
                         <ActiveContent
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
-                                    this.setState({ active: !this.state.active }, () => {
-                                        dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
-                                    });
+                                this.setState({ active: !this.state.active }, () => {
+                                    dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                                });
                             }}/>
                         <p>{name}</p>
                     </div>

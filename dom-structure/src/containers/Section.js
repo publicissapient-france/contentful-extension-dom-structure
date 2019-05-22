@@ -18,12 +18,13 @@ import {
     SafeDelete
 } from '../style/styledComponents';
 import { CheckBox } from '../style/styledComponentsBoxes';
-import { updateSection, removeSection, moveSectionToTop, moveSectionToDown, toogleSectionActive } from '../actions/index';
+import { updateSection, removeSection, moveSectionToTop, moveSectionToDown, toggleSectionActive } from '../actions/index';
 import sections from '../config/sections';
 import update from 'react-addons-update';
 import AddComponent from './AddComponent';
 
 import { extensionTheme } from '../style/theme';
+import PropTypes from 'prop-types';
 
 const TopBar = styled.div`
   width : 100%;
@@ -92,34 +93,34 @@ class Section extends Component {
         });
     }
 
-    toogleActive = () => {
+    toggleActive = () => {
         this.setState({
             section: update(this.state.section, {
                 active: { $set: !this.state.section.active },
             })
         }, () => {
-            this.props.dispatch(toogleSectionActive(this.state.section.active, this.props.index));
+            this.props.dispatch(toggleSectionActive(this.state.section.active, this.props.index));
         });
     }
-    toogleSafeSecure = () => this.setState({
+    toggleSafeSecure = () => this.setState({
         openSafeDelete: !this.state.openSafeDelete,
         openAdd: false,
         openSettings: false
     })
-    toogleOpenAdd = () => this.setState({ openAdd: !this.state.openAdd, openSettings: false, openSafeDelete: false })
-    toogleOpenSettings = () => this.setState({
+    toggleOpenAdd = () => this.setState({ openAdd: !this.state.openAdd, openSettings: false, openSafeDelete: false })
+    toggleOpenSettings = () => this.setState({
         openSettings: !this.state.openSettings,
         openAdd: false,
         openSafeDelete: false
     })
 
-    isUpdated = () => (this.state.section && (this.state.section.name != this.props.section.name ||
-        this.state.section.model != this.props.section.model))
+    isUpdated = () => (this.state.section && (this.state.section.name !== this.props.section.name ||
+        this.state.section.model !== this.props.section.model))
 
     render () {
         const { dispatch, domLength, section, index } = this.props;
         let inputName, selectModel;
-        let children = (section.components && section.components.length != 0) ? section.components.map((component, i) =>
+        let children = (section.components && section.components.length !== 0) ? section.components.map((component, i) =>
             <ComponentDOM key={i} component={component} index={i} indexParent={index}
                 lengthParent={section.components.length}/>
         ) : null;
@@ -130,37 +131,37 @@ class Section extends Component {
                     <Description>
                         <Active
                             className={this.state.section.active ? 'active' : ''}
-                            onClick={e => { this.toogleActive() }}/>
+                            onClick={e => { this.toggleActive(); }}/>
                         <h3>{section.name} </h3>
                         <h4>{section.model} </h4>
                     </Description>
                     <Actions>
-                        <Icon className={this.state.openAdd ? 'active' : ''} onClick={() => this.toogleOpenAdd()}>
+                        <Icon className={this.state.openAdd ? 'active' : ''} onClick={() => this.toggleOpenAdd()}>
                             <SvgAdd/>
                         </Icon>
                         <Icon className={this.state.openSettings ? 'active' : ''}
-                            onClick={() => this.toogleOpenSettings()}>
+                            onClick={() => this.toggleOpenSettings()}>
                             <SvgSpecs/>
                         </Icon>
                         <Range>
-                            <Icon className={index == 0 ? 'disable' : ''} onClick={() => {
-                                if (index != 0) dispatch(moveSectionToTop(index));
+                            <Icon className={index === 0 ? 'disable' : ''} onClick={() => {
+                                if (index !== 0) dispatch(moveSectionToTop(index));
                             }}>
                                 <SvgRange/>
                             </Icon>
-                            <Icon className={index == (domLength - 1) ? 'disable' : ''} onClick={() => {
-                                if (index != (domLength - 1)) dispatch(moveSectionToDown(index));
+                            <Icon className={index === (domLength - 1) ? 'disable' : ''} onClick={() => {
+                                if (index !== (domLength - 1)) dispatch(moveSectionToDown(index));
                             }}>
                                 <SvgRange/>
                             </Icon>
                         </Range>
-                        <Icon className={'trash'} onClick={() => this.toogleSafeSecure()}><SvgTrash/></Icon>
+                        <Icon className={'trash'} onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
                     </Actions>
                 </TopBar>
                 <SafeDelete className={!this.state.openSafeDelete ? 'hidden' : ''}>
                     <p>The deletion is final. Are you sure you want to delete this section?</p>
                     <div className={'buttons'}>
-                        <ButtonBasic onClick={() => this.toogleSafeSecure()}>Cancel</ButtonBasic>
+                        <ButtonBasic onClick={() => this.toggleSafeSecure()}>Cancel</ButtonBasic>
                         <ButtonDelete onClick={() => {
                             dispatch(removeSection(index));
                             this.setState({ openSafeDelete: false });
@@ -198,7 +199,7 @@ class Section extends Component {
                             <ButtonBasic
                                 onClick={e => {
                                     e.preventDefault();
-                                    this.toogleOpenSettings();
+                                    this.toggleOpenSettings();
                                     this.setState({ section: this.props.section });
                                     inputName.value = section.name;
                                     selectModel.value = section.model;
@@ -218,6 +219,16 @@ class Section extends Component {
             </Container>
         );
     }
+};
+
+ComponentDOM.propTypes = {
+    section: PropTypes.shape({
+        active: PropTypes.bool.isRequired,
+        name: PropTypes.string.isRequired,
+        model: PropTypes.string.isRequired,
+    }),
+    index: PropTypes.number.isRequired,
+    domLength: PropTypes.number
 };
 
 export default connect()(Section);

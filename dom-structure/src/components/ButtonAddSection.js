@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { contentfulTheme } from '../style/theme';
 import { connect } from 'react-redux';
-import { toogleFormAddSection } from '../actions';
+import { toggleFormAddSection } from '../actions';
 
 const Button = styled.button`
   border : none;
@@ -26,7 +26,7 @@ const Button = styled.button`
 class ButtonAddSection extends Component {
     render () {
         const { dispatch } = this.props;
-        return <Button onClick={() => dispatch(toogleFormAddSection())}>+ Add section</Button>;
+        return <Button onClick={() => dispatch(toggleFormAddSection())}>+ Add section</Button>;
     }
 }
 

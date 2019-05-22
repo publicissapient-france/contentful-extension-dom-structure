@@ -1,17 +1,16 @@
-import React, {Component} from 'react';
-import {Editor, EditorState, RichUtils} from 'draft-js';
+import React, { Component } from 'react';
+import { Editor, EditorState, RichUtils } from 'draft-js';
 
 import PropTypes from 'prop-types';
-import {Icon} from '../../style/styledComponents';
-import {ButtonGreen} from '../../style/styledComponents';
-import {Banner, Fields, ActiveContent} from '../../style/styledComponentsBoxes';
-import SvgArrow from '../../components/SvgArrow';
-import {connect} from 'react-redux';
-import {updateContentValue, getCurrentDOM} from '../../actions';
+import { Icon, ButtonGreen } from '../../style/styledComponents';
 
+import { Banner, Fields, ActiveContent } from '../../style/styledComponentsBoxes';
+import SvgArrow from '../../components/SvgArrow';
+import { connect } from 'react-redux';
+import { updateContentValue, getCurrentDOM } from '../../actions';
 
 class Text extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
 
         this.state = {
@@ -20,8 +19,6 @@ class Text extends Component {
             active: true,
             editorState: EditorState.createEmpty()
         };
-
-
     }
 
     componentDidMount = () => {
@@ -33,27 +30,27 @@ class Text extends Component {
         });
     };
 
-    handleValueChange = (value) => {
-        this.setState({value: value}/*, () => {
+    handleValueChange = value => {
+        this.setState({ value: value }/*, () => {
             this.props.dispatch(updateContentValue(name, this.state.value, this.state.active, this.props.indexComponent, this.props.indexSection));
-        }*/);
+        } */);
         console.log(this.state.value);
     };
 
     isUpdated = () => {
-      /*  const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
+        /*  const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
         if (componentStore.content.Text && this.state.value !== componentStore.content.Text) {
             return true
-        }*/
-        return false
+        } */
+        return false;
     }
 
-    onChange = (editorState) => {
-        this.setState({editorState: editorState})
+    onChange = editorState => {
+        this.setState({ editorState: editorState });
     }
 
-    handleKeyCommand = (command) => {
-        const newState = RichUtils.handleKeyCommand(this.state.editorState, command)
+    handleKeyCommand = command => {
+        const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
         if (newState) {
             this.onChange(newState);
             return 'handled';
@@ -66,17 +63,15 @@ class Text extends Component {
     }
 
     onBoldClick = () => {
-        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'))
+        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
     }
 
     onItalicClick = () => {
-        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'))
+        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
     }
 
-
-    render() {
-        const {dispatch, dom, indexComponent, indexSection, name} = this.props;
-
+    render () {
+        const { dispatch, indexComponent, indexSection, name } = this.props;
 
         return (
             <div>
@@ -85,16 +80,16 @@ class Text extends Component {
                         <ActiveContent
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
-                                    this.setState({active: !this.state.active}, () => {
-                                        dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
-                                    });
+                                this.setState({ active: !this.state.active }, () => {
+                                    dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                                });
                             }}/>
                         <p>{name}</p>
                     </div>
                     <Icon className={this.state.open ? '' : 'rotate'}
-                          onClick={() => {
-                              this.setState({open: !this.state.open});
-                          }}><SvgArrow/></Icon>
+                        onClick={() => {
+                            this.setState({ open: !this.state.open });
+                        }}><SvgArrow/></Icon>
                 </Banner>
                 <Fields className={this.state.open ? 'open' : ''}>
                     <div className="editorContainer">
@@ -115,7 +110,6 @@ class Text extends Component {
                         onClick={() => dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection))}>
                         Update
                     </ButtonGreen>
-
 
                 </Fields>
             </div>

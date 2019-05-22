@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { Icon } from './styledComponents';
 import { extensionTheme } from './theme';
 
-
 export const Banner = styled.div`
   display : flex;
   width : 100%;

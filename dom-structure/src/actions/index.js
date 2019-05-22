@@ -36,8 +36,8 @@ export const removeSection = number => ({
     index: number
 });
 
-export const toogleSectionActive = (bool, number) => ({
-    type: 'TOOGLE_SECTION_ACTIVE',
+export const toggleSectionActive = (bool, number) => ({
+    type: 'TOGGLE_SECTION_ACTIVE',
     active: bool,
     index: number
 });
@@ -88,14 +88,14 @@ export const moveComponentToDown = (number, numberParent) => ({
     indexParent: numberParent
 });
 
-export const toogleComponentActive = (bool, number, numberParent) => ({
-    type: 'TOOGLE_COMPONENT_ACTIVE',
+export const toggleComponentActive = (bool, number, numberParent) => ({
+    type: 'TOGGLE_COMPONENT_ACTIVE',
     active: bool,
     index: number,
     indexParent: numberParent
 });
 
-export const toogleFormAddSection = () => ({
+export const toggleFormAddSection = () => ({
     type: 'TOGGLE_FORM_ADD_SECTION',
 });
 export const openFormAddSection = () => ({

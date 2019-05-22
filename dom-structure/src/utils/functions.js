@@ -2,8 +2,6 @@ import _ from 'lodash';
 
 const getShadePosition = (shade, array) => array.indexOf(shade);
 
-const slugIsUnique = (slug, array) => !(array.find(element => element.slug == slug));
-
 const filterActiveSections = dom => dom.filter(section => section.active);
 
 const filterActiveComponents = dom => {
@@ -31,4 +29,4 @@ const extractActiveValue = dom => {
     return filterActiveContent(filterActiveComponents(filterActiveSections(_.cloneDeep(dom))));
 };
 
-export { getShadePosition, slugIsUnique, extractActiveValue };
+export { getShadePosition, extractActiveValue };

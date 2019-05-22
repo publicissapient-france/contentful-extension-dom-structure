@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BoxesContainer } from '../style/styledComponentsBoxes'
+import { BoxesContainer } from '../style/styledComponentsBoxes';
 
 class Boxes extends Component {
     render () {

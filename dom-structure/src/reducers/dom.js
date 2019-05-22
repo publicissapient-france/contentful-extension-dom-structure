@@ -35,7 +35,7 @@ const dom = (state = [], action) => {
             ...state.slice(action.index + 1)
         ];
 
-    case 'TOOGLE_SECTION_ACTIVE':
+    case 'TOGGLE_SECTION_ACTIVE':
         return update(state, {
             [action.index]: {
                 active: { $set: action.active }
@@ -100,7 +100,7 @@ const dom = (state = [], action) => {
             }
         });
 
-    case 'TOOGLE_COMPONENT_ACTIVE':
+    case 'TOGGLE_COMPONENT_ACTIVE':
         return update(state, {
             [action.indexParent]: {
                 components: {

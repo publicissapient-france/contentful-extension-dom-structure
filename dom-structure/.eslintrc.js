@@ -2,7 +2,7 @@ module.exports = {
     extends: ["standard"],
     plugins: ["standard", "react"],
     rules: {
-        "eqeqeq" : "off",
+        "eqeqeq" : "warn",
         "no-var": "error", // optional, recommended when using es6+
         "no-unused-vars": 1, // recommended
         "arrow-spacing": ["error", { before: true, after: true }], // recommended

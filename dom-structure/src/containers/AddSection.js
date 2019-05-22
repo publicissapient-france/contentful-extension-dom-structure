@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addSection, toogleFormAddSection } from '../actions';
+import { addSection, toggleFormAddSection } from '../actions';
 import { Container, ButtonBasic, ButtonGreen, Form } from '../style/styledComponents';
 import update from 'react-addons-update';
 import sections from '../config/sections';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const FormSection = styled(Form)`
     padding-left : 8px;
@@ -66,7 +66,7 @@ class AddSection extends Component {
                         dispatch(addSection(this.state.section));
                         inputName.value = '';
                         selectModel.value = '';
-                        dispatch(toogleFormAddSection());
+                        dispatch(toggleFormAddSection());
                         this.clearForm();
                     }}
                 >
@@ -89,7 +89,7 @@ class AddSection extends Component {
                                 this.clearForm();
                                 inputName.value = '';
                                 selectModel.value = '';
-                                dispatch(toogleFormAddSection());
+                                dispatch(toggleFormAddSection());
                             }}
                         >Cancel</ButtonBasic>
                         <ButtonGreen
