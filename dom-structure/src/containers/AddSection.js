@@ -5,6 +5,11 @@ import { addSection, toogleFormAddSection } from '../actions';
 import { Container, ButtonBasic, ButtonGreen, Form } from '../style/styledComponents';
 import update from 'react-addons-update';
 import sections from '../config/sections';
+import styled from "styled-components";
+
+const FormSection = styled(Form)`
+    padding-left : 8px;
+`;
 
 class AddSection extends Component {
     constructor (props) {
@@ -54,7 +59,7 @@ class AddSection extends Component {
 
         return (
             <Container className={!open ? 'hidden' : ''}>
-                <Form
+                <FormSection
                     onSubmit={e => {
                         e.preventDefault();
                         if (!this.isComplete()) { return; }
@@ -91,14 +96,14 @@ class AddSection extends Component {
                             disabled={!this.isComplete()}
                             className={this.isComplete() ? 'active' : ''} type="submit">Add</ButtonGreen>
                     </div>
-                </Form>
+                </FormSection>
             </Container>
         );
     }
 }
 
 AddSection.propTypes = {
-    open : PropTypes.bool
-}
+    open: PropTypes.bool
+};
 
 export default connect()(AddSection);

@@ -1,37 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { BoxesContainer } from '../style/styledComponentsBoxes'
 
 class Boxes extends Component {
     render () {
-        const { fields, index, indexParent } = this.props;
-        console.log('FIELDS :', fields);
+        const { fields, index, indexParent, open, semiOpen } = this.props;
         return (
-            <div>
-                <React.Suspense fallback={<div>Loading Component...</div>}>
+            <BoxesContainer className={[!open ? 'closed' : '', !semiOpen ? 'semiClosed' : '']}>
+                <React.Suspense fallback={<div>Loading Box...</div>}>
 
                     {
-                        fields.map((boxe, i) => {
-                            switch (boxe) {
+                        fields.map((box, i) => {
+                            switch (box) {
                             case 'Title':
-                                return React.createElement(React.lazy(() => import('../boxes/content/Title')), { indexComponent: index, indexSection: indexParent, maxLength: 140, name: boxe });
+                                return React.createElement(React.lazy(() => import('../boxes/content/Title')), { indexComponent: index, indexSection: indexParent, name: box });
 
                             case 'Tagline':
-                                return React.createElement(React.lazy(() => import('../boxes/content/Tagline')),  { indexComponent: index, indexSection: indexParent, maxLength: 140, name: boxe });
+                                return React.createElement(React.lazy(() => import('../boxes/content/Tagline')), { indexComponent: index, indexSection: indexParent, name: box });
                             default :
-                                return <span>No content-box <strong>{boxe}</strong> matches</span>;
+                                return <div className={'error'}><p>No content-box <strong>{box}</strong> matches</p></div>;
                             }
                         })
                     }
                 </React.Suspense>
-            </div>
+            </BoxesContainer>
         );
     }
 };
 
 Boxes.propTypes = {
-    fields : PropTypes.array.isRequired,
-    index : PropTypes.number.isRequired,
-    indexParent : PropTypes.number.isRequired
-}
+    fields: PropTypes.array.isRequired,
+    index: PropTypes.number.isRequired,
+    indexParent: PropTypes.number.isRequired
+};
 
 export default Boxes;

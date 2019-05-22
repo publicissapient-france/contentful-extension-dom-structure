@@ -2,12 +2,34 @@ import styled from 'styled-components';
 import { Icon } from './styledComponents';
 import { extensionTheme } from './theme';
 
+export const BoxesContainer = styled.div`
+
+
+    & div.error{
+        padding-left : 8px;
+        padding-bottom : 15px;
+        padding-top : 15px;
+        border-top : 1px solid ${ extensionTheme.grey30 }; 
+        border-bottom : 1px solid ${ extensionTheme.grey30 }; 
+        
+    }
+    
+    &.closed{
+        background : red !important;
+        
+        &>div{
+            display : none;
+        }
+    }
+    
+  
+`;
 export const Banner = styled.div`
   display : flex;
   width : 100%;
   background : ${ extensionTheme.grey20 }; 
   padding-left : 5px;
-  padding-right : 5px;
+  box-sizing : border-box;
   font-weight : 300;
   border-bottom : 1px solid ${ extensionTheme.grey30 }; 
   justify-content: space-between;

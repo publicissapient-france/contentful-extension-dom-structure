@@ -13,7 +13,6 @@ const visibility = (state = [], action) => {
     default:
         return state;
     }
-    console.log('VISIBILITY', state);
 };
 
 export default visibility;

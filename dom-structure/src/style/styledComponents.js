@@ -274,6 +274,8 @@ export const Icon = styled.div`
   width : 40px;
   height : 40px;
   cursor  : pointer;
+  
+  
 
   &.active{
     & svg g path, & svg  path {
@@ -318,7 +320,6 @@ export const Range = styled.div`
     }
   }
 `;
-
 
 export const SafeDelete = styled.div`
   display : flex;

@@ -1,27 +1,4 @@
-let nextTodoId = 0;
-export const addTodo = text => ({
-    type: 'ADD_TODO',
-    id: nextTodoId++,
-    text
-});
-
-export const setVisibilityFilter = filter => ({
-    type: 'SET_VISIBILITY_FILTER',
-    filter
-});
-
-export const toggleTodo = id => ({
-    type: 'TOGGLE_TODO',
-    id
-});
-
-export const VisibilityFilters = {
-    SHOW_ALL: 'SHOW_ALL',
-    SHOW_COMPLETED: 'SHOW_COMPLETED',
-    SHOW_ACTIVE: 'SHOW_ACTIVE'
-};
-
-
+// DOM
 
 export const initDOMbuild = object => ({
     type: 'INIT_DOM_BUILD',
@@ -39,6 +16,8 @@ export const getCurrentDOM = state => ({
     type: 'GET_DOM',
     sections: state.dom
 });
+
+// SECTION
 
 export const addSection = object => ({
     type: 'ADD_SECTION',
@@ -72,6 +51,8 @@ export const moveSectionToDown = number => ({
     type: 'MOVE_SECTION_TO_DOWN',
     index: number
 });
+
+// COMPONENT
 
 export const addComponent = (object, number) => ({
     type: 'ADD_COMPONENT',
@@ -121,18 +102,11 @@ export const openFormAddSection = () => ({
     type: 'GET_VISIBILITY_FORM_ADD_SECTION',
 });
 
-// UPDATE CONTENT
+// COMPONENT CONTENT
 
-export const updateContentTitle = (value, bool, number, numberParent) => ({
-    type: 'UPDATE_CONTENT_TITLE',
-    value: value,
-    active: bool,
-    indexComponent: number,
-    indexSection: numberParent
-});
-
-export const updateContentTagline = (value, bool, number, numberParent) => ({
-    type: 'UPDATE_CONTENT_TAGLINE',
+export const updateContentValue = (props, value, bool, number, numberParent) => ({
+    type: 'UPDATE_CONTENT_VALUE',
+    props: props,
     value: value,
     active: bool,
     indexComponent: number,

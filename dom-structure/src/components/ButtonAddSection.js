@@ -28,6 +28,6 @@ class ButtonAddSection extends Component {
         const { dispatch } = this.props;
         return <Button onClick={() => dispatch(toogleFormAddSection())}>+ Add section</Button>;
     }
-};
+}
 
 export default connect()(ButtonAddSection);

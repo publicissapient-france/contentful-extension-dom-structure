@@ -8,7 +8,7 @@ import ButtonAddSection from '../components/ButtonAddSection';
 import Section from './Section';
 import AddSection from './AddSection';
 import { initDOM, initDOMbuild } from '../actions';
-import { extractActiveValue } from '../utils/functions'
+import { extractActiveValue } from '../utils/functions';
 
 class App extends React.Component {
     constructor (props) {
@@ -59,16 +59,15 @@ class App extends React.Component {
     }
 
     setFieldValue = () => {
-        extractActiveValue( this.props.store.getState().dom );
+        extractActiveValue(this.props.store.getState().dom);
         this.setState({
             dom: this.props.store.getState().dom
         });
         this.props.extension.field.setValue(
             {
                 dom: this.props.store.getState().dom,
-                build : extractActiveValue(this.props.store.getState().dom)
+                build: extractActiveValue(this.props.store.getState().dom)
             }
-
         );
     }
 
@@ -124,7 +123,6 @@ class App extends React.Component {
                     </section>
                 </div>
             </Extension>
-
         );
     }
 

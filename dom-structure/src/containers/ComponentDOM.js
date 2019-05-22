@@ -1,11 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
-import {connect} from 'react-redux';
-import {extensionTheme} from '../style/theme';
+import { connect } from 'react-redux';
+import { extensionTheme } from '../style/theme';
 import SvgContent from '../components/SvgContent';
 import SvgSpecs from '../components/SvgSpecs';
 import SvgRange from '../components/SvgRange';
 import SvgTrash from '../components/SvgTrash';
+import SvgArrow from '../components/SvgArrow';
+import SvgArrowDouble from '../components/SvgArrowDouble';
 import Boxes from './Boxes';
 import {
     Container,
@@ -18,11 +20,10 @@ import {
     Range,
     SafeDelete
 } from '../style/styledComponents';
-import {CheckBox} from '../style/styledComponentsBoxes';
+import { CheckBox } from '../style/styledComponentsBoxes';
 import components from '../config/components';
-import {moveComponentToTop, moveComponentToDown, removeComponent, updateComponent} from '../actions/index';
+import { moveComponentToTop, moveComponentToDown, removeComponent, updateComponent, toogleComponentActive } from '../actions/index';
 import update from 'react-addons-update';
-import {updateContentTitle, toogleComponentActive, removeSection} from "../actions";
 
 // const TC = React.lazy(() => import('../boxes/content/Title'));
 
@@ -40,43 +41,70 @@ const ContainerComponent = styled(Container)`
   & div.buttons{
     padding-right : 10px;
   }
-
 `;
 
 const TopBar = styled.div`
   width : 100%;
   display : flex;
   justify-content: space-between;
-  
 `;
 
 const Description = styled.div`
   display : flex;
   width : fit-content
-  
 `;
 const Actions = styled.div`
   display : flex;
   width : fit-content
-  
 `;
 const Content = styled.div`
   display : flex;
   flex-direction : column;
   width : 100%;
-  
 `;
 const Banner = styled.div`
   display : flex;
+  align-items : center;
+  justify-content: space-between;
   width : 100%;
   background : ${ extensionTheme.blueM }; 
   color :  ${ extensionTheme.white }; 
-  padding : 8px 0px;
   
   & p{
     padding-left : 10px;
   }
   
+  & ${ Icon }{
+    height : 34px;
+    & svg{
+    width : 40px;
+    height : 40px;
+  }
+    
+    & svg g path, & svg  path, & svg rect {
+        fill : ${ extensionTheme.white };   
+    }
+    
+    &:hover{
+        & svg g path, & svg  path {
+            fill : ${ extensionTheme.grey10 };   
+        }
+    }
+    
+    
+    
+  }
+      &.closed{
+            background : transparent; 
+            color :  ${ extensionTheme.grey50 }; 
+            
+            & ${ Icon }{
+                & svg g path, & svg  path, & svg rect {
+                    fill : ${ extensionTheme.grey50 };   
+                }
+              }
+        }
+  }
 `;
 
 const FormComponent = styled(Form)`
@@ -90,11 +118,17 @@ export const Active = styled(CheckBox)`
     }
 `;
 
+const Toggle = styled.div`
+  display : flex;
+`;
+
 class ComponentDOM extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
 
         this.state = {
+            openBoxes : true,
+            semiOpenBoxes : false,
             openSettings: false,
             openContent: true,
             openContentField: true,
@@ -106,7 +140,7 @@ class ComponentDOM extends Component {
     // content = require('../boxes/content/Title').default;
 
     componentDidMount = () => {
-        this.setState({component: this.props.component});
+        this.setState({ component: this.props.component });
     }
 
     getLazyComponent = path => {
@@ -116,7 +150,7 @@ class ComponentDOM extends Component {
     updateModel = model => {
         this.setState({
             component: update(this.state.component, {
-                model: {$set: model},
+                model: { $set: model },
             })
         });
     }
@@ -124,14 +158,14 @@ class ComponentDOM extends Component {
     updateName = name => {
         this.setState({
             component: update(this.state.component, {
-                name: {$set: name},
+                name: { $set: name },
             })
         });
     }
     toogleActive = () => {
         this.setState({
             component: update(this.state.component, {
-                active: {$set: !this.state.component.active},
+                active: { $set: !this.state.component.active },
             })
         });
     }
@@ -151,7 +185,6 @@ class ComponentDOM extends Component {
         openSafeDelete: false
     })
 
-
     isUpdated = () => (this.state.component && (this.state.component.name != this.props.component.name ||
         this.state.component.model != this.props.component.model))
 
@@ -159,10 +192,10 @@ class ComponentDOM extends Component {
 
     // TestC = React.lazy(() => import('../boxes/content/Title'));
 
-    render() {
-        const {dispatch, component, index, indexParent, lengthParent} = this.props;
+    render () {
+        const { dispatch, component, index, indexParent, lengthParent } = this.props;
         let inputName, selectModel;
-        if (!this.state.component) return null
+        if (!this.state.component) return null;
         return (
             <ContainerComponent>
                 <TopBar>
@@ -202,6 +235,7 @@ class ComponentDOM extends Component {
                             }}>
                                 <SvgRange/>
                             </Icon>
+
                         </Range>
                         <Icon className={'trash'} onClick={() => this.toogleSafeSecure()}><SvgTrash/></Icon>
                     </Actions>
@@ -213,7 +247,7 @@ class ComponentDOM extends Component {
                         <ButtonBasic onClick={() => this.toogleSafeSecure()}>Cancel</ButtonBasic>
                         <ButtonDelete onClick={() => {
                             dispatch(removeComponent(index, indexParent));
-                            this.setState({openSafeDelete: false});
+                            this.setState({ openSafeDelete: false });
                         }}>
                             Delete
                         </ButtonDelete>
@@ -231,18 +265,18 @@ class ComponentDOM extends Component {
                         <div>
                             <label>Component Name</label>
                             <input ref={node => (inputName = node)} type={'text'}
-                                   defaultValue={component.name ? component.name : ''}
-                                   onChange={e => {
-                                       this.updateName(e.target.value);
-                                   }}/>
+                                defaultValue={component.name ? component.name : ''}
+                                onChange={e => {
+                                    this.updateName(e.target.value);
+                                }}/>
                         </div>
                         <div>
                             <label>Model</label>
                             <select ref={node => (selectModel = node)}
-                                    defaultValue={component.model ? component.model : null}
-                                    onChange={e => {
-                                        this.updateModel(e.target.value);
-                                    }}>
+                                defaultValue={component.model ? component.model : null}
+                                onChange={e => {
+                                    this.updateModel(e.target.value);
+                                }}>
                                 {components.map((model, i) => <option value={model.name} key={i}>{model.name}</option>)}
                             </select>
                         </div>
@@ -251,7 +285,7 @@ class ComponentDOM extends Component {
                                 onClick={e => {
                                     e.preventDefault();
                                     this.toogleOpenSettings();
-                                    this.setState({component: this.props.component});
+                                    this.setState({ component: this.props.component });
                                     inputName.value = component.name;
                                     selectModel.value = component.model;
                                 }}>
@@ -264,8 +298,22 @@ class ComponentDOM extends Component {
                     </FormComponent>
                 </Settings>
                 <Content className={!this.state.openContent ? 'hidden' : ''}>
-                    <Banner><p>Content</p></Banner>
-                    <Boxes fields={this.getContentAvailable()} index={index} indexParent={indexParent}/>
+                    <Banner className={!this.state.openBoxes ? 'closed' : ''}>
+                        <p>Content</p>
+                        <Toggle>
+                            <Icon className={this.state.openBoxes ? '' : 'rotate'}
+                                  onClick={() => {
+                                      this.setState({ openBoxes: !this.state.openBoxes });
+                                  }}><SvgArrow/></Icon>
+                            <Icon className={!this.state.semiOpenBoxes ? '' : 'rotate'}
+                                  onClick={() => {
+                                      this.setState({ semiOpenBoxes: !this.state.semiOpenBoxes });
+                                  }}><SvgArrowDouble/></Icon>
+                        </Toggle>
+
+
+                    </Banner>
+                    <Boxes open={this.state.openBoxes} semiOpen={this.state.semiOpenBoxes}  fields={this.getContentAvailable()} index={index} indexParent={indexParent}/>
                 </Content>
 
             </ContainerComponent>

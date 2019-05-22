@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import SvgAdd from '../components/SvgAdd';
 import SvgSpecs from '../components/SvgSpecs';
 import SvgRange from '../components/SvgRange';
@@ -17,13 +17,13 @@ import {
     ButtonDelete,
     SafeDelete
 } from '../style/styledComponents';
-import {CheckBox} from '../style/styledComponentsBoxes';
-import {updateSection, removeSection, moveSectionToTop, moveSectionToDown} from '../actions/index';
+import { CheckBox } from '../style/styledComponentsBoxes';
+import { updateSection, removeSection, moveSectionToTop, moveSectionToDown, toogleSectionActive } from '../actions/index';
 import sections from '../config/sections';
 import update from 'react-addons-update';
 import AddComponent from './AddComponent';
-import {toogleSectionActive} from "../actions";
-import {extensionTheme} from "../style/theme";
+
+import { extensionTheme } from '../style/theme';
 
 const TopBar = styled.div`
   width : 100%;
@@ -61,7 +61,7 @@ const Active = styled(CheckBox)`
 `;
 
 class Section extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
 
         this.state = {
@@ -73,13 +73,13 @@ class Section extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({section: this.props.section});
+        this.setState({ section: this.props.section });
     }
 
     updateModel = model => {
         this.setState({
             section: update(this.state.section, {
-                model: {$set: model},
+                model: { $set: model },
             })
         });
     }
@@ -87,7 +87,7 @@ class Section extends Component {
     updateName = name => {
         this.setState({
             section: update(this.state.section, {
-                name: {$set: name},
+                name: { $set: name },
             })
         });
     }
@@ -95,7 +95,7 @@ class Section extends Component {
     toogleActive = () => {
         this.setState({
             section: update(this.state.section, {
-                active: {$set: !this.state.section.active},
+                active: { $set: !this.state.section.active },
             })
         });
     }
@@ -104,7 +104,7 @@ class Section extends Component {
         openAdd: false,
         openSettings: false
     })
-    toogleOpenAdd = () => this.setState({openAdd: !this.state.openAdd, openSettings: false, openSafeDelete: false})
+    toogleOpenAdd = () => this.setState({ openAdd: !this.state.openAdd, openSettings: false, openSafeDelete: false })
     toogleOpenSettings = () => this.setState({
         openSettings: !this.state.openSettings,
         openAdd: false,
@@ -114,14 +114,14 @@ class Section extends Component {
     isUpdated = () => (this.state.section && (this.state.section.name != this.props.section.name ||
         this.state.section.model != this.props.section.model))
 
-    render() {
-        const {dispatch, domLength, section, index} = this.props;
+    render () {
+        const { dispatch, domLength, section, index } = this.props;
         let inputName, selectModel;
         let children = (section.components && section.components.length != 0) ? section.components.map((component, i) =>
             <ComponentDOM key={i} component={component} index={i} indexParent={index}
-                          lengthParent={section.components.length}/>
+                lengthParent={section.components.length}/>
         ) : null;
-        if (!this.state.section) return null
+        if (!this.state.section) return null;
         return (
             <Container>
                 <TopBar>
@@ -144,7 +144,7 @@ class Section extends Component {
                             <SvgAdd/>
                         </Icon>
                         <Icon className={this.state.openSettings ? 'active' : ''}
-                              onClick={() => this.toogleOpenSettings()}>
+                            onClick={() => this.toogleOpenSettings()}>
                             <SvgSpecs/>
                         </Icon>
                         <Range>
@@ -168,7 +168,7 @@ class Section extends Component {
                         <ButtonBasic onClick={() => this.toogleSafeSecure()}>Cancel</ButtonBasic>
                         <ButtonDelete onClick={() => {
                             dispatch(removeSection(index));
-                            this.setState({openSafeDelete: false})
+                            this.setState({ openSafeDelete: false });
                         }}>
                             Delete
                         </ButtonDelete>
@@ -177,25 +177,25 @@ class Section extends Component {
                 <Settings className={!this.state.openSettings ? 'hidden' : ''}>
                     <FormSection onSubmit={e => {
                         e.preventDefault();
-                        if (!this.isUpdated()) return
+                        if (!this.isUpdated()) return;
                         dispatch(updateSection(this.state.section, index));
                     }}
                     >
                         <div>
                             <label>Section Name</label>
                             <input ref={node => (inputName = node)} type={'text'}
-                                   defaultValue={section.name ? section.name : ''}
-                                   onChange={e => {
-                                       this.updateName(e.target.value);
-                                   }}/>
+                                defaultValue={section.name ? section.name : ''}
+                                onChange={e => {
+                                    this.updateName(e.target.value);
+                                }}/>
                         </div>
                         <div>
                             <label>Model</label>
                             <select ref={node => (selectModel = node)}
-                                    defaultValue={section.model ? section.model : null}
-                                    onChange={e => {
-                                        this.updateModel(e.target.value);
-                                    }}>
+                                defaultValue={section.model ? section.model : null}
+                                onChange={e => {
+                                    this.updateModel(e.target.value);
+                                }}>
                                 {sections.map((model, i) => <option value={model.name} key={i}>{model.name}</option>)}
                             </select>
                         </div>
@@ -204,7 +204,7 @@ class Section extends Component {
                                 onClick={e => {
                                     e.preventDefault();
                                     this.toogleOpenSettings();
-                                    this.setState({section: this.props.section});
+                                    this.setState({ section: this.props.section });
                                     inputName.value = section.name;
                                     selectModel.value = section.model;
                                 }}>
