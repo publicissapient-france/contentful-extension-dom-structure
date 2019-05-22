@@ -12,7 +12,7 @@ const config = [
     {
         name: 'Leading',
         specs: ['backgroundColor', 'color'],
-        content: ['Title', 'Tagline']
+        content: ['Title', 'Tagline', 'Text']
     }
 ];
 

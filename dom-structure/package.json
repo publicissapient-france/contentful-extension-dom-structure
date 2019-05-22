@@ -26,6 +26,7 @@
     "@contentful/forma-36-tokens": "0.2.0",
     "contentful-ui-extensions-sdk": "3.5.0",
     "debounce-fn": "^1.0.0",
+    "draft-js": "0.10.5",
     "lodash": "4.17.11",
     "prop-types": "15.7.2",
     "react": "16.8.6",

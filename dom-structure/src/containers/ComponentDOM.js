@@ -24,6 +24,7 @@ import { CheckBox } from '../style/styledComponentsBoxes';
 import components from '../config/components';
 import { moveComponentToTop, moveComponentToDown, removeComponent, updateComponent, toogleComponentActive } from '../actions/index';
 import update from 'react-addons-update';
+import {updateContentValue} from "../actions";
 
 // const TC = React.lazy(() => import('../boxes/content/Title'));
 
@@ -96,7 +97,10 @@ const Banner = styled.div`
   }
       &.closed{
             background : transparent; 
-            color :  ${ extensionTheme.grey50 }; 
+            color :  black; 
+            border-top : 1px solid ${ extensionTheme.grey20 };  
+            font-size : 13px; 
+
             
             & ${ Icon }{
                 & svg g path, & svg  path, & svg rect {
@@ -167,6 +171,8 @@ class ComponentDOM extends Component {
             component: update(this.state.component, {
                 active: { $set: !this.state.component.active },
             })
+        }, () => {
+            this.props.dispatch(toogleComponentActive(this.state.component.active, this.props.index, this.props.indexParent));
         });
     }
     toogleSafeSecure = () => this.setState({
@@ -185,6 +191,18 @@ class ComponentDOM extends Component {
         openSafeDelete: false
     })
 
+    toggleBoxes = () => {
+        this.setState({ openBoxes: !this.state.openBoxes }, () => {
+            if(!this.state.openBoxes){ this.setState({ semiOpenBoxes: true })}
+        })
+    }
+
+    toggleBoxesField = () => {
+        this.setState({ semiOpenBoxes: !this.state.semiOpenBoxes }, () => {
+            if(!this.state.openBoxes){ this.setState({ openBoxes: true })}
+        })
+    }
+
     isUpdated = () => (this.state.component && (this.state.component.name != this.props.component.name ||
         this.state.component.model != this.props.component.model))
 
@@ -202,14 +220,7 @@ class ComponentDOM extends Component {
                     <Description>
                         <Active
                             className={this.state.component.active ? 'active' : ''}
-                            onClick={e => {
-                                return new Promise((resolve, reject) => {
-                                    this.toogleActive();
-                                    resolve();
-                                }).then(() => {
-                                    dispatch(toogleComponentActive(this.state.component.active, index, indexParent));
-                                });
-                            }}/>
+                            onClick={e => { this.toogleActive() }}/>
                         <h3>{component.name} </h3>
                         <h4>{component.model} </h4>
                     </Description>
@@ -303,11 +314,11 @@ class ComponentDOM extends Component {
                         <Toggle>
                             <Icon className={this.state.openBoxes ? '' : 'rotate'}
                                   onClick={() => {
-                                      this.setState({ openBoxes: !this.state.openBoxes });
+                                      this.toggleBoxes()
                                   }}><SvgArrow/></Icon>
                             <Icon className={!this.state.semiOpenBoxes ? '' : 'rotate'}
                                   onClick={() => {
-                                      this.setState({ semiOpenBoxes: !this.state.semiOpenBoxes });
+                                      this.toggleBoxesField();
                                   }}><SvgArrowDouble/></Icon>
                         </Toggle>
 

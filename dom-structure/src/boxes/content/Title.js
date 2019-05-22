@@ -37,12 +37,9 @@ class Title extends Component {
                         <ActiveContent
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
-                                return new Promise((resolve, reject) => {
-                                    this.setState({ active: !this.state.active });
-                                    resolve();
-                                }).then(() => {
-                                    dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
-                                });
+                                    this.setState({ active: !this.state.active }, () => {
+                                        dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                                    });
                             }}/>
                         <p>{name}</p>
                     </div>
@@ -51,16 +48,13 @@ class Title extends Component {
                             this.setState({ open: !this.state.open });
                         }}><SvgArrow/></Icon>
                 </Banner>
-                <Fields className={this.state.open ? '' : 'closed'}>
+                <Fields className={this.state.open ? 'open' : ''}>
                     <input type={'text'} maxLength={maxLength}
                         defaultValue={this.state.value}
                         onBlur={e => {
-                            return new Promise((resolve, reject) => {
-                                this.setState({ value: e.target.value });
-                                resolve();
-                            }).then(() => {
-                                dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
-                            });
+                                this.setState({ value: e.target.value }, () => {
+                                    dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                                });
                         }}/>
                     <span>{maxLength} characters</span>
                 </Fields>

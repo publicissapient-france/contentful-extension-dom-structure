@@ -22,7 +22,7 @@ class Tagline extends Component {
 
         this.setState({
             value: componentStore.content.Tagline ? componentStore.content.Tagline.value : '',
-            active: componentStore.content.value ? componentStore.content.Tagline.active : true
+            active: componentStore.content.Tagline.value ? componentStore.content.Tagline.active : true
         });
     }
 
@@ -37,12 +37,9 @@ class Tagline extends Component {
                         <ActiveContent
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
-                                return new Promise((resolve, reject) => {
-                                    this.setState({ active: !this.state.active });
-                                    resolve();
-                                }).then(() => {
-                                    dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
-                                });
+                                    this.setState({ active: !this.state.active }, () => {
+                                        dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                                    });
                             }}/>
                         <p>{name}</p>
                     </div>
@@ -52,7 +49,7 @@ class Tagline extends Component {
                         <SvgArrow/>
                     </Icon>
                 </Banner>
-                <Fields className={this.state.open ? '' : 'closed'}>
+                <Fields className={this.state.open ? 'open' : ''}>
                     <input type={'text'} maxLength={maxLength}
                         defaultValue={this.state.value}
                         onBlur={e => {

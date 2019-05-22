@@ -97,6 +97,8 @@ class Section extends Component {
             section: update(this.state.section, {
                 active: { $set: !this.state.section.active },
             })
+        }, () => {
+            this.props.dispatch(toogleSectionActive(this.state.section.active, this.props.index));
         });
     }
     toogleSafeSecure = () => this.setState({
@@ -128,14 +130,7 @@ class Section extends Component {
                     <Description>
                         <Active
                             className={this.state.section.active ? 'active' : ''}
-                            onClick={e => {
-                                return new Promise((resolve, reject) => {
-                                    this.toogleActive();
-                                    resolve();
-                                }).then(() => {
-                                    dispatch(toogleSectionActive(this.state.section.active, index));
-                                });
-                            }}/>
+                            onClick={e => { this.toogleActive() }}/>
                         <h3>{section.name} </h3>
                         <h4>{section.model} </h4>
                     </Description>

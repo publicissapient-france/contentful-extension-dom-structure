@@ -2,28 +2,7 @@ import styled from 'styled-components';
 import { Icon } from './styledComponents';
 import { extensionTheme } from './theme';
 
-export const BoxesContainer = styled.div`
 
-
-    & div.error{
-        padding-left : 8px;
-        padding-bottom : 15px;
-        padding-top : 15px;
-        border-top : 1px solid ${ extensionTheme.grey30 }; 
-        border-bottom : 1px solid ${ extensionTheme.grey30 }; 
-        
-    }
-    
-    &.closed{
-        background : red !important;
-        
-        &>div{
-            display : none;
-        }
-    }
-    
-  
-`;
 export const Banner = styled.div`
   display : flex;
   width : 100%;
@@ -68,6 +47,7 @@ export const Fields = styled.div`
   width : 100%;
   padding :20px 30px 20px 15px;
   box-sizing : border-box;
+  display: none;
   
   input{
     border : 1px solid  ${ extensionTheme.grey80 };
@@ -80,8 +60,8 @@ export const Fields = styled.div`
     color :  ${ extensionTheme.grey80 };
   }
   
-  &.closed{
-    display: none;
+  &.open{
+    display: flex;
   }
 `;
 
@@ -105,4 +85,33 @@ export const ActiveContent = styled(CheckBox)`
     &.active{
         background:  ${ extensionTheme.blueM }; 
     }
+`;
+export const BoxesContainer = styled.div`
+
+
+    & div.error{
+        padding-left : 8px;
+        padding-bottom : 15px;
+        padding-top : 15px;
+        border-top : 1px solid ${ extensionTheme.grey30 }; 
+        border-bottom : 1px solid ${ extensionTheme.grey30 }; 
+        
+    }
+    
+    &.closed{  
+            height : 0 !important;
+            overflow:hidden;
+        &>div {
+            
+        }            
+    }
+    
+    &.semiOpen{
+      
+    }
+    
+   
+     
+    
+  
 `;
