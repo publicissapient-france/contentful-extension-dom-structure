@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Editor, EditorState, RichUtils } from 'draft-js';
+import ReactMde from "react-mde";
+import * as Showdown from "showdown";
+import "react-mde/lib/styles/css/react-mde-all.css";
 
 import PropTypes from 'prop-types';
 import { Icon, ButtonGreen } from '../../style/styledComponents';
@@ -9,66 +11,54 @@ import SvgArrow from '../../components/SvgArrow';
 import { connect } from 'react-redux';
 import { updateContentValue, getCurrentDOM } from '../../actions';
 
+
 class Text extends Component {
     constructor (props) {
         super(props);
 
         this.state = {
             open: true,
-            value: '',
+            value: "**Hello world!!!**",
             active: true,
-            editorState: EditorState.createEmpty()
+
         };
+
+        this.converter = new Showdown.Converter({
+            tables: true,
+            simplifiedAutoLink: true,
+            strikethrough: true,
+            tasklists: true
+        });
+
+
     }
 
     componentDidMount = () => {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
         this.setState({
-            value: componentStore.content.Text ? componentStore.content.Text.value : '',
+            value: componentStore.content.Text && componentStore.content.Text.value ? componentStore.content.Text.value : '',
             active: componentStore.content.Text ? componentStore.content.Text.active : true
         });
     };
 
+    isUpdated = () => {
+        return true;
+    }
+
     handleValueChange = value => {
-        this.setState({ value: value }/*, () => {
-            this.props.dispatch(updateContentValue(name, this.state.value, this.state.active, this.props.indexComponent, this.props.indexSection));
-        } */);
-        console.log(this.state.value);
+        this.setState({
+            value : value
+        });
+        console.log('STATE ON HANDLEVALUE', this.state)
+        console.log('HTML', this.converter.makeHtml(this.state.value))
     };
 
-    isUpdated = () => {
-        /*  const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
-        if (componentStore.content.Text && this.state.value !== componentStore.content.Text) {
-            return true
-        } */
-        return false;
-    }
+    handleTabChange = tab => {
+        this.setState({ tab :  tab });
+        console.log('STATE', this.state);
+    };
 
-    onChange = editorState => {
-        this.setState({ editorState: editorState });
-    }
-
-    handleKeyCommand = command => {
-        const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
-        if (newState) {
-            this.onChange(newState);
-            return 'handled';
-        }
-        return 'not-handled';
-    }
-
-    onUnderlineClick = () => {
-        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'));
-    }
-
-    onBoldClick = () => {
-        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
-    }
-
-    onItalicClick = () => {
-        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
-    }
 
     render () {
         const { dispatch, indexComponent, indexSection, name } = this.props;
@@ -92,22 +82,24 @@ class Text extends Component {
                         }}><SvgArrow/></Icon>
                 </Banner>
                 <Fields className={this.state.open ? 'open' : ''}>
-                    <div className="editorContainer">
-                        <button onClick={this.onUnderlineClick}>U</button>
-                        <button onClick={this.onBoldClick}><b>B</b></button>
-                        <button onClick={this.onItalicClick}><em>I</em></button>
-                        <div className="editors">
-                            <Editor
-                                editorState={this.state.editorState}
-                                handleKeyCommand={this.handleKeyCommand}
-                                onChange={this.onChange}
-                            />
-                        </div>
+                    <div className="container">
+                        <ReactMde
+                            onChange={this.handleValueChange}
+                            onTabChange={this.handleTabChange}
+                            value={this.state.value}
+                            generateMarkdownPreview={markdown =>
+                                Promise.resolve(this.converter.makeHtml(markdown))
+                            }
+                            selectedTab={this.state.tab}
+                        />
                     </div>
                     <ButtonGreen
                         disabled={!this.isUpdated()}
                         className={this.isUpdated() ? 'active' : ''}
-                        onClick={() => dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection))}>
+                        onClick={() => {
+                            dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection))
+                        }
+                        }>
                         Update
                     </ButtonGreen>
 
