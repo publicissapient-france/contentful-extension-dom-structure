@@ -131,7 +131,7 @@ class ComponentDOM extends Component {
         super(props);
 
         this.state = {
-            openBoxes: true,
+            openBoxes: false,
             semiOpenBoxes: false,
             openSettings: false,
             openContent: true,
@@ -199,7 +199,7 @@ class ComponentDOM extends Component {
 
     toggleBoxesField = () => {
         this.setState({ semiOpenBoxes: !this.state.semiOpenBoxes }, () => {
-            if (!this.state.openBoxes) { this.setState({ openBoxes: true }); }
+            if (!this.state.semiOpenBoxes) { this.setState({ openBoxes: true }); }
         });
     }
 
@@ -312,18 +312,14 @@ class ComponentDOM extends Component {
                     <Banner className={!this.state.openBoxes ? 'closed' : ''}>
                         <p>Content</p>
                         <Toggle>
-                            <Icon className={this.state.openBoxes ? '' : 'rotate'}
+                            <Icon className={!this.state.openBoxes ? '' : 'rotate'}
                                 onClick={() => {
                                     this.toggleBoxes();
-                                }}><SvgArrow/></Icon>
-                            <Icon className={!this.state.semiOpenBoxes ? '' : 'rotate'}
-                                onClick={() => {
-                                    this.toggleBoxesField();
                                 }}><SvgArrowDouble/></Icon>
                         </Toggle>
 
                     </Banner>
-                    <Boxes open={this.state.openBoxes} semiOpen={this.state.semiOpenBoxes} fields={this.getContentAvailable()} index={index} indexParent={indexParent}/>
+                    <Boxes open={this.state.openBoxes} fields={this.getContentAvailable()} index={index} indexParent={indexParent}/>
                 </Content>
 
             </ContainerComponent>

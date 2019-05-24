@@ -11,7 +11,7 @@ class Tagline extends Component {
         super(props);
 
         this.state = {
-            open: true,
+            false: true,
             value: '',
             active: true
         };

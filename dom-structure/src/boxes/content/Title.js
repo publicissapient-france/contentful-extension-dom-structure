@@ -11,7 +11,7 @@ class Title extends Component {
         super(props);
 
         this.state = {
-            open: true,
+            open: false,
             value: '',
             active: true
         };

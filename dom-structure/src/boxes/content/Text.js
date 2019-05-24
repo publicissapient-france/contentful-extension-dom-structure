@@ -22,7 +22,7 @@ class Text extends Component {
         super(props);
 
         this.state = {
-            open: true,
+            open: false,
             value: "**Hello world!!!**",
             active: true,
 

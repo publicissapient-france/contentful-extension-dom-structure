@@ -4,9 +4,9 @@ import { BoxesContainer } from '../style/styledComponentsBoxes';
 
 class Boxes extends Component {
     render () {
-        const { fields, index, indexParent, open, semiOpen } = this.props;
+        const { fields, index, indexParent, open } = this.props;
         return (
-            <BoxesContainer className={[!open ? 'closed' : '', semiOpen ? 'semiOpen' : '']}>
+            <BoxesContainer className={!open ? 'closed' : ''}>
                 <React.Suspense fallback={<div>Loading Box...</div>}>
 
                     {
