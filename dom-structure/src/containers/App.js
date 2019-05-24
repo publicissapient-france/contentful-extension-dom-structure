@@ -66,7 +66,7 @@ class App extends React.Component {
         this.props.extension.field.setValue(
             {
                 dom: this.props.store.getState().dom,
-                build: extractActiveValue(this.props.store.getState().dom)
+                build: JSON.stringify(extractActiveValue(this.props.store.getState().dom))
             }
         );
     }
@@ -74,6 +74,7 @@ class App extends React.Component {
     subscribe = () => {
         this.props.store.subscribe(() => {
             console.log('STORE SUBSCRIBE', this.props.store.getState());
+            console.log('STORE SUBSCRIBE', JSON.stringify(extractActiveValue(this.props.store.getState().dom)));
             this.setFieldValue();
         });
     }
