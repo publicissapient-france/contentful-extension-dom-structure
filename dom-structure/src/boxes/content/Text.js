@@ -42,7 +42,7 @@ class Text extends Component {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
         this.setState({
-            value: componentStore.content.Text && componentStore.content.Text.value ? componentStore.content.Text.value : '',
+            value: componentStore.content.Text && componentStore.content.Text.value ? (this.converter.makeMarkdown(componentStore.content.Text.value)).replace('<!-- -->' , '') : '',
             active: componentStore.content.Text ? componentStore.content.Text.active : true
         });
     };
@@ -55,13 +55,10 @@ class Text extends Component {
         this.setState({
             value : value
         });
-        console.log('STATE ON HANDLEVALUE', this.state)
-        console.log('HTML', this.converter.makeHtml(this.state.value))
     };
 
     handleTabChange = tab => {
         this.setState({ tab :  tab });
-        console.log('STATE', this.state);
     };
 
 
@@ -102,7 +99,7 @@ class Text extends Component {
                         disabled={!this.isUpdated()}
                         className={this.isUpdated() ? 'active' : ''}
                         onClick={() => {
-                            dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection))
+                            dispatch(updateContentValue(name, this.converter.makeHtml(this.state.value), this.state.active, indexComponent, indexSection))
                         }
                         }>
                         Update
