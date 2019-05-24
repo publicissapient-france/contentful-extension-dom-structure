@@ -10,7 +10,12 @@ import { Banner, Fields, ActiveContent } from '../../style/styledComponentsBoxes
 import SvgArrow from '../../components/SvgArrow';
 import { connect } from 'react-redux';
 import { updateContentValue, getCurrentDOM } from '../../actions';
+import styled from "styled-components";
 
+
+const TextArea = styled.div`
+  margin-bottom : 10px;
+`;
 
 class Text extends Component {
     constructor (props) {
@@ -82,7 +87,7 @@ class Text extends Component {
                         }}><SvgArrow/></Icon>
                 </Banner>
                 <Fields className={this.state.open ? 'open' : ''}>
-                    <div className="container">
+                    <TextArea className="container">
                         <ReactMde
                             onChange={this.handleValueChange}
                             onTabChange={this.handleTabChange}
@@ -92,7 +97,7 @@ class Text extends Component {
                             }
                             selectedTab={this.state.tab}
                         />
-                    </div>
+                    </TextArea>
                     <ButtonGreen
                         disabled={!this.isUpdated()}
                         className={this.isUpdated() ? 'active' : ''}

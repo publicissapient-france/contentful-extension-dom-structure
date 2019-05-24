@@ -200,7 +200,7 @@ export const ButtonGreen = styled.button`
    font-weight : 300;
    height : 33px;
    transition : background .2s ease, background-image .2s ease,opacity .2s ease-in-out,border-color .2s ease;
-
+   width : fit-content;
    
    &.active{
     background : ${ contentfulTheme.greenM };
