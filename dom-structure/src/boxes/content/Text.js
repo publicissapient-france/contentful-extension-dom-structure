@@ -42,7 +42,7 @@ class Text extends Component {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
         this.setState({
-            value: componentStore.content.Text && componentStore.content.Text.value ? (this.converter.makeMarkdown(componentStore.content.Text.value)).replace('<!-- -->' , '') : '',
+            value: componentStore.content.Text && componentStore.content.Text.value ? 'test' : '',//(this.converter.makeMarkdown(componentStore.content.Text.value)).replace('<!-- -->' , '') : '',
             active: componentStore.content.Text ? componentStore.content.Text.active : true
         });
     };
@@ -64,7 +64,8 @@ class Text extends Component {
 
     render () {
         const { dispatch, indexComponent, indexSection, name } = this.props;
-
+        const test = true;
+        if(test) return null;
         return (
             <div>
                 <Banner>

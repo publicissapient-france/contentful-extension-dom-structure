@@ -12,12 +12,26 @@ export const initDOM = object => ({
 
 });
 
-
+export const initVisibility = () => ({
+    type: 'INIT_VISIBILITY',
+});
 
 export const getCurrentDOM = state => ({
     type: 'GET_DOM',
     sections: state.dom
 });
+
+export const getCurrentLanguage = state => ({
+    type: 'GET_LANGUAGE',
+    language: state.visibility.selectedLanguage
+});
+
+
+export const toggleLanguage = number => ({
+    type: 'TOGGLE_SELECTED_LANGUAGE',
+    language: number
+});
+
 
 export const initExtensionInformation = object => ({
     type: 'INIT_EXTENSION_INFORMATION',

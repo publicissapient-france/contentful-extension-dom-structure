@@ -4,7 +4,7 @@ import { Icon } from '../../style/styledComponents';
 import { Banner, Fields, ActiveContent } from '../../style/styledComponentsBoxes';
 import SvgArrow from '../../components/SvgArrow';
 import { connect } from 'react-redux';
-import { updateContentValue, getCurrentDOM } from '../../actions';
+import { updateContentValue, getCurrentDOM, getCurrentLanguage } from '../../actions';
 
 class Title extends Component {
     constructor (props) {
@@ -12,7 +12,7 @@ class Title extends Component {
 
         this.state = {
             open: true,
-            value: '',
+            value: {},
             active: true
         };
     }
@@ -21,14 +21,19 @@ class Title extends Component {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
         this.setState({
-            value: componentStore.content.Title ? componentStore.content.Title.value : '',
+            value: componentStore.content.Title ? componentStore.content.Title.value : {},
             active: componentStore.content.Title ? componentStore.content.Title.active : true
         });
+
+        console.log('language on title', this.props.currentLanguage);
     };
 
     render () {
-        const { dispatch, dom, indexComponent, indexSection, name } = this.props;
+        const { dispatch, dom, currentLanguage, indexComponent, indexSection, name } = this.props;
         const maxLength = 140;
+
+        const indexLanguage = this.props.currentLanguage.language;
+        console.log('inex language : ', indexLanguage);
 
         return (
             <div>
@@ -50,9 +55,13 @@ class Title extends Component {
                 </Banner>
                 <Fields className={this.state.open ? 'open' : ''}>
                     <input type={'text'} maxLength={maxLength}
-                        defaultValue={this.state.value}
+                        defaultValue={this.state.value[indexLanguage]}
                         onBlur={e => {
-                            this.setState({ value: e.target.value }, () => {
+                            this.setState({ value:{
+                                    ...this.state.value,
+                                    [indexLanguage] :  e.target.value
+                                } }, () => {
+                                console.log('STATE : ', this.state.value)
                                 dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                             });
                         }}/>
@@ -66,10 +75,12 @@ class Title extends Component {
 Title.propTypes = {
     indexSection: PropTypes.number.isRequired,
     indexComponent: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    language: PropTypes.number
 };
 const mapStateToProps = state => ({
-    dom: getCurrentDOM(state)
+    dom: getCurrentDOM(state),
+    currentLanguage : getCurrentLanguage(state)
 });
 
 export default connect(mapStateToProps)(Title);

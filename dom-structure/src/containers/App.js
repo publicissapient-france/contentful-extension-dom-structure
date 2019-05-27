@@ -7,7 +7,7 @@ import { Extension, MainContainer } from '../style/styledComponents';
 import ButtonAddSection from '../components/ButtonAddSection';
 import Section from './Section';
 import AddSection from './AddSection';
-import { initDOM, initDOMbuild, initExtensionInformation } from '../actions';
+import { initDOM, initDOMbuild, initExtensionInformation, initVisibility } from '../actions';
 import { extractActiveValue } from '../utils/functions';
 
 class App extends React.Component {
@@ -33,6 +33,7 @@ class App extends React.Component {
             this.props.dispatch(initDOM(this.props.extension.field.getValue().dom));
             this.props.dispatch(initDOMbuild(this.props.extension.field.getValue().build));
             this.props.dispatch(initExtensionInformation(this.props.extension));
+            this.props.dispatch(initVisibility());
             this.setState({ state: this.state });
         }
 
