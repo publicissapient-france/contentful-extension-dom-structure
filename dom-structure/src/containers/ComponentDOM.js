@@ -9,6 +9,7 @@ import SvgTrash from '../components/SvgTrash';
 import SvgArrow from '../components/SvgArrow';
 import SvgArrowDouble from '../components/SvgArrowDouble';
 import Boxes from './Boxes';
+import ToogleLanguages from '../components/ToogleLanguages';
 import {
     Container,
     Settings,
@@ -25,8 +26,6 @@ import components from '../config/components';
 import { moveComponentToTop, moveComponentToDown, removeComponent, updateComponent, toggleComponentActive } from '../actions/index';
 import update from 'react-addons-update';
 import PropTypes from 'prop-types';
-
-// const TC = React.lazy(() => import('../boxes/content/Title'));
 
 const ContainerComponent = styled(Container)`
   border: 1px solid ${ extensionTheme.grey };
@@ -125,6 +124,9 @@ export const Active = styled(CheckBox)`
 const Toggle = styled.div`
   display : flex;
 `;
+const Languages = styled.div`
+  display : flex;
+`;
 
 class ComponentDOM extends Component {
     constructor (props) {
@@ -213,6 +215,7 @@ class ComponentDOM extends Component {
     render () {
         const { dispatch, component, index, indexParent, lengthParent } = this.props;
         let inputName, selectModel;
+
         if (!this.state.component) return null;
         return (
             <ContainerComponent>
@@ -312,6 +315,7 @@ class ComponentDOM extends Component {
                     <Banner className={!this.state.openBoxes ? 'closed' : ''}>
                         <p>Content</p>
                         <Toggle>
+                            <ToogleLanguages/>
                             <Icon className={!this.state.openBoxes ? '' : 'rotate'}
                                 onClick={() => {
                                     this.toggleBoxes();
@@ -337,5 +341,6 @@ ComponentDOM.propTypes = {
     indexParent: PropTypes.number.isRequired,
     lengthParent: PropTypes.number.isRequired
 };
+
 
 export default connect()(ComponentDOM);

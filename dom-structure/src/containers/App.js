@@ -7,7 +7,7 @@ import { Extension, MainContainer } from '../style/styledComponents';
 import ButtonAddSection from '../components/ButtonAddSection';
 import Section from './Section';
 import AddSection from './AddSection';
-import { initDOM, initDOMbuild } from '../actions';
+import { initDOM, initDOMbuild, initExtensionInformation } from '../actions';
 import { extractActiveValue } from '../utils/functions';
 
 class App extends React.Component {
@@ -32,6 +32,7 @@ class App extends React.Component {
         if (this.props.extension.field && this.props.extension.field.getValue()) {
             this.props.dispatch(initDOM(this.props.extension.field.getValue().dom));
             this.props.dispatch(initDOMbuild(this.props.extension.field.getValue().build));
+            this.props.dispatch(initExtensionInformation(this.props.extension));
             this.setState({ state: this.state });
         }
 
@@ -49,6 +50,8 @@ class App extends React.Component {
 
         this.subscribe();
         this.props.extension.window.startAutoResizer();
+
+        console.log('EXTENSION VALUE locales', this.props.extension.locales);
     }
 
     componentDidUpdate = () => {}

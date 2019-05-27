@@ -29,4 +29,8 @@ const extractActiveValue = dom => {
     return filterActiveContent(filterActiveComponents(filterActiveSections(_.cloneDeep(dom))));
 };
 
-export { getShadePosition, extractActiveValue };
+const getLanguageISO = language => language.split('-')[0];
+const getCountryISO = language => language.split('-')[1];
+
+
+export { getShadePosition, extractActiveValue, getLanguageISO, getCountryISO };
