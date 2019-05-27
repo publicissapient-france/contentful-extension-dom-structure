@@ -17,7 +17,7 @@ class AddSection extends Component {
 
         this.state = {
             section: {
-                type: 'section',
+                type: 'sections',
                 specs: [],
                 components: []
             }
@@ -44,7 +44,7 @@ class AddSection extends Component {
     clearForm = () => {
         this.setState({
             section: {
-                type: 'section',
+                type: 'sections',
                 specs: [],
                 components: []
             }

@@ -25,7 +25,7 @@ class AddComponent extends Component {
 
         this.state = {
             component: {
-                type: 'component',
+                type: 'components',
                 specs: [],
             }
         };
