@@ -1,9 +1,7 @@
-import update from "react-addons-update";
-
 const extension = (state = [], action) => {
     switch (action.type) {
     case 'INIT_EXTENSION_INFORMATION' :
-        return action.extension
+        return action.extension;
 
     case 'GET_EXTENSION' :
         return action.state;

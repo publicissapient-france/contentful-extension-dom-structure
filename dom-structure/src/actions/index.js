@@ -26,12 +26,10 @@ export const getCurrentLanguage = state => ({
     language: state.visibility.selectedLanguage
 });
 
-
 export const toggleLanguage = number => ({
     type: 'TOGGLE_SELECTED_LANGUAGE',
     language: number
 });
-
 
 export const initExtensionInformation = object => ({
     type: 'INIT_EXTENSION_INFORMATION',

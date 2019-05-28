@@ -4,7 +4,7 @@ import { Icon } from '../../style/styledComponents';
 import { Banner, Fields, ActiveContent } from '../../style/styledComponentsBoxes';
 import SvgArrow from '../../components/SvgArrow';
 import { connect } from 'react-redux';
-import { getCurrentDOM, updateContentValue } from '../../actions';
+import {getCurrentDOM, getCurrentLanguage, updateContentValue} from '../../actions';
 
 class Tagline extends Component {
     constructor (props) {
@@ -21,14 +21,15 @@ class Tagline extends Component {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
         this.setState({
-            value: componentStore.content.Tagline ? componentStore.content.Tagline.value : '',
+            value: componentStore.content.Tagline ? componentStore.content.Tagline.value : {},
             active: componentStore.content.Tagline ? componentStore.content.Tagline.active : true
         });
     }
 
     render () {
-        const { dispatch, indexComponent, indexSection, name } = this.props;
+        const { dispatch, currentLanguage, indexComponent, indexSection, name } = this.props;
         const maxLength = 140;
+        const indexLanguage = currentLanguage.language;
 
         return (
             <div>
@@ -51,9 +52,13 @@ class Tagline extends Component {
                 </Banner>
                 <Fields className={this.state.open ? 'open' : ''}>
                     <input type={'text'} maxLength={maxLength}
-                        defaultValue={this.state.value}
+                        defaultValue={this.state.value[indexLanguage]}
                         onBlur={e => {
-                            this.setState({ value: e.target.value }, () => {
+                            this.setState({ value: {
+                                    ...this.state.value,
+                                    [indexLanguage]: e.target.value
+                                } }, () => {
+                                console.log('STATE : ', this.state.value);
                                 dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                             });
                         }}/>
@@ -67,10 +72,12 @@ class Tagline extends Component {
 Tagline.propTypes = {
     indexSection: PropTypes.number.isRequired,
     indexComponent: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    language: PropTypes.number
 };
 
 const mapStateToProps = state => ({
-    dom: getCurrentDOM(state)
+    dom: getCurrentDOM(state),
+    currentLanguage: getCurrentLanguage(state)
 });
 export default connect(mapStateToProps)(Tagline);

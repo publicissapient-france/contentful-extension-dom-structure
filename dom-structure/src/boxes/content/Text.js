@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ReactMde from "react-mde";
-import * as Showdown from "showdown";
-import "react-mde/lib/styles/css/react-mde-all.css";
+import ReactMde from 'react-mde';
+import * as Showdown from 'showdown';
+import 'react-mde/lib/styles/css/react-mde-all.css';
 
 import PropTypes from 'prop-types';
 import { Icon, ButtonGreen } from '../../style/styledComponents';
@@ -10,8 +10,7 @@ import { Banner, Fields, ActiveContent } from '../../style/styledComponentsBoxes
 import SvgArrow from '../../components/SvgArrow';
 import { connect } from 'react-redux';
 import { updateContentValue, getCurrentDOM } from '../../actions';
-import styled from "styled-components";
-
+import styled from 'styled-components';
 
 const TextArea = styled.div`
   margin-bottom : 10px;
@@ -23,7 +22,7 @@ class Text extends Component {
 
         this.state = {
             open: true,
-            value: "**Hello world!!!**",
+            value: '**Hello world!!!**',
             active: true,
 
         };
@@ -34,15 +33,13 @@ class Text extends Component {
             strikethrough: true,
             tasklists: true
         });
-
-
     }
 
     componentDidMount = () => {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
         this.setState({
-            value: componentStore.content.Text && componentStore.content.Text.value ? 'test' : '',//(this.converter.makeMarkdown(componentStore.content.Text.value)).replace('<!-- -->' , '') : '',
+            value: componentStore.content.Text && componentStore.content.Text.value ? 'test' : '', // (this.converter.makeMarkdown(componentStore.content.Text.value)).replace('<!-- -->' , '') : '',
             active: componentStore.content.Text ? componentStore.content.Text.active : true
         });
     };
@@ -53,19 +50,18 @@ class Text extends Component {
 
     handleValueChange = value => {
         this.setState({
-            value : value
+            value: value
         });
     };
 
     handleTabChange = tab => {
-        this.setState({ tab :  tab });
+        this.setState({ tab: tab });
     };
-
 
     render () {
         const { dispatch, indexComponent, indexSection, name } = this.props;
         const test = true;
-        if(test) return null;
+        if (test) return null;
         return (
             <div>
                 <Banner>
@@ -100,7 +96,7 @@ class Text extends Component {
                         disabled={!this.isUpdated()}
                         className={this.isUpdated() ? 'active' : ''}
                         onClick={() => {
-                            dispatch(updateContentValue(name, this.converter.makeHtml(this.state.value), this.state.active, indexComponent, indexSection))
+                            dispatch(updateContentValue(name, this.converter.makeHtml(this.state.value), this.state.active, indexComponent, indexSection));
                         }
                         }>
                         Update

@@ -31,9 +31,7 @@ class Title extends Component {
     render () {
         const { dispatch, dom, currentLanguage, indexComponent, indexSection, name } = this.props;
         const maxLength = 140;
-
-        const indexLanguage = this.props.currentLanguage.language;
-        console.log('inex language : ', indexLanguage);
+        const indexLanguage = currentLanguage.language;
 
         return (
             <div>
@@ -57,11 +55,11 @@ class Title extends Component {
                     <input type={'text'} maxLength={maxLength}
                         defaultValue={this.state.value[indexLanguage]}
                         onBlur={e => {
-                            this.setState({ value:{
-                                    ...this.state.value,
-                                    [indexLanguage] :  e.target.value
-                                } }, () => {
-                                console.log('STATE : ', this.state.value)
+                            this.setState({ value: {
+                                ...this.state.value,
+                                [indexLanguage]: e.target.value
+                            } }, () => {
+                                console.log('STATE : ', this.state.value);
                                 dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                             });
                         }}/>
@@ -80,7 +78,7 @@ Title.propTypes = {
 };
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state),
-    currentLanguage : getCurrentLanguage(state)
+    currentLanguage: getCurrentLanguage(state)
 });
 
 export default connect(mapStateToProps)(Title);
