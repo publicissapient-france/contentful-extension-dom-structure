@@ -1,17 +1,17 @@
 const config = [
     {
         name: 'TextContent',
-        specs: ['backgroundColor'],
+        settings: [],
         content: ['Title']
     },
     {
         name: 'MainTitle',
-        specs: ['backgroundColor', 'color'],
+        settings: [],
         content: ['Title', 'Subtitle']
     },
     {
         name: 'Leading',
-        specs: ['backgroundColor', 'color'],
+        settings: ['Template'],
         content: ['Title', 'Tagline', 'Text']
     }
 ];

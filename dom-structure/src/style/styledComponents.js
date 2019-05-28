@@ -266,7 +266,9 @@ export const Form = styled.form`
 
 export const Settings = styled.div`
   display : flex;
+  flex-direction : column;
   width : 100%;
+  height : fit-content;
  
 `;
 
