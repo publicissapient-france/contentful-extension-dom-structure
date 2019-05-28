@@ -4,7 +4,7 @@ import { Icon } from '../../style/styledComponents';
 import { Banner, Fields, ActiveContent } from '../../style/styledComponentsBoxes';
 import SvgArrow from '../../components/SvgArrow';
 import { connect } from 'react-redux';
-import {getCurrentDOM, getCurrentLanguage, updateContentValue} from '../../actions';
+import { getCurrentDOM, getCurrentLanguage, updateContentValue } from '../../actions';
 
 class Tagline extends Component {
     constructor (props) {
@@ -12,7 +12,7 @@ class Tagline extends Component {
 
         this.state = {
             open: true,
-            value: '',
+            value: {},
             active: true
         };
     }
@@ -55,9 +55,9 @@ class Tagline extends Component {
                         defaultValue={this.state.value[indexLanguage]}
                         onBlur={e => {
                             this.setState({ value: {
-                                    ...this.state.value,
-                                    [indexLanguage]: e.target.value
-                                } }, () => {
+                                ...this.state.value,
+                                [indexLanguage]: e.target.value
+                            } }, () => {
                                 console.log('STATE : ', this.state.value);
                                 dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                             });

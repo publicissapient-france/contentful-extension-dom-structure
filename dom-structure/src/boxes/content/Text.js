@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import ReactMde from 'react-mde';
 import * as Showdown from 'showdown';
 import 'react-mde/lib/styles/css/react-mde-all.css';
-
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { Icon, ButtonGreen } from '../../style/styledComponents';
 
 import { Banner, Fields, ActiveContent } from '../../style/styledComponentsBoxes';
 import SvgArrow from '../../components/SvgArrow';
 import { connect } from 'react-redux';
-import { updateContentValue, getCurrentDOM } from '../../actions';
+import { updateContentValue, getCurrentDOM, getCurrentLanguage } from '../../actions';
 import styled from 'styled-components';
 
 const TextArea = styled.div`
@@ -22,8 +22,8 @@ class Text extends Component {
 
         this.state = {
             open: true,
-            value: '**Hello world!!!**',
-            active: true,
+            value: {},
+            active: true
 
         };
 
@@ -38,19 +38,58 @@ class Text extends Component {
     componentDidMount = () => {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
+
         this.setState({
-            value: componentStore.content.Text && componentStore.content.Text.value ? 'test' : '', // (this.converter.makeMarkdown(componentStore.content.Text.value)).replace('<!-- -->' , '') : '',
+            value: componentStore.content.Text && componentStore.content.Text.value ? this.extractFromHTML(componentStore.content.Text.value) : {}, // (this.converter.makeMarkdown(componentStore.content.Text.value)).replace('<!-- -->' , '') : '',
             active: componentStore.content.Text ? componentStore.content.Text.active : true
         });
+
+        console.log('MOUNT');
     };
 
+
+    extractFromHTML = value => {
+        let result = _.mapValues(value, html => {
+            return (this.converter.makeMarkdown(html)).replace('<!-- -->', '');
+        });
+        return result;
+    }
+
+    convertToHTML = value => {
+        let result = _.mapValues(value, markdown => { return this.converter.makeHtml(markdown); });
+        return result;
+    }
+
     isUpdated = () => {
+        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
+
+        if(componentStore.content.Text && componentStore.content.Text.value[this.props.currentLanguage.language] === this.converter.makeHtml(this.state.value[this.props.currentLanguage.language])){
+            return false
+        }
         return true;
     }
 
+    event = () => {
+        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
+
+        console.log('arg 1', componentStore.content.Text.value[this.props.currentLanguage.language]);
+        console.log('arg 1 TYPE', typeof componentStore.content.Text.value[this.props.currentLanguage.language]);
+        console.log('arg 2', this.converter.makeHtml(this.state.value[this.props.currentLanguage.language]));
+        console.log('arg 2 TYPE', typeof this.state.value[this.props.currentLanguage.language]);
+        console.log('BLUR');
+
+    }
+
     handleValueChange = value => {
+        const indexLanguage = this.props.currentLanguage.language;
+
         this.setState({
-            value: value
+            value: {
+                ...this.state.value,
+                [indexLanguage]: value
+            }
+        }, () => {
+            //console.log('state afetr upedate', this.state);
         });
     };
 
@@ -59,9 +98,10 @@ class Text extends Component {
     };
 
     render () {
-        const { dispatch, indexComponent, indexSection, name } = this.props;
-        const test = true;
-        if (test) return null;
+        const { dispatch, dom, currentLanguage, indexComponent, indexSection, name } = this.props;
+        const indexLanguage = currentLanguage.language;
+        const componentStore = dom.sections[indexSection].components[indexComponent];
+
         return (
             <div>
                 <Banner>
@@ -70,7 +110,7 @@ class Text extends Component {
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
                                 this.setState({ active: !this.state.active }, () => {
-                                    dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                                    dispatch(updateContentValue(name, this.convertToHTML(this.state.value), this.state.active, indexComponent, indexSection));
                                 });
                             }}/>
                         <p>{name}</p>
@@ -85,7 +125,7 @@ class Text extends Component {
                         <ReactMde
                             onChange={this.handleValueChange}
                             onTabChange={this.handleTabChange}
-                            value={this.state.value}
+                            value={this.state.value[indexLanguage]}
                             generateMarkdownPreview={markdown =>
                                 Promise.resolve(this.converter.makeHtml(markdown))
                             }
@@ -96,9 +136,9 @@ class Text extends Component {
                         disabled={!this.isUpdated()}
                         className={this.isUpdated() ? 'active' : ''}
                         onClick={() => {
-                            dispatch(updateContentValue(name, this.converter.makeHtml(this.state.value), this.state.active, indexComponent, indexSection));
-                        }
-                        }>
+                            this.event();
+                            dispatch(updateContentValue(name, this.convertToHTML(this.state.value), this.state.active, indexComponent, indexSection));
+                        }}>
                         Update
                     </ButtonGreen>
 
@@ -111,10 +151,12 @@ class Text extends Component {
 Text.propTypes = {
     indexSection: PropTypes.number.isRequired,
     indexComponent: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    language: PropTypes.number
 };
 const mapStateToProps = state => ({
-    dom: getCurrentDOM(state)
+    dom: getCurrentDOM(state),
+    currentLanguage: getCurrentLanguage(state)
 });
 
 export default connect(mapStateToProps)(Text);
