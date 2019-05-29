@@ -380,6 +380,7 @@ class ComponentDOM extends Component {
                                   }}><SvgArrowDouble/></Icon>
                         </Toggle>
 
+
                     </Banner>
                     <Boxes open={this.state.openBoxesSettings} fields={this.getSettingsAvailable()} index={index}
                            indexParent={indexParent}/>

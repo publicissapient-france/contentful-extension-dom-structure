@@ -4,6 +4,7 @@ import { Icon } from '../../style/styledComponents';
 import { Banner, Fields, ActiveContent } from '../../style/styledComponentsBoxes';
 import SvgArrow from '../../components/SvgArrow';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import {updateContentValue, getCurrentDOM, getCurrentLanguage, getCurrentExtension} from '../../actions';
 
 class Template extends Component {
@@ -13,7 +14,8 @@ class Template extends Component {
         this.state = {
             open: true,
             value: {},
-            active: true
+            active: true,
+            colors : null
         };
     }
 
@@ -25,6 +27,10 @@ class Template extends Component {
             active: componentStore.content.Template ? componentStore.content.Template.active : true
         });
 
+        var styleGuideID = this.props.currentExtension.extension.entry.fields['styleGuide'].getValue().sys.id;
+        this.getColors(this.props.currentExtension.extension, styleGuideID);
+
+
         console.log('language on title', this.props.currentLanguage);
     };
 
@@ -34,15 +40,23 @@ class Template extends Component {
     getElementById = (extension, id) => {
         return extension.space.getEntries({
             'sys.id': id
-        }).then(result => result.items[0]);
+        }).then(result => result.items[0]
+        );
     };
+
+    getColors = async (extension, id) => {
+        const styleguide =  await this.getElementById(extension, id);
+        console.log('STYLE GUIDE', styleguide);
+        const colors = _.values(styleguide.fields.colorChart)[0];
+        console.log('STYLE COLORS', colors);
+        this.setState({ colors:colors });
+
+    }
 
     render () {
         const { dispatch, currentExtension, dom, currentLanguage, indexComponent, indexSection, name } = this.props;
         const maxLength = 140;
 
-        console.log('extension', currentExtension.extension);
-        console.log('getElementById', this.getElementById(currentExtension.extension, '1bWlKvlFS0qxXUaWQlQW9v'));
 
         return (
             <div>
