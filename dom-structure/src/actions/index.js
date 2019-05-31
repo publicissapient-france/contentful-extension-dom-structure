@@ -26,11 +26,12 @@ export const getCurrentLanguage = state => ({
     language: state.visibility.selectedLanguage
 });
 
-
 export const toggleLanguage = number => ({
     type: 'TOGGLE_SELECTED_LANGUAGE',
     language: number
 });
+
+// EXTENSION
 
 export const initExtensionInformation = object => ({
     type: 'INIT_EXTENSION_INFORMATION',
@@ -40,6 +41,20 @@ export const initExtensionInformation = object => ({
 export const getCurrentExtension = state => ({
     type: 'GET_EXTENSION',
     extension: state.extension
+});
+// STYLE
+export const initStyleInformation = object => ({
+    type: 'INIT_STYLE_INFORMATION',
+    style: object
+
+});
+export const getCurrentStyle = state => ({
+    type: 'GET_STYLE',
+    style: state.style
+});
+export const getColors = state => ({
+    type: 'GET_STYLE',
+    value: state.style.colors
 });
 // SECTION
 
@@ -130,6 +145,17 @@ export const openFormAddSection = () => ({
 
 export const updateContentValue = (props, value, bool, number, numberParent) => ({
     type: 'UPDATE_CONTENT_VALUE',
+    props: props,
+    value: value,
+    active: bool,
+    indexComponent: number,
+    indexSection: numberParent
+});
+
+// COMPONENT SETTINGS
+
+export const updateSettingsValue = (props, value, bool, number, numberParent) => ({
+    type: 'UPDATE_SETTINGS_VALUE',
     props: props,
     value: value,
     active: bool,

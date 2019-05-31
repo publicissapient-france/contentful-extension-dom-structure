@@ -7,6 +7,7 @@ export const contentfulTheme = {
 };
 
 export const extensionTheme = {
+    black: '#000000',
     white: '#FFFFFF',
     grey10: '#F7F9FA',
     grey20: '#eeeeef',

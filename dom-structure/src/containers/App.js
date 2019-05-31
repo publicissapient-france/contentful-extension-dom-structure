@@ -7,7 +7,7 @@ import { Extension, MainContainer } from '../style/styledComponents';
 import ButtonAddSection from '../components/ButtonAddSection';
 import Section from './Section';
 import AddSection from './AddSection';
-import { initDOM, initDOMbuild, initExtensionInformation, initVisibility } from '../actions';
+import { initDOM, initDOMbuild, initExtensionInformation, initVisibility, initStyleInformation } from '../actions';
 import { extractActiveValue } from '../utils/functions';
 
 class App extends React.Component {
@@ -52,7 +52,7 @@ class App extends React.Component {
         this.subscribe();
         this.props.extension.window.startAutoResizer();
 
-        console.log('EXTENSION VALUE locales', this.props.extension.locales);
+        await this.initStyleGuide(this);
     }
 
     componentDidUpdate = () => {}
@@ -87,9 +87,24 @@ class App extends React.Component {
         return this.props.extension.space.getEntries({
             'sys.id': id
         }).then(function (result) {
+            console.log('RESULT', result);
             return result.items[0];
         });
     }
+    initStyleGuide = This => {
+        let styleGuideID = this.props.extension.entry.fields['styleGuide'].getValue().sys.id;
+        const locale = This.props.extension.locales.default;
+        return This.props.extension.space
+            .getEntries({
+                'sys.id': styleGuideID
+            })
+            .then(result => {
+                console.log('RESULT GETSTYLE', result);
+                const styleGuide = result.items[0].fields;
+                this.props.dispatch(initStyleInformation(styleGuide));
+                return styleGuide;
+            });
+    };
 
     getAssetsUrlById = id => {
         return this.props.extension.space

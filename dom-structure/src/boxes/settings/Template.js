@@ -1,11 +1,83 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from '../../style/styledComponents';
-import { Banner, Fields, ActiveContent } from '../../style/styledComponentsBoxes';
+import { Icon, ButtonGreen } from '../../style/styledComponents';
+import { Banner, Fields, ActiveContent, BoxColor, Palette } from '../../style/styledComponentsBoxes';
 import SvgArrow from '../../components/SvgArrow';
+import SvgAdd from '../../components/SvgAdd';
 import { connect } from 'react-redux';
-import _ from 'lodash';
-import {updateContentValue, getCurrentDOM, getCurrentLanguage, getCurrentExtension} from '../../actions';
+import { updateSettingsValue, getCurrentDOM, getColors } from '../../actions';
+import Palettes from '../../components/Palettes';
+
+import styled from 'styled-components';
+
+export const FieldsTemplate = styled(Fields)`
+    padding :0px 0px 0px 20px;
+    
+    &.open{
+        flex-direction : row;
+        
+    }
+`;
+
+export const SelectedColor = styled(BoxColor)`
+    width : 30px;
+    height : 30px;
+`;
+
+export const ChoiceColor = styled.div`
+   display : flex;
+   
+   &>div{
+    padding-bottom : 20px;
+    
+   }
+   
+   &>div:nth-child(1){
+       margin-right : 20px;
+       flex-grow : 2;
+       min-width : 120px;
+   }
+   
+   &>div:nth-child(2){
+       box-shadow: -10px 0px 22px -10px rgba(0,0,0,0.2);
+       padding-left : 30px;
+       display:flex;
+       flex-grow : 8;
+       justify-content : space-between;
+       
+       &.hidden{
+        display : none;
+       }
+       
+   }
+`;
+export const Close = styled(Icon)`
+   transform : rotate(45deg);
+   align-self :flex-end;
+`;
+
+export const PaletteContainer = styled(Palette)`
+    padding-top : 10px;
+`;
+export const Property = styled.p`
+    padding-top : 20px;
+    padding-bottom : 10px;
+`;
+
+export const ChoiceOpacity = styled(Fields)`
+    display : flex;
+    padding : 0px 30px 20px 15px;
+   &>input{
+    width : 60px;
+   }
+`;
+
+export const ChoiceConfirm = styled(Fields)`
+    display : flex;
+    padding :0px 20px 20px 15px;
+    align-items : flex-end;
+    justify-content : flex-end;
+`;
 
 class Template extends Component {
     constructor (props) {
@@ -15,7 +87,9 @@ class Template extends Component {
             open: true,
             value: {},
             active: true,
-            colors : null
+            colors: null,
+            viewPalette: false,
+            openPalette: false
         };
     }
 
@@ -23,41 +97,25 @@ class Template extends Component {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
         this.setState({
-            value: componentStore.content.Template ? componentStore.content.Template.value : {},
-            active: componentStore.content.Template ? componentStore.content.Template.active : true
+            value: componentStore.settings.Template ? componentStore.settings.Template.value : {},
+            active: componentStore.settings.Template ? componentStore.settings.Template.active : true,
+            colors: this.props.colors ? this.props.colors : null
         });
-
-        var styleGuideID = this.props.currentExtension.extension.entry.fields['styleGuide'].getValue().sys.id;
-        this.getColors(this.props.currentExtension.extension, styleGuideID);
-
-
-        console.log('language on title', this.props.currentLanguage);
     };
 
+    isUpdated = () => {
+        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
-
-
-    getElementById = (extension, id) => {
-        return extension.space.getEntries({
-            'sys.id': id
-        }).then(result => result.items[0]
-        );
-    };
-
-    getColors = async (extension, id) => {
-        const styleguide =  await this.getElementById(extension, id);
-        console.log('STYLE GUIDE', styleguide);
-        const colors = _.values(styleguide.fields.colorChart)[0];
-        console.log('STYLE COLORS', colors);
-        this.setState({ colors:colors });
-
+        if (componentStore.settings.Template && componentStore.settings.Template.value === this.state.value) {
+            return false;
+        }
+        return true;
     }
 
     render () {
-        const { dispatch, currentExtension, dom, currentLanguage, indexComponent, indexSection, name } = this.props;
-        const maxLength = 140;
+        const { dispatch, dom, colors, indexComponent, indexSection, name } = this.props;
 
-
+        if (!colors) return null;
         return (
             <div>
                 <Banner>
@@ -66,7 +124,7 @@ class Template extends Component {
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
                                 this.setState({ active: !this.state.active }, () => {
-                                    dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                                    dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                                 });
                             }}/>
                         <p>{name}</p>
@@ -76,10 +134,60 @@ class Template extends Component {
                             this.setState({ open: !this.state.open });
                         }}><SvgArrow/></Icon>
                 </Banner>
-                <Fields className={this.state.open ? 'open' : ''}>
+                <FieldsTemplate className={this.state.open ? 'open' : ''}>
+                    <ChoiceColor>
+                        <div>
+                            <Property>background-color</Property>
+                            <SelectedColor
+                                onClick={() => {
+                                    this.setState({ viewPalette: !this.state.viewPalette });
+                                }}
+                                style={{
+                                    background: this.state.value.hex ? this.state.value.hex : '#000000'
+                                }}/>
+                        </div>
+                        <div className={this.state.viewPalette ? '' : 'hidden'}>
+                            <div>
+                                <Property>color chart</Property>
+                                <Palettes colors={colors.basic} parent={this}/>
+                                <Palettes colors={colors.custom} parent={this}/>
+                            </div>
+                            <div>
+                                <Close onClick={() => {
+                                    this.setState({ viewPalette: false });
+                                }}><SvgAdd/></Close>
+                            </div>
 
-                    <span>{name}</span>
-                </Fields>
+                        </div>
+                    </ChoiceColor>
+                    <ChoiceOpacity className={this.state.viewPalette ? 'hidden' : 'q'}>
+                        <Property>opacity </Property>
+                        <input type={'number'} max={100} min={0}
+                            value={ this.state.value.opacity ? this.state.value.opacity * 100 : 100 }
+                            onChange={e => {
+                                this.setState({
+                                    value: {
+                                        ...this.state.value,
+                                        opacity: e.target.value / 100
+                                    }
+                                }, () => {
+                                    console.log('STATE', this.state);
+                                });
+                            }}/>
+                        <span>%</span>
+                    </ChoiceOpacity>
+                    <ChoiceConfirm className={this.state.viewPalette ? 'hidden' : ''}>
+                        <ButtonGreen
+                            disabled={!this.isUpdated()}
+                            className={this.isUpdated() ? 'active' : ''}
+                            onClick={() => {
+                                dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                            }}>
+                            Update
+                        </ButtonGreen>
+                    </ChoiceConfirm>
+
+                </FieldsTemplate>
             </div>
         );
     }
@@ -88,13 +196,11 @@ class Template extends Component {
 Template.propTypes = {
     indexSection: PropTypes.number.isRequired,
     indexComponent: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    language: PropTypes.number
+    name: PropTypes.string.isRequired
 };
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state),
-    currentExtension: getCurrentExtension(state),
-    currentLanguage: getCurrentLanguage(state)
+    colors: getColors(state).value
 });
 
 export default connect(mapStateToProps)(Template);

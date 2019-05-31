@@ -15,7 +15,7 @@ const dom = (state = [], action) => {
                 type: action.section.type,
                 name: action.section.name,
                 model: action.section.model,
-                specs: action.section.specs,
+                settings: action.section.settings,
                 components: action.section.components,
                 active: true
             }
@@ -68,7 +68,7 @@ const dom = (state = [], action) => {
                             name: action.component.name,
                             model: action.component.model,
                             content: {},
-                            specs: {},
+                            settings: {},
                             active: true
                         }
                     ]
@@ -139,6 +139,24 @@ const dom = (state = [], action) => {
                 components: {
                     [action.indexComponent]: {
                         content: {
+                            [action.props]: {
+                                $set: {
+                                    value: action.value,
+                                    active: action.active
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+    case 'UPDATE_SETTINGS_VALUE':
+        return update(state, {
+            [action.indexSection]: {
+                components: {
+                    [action.indexComponent]: {
+                        settings: {
                             [action.props]: {
                                 $set: {
                                     value: action.value,

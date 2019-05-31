@@ -24,9 +24,22 @@ const filterActiveContent = dom => {
         return section;
     });
 };
+const filterActiveSettings = dom => {
+    return dom.map(section => {
+        section.components.map(component => {
+            _.mapKeys(component.settings, (value, key) => {
+                if (!value.active) {
+                    _.unset(component.settings, key);
+                }
+            });
+            return component;
+        });
+        return section;
+    });
+};
 
 const extractActiveValue = dom => {
-    return filterActiveContent(filterActiveComponents(filterActiveSections(_.cloneDeep(dom))));
+    return filterActiveContent(filterActiveSettings(filterActiveComponents(filterActiveSections(_.cloneDeep(dom)))));
 };
 
 const getLanguageISO = language => language.split('-')[0];

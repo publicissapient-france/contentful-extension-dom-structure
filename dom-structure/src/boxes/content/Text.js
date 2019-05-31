@@ -38,7 +38,6 @@ class Text extends Component {
     componentDidMount = () => {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
-
         this.setState({
             value: componentStore.content.Text && componentStore.content.Text.value ? this.extractFromHTML(componentStore.content.Text.value) : {}, // (this.converter.makeMarkdown(componentStore.content.Text.value)).replace('<!-- -->' , '') : '',
             active: componentStore.content.Text ? componentStore.content.Text.active : true
@@ -46,7 +45,6 @@ class Text extends Component {
 
         console.log('MOUNT');
     };
-
 
     extractFromHTML = value => {
         let result = _.mapValues(value, html => {
@@ -63,21 +61,10 @@ class Text extends Component {
     isUpdated = () => {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
-        if(componentStore.content.Text && componentStore.content.Text.value[this.props.currentLanguage.language] === this.converter.makeHtml(this.state.value[this.props.currentLanguage.language])){
-            return false
+        if (componentStore.content.Text && componentStore.content.Text.value[this.props.currentLanguage.language] === this.converter.makeHtml(this.state.value[this.props.currentLanguage.language])) {
+            return false;
         }
         return true;
-    }
-
-    event = () => {
-        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
-
-        console.log('arg 1', componentStore.content.Text.value[this.props.currentLanguage.language]);
-        console.log('arg 1 TYPE', typeof componentStore.content.Text.value[this.props.currentLanguage.language]);
-        console.log('arg 2', this.converter.makeHtml(this.state.value[this.props.currentLanguage.language]));
-        console.log('arg 2 TYPE', typeof this.state.value[this.props.currentLanguage.language]);
-        console.log('BLUR');
-
     }
 
     handleValueChange = value => {
@@ -89,7 +76,7 @@ class Text extends Component {
                 [indexLanguage]: value
             }
         }, () => {
-            //console.log('state afetr upedate', this.state);
+            // console.log('state afetr upedate', this.state);
         });
     };
 
@@ -100,8 +87,6 @@ class Text extends Component {
     render () {
         const { dispatch, dom, currentLanguage, indexComponent, indexSection, name } = this.props;
         const indexLanguage = currentLanguage.language;
-        const componentStore = dom.sections[indexSection].components[indexComponent];
-
         return (
             <div>
                 <Banner>
@@ -136,7 +121,6 @@ class Text extends Component {
                         disabled={!this.isUpdated()}
                         className={this.isUpdated() ? 'active' : ''}
                         onClick={() => {
-                            this.event();
                             dispatch(updateContentValue(name, this.convertToHTML(this.state.value), this.state.active, indexComponent, indexSection));
                         }}>
                         Update

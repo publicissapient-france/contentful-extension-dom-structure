@@ -1,12 +1,12 @@
 const sections = [
     {
         name: 'FullLayout',
-        specs: ['backgroundColor'],
+        settings: ['backgroundColor'],
         content: []
     },
     {
         name: 'BasicLayout',
-        specs: ['backgroundColor'],
+        settings: ['backgroundColor'],
         content: ['title', 'content']
     }
 ];

@@ -18,7 +18,7 @@ class AddSection extends Component {
         this.state = {
             section: {
                 type: 'sections',
-                specs: [],
+                settings: [],
                 components: []
             }
         };
@@ -45,7 +45,7 @@ class AddSection extends Component {
         this.setState({
             section: {
                 type: 'sections',
-                specs: [],
+                settings: [],
                 components: []
             }
         });

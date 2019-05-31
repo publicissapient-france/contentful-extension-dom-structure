@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Icon } from './styledComponents';
-import { extensionTheme } from './theme';
+import { extensionTheme, contentfulTheme } from './theme';
 
 export const Banner = styled.div`
   display : flex;
@@ -54,10 +54,17 @@ export const Fields = styled.div`
     padding-left: 10px;
   }
   
+  label {
+    font-size : 12px;
+    font-weight : 300;
+    color :  ${ extensionTheme.grey80 };
+  }
+  
   span {
     font-size : 11px;
     color :  ${ extensionTheme.grey80 };
   }
+  
   
   &.open{
     display: flex;
@@ -113,4 +120,207 @@ export const BoxesContainer = styled.div`
      
     
   
+`;
+
+export const BoxColor = styled.div`
+    width : 20px;
+    height: 20px;
+    background : white;
+    border: 2px solid ${ extensionTheme.grey30 };
+    position : relative;
+    cursor : pointer;
+    align-self:center;
+
+    &.null{
+        overflow : hidden;
+        background : white;
+        &:before {
+            content: '';
+            position: absolute;
+            left: -22%;
+            right: 0;
+            top: 48%;
+            bottom: 0px;
+            background : red;
+            width : 150%;
+            height : 2px;
+            transform : rotate(-45deg);
+        }
+    }
+    
+    &.undefined{
+    overflow : hidden;
+        background : white !important;
+        &:before {
+            content: '';
+            position: absolute;
+            left: -22%;
+            right: 0;
+            top: 48%;
+            bottom: 0px;
+            background : ${ extensionTheme.lightGrey };;
+            width : 150%;
+            height : 2px;
+            transform : rotate(-45deg);
+        }
+        &:after {
+            content: '';
+            position: absolute;
+            left: -22%;
+            right: 0;
+            top: 48%;
+            bottom: 0px;
+            background : ${ extensionTheme.lightGrey };;
+            width : 150%;
+            height : 2px;
+            transform : rotate(45deg);
+        }
+    }
+`;
+
+export const NameColor = styled.p`
+    font-weight : 400;
+    font-size : 12px;
+    line-height : 20px;
+    color : ${ extensionTheme.black };
+    font-family :${ contentfulTheme.basicFont };
+
+`;
+export const HexColor = styled.p`
+    font-weight : 200;
+    font-size : 12px;
+    line-height : 12x;
+    color : ${ contentfulTheme.grey };
+    font-family :${ contentfulTheme.basicFont };
+
+`;
+export const BlockColor = styled.div`
+    width : auto;
+    height : fit-content;
+    border-width : 2px 1px;
+    border-style: solid;
+    border-color:  transparent;
+    cursor : pointer;
+    
+    &.selected{
+      border-color:  black;
+      
+      & ${ BoxColor }{
+        border-color : white;
+      }
+    }
+    
+`;
+
+export const IconAdd = styled.div`
+    width : 28px;
+    height: 28px;
+    background :  ${ extensionTheme.lightGrey };
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor : pointer;
+    position: relative;
+    
+    & svg.add{
+        cursor : pointer;
+        margin-right : 2px;
+        
+        & path.b{
+            fill : white};
+        }
+        & rect, & path.c {
+            fill : none;
+        }
+        & path {
+           stroke:gray;
+           stroke-miterlimit:10;
+        }
+    }
+  
+    &.selected:before {
+       display: block;
+       content: '';
+       width : 100%;
+       height: 100%;
+       border-width : 2px 1px;
+       border-style: solid;
+       border-color: black;
+       position : absolute
+       box-sizing : border-box;
+    }
+`;
+
+export const ColorList = styled.div`
+    width : auto;
+    display : flex;  
+    flex-wrap : wrap;  
+`;
+export const Palette = styled.div`
+    width : fit-content;
+    height : auto;
+    display : flex;
+    
+    & ${ BlockColor }{
+        & ${ NameColor }, & ${ HexColor }{
+            display : none;
+        }
+    }
+    
+    &.open{
+        & ${ IconAdd }{
+            width : 80px;
+            height : 80px;
+            margin : 0 12px;
+        }
+       
+      & ${ BlockColor }{
+        border-width : 0;
+        margin : 0 12px;
+        border-style :  solid;
+        border-color : transparent;
+        margin-bottom : 10px;
+        
+        &.selected{          
+          & ${ BoxColor }{
+            border-color :  black;
+            
+            &:not(.null):before {
+                display: block;
+                content: '';
+                width : 100%;
+                height: 100%;
+                border: 2px solid white;
+                position : absolute
+                
+                box-sizing : border-box;
+            }
+          }
+        }
+        
+        & ${ BoxColor }{
+            width : 76px;
+            height : 76px;
+        }
+        & ${ NameColor }, & ${ HexColor }{
+            display : block;
+        }
+        }
+     }
+    
+  
+`;
+export const IconExtend = styled.div`
+  
+    & svg.extend{
+        cursor : pointer;
+        margin-right : 2px;
+        
+        & path{
+            fill : ${ contentfulTheme.grey };
+        }
+        & rect {
+            fill : none;
+        }
+    }
 `;

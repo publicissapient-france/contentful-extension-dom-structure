@@ -26,7 +26,7 @@ class AddComponent extends Component {
         this.state = {
             component: {
                 type: 'components',
-                specs: [],
+                settings: [],
             }
         };
     }
@@ -54,7 +54,7 @@ class AddComponent extends Component {
                 type: 'component',
                 name: null,
                 model: null,
-                specs: [],
+                settings: [],
             }
         });
     }
