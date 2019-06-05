@@ -26,6 +26,7 @@ export const SelectedColor = styled(BoxColor)`
 
 export const ChoiceColor = styled.div`
    display : flex;
+   width : 100%;
    
    &>div{
     padding-bottom : 20px;
@@ -70,6 +71,9 @@ export const ChoiceOpacity = styled(Fields)`
    &>input{
     width : 60px;
    }
+`;
+export const ColorForm = styled.div`
+    
 `;
 
 export const ChoiceConfirm = styled(Fields)`
@@ -143,14 +147,13 @@ class Template extends Component {
                                     this.setState({ viewPalette: !this.state.viewPalette });
                                 }}
                                 style={{
-                                    background: this.state.value.hex ? this.state.value.hex : '#000000'
+                                    background: this.state.value.hex ? this.state.value.hex : '#000'
                                 }}/>
                         </div>
                         <div className={this.state.viewPalette ? '' : 'hidden'}>
                             <div>
                                 <Property>color chart</Property>
-                                <Palettes colors={colors.basic} parent={this}/>
-                                <Palettes colors={colors.custom} parent={this}/>
+                                <Palettes colors={colors} parent={this} custom={false} currentColor={this.state.value.hex}/>
                             </div>
                             <div>
                                 <Close onClick={() => {
@@ -176,6 +179,9 @@ class Template extends Component {
                             }}/>
                         <span>%</span>
                     </ChoiceOpacity>
+                    <ColorForm>
+
+                    </ColorForm>
                     <ChoiceConfirm className={this.state.viewPalette ? 'hidden' : ''}>
                         <ButtonGreen
                             disabled={!this.isUpdated()}

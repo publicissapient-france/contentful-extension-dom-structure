@@ -1,3 +1,11 @@
 const defaultConfig = [];
 
-export { defaultConfig };
+const baseColor = {
+    name: '',
+    hex: '#',
+    rgb: '(...)',
+    shade: '',
+    slug: ''
+};
+
+export { defaultConfig,baseColor};

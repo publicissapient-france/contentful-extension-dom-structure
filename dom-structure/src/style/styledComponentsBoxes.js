@@ -254,7 +254,7 @@ export const IconAdd = styled.div`
 export const ColorList = styled.div`
     width : auto;
     display : flex;  
-    flex-wrap : wrap;  
+    flex-wrap:wrap;
 `;
 export const Palette = styled.div`
     width : fit-content;
@@ -272,6 +272,8 @@ export const Palette = styled.div`
             width : 80px;
             height : 80px;
             margin : 0 12px;
+            border: 1px solid ${ extensionTheme.grey20}
+
         }
        
       & ${ BlockColor }{
@@ -323,4 +325,92 @@ export const IconExtend = styled.div`
             fill : none;
         }
     }
+`;
+
+
+export const Specification = styled.div`
+    height : auto;
+    display : flex;
+    flex-wrap : wrap;
+    justify-content : space-between;
+    width : 100%;
+    margin-top : 20px;
+    align-items : flex-start;
+    
+    & label, p{
+        font-weight : 300;
+        font-size : 14px;
+        color : ${ contentfulTheme.grey };
+        font-family :${ contentfulTheme.basicFont };
+    }
+    & label{
+        line-height : 30px;
+    }
+    & p{
+        line-height : 16.8px;
+        margin-top : 10px;
+    }
+    
+    & div>input {
+        width : 100px;
+    }
+    
+    
+   /* & button{
+        background :  ${ extensionTheme.extraLightGrey };
+        color : ${ contentfulTheme.grey };
+        font-family:${ contentfulTheme.basicFont };
+        font-size : 14px;
+        cursor : pointer;
+        height : fit-content;
+        border : 1px solid  ${ contentfulTheme.lightGrey };
+        border-radius : 4px;
+        padding : 10px;
+        line-height : 11px;
+        font-weight : 300;
+        height : 33px;
+    }*/
+    
+   & ${ BoxColor }{
+       width : 56px;
+       height : 56px;
+       margin-right : 30px;
+    }
+`;
+
+export const ChoiceColor = styled.div`
+  display : flex;
+  flex-direction : column;
+  margin-right : 30px;
+`;
+export const ChoiceName = styled.div`
+  display : flex;
+  flex-direction : column;
+  margin-right : 30px;
+  
+  & p{
+    & span{
+        display : none;
+    }
+  
+    &.invalid{
+        color : ${ extensionTheme.red };
+        
+         & span{
+            display : block;
+        }
+    }
+  }
+`;
+
+export const ChoiceShade = styled.div`
+  display : flex;
+  flex-direction : column;
+  margin-right : 30px;
+`;
+
+export const Buttons = styled.div`
+  align-self : flex-start;
+  margin-top:30px;
+  
 `;
