@@ -9,16 +9,11 @@ import {
 
 
 class ColorView extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render () {
-        const { color } = this.props;
-
+        const { display, color } = this.props;
         if(!color) return null;
-        console.log('current COLOR', color);
-        return (<section>
+
+        return (<section className={!display ? 'hidden' : ''}>
             <h2>Color specification</h2>
             <Specification>
                 <BoxColor className={ color.name == 'None' ? 'null' : ''}

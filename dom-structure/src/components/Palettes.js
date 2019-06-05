@@ -11,6 +11,7 @@ import {
 import styled from 'styled-components';
 import AddColorForm from "./AddColorForm";
 import ColorView from "./ColorView";
+import ColorAdd from "./ColorAdd";
 
 export const PaletteContainer = styled.div`
     flex-direction : column;
@@ -112,7 +113,8 @@ class Palettes extends Component {
                             </IconAdd>
                         </ColorList>
                     </Palette>
-                <ColorView  color={parent.state.value}/>
+                <ColorView display={this.state.currentAction == 'view'} color={parent.state.value}/>
+                <ColorAdd display={this.state.currentAction == 'add'} />
             </PaletteContainer>
         );
     }

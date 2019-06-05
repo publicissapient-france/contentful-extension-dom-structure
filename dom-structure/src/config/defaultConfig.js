@@ -8,4 +8,4 @@ const baseColor = {
     slug: ''
 };
 
-export { defaultConfig,baseColor};
+export { defaultConfig, baseColor};

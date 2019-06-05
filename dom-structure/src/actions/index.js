@@ -56,6 +56,10 @@ export const getColors = state => ({
     type: 'GET_STYLE',
     value: state.style.colors
 });
+export const getStyleGuideName = state => ({
+    type: 'GET_STYLE',
+    value: state.style.name
+});
 // SECTION
 
 export const addSection = object => ({
