@@ -342,3 +342,14 @@ export const SafeDelete = styled.div`
     margin-right : 8px;
   }
 `;
+export const Error = styled.div`
+  
+  & h2{
+    color : ${ extensionTheme.redM };
+    font-weight : 700;
+    font-size : 16px;
+  } 
+  & p{
+    color : ${ extensionTheme.redM };
+  }
+`;

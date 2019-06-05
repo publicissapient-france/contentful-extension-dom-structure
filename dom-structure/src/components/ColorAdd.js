@@ -36,7 +36,7 @@ class ColorAdd extends Component {
 
         return (<section className={!display ? 'hidden' : ''}>
             <h2>Do you want to add a color on <strong>{ styleGuideName }</strong>'s palette ? </h2>
-            <ButtonGreen className={'active'}  onClick={(e) => this.openStyleGuide(e)}>Open   <strong>{ styleGuideName }</strong> </ButtonGreen>
+            <ButtonGreen className={'active'}  onClick={(e) => this.openStyleGuide(e)}>Open style guide </ButtonGreen>
         </section>);
     }
 };
