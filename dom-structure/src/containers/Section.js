@@ -37,7 +37,9 @@ const Description = styled.div`
   width : fit-content
   
 `;
-const Actions = styled(Description)``;
+const Actions = styled(Description)`
+    padding-right : 3px;
+`;
 
 const Children = styled.div`
   display : flex;
@@ -52,10 +54,14 @@ const AddChild = styled.div`
 const FormSection = styled(Form)`
     padding-left : 10px;
     box-sizing: border-box;
+    
+    &>div.buttons{
+        padding-right : 10px;
+    }
 `;
 
 const Active = styled(CheckBox)`
-    margin-left : 8px;
+    margin-left : 10px;
     &.active{
         background:  ${ extensionTheme.orange }; 
     }

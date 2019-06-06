@@ -2,7 +2,7 @@ export const contentfulTheme = {
     black: '#2a3039',
     grey: '#8091a5',
     lightGrey: '#d3dce0',
-    basicFont: '"Avenir Next W01", Helvetica, sans-serif'
+    basicFont: 'Arial, sans-serif'
 
 };
 
@@ -27,5 +27,6 @@ export const extensionTheme = {
     semiGreyBorder: '#B2B2B2',
     grey: '#8091A5',
     orange: '#FFB100',
-    blueM: '#00C7D8'
+    blueM: '#5b9fef',
+    blueL: '#00C7D8'
 };

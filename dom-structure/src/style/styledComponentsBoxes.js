@@ -5,16 +5,22 @@ import { extensionTheme, contentfulTheme } from './theme';
 export const Banner = styled.div`
   display : flex;
   width : 100%;
-  background : ${ extensionTheme.grey20 }; 
-  padding-left : 5px;
+  background : ${ extensionTheme.grey10 }; 
+  padding-left : 10px;
   box-sizing : border-box;
   font-weight : 300;
-  border-bottom : 1px solid ${ extensionTheme.grey30 }; 
+  border-top : 1px solid ${ extensionTheme.grey20 }; 
+  border-bottom : 1px solid ${ extensionTheme.grey20 }; 
   justify-content: space-between;
+  padding-right : 3px;
   
   & p{
     padding-left : 10px;
-    line-height : 34px;
+    line-height : 15px;
+    align-self:center;
+    font-size:13px;
+    font-weight : 400;
+    opacity:0.7;
   }
   
   & ${ Icon }{
@@ -44,14 +50,13 @@ export const Fields = styled.div`
   display : flex;
   flex-direction : column;
   width : 100%;
-  padding :20px 30px 20px 15px;
+  padding :20px 15px 20px 15px;
   box-sizing : border-box;
   display: none;
   
   input{
     border : 1px solid  ${ extensionTheme.grey80 };
     width : 100%;
-    padding-left: 10px;
   }
   
   label {
@@ -62,7 +67,7 @@ export const Fields = styled.div`
   
   span {
     font-size : 11px;
-    color :  ${ extensionTheme.grey80 };
+    color :  ${ extensionTheme.grey50 };
   }
   
   

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from '../../style/styledComponents';
 import { Banner, Fields, ActiveContent } from '../../style/styledComponentsBoxes';
-import SvgArrow from '../../components/SvgArrow';
+import SvgToggle from '../../components/SvgToggle';
 import { connect } from 'react-redux';
 import { getCurrentDOM, getCurrentLanguage, updateContentValue } from '../../actions';
 
@@ -47,7 +47,7 @@ class Tagline extends Component {
                     <Icon className={this.state.open ? '' : 'rotate'} onClick={() => {
                         this.setState({ open: !this.state.open });
                     }}>
-                        <SvgArrow/>
+                        <SvgToggle/>
                     </Icon>
                 </Banner>
                 <Fields className={this.state.open ? 'open' : ''}>

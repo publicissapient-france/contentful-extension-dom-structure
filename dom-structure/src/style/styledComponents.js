@@ -65,11 +65,23 @@ export const MainContainer = styled.div`
         border-image-slice : 1.1; 
         height : 30px;
         background : transparent;
+        
+        &[type='text']{
+            border-width : 0 0 1px 0;
+            border-style : solid;
+            border-color : transparent;
+            border-image-width : 0 0 1px 0;
+            border-image-source :url("https://static.contentful.com/app/svg/dotted-border.svg");
+            border-image-repeat : round;
+            border-image-slice : 1.1; 
+        
+        }
     }
     
     label{
-        font-size : 13px;
+        font-size : 12px;
         line-height : 24px;
+        font-weight : 200;
         color : ${ contentfulTheme.grey };
         font-family :${ contentfulTheme.basicFont };
 
@@ -137,7 +149,7 @@ export const Container = styled.div`
   border-left : 5px solid ${ extensionTheme.orange };
   background : ${ extensionTheme.grey10 };
   margin-bottom : 10px;
-  padding-right :8px;
+  padding-right :10px;
   width : 100%;
   
   box-sizing : border-box;
@@ -146,8 +158,9 @@ export const Container = styled.div`
   h3, h4{
     font-size : 13px;
     width : fit-content;
-    padding : 0 10px;
-    margin : 0;line-height : 40px;
+    padding : 0 0 0 10px;
+    margin : 0;
+    line-height : 40px;
 
   }
   h3{
@@ -207,6 +220,7 @@ export const ButtonGreen = styled.button`
    height : 33px;
    transition : background .2s ease, background-image .2s ease,opacity .2s ease-in-out,border-color .2s ease;
    width : fit-content;
+   align-self : flex-end;
    
    &.active{
     background : ${ contentfulTheme.greenM };
@@ -275,6 +289,8 @@ export const Settings = styled.div`
   flex-direction : column;
   width : 100%;
   height : fit-content;
+  
+  
  
 `;
 

@@ -62,7 +62,7 @@ export const Close = styled(Icon)`
 export const PaletteContainer = styled(Palette)`
     padding-top : 10px;
 `;
-export const Property = styled.p`
+export const Property = styled.label`
     padding-top : 20px;
     padding-bottom : 10px;
 `;

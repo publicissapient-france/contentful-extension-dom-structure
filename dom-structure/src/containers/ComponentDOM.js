@@ -40,14 +40,12 @@ const ContainerComponent = styled(Container)`
   width : 100%;
   padding-right :0px;
   margin-top :0px;
-  margin-left : 8px;
+  margin-left : 10px;
   background : ${ extensionTheme.white };
   border-radius : 0px 20px 20px 0px;
   overflow : hidden;
   
-  & div.buttons{
-    padding-right : 10px;
-  }
+ 
 `;
 
 const TopBar = styled.div`
@@ -59,10 +57,12 @@ const TopBar = styled.div`
 const Description = styled.div`
   display : flex;
   width : fit-content
+  padding-left:10px;
 `;
 const Actions = styled.div`
   display : flex;
-  width : fit-content
+  width : fit-content;
+  padding-right: 3px;
 `;
 const Content = styled.div`
   display : flex;
@@ -74,7 +74,7 @@ const Languages = styled.div`
   display : flex;
   height : auto;
   align-items : center;
-  width : 60px;
+  width : fit-content;
   justify-content : space-between;
 `;
 
@@ -90,6 +90,7 @@ const ToogleLanguage = styled.div`
   cursor : pointer;
   background : ${ extensionTheme.blueM }; 
   transition: background 0.6s ease, color 0.6s ease;
+  margin 0 8px;
 
   
   
@@ -112,9 +113,12 @@ const Banner = styled.div`
   width : 100%;
   background : ${ extensionTheme.blueM }; 
   color :  ${ extensionTheme.white }; 
+  padding-right : 3px;
   
   & p{
     padding-left : 10px;
+    text-transform : uppercase;
+    font-weight : 300;
   }
   
   & ${ Icon }{
@@ -162,7 +166,6 @@ const FormComponent = styled(Form)`
 `;
 
 export const Active = styled(CheckBox)`
-    margin-left : 5px;
     &.active{
         background:  ${ extensionTheme.blueM }; 
     }
@@ -376,7 +379,7 @@ class ComponentDOM extends Component {
                 <Settings className={!this.state.openSettings ? 'hidden' : ''}>
 
                     <Banner className={!this.state.openBoxesSettings ? 'closed' : ''}>
-                        <p>Settings</p>
+                        <p>settings</p>
                         <Toggle>
                             <Icon className={!this.state.openBoxesSettings ? '' : 'rotate'}
                                 onClick={() => {
@@ -391,7 +394,7 @@ class ComponentDOM extends Component {
                 </Settings>
                 <Content className={!this.state.openContent ? 'hidden' : ''}>
                     <Banner className={!this.state.openBoxes ? 'closed' : ''}>
-                        <p>Content</p>
+                        <p>content</p>
                         <Toggle>
                             <Languages>
                                 {

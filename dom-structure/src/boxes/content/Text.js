@@ -7,13 +7,18 @@ import PropTypes from 'prop-types';
 import { Icon, ButtonGreen } from '../../style/styledComponents';
 
 import { Banner, Fields, ActiveContent } from '../../style/styledComponentsBoxes';
-import SvgArrow from '../../components/SvgArrow';
+import SvgToggle from '../../components/SvgToggle';
 import { connect } from 'react-redux';
 import { updateContentValue, getCurrentDOM, getCurrentLanguage } from '../../actions';
 import styled from 'styled-components';
 
 const TextArea = styled.div`
   margin-bottom : 10px;
+  
+  & textarea{
+   font-size : 14px;
+  }
+ 
 `;
 
 class Text extends Component {
@@ -103,7 +108,7 @@ class Text extends Component {
                     <Icon className={this.state.open ? '' : 'rotate'}
                         onClick={() => {
                             this.setState({ open: !this.state.open });
-                        }}><SvgArrow/></Icon>
+                        }}><SvgToggle/></Icon>
                 </Banner>
                 <Fields className={this.state.open ? 'open' : ''}>
                     <TextArea className="container">
