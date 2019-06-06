@@ -180,7 +180,7 @@ class ComponentDOM extends Component {
             openBoxes: false,
             semiOpenBoxes: false,
             openSettings: false,
-            openContent: true,
+            openContent: false,
             openContentField: true,
             component: null,
             openSafeDelete: false,
@@ -328,7 +328,7 @@ class ComponentDOM extends Component {
                         </ButtonDelete>
                     </div>
                 </SafeDelete>
-                <Settings className={!this.state.openSettings ? 'hidden' : ''}>
+                <div className={!this.state.openSettings && !this.state.openContent  ? 'hidden' : ''}>
                     <FormComponent onSubmit={e => {
                         e.preventDefault();
                         if (!this.isUpdated()) {
@@ -340,23 +340,24 @@ class ComponentDOM extends Component {
                         <div>
                             <label>Component Name</label>
                             <input ref={node => (inputName = node)} type={'text'}
-                                defaultValue={component.name ? component.name : ''}
-                                onChange={e => {
-                                    this.updateName(e.target.value);
-                                }}/>
+                                   defaultValue={component.name ? component.name : ''}
+                                   onChange={e => {
+                                       this.updateName(e.target.value);
+                                   }}/>
                         </div>
                         <div>
                             <label>Model</label>
                             <select ref={node => (selectModel = node)}
-                                defaultValue={component.model ? component.model : null}
-                                onChange={e => {
-                                    this.updateModel(e.target.value);
-                                }}>
+                                    defaultValue={component.model ? component.model : null}
+                                    onChange={e => {
+                                        this.updateModel(e.target.value);
+                                    }}>
                                 {components.map((model, i) => <option value={model.name} key={i}>{model.name}</option>)}
                             </select>
                         </div>
                         <div className={'buttons'}>
                             <ButtonBasic
+                                className={this.isUpdated() ? '' : 'disable'}
                                 onClick={e => {
                                     e.preventDefault();
                                     this.toggleOpenSettings();
@@ -371,6 +372,9 @@ class ComponentDOM extends Component {
                                 className={this.isUpdated() ? 'active' : ''}>Update</ButtonGreen>
                         </div>
                     </FormComponent>
+                </div>
+                <Settings className={!this.state.openSettings ? 'hidden' : ''}>
+
                     <Banner className={!this.state.openBoxesSettings ? 'closed' : ''}>
                         <p>Settings</p>
                         <Toggle>

@@ -184,6 +184,12 @@ export const ButtonBasic = styled.button`
    &:hover{
     background :  ${ extensionTheme.grey50 };
    }
+   
+   &.disable{
+       background :  ${ extensionTheme.grey20 };
+       color : white;
+       border : 1px solid  ${ extensionTheme.grey10 };
+   }
   
 `;
 
@@ -276,11 +282,9 @@ export const Icon = styled.div`
   width : 40px;
   height : 40px;
   cursor  : pointer;
-  
-  
 
   &.active{
-    & svg g path, & svg  path {
+    & svg g path, & svg  path, & svg rect {
         fill : ${ extensionTheme.greenM };
     }
   }
@@ -292,14 +296,14 @@ export const Icon = styled.div`
   }
   
   &:not(.disable):hover{
-    & svg g path, & svg  path {
+    & svg g path, & svg  path, & svg rect {
         fill : ${ extensionTheme.greenM };
     }
   }
   
    &.trash:hover{
-    & svg g path, & svg  path {
-        fill : ${ extensionTheme.redL };
+    & svg g path, & svg  path, & svg  rect {
+        fill : ${ extensionTheme.redM };
     }
   }
   

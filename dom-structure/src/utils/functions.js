@@ -66,7 +66,4 @@ const extractActiveValue = dom => {
 const getLanguageISO = language => language.split('-')[0];
 const getCountryISO = language => language.split('-')[1];
 
-
-
-
 export { getShadePosition, extractActiveValue, getLanguageISO, getCountryISO, createSlug, hexToRgb, RGBtoString };

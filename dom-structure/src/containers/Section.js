@@ -55,7 +55,7 @@ const FormSection = styled(Form)`
 `;
 
 const Active = styled(CheckBox)`
-    margin-left : 5px;
+    margin-left : 8px;
     &.active{
         background:  ${ extensionTheme.orange }; 
     }
@@ -197,6 +197,7 @@ class Section extends Component {
                         </div>
                         <div className={'buttons'}>
                             <ButtonBasic
+                                className={this.isUpdated() ? '' : 'disable'}
                                 onClick={e => {
                                     e.preventDefault();
                                     this.toggleOpenSettings();

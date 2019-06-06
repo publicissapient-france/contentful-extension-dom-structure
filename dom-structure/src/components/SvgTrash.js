@@ -3,7 +3,6 @@ import React from 'react';
 const SvgTrash = () => {
     return <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
         <g id="trash" transform="translate(-785 -295)">
-            <rect id="Rectangle_77" data-name="Rectangle 77" width="40" height="40" transform="translate(785 295)" fill="none"/>
             <g id="Groupe_67" data-name="Groupe 67" transform="translate(263.416 -268.944)">
                 <rect id="Rectangle_78" data-name="Rectangle 78" width="1" height="8" transform="translate(539.584 580.686)" fill="#c3cfd5"/>
                 <rect id="Rectangle_79" data-name="Rectangle 79" width="1" height="8" transform="translate(542.584 580.686)" fill="#c3cfd5"/>

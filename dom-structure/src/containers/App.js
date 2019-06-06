@@ -92,7 +92,7 @@ class App extends React.Component {
         });
     }
     initStyleGuide = This => {
-        if(!this.props.extension.entry.fields['styleGuide'].getValue()) return
+        if (!this.props.extension.entry.fields['styleGuide'].getValue()) return;
         let styleGuideID = this.props.extension.entry.fields['styleGuide'].getValue().sys.id;
         const locale = This.props.extension.locales.default;
         return This.props.extension.space

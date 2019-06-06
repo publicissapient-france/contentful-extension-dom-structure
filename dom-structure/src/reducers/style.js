@@ -8,12 +8,12 @@ const style = (state = [], action) => {
         const name = _.values(action.style.name)[0];
         return update(state, {
             colors: { $set: colors },
-            name : { $set: name }
+            name: { $set: name }
 
         });
 
     case 'ADD_COLOR_ON_STYLEGUIDE' :
-        console.log('test')
+        console.log('test');
         return action.state;
 
     case 'GET_STYLE' :

@@ -75,15 +75,17 @@ export const CheckBox = styled.button`
     height  : 12px;
     width : 12px;
     color : white;
-    background : transparent;
+    background :  ${ extensionTheme.white }; 
     display:flex;
     align-self : center;
     border-radius : 3px;
+    border-color : ${ extensionTheme.grey40 };
     cursor:pointer;
     padding : 0;
     
     &.active{
         background:  ${ extensionTheme.orange }; 
+        border : none;
     }
 `;
 
@@ -272,7 +274,7 @@ export const Palette = styled.div`
             width : 80px;
             height : 80px;
             margin : 0 12px;
-            border: 1px solid ${ extensionTheme.grey20}
+            border: 1px solid ${ extensionTheme.grey20 }
 
         }
        
@@ -326,7 +328,6 @@ export const IconExtend = styled.div`
         }
     }
 `;
-
 
 export const Specification = styled.div`
     height : auto;

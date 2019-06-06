@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Icon, ButtonGreen, Error} from '../../style/styledComponents';
-import {Banner, Fields, ActiveContent, BoxColor, Palette} from '../../style/styledComponentsBoxes';
+import { Icon, ButtonGreen, Error } from '../../style/styledComponents';
+import { Banner, Fields, ActiveContent, BoxColor, Palette } from '../../style/styledComponentsBoxes';
 import SvgArrow from '../../components/SvgArrow';
 import SvgAdd from '../../components/SvgAdd';
-import {connect} from 'react-redux';
-import {updateSettingsValue, getCurrentDOM, getColors} from '../../actions';
+import { connect } from 'react-redux';
+import { updateSettingsValue, getCurrentDOM, getColors } from '../../actions';
 import Palettes from '../../components/Palettes';
 
 import styled from 'styled-components';
@@ -86,7 +86,7 @@ export const ChoiceConfirm = styled(Fields)`
 `;
 
 class Template extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
 
         this.state = {
@@ -118,29 +118,31 @@ class Template extends Component {
         return true;
     }
 
-    render() {
-        const {dispatch, dom, colors, indexComponent, indexSection, name} = this.props;
+    render () {
+        const { dispatch, dom, colors, indexComponent, indexSection, name } = this.props;
 
-        if (!colors) return (
-            <div>
-                <Banner>
-                    <div>
-                        <p>{name}</p>
-                    </div>
-                    <Icon className={this.state.open ? '' : 'rotate'}
-                          onClick={() => {
-                              this.setState({open: !this.state.open});
-                          }}><SvgArrow/></Icon>
-                </Banner>
-                <FieldsError>
-                    <Error>
-                        <h2>Error</h2>
-                        <p>To use this option, you must have selected a reference style guide in your project.</p>
-                        <p>Please check that a style guide has been selected.</p>
-                    </Error>
-                </FieldsError>
-            </div>
-        )
+        if (!colors) {
+            return (
+                <div>
+                    <Banner>
+                        <div>
+                            <p>{name}</p>
+                        </div>
+                        <Icon className={this.state.open ? '' : 'rotate'}
+                            onClick={() => {
+                                this.setState({ open: !this.state.open });
+                            }}><SvgArrow/></Icon>
+                    </Banner>
+                    <FieldsError>
+                        <Error>
+                            <h2>Error</h2>
+                            <p>To use this option, you must have selected a reference style guide in your project.</p>
+                            <p>Please check that a style guide has been selected.</p>
+                        </Error>
+                    </FieldsError>
+                </div>
+            );
+        }
         return (
             <div>
                 <Banner>
@@ -148,16 +150,16 @@ class Template extends Component {
                         <ActiveContent
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
-                                this.setState({active: !this.state.active}, () => {
+                                this.setState({ active: !this.state.active }, () => {
                                     dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                                 });
                             }}/>
                         <p>{name}</p>
                     </div>
                     <Icon className={this.state.open ? '' : 'rotate'}
-                          onClick={() => {
-                              this.setState({open: !this.state.open});
-                          }}><SvgArrow/></Icon>
+                        onClick={() => {
+                            this.setState({ open: !this.state.open });
+                        }}><SvgArrow/></Icon>
                 </Banner>
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
                     <ChoiceColor>
@@ -165,7 +167,7 @@ class Template extends Component {
                             <Property>background-color</Property>
                             <SelectedColor
                                 onClick={() => {
-                                    this.setState({viewPalette: !this.state.viewPalette});
+                                    this.setState({ viewPalette: !this.state.viewPalette });
                                 }}
                                 style={{
                                     background: this.state.value.hex ? this.state.value.hex : '#000'
@@ -175,11 +177,11 @@ class Template extends Component {
                             <div>
                                 <Property>color chart</Property>
                                 <Palettes colors={colors} parent={this} custom={false}
-                                          currentColor={this.state.value.hex}/>
+                                    currentColor={this.state.value.hex}/>
                             </div>
                             <div>
                                 <Close onClick={() => {
-                                    this.setState({viewPalette: false});
+                                    this.setState({ viewPalette: false });
                                 }}><SvgAdd/></Close>
                             </div>
 
@@ -188,17 +190,17 @@ class Template extends Component {
                     <ChoiceOpacity className={this.state.viewPalette ? 'hidden' : 'q'}>
                         <Property>opacity </Property>
                         <input type={'number'} max={100} min={0}
-                               value={this.state.value.opacity ? this.state.value.opacity * 100 : 100}
-                               onChange={e => {
-                                   this.setState({
-                                       value: {
-                                           ...this.state.value,
-                                           opacity: e.target.value / 100
-                                       }
-                                   }, () => {
-                                       console.log('STATE', this.state);
-                                   });
-                               }}/>
+                            value={this.state.value.opacity ? this.state.value.opacity * 100 : 100}
+                            onChange={e => {
+                                this.setState({
+                                    value: {
+                                        ...this.state.value,
+                                        opacity: e.target.value / 100
+                                    }
+                                }, () => {
+                                    console.log('STATE', this.state);
+                                });
+                            }}/>
                         <span>%</span>
                     </ChoiceOpacity>
                     <ColorForm>
@@ -219,8 +221,6 @@ class Template extends Component {
             </div>
         );
     }
-
-
 }
 
 Template.propTypes = {
