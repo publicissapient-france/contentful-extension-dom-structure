@@ -5,6 +5,7 @@ import { extensionTheme } from '../style/theme';
 import SvgContent from '../components/SvgContent';
 import SvgSpecs from '../components/SvgSpecs';
 import SvgRange from '../components/SvgRange';
+import SvgCheck from '../components/SvgCheck';
 import SvgTrash from '../components/SvgTrash';
 import SvgArrowDouble from '../components/SvgArrowDouble';
 import Boxes from './Boxes';
@@ -134,9 +135,24 @@ const FormComponent = styled(Form)`
 `;
 
 export const Active = styled(CheckBox)`
+    & svg{
+        width : 12px;
+        height : 12px;
+        margin : auto;
+        display:none;
+    }
+
     &.active{
         background:  ${ extensionTheme.blueM }; 
+        
+        & svg{
+            width : 12px;
+            height : 12px;
+            margin : auto;
+            display:block;
+        }
     }
+    
 `;
 
 const Toggle = styled.div`
@@ -263,7 +279,7 @@ class ComponentDOM extends Component {
         const { dispatch, extensionInfo, currentLanguage, component, index, indexParent, lengthParent } = this.props;
         let inputName, selectModel;
 
-        if (!this.state.component) return null;
+        if (!this.state.component || !extensionInfo.extension.locales) return null;
         return (
             <ContainerComponent>
                 <TopBar>
@@ -272,7 +288,9 @@ class ComponentDOM extends Component {
                             className={this.state.component.active ? 'active' : ''}
                             onClick={e => {
                                 this.toggleActive();
-                            }}/>
+                            }}>
+                            <SvgCheck/>
+                        </Active>
                         <h3>{component.name} </h3>
                         <h4>{component.model} </h4>
                     </Description>

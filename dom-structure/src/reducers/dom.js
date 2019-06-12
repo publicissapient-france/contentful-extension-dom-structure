@@ -20,6 +20,18 @@ const dom = (state = [], action) => {
                 active: true
             }
         ];
+    case 'ADD_SECTION_TO_TOP':
+        return [
+            {
+                type: action.section.type,
+                name: action.section.name,
+                model: action.section.model,
+                settings: action.section.settings,
+                components: action.section.components,
+                active: true
+            },
+            ...state
+        ];
 
     case 'UPDATE_SECTION':
         return update(state, {

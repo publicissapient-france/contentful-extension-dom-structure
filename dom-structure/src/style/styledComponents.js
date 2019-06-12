@@ -206,6 +206,10 @@ export const ButtonBasic = styled.button`
        color : white;
        border : 1px solid  ${ extensionTheme.grey10 };
    }
+   
+   &:focus {outline:0;}
+   
+   
   
 `;
 
@@ -239,6 +243,9 @@ export const ButtonGreen = styled.button`
         }
     
     }
+    
+    &:focus {outline:0;}
+
   
 `;
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SvgAdd from '../components/SvgAdd';
 import SvgSpecs from '../components/SvgSpecs';
 import SvgRange from '../components/SvgRange';
+import SvgCheck from '../components/SvgCheck';
 import SvgTrash from '../components/SvgTrash';
 import ComponentDOM from './ComponentDOM';
 import {
@@ -62,8 +63,22 @@ const FormSection = styled(Form)`
 
 const Active = styled(CheckBox)`
     margin-left : 10px;
+    & svg{
+        width : 12px;
+        height : 12px;
+        margin : auto;
+        display:none;
+    }
+
     &.active{
         background:  ${ extensionTheme.orange }; 
+        
+        & svg{
+            width : 12px;
+            height : 12px;
+            margin : auto;
+            display:block;
+        }
     }
 `;
 
@@ -140,7 +155,9 @@ class Section extends Component {
                     <Description>
                         <Active
                             className={this.state.section.active ? 'active' : ''}
-                            onClick={e => { this.toggleActive(); }}/>
+                            onClick={e => { this.toggleActive(); }}>
+                            <SvgCheck/>
+                        </Active>
                         <h3>{section.name} </h3>
                         <h4>{section.model} </h4>
                     </Description>

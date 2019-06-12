@@ -137,9 +137,11 @@ class App extends React.Component {
                 <div className={'container'}>
                     <section>
                         <MainContainer className={'container'} >
-                            <ButtonAddSection/>
-                            <AddSection open={this.props.store.getState().visibility.openFormAddSection} />
+                            <ButtonAddSection onTop={true}/>
+                            <AddSection open={this.props.store.getState().visibility.openFormAddSectionToTop} onTop={true}/>
                             { this.renderDomStructure() }
+                            <ButtonAddSection onTop={false}/>
+                            <AddSection open={this.props.store.getState().visibility.openFormAddSection} onTop={false} />
                         </MainContainer>
                     </section>
                 </div>

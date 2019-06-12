@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addSection, toggleFormAddSection } from '../actions';
+import {addSection, addSectionToTop, toggleFormAddSection, toggleFormAddSectionToTop} from '../actions';
 import { Container, ButtonBasic, ButtonGreen, Form } from '../style/styledComponents';
 import update from 'react-addons-update';
 import sections from '../config/sections';
@@ -54,7 +54,7 @@ class AddSection extends Component {
     isComplete = () => (this.state.section.name && this.state.section.model)
 
     render () {
-        const { dispatch, open } = this.props;
+        const { dispatch, open, onTop } = this.props;
         let inputName, selectModel;
 
         return (
@@ -63,10 +63,15 @@ class AddSection extends Component {
                     onSubmit={e => {
                         e.preventDefault();
                         if (!this.isComplete()) { return; }
-                        dispatch(addSection(this.state.section));
+                        if(onTop){
+                            dispatch(addSectionToTop(this.state.section));
+                            dispatch(toggleFormAddSectionToTop());
+                        }else{
+                            dispatch(addSection(this.state.section));
+                            dispatch(toggleFormAddSection());
+                        }
                         inputName.value = '';
                         selectModel.value = '';
-                        dispatch(toggleFormAddSection());
                         this.clearForm();
                     }}
                 >

@@ -67,6 +67,11 @@ export const addSection = object => ({
     section: object
 
 });
+export const addSectionToTop = object => ({
+    type: 'ADD_SECTION_TO_TOP',
+    section: object
+
+});
 
 export const updateSection = (object, number) => ({
     type: 'UPDATE_SECTION',
@@ -140,6 +145,9 @@ export const toggleComponentActive = (bool, number, numberParent) => ({
 
 export const toggleFormAddSection = () => ({
     type: 'TOGGLE_FORM_ADD_SECTION',
+});
+export const toggleFormAddSectionToTop = () => ({
+    type: 'TOGGLE_FORM_ADD_SECTION_TO_TOP',
 });
 export const openFormAddSection = () => ({
     type: 'GET_VISIBILITY_FORM_ADD_SECTION',

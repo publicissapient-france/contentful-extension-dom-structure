@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from '../../style/styledComponents';
-import { Banner, Fields, ActiveContent } from '../../style/styledComponentsBoxes';
+import { Banner, Fields, ActiveCheckBox } from '../../style/styledComponentsBoxes';
 import SvgToggle from '../../components/SvgToggle';
+import SvgCheck from '../../components/SvgCheck';
 import { connect } from 'react-redux';
 import { updateContentValue, getCurrentDOM, getCurrentLanguage } from '../../actions';
 
@@ -38,13 +39,15 @@ class Title extends Component {
             <div>
                 <Banner>
                     <div>
-                        <ActiveContent
+                        <ActiveCheckBox
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
                                 this.setState({ active: !this.state.active }, () => {
                                     dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                                 });
-                            }}/>
+                            }}>
+                            <SvgCheck/>
+                        </ActiveCheckBox>
                         <p>{name}</p>
                     </div>
                     <Icon className={this.state.open ? '' : 'rotate'}

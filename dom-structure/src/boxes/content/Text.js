@@ -4,10 +4,11 @@ import * as Showdown from 'showdown';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { Icon, ButtonGreen } from '../../style/styledComponents';
+import { Icon, ButtonGreen, ButtonBasic } from '../../style/styledComponents';
 
-import { Banner, Fields, ActiveContent } from '../../style/styledComponentsBoxes';
+import { Banner, Fields, ActiveCheckBox, ChoiceConfirm } from '../../style/styledComponentsBoxes';
 import SvgToggle from '../../components/SvgToggle';
+import SvgCheck from '../../components/SvgCheck';
 import { connect } from 'react-redux';
 import { updateContentValue, getCurrentDOM, getCurrentLanguage } from '../../actions';
 import styled from 'styled-components';
@@ -93,17 +94,21 @@ class Text extends Component {
     render () {
         const { dispatch, dom, currentLanguage, indexComponent, indexSection, name  } = this.props;
         const indexLanguage = currentLanguage.language;
+        const componentStore = dom.sections[indexSection].components[indexComponent];
+
         return (
             <div>
                 <Banner>
                     <div>
-                        <ActiveContent
+                        <ActiveCheckBox
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
                                 this.setState({ active: !this.state.active }, () => {
                                     dispatch(updateContentValue(name, this.convertToHTML(this.state.value), this.state.active, indexComponent, indexSection));
                                 });
-                            }}/>
+                            }}>
+                            <SvgCheck/>
+                        </ActiveCheckBox>
                         <p>{name}</p>
                     </div>
                     <Icon className={this.state.open ? '' : 'rotate'}
@@ -123,14 +128,30 @@ class Text extends Component {
                             selectedTab={this.state.tab}
                         />
                     </TextArea>
-                    <ButtonGreen
-                        disabled={!this.isUpdated()}
-                        className={this.isUpdated() ? 'active' : ''}
-                        onClick={() => {
-                            dispatch(updateContentValue(name, this.convertToHTML(this.state.value), this.state.active, indexComponent, indexSection));
-                        }}>
-                        Update
-                    </ButtonGreen>
+                    <ChoiceConfirm>
+                        <ButtonBasic
+                            className={this.isUpdated() ? '' : 'disable'}
+                            onClick={e => {
+                                e.preventDefault();
+                                this.setState({
+                                    value: {
+                                        ...this.state.value,
+                                        [indexLanguage]: this.extractFromHTML(componentStore.content.Text.value)[indexLanguage]
+                                    }
+                                });
+                            }}>
+                            Cancel
+                        </ButtonBasic>
+                        <ButtonGreen
+                            disabled={!this.isUpdated()}
+                            className={this.isUpdated() ? 'active' : ''}
+                            onClick={() => {
+                                dispatch(updateContentValue(name, this.convertToHTML(this.state.value), this.state.active, indexComponent, indexSection));
+                            }}>
+                            Update
+                        </ButtonGreen>
+                    </ChoiceConfirm>
+
 
                 </Fields>
             </div>

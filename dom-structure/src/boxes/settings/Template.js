@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon, ButtonGreen, Error } from '../../style/styledComponents';
-import { Banner, Fields, ActiveContent, BoxColor, Palette, Property } from '../../style/styledComponentsBoxes';
+import { Icon, ButtonGreen,ButtonBasic, Error } from '../../style/styledComponents';
+import { Banner, Fields, ActiveCheckBox, BoxColor, Palette, Property, ChoiceConfirm } from '../../style/styledComponentsBoxes';
 import SvgArrow from '../../components/SvgArrow';
 import SvgCross from '../../components/SvgCross';
+import SvgCheck from '../../components/SvgCheck';
 import { connect } from 'react-redux';
 import { updateSettingsValue, getCurrentDOM, getColors } from '../../actions';
 import Palettes from '../../components/Palettes';
 import { extensionTheme } from '../../style/theme';
-
 import styled from 'styled-components';
 
 export const FieldsTemplate = styled(Fields)`
-    padding :0px 0px 0px 20px;
-    
+    padding : 20px 0px 20px 15px;
+
     &.open{
         flex-direction : row;
         
@@ -30,7 +30,9 @@ export const SelectedColor = styled(BoxColor)`
 
 export const ChoiceColor = styled.div`
    display : flex;
-  // width : 100%;
+   &.full-width{
+     width : 100%;
+   }
    
    &>div{
     padding-bottom : 20px;
@@ -56,6 +58,7 @@ export const ChoiceColor = styled.div`
        &>div{
         display:flex;
         flex-direction:column;
+        justify-content:space-between;
        }
        
        &.hidden{
@@ -69,32 +72,23 @@ export const Close = styled(Icon)`
    width : 40px;
 `;
 
-export const PaletteContainer = styled(Palette)`
-    padding-top : 10px;
-`;
-
 export const ChoiceOpacity = styled(Fields)`
     display : flex;
-    padding : 0px 30px 20px 25px;
+    padding :0px;
 
    &>input{
     width : 60px;
    }
 `;
-export const ColorForm = styled.div`
-    
-`;
 
 export const PaletteView = styled.div`
     width : 100%;
 `;
+export const ChoiceColorConfirm = styled(ChoiceConfirm)`
+    margin-right : 15px;
 
-export const ChoiceConfirm = styled(Fields)`
-    display : flex;
-    padding :0px 20px 20px 15px;
-    align-items : flex-end;
-    justify-content : flex-end;
 `;
+
 
 class Template extends Component {
     constructor (props) {
@@ -132,6 +126,7 @@ class Template extends Component {
 
     render () {
         const { dispatch, dom, colors, indexComponent, indexSection, name } = this.props;
+        const componentStore = dom.sections[indexSection].components[indexComponent];
 
         if (!colors) {
             return (
@@ -159,13 +154,15 @@ class Template extends Component {
             <div>
                 <Banner>
                     <div>
-                        <ActiveContent
+                        <ActiveCheckBox
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
                                 this.setState({ active: !this.state.active }, () => {
                                     dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                                 });
-                            }}/>
+                            }}>
+                            <SvgCheck/>
+                        </ActiveCheckBox>
                         <p>{name}</p>
                     </div>
                     <Icon className={this.state.open ? '' : 'rotate'}
@@ -174,7 +171,7 @@ class Template extends Component {
                         }}><SvgArrow/></Icon>
                 </Banner>
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
-                    <ChoiceColor>
+                    <ChoiceColor className={this.state.viewPalette ? 'full-width' : ''}>
                         <div>
                             <Property>Background-color</Property>
                             <SelectedColor
@@ -195,6 +192,29 @@ class Template extends Component {
                                 <Close onClick={() => {
                                     this.setState({ viewPalette: false });
                                 }}><SvgCross/></Close>
+                                <ChoiceColorConfirm className={!this.state.viewPalette ? 'hidden' : ''}>
+                                    <ButtonBasic
+                                        className={this.isUpdated() ? '' : 'disable'}
+                                        onClick={e => {
+                                            e.preventDefault();
+                                            this.setState({
+                                                value: {
+                                                    ...this.state.value,
+                                                    hex: componentStore.content.Text.value.hex
+                                                }
+                                            });
+                                        }}>
+                                        Cancel
+                                    </ButtonBasic>
+                                    <ButtonGreen
+                                        disabled={!this.isUpdated()}
+                                        className={this.isUpdated() ? 'active' : ''}
+                                        onClick={() => {
+                                            dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                                        }}>
+                                        Update
+                                    </ButtonGreen>
+                                </ChoiceColorConfirm>
                             </div>
 
                         </PaletteView>
@@ -215,10 +235,17 @@ class Template extends Component {
                             }}/>
                         <span>%</span>
                     </ChoiceOpacity>
-                    <ColorForm>
-
-                    </ColorForm>
-                    <ChoiceConfirm className={this.state.viewPalette ? 'hidden' : ''}>
+                    <ChoiceColorConfirm className={this.state.viewPalette ? 'hidden' : ''}>
+                        <ButtonBasic
+                            className={this.isUpdated() ? '' : 'disable'}
+                            onClick={e => {
+                                e.preventDefault();
+                                this.setState({
+                                    value: componentStore.content.Text.value
+                                });
+                            }}>
+                            Cancel
+                        </ButtonBasic>
                         <ButtonGreen
                             disabled={!this.isUpdated()}
                             className={this.isUpdated() ? 'active' : ''}
@@ -227,7 +254,7 @@ class Template extends Component {
                             }}>
                             Update
                         </ButtonGreen>
-                    </ChoiceConfirm>
+                    </ChoiceColorConfirm>
 
                 </FieldsTemplate>
             </div>

@@ -78,8 +78,8 @@ export const Fields = styled.div`
 `;
 
 export const CheckBox = styled.button`
-    height  : 12px;
-    width : 12px;
+    height  : 15px;
+    width : 15px;
     color : white;
     background :  ${ extensionTheme.white }; 
     display:flex;
@@ -93,11 +93,29 @@ export const CheckBox = styled.button`
         background:  ${ extensionTheme.orange }; 
         border : none;
     }
+    
+    &:focus{
+        outline : 0;
+    }
 `;
 
-export const ActiveContent = styled(CheckBox)`
+export const ActiveCheckBox = styled(CheckBox)`
+    & svg{
+        width : 12px;
+        height : 12px;
+        margin : auto;
+        display:none;
+    }
+    
     &.active{
-        background:  ${ extensionTheme.blueM }; 
+        background:  ${ extensionTheme.grey50 }; 
+        
+        & svg{
+            width : 12px;
+            height : 12px;
+            margin : auto;
+            display:block;
+        }
     }
 `;
 export const BoxesContainer = styled.div`
@@ -431,4 +449,14 @@ export const Buttons = styled.div`
 export const Property = styled.label`
     padding-top : 20px;
     padding-bottom : 10px;
+`;
+
+export const ChoiceConfirm = styled.div`
+    display : flex;
+    align-items : flex-end;
+    justify-content : flex-end;
+    
+    & button:not(:first-child){
+        margin-left : 10px;
+    }
 `;

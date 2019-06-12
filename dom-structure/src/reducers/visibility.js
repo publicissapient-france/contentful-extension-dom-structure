@@ -5,12 +5,18 @@ const visibility = (state = [], action) => {
     case 'INIT_VISIBILITY' :
         return {
             openFormAddSection: false,
+            openFormAddSectionToTop: false,
             selectedLanguage: 0
         };
 
     case 'TOGGLE_FORM_ADD_SECTION':
         return update(state, {
             openFormAddSection: { $set: !state.openFormAddSection }
+        });
+
+    case 'TOGGLE_FORM_ADD_SECTION_TO_TOP':
+        return update(state, {
+            openFormAddSectionToTop: { $set: !state.openFormAddSectionToTop }
         });
 
     case 'TOGGLE_SELECTED_LANGUAGE':
