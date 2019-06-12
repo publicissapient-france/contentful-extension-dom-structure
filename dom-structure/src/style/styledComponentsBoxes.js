@@ -68,6 +68,7 @@ export const Fields = styled.div`
   span {
     font-size : 11px;
     color :  ${ extensionTheme.grey50 };
+    margin-top:3px;
   }
   
   
@@ -133,7 +134,7 @@ export const BoxColor = styled.div`
     width : 20px;
     height: 20px;
     background : white;
-    border: 2px solid ${ extensionTheme.grey30 };
+    border: 1px solid ${ extensionTheme.grey30 };
     position : relative;
     cursor : pointer;
     align-self:center;
@@ -204,9 +205,9 @@ export const HexColor = styled.p`
 export const BlockColor = styled.div`
     width : auto;
     height : fit-content;
-    border-width : 2px 1px;
+    border-width : 1px;
     border-style: solid;
-    border-color:  transparent;
+    border-color: ${ extensionTheme.grey30 };
     cursor : pointer;
     
     &.selected{
@@ -220,9 +221,12 @@ export const BlockColor = styled.div`
 `;
 
 export const IconAdd = styled.div`
-    width : 28px;
-    height: 28px;
-    background :  ${ extensionTheme.lightGrey };
+    width : 22px;
+    height: 22px;
+    background :  ${ extensionTheme.grey30 };
+    border-width : 1px;
+    border-style: solid;
+    border-color: ${ extensionTheme.grey30 };
     display: flex;
     align-items: center;
     justify-content: center;
@@ -245,17 +249,23 @@ export const IconAdd = styled.div`
         }
     }
   
-    &.selected:before {
-       display: block;
-       content: '';
-       width : 100%;
-       height: 100%;
-       border-width : 2px 1px;
-       border-style: solid;
-       border-color: black;
-       position : absolute
-       box-sizing : border-box;
+    &.selected{
+        border-color: ${ extensionTheme.black };
+
+        :before {
+           display: block;
+           content: '';
+           width : 100%;
+           height: 100%;
+           border-width : 1px 1px;
+           border-style: solid;
+           border-color: white;
+           position : absolute
+           box-sizing : border-box;
+        }
     }
+    
+    
 `;
 
 export const ColorList = styled.div`
@@ -299,7 +309,7 @@ export const Palette = styled.div`
                 content: '';
                 width : 100%;
                 height: 100%;
-                border: 2px solid white;
+                border: 1px solid white;
                 position : absolute
                 
                 box-sizing : border-box;
@@ -340,7 +350,6 @@ export const Specification = styled.div`
     flex-wrap : wrap;
     justify-content : space-between;
     width : 100%;
-    margin-top : 20px;
     align-items : flex-start;
     
     & label, p{
@@ -354,8 +363,8 @@ export const Specification = styled.div`
     }
     & p{
         line-height : 16.8px;
-        margin-top : 10px;
     }
+    
     
     & div>input {
         width : 100px;
@@ -378,9 +387,10 @@ export const Specification = styled.div`
     }*/
     
    & ${ BoxColor }{
-       width : 56px;
-       height : 56px;
+       width : 60px;
+       height : 60px;
        margin-right : 30px;
+       margin-top:5px;
     }
 `;
 
@@ -388,6 +398,7 @@ export const ChoiceColor = styled.div`
   display : flex;
   flex-direction : column;
   margin-right : 30px;
+  
 `;
 export const ChoiceName = styled.div`
   display : flex;
@@ -419,4 +430,9 @@ export const Buttons = styled.div`
   align-self : flex-start;
   margin-top:30px;
   
+`;
+
+export const Property = styled.label`
+    padding-top : 20px;
+    padding-bottom : 10px;
 `;

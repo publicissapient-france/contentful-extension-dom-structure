@@ -2,7 +2,7 @@ const config = [
     {
         name: 'TextContent',
         settings: [],
-        content: ['Title']
+        content: ['Title', 'Text']
     },
     {
         name: 'MainTitle',

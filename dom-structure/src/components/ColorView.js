@@ -2,35 +2,40 @@ import React, { Component } from 'react';
 import { createSlug, hexToRgb, RGBtoString } from '../utils/functions';
 
 import {
-    BoxColor, Specification, ChoiceColor, ChoiceName, ChoiceShade
+    BoxColor, Specification, ChoiceColor, ChoiceName, ChoiceShade, Property
 } from '../style/styledComponentsBoxes';
+import styled from 'styled-components';
+
+const Container = styled.div`
+    padding-top : 10px;
+`;
 
 class ColorView extends Component {
     render () {
         const { display, color } = this.props;
         if (!color) return null;
 
-        return (<section className={!display ? 'hidden' : ''}>
-            <h2>Color specification</h2>
+        return (<Container className={!display ? 'hidden' : ''}>
+            <Property>Color specification</Property>
             <Specification>
-                <BoxColor className={ color.name == 'None' ? 'null' : ''}
+                <BoxColor className={ color.name === 'None' ? 'null' : ''}
                     style={{ background: color.hex }}/>
                 <ChoiceColor>
                     <label>Color element</label>
-                    <input disabled type={'text'} value={ color.hex } />
-                    <p> { RGBtoString(hexToRgb(color.hex)) }</p>
+                    <p> { color.hex } </p>
+                    <span> { RGBtoString(hexToRgb(color.hex)) }</span>
                 </ChoiceColor>
                 <ChoiceName>
                     <label>Name</label>
-                    <input disabled type={'text'} value={ color.name }/>
-                    <p> { createSlug(color.name, color.shade) }</p>
+                    <p>{ color.name }</p>
+                    <span> { createSlug(color.name, color.shade) }</span>
                 </ChoiceName>
                 <ChoiceShade className={'select'}>
                     <label>Nuance</label>
-                    <input disabled type={'text'} value={ color.shade }/>
+                    <p> { color.shade }</p>
                 </ChoiceShade>
             </Specification>
-        </section>);
+        </Container>);
     }
 };
 

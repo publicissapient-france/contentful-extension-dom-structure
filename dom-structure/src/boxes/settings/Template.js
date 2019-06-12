@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Icon, ButtonGreen, Error } from '../../style/styledComponents';
-import { Banner, Fields, ActiveContent, BoxColor, Palette } from '../../style/styledComponentsBoxes';
+import { Banner, Fields, ActiveContent, BoxColor, Palette, Property } from '../../style/styledComponentsBoxes';
 import SvgArrow from '../../components/SvgArrow';
-import SvgAdd from '../../components/SvgAdd';
+import SvgCross from '../../components/SvgCross';
 import { connect } from 'react-redux';
 import { updateSettingsValue, getCurrentDOM, getColors } from '../../actions';
 import Palettes from '../../components/Palettes';
+import { extensionTheme } from '../../style/theme';
 
 import styled from 'styled-components';
 
@@ -24,29 +25,38 @@ export const FieldsTemplate = styled(Fields)`
 export const SelectedColor = styled(BoxColor)`
     width : 30px;
     height : 30px;
+    align-self:flex-start;
 `;
 
 export const ChoiceColor = styled.div`
    display : flex;
-   width : 100%;
+  // width : 100%;
    
    &>div{
     padding-bottom : 20px;
+    display:flex;
+    flex-direction:column;
     
    }
    
    &>div:nth-child(1){
        margin-right : 20px;
-       flex-grow : 2;
-       min-width : 120px;
+       width : 100px;
+       min-width : 100px;
    }
    
    &>div:nth-child(2){
-       box-shadow: -10px 0px 22px -10px rgba(0,0,0,0.2);
-       padding-left : 30px;
+       border-left:1px solid  ${ extensionTheme.grey20 };
+       padding-left : 25px;
        display:flex;
-       flex-grow : 8;
+       flex-direction : row;
        justify-content : space-between;
+       width: inherit;
+       
+       &>div{
+        display:flex;
+        flex-direction:column;
+       }
        
        &.hidden{
         display : none;
@@ -55,27 +65,28 @@ export const ChoiceColor = styled.div`
    }
 `;
 export const Close = styled(Icon)`
-   transform : rotate(45deg);
    align-self :flex-end;
+   width : 40px;
 `;
 
 export const PaletteContainer = styled(Palette)`
     padding-top : 10px;
 `;
-export const Property = styled.label`
-    padding-top : 20px;
-    padding-bottom : 10px;
-`;
 
 export const ChoiceOpacity = styled(Fields)`
     display : flex;
-    padding : 0px 30px 20px 15px;
+    padding : 0px 30px 20px 25px;
+
    &>input{
     width : 60px;
    }
 `;
 export const ColorForm = styled.div`
     
+`;
+
+export const PaletteView = styled.div`
+    width : 100%;
 `;
 
 export const ChoiceConfirm = styled(Fields)`
@@ -164,7 +175,7 @@ class Template extends Component {
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
                     <ChoiceColor>
                         <div>
-                            <Property>background-color</Property>
+                            <Property>Background-color</Property>
                             <SelectedColor
                                 onClick={() => {
                                     this.setState({ viewPalette: !this.state.viewPalette });
@@ -173,22 +184,22 @@ class Template extends Component {
                                     background: this.state.value.hex ? this.state.value.hex : '#000'
                                 }}/>
                         </div>
-                        <div className={this.state.viewPalette ? '' : 'hidden'}>
+                        <PaletteView className={this.state.viewPalette ? '' : 'hidden'}>
                             <div>
-                                <Property>color chart</Property>
+                                <Property>Color chart</Property>
                                 <Palettes colors={colors} parent={this} custom={false}
                                     currentColor={this.state.value.hex}/>
                             </div>
                             <div>
                                 <Close onClick={() => {
                                     this.setState({ viewPalette: false });
-                                }}><SvgAdd/></Close>
+                                }}><SvgCross/></Close>
                             </div>
 
-                        </div>
+                        </PaletteView>
                     </ChoiceColor>
                     <ChoiceOpacity className={this.state.viewPalette ? 'hidden' : 'q'}>
-                        <Property>opacity </Property>
+                        <Property>Opacity </Property>
                         <input type={'number'} max={100} min={0}
                             value={this.state.value.opacity ? this.state.value.opacity * 100 : 100}
                             onChange={e => {

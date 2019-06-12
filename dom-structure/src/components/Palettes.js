@@ -29,11 +29,11 @@ class Palettes extends Component {
     }
 
     toggleAction = () => {
-        this.state.currentAction == 'view' ? this.setState({ currentAction: 'add' }) : this.setState({ currentAction: 'view' });
+        this.state.currentAction === 'view' ? this.setState({ currentAction: 'add' }) : this.setState({ currentAction: 'view' });
     }
 
     render () {
-        const { colors, parent, custom, currentColor } = this.props;
+        const { colors, parent, currentColor } = this.props;
 
         let extendSVGbasic = (this.state.openBasic) ? <SvgExtended/> : <SvgNotExtended/>;
         let extendSVGcustom = (this.state.openCustom) ? <SvgExtended/> : <SvgNotExtended/>;
@@ -49,7 +49,7 @@ class Palettes extends Component {
                             (!colors) ? <span>No color available</span>
                                 : colors.basic.map((color, i) =>
                                     <BlockColor key={i}
-                                        className={currentColor === color.hex && this.state.currentAction == 'view' ? 'selected' : ''}
+                                        className={currentColor === color.hex && this.state.currentAction === 'view' ? 'selected' : ''}
                                         onClick={e => {
                                             console.log('addColor : ', this.state.currentAction);
                                             parent.setState({
@@ -83,7 +83,7 @@ class Palettes extends Component {
                             (!colors) ? <span>No color available</span>
                                 : colors.custom.map((color, i) =>
                                     <BlockColor key={i}
-                                        className={currentColor === color.hex && this.state.currentAction == 'view' ? 'selected' : ''}
+                                        className={currentColor === color.hex && this.state.currentAction === 'view' ? 'selected' : ''}
                                         onClick={e => {
                                             console.log('addColor : ', this.state.currentAction);
                                             parent.setState({
@@ -105,13 +105,13 @@ class Palettes extends Component {
                                     </BlockColor>
                                 )
                         }
-                        <IconAdd className={this.state.currentAction == 'add' ? 'selected' : ''} onClick={e => this.toggleAction() }>
+                        <IconAdd className={this.state.currentAction === 'add' ? 'selected' : ''} onClick={e => this.toggleAction() }>
                             <SvgSheet/>
                         </IconAdd>
                     </ColorList>
                 </Palette>
-                <ColorView display={this.state.currentAction == 'view'} color={parent.state.value}/>
-                <ColorAdd display={this.state.currentAction == 'add'} />
+                <ColorView display={this.state.currentAction === 'view'} color={parent.state.value}/>
+                <ColorAdd display={this.state.currentAction === 'add'} />
             </PaletteContainer>
         );
     }

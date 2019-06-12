@@ -50,7 +50,10 @@ export const MainContainer = styled.div`
         background-image : url('https://static.contentful.com/app/svg/dd-arrow-down-9ca5518bcf.svg'), none;
         background-position:center right 0.8em;
         background-repeat : no-repeat, repeat;
-        background-size : 10px, 100%;
+        background-size : 12px, 100%;
+        font-size : 13px;
+
+        
     }
 
     input {
@@ -179,7 +182,7 @@ export const Container = styled.div`
 `;
 
 export const ButtonBasic = styled.button`
-   background :  ${ extensionTheme.grey60 };
+   background :  ${ extensionTheme.grey50 };
    color : white;
    font-family:${ contentfulTheme.basicFont };
    font-size : 14px;
@@ -195,7 +198,7 @@ export const ButtonBasic = styled.button`
 
    
    &:hover{
-    background :  ${ extensionTheme.grey50 };
+    background :  ${ extensionTheme.grey60 };
    }
    
    &.disable{
@@ -242,10 +245,9 @@ export const ButtonGreen = styled.button`
 export const ButtonDelete = styled.button`
   align-self : center;
   cursor : pointer;
-  border : 1px solid  ${ extensionTheme.redM };
   font-size : 14px;
   transition : background .2s ease, background-image .2s ease,opacity .2s ease-in-out,border-color .2s ease;
-  background : ${ extensionTheme.redL } !important;  
+  background : ${ extensionTheme.redM } !important;  
   color : white !important;
   border-radius : 4px;
   padding : 10px;
@@ -254,8 +256,7 @@ export const ButtonDelete = styled.button`
   height : 33px;
    
   &:hover{
-     background : ${ extensionTheme.redM } !important;
-     border : 1px solid ${ extensionTheme.redM };
+     background : ${ extensionTheme.redL } !important;
     }
   &:focus{
     outline : none;
@@ -348,6 +349,7 @@ export const SafeDelete = styled.div`
   justify-content : space-between;
   width : 100%;
   background: ${ extensionTheme.redXS };  
+  color: ${ extensionTheme.redM };  
   padding-left : 8px; 
   padding-top : 15px;
   padding-bottom : 15px;

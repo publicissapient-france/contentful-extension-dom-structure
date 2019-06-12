@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const createSlug = (name, shade) => (shade != '') ? name + '-' + shade : name;
+const createSlug = (name, shade) => (shade !== '') ? name + '-' + shade : name;
 
 const hexToRgb = hex => {
     if (!hex) return;

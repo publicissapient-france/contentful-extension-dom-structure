@@ -84,9 +84,10 @@ const ToogleLanguage = styled.div`
   border-style : solid;
   border-color :  ${ extensionTheme.white }; 
   color :  ${ extensionTheme.white }; 
-  border-radius : 4px;
+  border-radius : 3px;
   padding : 3px;
-  font-size : 12px;
+  font-size : 11px;
+  letter-spacing:1px;
   cursor : pointer;
   background : ${ extensionTheme.blueM }; 
   transition: background 0.6s ease, color 0.6s ease;
@@ -331,7 +332,7 @@ class ComponentDOM extends Component {
                         </ButtonDelete>
                     </div>
                 </SafeDelete>
-                <div className={!this.state.openSettings && !this.state.openContent  ? 'hidden' : ''}>
+                <div className={!this.state.openSettings && !this.state.openContent ? 'hidden' : ''}>
                     <FormComponent onSubmit={e => {
                         e.preventDefault();
                         if (!this.isUpdated()) {
@@ -343,18 +344,18 @@ class ComponentDOM extends Component {
                         <div>
                             <label>Component Name</label>
                             <input ref={node => (inputName = node)} type={'text'}
-                                   defaultValue={component.name ? component.name : ''}
-                                   onChange={e => {
-                                       this.updateName(e.target.value);
-                                   }}/>
+                                defaultValue={component.name ? component.name : ''}
+                                onChange={e => {
+                                    this.updateName(e.target.value);
+                                }}/>
                         </div>
                         <div>
                             <label>Model</label>
                             <select ref={node => (selectModel = node)}
-                                    defaultValue={component.model ? component.model : null}
-                                    onChange={e => {
-                                        this.updateModel(e.target.value);
-                                    }}>
+                                defaultValue={component.model ? component.model : null}
+                                onChange={e => {
+                                    this.updateModel(e.target.value);
+                                }}>
                                 {components.map((model, i) => <option value={model.name} key={i}>{model.name}</option>)}
                             </select>
                         </div>
