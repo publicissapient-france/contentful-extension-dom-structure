@@ -22,7 +22,8 @@ class Tagline extends Component {
 
         this.setState({
             value: componentStore.content.Tagline ? componentStore.content.Tagline.value : {},
-            active: componentStore.content.Tagline ? componentStore.content.Tagline.active : true
+            active: componentStore.content.Tagline ? componentStore.content.Tagline.active : true,
+            open : this.props.open
         });
     }
 

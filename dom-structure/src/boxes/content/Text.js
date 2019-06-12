@@ -45,7 +45,8 @@ class Text extends Component {
 
         this.setState({
             value: componentStore.content.Text && componentStore.content.Text.value ? this.extractFromHTML(componentStore.content.Text.value) : {}, // (this.converter.makeMarkdown(componentStore.content.Text.value)).replace('<!-- -->' , '') : '',
-            active: componentStore.content.Text ? componentStore.content.Text.active : true
+            active: componentStore.content.Text ? componentStore.content.Text.active : true,
+            open : this.props.open
         });
 
         console.log('MOUNT');
@@ -90,7 +91,7 @@ class Text extends Component {
     };
 
     render () {
-        const { dispatch, dom, currentLanguage, indexComponent, indexSection, name } = this.props;
+        const { dispatch, dom, currentLanguage, indexComponent, indexSection, name  } = this.props;
         const indexLanguage = currentLanguage.language;
         return (
             <div>

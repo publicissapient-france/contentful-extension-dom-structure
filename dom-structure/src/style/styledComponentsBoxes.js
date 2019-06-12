@@ -105,20 +105,13 @@ export const BoxesContainer = styled.div`
 
     & div.error{
         padding-left : 8px;
-        padding-bottom : 15px;
+        padsding-bottom : 15px;
         padding-top : 15px;
-        border-top : 1px solid ${ extensionTheme.grey30 }; 
-        border-bottom : 1px solid ${ extensionTheme.grey30 }; 
+        border-top : 1px solid ${ extensionTheme.grey20 }; 
+        border-bottom : 1px solid ${ extensionTheme.grey20 }; 
         
     }
     
-    &.closed{  
-            height : 0 !important;
-            overflow:hidden;
-        &>div {
-            
-        }            
-    }
     
     &.semiOpen{
       
@@ -134,7 +127,7 @@ export const BoxColor = styled.div`
     width : 20px;
     height: 20px;
     background : white;
-    border: 1px solid ${ extensionTheme.grey30 };
+    border: 1px solid ${ extensionTheme.grey20 };
     position : relative;
     cursor : pointer;
     align-self:center;
@@ -207,7 +200,7 @@ export const BlockColor = styled.div`
     height : fit-content;
     border-width : 1px;
     border-style: solid;
-    border-color: ${ extensionTheme.grey30 };
+    border-color: ${ extensionTheme.grey20 };
     cursor : pointer;
     
     &.selected{
@@ -223,10 +216,10 @@ export const BlockColor = styled.div`
 export const IconAdd = styled.div`
     width : 22px;
     height: 22px;
-    background :  ${ extensionTheme.grey30 };
+    background :  ${ extensionTheme.grey20 };
     border-width : 1px;
     border-style: solid;
-    border-color: ${ extensionTheme.grey30 };
+    border-color: ${ extensionTheme.grey20 };
     display: flex;
     align-items: center;
     justify-content: center;
@@ -352,7 +345,7 @@ export const Specification = styled.div`
     width : 100%;
     align-items : flex-start;
     
-    & label, p{
+    & label{
         font-weight : 300;
         font-size : 14px;
         color : ${ contentfulTheme.grey };
@@ -362,7 +355,10 @@ export const Specification = styled.div`
         line-height : 30px;
     }
     & p{
+        font-family :${ contentfulTheme.basicFont };
         line-height : 16.8px;
+        font-weight : 400;
+        font-size : 14px;
     }
     
     

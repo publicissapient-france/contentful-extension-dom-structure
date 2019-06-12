@@ -285,14 +285,12 @@ export const Form = styled.form`
   }
 `;
 
-export const Settings = styled.div`
+export const OptionsBlock = styled.div`
   display : flex;
   flex-direction : column;
   width : 100%;
   height : fit-content;
-  
-  
- 
+
 `;
 
 export const Icon = styled.div`
@@ -301,7 +299,7 @@ export const Icon = styled.div`
   cursor  : pointer;
 
   &.active{
-    & svg g path, & svg  path, & svg rect {
+    & svg g path, & svg path, & svg rect {
         fill : ${ extensionTheme.greenM };
     }
   }
@@ -319,7 +317,7 @@ export const Icon = styled.div`
   }
   
    &.trash:hover{
-    & svg g path, & svg  path, & svg  rect {
+    & svg g path, & svg path, & svg  rect {
         fill : ${ extensionTheme.redM };
     }
   }

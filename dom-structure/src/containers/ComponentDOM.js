@@ -12,7 +12,7 @@ import { getCountryISO } from '../utils/functions';
 
 import {
     Container,
-    Settings,
+    OptionsBlock,
     Form,
     ButtonGreen,
     ButtonBasic,
@@ -64,11 +64,6 @@ const Actions = styled.div`
   width : fit-content;
   padding-right: 3px;
 `;
-const Content = styled.div`
-  display : flex;
-  flex-direction : column;
-  width : 100%;
-`;
 
 const Languages = styled.div`
   display : flex;
@@ -92,13 +87,6 @@ const ToogleLanguage = styled.div`
   background : ${ extensionTheme.blueM }; 
   transition: background 0.6s ease, color 0.6s ease;
   margin 0 8px;
-
-  
-  
-  /*&:hover{
-     background : ${ extensionTheme.white }; 
-     color :  ${ extensionTheme.blueM }; 
-  }*/
   
   &.active{
     color :  ${ extensionTheme.blueM }; 
@@ -138,27 +126,6 @@ const Banner = styled.div`
             fill : ${ extensionTheme.grey10 };   
         }
     }
-    
-    
-    
-  }
- &.closed{
-      background : transparent; 
-      color :  black; 
-      border-top : 1px solid ${ extensionTheme.grey20 };  
-      font-size : 13px; 
-
-       & ${ Icon }{
-           & svg g path, & svg  path, & svg rect {
-               fill : ${ extensionTheme.grey50 };   
-           }
-       }
-       
-       & ${ ToogleLanguage } {
-        display : none;
-       }
-     
-     }
   }
 `;
 
@@ -176,6 +143,25 @@ const Toggle = styled.div`
   display : flex;
 `;
 
+const Content = styled(OptionsBlock)`
+ 
+  & ${Banner} ${Toggle} ${Icon}{
+    &:hover{
+         & svg g path, & svg path, & svg  rect {
+            fill : ${ extensionTheme.white };
+        }
+    }
+  }
+`;
+const Settings = styled(OptionsBlock)`
+  & ${Banner} ${Toggle} ${Icon}{
+    &:hover{
+         & svg g path, & svg path, & svg  rect {
+            fill : ${ extensionTheme.white };
+        }
+    }
+  }
+`;
 class ComponentDOM extends Component {
     constructor (props) {
         super(props);
@@ -379,7 +365,7 @@ class ComponentDOM extends Component {
                 </div>
                 <Settings className={!this.state.openSettings ? 'hidden' : ''}>
 
-                    <Banner className={!this.state.openBoxesSettings ? 'closed' : ''}>
+                    <Banner>
                         <p>settings</p>
                         <Toggle>
                             <Icon className={!this.state.openBoxesSettings ? '' : 'rotate'}
@@ -394,7 +380,7 @@ class ComponentDOM extends Component {
 
                 </Settings>
                 <Content className={!this.state.openContent ? 'hidden' : ''}>
-                    <Banner className={!this.state.openBoxes ? 'closed' : ''}>
+                    <Banner >
                         <p>content</p>
                         <Toggle>
                             <Languages>

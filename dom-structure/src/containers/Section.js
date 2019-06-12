@@ -11,7 +11,7 @@ import {
     ButtonBasic,
     ButtonGreen,
     Form,
-    Settings,
+    OptionsBlock,
     Icon,
     Range,
     ButtonDelete,
@@ -67,6 +67,9 @@ const Active = styled(CheckBox)`
     }
 `;
 
+const Settings = styled(OptionsBlock)`
+  
+`;
 class Section extends Component {
     constructor (props) {
         super(props);

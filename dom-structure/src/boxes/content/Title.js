@@ -22,7 +22,8 @@ class Title extends Component {
 
         this.setState({
             value: componentStore.content.Title ? componentStore.content.Title.value : {},
-            active: componentStore.content.Title ? componentStore.content.Title.active : true
+            active: componentStore.content.Title ? componentStore.content.Title.active : true,
+            open : this.props.open
         });
 
         console.log('language on title', this.props.currentLanguage);

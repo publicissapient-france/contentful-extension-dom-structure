@@ -116,7 +116,8 @@ class Template extends Component {
         this.setState({
             value: componentStore.settings.Template ? componentStore.settings.Template.value : {},
             active: componentStore.settings.Template ? componentStore.settings.Template.active : true,
-            colors: this.props.colors ? this.props.colors : null
+            colors: this.props.colors ? this.props.colors : null,
+            open : this.props.open
         });
     };
 
