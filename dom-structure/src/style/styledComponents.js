@@ -152,7 +152,7 @@ export const Container = styled.div`
   border-left : 5px solid ${ extensionTheme.orange };
   background : ${ extensionTheme.grey10 };
   margin-bottom : 10px;
-  padding-right :10px;
+  padding-right :15px;
   width : 100%;
   
   box-sizing : border-box;
@@ -274,7 +274,7 @@ export const Form = styled.form`
   display : flex;
   width : 100%;
   justify-content: space-between;
-  padding : 10px 0;
+  padding : 15px 0;
   
   button:not(:first-child){
     margin-left : 10px;

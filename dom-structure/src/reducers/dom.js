@@ -17,7 +17,7 @@ const dom = (state = [], action) => {
                 model: action.section.model,
                 settings: action.section.settings,
                 components: action.section.components,
-                active: true
+                active: false
             }
         ];
     case 'ADD_SECTION_TO_TOP':
@@ -28,7 +28,7 @@ const dom = (state = [], action) => {
                 model: action.section.model,
                 settings: action.section.settings,
                 components: action.section.components,
-                active: true
+                active: false
             },
             ...state
         ];
@@ -81,7 +81,7 @@ const dom = (state = [], action) => {
                             model: action.component.model,
                             content: {},
                             settings: {},
-                            active: true
+                            active: false
                         }
                     ]
                 }

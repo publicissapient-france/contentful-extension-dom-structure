@@ -53,16 +53,14 @@ const AddChild = styled.div`
 `;
 
 const FormSection = styled(Form)`
-    padding-left : 10px;
+    padding-left : 15px;
     box-sizing: border-box;
     
-    &>div.buttons{
-        padding-right : 10px;
-    }
+    
 `;
 
 const Active = styled(CheckBox)`
-    margin-left : 10px;
+    margin-left : 15px;
     & svg{
         width : 12px;
         height : 12px;

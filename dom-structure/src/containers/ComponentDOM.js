@@ -8,7 +8,8 @@ import SvgRange from '../components/SvgRange';
 import SvgCheck from '../components/SvgCheck';
 import SvgTrash from '../components/SvgTrash';
 import SvgArrowDouble from '../components/SvgArrowDouble';
-import Boxes from './Boxes';
+import BoxesContent from './BoxesContent';
+import BoxesSettings from './BoxesSettings';
 import { getCountryISO } from '../utils/functions';
 
 import {
@@ -41,7 +42,7 @@ const ContainerComponent = styled(Container)`
   width : 100%;
   padding-right :0px;
   margin-top :0px;
-  margin-left : 10px;
+  margin-left : 15px;
   background : ${ extensionTheme.white };
   border-radius : 0px 20px 20px 0px;
   overflow : hidden;
@@ -131,7 +132,7 @@ const Banner = styled.div`
 `;
 
 const FormComponent = styled(Form)`
-  padding : 10px;
+  padding : 15px;
 `;
 
 export const Active = styled(CheckBox)`
@@ -393,7 +394,7 @@ class ComponentDOM extends Component {
                         </Toggle>
 
                     </Banner>
-                    <Boxes open={this.state.openBoxesSettings} fields={this.getSettingsAvailable()} index={index}
+                    <BoxesSettings open={this.state.openBoxesSettings} fields={this.getSettingsAvailable()} index={index}
                         indexParent={indexParent}/>
 
                 </Settings>
@@ -420,7 +421,7 @@ class ComponentDOM extends Component {
                         </Toggle>
 
                     </Banner>
-                    <Boxes open={this.state.openBoxes} fields={this.getContentAvailable()} index={index}
+                    <BoxesContent open={this.state.openBoxes} fields={this.getContentAvailable()} index={index}
                         indexParent={indexParent}/>
                 </Content>
 

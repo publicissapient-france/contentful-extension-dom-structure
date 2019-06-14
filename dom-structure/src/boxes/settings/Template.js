@@ -74,7 +74,8 @@ export const Close = styled(Icon)`
 
 export const ChoiceOpacity = styled(Fields)`
     display : flex;
-    padding :0px;
+    padding:0px;
+    margin-left : 25px;
 
    &>input{
     width : 60px;
@@ -119,6 +120,20 @@ class Template extends Component {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
         if (componentStore.settings.Template && componentStore.settings.Template.value === this.state.value) {
+            return false;
+        }
+        return true;
+    }
+
+    colorIsUpdated = () => {
+        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
+
+        if (componentStore.settings.Template &&
+            (componentStore.settings.Template.value.hex === this.state.value.hex
+                || componentStore.settings.Template.value.name === this.state.value.name
+                || componentStore.settings.Template.value.shade === this.state.value.shade
+            )
+        ) {
             return false;
         }
         return true;
@@ -194,21 +209,25 @@ class Template extends Component {
                                 }}><SvgCross/></Close>
                                 <ChoiceColorConfirm className={!this.state.viewPalette ? 'hidden' : ''}>
                                     <ButtonBasic
-                                        className={this.isUpdated() ? '' : 'disable'}
+                                        className={this.colorIsUpdated() ? '' : 'disable'}
                                         onClick={e => {
                                             e.preventDefault();
+                                            console.log('value', componentStore.settings.Template.value)
+                                            console.log('state value', this.state.value)
                                             this.setState({
                                                 value: {
                                                     ...this.state.value,
-                                                    hex: componentStore.content.Text.value.hex
+                                                    hex: componentStore.settings.Template.value.hex,
+                                                    name: componentStore.settings.Template.value.name,
+                                                    shade: componentStore.settings.Template.value.shade,
                                                 }
                                             });
                                         }}>
                                         Cancel
                                     </ButtonBasic>
                                     <ButtonGreen
-                                        disabled={!this.isUpdated()}
-                                        className={this.isUpdated() ? 'active' : ''}
+                                        disabled={!this.colorIsUpdated()}
+                                        className={this.colorIsUpdated() ? 'active' : ''}
                                         onClick={() => {
                                             dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                                         }}>
@@ -219,7 +238,7 @@ class Template extends Component {
 
                         </PaletteView>
                     </ChoiceColor>
-                    <ChoiceOpacity className={this.state.viewPalette ? 'hidden' : 'q'}>
+                    <ChoiceOpacity className={this.state.viewPalette ? 'hidden' : ''}>
                         <Property>Opacity </Property>
                         <input type={'number'} max={100} min={0}
                             value={this.state.value.opacity ? this.state.value.opacity * 100 : 100}

@@ -11,7 +11,7 @@ const config = [
     },
     {
         name: 'Leading',
-        settings: ['Template'],
+        settings: ['Template', 'Title'],
         content: ['Title', 'Tagline', 'Text']
     }
 ];
