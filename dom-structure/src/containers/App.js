@@ -52,7 +52,7 @@ class App extends React.Component {
         this.subscribe();
         this.props.extension.window.startAutoResizer();
 
-        await this.initStyleGuide(this);
+        await this.initStyleStore();
     }
 
     componentDidUpdate = () => {}
@@ -87,25 +87,41 @@ class App extends React.Component {
         return this.props.extension.space.getEntries({
             'sys.id': id
         }).then(function (result) {
-            console.log('RESULT', result);
             return result.items[0];
         });
     }
-    initStyleGuide = This => {
+
+    getStyleGuide = () => {
         if (!this.props.extension.entry.fields['styleGuide'].getValue()) return;
         let styleGuideID = this.props.extension.entry.fields['styleGuide'].getValue().sys.id;
-        const locale = This.props.extension.locales.default;
-        return This.props.extension.space
+        const locale = this.props.extension.locales.default;
+        return this.props.extension.space
             .getEntries({
                 'sys.id': styleGuideID
             })
-            .then(result => {
-                console.log('RESULT GETSTYLE', result);
-                const styleGuide = result.items[0].fields;
-                this.props.dispatch(initStyleInformation(styleGuide));
-                return styleGuide;
-            });
+            .then(result =>  { return result.items[0].fields });
+    }
+
+    initStyleStore = async() => {
+        const locale = this.props.extension.locales.default;
+        const styleguide = await this.getStyleGuide(this)
+        const typographies = await this.getTypographies(styleguide.typography[locale]);
+        this.props.dispatch(initStyleInformation(styleguide, typographies));
+
     };
+
+    getTypographies = typographies => {
+        const locale = this.props.extension.locales.default;
+        const fontsID = typographies.map(entry => entry.sys.id);
+        return this.props.extension.space
+            .getEntries({
+                'content_type': 'font',
+                'sys.id[in]': fontsID.join(',')
+            })
+            .then(result => {
+                return result.items.map(entry => entry).filter(font => font.fields.fontFile[locale].sys.id);
+            })
+    }
 
     getAssetsUrlById = id => {
         return this.props.extension.space

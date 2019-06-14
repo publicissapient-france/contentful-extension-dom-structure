@@ -6,15 +6,14 @@ const style = (state = [], action) => {
     case 'INIT_STYLE_INFORMATION' :
         const colors = _.values(action.style.colorChart)[0];
         const name = _.values(action.style.name)[0];
+        const fonts = action.fonts.map( font => font.fields)
+
         return update(state, {
+            name: { $set: name },
             colors: { $set: colors },
-            name: { $set: name }
+            fonts : { $set: fonts }
 
         });
-
-    case 'ADD_COLOR_ON_STYLEGUIDE' :
-        console.log('test');
-        return action.state;
 
     case 'GET_STYLE' :
         return action.state;

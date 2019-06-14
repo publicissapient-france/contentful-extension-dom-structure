@@ -130,8 +130,8 @@ class Template extends Component {
 
         if (componentStore.settings.Template &&
             (componentStore.settings.Template.value.hex === this.state.value.hex
-                || componentStore.settings.Template.value.name === this.state.value.name
-                || componentStore.settings.Template.value.shade === this.state.value.shade
+                && componentStore.settings.Template.value.name === this.state.value.name
+                && componentStore.settings.Template.value.shade === this.state.value.shade
             )
         ) {
             return false;
@@ -260,7 +260,7 @@ class Template extends Component {
                             onClick={e => {
                                 e.preventDefault();
                                 this.setState({
-                                    value: componentStore.content.Text.value
+                                    value: componentStore.settings.Template.value
                                 });
                             }}>
                             Cancel
