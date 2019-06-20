@@ -1,24 +1,38 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Icon, ButtonGreen,ButtonBasic, Error } from '../../style/styledComponents';
-import { Banner, Fields, ActiveCheckBox, BoxColor, Palette, Property, ChoiceConfirm } from '../../style/styledComponentsBoxes';
+import {Icon, ButtonGreen, ButtonBasic, Error} from '../../style/styledComponents';
+import {
+    Banner,
+    Fields,
+    ActiveCheckBox,
+    BoxColor,
+    Palette,
+    Property,
+    ChoiceConfirm
+} from '../../style/styledComponentsBoxes';
 import SvgArrow from '../../components/SvgArrow';
 import SvgCross from '../../components/SvgCross';
 import SvgCheck from '../../components/SvgCheck';
-import { connect } from 'react-redux';
-import { updateSettingsValue, getCurrentDOM, getColors } from '../../actions';
+import {connect} from 'react-redux';
+import {updateSettingsValue, getCurrentDOM, getColors, getCurrentStyle} from '../../actions';
 import Palettes from '../../components/Palettes';
-import { extensionTheme } from '../../style/theme';
+import CategoryText from '../reusable/CategoryText';
+import CategoryColor from '../reusable/CategoryColor';
+import {extensionTheme} from '../../style/theme';
 import styled from 'styled-components';
+import _ from 'lodash';
+import sections from "../../config/sections";
+import { seoTag } from '../../config/defaultConfig'
 
 export const FieldsTemplate = styled(Fields)`
     padding : 20px 0px 20px 15px;
 
-    &.open{
+   /* &.open{
         flex-direction : row;
         
-    }
-`;export const FieldsError = styled(Fields)`
+    }*/
+`;
+export const FieldsError = styled(Fields)`
     display : block;
 `;
 
@@ -43,8 +57,6 @@ export const ChoiceColor = styled.div`
    
    &>div:nth-child(1){
        margin-right : 20px;
-       width : 100px;
-       min-width : 100px;
    }
    
    &>div:nth-child(2){
@@ -72,34 +84,76 @@ export const Close = styled(Icon)`
    width : 40px;
 `;
 
-export const ChoiceOpacity = styled(Fields)`
+export const ChoiceOpacity = styled.div`
     display : flex;
-    padding:0px;
-    margin-left : 25px;
+    flex-direction:column;
 
    &>input{
     width : 60px;
    }
 `;
-export const ChoiceFont = styled(Fields)`
-    display : flex;
-    padding:0px;
-    margin-left : 25px;
-
+export const ChoiceFont = styled.div`
+   display : flex;
    
+   &>div{
+    display : flex;
+    flex-direction : column;
+    padding : 0 10px;
+   }   
+`;
+export const ChoiceSize = styled.div`
+   display : flex;
+   margin-top:20px;
+  
+   &>div{
+    display : flex;
+    flex-direction : column;
+    padding : 0 10px;
+    
+    & input{
+        max-width : 60px;
+    }
+   }
+`;
+export const ChoiceSEO = styled.div`
+   display : flex;
+   
+   &>div{
+    display : flex;
+    flex-direction : column;
+    padding : 0 10px;
+   }
 `;
 
 export const PaletteView = styled.div`
     width : 100%;
 `;
-export const ChoiceColorConfirm = styled(ChoiceConfirm)`
-    margin-right : 15px;
+export const Choices = styled.div`
+    width : 100%;
+    display : flex;
+`;
+export const Category = styled.div`    
+    &.color{
+        flex-grow : 1;
+        width : fit-content;
+        display : flex;
+    }    
+    &.font{
+        flex-grow : 3;
+    }    
+    &.seo{
+        flex-grow : 1;
+    }
+`;
+export const ChoiceItemsConfirm = styled(ChoiceConfirm)`
+    padding-right : 15px;
+    width : 100%;
 
 `;
 
 
 class Title extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -107,9 +161,17 @@ class Title extends Component {
             value: {},
             active: true,
             colors: null,
-            viewPalette: false,
-            openPalette: false
+            openView: false,
         };
+
+        this.updateFontFamily = this.updateFontFamily.bind(this)
+        this.updateFontWeight = this.updateFontWeight.bind(this)
+        this.updateFontSize = this.updateFontSize.bind(this)
+        this.updateLineHeight = this.updateLineHeight.bind(this)
+        this.updateOpacity = this.updateOpacity.bind(this)
+        this.updateColor = this.updateColor.bind(this)
+        this.reinitColor = this.reinitColor.bind(this)
+        this.toggleOpenView = this.toggleOpenView.bind(this)
     }
 
     componentDidMount = () => {
@@ -119,9 +181,102 @@ class Title extends Component {
             value: componentStore.settings.Title ? componentStore.settings.Title.value : {},
             active: componentStore.settings.Title ? componentStore.settings.Title.active : true,
             colors: this.props.colors ? this.props.colors : null,
-            open : this.props.open
+            open: this.props.open
+
         });
+
+
     };
+
+    updateFontSize = (value) => {
+        this.setState({
+            value: {
+                ...this.state.value,
+                font: {
+                    ...this.state.value.font,
+                    size: value
+                }
+            }
+        });
+    }
+    updateLineHeight = (value) => {
+        this.setState({
+            value: {
+                ...this.state.value,
+                font: {
+                    ...this.state.value.font,
+                    lineheight: value
+                }
+            }
+        });
+    }
+    updateFontFamily = (value) => {
+        this.setState({
+            value: {
+                ...this.state.value,
+                font: {
+                    ...this.state.value.font,
+                    family: value
+                }
+            }
+        });
+    }
+    updateFontWeight = (value) => {
+        this.setState({
+            value: {
+                ...this.state.value,
+                font: {
+                    ...this.state.value.font,
+                    weight: value
+                }
+            }
+        });
+    }
+    updateOpacity = (value) => {
+        this.setState({
+            value: {
+                ...this.state.value,
+                color: {
+                    ...this.state.value.color,
+                    opacity: value
+                }
+            }
+        }, () => {
+            console.log('new state: ', this.state)
+        });
+    }
+    updateColor = (hex, name, shade) => {
+        this.setState({
+            value: {
+                ...this.state.value,
+                color: {
+                    ...this.state.value.color,
+                    hex: hex,
+                    name: name,
+                    shade: shade
+                }
+            }
+        }, () => {
+            console.log('new state: ', this.state)
+        });
+    }
+    reinitColor = () => {
+        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
+        this.setState({
+            value: {
+                ...this.state.value,
+                color: {
+                    ...this.state.value.color,
+                    hex: componentStore.settings.Title.value.color.hex,
+                    name: componentStore.settings.Title.value.color.name,
+                    shade: componentStore.settings.Title.value.color.shade,
+                }
+            }
+        });
+    }
+    toggleOpenView = () => {
+        this.setState({ openView: !this.state.openView });
+    }
 
     isUpdated = () => {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
@@ -147,8 +302,8 @@ class Title extends Component {
     }
 
 
-    render () {
-        const { dispatch, dom, colors, indexComponent, indexSection, name } = this.props;
+    render() {
+        const {dispatch, dom, colors, indexComponent, indexSection, name} = this.props;
         const componentStore = dom.sections[indexSection].components[indexComponent];
         if (!colors) {
             return (
@@ -159,7 +314,7 @@ class Title extends Component {
                         </div>
                         <Icon className={this.state.open ? '' : 'rotate'}
                               onClick={() => {
-                                  this.setState({ open: !this.state.open });
+                                  this.setState({open: !this.state.open});
                               }}><SvgArrow/></Icon>
                     </Banner>
                     <FieldsError>
@@ -179,7 +334,7 @@ class Title extends Component {
                         <ActiveCheckBox
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
-                                this.setState({ active: !this.state.active }, () => {
+                                this.setState({active: !this.state.active}, () => {
                                     dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                                 });
                             }}>
@@ -188,88 +343,61 @@ class Title extends Component {
                         <p>{name}</p>
                     </div>
                     <Icon className={this.state.open ? '' : 'rotate'}
-                        onClick={() => {
-                            this.setState({ open: !this.state.open });
-                        }}><SvgArrow/></Icon>
+                          onClick={() => {
+                              this.setState({open: !this.state.open});
+                          }}><SvgArrow/></Icon>
                 </Banner>
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
-                    <ChoiceColor className={this.state.viewPalette ? 'full-width' : ''}>
-                        <div>
-                            <Property>Color</Property>
-                            <SelectedColor
-                                onClick={() => {
-                                    this.setState({ viewPalette: !this.state.viewPalette });
-                                }}
-                                style={{
-                                    background: this.state.value.hex ? this.state.value.hex : '#000'
-                                }}/>
-                        </div>
-                        <PaletteView className={this.state.viewPalette ? '' : 'hidden'}>
-                            <div>
-                                <Property>Color chart</Property>
-                                <Palettes colors={colors} parent={this} custom={false}
-                                          currentColor={this.state.value.hex}/>
-                            </div>
-                            <div>
-                                <Close onClick={() => {
-                                    this.setState({ viewPalette: false });
-                                }}><SvgCross/></Close>
-                                <ChoiceColorConfirm className={!this.state.viewPalette ? 'hidden' : ''}>
-                                    <ButtonBasic
-                                        className={this.colorIsUpdated() ? '' : 'disable'}
-                                        onClick={e => {
-                                            e.preventDefault();
-                                            console.log('value', componentStore.settings.Title.value)
-                                            console.log('state value', this.state.value)
+                    <Choices>
+                        <Category className={'color'}>
+                            <CategoryColor openView={this.state.openView}
+                                           toggleOpenView={this.toggleOpenView}
+                                           color={this.state.value.color ? this.state.value.color : null}
+                                           colorHex={this.state.value.color && this.state.value.color.hex ? this.state.value.color.hex : '' }
+                                           updateOpacity={this.updateOpacity}
+                                           updated={this.isUpdated()}
+                                           updateColor={this.updateColor}
+                                           reinitColor={this.reinitColor}
+                            />
+                        </Category>
+
+                        <Category className={['font', this.state.openView ? 'hidden' : '']}>
+                            <CategoryText fontFamily={this.state.value.font && this.state.value.font.family ? this.state.value.font.family : ''}
+                                          updateFontFamily={this.updateFontFamily}
+                                          fontWeight={this.state.value.font && this.state.value.font.weight ? this.state.value.font.weight : ''}
+                                          updateFontWeight={this.updateFontWeight}
+                                          fontSize={this.state.value.font && this.state.value.font.size ? this.state.value.font.size : 24}
+                                          updateFontSize={this.updateFontSize}
+                                          lineHeight={this.state.value.font && this.state.value.font.lineheight ? this.state.value.font.lineheight : 32}
+                                          updateLineHeight={this.updateLineHeight}
+                            />
+                        </Category>
+
+                        <Category  className={['seo', this.state.openView ? 'hidden' : '']}>
+                            <ChoiceSEO>
+                                <div>
+                                    <Property>SEO</Property>
+                                    <select
+                                        value={this.state.value.seo && this.state.value.seo ? this.state.value.seo : 'h1'}
+                                        onChange={e => {
                                             this.setState({
                                                 value: {
                                                     ...this.state.value,
-                                                    hex: componentStore.settings.Title.value.hex,
-                                                    name: componentStore.settings.Title.value.name,
-                                                    shade: componentStore.settings.Title.value.shade,
+                                                    seo:  e.target.value
                                                 }
                                             });
+
                                         }}>
-                                        Cancel
-                                    </ButtonBasic>
-                                    <ButtonGreen
-                                        disabled={!this.colorIsUpdated()}
-                                        className={this.colorIsUpdated() ? 'active' : ''}
-                                        onClick={() => {
-                                            dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
-                                        }}>
-                                        Update
-                                    </ButtonGreen>
-                                </ChoiceColorConfirm>
-                            </div>
+                                        <option></option>
+                                        {seoTag.map(tag => <option value={tag} key={tag}>{tag}</option>)}
 
-                        </PaletteView>
-                    </ChoiceColor>
-                    <ChoiceOpacity className={this.state.viewPalette ? 'hidden' : ''}>
-                        <Property>Opacity </Property>
-                        <input type={'number'} max={100} min={0}
-                               value={this.state.value.opacity ? this.state.value.opacity * 100 : 100}
-                               onChange={e => {
-                                   this.setState({
-                                       value: {
-                                           ...this.state.value,
-                                           opacity: e.target.value / 100
-                                       }
-                                   });
-                               }}/>
-                        <span>%</span>
-                    </ChoiceOpacity>
+                                    </select>
+                                </div>
+                            </ChoiceSEO>
+                        </Category>
+                    </Choices>
 
-                    <ChoiceFont>
-                        <div>
-                            <Property>Font</Property>
-
-                        </div>
-                    </ChoiceFont>
-
-
-
-                    <ChoiceColorConfirm className={this.state.viewPalette ? 'hidden' : ''}>
+                    <ChoiceItemsConfirm className={this.state.openView ? 'hidden' : ''}>
                         <ButtonBasic
                             className={this.isUpdated() ? '' : 'disable'}
                             onClick={e => {
@@ -288,9 +416,7 @@ class Title extends Component {
                             }}>
                             Update
                         </ButtonGreen>
-                    </ChoiceColorConfirm>
-
-
+                    </ChoiceItemsConfirm>
                 </FieldsTemplate>
             </div>
         );

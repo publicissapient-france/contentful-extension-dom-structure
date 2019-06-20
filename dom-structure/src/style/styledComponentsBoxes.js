@@ -447,7 +447,6 @@ export const Buttons = styled.div`
 `;
 
 export const Property = styled.label`
-    padding-top : 20px;
     padding-bottom : 10px;
 `;
 

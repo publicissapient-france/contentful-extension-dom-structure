@@ -49,10 +49,10 @@ class Palettes extends Component {
                             (!colors) ? <span>No color available</span>
                                 : colors.basic.map((color, i) =>
                                     <BlockColor key={i}
-                                        className={currentColor === color.hex && this.state.currentAction === 'view' ? 'selected' : ''}
+                                        className={currentColor && currentColor.hex === color.hex && this.state.currentAction === 'view' ? 'selected' : ''}
                                         onClick={e => {
                                             console.log('addColor : ', this.state.currentAction);
-                                            parent.setState({
+                                            /*parent.setState({
                                                 value: {
                                                     ...parent.state.value,
                                                     hex: color.hex,
@@ -60,8 +60,8 @@ class Palettes extends Component {
                                                     shade: color.shade
                                                 }
                                             }, () => {
-                                                this.setState({ currentAction: 'view' });
-                                            });
+                                                */this.setState({ currentAction: 'view' });
+                                            //});
                                         }}>
                                         <BoxColor
                                             className={color.name === 'None' ? 'null' : ''}
@@ -83,10 +83,10 @@ class Palettes extends Component {
                             (!colors) ? <span>No color available</span>
                                 : colors.custom.map((color, i) =>
                                     <BlockColor key={i}
-                                        className={currentColor === color.hex && this.state.currentAction === 'view' ? 'selected' : ''}
+                                        className={currentColor && currentColor.hex === color.hex && this.state.currentAction === 'view' ? 'selected' : ''}
                                         onClick={e => {
                                             console.log('addColor : ', this.state.currentAction);
-                                            parent.setState({
+                                            /*parent.setState({
                                                 value: {
                                                     ...parent.state.value,
                                                     hex: color.hex,
@@ -95,7 +95,10 @@ class Palettes extends Component {
                                                 }
                                             }, () => {
                                                 this.setState({ currentAction: 'view' });
-                                            });
+                                            });*/
+                                            this.props.updateColor(color.hex, color.name, color.shade);
+                                            this.setState({ currentAction: 'view' });
+
                                         }}>
                                         <BoxColor
                                             className={color.name === 'None' ? 'null' : ''}
@@ -110,7 +113,7 @@ class Palettes extends Component {
                         </IconAdd>
                     </ColorList>
                 </Palette>
-                <ColorView display={this.state.currentAction === 'view'} color={parent.state.value}/>
+                <ColorView display={this.state.currentAction === 'view'} color={currentColor}/>
                 <ColorAdd display={this.state.currentAction === 'add'} />
             </PaletteContainer>
         );

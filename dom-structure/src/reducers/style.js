@@ -3,23 +3,32 @@ import update from 'react-addons-update';
 
 const style = (state = [], action) => {
     switch (action.type) {
-    case 'INIT_STYLE_INFORMATION' :
-        const colors = _.values(action.style.colorChart)[0];
-        const name = _.values(action.style.name)[0];
-        const fonts = action.fonts.map( font => font.fields)
+        case 'INIT_STYLE_INFORMATION' :
+            const colors = _.values(action.style.colorChart)[0];
+            const name = _.values(action.style.name)[0];
+            const fonts = action.fonts.map(font => font.fields)
+                                        .map((font) => {
+                                            return {
+                                                name: _.values(font.name)[0],
+                                                generatedFontName: _.values(font.generatedFontName)[0],
+                                                style: _.values(font.style)[0],
+                                                typeface: _.values(font.typeface)[0],
+                                                weight: _.values(font.weight)[0]
+                                            }
+                                        });
 
-        return update(state, {
-            name: { $set: name },
-            colors: { $set: colors },
-            fonts : { $set: fonts }
+            return update(state, {
+                name: {$set: name},
+                colors: {$set: colors},
+                fonts: {$set: fonts}
 
-        });
+            });
 
-    case 'GET_STYLE' :
-        return action.state;
+        case 'GET_STYLE' :
+            return action.state;
 
-    default:
-        return state;
+        default:
+            return state;
     }
 };
 

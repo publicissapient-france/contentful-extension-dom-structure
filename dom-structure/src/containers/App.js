@@ -9,7 +9,7 @@ import Section from './Section';
 import AddSection from './AddSection';
 import { initDOM, initDOMbuild, initExtensionInformation, initVisibility, initStyleInformation } from '../actions';
 import { extractActiveValue } from '../utils/functions';
-
+import _ from 'lodash'
 class App extends React.Component {
     constructor (props) {
         super(props);
@@ -106,6 +106,8 @@ class App extends React.Component {
         const locale = this.props.extension.locales.default;
         const styleguide = await this.getStyleGuide(this)
         const typographies = await this.getTypographies(styleguide.typography[locale]);
+        console.log('TYPO', typographies);
+
         this.props.dispatch(initStyleInformation(styleguide, typographies));
 
     };
