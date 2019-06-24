@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon, ButtonGreen,ButtonBasic, Error } from '../../style/styledComponents';
-import { Banner, Fields, ActiveCheckBox, BoxColor, Palette, Property, ChoiceConfirm } from '../../style/styledComponentsBoxes';
-import SvgArrow from '../../components/SvgArrow';
-import SvgCross from '../../components/SvgCross';
-import SvgCheck from '../../components/SvgCheck';
+import { Icon, ButtonGreen, ButtonBasic, Error } from '../../style/styledComponents';
+import { Banner, Fields, ActiveCheckBox, BoxColor, Property, ChoiceConfirm } from '../../style/styledComponentsBoxes';
+import SvgArrow from '../../components/svg/SvgArrow';
+import SvgCross from '../../components/svg/SvgCross';
+import SvgCheck from '../../components/svg/SvgCheck';
 import { connect } from 'react-redux';
 import { updateSettingsValue, getCurrentDOM, getColors } from '../../actions';
 import Palettes from '../../components/Palettes';
@@ -90,7 +90,6 @@ export const ChoiceColorConfirm = styled(ChoiceConfirm)`
 
 `;
 
-
 class Template extends Component {
     constructor (props) {
         super(props);
@@ -112,7 +111,7 @@ class Template extends Component {
             value: componentStore.settings.Template ? componentStore.settings.Template.value : {},
             active: componentStore.settings.Template ? componentStore.settings.Template.active : true,
             colors: this.props.colors ? this.props.colors : null,
-            open : this.props.open
+            open: this.props.open
         });
     };
 
@@ -129,9 +128,9 @@ class Template extends Component {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
         if (componentStore.settings.Template &&
-            (componentStore.settings.Template.value.hex === this.state.value.hex
-                && componentStore.settings.Template.value.name === this.state.value.name
-                && componentStore.settings.Template.value.shade === this.state.value.shade
+            (componentStore.settings.Template.value.hex === this.state.value.hex &&
+                componentStore.settings.Template.value.name === this.state.value.name &&
+                componentStore.settings.Template.value.shade === this.state.value.shade
             )
         ) {
             return false;
@@ -212,8 +211,8 @@ class Template extends Component {
                                         className={this.colorIsUpdated() ? '' : 'disable'}
                                         onClick={e => {
                                             e.preventDefault();
-                                            console.log('value', componentStore.settings.Template.value)
-                                            console.log('state value', this.state.value)
+                                            console.log('value', componentStore.settings.Template.value);
+                                            console.log('state value', this.state.value);
                                             this.setState({
                                                 value: {
                                                     ...this.state.value,

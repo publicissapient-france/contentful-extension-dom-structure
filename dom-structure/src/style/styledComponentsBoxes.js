@@ -148,7 +148,6 @@ export const BoxColor = styled.div`
     border: 1px solid ${ extensionTheme.grey20 };
     position : relative;
     cursor : pointer;
-    align-self:center;
 
     &.null{
         overflow : hidden;
@@ -354,6 +353,11 @@ export const IconExtend = styled.div`
         }
     }
 `;
+export const IconContainer = styled.div`
+  width:30px;
+  Height : 30px;
+    
+`;
 
 export const Specification = styled.div`
     height : auto;
@@ -447,7 +451,7 @@ export const Buttons = styled.div`
 `;
 
 export const Property = styled.label`
-    padding-bottom : 10px;
+    margin-left : 30px;
 `;
 
 export const ChoiceConfirm = styled.div`
@@ -458,4 +462,20 @@ export const ChoiceConfirm = styled.div`
     & button:not(:first-child){
         margin-left : 10px;
     }
+`;
+
+export const Dot = styled.div`
+   width : 30px;
+   min-width : 30px;
+   height : 30px;
+   display:flex;
+   justify-content:center;
+   align-items : center;
+   
+   & div{
+    width : 10px;
+    height : 10px;
+    background : ${ extensionTheme.blueM };
+    border-radius : 100%;
+   }
 `;

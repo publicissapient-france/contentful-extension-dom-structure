@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import SvgExtended from './SvgExtended';
-import SvgNotExtended from './SvgNotExtended';
-import SvgSheet from './SvgSheet';
+import SvgExtended from './svg/SvgExtended';
+import SvgNotExtended from './svg/SvgNotExtended';
+import SvgSheet from './svg/SvgSheet';
 
 import {
     Palette, BlockColor, BoxColor, IconExtend, IconAdd,
@@ -33,7 +33,7 @@ class Palettes extends Component {
     }
 
     render () {
-        const { colors, parent, currentColor } = this.props;
+        const { colors, currentColor } = this.props;
 
         let extendSVGbasic = (this.state.openBasic) ? <SvgExtended/> : <SvgNotExtended/>;
         let extendSVGcustom = (this.state.openCustom) ? <SvgExtended/> : <SvgNotExtended/>;
@@ -52,16 +52,7 @@ class Palettes extends Component {
                                         className={currentColor && currentColor.hex === color.hex && this.state.currentAction === 'view' ? 'selected' : ''}
                                         onClick={e => {
                                             console.log('addColor : ', this.state.currentAction);
-                                            /*parent.setState({
-                                                value: {
-                                                    ...parent.state.value,
-                                                    hex: color.hex,
-                                                    name: color.name,
-                                                    shade: color.shade
-                                                }
-                                            }, () => {
-                                                */this.setState({ currentAction: 'view' });
-                                            //});
+                                            this.setState({ currentAction: 'view' });
                                         }}>
                                         <BoxColor
                                             className={color.name === 'None' ? 'null' : ''}
@@ -86,19 +77,8 @@ class Palettes extends Component {
                                         className={currentColor && currentColor.hex === color.hex && this.state.currentAction === 'view' ? 'selected' : ''}
                                         onClick={e => {
                                             console.log('addColor : ', this.state.currentAction);
-                                            /*parent.setState({
-                                                value: {
-                                                    ...parent.state.value,
-                                                    hex: color.hex,
-                                                    name: color.name,
-                                                    shade: color.shade
-                                                }
-                                            }, () => {
-                                                this.setState({ currentAction: 'view' });
-                                            });*/
                                             this.props.updateColor(color.hex, color.name, color.shade);
                                             this.setState({ currentAction: 'view' });
-
                                         }}>
                                         <BoxColor
                                             className={color.name === 'None' ? 'null' : ''}

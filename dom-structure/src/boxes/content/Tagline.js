@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from '../../style/styledComponents';
 import { Banner, Fields, ActiveCheckBox } from '../../style/styledComponentsBoxes';
-import SvgToggle from '../../components/SvgToggle';
-import SvgCheck from '../../components/SvgCheck';
+import SvgToggle from '../../components/svg/SvgToggle';
+import SvgCheck from '../../components/svg/SvgCheck';
 import { connect } from 'react-redux';
 import { getCurrentDOM, getCurrentLanguage, updateContentValue } from '../../actions';
 
@@ -24,7 +24,7 @@ class Tagline extends Component {
         this.setState({
             value: componentStore.content.Tagline ? componentStore.content.Tagline.value : {},
             active: componentStore.content.Tagline ? componentStore.content.Tagline.active : true,
-            open : this.props.open
+            open: this.props.open
         });
     }
 

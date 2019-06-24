@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { extensionTheme } from '../style/theme';
-import SvgContent from '../components/SvgContent';
-import SvgSpecs from '../components/SvgSpecs';
-import SvgRange from '../components/SvgRange';
-import SvgCheck from '../components/SvgCheck';
-import SvgTrash from '../components/SvgTrash';
-import SvgArrowDouble from '../components/SvgArrowDouble';
+import SvgContent from '../components/svg/SvgContent';
+import SvgSpecs from '../components/svg/SvgSpecs';
+import SvgRange from '../components/svg/SvgRange';
+import SvgCheck from '../components/svg/SvgCheck';
+import SvgTrash from '../components/svg/SvgTrash';
+import SvgArrowDouble from '../components/svg/SvgArrowDouble';
 import BoxesContent from './BoxesContent';
 import BoxesSettings from './BoxesSettings';
 import { getCountryISO } from '../utils/functions';
@@ -162,7 +162,7 @@ const Toggle = styled.div`
 
 const Content = styled(OptionsBlock)`
  
-  & ${Banner} ${Toggle} ${Icon}{
+  & ${ Banner } ${ Toggle } ${ Icon }{
     &:hover{
          & svg g path, & svg path, & svg  rect {
             fill : ${ extensionTheme.white };
@@ -171,7 +171,7 @@ const Content = styled(OptionsBlock)`
   }
 `;
 const Settings = styled(OptionsBlock)`
-  & ${Banner} ${Toggle} ${Icon}{
+  & ${ Banner } ${ Toggle } ${ Icon }{
     &:hover{
          & svg g path, & svg path, & svg  rect {
             fill : ${ extensionTheme.white };

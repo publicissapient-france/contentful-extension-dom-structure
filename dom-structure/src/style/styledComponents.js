@@ -32,7 +32,7 @@ export const MainContainer = styled.div`
     }
     
     select{
-        height : 33px;
+        height : 30px;
         box-sizing : border-box;
         padding-top : 6px;
         padding-bottom : 7px;

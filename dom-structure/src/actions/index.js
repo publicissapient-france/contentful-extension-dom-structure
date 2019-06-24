@@ -46,7 +46,7 @@ export const getCurrentExtension = state => ({
 export const initStyleInformation = (styleguide, fonts) => ({
     type: 'INIT_STYLE_INFORMATION',
     style: styleguide,
-    fonts : fonts
+    fonts: fonts
 
 });
 export const getCurrentStyle = state => ({

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {addSection, addSectionToTop, toggleFormAddSection, toggleFormAddSectionToTop} from '../actions';
+import { addSection, addSectionToTop, toggleFormAddSection, toggleFormAddSectionToTop } from '../actions';
 import { Container, ButtonBasic, ButtonGreen, Form } from '../style/styledComponents';
 import update from 'react-addons-update';
 import sections from '../config/sections';
@@ -63,10 +63,10 @@ class AddSection extends Component {
                     onSubmit={e => {
                         e.preventDefault();
                         if (!this.isComplete()) { return; }
-                        if(onTop){
+                        if (onTop) {
                             dispatch(addSectionToTop(this.state.section));
                             dispatch(toggleFormAddSectionToTop());
-                        }else{
+                        } else {
                             dispatch(addSection(this.state.section));
                             dispatch(toggleFormAddSection());
                         }

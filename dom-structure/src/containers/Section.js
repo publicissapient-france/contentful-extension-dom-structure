@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import SvgAdd from '../components/SvgAdd';
-import SvgSpecs from '../components/SvgSpecs';
-import SvgRange from '../components/SvgRange';
-import SvgCheck from '../components/SvgCheck';
-import SvgTrash from '../components/SvgTrash';
+import SvgAdd from '../components/svg/SvgAdd';
+import SvgSpecs from '../components/svg/SvgSpecs';
+import SvgRange from '../components/svg/SvgRange';
+import SvgCheck from '../components/svg/SvgCheck';
+import SvgTrash from '../components/svg/SvgTrash';
 import ComponentDOM from './ComponentDOM';
 import {
     Container,

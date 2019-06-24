@@ -9,7 +9,7 @@ import Section from './Section';
 import AddSection from './AddSection';
 import { initDOM, initDOMbuild, initExtensionInformation, initVisibility, initStyleInformation } from '../actions';
 import { extractActiveValue } from '../utils/functions';
-import _ from 'lodash'
+
 class App extends React.Component {
     constructor (props) {
         super(props);
@@ -99,17 +99,16 @@ class App extends React.Component {
             .getEntries({
                 'sys.id': styleGuideID
             })
-            .then(result =>  { return result.items[0].fields });
+            .then(result => { return result.items[0].fields; });
     }
 
-    initStyleStore = async() => {
+    initStyleStore = async () => {
         const locale = this.props.extension.locales.default;
-        const styleguide = await this.getStyleGuide(this)
+        const styleguide = await this.getStyleGuide(this);
         const typographies = await this.getTypographies(styleguide.typography[locale]);
         console.log('TYPO', typographies);
 
         this.props.dispatch(initStyleInformation(styleguide, typographies));
-
     };
 
     getTypographies = typographies => {
@@ -122,7 +121,7 @@ class App extends React.Component {
             })
             .then(result => {
                 return result.items.map(entry => entry).filter(font => font.fields.fontFile[locale].sys.id);
-            })
+            });
     }
 
     getAssetsUrlById = id => {

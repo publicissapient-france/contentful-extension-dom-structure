@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 import { Icon, ButtonGreen, ButtonBasic } from '../../style/styledComponents';
 
 import { Banner, Fields, ActiveCheckBox, ChoiceConfirm } from '../../style/styledComponentsBoxes';
-import SvgToggle from '../../components/SvgToggle';
-import SvgCheck from '../../components/SvgCheck';
+import SvgToggle from '../../components/svg/SvgToggle';
+import SvgCheck from '../../components/svg/SvgCheck';
 import { connect } from 'react-redux';
 import { updateContentValue, getCurrentDOM, getCurrentLanguage } from '../../actions';
 import styled from 'styled-components';
@@ -47,7 +47,7 @@ class Text extends Component {
         this.setState({
             value: componentStore.content.Text && componentStore.content.Text.value ? this.extractFromHTML(componentStore.content.Text.value) : {}, // (this.converter.makeMarkdown(componentStore.content.Text.value)).replace('<!-- -->' , '') : '',
             active: componentStore.content.Text ? componentStore.content.Text.active : true,
-            open : this.props.open
+            open: this.props.open
         });
 
         console.log('MOUNT');
@@ -92,7 +92,7 @@ class Text extends Component {
     };
 
     render () {
-        const { dispatch, dom, currentLanguage, indexComponent, indexSection, name  } = this.props;
+        const { dispatch, dom, currentLanguage, indexComponent, indexSection, name } = this.props;
         const indexLanguage = currentLanguage.language;
         const componentStore = dom.sections[indexSection].components[indexComponent];
 
@@ -151,7 +151,6 @@ class Text extends Component {
                             Update
                         </ButtonGreen>
                     </ChoiceConfirm>
-
 
                 </Fields>
             </div>
