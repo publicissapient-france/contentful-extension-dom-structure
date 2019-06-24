@@ -52,6 +52,11 @@ export const ChoiceItemsConfirm = styled(ChoiceConfirm)`
     width : 100%;
 
 `;
+export const Column = styled.div`
+    display : flex;
+    flex-direction : column;
+
+`;
 
 class Title extends Component {
     constructor (props) {
