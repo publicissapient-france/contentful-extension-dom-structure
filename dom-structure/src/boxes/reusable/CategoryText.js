@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Property, IconContainer, Dot } from '../../style/styledComponentsBoxes';
+import React, {Component} from 'react';
+import {Property, IconContainer, Dot} from '../../style/styledComponentsBoxes';
 import SvgFontSize from '../../components/svg/SvgFontSize';
 import SvgLineHeight from '../../components/svg/SvgLineHeight';
 import SvgLetterSpacing from '../../components/svg/SvgLetterSpacing';
@@ -10,11 +10,11 @@ import SvgAlignLeft from '../../components/svg/SvgAlignLeft';
 import SvgAlignCenter from '../../components/svg/SvgAlignCenter';
 import SvgAlignJustify from '../../components/svg/SvgAlignJustify';
 import SvgAlignRight from '../../components/svg/SvgAlignRight';
-import { connect } from 'react-redux';
-import { getCurrentStyle } from '../../actions';
+import {connect} from 'react-redux';
+import {getCurrentStyle} from '../../actions';
 import styled from 'styled-components';
 import _ from 'lodash';
-import { extensionTheme } from '../../style/theme';
+import {extensionTheme} from '../../style/theme';
 
 export const ChoiceFont = styled.div`
    display : flex;
@@ -39,6 +39,7 @@ export const FontProps = styled.div`
     flex-direction : column;
     padding-right : 30px;   
     padding-bottom : 10px;   
+    padding-top:20px;
     
     &>div{
         display : flex;
@@ -52,13 +53,15 @@ export const TypoProps = styled.div`
     display : flex;
     flex-wrap : wrap;
     padding-right: 30px;
-    padding-top: 24px;
+    padding-top: 44px;
     
     &>div{
         display : flex;
+        height : 30px;
     
     & input{
         max-width : 50px;
+        margin-left : 10px;
     }
    }
 `;
@@ -82,6 +85,10 @@ export const TransformProps = styled.div`
 
      &>div{
         display : flex;
+        
+        &>${ IconContainer }:not(last-child){
+            margin-right: 20px;
+        }
     }
 `;
 export const Field = styled.div`
@@ -93,7 +100,7 @@ export const Field = styled.div`
 `;
 
 class CategoryText extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -107,8 +114,8 @@ class CategoryText extends Component {
         });
     };
 
-    render () {
-        const { fontFamily, fontWeight, fontSize, lineHeight } = this.props;
+    render() {
+        const {storeValueFont, storeValueText ,fontFamily, fontWeight, fontSize, lineHeight, letterSpacing, textAlign, textTransform, textDecoration} = this.props;
         return (
             <ChoiceFont>
                 <ContainerProps>
@@ -133,13 +140,12 @@ class CategoryText extends Component {
                                 </Dot>
                                 <select
                                     value={fontFamily}
+                                    className={storeValueFont && fontFamily !== storeValueFont.family ? 'updated' : ''}
                                     onChange={e => {
                                         this.props.updateFontFamily(e.target.value);
                                     }}>
                                     <option></option>
-                                    {Object.keys(this.state.typographies).map(key => <option value={key}
-
-                                        key={key}>{key}</option>)}
+                                    {Object.keys(this.state.typographies).map(key => <option value={key} key={key}>{key}</option>)}
                                 </select>
                             </Field>
                         </div>
@@ -150,6 +156,7 @@ class CategoryText extends Component {
                                 </Dot>
                                 <select
                                     value={fontWeight}
+                                    className={storeValueFont && fontWeight !== storeValueFont.weight ? 'updated' : ''}
                                     onChange={e => {
                                         this.props.updateFontWeight(e.target.value);
                                     }}>
@@ -161,7 +168,6 @@ class CategoryText extends Component {
                                     }
                                 </select>
                             </Field>
-
                         </div>
                     </FontProps>
 
@@ -174,10 +180,11 @@ class CategoryText extends Component {
                                 <SvgFontSize/>
                             </IconContainer>
                             <input type={'number'}
-                                value={fontSize}
-                                onChange={e => {
-                                    this.props.updateFontSize(e.target.value);
-                                }}/>
+                                   className={storeValueFont && fontSize !== storeValueFont.size ? 'updated' : ''}
+                                   value={fontSize}
+                                   onChange={e => {
+                                       this.props.updateFontSize(e.target.value);
+                                   }}/>
                         </div>
                         <div>
                             <Dot>
@@ -187,10 +194,11 @@ class CategoryText extends Component {
                                 <SvgLineHeight/>
                             </IconContainer>
                             <input type={'number'}
-                                value={lineHeight}
-                                onChange={e => {
-                                    this.props.updateLineHeight(e.target.value);
-                                }}/>
+                                   className={storeValueFont && lineHeight !== storeValueFont.lineheight ? 'updated' : ''}
+                                   value={lineHeight}
+                                   onChange={e => {
+                                       this.props.updateLineHeight(e.target.value);
+                                   }}/>
                         </div>
                         <div>
                             <Dot>
@@ -200,10 +208,11 @@ class CategoryText extends Component {
                                 <SvgLetterSpacing/>
                             </IconContainer>
                             <input type={'number'}
-                                value={lineHeight}
-                                onChange={e => {
-
-                                }}/>
+                                   className={storeValueFont && letterSpacing !== storeValueFont.letterSpacing ? 'updated' : ''}
+                                   value={letterSpacing}
+                                   onChange={e => {
+                                       this.props.updateLetterSpacing(e.target.value);
+                                   }}/>
                         </div>
                     </TypoProps>
                 </ContainerProps>
@@ -213,16 +222,30 @@ class CategoryText extends Component {
                             <Dot>
                                 <div></div>
                             </Dot>
-                            <IconContainer>
+                            <IconContainer className={storeValueText && textAlign !== storeValueText.align && textAlign === 'left' ? 'updated' :
+                                (textAlign === 'left' ? 'active' : '')} onClick={e => {
+                                this.props.updateTextAlign('left');
+
+                            }}>
                                 <SvgAlignLeft/>
                             </IconContainer>
-                            <IconContainer>
+                            <IconContainer className={storeValueText && textAlign !== storeValueText.align && textAlign === 'center' ? 'updated' :
+                                (textAlign === 'center' ? 'active' : '')} onClick={e => {
+                                this.props.updateTextAlign('center');
+                            }}>
                                 <SvgAlignCenter/>
                             </IconContainer>
-                            <IconContainer>
+                            <IconContainer className={storeValueText && textAlign !== storeValueText.align && textAlign === 'right' ? 'updated' :
+                                (textAlign === 'right' ? 'active' : '')} onClick={e => {
+                                this.props.updateTextAlign('right');
+                            }}>
                                 <SvgAlignRight/>
                             </IconContainer>
-                            <IconContainer>
+                            <IconContainer
+                                className={storeValueText && textAlign !== storeValueText.align && textAlign === 'justify' ? 'updated' :
+                                    (textAlign === 'justify' ? 'active' : '')} onClick={e => {
+                                this.props.updateTextAlign('justify');
+                            }}>
                                 <SvgAlignJustify/>
                             </IconContainer>
 
@@ -233,13 +256,34 @@ class CategoryText extends Component {
                             <Dot>
                                 <div></div>
                             </Dot>
-                            <IconContainer>
+                            <IconContainer className={storeValueText && textTransform !== storeValueText.transform && textTransform === 'uppercase' ? 'updated' :
+                                (textTransform === 'uppercase' ? 'active' : '')} onClick={e => {
+                                if(textTransform === 'uppercase'){
+                                    this.props.updateTextTransform('');
+                                }else{
+                                    this.props.updateTextTransform('uppercase');
+                                }
+                            }}>
                                 <SvgCapitalize/>
                             </IconContainer>
-                            <IconContainer>
+                            <IconContainer className={storeValueText && textTransform !== storeValueText.transform && textTransform === 'capitalize' ? 'updated' :
+                                (textTransform === 'capitalize' ? 'active' : '')} onClick={e => {
+                                if(textTransform === 'capitalize'){
+                                    this.props.updateTextTransform('');
+                                }else{
+                                    this.props.updateTextTransform('capitalize');
+                                }
+                            }}>
                                 <SvgDropCap/>
                             </IconContainer>
-                            <IconContainer>
+                            <IconContainer className={storeValueText && textDecoration !== storeValueText.decoration && textDecoration === 'underline' ? 'updated' :
+                                (textDecoration === 'underline' ? 'active' : '')}onClick={e => {
+                                if(textDecoration === 'underline'){
+                                    this.props.updateTextDecoration('');
+                                }else{
+                                    this.props.updateTextDecoration('underline');
+                                }
+                            }}>
                                 <SvgUnderline/>
                             </IconContainer>
                         </div>

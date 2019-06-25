@@ -65,8 +65,10 @@ export const ChoiceOpacity = styled.div`
     display : flex;
     flex-direction:column;
 
-   &>input{
-    width : 60px;
+   & input{
+    width : 50px;
+    max-width : 50px;
+    
    }
 `;
 export const PaletteView = styled.div`

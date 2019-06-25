@@ -52,6 +52,11 @@ export const MainContainer = styled.div`
         background-repeat : no-repeat, repeat;
         background-size : 12px, 100%;
         font-size : 13px;
+        
+        &.updated{
+            background : ${ extensionTheme.blueM };
+            color : ${ extensionTheme.white }
+        }
 
         
     }

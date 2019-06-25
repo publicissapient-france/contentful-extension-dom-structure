@@ -74,11 +74,15 @@ class Title extends Component {
         this.updateFontWeight = this.updateFontWeight.bind(this);
         this.updateFontSize = this.updateFontSize.bind(this);
         this.updateLineHeight = this.updateLineHeight.bind(this);
+        this.updateLetterSpacing = this.updateLetterSpacing.bind(this);
+        this.updateTextAlign = this.updateTextAlign.bind(this);
+        this.updateTextTransform = this.updateTextTransform.bind(this);
+        this.updateTextDecoration = this.updateTextDecoration.bind(this);
         this.updateOpacity = this.updateOpacity.bind(this);
         this.updateColor = this.updateColor.bind(this);
         this.reinitColor = this.reinitColor.bind(this);
         this.toggleOpenView = this.toggleOpenView.bind(this);
-        this.updateSeo = this.updateSeo.bind(this);
+        this.updateSeoTag = this.updateSeoTag.bind(this);
     }
 
     componentDidMount = () => {
@@ -92,14 +96,7 @@ class Title extends Component {
         });
     };
 
-    updateSeo = value => {
-        this.setState({
-            value: {
-                ...this.state.value,
-                seo: value
-            }
-        });
-    }
+
     updateFontSize = value => {
         this.setState({
             value: {
@@ -122,6 +119,17 @@ class Title extends Component {
             }
         });
     }
+    updateLetterSpacing = value => {
+        this.setState({
+            value: {
+                ...this.state.value,
+                font: {
+                    ...this.state.value.font,
+                    letterSpacing: value
+                }
+            }
+        });
+    }
     updateFontFamily = value => {
         this.setState({
             value: {
@@ -140,6 +148,39 @@ class Title extends Component {
                 font: {
                     ...this.state.value.font,
                     weight: value
+                }
+            }
+        });
+    }
+    updateTextAlign = value => {
+        this.setState({
+            value: {
+                ...this.state.value,
+                text: {
+                    ...this.state.value.text,
+                    align: value
+                }
+            }
+        });
+    }
+    updateTextTransform = value => {
+        this.setState({
+            value: {
+                ...this.state.value,
+                text: {
+                    ...this.state.value.text,
+                    transform: value
+                }
+            }
+        });
+    }
+    updateTextDecoration = value => {
+        this.setState({
+            value: {
+                ...this.state.value,
+                text: {
+                    ...this.state.value.text,
+                    decoration: value
                 }
             }
         });
@@ -181,6 +222,19 @@ class Title extends Component {
                 }
             }
         });
+    }
+
+    updateSeoTag = value => {
+        this.setState({
+            value: {
+                ...this.state.value,
+                seo: {
+                    ...this.state.value.seo,
+                    tag: value
+                }
+            }
+        });
+
     }
     toggleOpenView = () => {
         this.setState({ openView: !this.state.openView });
@@ -269,20 +323,31 @@ class Title extends Component {
 
                             <Category className={['seo', this.state.openView ? 'hidden' : '']}>
                                 <CategorySeo
-                                    seo={this.state.seo}
-                                    updateSeo={this.updateSeo}/>
+                                    seoTag={this.state.value.seo && this.state.value.seo.tag ? this.state.value.seo.tag : 'h1'}
+                                    updateSeoTag={this.updateSeoTag}/>
                             </Category>
                         </Column>
 
                         <Category className={['font', this.state.openView ? 'hidden' : '']}>
-                            <CategoryText fontFamily={this.state.value.font && this.state.value.font.family ? this.state.value.font.family : ''}
+                            <CategoryText
+                                storeValueFont={componentStore.settings.Title.value.font}
+                                storeValueText={componentStore.settings.Title.value.text}
+                                fontFamily={this.state.value.font && this.state.value.font.family ? this.state.value.font.family : ''}
                                 updateFontFamily={this.updateFontFamily}
                                 fontWeight={this.state.value.font && this.state.value.font.weight ? this.state.value.font.weight : ''}
                                 updateFontWeight={this.updateFontWeight}
-                                fontSize={this.state.value.font && this.state.value.font.size ? this.state.value.font.size : 24}
+                                fontSize={this.state.value.font && this.state.value.font.size ? this.state.value.font.size : 44}
                                 updateFontSize={this.updateFontSize}
-                                lineHeight={this.state.value.font && this.state.value.font.lineheight ? this.state.value.font.lineheight : 32}
+                                lineHeight={this.state.value.font && this.state.value.font.lineheight ? this.state.value.font.lineheight : 54}
                                 updateLineHeight={this.updateLineHeight}
+                                letterSpacing={this.state.value.font && this.state.value.font.letterSpacing ? this.state.value.font.letterSpacing : 0}
+                                updateLetterSpacing={this.updateLetterSpacing}
+                                textAlign={this.state.value.text && this.state.value.text.align ? this.state.value.text.align : 'left'}
+                                updateTextAlign={this.updateTextAlign}
+                                textTransform={this.state.value.text && this.state.value.text.transform ? this.state.value.text.transform : null}
+                                updateTextTransform={this.updateTextTransform}
+                                textDecoration={this.state.value.text && this.state.value.text.decoration ? this.state.value.text.decoration : null}
+                                updateTextDecoration={this.updateTextDecoration}
                             />
                         </Category>
 

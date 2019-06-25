@@ -3,7 +3,7 @@ import { Dot
 } from '../../style/styledComponentsBoxes';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { seoTag } from '../../config/defaultConfig';
+import { tags } from '../../config/defaultConfig';
 
 export const ChoiceSeo = styled.div`
    display : flex;
@@ -23,11 +23,11 @@ class CategorySeo extends Component {
     }
 
     componentDidMount = () => {
+        console.log('props tag', this.props.seoTag);
     };
 
     render () {
-        const { seo } = this.props;
-
+        const { seoTag } = this.props;
         return (
             <ChoiceSeo>
                 <div>
@@ -36,12 +36,12 @@ class CategorySeo extends Component {
                             <div></div>
                         </Dot>
                         <select
-                            value={ seo || 'h1'}
+                            value={ seoTag }
                             onChange={e => {
-                                this.props.updateSeo(e.target.value);
+                                console.log('update seo:', e.target.value)
+                                this.props.updateSeoTag(e.target.value);
                             }}>
-                            <option></option>
-                            {seoTag.map(tag => <option value={tag} key={tag}>{tag}</option>)}
+                            {tags.map(tag => <option value={tag} key={tag}>{tag}</option>)}
                         </select>
                     </Field>
                 </div>

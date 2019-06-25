@@ -57,6 +57,15 @@ export const Fields = styled.div`
   input{
     border : 1px solid  ${ extensionTheme.grey80 };
     width : 100%;
+    padding : 0;
+    padding-left : 5px;
+    box-sizing:border-box;
+    line-height : 30px;
+    
+    &.updated{
+        background : ${ extensionTheme.blueM };
+        color :  ${ extensionTheme.white };
+    }
   }
   
   label {
@@ -355,7 +364,26 @@ export const IconExtend = styled.div`
 `;
 export const IconContainer = styled.div`
   width:30px;
-  Height : 30px;
+  height : 30px;
+  cursor : pointer;
+  
+  &.updated{
+    background : ${ extensionTheme.blueM};
+     & svg{
+        & g rect, & g path, & g polygon{
+            fill : ${ extensionTheme.white };
+        }
+      }
+  }
+  
+  &.active{
+      & svg{
+        & g rect, & g path, & g polygon{
+            fill : ${ extensionTheme.blueM };
+        }
+      }
+  }
+  
     
 `;
 
