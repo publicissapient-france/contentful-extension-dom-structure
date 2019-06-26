@@ -1,7 +1,7 @@
-vrsion: 2
+version: 2
 
 jobs:
-  "Build - Color Chart Specification extension":
+  "Build - Dom Structure extension":
     docker:
       # Image built from the Dockerfile in the current repository
       - image: xebiafrance/contentful-extensions-build-container:v1
@@ -11,26 +11,26 @@ jobs:
           keys:
             # Find a cache corresponding to this specific package-lock.json checksum
             # when this file is changed, this key will fail
-            - color-chart/v1-npm-deps-{{ checksum "color-chart/package-lock.json" }}
+            - dom-structure/v1-npm-deps-{{ checksum "dom-structure/package-lock.json" }}
             # Find the most recently generated cache used from any branch
-            - color-chart/v1-npm-deps-
+            - dom-structure/v1-npm-deps-
       - run:
           name: Build React app
           command: |
-            cd color-chart/
+            cd dom-structure/
             npm install
             npm run build
       - persist_to_workspace:
           root: .
           paths:
-            - color-chart/build
-            - color-chart/serverless.yml
+            - dom-structure/build
+            - dom-structure/serverless.yml
       - save_cache:
-          key: color-chart/v1-npm-deps-{{ checksum "color-chart/package-lock.json" }}
+          key: dom-structure/v1-npm-deps-{{ checksum "dom-structure/package-lock.json" }}
           paths:
-            - "color-chart/.node_modules"
+            - "dom-structure/.node_modules"
 
-  "Package Serverless - Color Chart Specification extension":
+  "Package Serverless - Dom Structure extension":
     docker:
       # Image built from the Dockerfile in the current repository
       - image: xebiafrance/contentful-extensions-build-container:v1
@@ -40,16 +40,16 @@ jobs:
       - run:
           name: Create Serverless packages
           command: |
-            cd color-chart/
+            cd dom-structure/
             serverless package -p package-prod -s prod
       - persist_to_workspace:
           root: .
           paths:
-            - color-chart/build
-            - color-chart/package-prod
-            - color-chart/serverless.yml
+            - dom-structure/build
+            - dom-structure/package-prod
+            - dom-structure/serverless.yml
 
-  "Deploy - Color Chart Specification extension":
+  "Deploy - Dom Structure extension":
     docker:
       # Image built from the Dockerfile in the current repository
       - image: xebiafrance/contentful-extensions-build-container:v1
@@ -59,17 +59,18 @@ jobs:
       - run:
           name: Deploy to AWS S3
           command: |
-            cd color-chart/
+            cd dom-structure/
             serverless deploy --force -p package-prod -s prod
 
 workflows:
   version: 2
   full:
     jobs:
-      - "Build - Color Chart Specification extension"
-      - "Package Serverless - Color Chart Specification extension":
+      - "Build - Dom Structure extension"
+      - "Package Serverless - Dom Structure extension":
           requires:
-            - "Build - Color Chart Specification extension"
-      - "Deploy - Color Chart Specification extension":
+            - "Build - Dom Structure extension"
+      - "Deploy - Dom Structure extension":
+          context: "Contentful Extensions - AWS Deployment"
           requires:
-            - "Package Serverless - Color Chart Specification extension"
+            - "Package Serverless - Dom Structure extension"
