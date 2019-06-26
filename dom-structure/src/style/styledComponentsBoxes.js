@@ -41,9 +41,6 @@ export const Banner = styled.div`
   &>div{
     display : flex;
   }
- 
-  
-  
 `;
 
 export const Fields = styled.div`
@@ -68,6 +65,13 @@ export const Fields = styled.div`
     }
   }
   
+  select {
+    &.updated{
+            background : ${ extensionTheme.blueM };
+            color : ${ extensionTheme.white }
+        }
+  }
+  
   label {
     font-size : 12px;
     font-weight : 300;
@@ -79,7 +83,6 @@ export const Fields = styled.div`
     color :  ${ extensionTheme.grey50 };
     margin-top:3px;
   }
-  
   
   &.open{
     display: flex;
@@ -139,15 +142,9 @@ export const BoxesContainer = styled.div`
         
     }
     
-    
     &.semiOpen{
       
     }
-    
-   
-     
-    
-  
 `;
 
 export const BoxColor = styled.div`
@@ -370,7 +367,7 @@ export const IconContainer = styled.div`
   &.updated{
     background : ${ extensionTheme.blueM};
      & svg{
-        & g rect, & g path, & g polygon{
+        & g rect, & g path, & g polygon, & polygon{
             fill : ${ extensionTheme.white };
         }
       }
@@ -378,7 +375,7 @@ export const IconContainer = styled.div`
   
   &.active{
       & svg{
-        & g rect, & g path, & g polygon{
+        & g rect, & g path, & g polygon, & polygon{
             fill : ${ extensionTheme.blueM };
         }
       }

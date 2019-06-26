@@ -19,11 +19,3 @@ custom:
       localDir: build
       bucketPrefix: dom-structure
       acl: public-read
-
-resources:
-  Resources:
-    AssetsBucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: ${self:provider.environment.EXTENSIONS_BUCKET_NAME}
-        AccessControl: PublicRead

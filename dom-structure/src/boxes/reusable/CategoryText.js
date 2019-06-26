@@ -4,6 +4,7 @@ import SvgFontSize from '../../components/svg/SvgFontSize';
 import SvgLineHeight from '../../components/svg/SvgLineHeight';
 import SvgLetterSpacing from '../../components/svg/SvgLetterSpacing';
 import SvgCapitalize from '../../components/svg/SvgCapitalize';
+import SvgItalic from '../../components/svg/SvgItalic';
 import SvgDropCap from '../../components/svg/SvgDropCap';
 import SvgUnderline from '../../components/svg/SvgUnderline';
 import SvgAlignLeft from '../../components/svg/SvgAlignLeft';
@@ -115,7 +116,7 @@ class CategoryText extends Component {
     };
 
     render() {
-        const {storeValueFont, storeValueText ,fontFamily, fontWeight, fontSize, lineHeight, letterSpacing, textAlign, textTransform, textDecoration} = this.props;
+        const {storeValueFont, storeValueText, fontFamily, fontWeight, fontSize, fontStyle, lineHeight, letterSpacing, textAlign, textTransform, textDecoration} = this.props;
         return (
             <ChoiceFont>
                 <ContainerProps>
@@ -145,7 +146,8 @@ class CategoryText extends Component {
                                         this.props.updateFontFamily(e.target.value);
                                     }}>
                                     <option></option>
-                                    {Object.keys(this.state.typographies).map(key => <option value={key} key={key}>{key}</option>)}
+                                    {Object.keys(this.state.typographies).map(key => <option value={key}
+                                                                                             key={key}>{key}</option>)}
                                 </select>
                             </Field>
                         </div>
@@ -222,21 +224,24 @@ class CategoryText extends Component {
                             <Dot>
                                 <div></div>
                             </Dot>
-                            <IconContainer className={storeValueText && textAlign !== storeValueText.align && textAlign === 'left' ? 'updated' :
-                                (textAlign === 'left' ? 'active' : '')} onClick={e => {
+                            <IconContainer
+                                className={storeValueText && textAlign !== storeValueText.align && textAlign === 'left' ? 'updated' :
+                                    (textAlign === 'left' ? 'active' : '')} onClick={e => {
                                 this.props.updateTextAlign('left');
 
                             }}>
                                 <SvgAlignLeft/>
                             </IconContainer>
-                            <IconContainer className={storeValueText && textAlign !== storeValueText.align && textAlign === 'center' ? 'updated' :
-                                (textAlign === 'center' ? 'active' : '')} onClick={e => {
+                            <IconContainer
+                                className={storeValueText && textAlign !== storeValueText.align && textAlign === 'center' ? 'updated' :
+                                    (textAlign === 'center' ? 'active' : '')} onClick={e => {
                                 this.props.updateTextAlign('center');
                             }}>
                                 <SvgAlignCenter/>
                             </IconContainer>
-                            <IconContainer className={storeValueText && textAlign !== storeValueText.align && textAlign === 'right' ? 'updated' :
-                                (textAlign === 'right' ? 'active' : '')} onClick={e => {
+                            <IconContainer
+                                className={storeValueText && textAlign !== storeValueText.align && textAlign === 'right' ? 'updated' :
+                                    (textAlign === 'right' ? 'active' : '')} onClick={e => {
                                 this.props.updateTextAlign('right');
                             }}>
                                 <SvgAlignRight/>
@@ -256,35 +261,51 @@ class CategoryText extends Component {
                             <Dot>
                                 <div></div>
                             </Dot>
-                            <IconContainer className={storeValueText && textTransform !== storeValueText.transform && textTransform === 'uppercase' ? 'updated' :
-                                (textTransform === 'uppercase' ? 'active' : '')} onClick={e => {
-                                if(textTransform === 'uppercase'){
+                            <IconContainer
+                                className={storeValueText && textTransform !== storeValueText.transform && textTransform === 'uppercase' ? 'updated' :
+                                    (textTransform === 'uppercase' ? 'active' : '')} onClick={e => {
+                                if (textTransform === 'uppercase') {
                                     this.props.updateTextTransform('');
-                                }else{
+                                } else {
                                     this.props.updateTextTransform('uppercase');
                                 }
                             }}>
                                 <SvgCapitalize/>
                             </IconContainer>
-                            <IconContainer className={storeValueText && textTransform !== storeValueText.transform && textTransform === 'capitalize' ? 'updated' :
-                                (textTransform === 'capitalize' ? 'active' : '')} onClick={e => {
-                                if(textTransform === 'capitalize'){
-                                    this.props.updateTextTransform('');
-                                }else{
+                            <IconContainer
+                                className={storeValueText && textTransform !== storeValueText.transform && textTransform === 'capitalize' ? 'updated' :
+                                    (textTransform === 'capitalize' ? 'active' : '')} onClick={e => {
+                                if (textTransform === 'capitalize') {
+                                    this.props.updateTextTransform(null);
+                                } else {
                                     this.props.updateTextTransform('capitalize');
                                 }
                             }}>
                                 <SvgDropCap/>
                             </IconContainer>
-                            <IconContainer className={storeValueText && textDecoration !== storeValueText.decoration && textDecoration === 'underline' ? 'updated' :
-                                (textDecoration === 'underline' ? 'active' : '')}onClick={e => {
-                                if(textDecoration === 'underline'){
-                                    this.props.updateTextDecoration('');
-                                }else{
+                            <IconContainer
+                                className={storeValueText && textDecoration !== storeValueText.decoration && textDecoration === 'underline' ? 'updated' :
+                                    (textDecoration === 'underline' ? 'active' : '')} onClick={e => {
+                                if (textDecoration === 'underline') {
+                                    this.props.updateTextDecoration(null);
+                                } else {
                                     this.props.updateTextDecoration('underline');
                                 }
                             }}>
                                 <SvgUnderline/>
+                            </IconContainer>
+                            <IconContainer
+                                className={storeValueFont && fontStyle !== storeValueFont.style && fontStyle === 'italic' ? 'updated' :
+                                    (fontStyle === 'italic' ? 'active' : '')} onClick={e => {
+                                if (fontStyle === 'italic') {
+                                    this.props.updateFontStyle(null);
+                                } else {
+                                    this.props.updateFontStyle('italic');
+                                }
+
+
+                                }}>
+                                <SvgItalic/>
                             </IconContainer>
                         </div>
                     </TransformProps>

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Icon, ButtonGreen, ButtonBasic, Error } from '../../style/styledComponents';
+import {Icon, ButtonGreen, ButtonBasic, Error} from '../../style/styledComponents';
 import {
     Banner,
     Fields,
@@ -9,12 +9,12 @@ import {
 } from '../../style/styledComponentsBoxes';
 import SvgArrow from '../../components/svg/SvgArrow';
 import SvgCheck from '../../components/svg/SvgCheck';
-import { connect } from 'react-redux';
-import { updateSettingsValue, getCurrentDOM, getColors } from '../../actions';
+import {connect} from 'react-redux';
+import {updateSettingsValue, getCurrentDOM, getColors} from '../../actions';
 import CategoryText from '../reusable/CategoryText';
 import CategoryColor from '../reusable/CategoryColor';
 import CategorySeo from '../reusable/CategorySeo';
-import { extensionTheme } from '../../style/theme';
+import {extensionTheme} from '../../style/theme';
 import styled from 'styled-components';
 
 export const FieldsTemplate = styled(Fields)`
@@ -55,11 +55,20 @@ export const ChoiceItemsConfirm = styled(ChoiceConfirm)`
 export const Column = styled.div`
     display : flex;
     flex-direction : column;
+    
+    &.full-width{
+        width : 100%;
+        
+        & ${Category}{
+            width : 100%;
+            padding-top : 0;
+        }
+    }
 
 `;
 
 class Title extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -73,6 +82,7 @@ class Title extends Component {
         this.updateFontFamily = this.updateFontFamily.bind(this);
         this.updateFontWeight = this.updateFontWeight.bind(this);
         this.updateFontSize = this.updateFontSize.bind(this);
+        this.updateFontStyle = this.updateFontStyle.bind(this);
         this.updateLineHeight = this.updateLineHeight.bind(this);
         this.updateLetterSpacing = this.updateLetterSpacing.bind(this);
         this.updateTextAlign = this.updateTextAlign.bind(this);
@@ -148,6 +158,17 @@ class Title extends Component {
                 font: {
                     ...this.state.value.font,
                     weight: value
+                }
+            }
+        });
+    }
+    updateFontStyle = value => {
+        this.setState({
+            value: {
+                ...this.state.value,
+                font: {
+                    ...this.state.value.font,
+                    style: value
                 }
             }
         });
@@ -237,7 +258,7 @@ class Title extends Component {
 
     }
     toggleOpenView = () => {
-        this.setState({ openView: !this.state.openView });
+        this.setState({openView: !this.state.openView});
     }
 
     isUpdated = () => {
@@ -263,8 +284,8 @@ class Title extends Component {
         return true;
     }
 
-    render () {
-        const { dispatch, dom, colors, indexComponent, indexSection, name } = this.props;
+    render() {
+        const {dispatch, dom, colors, indexComponent, indexSection, name} = this.props;
         const componentStore = dom.sections[indexSection].components[indexComponent];
         if (!colors) {
             return (
@@ -274,9 +295,9 @@ class Title extends Component {
                             <p>{name}</p>
                         </div>
                         <Icon className={this.state.open ? '' : 'rotate'}
-                            onClick={() => {
-                                this.setState({ open: !this.state.open });
-                            }}><SvgArrow/></Icon>
+                              onClick={() => {
+                                  this.setState({open: !this.state.open});
+                              }}><SvgArrow/></Icon>
                     </Banner>
                     <FieldsError>
                         <Error>
@@ -295,7 +316,7 @@ class Title extends Component {
                         <ActiveCheckBox
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
-                                this.setState({ active: !this.state.active }, () => {
+                                this.setState({active: !this.state.active}, () => {
                                     dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                                 });
                             }}>
@@ -304,25 +325,27 @@ class Title extends Component {
                         <p>{name}</p>
                     </div>
                     <Icon className={this.state.open ? '' : 'rotate'}
-                        onClick={() => {
-                            this.setState({ open: !this.state.open });
-                        }}><SvgArrow/></Icon>
+                          onClick={() => {
+                              this.setState({open: !this.state.open});
+                          }}><SvgArrow/></Icon>
                 </Banner>
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
                     <Choices>
-                        <Column>
+                        <Column className={this.state.openView ? 'full-width' : ''}>
                             <Category className={'color'}>
                                 <CategoryColor openView={this.state.openView}
-                                    toggleOpenView={this.toggleOpenView}
-                                    color={this.state.value.color ? this.state.value.color : null}
-                                    updateOpacity={this.updateOpacity}
-                                    updateColor={this.updateColor}
-                                    reinitColor={this.reinitColor}
+                                               storeValueColor={componentStore.settings.Title.value.color}
+                                               toggleOpenView={this.toggleOpenView}
+                                               color={this.state.value.color ? this.state.value.color : null}
+                                               updateOpacity={this.updateOpacity}
+                                               updateColor={this.updateColor}
+                                               reinitColor={this.reinitColor}
                                 />
                             </Category>
 
                             <Category className={['seo', this.state.openView ? 'hidden' : '']}>
                                 <CategorySeo
+                                    storeValueSeo={componentStore.settings.Title.value.seo}
                                     seoTag={this.state.value.seo && this.state.value.seo.tag ? this.state.value.seo.tag : 'h1'}
                                     updateSeoTag={this.updateSeoTag}/>
                             </Category>
@@ -337,7 +360,9 @@ class Title extends Component {
                                 fontWeight={this.state.value.font && this.state.value.font.weight ? this.state.value.font.weight : ''}
                                 updateFontWeight={this.updateFontWeight}
                                 fontSize={this.state.value.font && this.state.value.font.size ? this.state.value.font.size : 44}
-                                updateFontSize={this.updateFontSize}
+                                updateFontWeight={this.updateFontWeight}
+                                fontStyle={this.state.value.font && this.state.value.font.style ? this.state.value.font.style : null}
+                                updateFontStyle={this.updateFontStyle}
                                 lineHeight={this.state.value.font && this.state.value.font.lineheight ? this.state.value.font.lineheight : 54}
                                 updateLineHeight={this.updateLineHeight}
                                 letterSpacing={this.state.value.font && this.state.value.font.letterSpacing ? this.state.value.font.letterSpacing : 0}

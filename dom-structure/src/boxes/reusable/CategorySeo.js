@@ -27,7 +27,7 @@ class CategorySeo extends Component {
     };
 
     render () {
-        const { seoTag } = this.props;
+        const { storeValueSeo, seoTag } = this.props;
         return (
             <ChoiceSeo>
                 <div>
@@ -37,8 +37,8 @@ class CategorySeo extends Component {
                         </Dot>
                         <select
                             value={ seoTag }
+                            className={storeValueSeo && seoTag !== storeValueSeo.tag ? 'updated' : ''}
                             onChange={e => {
-                                console.log('update seo:', e.target.value)
                                 this.props.updateSeoTag(e.target.value);
                             }}>
                             {tags.map(tag => <option value={tag} key={tag}>{tag}</option>)}

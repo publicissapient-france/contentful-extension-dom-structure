@@ -22,6 +22,10 @@ export const SelectedColor = styled(BoxColor)`
     width : 30px;
     height : 30px;
     align-self:flex-start;
+    
+    &.updated{
+        border : 2px solid ${extensionTheme.blueM};
+    }
 `;
 
 export const ChoiceColor = styled.div`
@@ -31,6 +35,7 @@ export const ChoiceColor = styled.div`
    }
    
    &>div{
+    padding-top : 20px;
     padding-bottom : 20px;
     display:flex;
     flex-direction:column;
@@ -44,6 +49,7 @@ export const ChoiceColor = styled.div`
        flex-direction : row;
        justify-content : space-between;
        width: inherit;
+       margin-left : 30px;
        
        &>div{
         display:flex;
@@ -102,7 +108,7 @@ class CategoryColor extends Component {
     }
 
     render () {
-        const { colors, color, openView } = this.props;
+        const { storeValueColor, colors, color, openView } = this.props;
 
         let extendSVGbasic = (this.state.openBasic) ? <SvgExtended/> : <SvgNotExtended/>;
         let extendSVGcustom = (this.state.openCustom) ? <SvgExtended/> : <SvgNotExtended/>;
@@ -115,6 +121,8 @@ class CategoryColor extends Component {
                             <div></div>
                         </Dot>
                         <SelectedColor
+                            className={'active'}
+                            className={storeValueColor && color && color.hex !== storeValueColor.hex ? 'updated' : ''}
                             onClick={() => {
                                 this.props.toggleOpenView();
                             }}
