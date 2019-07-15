@@ -10,12 +10,13 @@ import {
 import SvgArrow from '../../components/svg/SvgArrow';
 import SvgCheck from '../../components/svg/SvgCheck';
 import {connect} from 'react-redux';
-import {updateSettingsValue, getCurrentDOM, getColors} from '../../actions';
+import {updateSettingsValue, getCurrentDOM} from '../../actions';
 import CategoryText from '../reusable/CategoryText';
 import CategoryColor from '../reusable/CategoryColor';
 import CategorySeo from '../reusable/CategorySeo';
 import {extensionTheme} from '../../style/theme';
 import styled from 'styled-components';
+import update from "react-addons-update";
 
 export const FieldsTemplate = styled(Fields)`
     padding :0px;
@@ -75,188 +76,42 @@ class Title extends Component {
             open: true,
             value: {},
             active: true,
-            colors: null,
             openView: false,
         };
 
-        this.updateFontFamily = this.updateFontFamily.bind(this);
-        this.updateFontWeight = this.updateFontWeight.bind(this);
-        this.updateFontSize = this.updateFontSize.bind(this);
-        this.updateFontStyle = this.updateFontStyle.bind(this);
-        this.updateLineHeight = this.updateLineHeight.bind(this);
-        this.updateLetterSpacing = this.updateLetterSpacing.bind(this);
-        this.updateTextAlign = this.updateTextAlign.bind(this);
-        this.updateTextTransform = this.updateTextTransform.bind(this);
-        this.updateTextDecoration = this.updateTextDecoration.bind(this);
-        this.updateOpacity = this.updateOpacity.bind(this);
-        this.updateColor = this.updateColor.bind(this);
-        this.reinitColor = this.reinitColor.bind(this);
         this.toggleOpenView = this.toggleOpenView.bind(this);
-        this.updateSeoTag = this.updateSeoTag.bind(this);
+        this.updateStateProps = this.updateStateProps.bind(this);
     }
 
     componentDidMount = () => {
+        console.log('default value : ', this.props.defaultValue);
+
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
         this.setState({
-            value: componentStore.settings.Title ? componentStore.settings.Title.value : {},
+            value: componentStore.settings.Title ? componentStore.settings.Title.value : this.props.defaultValue,
             active: componentStore.settings.Title ? componentStore.settings.Title.active : true,
-            colors: this.props.colors ? this.props.colors : null,
             open: this.props.open
+        }, () => {
+            console.log('TITLE compoentDidMount state', this.state)
+            console.log('TITLEcomponentStore.settings.Title', componentStore.settings.Title)
         });
     };
 
 
-    updateFontSize = value => {
+
+
+    updateStateProps = (props , value) => {
         this.setState({
             value: {
                 ...this.state.value,
-                font: {
-                    ...this.state.value.font,
-                    size: value
-                }
+                [props]: value
             }
-        });
-    }
-    updateLineHeight = value => {
-        this.setState({
-            value: {
-                ...this.state.value,
-                font: {
-                    ...this.state.value.font,
-                    lineheight: value
-                }
-            }
-        });
-    }
-    updateLetterSpacing = value => {
-        this.setState({
-            value: {
-                ...this.state.value,
-                font: {
-                    ...this.state.value.font,
-                    letterSpacing: value
-                }
-            }
-        });
-    }
-    updateFontFamily = value => {
-        this.setState({
-            value: {
-                ...this.state.value,
-                font: {
-                    ...this.state.value.font,
-                    family: value
-                }
-            }
-        });
-    }
-    updateFontWeight = value => {
-        this.setState({
-            value: {
-                ...this.state.value,
-                font: {
-                    ...this.state.value.font,
-                    weight: value
-                }
-            }
-        });
-    }
-    updateFontStyle = value => {
-        this.setState({
-            value: {
-                ...this.state.value,
-                font: {
-                    ...this.state.value.font,
-                    style: value
-                }
-            }
-        });
-    }
-    updateTextAlign = value => {
-        this.setState({
-            value: {
-                ...this.state.value,
-                text: {
-                    ...this.state.value.text,
-                    align: value
-                }
-            }
-        });
-    }
-    updateTextTransform = value => {
-        this.setState({
-            value: {
-                ...this.state.value,
-                text: {
-                    ...this.state.value.text,
-                    transform: value
-                }
-            }
-        });
-    }
-    updateTextDecoration = value => {
-        this.setState({
-            value: {
-                ...this.state.value,
-                text: {
-                    ...this.state.value.text,
-                    decoration: value
-                }
-            }
-        });
-    }
-    updateOpacity = value => {
-        this.setState({
-            value: {
-                ...this.state.value,
-                color: {
-                    ...this.state.value.color,
-                    opacity: value
-                }
-            }
-        });
-    }
-    updateColor = (hex, name, shade) => {
-        this.setState({
-            value: {
-                ...this.state.value,
-                color: {
-                    ...this.state.value.color,
-                    hex: hex,
-                    name: name,
-                    shade: shade
-                }
-            }
-        });
-    }
-    reinitColor = () => {
-        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
-        this.setState({
-            value: {
-                ...this.state.value,
-                color: {
-                    ...this.state.value.color,
-                    hex: componentStore.settings.Title.value.color.hex,
-                    name: componentStore.settings.Title.value.color.name,
-                    shade: componentStore.settings.Title.value.color.shade,
-                }
-            }
-        });
+        }, () => {
+                console.log('updatefontprops :', this.state)
+            });
     }
 
-    updateSeoTag = value => {
-        this.setState({
-            value: {
-                ...this.state.value,
-                seo: {
-                    ...this.state.value.seo,
-                    tag: value
-                }
-            }
-        });
-
-    }
     toggleOpenView = () => {
         this.setState({openView: !this.state.openView});
     }
@@ -285,30 +140,9 @@ class Title extends Component {
     }
 
     render() {
-        const {dispatch, dom, colors, indexComponent, indexSection, name} = this.props;
+        const {dispatch, dom, indexComponent, indexSection, name} = this.props;
         const componentStore = dom.sections[indexSection].components[indexComponent];
-        if (!colors) {
-            return (
-                <div>
-                    <Banner>
-                        <div>
-                            <p>{name}</p>
-                        </div>
-                        <Icon className={this.state.open ? '' : 'rotate'}
-                              onClick={() => {
-                                  this.setState({open: !this.state.open});
-                              }}><SvgArrow/></Icon>
-                    </Banner>
-                    <FieldsError>
-                        <Error>
-                            <h2>Error</h2>
-                            <p>To use this option, you must have selected a reference style guide in your project.</p>
-                            <p>Please check that a style guide has been selected.</p>
-                        </Error>
-                    </FieldsError>
-                </div>
-            );
-        }
+
         return (
             <div>
                 <Banner>
@@ -334,45 +168,30 @@ class Title extends Component {
                         <Column className={this.state.openView ? 'full-width' : ''}>
                             <Category className={'color'}>
                                 <CategoryColor openView={this.state.openView}
-                                               storeValueColor={componentStore.settings.Title.value.color}
                                                toggleOpenView={this.toggleOpenView}
-                                               color={this.state.value.color ? this.state.value.color : null}
-                                               updateOpacity={this.updateOpacity}
-                                               updateColor={this.updateColor}
-                                               reinitColor={this.reinitColor}
+                                               storeValueColor={componentStore.settings.Title && componentStore.settings.Title.value.color ? componentStore.settings.Title.value.color : null }
+                                               color={this.state.value.color}
+                                               opacity={this.state.value.opacity}
+                                               updateStateProps={this.updateStateProps}
                                 />
                             </Category>
 
                             <Category className={['seo', this.state.openView ? 'hidden' : '']}>
                                 <CategorySeo
-                                    storeValueSeo={componentStore.settings.Title.value.seo}
-                                    seoTag={this.state.value.seo && this.state.value.seo.tag ? this.state.value.seo.tag : 'h1'}
-                                    updateSeoTag={this.updateSeoTag}/>
+                                    storeValueSeo={componentStore.settings.Title && componentStore.settings.Title.value.seoTag ? componentStore.settings.Title.value.seoTag : null}
+                                    seoTag={this.state.value.seoTag}
+                                    updateStateProps={this.updateStateProps}/>
                             </Category>
                         </Column>
 
                         <Category className={['font', this.state.openView ? 'hidden' : '']}>
                             <CategoryText
-                                storeValueFont={componentStore.settings.Title.value.font}
-                                storeValueText={componentStore.settings.Title.value.text}
-                                fontFamily={this.state.value.font && this.state.value.font.family ? this.state.value.font.family : ''}
-                                updateFontFamily={this.updateFontFamily}
-                                fontWeight={this.state.value.font && this.state.value.font.weight ? this.state.value.font.weight : ''}
-                                updateFontWeight={this.updateFontWeight}
-                                fontSize={this.state.value.font && this.state.value.font.size ? this.state.value.font.size : 44}
-                                updateFontWeight={this.updateFontWeight}
-                                fontStyle={this.state.value.font && this.state.value.font.style ? this.state.value.font.style : null}
-                                updateFontStyle={this.updateFontStyle}
-                                lineHeight={this.state.value.font && this.state.value.font.lineheight ? this.state.value.font.lineheight : 54}
-                                updateLineHeight={this.updateLineHeight}
-                                letterSpacing={this.state.value.font && this.state.value.font.letterSpacing ? this.state.value.font.letterSpacing : 0}
-                                updateLetterSpacing={this.updateLetterSpacing}
-                                textAlign={this.state.value.text && this.state.value.text.align ? this.state.value.text.align : 'left'}
-                                updateTextAlign={this.updateTextAlign}
-                                textTransform={this.state.value.text && this.state.value.text.transform ? this.state.value.text.transform : null}
-                                updateTextTransform={this.updateTextTransform}
-                                textDecoration={this.state.value.text && this.state.value.text.decoration ? this.state.value.text.decoration : null}
-                                updateTextDecoration={this.updateTextDecoration}
+                                storeValueFont={componentStore.settings.Title && componentStore.settings.Title.value.font ? componentStore.settings.Title.value.font: null}
+                                storeValueText={componentStore.settings.Title && componentStore.settings.Title.value.text ? componentStore.settings.Title.value.text : null}
+                                font={this.state.value.font}
+                                text={this.state.value.text}
+                                theme={this.state.value.theme}
+                                updateStateProps={this.updateStateProps}
                             />
                         </Category>
 
@@ -411,7 +230,6 @@ Title.propTypes = {
 };
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state),
-    colors: getColors(state).value
 });
 
 export default connect(mapStateToProps)(Title);

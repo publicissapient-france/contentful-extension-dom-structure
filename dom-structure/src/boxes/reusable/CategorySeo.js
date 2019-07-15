@@ -4,11 +4,11 @@ import { Dot
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { tags } from '../../config/defaultConfig';
+import _ from 'lodash';
 
 export const ChoiceSeo = styled.div`
    display : flex;
    padding: 10px 0;
-   
 `;
 
 export const Field = styled.div`
@@ -18,13 +18,10 @@ class CategorySeo extends Component {
     constructor (props) {
         super(props);
 
-        this.state = {
-        };
+        this.state = {};
     }
 
-    componentDidMount = () => {
-        console.log('props tag', this.props.seoTag);
-    };
+    componentDidMount = () => {};
 
     render () {
         const { storeValueSeo, seoTag } = this.props;
@@ -32,14 +29,12 @@ class CategorySeo extends Component {
             <ChoiceSeo>
                 <div>
                     <Field>
-                        <Dot>
-                            <div></div>
-                        </Dot>
+                        <Dot/>
                         <select
                             value={ seoTag }
-                            className={storeValueSeo && seoTag !== storeValueSeo.tag ? 'updated' : ''}
+                            className={!_.isEqual(seoTag, storeValueSeo) ? 'updated' : ''}
                             onChange={e => {
-                                this.props.updateSeoTag(e.target.value);
+                                this.props.updateStateProps('seoTag', e.target.value);
                             }}>
                             {tags.map(tag => <option value={tag} key={tag}>{tag}</option>)}
                         </select>
@@ -50,7 +45,5 @@ class CategorySeo extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-});
 
-export default connect(mapStateToProps)(CategorySeo);
+export default connect()(CategorySeo);

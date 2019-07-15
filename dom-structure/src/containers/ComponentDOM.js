@@ -46,8 +46,6 @@ const ContainerComponent = styled(Container)`
   background : ${ extensionTheme.white };
   border-radius : 0px 20px 20px 0px;
   overflow : hidden;
-  
- 
 `;
 
 const TopBar = styled.div`
@@ -272,9 +270,7 @@ class ComponentDOM extends Component {
         this.state.component.model !== this.props.component.model))
 
     getContentAvailable = () => components.find(c => c.name === this.props.component.model).content;
-    getSettingsAvailable = () => components.find(c => c.name === this.props.component.model).settings;
-
-    // TestC = React.lazy(() => import('../boxes/content/Title'));
+    getSettingsAvailable = () => (components.find(c => c.name === this.props.component.model).settings);
 
     render () {
         const { dispatch, extensionInfo, currentLanguage, component, index, indexParent, lengthParent } = this.props;
@@ -406,6 +402,7 @@ class ComponentDOM extends Component {
                                 {
                                     extensionInfo.extension.locales.available.map((language, i) => {
                                         return <ToogleLanguage
+                                            key={i}
                                             className={currentLanguage.language === i ? 'active' : ''}
                                             onClick={e => {
                                                 this.setState({ language: i });

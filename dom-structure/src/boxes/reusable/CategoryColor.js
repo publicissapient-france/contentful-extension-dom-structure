@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import { Icon } from '../../style/styledComponents';
+import React, {Component} from 'react';
+import {Icon, Error} from '../../style/styledComponents';
 import {
     BoxColor,
     Palette,
     Property, BlockColor, IconExtend, IconAdd,
-    NameColor, HexColor, ColorList, Dot
+    NameColor, HexColor, ColorList, Dot, Fields
 } from '../../style/styledComponentsBoxes';
 import SvgCross from '../../components/svg/SvgCross';
 
 import SvgExtended from '../../components/svg/SvgExtended';
 import SvgNotExtended from '../../components/svg/SvgNotExtended';
 import SvgSheet from '../../components/svg/SvgSheet';
-import { connect } from 'react-redux';
-import { getColors } from '../../actions';
+import {connect} from 'react-redux';
+import {getColors} from '../../actions';
 import ColorView from '../../components/ColorView';
 import ColorAdd from '../../components/ColorAdd';
-import { extensionTheme } from '../../style/theme';
+import {extensionTheme} from '../../style/theme';
 import styled from 'styled-components';
 
 export const SelectedColor = styled(BoxColor)`
@@ -88,8 +88,12 @@ export const Field = styled.div`
     display : flex;
     
 `;
+export const FieldsError = styled(Fields)`
+    display : block;
+`;
+
 class CategoryColor extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -99,35 +103,40 @@ class CategoryColor extends Component {
         };
     }
 
-    componentDidMount = () => {
-        console.log('color on props : ', this.props.color);
-    };
+    toggleAction = () => this.state.currentAction === 'view' ? this.setState({currentAction: 'add'}) : this.setState({currentAction: 'view'});
 
-    toggleAction = () => {
-        this.state.currentAction === 'view' ? this.setState({ currentAction: 'add' }) : this.setState({ currentAction: 'view' });
-    }
+    isSelected = (item) => this.props.color && this.props.color.hex === item.hex && this.state.currentAction === 'view'
 
-    render () {
-        const { storeValueColor, colors, color, openView } = this.props;
+    render() {
+        const {storeValueColor, colors, color, opacity, openView} = this.props;
 
         let extendSVGbasic = (this.state.openBasic) ? <SvgExtended/> : <SvgNotExtended/>;
         let extendSVGcustom = (this.state.openCustom) ? <SvgExtended/> : <SvgNotExtended/>;
+        console.log('storeValueColor', storeValueColor);
+        if (!color) return null
+        if (!colors) return (
+            <FieldsError>
+                <Error>
+                    <h2>Error</h2>
+                    <p>To use this option, you must have selected a reference style guide in your project.</p>
+                    <p>Please check that a style guide has been selected.</p>
+                </Error>
+            </FieldsError>
+        )
         return (
             <ChoiceColor className={openView ? 'full-width' : ''}>
                 <div>
                     <Property>Color</Property>
                     <Field>
-                        <Dot>
-                            <div></div>
-                        </Dot>
+                        <Dot/>
                         <SelectedColor
                             className={'active'}
-                            className={storeValueColor && color && color.hex !== storeValueColor.hex ? 'updated' : ''}
+                            className={storeValueColor && color.hex !== storeValueColor.hex ? 'updated' : ''}
                             onClick={() => {
                                 this.props.toggleOpenView();
                             }}
                             style={{
-                                background: color && color.hex ? color.hex : '#000'
+                                background: color.hex
                             }}/>
                     </Field>
 
@@ -137,7 +146,7 @@ class CategoryColor extends Component {
                         <Property>Color chart</Property>
                         <PaletteContainer>
                             <Palette className={this.state.openBasic ? 'open' : ''}>
-                                <IconExtend onClick={() => this.setState({ openBasic: !this.state.openBasic })}>
+                                <IconExtend onClick={() => this.setState({openBasic: !this.state.openBasic})}>
                                     {extendSVGbasic}
                                 </IconExtend>
                                 <ColorList>
@@ -145,15 +154,19 @@ class CategoryColor extends Component {
                                         (!colors) ? <span>No color available</span>
                                             : colors.basic.map((item, i) =>
                                                 <BlockColor key={i}
-                                                    className={color && color.hex === item.hex && this.state.currentAction === 'view' ? 'selected' : ''}
-                                                    onClick={e => {
-                                                        console.log('addColor : ', this.state.currentAction);
-                                                        this.setState({ currentAction: 'view' });
-                                                        this.props.updateColor(item.hex, item.name, item.shade);
-                                                    }}>
+                                                            className={this.isSelected(item) ? 'selected' : ''}
+                                                            onClick={e => {
+                                                                const selectedColor = {
+                                                                    hex: item.hex,
+                                                                    name: item.name,
+                                                                    shade: item.shade
+                                                                }
+                                                                this.setState({currentAction: 'view'});
+                                                                this.props.updateStateProps('color', selectedColor);
+                                                            }}>
                                                     <BoxColor
                                                         className={item.name === 'None' ? 'null' : ''}
-                                                        style={{ background: item.hex }}/>
+                                                        style={{background: item.hex}}/>
                                                     <NameColor>{item.slug}</NameColor>
                                                     <HexColor>{item.hex}</HexColor>
                                                 </BlockColor>
@@ -162,7 +175,7 @@ class CategoryColor extends Component {
                                 </ColorList>
                             </Palette>
                             <Palette className={this.state.openCustom ? 'open' : ''}>
-                                <IconExtend onClick={() => this.setState({ openCustom: !this.state.openCustom })}>
+                                <IconExtend onClick={() => this.setState({openCustom: !this.state.openCustom})}>
                                     {extendSVGcustom}
                                 </IconExtend>
                                 <ColorList>
@@ -170,27 +183,31 @@ class CategoryColor extends Component {
                                         (!colors) ? <span>No color available</span>
                                             : colors.custom.map((item, i) =>
                                                 <BlockColor key={i}
-                                                    className={color && color.hex === item.hex && this.state.currentAction === 'view' ? 'selected' : ''}
-                                                    onClick={e => {
-                                                        console.log('addColor : ', this.state.currentAction);
-                                                        this.setState({ currentAction: 'view' });
-                                                        this.props.updateColor(item.hex, item.name, item.shade);
-                                                    }}>
+                                                            className={this.isSelected(item) ? 'selected' : ''}
+                                                            onClick={e => {
+                                                                const selectedColor = {
+                                                                    hex: item.hex,
+                                                                    name: item.name,
+                                                                    shade: item.shade
+                                                                }
+                                                                this.setState({currentAction: 'view'});
+                                                                this.props.updateStateProps('color', selectedColor);
+                                                            }}>
                                                     <BoxColor
-                                                        className={item.name === 'None' ? 'null' : ''}
-                                                        style={{ background: item.hex }}/>
+                                                        style={{background: item.hex}}/>
                                                     <NameColor>{item.slug}</NameColor>
                                                     <HexColor>{item.hex}</HexColor>
                                                 </BlockColor>
                                             )
                                     }
-                                    <IconAdd className={this.state.currentAction === 'add' ? 'selected' : ''} onClick={e => this.toggleAction() }>
+                                    <IconAdd className={this.state.currentAction === 'add' ? 'selected' : ''}
+                                             onClick={e => this.toggleAction()}>
                                         <SvgSheet/>
                                     </IconAdd>
                                 </ColorList>
                             </Palette>
                             <ColorView display={this.state.currentAction === 'view'} color={color}/>
-                            <ColorAdd display={this.state.currentAction === 'add'} />
+                            <ColorAdd display={this.state.currentAction === 'add'}/>
                         </PaletteContainer>
                     </div>
                     <div>
@@ -201,23 +218,20 @@ class CategoryColor extends Component {
 
                 </PaletteView>
                 <ChoiceOpacity className={openView ? 'hidden' : ''}>
-
                     <Property>Opacity</Property>
                     <Field>
-                        <Dot>
-                            <div></div>
-                        </Dot>
+                        <Dot/>
                         <div>
                             <input type={'number'} max={100} min={0}
-                                value={color && color.opacity ? color.opacity * 100 : 100}
-                                onChange={e => { this.props.updateOpacity(e.target.value / 100); }}/>
+                                   value={opacity * 100 || 100}
+                                   onChange={e => {
+                                       this.props.updateStateProps('opacity', e.target.value / 100);
+                                   }}/>
                             <span>%</span>
                         </div>
-
                     </Field>
                 </ChoiceOpacity>
             </ChoiceColor>
-
         );
     }
 }

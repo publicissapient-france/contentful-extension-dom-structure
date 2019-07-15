@@ -497,10 +497,14 @@ export const Dot = styled.div`
    justify-content:center;
    align-items : center;
    
-   & div{
-    width : 10px;
-    height : 10px;
-    background : ${ extensionTheme.blueM };
-    border-radius : 100%;
-   }
+   &::before{
+       content: '';
+       display: inline-block;
+       width: 8px;
+       height: 8px;
+       -moz-border-radius: 50%;
+       -webkit-border-radius: 50%;
+       border-radius: 50%;
+       background-color: ${ extensionTheme.blueM};
+    }
 `;

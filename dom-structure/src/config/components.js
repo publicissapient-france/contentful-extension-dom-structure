@@ -7,12 +7,42 @@ const config = [
     {
         name: 'MainTitle',
         settings: [],
-        content: ['Title', 'Subtitle']
+        content: ['Title' , 'Subtitle'],
+
     },
     {
         name: 'Leading',
-        settings: ['Template', 'Title'],
-        content: ['Title', 'Tagline', 'Text']
+        content: ['Title', 'Tagline', 'Text'],
+        settings : [
+            {
+                name : 'Title',
+                defaultValue : {
+                    color : {
+                        hex :'#000000',
+                        name : 'Black',
+                        shade : null
+                    },
+                    opacity : '0.85',
+                    seoTag : 'h2',
+                    theme : 'TitleLight',
+                    font : {
+                        family : null,
+                        typeface : null,
+                        weight : null,
+                        style : null,
+                        size : null,
+                        lineHeight : null,
+                        letterSpacing : 0
+                    },
+                    text : {
+                        align : 'left',
+                        transform : null,
+                        decoration : null
+                    }
+                }
+            }
+        ]
+
     }
 ];
 
