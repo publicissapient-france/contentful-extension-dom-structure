@@ -129,7 +129,7 @@ class CategoryColor extends Component {
                 <div>
                     <Property>Color</Property>
                     <Field>
-                        <Dot className={color.hex == defaultColor.hex ? 'disabled ': ''}/>
+                        <Dot className={defaultColor.hex && color.hex != defaultColor.hex ? 'active ': ''}/>
                         <SelectedColor
                             className={['active',storeValueColor && color.hex !== storeValueColor.hex ? 'updated' : '']}
                             onClick={() => {
@@ -220,7 +220,7 @@ class CategoryColor extends Component {
                 <ChoiceOpacity className={openView ? 'hidden' : ''}>
                     <Property>Opacity</Property>
                     <Field>
-                        <Dot className={opacity == defaultOpacity ? 'disabled ': ''}/>
+                        <Dot className={defaultOpacity && opacity != defaultOpacity ? 'active ': ''}/>
                         <div>
                             <input type={'number'} max={100} min={0}
                                    className={storeValueOpacity && opacity !== storeValueOpacity ? 'updated' : ''}

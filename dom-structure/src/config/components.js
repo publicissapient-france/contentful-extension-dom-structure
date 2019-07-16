@@ -26,18 +26,16 @@ const config = [
                     seo : {
                         tag : 'h2'
                     },
-                    text :{
 
-                    },
-                    theme : 'TitleLight',
                     font : {
+                        theme : 'TitleLight',
                         family : null,
                         typeface : null,
                         weight : null,
-                        style : null,
+                        style : 'italic',
                         size : null,
                         lineHeight : null,
-                        letterSpacing : 0
+                        letterSpacing : '0'
                     },
                     text : {
                         align : 'left',

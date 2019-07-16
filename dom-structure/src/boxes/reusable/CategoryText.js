@@ -115,8 +115,7 @@ class CategoryText extends Component {
         this.setState({
             familyFonts: _.groupBy(this.props.fonts, 'family'),
             font: this.props.font,
-            text: this.props.text,
-            theme: this.props.theme
+            text: this.props.text
         });
     };
 
@@ -126,21 +125,17 @@ class CategoryText extends Component {
                 ...this.state,
                 font: this.props.font,
                 text: this.props.text
+            }, () => {
+                if (this.state.font && this.state.font.theme && this.props.themes && !this.state.font.family) {
+                    this.updateWithTheme();
+                }
             });
         }
 
-        if ( !this.props.font.family && this.props.themes && this.props.theme !== prevProps.theme) {
-            this.setState({
-                ...this.state,
-                theme: this.props.theme
-            }, () => {
-                this.updateWithTheme();
-            });
-        }
     }
 
     updateWithTheme = () => {
-        let selectedTheme = this.getThemeValue(this.props.themes, this.state.theme);
+        let selectedTheme = this.getThemeValue(this.props.themes, this.state.font.theme);
         this.setState({
             ...this.state,
             font: {
@@ -152,6 +147,41 @@ class CategoryText extends Component {
                 lineHeight: selectedTheme.lineheight
             }
         }, () => {
+            this.props.updateStateProps('font', this.state.font);
+        })
+    }
+
+    updateFontProp = (prop, value) => {
+        this.setState({
+            ...this.state,
+            font: {
+                ...this.state.font,
+                [prop]: value
+            }
+        }, () => {
+            this.props.updateStateProps('font', this.state.font);
+        })
+    }
+    updateTextProp = (prop, value) => {
+        this.setState({
+            ...this.state,
+            text: {
+                ...this.state.text,
+                [prop]: value
+            }
+        }, () => {
+            this.props.updateStateProps('text', this.state.text);
+        })
+    }
+    updateFontTheme = (value) => {
+        this.setState({
+            ...this.state,
+            font: {
+                ...this.state.font,
+                theme: value
+            }
+        }, () => {
+            this.updateWithTheme();
             this.props.updateStateProps('font', this.state.font);
         })
     }
@@ -174,8 +204,8 @@ class CategoryText extends Component {
     }
 
     render() {
-        const {theme, font, text, storeValueFont, storeValueText, storeValueTheme} = this.props;
-        if (!font || !text || !theme) return null
+        const {font, text, storeValueFont, storeValueText, defaultFont, defaultText} = this.props;
+        if (!font || !text) return null
         return (
             <ChoiceFont>
                 <ContainerProps>
@@ -183,21 +213,13 @@ class CategoryText extends Component {
                         <div>
                             <Property>Thème</Property>
                             <Field>
-                                <Dot/>
-                                <select value={theme}
-                                        className={storeValueTheme && theme !== storeValueTheme ? 'updated' : ''}
+                                <Dot className={defaultFont.theme && font.theme != defaultFont.theme ? 'active ' : ''}/>
+                                <select value={font.theme}
+                                        className={storeValueFont && font.theme !== storeValueFont.theme ? 'updated' : ''}
                                         onChange={e => {
-                                            this.setState({
-                                                ...this.state,
-                                                theme: e.target.value
-                                            }, () => {
-                                                this.updateWithTheme();
-                                                this.props.updateStateProps('theme', this.state.theme);
-                                            })
-
+                                            this.updateFontTheme(e.target.value);
                                         }}>
-                                    {this.props.themes ? this.props.themes.map((theme, i) => <option value={theme.name}
-                                                                                                     key={i}>{theme.name}</option>) :
+                                    {this.props.themes ? this.props.themes.map((theme, i) => <option value={theme.name} key={i}>{theme.name}</option>) :
                                         <option></option>}
                                 </select>
                             </Field>
@@ -205,23 +227,22 @@ class CategoryText extends Component {
                         <div>
                             <Property>Font</Property>
                             <Field>
-                                <Dot/>
+                                <Dot
+                                    className={defaultFont.family && font.family !== defaultFont.family ? 'active ' : ''}/>
                                 <select
                                     value={font.family || ''}
                                     className={storeValueFont && font.family !== storeValueFont.family ? 'updated' : ''}
                                     onChange={e => {
-                                        console.log('e.target.value CHANGE FONT', e.target.value)
                                         this.setState({
                                             ...this.state,
                                             font: {
                                                 ...this.state.font,
                                                 family: e.target.value,
-                                                typeface :this.state.familyFonts[e.target.value][0].typeface
+                                                typeface: this.state.familyFonts[e.target.value][0].typeface
                                             }
                                         }, () => {
                                             this.props.updateStateProps('font', this.state.font);
                                         })
-
                                     }}>
                                     <option></option>
                                     {Object.keys(this.state.familyFonts).map(key => <option value={key}
@@ -231,23 +252,15 @@ class CategoryText extends Component {
                         </div>
                         <div>
                             <Field>
-                                <Dot/>
+                                <Dot
+                                    className={defaultFont.weight && font.weight !== defaultFont.weight ? 'active ' : ''}/>
                                 <select
                                     value={font.weight ? font.weight[1] : ''}
                                     className={storeValueFont && font.weight !== storeValueFont.weight ? 'updated' : ''}
                                     onChange={e => {
-                                        console.log('e.target.value WEIGHT', e.target);
                                         let textSelected = e.target.options[e.target.selectedIndex].text;
                                         let valueSelected = e.target.value;
-                                        this.setState({
-                                            ...this.state,
-                                            font: {
-                                                ...this.state.font,
-                                                weight: [textSelected, valueSelected]
-                                            }
-                                        }, () => {
-                                            this.props.updateStateProps('font', this.state.font);
-                                        })
+                                        this.updateFontProp('weight', [textSelected, valueSelected]);
                                     }}>
                                     {
                                         (font.family && this.state.familyFonts[font.family])
@@ -264,7 +277,7 @@ class CategoryText extends Component {
 
                     <TypoProps>
                         <div>
-                            <Dot/>
+                            <Dot className={defaultFont.size && font.size !== defaultFont.size ? 'active ' : ''}/>
                             <IconContainer>
                                 <SvgFontSize/>
                             </IconContainer>
@@ -272,19 +285,12 @@ class CategoryText extends Component {
                                    className={storeValueFont && font.size !== storeValueFont.size ? 'updated' : ''}
                                    value={font.size || 0}
                                    onChange={e => {
-                                       this.setState({
-                                           ...this.state,
-                                           font: {
-                                               ...this.state.font,
-                                               size:  e.target.value
-                                           }
-                                       }, () => {
-                                           this.props.updateStateProps('font', this.state.font);
-                                       })
+                                       this.updateFontProp('size', e.target.value);
                                    }}/>
                         </div>
                         <div>
-                            <Dot/>
+                            <Dot
+                                className={defaultFont.lineHeight && font.lineHeight !== defaultFont.lineHeight ? 'active ' : ''}/>
                             <IconContainer>
                                 <SvgLineHeight/>
                             </IconContainer>
@@ -292,19 +298,12 @@ class CategoryText extends Component {
                                    className={storeValueFont && font.lineHeight !== storeValueFont.lineHeight ? 'updated' : ''}
                                    value={font.lineHeight || 0}
                                    onChange={e => {
-                                       this.setState({
-                                           ...this.state,
-                                           font: {
-                                               ...this.state.font,
-                                               lineHeight:  e.target.value
-                                           }
-                                       }, () => {
-                                           this.props.updateStateProps('font', this.state.font);
-                                       })
+                                       this.updateFontProp('lineHeight', e.target.value);
                                    }}/>
                         </div>
                         <div>
-                            <Dot/>
+                            <Dot
+                                className={defaultFont.letterSpacing && font.letterSpacing !== defaultFont.letterSpacing ? 'active ' : ''}/>
                             <IconContainer>
                                 <SvgLetterSpacing/>
                             </IconContainer>
@@ -312,15 +311,7 @@ class CategoryText extends Component {
                                    className={storeValueFont && font.letterSpacing !== storeValueFont.letterSpacing ? 'updated' : ''}
                                    value={font.letterSpacing || 0}
                                    onChange={e => {
-                                       this.setState({
-                                           ...this.state,
-                                           font: {
-                                               ...this.state.font,
-                                               letterSpacing:  e.target.value
-                                           }
-                                       }, () => {
-                                           this.props.updateStateProps('font', this.state.font);
-                                       })
+                                       this.updateFontProp('letterSpacing', e.target.value);
                                    }}/>
                         </div>
                     </TypoProps>
@@ -328,64 +319,32 @@ class CategoryText extends Component {
                 <ContainerProps>
                     <AlignProps>
                         <div>
-                            <Dot/>
+                            <Dot className={defaultText.align && text.align !== defaultText.align ? 'active ' : ''}/>
                             <IconContainer
                                 className={storeValueText && text.align !== storeValueText.align && text.align === 'left' ? 'updated' :
                                     (text.align === 'left' ? 'active' : '')} onClick={e => {
-                                this.setState({
-                                    ...this.state,
-                                    text: {
-                                        ...this.state.text,
-                                        align: 'left'
-                                    }
-                                }, () => {
-                                    this.props.updateStateProps('text', this.state.text);
-                                })
+                                this.updateTextProp('align', 'left');
                             }}>
                                 <SvgAlignLeft/>
                             </IconContainer>
                             <IconContainer
                                 className={storeValueText && text.align !== storeValueText.align && text.align === 'center' ? 'updated' :
                                     (text.align === 'center' ? 'active' : '')} onClick={e => {
-                                this.setState({
-                                    ...this.state,
-                                    text: {
-                                        ...this.state.text,
-                                        align: 'center'
-                                    }
-                                }, () => {
-                                    this.props.updateStateProps('text', this.state.text);
-                                })
+                                this.updateTextProp('align', 'center');
                             }}>
                                 <SvgAlignCenter/>
                             </IconContainer>
                             <IconContainer
                                 className={storeValueText && text.align !== storeValueText.align && text.align === 'right' ? 'updated' :
                                     (text.align === 'right' ? 'active' : '')} onClick={e => {
-                                this.setState({
-                                    ...this.state,
-                                    text: {
-                                        ...this.state.text,
-                                        align: 'right'
-                                    }
-                                }, () => {
-                                    this.props.updateStateProps('text', this.state.text);
-                                })
+                                this.updateTextProp('align', 'right');
                             }}>
                                 <SvgAlignRight/>
                             </IconContainer>
                             <IconContainer
                                 className={storeValueText && text.align !== storeValueText.align && text.align === 'justify' ? 'updated' :
                                     (text.align === 'justify' ? 'active' : '')} onClick={e => {
-                                this.setState({
-                                    ...this.state,
-                                    text: {
-                                        ...this.state.text,
-                                        align: 'justify'
-                                    }
-                                }, () => {
-                                    this.props.updateStateProps('text', this.state.text);
-                                })
+                                this.updateTextProp('align', 'justify');
                             }}>
                                 <SvgAlignJustify/>
                             </IconContainer>
@@ -394,30 +353,15 @@ class CategoryText extends Component {
                     </AlignProps>
                     <TransformProps>
                         <div>
-                            <Dot/>
+                            <Dot
+                                className={defaultText.transform && text.transform !== defaultText.transform ? 'active ' : ''}/>
                             <IconContainer
                                 className={storeValueText && text.transform !== storeValueText.transform && text.transform === 'uppercase' ? 'updated' :
                                     (text.transform === 'uppercase' ? 'active' : '')} onClick={e => {
                                 if (text.transform === 'uppercase') {
-                                    this.setState({
-                                        ...this.state,
-                                        text: {
-                                            ...this.state.text,
-                                            transform: null
-                                        }
-                                    }, () => {
-                                        this.props.updateStateProps('text', this.state.text);
-                                    })
+                                    this.updateTextProp('transform', null);
                                 } else {
-                                    this.setState({
-                                        ...this.state,
-                                        text: {
-                                            ...this.state.text,
-                                            transform: 'uppercase'
-                                        }
-                                    }, () => {
-                                        this.props.updateStateProps('text', this.state.text);
-                                    })
+                                    this.updateTextProp('transform', 'uppercase');
                                 }
                             }}>
                                 <SvgCapitalize/>
@@ -426,25 +370,9 @@ class CategoryText extends Component {
                                 className={storeValueText && text.transform !== storeValueText.transform && text.transform === 'capitalize' ? 'updated' :
                                     (text.transform === 'capitalize' ? 'active' : '')} onClick={e => {
                                 if (text.transform === 'capitalize') {
-                                    this.setState({
-                                        ...this.state,
-                                        text: {
-                                            ...this.state.text,
-                                            transform: null
-                                        }
-                                    }, () => {
-                                        this.props.updateStateProps('text', this.state.text);
-                                    })
+                                    this.updateTextProp('transform', null);
                                 } else {
-                                    this.setState({
-                                        ...this.state,
-                                        text: {
-                                            ...this.state.text,
-                                            transform: 'capitalize'
-                                        }
-                                    }, () => {
-                                        this.props.updateStateProps('text', this.state.text);
-                                    })
+                                    this.updateTextProp('transform', 'capitalize');
                                 }
                             }}>
                                 <SvgDropCap/>
@@ -453,25 +381,9 @@ class CategoryText extends Component {
                                 className={storeValueText && text.decoration !== storeValueText.decoration && text.decoration === 'underline' ? 'updated' :
                                     (text.decoration === 'underline' ? 'active' : '')} onClick={e => {
                                 if (text.decoration === 'underline') {
-                                    this.setState({
-                                        ...this.state,
-                                        text: {
-                                            ...this.state.text,
-                                            decoration: null
-                                        }
-                                    }, () => {
-                                        this.props.updateStateProps('text', this.state.text);
-                                    })
+                                    this.updateTextProp('decoration', null);
                                 } else {
-                                    this.setState({
-                                        ...this.state,
-                                        text: {
-                                            ...this.state.text,
-                                            decoration: 'underline'
-                                        }
-                                    }, () => {
-                                        this.props.updateStateProps('text', this.state.text);
-                                    })
+                                    this.updateTextProp('decoration', 'underline');
                                 }
                             }}>
                                 <SvgUnderline/>
@@ -480,25 +392,9 @@ class CategoryText extends Component {
                                 className={storeValueFont && font.style !== storeValueFont.style && font.style === 'italic' ? 'updated' :
                                     (font.style === 'italic' ? 'active' : '')} onClick={e => {
                                 if (font.style === 'italic') {
-                                    this.setState({
-                                        ...this.state,
-                                        font: {
-                                            ...this.state.font,
-                                            style: null
-                                        }
-                                    }, () => {
-                                        this.props.updateStateProps('font', this.state.font);
-                                    })
+                                    this.updateFontProp('style', null);
                                 } else {
-                                    this.setState({
-                                        ...this.state,
-                                        font: {
-                                            ...this.state.font,
-                                            style:  'italic'
-                                        }
-                                    }, () => {
-                                        this.props.updateStateProps('font', this.state.font);
-                                    })
+                                    this.updateFontProp('style', 'italic');
                                 }
                             }}>
                                 <SvgItalic/>

@@ -84,22 +84,14 @@ class Title extends Component {
     }
 
     componentDidMount = () => {
-        console.log('default value : ', this.props.defaultValue);
-
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
         this.setState({
             value: componentStore.settings.Title ? componentStore.settings.Title.value : this.props.defaultValue,
             active: componentStore.settings.Title ? componentStore.settings.Title.active : true,
             open: this.props.open
-        }, () => {
-            console.log('TITLE compoentDidMount state', this.state)
-            console.log('TITLEcomponentStore.settings.Title', componentStore.settings.Title)
         });
     };
-
-
-
 
     updateStateProps = (props , value) => {
         this.setState({
@@ -205,14 +197,13 @@ class Title extends Component {
                             <CategoryText
                                 storeValueFont={componentStore.settings.Title && componentStore.settings.Title.value.font ? componentStore.settings.Title.value.font: null}
                                 storeValueText={componentStore.settings.Title && componentStore.settings.Title.value.text ? componentStore.settings.Title.value.text : null}
-                                storeValueTheme={componentStore.settings.Title && componentStore.settings.Title.value.theme ? componentStore.settings.Title.value.theme : null}
                                 font={this.state.value.font}
                                 text={this.state.value.text}
-                                theme={this.state.value.theme}
+                                defaultFont={this.props.defaultValue.font}
+                                defaultText={this.props.defaultValue.text}
                                 updateStateProps={this.updateStateProps}
                             />
                         </Category>
-
                     </Choices>
 
                     <ChoiceItemsConfirm className={this.state.openView || this.state.openPreview || !this.isUpdated()  ? 'hidden' : ''}>

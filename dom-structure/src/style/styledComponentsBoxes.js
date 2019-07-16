@@ -506,11 +506,12 @@ export const Dot = styled.div`
        -webkit-border-radius: 50%;
        border-radius: 50%;
        background-color: ${ extensionTheme.blueM};
+       display : none;
     }
     
-    &.disabled{
+    &.active{
         &::before{
-          display : none;
+          display : block;
         }
     }
 `;

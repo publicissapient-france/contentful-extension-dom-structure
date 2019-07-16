@@ -44,7 +44,7 @@ class CategorySeo extends Component {
             <ChoiceSeo>
                 <div>
                     <Field>
-                        <Dot className={seo.tag == defaultSeo.tag ? 'disabled ': ''}/>
+                        <Dot className={defaultSeo.tag && seo.tag != defaultSeo.tag ? 'active ': ''}/>
                         <select
                             value={ seo.tag }
                             className={storeValueSeo && !_.isEqual(seo.tag, storeValueSeo.tag) ? 'updated' : ''}
