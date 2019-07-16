@@ -23,7 +23,12 @@ const config = [
                         shade : null
                     },
                     opacity : '0.85',
-                    seoTag : 'h2',
+                    seo : {
+                        tag : 'h2'
+                    },
+                    text :{
+
+                    },
                     theme : 'TitleLight',
                     font : {
                         family : null,

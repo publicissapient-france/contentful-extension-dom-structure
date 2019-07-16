@@ -21,20 +21,44 @@ class CategorySeo extends Component {
         this.state = {};
     }
 
-    componentDidMount = () => {};
+    componentDidMount = () => {
+        this.setState({
+            seo: this.props.seo
+        });
+    };
+
+    componentDidUpdate = prevProps => {
+        if (this.props.seo !== prevProps.seo) {
+            this.setState({
+                ...this.state,
+                seo: this.props.seo
+            });
+        }
+    }
+
 
     render () {
-        const { storeValueSeo, seoTag } = this.props;
+        const { storeValueSeo, seo, defaultSeo } = this.props;
+        if(!seo) return null
         return (
             <ChoiceSeo>
                 <div>
                     <Field>
-                        <Dot/>
+                        <Dot className={seo.tag == defaultSeo.tag ? 'disabled ': ''}/>
                         <select
-                            value={ seoTag }
-                            className={!_.isEqual(seoTag, storeValueSeo) ? 'updated' : ''}
+                            value={ seo.tag }
+                            className={storeValueSeo && !_.isEqual(seo.tag, storeValueSeo.tag) ? 'updated' : ''}
                             onChange={e => {
-                                this.props.updateStateProps('seoTag', e.target.value);
+                                this.setState({
+                                    ...this.state,
+                                    seo: {
+                                        ...this.state.seo,
+                                        tag: e.target.value,
+                                    }
+                                }, () => {
+                                    this.props.updateStateProps('seo', this.state.seo);
+                                })
+
                             }}>
                             {tags.map(tag => <option value={tag} key={tag}>{tag}</option>)}
                         </select>

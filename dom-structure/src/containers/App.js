@@ -7,8 +7,18 @@ import { Extension, MainContainer } from '../style/styledComponents';
 import ButtonAddSection from '../components/ButtonAddSection';
 import Section from './Section';
 import AddSection from './AddSection';
-import { initDOM, initDOMbuild, initExtensionInformation, initVisibility, initStyleInformation } from '../actions';
-import { extractActiveValue } from '../utils/functions';
+import GlobalStyle from '../style/globalStyle';
+import {
+    initDOM,
+    initDOMbuild,
+    initExtensionInformation,
+    initVisibility,
+    initStyleInformation,
+    addFontFaces,
+    getFontfaces,
+    getCurrentStyle
+} from '../actions';
+import { extractActiveValue, arrayToString, extractFontValueToCSS } from '../utils/functions';
 
 class App extends React.Component {
     constructor (props) {
@@ -109,7 +119,15 @@ class App extends React.Component {
         console.log('TYPO', typographies);
 
         this.props.dispatch(initStyleInformation(styleguide, typographies));
+
+        const fonts = await typographies.map(entry => entry).filter(font => font.fields.fontFile[this.props.extension.locales.default].sys.id);
+        fonts.forEach(async font => {
+            let extractedValue = await extractFontValueToCSS(this, font, this.props.extension.locales.default);
+            console.log('EXTRACTED VALUE', extractedValue);
+            this.props.dispatch(addFontFaces(extractedValue));
+        });
     };
+
 
     getTypographies = typographies => {
         const locale = this.props.extension.locales.default;
@@ -131,6 +149,7 @@ class App extends React.Component {
                 return result.fields.file[this.props.extension.locales.default].url;
             });
     }
+
 
     onError = error => {
         this.props.extension.notifier.error(error.message);
@@ -162,6 +181,7 @@ class App extends React.Component {
                         </MainContainer>
                     </section>
                 </div>
+                <GlobalStyle globalFontFaces={arrayToString(this.props.fontfaces)}/>
             </Extension>
         );
     }
@@ -178,4 +198,10 @@ class App extends React.Component {
         );
     }
 }
-export default connect()(App);
+
+
+const mapStateToProps = state => ({
+    fonts: getCurrentStyle(state).style.fonts,
+    fontfaces: getFontfaces(state).value
+});
+export default connect(mapStateToProps)(App);

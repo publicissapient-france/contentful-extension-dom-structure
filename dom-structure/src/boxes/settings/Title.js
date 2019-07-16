@@ -14,9 +14,9 @@ import {updateSettingsValue, getCurrentDOM} from '../../actions';
 import CategoryText from '../reusable/CategoryText';
 import CategoryColor from '../reusable/CategoryColor';
 import CategorySeo from '../reusable/CategorySeo';
+import TextPreview from '../../components/TextPreview';
 import {extensionTheme} from '../../style/theme';
 import styled from 'styled-components';
-import update from "react-addons-update";
 
 export const FieldsTemplate = styled(Fields)`
     padding :0px;
@@ -33,6 +33,7 @@ export const FieldsError = styled(Fields)`
 export const Choices = styled.div`
     width : 100%;
     display : flex;
+
 `;
 export const Category = styled.div`    
     border : 1px solid ${ extensionTheme.grey20 };
@@ -40,10 +41,7 @@ export const Category = styled.div`
     
     &.color{
         flex-grow : 1;
-        width : fit-content;
         display : flex;
-        padding-right: 30px;
-        padding-top: 20px;
 
     }    
     
@@ -77,9 +75,11 @@ class Title extends Component {
             value: {},
             active: true,
             openView: false,
+            openPreview : false
         };
 
         this.toggleOpenView = this.toggleOpenView.bind(this);
+        this.toggleOpenPreview = this.toggleOpenPreview.bind(this);
         this.updateStateProps = this.updateStateProps.bind(this);
     }
 
@@ -114,6 +114,9 @@ class Title extends Component {
 
     toggleOpenView = () => {
         this.setState({openView: !this.state.openView});
+    }
+    toggleOpenPreview = () => {
+        this.setState({openPreview: !this.state.openPreview});
     }
 
     isUpdated = () => {
@@ -166,28 +169,43 @@ class Title extends Component {
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
                     <Choices>
                         <Column className={this.state.openView ? 'full-width' : ''}>
-                            <Category className={'color'}>
+                            <Category>
+                                <TextPreview
+                                    color={this.state.value.color}
+                                    font={this.state.value.font}
+                                    text={this.state.value.text}
+                                    opacity={this.state.value.opacity}
+                                    open={this.state.openPreview}
+                                    toggleOpenPreview={this.toggleOpenPreview}
+                                />
+                            </Category>
+                            <Category className={[ this.state.openPreview  ? 'hidden' : '']}>
                                 <CategoryColor openView={this.state.openView}
                                                toggleOpenView={this.toggleOpenView}
                                                storeValueColor={componentStore.settings.Title && componentStore.settings.Title.value.color ? componentStore.settings.Title.value.color : null }
+                                               storeValueOpacity={componentStore.settings.Title && componentStore.settings.Title.value.opacity ? componentStore.settings.Title.value.opacity : null }
                                                color={this.state.value.color}
                                                opacity={this.state.value.opacity}
+                                               defaultColor={this.props.defaultValue.color}
+                                               defaultOpacity={this.props.defaultValue.opacity}
                                                updateStateProps={this.updateStateProps}
                                 />
                             </Category>
 
-                            <Category className={['seo', this.state.openView ? 'hidden' : '']}>
+                            <Category className={[ this.state.openView || this.state.openPreview ? 'hidden' : '']}>
                                 <CategorySeo
-                                    storeValueSeo={componentStore.settings.Title && componentStore.settings.Title.value.seoTag ? componentStore.settings.Title.value.seoTag : null}
-                                    seoTag={this.state.value.seoTag}
+                                    storeValueSeo={componentStore.settings.Title && componentStore.settings.Title.value.seo ? componentStore.settings.Title.value.seo : null}
+                                    seo={this.state.value.seo}
+                                    defaultSeo={this.props.defaultValue.seo}
                                     updateStateProps={this.updateStateProps}/>
                             </Category>
                         </Column>
 
-                        <Category className={['font', this.state.openView ? 'hidden' : '']}>
+                        <Category className={[ this.state.openView || this.state.openPreview  ? 'hidden' : '']}>
                             <CategoryText
                                 storeValueFont={componentStore.settings.Title && componentStore.settings.Title.value.font ? componentStore.settings.Title.value.font: null}
                                 storeValueText={componentStore.settings.Title && componentStore.settings.Title.value.text ? componentStore.settings.Title.value.text : null}
+                                storeValueTheme={componentStore.settings.Title && componentStore.settings.Title.value.theme ? componentStore.settings.Title.value.theme : null}
                                 font={this.state.value.font}
                                 text={this.state.value.text}
                                 theme={this.state.value.theme}
@@ -197,14 +215,16 @@ class Title extends Component {
 
                     </Choices>
 
-                    <ChoiceItemsConfirm className={this.state.openView ? 'hidden' : ''}>
+                    <ChoiceItemsConfirm className={this.state.openView || this.state.openPreview || !this.isUpdated()  ? 'hidden' : ''}>
                         <ButtonBasic
                             className={this.isUpdated() ? '' : 'disable'}
                             onClick={e => {
                                 e.preventDefault();
-                                this.setState({
-                                    value: componentStore.settings.Title.value
-                                });
+                                if(componentStore.settings.Title.value){
+                                    this.setState({
+                                        value: componentStore.settings.Title.value
+                                    });
+                                }
                             }}>
                             Cancel
                         </ButtonBasic>

@@ -507,4 +507,10 @@ export const Dot = styled.div`
        border-radius: 50%;
        background-color: ${ extensionTheme.blueM};
     }
+    
+    &.disabled{
+        &::before{
+          display : none;
+        }
+    }
 `;

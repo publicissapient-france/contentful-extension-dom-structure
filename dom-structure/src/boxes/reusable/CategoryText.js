@@ -20,6 +20,8 @@ import {extensionTheme} from '../../style/theme';
 export const ChoiceFont = styled.div`
    display : flex;
    flex-direction : column;
+    height : 100%;
+
 `;
 
 export const ContainerProps = styled.div`
@@ -40,7 +42,7 @@ export const FontProps = styled.div`
     flex-direction : column;
     padding-right : 30px;   
     padding-bottom : 10px;   
-    padding-top:20px;
+    padding-top:10px;
     
     &>div{
         display : flex;
@@ -54,7 +56,7 @@ export const TypoProps = styled.div`
     display : flex;
     flex-wrap : wrap;
     padding-right: 30px;
-    padding-top: 44px;
+    padding-top: 34px;
     
     &>div{
         display : flex;
@@ -127,12 +129,11 @@ class CategoryText extends Component {
             });
         }
 
-        if (this.props.themes && this.props.theme !== prevProps.theme) {
+        if ( !this.props.font.family && this.props.themes && this.props.theme !== prevProps.theme) {
             this.setState({
                 ...this.state,
                 theme: this.props.theme
             }, () => {
-                console.log('CASE 333333333333333333333');
                 this.updateWithTheme();
             });
         }
@@ -165,9 +166,15 @@ class CategoryText extends Component {
     getWeightNumber = (array, key) => {
         return array[key].weight[1];
     }
+    getWeightName = (array, key) => {
+        return array[key].weight[0];
+    }
+    getTypeface = (array, key) => {
+        return array[key].typeface;
+    }
 
     render() {
-        const {theme, font, text, storeValueFont, storeValueText} = this.props;
+        const {theme, font, text, storeValueFont, storeValueText, storeValueTheme} = this.props;
         if (!font || !text || !theme) return null
         return (
             <ChoiceFont>
@@ -178,6 +185,7 @@ class CategoryText extends Component {
                             <Field>
                                 <Dot/>
                                 <select value={theme}
+                                        className={storeValueTheme && theme !== storeValueTheme ? 'updated' : ''}
                                         onChange={e => {
                                             this.setState({
                                                 ...this.state,
@@ -202,11 +210,13 @@ class CategoryText extends Component {
                                     value={font.family || ''}
                                     className={storeValueFont && font.family !== storeValueFont.family ? 'updated' : ''}
                                     onChange={e => {
+                                        console.log('e.target.value CHANGE FONT', e.target.value)
                                         this.setState({
                                             ...this.state,
                                             font: {
                                                 ...this.state.font,
-                                                family: e.target.value
+                                                family: e.target.value,
+                                                typeface :this.state.familyFonts[e.target.value][0].typeface
                                             }
                                         }, () => {
                                             this.props.updateStateProps('font', this.state.font);
@@ -226,11 +236,14 @@ class CategoryText extends Component {
                                     value={font.weight ? font.weight[1] : ''}
                                     className={storeValueFont && font.weight !== storeValueFont.weight ? 'updated' : ''}
                                     onChange={e => {
+                                        console.log('e.target.value WEIGHT', e.target);
+                                        let textSelected = e.target.options[e.target.selectedIndex].text;
+                                        let valueSelected = e.target.value;
                                         this.setState({
                                             ...this.state,
                                             font: {
                                                 ...this.state.font,
-                                                weight:  e.target.value
+                                                weight: [textSelected, valueSelected]
                                             }
                                         }, () => {
                                             this.props.updateStateProps('font', this.state.font);
@@ -276,7 +289,7 @@ class CategoryText extends Component {
                                 <SvgLineHeight/>
                             </IconContainer>
                             <input type={'number'}
-                                   className={storeValueFont && font.lineHeight !== storeValueFont.lineheight ? 'updated' : ''}
+                                   className={storeValueFont && font.lineHeight !== storeValueFont.lineHeight ? 'updated' : ''}
                                    value={font.lineHeight || 0}
                                    onChange={e => {
                                        this.setState({

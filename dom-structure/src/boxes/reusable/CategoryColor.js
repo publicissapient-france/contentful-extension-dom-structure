@@ -35,8 +35,8 @@ export const ChoiceColor = styled.div`
    }
    
    &>div{
-    padding-top : 20px;
-    padding-bottom : 20px;
+    padding-top :10px;
+    padding-bottom :10px;
     display:flex;
     flex-direction:column;
     
@@ -108,11 +108,12 @@ class CategoryColor extends Component {
     isSelected = (item) => this.props.color && this.props.color.hex === item.hex && this.state.currentAction === 'view'
 
     render() {
-        const {storeValueColor, colors, color, opacity, openView} = this.props;
+        const {storeValueColor,storeValueOpacity, colors, color, opacity,defaultColor, defaultOpacity, openView} = this.props;
 
         let extendSVGbasic = (this.state.openBasic) ? <SvgExtended/> : <SvgNotExtended/>;
         let extendSVGcustom = (this.state.openCustom) ? <SvgExtended/> : <SvgNotExtended/>;
         console.log('storeValueColor', storeValueColor);
+        console.log('DEFAULT COLOR', defaultColor);
         if (!color) return null
         if (!colors) return (
             <FieldsError>
@@ -128,10 +129,9 @@ class CategoryColor extends Component {
                 <div>
                     <Property>Color</Property>
                     <Field>
-                        <Dot/>
+                        <Dot className={color.hex == defaultColor.hex ? 'disabled ': ''}/>
                         <SelectedColor
-                            className={'active'}
-                            className={storeValueColor && color.hex !== storeValueColor.hex ? 'updated' : ''}
+                            className={['active',storeValueColor && color.hex !== storeValueColor.hex ? 'updated' : '']}
                             onClick={() => {
                                 this.props.toggleOpenView();
                             }}
@@ -220,9 +220,10 @@ class CategoryColor extends Component {
                 <ChoiceOpacity className={openView ? 'hidden' : ''}>
                     <Property>Opacity</Property>
                     <Field>
-                        <Dot/>
+                        <Dot className={opacity == defaultOpacity ? 'disabled ': ''}/>
                         <div>
                             <input type={'number'} max={100} min={0}
+                                   className={storeValueOpacity && opacity !== storeValueOpacity ? 'updated' : ''}
                                    value={opacity * 100 || 100}
                                    onChange={e => {
                                        this.props.updateStateProps('opacity', e.target.value / 100);

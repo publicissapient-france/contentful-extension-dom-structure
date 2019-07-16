@@ -7,6 +7,8 @@ const style = (state = [], action) => {
         console.log('style action', action.style)
         const colors = _.values(action.style.colorChart)[0];
         const name = _.values(action.style.name)[0];
+
+        console.log('ACTION fonts : ', action.fonts);
         const fonts = action.fonts.map(font => font.fields)
             .map(font => {
                 return {

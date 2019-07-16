@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { getAssetsUrlById } from './getters';
 
 const createSlug = (name, shade) => (shade !== '') ? name + '-' + shade : name;
 
@@ -65,5 +66,18 @@ const extractActiveValue = dom => {
 
 const getLanguageISO = language => language.split('-')[0];
 const getCountryISO = language => language.split('-')[1];
+const arrayToString = array => array.join('');
 
-export { getShadePosition, extractActiveValue, getLanguageISO, getCountryISO, createSlug, hexToRgb, RGBtoString };
+
+const extractFontValueToCSS = async (This, font, locale) => {
+    return `@font-face {
+                 font-family: "${ font.fields.name[locale] }";
+                 font-style: ${ font.fields.style[locale].toLowerCase() };
+                 font-weight: ${ font.fields.weight[locale][1] };
+                 src: local('${ font.fields.name[locale] }'), 
+                 url('${ await getAssetsUrlById(This, font.fields.fontFile[locale].sys.id, locale) }') 
+                 format('truetype');
+            }`;
+};
+
+export { getShadePosition, extractActiveValue, getLanguageISO, getCountryISO, createSlug, hexToRgb, RGBtoString, arrayToString, extractFontValueToCSS };
