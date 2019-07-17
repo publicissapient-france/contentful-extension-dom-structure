@@ -16,6 +16,7 @@ import {getCurrentStyle} from '../../actions';
 import styled from 'styled-components';
 import _ from 'lodash';
 import {extensionTheme} from '../../style/theme';
+import IconActing from "../../components/IconActing";
 
 export const ChoiceFont = styled.div`
    display : flex;
@@ -109,6 +110,8 @@ class CategoryText extends Component {
         this.state = {
             familyFonts: []
         };
+
+        this.updateTextProp = this.updateTextProp.bind(this);
     }
 
     componentDidMount = () => {
@@ -188,20 +191,16 @@ class CategoryText extends Component {
 
     getThemeValue = (themes, selectedTheme) => {
         if (!themes || !selectedTheme) return
-
         let result = themes.find(theme => theme.name === selectedTheme);
         return result;
     }
 
-    getWeightNumber = (array, key) => {
-        return array[key].weight[1];
-    }
-    getWeightName = (array, key) => {
-        return array[key].weight[0];
-    }
-    getTypeface = (array, key) => {
-        return array[key].typeface;
-    }
+    getWeightNumber = (array, key) =>  array[key].weight[1];
+
+    getWeightName = (array, key) => array[key].weight[0];
+
+    getTypeface = (array, key) =>  array[key].typeface;
+
 
     render() {
         const {font, text, storeValueFont, storeValueText, defaultFont, defaultText} = this.props;
@@ -219,7 +218,8 @@ class CategoryText extends Component {
                                         onChange={e => {
                                             this.updateFontTheme(e.target.value);
                                         }}>
-                                    {this.props.themes ? this.props.themes.map((theme, i) => <option value={theme.name} key={i}>{theme.name}</option>) :
+                                    {this.props.themes ? this.props.themes.map((theme, i) => <option value={theme.name}
+                                                                                                     key={i}>{theme.name}</option>) :
                                         <option></option>}
                                 </select>
                             </Field>
@@ -320,85 +320,46 @@ class CategoryText extends Component {
                     <AlignProps>
                         <div>
                             <Dot className={defaultText.align && text.align !== defaultText.align ? 'active ' : ''}/>
-                            <IconContainer
-                                className={storeValueText && text.align !== storeValueText.align && text.align === 'left' ? 'updated' :
-                                    (text.align === 'left' ? 'active' : '')} onClick={e => {
-                                this.updateTextProp('align', 'left');
-                            }}>
+                            <IconActing objectA={storeValueText} objectB={text} targetProperty={'align'} value={'left'}
+                                        action={this.updateTextProp}>
                                 <SvgAlignLeft/>
-                            </IconContainer>
-                            <IconContainer
-                                className={storeValueText && text.align !== storeValueText.align && text.align === 'center' ? 'updated' :
-                                    (text.align === 'center' ? 'active' : '')} onClick={e => {
-                                this.updateTextProp('align', 'center');
-                            }}>
+                            </IconActing>
+                            <IconActing objectA={storeValueText} objectB={text} targetProperty={'align'}
+                                        value={'center'}
+                                        action={this.updateTextProp}>
                                 <SvgAlignCenter/>
-                            </IconContainer>
-                            <IconContainer
-                                className={storeValueText && text.align !== storeValueText.align && text.align === 'right' ? 'updated' :
-                                    (text.align === 'right' ? 'active' : '')} onClick={e => {
-                                this.updateTextProp('align', 'right');
-                            }}>
+                            </IconActing>
+                            <IconActing objectA={storeValueText} objectB={text} targetProperty={'align'} value={'right'}
+                                        action={this.updateTextProp}>
                                 <SvgAlignRight/>
-                            </IconContainer>
-                            <IconContainer
-                                className={storeValueText && text.align !== storeValueText.align && text.align === 'justify' ? 'updated' :
-                                    (text.align === 'justify' ? 'active' : '')} onClick={e => {
-                                this.updateTextProp('align', 'justify');
-                            }}>
+                            </IconActing>
+                            <IconActing objectA={storeValueText} objectB={text} targetProperty={'align'}
+                                        value={'justify'}
+                                        action={this.updateTextProp}>
                                 <SvgAlignJustify/>
-                            </IconContainer>
-
+                            </IconActing>
                         </div>
                     </AlignProps>
                     <TransformProps>
                         <div>
                             <Dot
                                 className={defaultText.transform && text.transform !== defaultText.transform ? 'active ' : ''}/>
-                            <IconContainer
-                                className={storeValueText && text.transform !== storeValueText.transform && text.transform === 'uppercase' ? 'updated' :
-                                    (text.transform === 'uppercase' ? 'active' : '')} onClick={e => {
-                                if (text.transform === 'uppercase') {
-                                    this.updateTextProp('transform', null);
-                                } else {
-                                    this.updateTextProp('transform', 'uppercase');
-                                }
-                            }}>
+                            <IconActing objectA={storeValueText} objectB={text} targetProperty={'transform'}
+                                        value={'uppercase'} action={this.updateTextProp} nullAllowed>
                                 <SvgCapitalize/>
-                            </IconContainer>
-                            <IconContainer
-                                className={storeValueText && text.transform !== storeValueText.transform && text.transform === 'capitalize' ? 'updated' :
-                                    (text.transform === 'capitalize' ? 'active' : '')} onClick={e => {
-                                if (text.transform === 'capitalize') {
-                                    this.updateTextProp('transform', null);
-                                } else {
-                                    this.updateTextProp('transform', 'capitalize');
-                                }
-                            }}>
+                            </IconActing>
+                            <IconActing objectA={storeValueText} objectB={text} targetProperty={'transform'}
+                                        value={'capitalize'} action={this.updateTextProp} nullAllowed>
                                 <SvgDropCap/>
-                            </IconContainer>
-                            <IconContainer
-                                className={storeValueText && text.decoration !== storeValueText.decoration && text.decoration === 'underline' ? 'updated' :
-                                    (text.decoration === 'underline' ? 'active' : '')} onClick={e => {
-                                if (text.decoration === 'underline') {
-                                    this.updateTextProp('decoration', null);
-                                } else {
-                                    this.updateTextProp('decoration', 'underline');
-                                }
-                            }}>
+                            </IconActing>
+                            <IconActing objectA={storeValueText} objectB={text} targetProperty={'decoration'}
+                                        value={'underline'} action={this.updateTextProp} nullAllowed>
                                 <SvgUnderline/>
-                            </IconContainer>
-                            <IconContainer
-                                className={storeValueFont && font.style !== storeValueFont.style && font.style === 'italic' ? 'updated' :
-                                    (font.style === 'italic' ? 'active' : '')} onClick={e => {
-                                if (font.style === 'italic') {
-                                    this.updateFontProp('style', null);
-                                } else {
-                                    this.updateFontProp('style', 'italic');
-                                }
-                            }}>
+                            </IconActing>
+                            <IconActing objectA={storeValueFont} objectB={font} targetProperty={'style'}
+                                        value={'italic'} action={this.updateFontProp} nullAllowed>
                                 <SvgItalic/>
-                            </IconContainer>
+                            </IconActing>
                         </div>
                     </TransformProps>
                 </ContainerProps>

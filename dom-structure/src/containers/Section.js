@@ -246,7 +246,7 @@ class Section extends Component {
     }
 };
 
-ComponentDOM.propTypes = {
+Section.propTypes = {
     section: PropTypes.shape({
         active: PropTypes.bool.isRequired,
         name: PropTypes.string.isRequired,

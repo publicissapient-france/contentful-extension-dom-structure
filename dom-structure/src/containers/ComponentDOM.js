@@ -182,7 +182,7 @@ class ComponentDOM extends Component {
         super(props);
 
         this.state = {
-            openBoxes: false,
+            openBoxes: true,
             semiOpenBoxes: false,
             openSettings: false,
             openContent: false,

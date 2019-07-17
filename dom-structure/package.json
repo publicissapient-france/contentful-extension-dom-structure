@@ -10,6 +10,7 @@
     "@babel/preset-react": "7.0.0",
     "@contentful/contentful-extension-scripts": "0.3.0",
     "babel-eslint": "10.0.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
     "contentful-cli": "0.20.0",
     "css-loader": "2.1.1",
     "eslint": "5.16.0",
@@ -19,6 +20,7 @@
     "eslint-plugin-promise": "4.1.1",
     "eslint-plugin-react": "7.12.4",
     "eslint-plugin-standard": "4.0.0",
+    "jest": "24.8.0",
     "sass": "1.20.1"
   },
   "dependencies": {
@@ -54,7 +56,8 @@
     "login": "contentful login",
     "logout": "contentful logout",
     "help": "contentful-extension-scripts help",
-    "linter-fix": "eslint --fix . --ext .js,.jsx src"
+    "linter-fix": "eslint --fix . --ext .js,.jsx src",
+    "test": "jest"
   },
   "browserslist": [
     "last 5 Chrome version",

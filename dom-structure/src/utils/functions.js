@@ -80,4 +80,8 @@ const extractFontValueToCSS = async (This, font, locale) => {
             }`;
 };
 
-export { getShadePosition, extractActiveValue, getLanguageISO, getCountryISO, createSlug, hexToRgb, RGBtoString, arrayToString, extractFontValueToCSS };
+const sum = (a, b) => {
+    return a + b;
+}
+
+export { getShadePosition, extractActiveValue, getLanguageISO, getCountryISO, createSlug, hexToRgb, RGBtoString, arrayToString, extractFontValueToCSS, sum };
