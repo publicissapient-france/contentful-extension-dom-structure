@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Icon, ButtonGreen, ButtonBasic, Error} from '../../style/styledComponents';
+import {Icon, ButtonGreen, ButtonBasic} from '../../style/styledComponents';
 import {
     Banner,
     Fields,
@@ -17,14 +17,10 @@ import CategorySeo from '../reusable/CategorySeo';
 import TextPreview from '../../components/TextPreview';
 import {extensionTheme} from '../../style/theme';
 import styled from 'styled-components';
+import _ from 'lodash';
 
 export const FieldsTemplate = styled(Fields)`
     padding :0px;
-
-   /* &.open{
-        flex-direction : row;
-        
-    }*/
 `;
 export const FieldsError = styled(Fields)`
     display : block;
@@ -33,18 +29,11 @@ export const FieldsError = styled(Fields)`
 export const Choices = styled.div`
     width : 100%;
     display : flex;
-
 `;
 export const Category = styled.div`    
     border : 1px solid ${ extensionTheme.grey20 };
-    border-left : 0px
-    
-    &.color{
-        flex-grow : 1;
-        display : flex;
-
-    }    
-    
+    border-left : 0px 
+    border-bottom : 0px 
 `;
 export const ChoiceItemsConfirm = styled(ChoiceConfirm)`
     padding : 10px 15px 10px 0;
@@ -85,12 +74,14 @@ class Title extends Component {
 
     componentDidMount = () => {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
+        const titleSettings = componentStore.settings.Title;
 
         this.setState({
-            value: componentStore.settings.Title ? componentStore.settings.Title.value : this.props.defaultValue,
-            active: componentStore.settings.Title ? componentStore.settings.Title.active : true,
+            value: titleSettings ? titleSettings.value : this.props.defaultValue,
+            active: titleSettings ? titleSettings.active : true,
             open: this.props.open
         });
+
     };
 
     updateStateProps = (props , value) => {
@@ -100,43 +91,27 @@ class Title extends Component {
                 [props]: value
             }
         }, () => {
-                console.log('updatefontprops :', this.state)
+                console.log('STATE AFTER UPDATE :', this.state)
             });
     }
 
-    toggleOpenView = () => {
-        this.setState({openView: !this.state.openView});
-    }
-    toggleOpenPreview = () => {
-        this.setState({openPreview: !this.state.openPreview});
-    }
+    toggleOpenView = () => this.setState({openView: !this.state.openView});
+
+    toggleOpenPreview = () => this.setState({openPreview: !this.state.openPreview});
+
 
     isUpdated = () => {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
+        const titleSettings = componentStore.settings.Title;
 
-        if (componentStore.settings.Title && componentStore.settings.Title.value === this.state.value) {
-            return false;
-        }
-        return true;
-    }
-
-    colorIsUpdated = () => {
-        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
-
-        if (componentStore.settings.Title &&
-            (componentStore.settings.Title.value.hex === this.state.value.hex &&
-                componentStore.settings.Title.value.name === this.state.value.name &&
-                componentStore.settings.Title.value.shade === this.state.value.shade
-            )
-        ) {
-            return false;
-        }
+        if ( _.isEqual(titleSettings && titleSettings.value , this.state.value) ) return false;
         return true;
     }
 
     render() {
-        const {dispatch, dom, indexComponent, indexSection, name} = this.props;
+        const {dispatch, dom, indexComponent, indexSection, name, defaultValue} = this.props;
         const componentStore = dom.sections[indexSection].components[indexComponent];
+        const titleSettings = componentStore.settings.Title;
 
         return (
             <div>
@@ -174,33 +149,33 @@ class Title extends Component {
                             <Category className={[ this.state.openPreview  ? 'hidden' : '']}>
                                 <CategoryColor openView={this.state.openView}
                                                toggleOpenView={this.toggleOpenView}
-                                               storeValueColor={componentStore.settings.Title && componentStore.settings.Title.value.color ? componentStore.settings.Title.value.color : null }
-                                               storeValueOpacity={componentStore.settings.Title && componentStore.settings.Title.value.opacity ? componentStore.settings.Title.value.opacity : null }
+                                               storeValueColor={titleSettings && titleSettings.value.color ? titleSettings.value.color : null }
+                                               storeValueOpacity={titleSettings && titleSettings.value.opacity ? titleSettings.value.opacity : null }
                                                color={this.state.value.color}
                                                opacity={this.state.value.opacity}
-                                               defaultColor={this.props.defaultValue.color}
-                                               defaultOpacity={this.props.defaultValue.opacity}
+                                               defaultColor={defaultValue.color}
+                                               defaultOpacity={defaultValue.opacity}
                                                updateStateProps={this.updateStateProps}
                                 />
                             </Category>
 
                             <Category className={[ this.state.openView || this.state.openPreview ? 'hidden' : '']}>
                                 <CategorySeo
-                                    storeValueSeo={componentStore.settings.Title && componentStore.settings.Title.value.seo ? componentStore.settings.Title.value.seo : null}
+                                    storeValueSeo={titleSettings && titleSettings.value.seo ? titleSettings.value.seo : null}
                                     seo={this.state.value.seo}
-                                    defaultSeo={this.props.defaultValue.seo}
+                                    defaultSeo={defaultValue.seo}
                                     updateStateProps={this.updateStateProps}/>
                             </Category>
                         </Column>
 
                         <Category className={[ this.state.openView || this.state.openPreview  ? 'hidden' : '']}>
                             <CategoryText
-                                storeValueFont={componentStore.settings.Title && componentStore.settings.Title.value.font ? componentStore.settings.Title.value.font: null}
-                                storeValueText={componentStore.settings.Title && componentStore.settings.Title.value.text ? componentStore.settings.Title.value.text : null}
+                                storeValueFont={titleSettings && titleSettings.value.font ? titleSettings.value.font: null}
+                                storeValueText={titleSettings && titleSettings.value.text ? titleSettings.value.text : null}
                                 font={this.state.value.font}
                                 text={this.state.value.text}
-                                defaultFont={this.props.defaultValue.font}
-                                defaultText={this.props.defaultValue.text}
+                                defaultFont={defaultValue.font}
+                                defaultText={defaultValue.text}
                                 updateStateProps={this.updateStateProps}
                             />
                         </Category>
@@ -211,9 +186,9 @@ class Title extends Component {
                             className={this.isUpdated() ? '' : 'disable'}
                             onClick={e => {
                                 e.preventDefault();
-                                if(componentStore.settings.Title.value){
+                                if(titleSettings.value){
                                     this.setState({
-                                        value: componentStore.settings.Title.value
+                                        value: titleSettings.value
                                     });
                                 }
                             }}>
@@ -237,7 +212,8 @@ class Title extends Component {
 Title.propTypes = {
     indexSection: PropTypes.number.isRequired,
     indexComponent: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    defaultValue : PropTypes.object
 };
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state),

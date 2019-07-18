@@ -13,6 +13,8 @@
     "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
     "contentful-cli": "0.20.0",
     "css-loader": "2.1.1",
+    "enzyme": "3.10.0",
+    "enzyme-adapter-react-16": "1.14.0",
     "eslint": "5.16.0",
     "eslint-config-standard": "12.0.0",
     "eslint-plugin-import": "2.17.2",
@@ -57,7 +59,9 @@
     "logout": "contentful logout",
     "help": "contentful-extension-scripts help",
     "linter-fix": "eslint --fix . --ext .js,.jsx src",
-    "test": "jest"
+    "test": "jest --verbose",
+    "test:watch": "jest --watchAll --verbose",
+    "test:coverage": "jest --verbose --coverage"
   },
   "browserslist": [
     "last 5 Chrome version",

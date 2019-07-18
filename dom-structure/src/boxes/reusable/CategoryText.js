@@ -16,7 +16,7 @@ import {getCurrentStyle} from '../../actions';
 import styled from 'styled-components';
 import _ from 'lodash';
 import {extensionTheme} from '../../style/theme';
-import IconActing from "../../components/IconActing";
+import Index from "../../components/IconActing";
 
 export const ChoiceFont = styled.div`
    display : flex;
@@ -320,46 +320,46 @@ class CategoryText extends Component {
                     <AlignProps>
                         <div>
                             <Dot className={defaultText.align && text.align !== defaultText.align ? 'active ' : ''}/>
-                            <IconActing objectA={storeValueText} objectB={text} targetProperty={'align'} value={'left'}
-                                        action={this.updateTextProp}>
+                            <Index objectA={storeValueText} objectB={text} targetProperty={'align'} value={'left'}
+                                   action={this.updateTextProp}>
                                 <SvgAlignLeft/>
-                            </IconActing>
-                            <IconActing objectA={storeValueText} objectB={text} targetProperty={'align'}
-                                        value={'center'}
-                                        action={this.updateTextProp}>
+                            </Index>
+                            <Index objectA={storeValueText} objectB={text} targetProperty={'align'}
+                                   value={'center'}
+                                   action={this.updateTextProp}>
                                 <SvgAlignCenter/>
-                            </IconActing>
-                            <IconActing objectA={storeValueText} objectB={text} targetProperty={'align'} value={'right'}
-                                        action={this.updateTextProp}>
+                            </Index>
+                            <Index objectA={storeValueText} objectB={text} targetProperty={'align'} value={'right'}
+                                   action={this.updateTextProp}>
                                 <SvgAlignRight/>
-                            </IconActing>
-                            <IconActing objectA={storeValueText} objectB={text} targetProperty={'align'}
-                                        value={'justify'}
-                                        action={this.updateTextProp}>
+                            </Index>
+                            <Index objectA={storeValueText} objectB={text} targetProperty={'align'}
+                                   value={'justify'}
+                                   action={this.updateTextProp}>
                                 <SvgAlignJustify/>
-                            </IconActing>
+                            </Index>
                         </div>
                     </AlignProps>
                     <TransformProps>
                         <div>
                             <Dot
                                 className={defaultText.transform && text.transform !== defaultText.transform ? 'active ' : ''}/>
-                            <IconActing objectA={storeValueText} objectB={text} targetProperty={'transform'}
-                                        value={'uppercase'} action={this.updateTextProp} nullAllowed>
+                            <Index objectA={storeValueText} objectB={text} targetProperty={'transform'}
+                                   value={'uppercase'} action={this.updateTextProp} nullAllowed>
                                 <SvgCapitalize/>
-                            </IconActing>
-                            <IconActing objectA={storeValueText} objectB={text} targetProperty={'transform'}
-                                        value={'capitalize'} action={this.updateTextProp} nullAllowed>
+                            </Index>
+                            <Index objectA={storeValueText} objectB={text} targetProperty={'transform'}
+                                   value={'capitalize'} action={this.updateTextProp} nullAllowed>
                                 <SvgDropCap/>
-                            </IconActing>
-                            <IconActing objectA={storeValueText} objectB={text} targetProperty={'decoration'}
-                                        value={'underline'} action={this.updateTextProp} nullAllowed>
+                            </Index>
+                            <Index objectA={storeValueText} objectB={text} targetProperty={'decoration'}
+                                   value={'underline'} action={this.updateTextProp} nullAllowed>
                                 <SvgUnderline/>
-                            </IconActing>
-                            <IconActing objectA={storeValueFont} objectB={font} targetProperty={'style'}
-                                        value={'italic'} action={this.updateFontProp} nullAllowed>
+                            </Index>
+                            <Index objectA={storeValueFont} objectB={font} targetProperty={'style'}
+                                   value={'italic'} action={this.updateFontProp} nullAllowed>
                                 <SvgItalic/>
-                            </IconActing>
+                            </Index>
                         </div>
                     </TransformProps>
                 </ContainerProps>

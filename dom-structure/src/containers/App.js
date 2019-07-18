@@ -63,6 +63,7 @@ class App extends React.Component {
         this.props.extension.window.startAutoResizer();
 
         await this.initStyleStore();
+
     }
 
     componentDidUpdate = () => {}
@@ -109,12 +110,16 @@ class App extends React.Component {
             .getEntries({
                 'sys.id': styleGuideID
             })
-            .then(result => { return result.items[0].fields; });
+            .then(result => {
+                return result.items[0].fields;
+            });
     }
+
+
 
     initStyleStore = async () => {
         const locale = this.props.extension.locales.default;
-        const styleguide = await this.getStyleGuide(this);
+        const styleguide = await this.getStyleGuide();
         const typographies = await this.getTypographies(styleguide.typography[locale]);
         console.log('TYPO', typographies);
 
