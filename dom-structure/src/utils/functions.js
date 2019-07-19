@@ -84,4 +84,12 @@ const sum = (a, b) => {
     return a + b;
 }
 
-export { getShadePosition, extractActiveValue, getLanguageISO, getCountryISO, createSlug, hexToRgb, RGBtoString, arrayToString, extractFontValueToCSS, sum };
+const hasNotSamePropertyValue = (defaultValue, currentValue, prop) => {
+    if(!defaultValue || !currentValue || !prop)  {
+        return false
+    }
+    return defaultValue[prop] && currentValue[prop] != defaultValue[prop];
+}
+
+
+export { getShadePosition, extractActiveValue, getLanguageISO, getCountryISO, createSlug, hexToRgb, RGBtoString, arrayToString, extractFontValueToCSS, sum, hasNotSamePropertyValue };

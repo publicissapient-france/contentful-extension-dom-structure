@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Dot
-} from '../../style/styledComponentsBoxes';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { tags } from '../../config/defaultConfig';
 import _ from 'lodash';
+
+import Dot from '../../components/Dot'
+import {hasNotSamePropertyValue} from "../../utils/functions";
 
 export const ChoiceSeo = styled.div`
    display : flex;
@@ -44,7 +45,7 @@ class CategorySeo extends Component {
             <ChoiceSeo>
                 <div>
                     <Field>
-                        <Dot className={defaultSeo.tag && seo.tag != defaultSeo.tag ? 'active ': ''}/>
+                        <Dot enabled={hasNotSamePropertyValue(defaultSeo, seo, 'tag' )}/>
                         <select
                             value={ seo.tag }
                             className={storeValueSeo && !_.isEqual(seo.tag, storeValueSeo.tag) ? 'updated' : ''}

@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { shallow, mount} from "enzyme";
-import IconActing from "./";
+import IconActing from "./index";
 import Adapter from "enzyme-adapter-react-16";
 
 Enzyme.configure({ adapter : new Adapter()});

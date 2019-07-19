@@ -2,8 +2,13 @@ import React, {Component} from 'react';
 import {IconContainer} from '../../style/styledComponentsBoxes';
 import PropTypes from 'prop-types';
 
+const classByState = {
+    NOT_SELECTED: '',
+    NEWLY_SELECTED: 'updated',
+    SELECTED: 'active',
+};
 
-class Index extends Component {
+class IconActing extends Component {
     constructor(props) {
         super(props);
 
@@ -11,15 +16,20 @@ class Index extends Component {
     }
 
     getClassName = () => {
+        const state = this.getButtonState();
+        return classByState[state];
+    }
+
+    getButtonState = () => {
         const target = this.props.targetProperty;
         const propertyB = this.props.objectB[target];
         if (this.props.objectA && propertyB !== this.props.objectA[target] && propertyB === this.props.value) {
-            return 'updated';
+            return 'NEWLY_SELECTED';
         }
         if (propertyB === this.props.value) {
-            return 'active';
+            return 'SELECTED';
         }
-        return '';
+        return 'NOT_SELECTED';
     }
 
     render() {
@@ -42,7 +52,7 @@ class Index extends Component {
 }
 
 
-Index.propTypes = {
+IconActing.propTypes = {
     objectA: PropTypes.object.isRequired,
     objectB: PropTypes.object.isRequired,
     targetProperty: PropTypes.string.isRequired,
@@ -53,4 +63,4 @@ Index.propTypes = {
     nullAllowed: PropTypes.bool
 };
 
-export default Index;
+export default IconActing;
