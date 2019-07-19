@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {List, BlockColor, BoxColor, HexColor,  NameColor} from './styled';
+import {List, BlockColor, BoxColor} from './styled';
+import {HexColor, NameColor} from '../../style/styledComponentsBoxes'
 
 class ColorsList extends Component {
     constructor(props) {
@@ -8,8 +9,8 @@ class ColorsList extends Component {
     }
 
     render() {
-        const {colors } = this.props;
-        console.log('colors on colorlist :', colors);
+        const {colors} = this.props;
+        if (!colors) return <p>No color available</p>
         return (<List>
             {
                 colors.map((item, i) =>
@@ -32,7 +33,7 @@ class ColorsList extends Component {
 
 
 ColorsList.propTypes = {
-    colors: PropTypes.array.isRequired,
+    colors: PropTypes.array,
 };
 
 export default ColorsList;

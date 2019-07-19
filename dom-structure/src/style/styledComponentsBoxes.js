@@ -284,7 +284,7 @@ export const IconAdd = styled.div`
     
 `;
 
-export const ColorList = styled.div`
+export const ColorListContainer = styled.div`
     width : auto;
     display : flex;  
     flex-wrap:wrap;

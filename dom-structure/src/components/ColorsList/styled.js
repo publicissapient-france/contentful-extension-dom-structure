@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import {contentfulTheme, extensionTheme} from "../../style/theme";
+import {extensionTheme} from "../../style/theme";
 
 export const List = styled.div`
-
+     width : auto;
+    display : flex;  
+    flex-wrap:wrap;
 `;
 
 export const BoxColor = styled.div`
@@ -60,22 +62,6 @@ export const BoxColor = styled.div`
     }
 `;
 
-export const NameColor = styled.p`
-    font-weight : 400;
-    font-size : 12px;
-    line-height : 20px;
-    color : ${ extensionTheme.black };
-    font-family :${ contentfulTheme.basicFont };
-
-`;
-export const HexColor = styled.p`
-    font-weight : 200;
-    font-size : 12px;
-    line-height : 12x;
-    color : ${ contentfulTheme.grey };
-    font-family :${ contentfulTheme.basicFont };
-
-`;
 export const BlockColor = styled.div`
     width : auto;
     height : fit-content;
