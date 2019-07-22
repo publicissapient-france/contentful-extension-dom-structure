@@ -135,7 +135,7 @@ export const BoxesContainer = styled.div`
 
     & div.error{
         padding-left : 8px;
-        padsding-bottom : 15px;
+        padding-bottom : 15px;
         padding-top : 15px;
         border-top : 1px solid ${ extensionTheme.grey20 }; 
         border-bottom : 1px solid ${ extensionTheme.grey20 }; 

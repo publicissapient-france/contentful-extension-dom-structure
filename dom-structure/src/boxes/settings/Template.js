@@ -7,7 +7,7 @@ import SvgCross from '../../components/svg/SvgCross';
 import SvgCheck from '../../components/svg/SvgCheck';
 import { connect } from 'react-redux';
 import { updateSettingsValue, getCurrentDOM, getColors } from '../../actions';
-import Palettes from '../../components/Palettes';
+//import Palettes from '../../components/Palettes';
 import { extensionTheme } from '../../style/theme';
 import styled from 'styled-components';
 
@@ -185,94 +185,7 @@ class Template extends Component {
                         }}><SvgArrow/></Icon>
                 </Banner>
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
-                    <ChoiceColor className={this.state.viewPalette ? 'full-width' : ''}>
-                        <div>
-                            <Property>Background-color</Property>
-                            <SelectedColor
-                                onClick={() => {
-                                    this.setState({ viewPalette: !this.state.viewPalette });
-                                }}
-                                style={{
-                                    background: this.state.value.hex ? this.state.value.hex : '#000'
-                                }}/>
-                        </div>
-                        <PaletteView className={this.state.viewPalette ? '' : 'hidden'}>
-                            <div>
-                                <Property>Color chart</Property>
-                                <Palettes colors={colors} parent={this} custom={false}
-                                    currentColor={this.state.value.hex}/>
-                            </div>
-                            <div>
-                                <Close onClick={() => {
-                                    this.setState({ viewPalette: false });
-                                }}><SvgCross/></Close>
-                                <ChoiceColorConfirm className={!this.state.viewPalette ? 'hidden' : ''}>
-                                    <ButtonBasic
-                                        className={this.colorIsUpdated() ? '' : 'disable'}
-                                        onClick={e => {
-                                            e.preventDefault();
-                                            console.log('value', componentStore.settings.Template.value);
-                                            console.log('state value', this.state.value);
-                                            this.setState({
-                                                value: {
-                                                    ...this.state.value,
-                                                    hex: componentStore.settings.Template.value.hex,
-                                                    name: componentStore.settings.Template.value.name,
-                                                    shade: componentStore.settings.Template.value.shade,
-                                                }
-                                            });
-                                        }}>
-                                        Cancel
-                                    </ButtonBasic>
-                                    <ButtonGreen
-                                        disabled={!this.colorIsUpdated()}
-                                        className={this.colorIsUpdated() ? 'active' : ''}
-                                        onClick={() => {
-                                            dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
-                                        }}>
-                                        Update
-                                    </ButtonGreen>
-                                </ChoiceColorConfirm>
-                            </div>
 
-                        </PaletteView>
-                    </ChoiceColor>
-                    <ChoiceOpacity className={this.state.viewPalette ? 'hidden' : ''}>
-                        <Property>Opacity </Property>
-                        <input type={'number'} max={100} min={0}
-                            value={this.state.value.opacity ? this.state.value.opacity * 100 : 100}
-                            onChange={e => {
-                                this.setState({
-                                    value: {
-                                        ...this.state.value,
-                                        opacity: e.target.value / 100
-                                    }
-                                }, () => {
-                                    console.log('STATE', this.state);
-                                });
-                            }}/>
-                        <span>%</span>
-                    </ChoiceOpacity>
-                    <ChoiceColorConfirm className={this.state.viewPalette ? 'hidden' : ''}>
-                        <ButtonBasic
-                            className={this.isUpdated() ? '' : 'disable'}
-                            onClick={e => {
-                                e.preventDefault();
-                                this.setState({
-                                    value: componentStore.settings.Template.value
-                                });
-                            }}>
-                            Cancel
-                        </ButtonBasic>
-                        <ButtonGreen
-                            disabled={!this.isUpdated()}
-                            className={this.isUpdated() ? 'active' : ''}
-                            onClick={() => {
-                                dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
-                            }}>
-                            Update
-                        </ButtonGreen>
-                    </ChoiceColorConfirm>
 
                 </FieldsTemplate>
             </div>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {List, BlockColor, BoxColor} from './styled';
-import {HexColor, NameColor} from '../../style/styledComponentsBoxes'
+import {HexColor, NameColor, BlockColor, BoxColor} from '../../style/styledComponentsBoxes'
+import { List } from './styled'
 
 class ColorsList extends Component {
     constructor(props) {
