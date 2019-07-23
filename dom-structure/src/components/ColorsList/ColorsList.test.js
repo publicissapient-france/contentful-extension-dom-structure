@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, { shallow, mount} from "enzyme";
 import ColorsList from "./";
 import { List, BlockColor } from "./styled";
-import { NameColor} from "../../style/styledComponentsBoxes";
+import { IconAdd } from "../../style/styledComponentsBoxes";
 import Adapter from "enzyme-adapter-react-16";
 
 Enzyme.configure({ adapter : new Adapter()});
@@ -21,7 +21,7 @@ const items = [
     }
 ]
 
-describe("ColorsList component", () => {
+describe("TEST ColorsList component", () => {
     test("renders", () => {
         const wrapper = shallow(<ColorsList />);
         expect(wrapper.exists()).toBe(true);
@@ -45,15 +45,24 @@ describe("ColorsList component", () => {
         const isSelected = jest.fn();
         const wrapper = shallow(<ColorsList colors={items} action={action} isSelected={isSelected} />)
 
-        expect( wrapper.find(BlockColor).exists()).toBe(true)
-        expect( wrapper.find(BlockColor)).toHaveLength(items.length);
+        expect( wrapper.find(List).children(BlockColor).exists()).toBe(true)
+        expect( wrapper.find(List).children(BlockColor)).toHaveLength(items.length);
     })
 
     test("should contains a List with first child which have NameColor with text correspond to the name of first element of items", () => {
         const action = jest.fn();
         const isSelected = jest.fn();
         const wrapper = shallow(<ColorsList colors={items} action={action} isSelected={isSelected} />)
-        expect(wrapper.find(BlockColor).get(0).props.children[1].props.children).toEqual(items[0].slug);
+        expect(wrapper.find(List).children(BlockColor).get(0).props.children[1].props.children).toEqual(items[0].slug);
+    })
+
+
+    test("should contains the icon Add if property availableAdding is true", () => {
+        const action = jest.fn();
+        const isSelected = jest.fn();
+        const wrapper = shallow(<ColorsList colors={items} action={action} isSelected={isSelected} availableAdding/>)
+        expect( wrapper.find(IconAdd).exists()).toBe(true);
+
     })
 
 

@@ -14,9 +14,6 @@ class BoxesSettings extends Component {
                     {
                         fields.map((box, i) => {
                             switch (box.name) {
-                            case 'Template':
-                                return React.createElement(React.lazy(() => import('../boxes/settings/Template')), { indexComponent: index, indexSection: indexParent, name: box.name, open: open, key : i });
-
                             case 'Title':
                                 return React.createElement(React.lazy(() => import('../boxes/settings/Title')), { indexComponent: index, indexSection: indexParent, name: box.name, defaultValue : box.defaultValue ,open: open , key : i});
 

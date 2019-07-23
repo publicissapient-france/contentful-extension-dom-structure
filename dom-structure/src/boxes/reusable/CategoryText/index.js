@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import PropTypes from "prop-types";
 
-import {Property, IconContainer, Dot} from '../../../style/styledComponentsBoxes';
-import { ChoiceFont, ContainerProps, FontProps, AlignProps, Field, TransformProps, TypoProps} from "./styled";
+import _ from 'lodash';
+import {getCurrentStyle} from '../../../actions/index';
+import {hasNotSamePropertyValue} from '../../../utils/functions'
+
+import {Property, IconContainer} from '../../../style/styledComponentsBoxes';
+import {ChoiceFont, ContainerProps, FontProps, AlignProps, Field, TransformProps, TypoProps} from "./styled";
 import SvgFontSize from '../../../components/svg/SvgFontSize';
 import SvgLineHeight from '../../../components/svg/SvgLineHeight';
 import SvgLetterSpacing from '../../../components/svg/SvgLetterSpacing';
@@ -15,16 +20,14 @@ import SvgAlignCenter from '../../../components/svg/SvgAlignCenter';
 import SvgAlignJustify from '../../../components/svg/SvgAlignJustify';
 import SvgAlignRight from '../../../components/svg/SvgAlignRight';
 import IconActing from "../../../components/IconActing/index";
+import Dot from '../../../components/Dot';
 
-import _ from 'lodash';
-import {getCurrentStyle} from '../../../actions/index';
-import { hasNotSamePropertyValue } from '../../../utils/functions'
 
 class CategoryText extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { familyFonts: [] };
+        this.state = {familyFonts: []};
 
         this.updateTextProp = this.updateTextProp.bind(this);
     }
@@ -49,7 +52,6 @@ class CategoryText extends Component {
                 }
             });
         }
-
     }
 
     updateWithTheme = () => {
@@ -121,11 +123,18 @@ class CategoryText extends Component {
         return themes.find(theme => theme.name === selectedTheme);
     }
 
+    transformPropsAreNotDefault = () => {
+        if (hasNotSamePropertyValue(this.props.defaultText, this.props.text, 'transform')
+            || hasNotSamePropertyValue(this.props.defaultText, this.props.text, 'decoration')
+            || hasNotSamePropertyValue(this.props.defaultFont, this.props.font, 'style')) {
+            return true
+        }
+        return false
+    }
+
     getWeightNumber = (array, key) => array[key].weight[1];
     getWeightName = (array, key) => array[key].weight[0];
     getTypeface = (array, key) => array[key].typeface;
-
-
 
     render() {
         const {font, text, storeValueFont, storeValueText, defaultFont, defaultText} = this.props;
@@ -137,10 +146,9 @@ class CategoryText extends Component {
                         <div>
                             <Property>Thème</Property>
                             <Field>
-                                <Dot
-                                    className={hasNotSamePropertyValue(defaultFont, font, 'theme') ? 'active ' : ''}/>
+                                <Dot enabled={hasNotSamePropertyValue(defaultFont, font, 'theme')}/>
                                 <select value={font.theme}
-                                        className={storeValueFont && font.theme !== storeValueFont.theme ? 'updated' : ''}
+                                        className={hasNotSamePropertyValue(storeValueFont, font, 'theme') ? 'updated' : ''}
                                         onChange={e => {
                                             this.updateFontTheme(e.target.value);
                                         }}>
@@ -153,12 +161,13 @@ class CategoryText extends Component {
                         <div>
                             <Property>Font</Property>
                             <Field>
-                                <Dot
-                                    className={hasNotSamePropertyValue(defaultFont, font, 'family') ? 'active ' : ''}/>
+                                <Dot enabled={hasNotSamePropertyValue(defaultFont, font, 'family')}/>
                                 <select
                                     value={font.family || ''}
-                                    className={storeValueFont && font.family !== storeValueFont.family ? 'updated' : ''}
-                                    onChange={e => { this.updateFontFamily(e.target.value);}}>
+                                    className={hasNotSamePropertyValue(storeValueFont, font, 'family') ? 'updated' : ''}
+                                    onChange={e => {
+                                        this.updateFontFamily(e.target.value);
+                                    }}>
                                     <option></option>
                                     {Object.keys(this.state.familyFonts).map(key => <option value={key}
                                                                                             key={key}>{key}</option>)}
@@ -167,11 +176,10 @@ class CategoryText extends Component {
                         </div>
                         <div>
                             <Field>
-                                <Dot
-                                    className={hasNotSamePropertyValue(defaultFont, font, 'weight') ? 'active ' : ''}/>
+                                <Dot enabled={hasNotSamePropertyValue(defaultFont, font, 'weight')}/>
                                 <select
                                     value={font.weight ? font.weight[1] : ''}
-                                    className={storeValueFont && font.weight !== storeValueFont.weight ? 'updated' : ''}
+                                    className={hasNotSamePropertyValue(storeValueFont, font, 'weight') ? 'updated' : ''}
                                     onChange={e => {
                                         let textSelected = e.target.options[e.target.selectedIndex].text;
                                         let valueSelected = e.target.value;
@@ -192,38 +200,36 @@ class CategoryText extends Component {
 
                     <TypoProps>
                         <div>
-                            <Dot className={hasNotSamePropertyValue(defaultFont, font, 'size') ? 'active ' : ''}/>
+                            <Dot enabled={hasNotSamePropertyValue(defaultFont, font, 'size')}/>
                             <IconContainer>
                                 <SvgFontSize/>
                             </IconContainer>
                             <input type={'number'}
-                                   className={storeValueFont && font.size !== storeValueFont.size ? 'updated' : ''}
+                                   className={hasNotSamePropertyValue(storeValueFont, font, 'size') ? 'updated' : ''}
                                    value={font.size || 0}
                                    onChange={e => {
                                        this.updateFontProp('size', e.target.value);
                                    }}/>
                         </div>
                         <div>
-                            <Dot
-                                className={hasNotSamePropertyValue(defaultFont, font, 'lineHeight') ? 'active ' : ''}/>
+                            <Dot enabled={hasNotSamePropertyValue(defaultFont, font, 'lineHeight')}/>
                             <IconContainer>
                                 <SvgLineHeight/>
                             </IconContainer>
                             <input type={'number'}
-                                   className={storeValueFont && font.lineHeight !== storeValueFont.lineHeight ? 'updated' : ''}
+                                   className={hasNotSamePropertyValue(storeValueFont, font, 'lineHeight') ? 'updated' : ''}
                                    value={font.lineHeight || 0}
                                    onChange={e => {
                                        this.updateFontProp('lineHeight', e.target.value);
                                    }}/>
                         </div>
                         <div>
-                            <Dot
-                                className={hasNotSamePropertyValue(defaultFont, font, 'letterSpacing') ? 'active ' : ''}/>
+                            <Dot enabled={hasNotSamePropertyValue(defaultFont, font, 'letterSpacing')}/>
                             <IconContainer>
                                 <SvgLetterSpacing/>
                             </IconContainer>
                             <input type={'number'}
-                                   className={storeValueFont && font.letterSpacing !== storeValueFont.letterSpacing ? 'updated' : ''}
+                                   className={hasNotSamePropertyValue(storeValueFont, font, 'letterSpacing') ? 'updated' : ''}
                                    value={font.letterSpacing || 0}
                                    onChange={e => {
                                        this.updateFontProp('letterSpacing', e.target.value);
@@ -234,7 +240,7 @@ class CategoryText extends Component {
                 <ContainerProps>
                     <AlignProps>
                         <div>
-                            <Dot className={hasNotSamePropertyValue(defaultText, text, 'align') ? 'active ' : ''}/>
+                            <Dot enabled={hasNotSamePropertyValue(defaultText, text, 'align')}/>
                             <IconActing objectA={storeValueText} objectB={text} targetProperty={'align'} value={'left'}
                                         action={this.updateTextProp}>
                                 <SvgAlignLeft/>
@@ -257,10 +263,7 @@ class CategoryText extends Component {
                     </AlignProps>
                     <TransformProps>
                         <div>
-                            <Dot
-                                className={hasNotSamePropertyValue(defaultText, text, 'transform')
-                                || hasNotSamePropertyValue(defaultText, text, 'decoration')
-                                || hasNotSamePropertyValue(defaultFont, font, 'style') ? 'active ' : ''}/>
+                            <Dot enabled={this.transformPropsAreNotDefault()}/>
                             <IconActing objectA={storeValueText} objectB={text} targetProperty={'transform'}
                                         value={'uppercase'} action={this.updateTextProp} nullAllowed>
                                 <SvgCapitalize/>
@@ -284,6 +287,72 @@ class CategoryText extends Component {
         );
     }
 }
+
+
+CategoryText.protoTypes = {
+    font: PropTypes.shape({
+        family: PropTypes.string.isRequired,
+        typeface: PropTypes.string.isRequired,
+        size: PropTypes.string.isRequired,
+        weight: PropTypes.arrayOf(PropTypes.string),
+        theme: PropTypes.string.isRequired,
+        letterSpacing: PropTypes.string.isRequired,
+        lineHeight: PropTypes.string.isRequired,
+        style: PropTypes.oneOf(['italic', null])
+    }),
+    defaultFont: PropTypes.shape({
+        family: PropTypes.string,
+        typeface: PropTypes.string,
+        size: PropTypes.string,
+        weight: PropTypes.arrayOf(PropTypes.string),
+        theme: PropTypes.string,
+        letterSpacing: PropTypes.string,
+        lineHeight: PropTypes.string,
+        style: PropTypes.oneOf(['italic', null])
+    }),
+    storeValueFont: PropTypes.shape({
+        family: PropTypes.string.isRequired,
+        typeface: PropTypes.string.isRequired,
+        size: PropTypes.string.isRequired,
+        weight: PropTypes.arrayOf(PropTypes.string),
+        theme: PropTypes.string.isRequired,
+        letterSpacing: PropTypes.string.isRequired,
+        lineHeight: PropTypes.string.isRequired,
+        style: PropTypes.oneOf(['italic', null])
+    }),
+    text: PropTypes.shape({
+        align: PropTypes.oneOf(['left', 'center', 'right', 'justify']),
+        decoration: PropTypes.oneOf(['underline', null]),
+        transform: PropTypes.oneOf(['uppercase', 'capitalize', null]),
+    }),
+    defaultText: PropTypes.shape({
+        align: PropTypes.oneOf(['left', 'center', 'right', 'justify']),
+        decoration: PropTypes.oneOf(['underline', null]),
+        transform: PropTypes.oneOf(['uppercase', 'capitalize', null]),
+    }),
+    storeValueText: PropTypes.shape({
+        align: PropTypes.oneOf(['left', 'center', 'right', 'justify']),
+        decoration: PropTypes.oneOf(['underline', null]),
+        transform: PropTypes.oneOf(['uppercase', 'capitalize', null]),
+    }),
+    fonts: PropTypes.arrayOf(PropTypes.shape({
+        family: PropTypes.string.isRequired,
+        generatedFontName: PropTypes.string.isRequired,
+        typeface: PropTypes.string.isRequired,
+        weight: PropTypes.arrayOf(PropTypes.string)
+    })),
+    themes: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        family: PropTypes.string.isRequired,
+        typeface: PropTypes.string.isRequired,
+        weight: PropTypes.arrayOf(PropTypes.string),
+        fontsize: PropTypes.string.isRequired,
+        fontsizeEM: PropTypes.string.isRequired,
+        lineheight: PropTypes.string.isRequired,
+        lineheightEM: PropTypes.string.isRequired
+    }))
+};
+
 
 const mapStateToProps = state => ({
     fonts: getCurrentStyle(state).style.fonts,

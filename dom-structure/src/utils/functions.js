@@ -4,7 +4,7 @@ import { getAssetsUrlById } from './getters';
 const createSlug = (name, shade) => (shade !== '') ? name + '-' + shade : name;
 
 const hexToRgb = hex => {
-    if (!hex) return;
+    if (!hex) return false;
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
     let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
@@ -18,7 +18,7 @@ const hexToRgb = hex => {
 };
 
 const RGBtoString = rgb => {
-    if (!rgb) return;
+    if (!rgb) return false;
     return '(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ')';
 };
 

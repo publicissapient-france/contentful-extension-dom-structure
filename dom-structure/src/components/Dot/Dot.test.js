@@ -5,7 +5,7 @@ import Adapter from "enzyme-adapter-react-16";
 
 Enzyme.configure({ adapter : new Adapter()});
 
-describe("Dot component", () => {
+describe("TEST Dot component", () => {
     test("renders", () => {
         const wrapper = shallow(<Dot enabled={true}/>);
         expect(wrapper.exists()).toBe(true);

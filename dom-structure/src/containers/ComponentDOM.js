@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { extensionTheme } from '../style/theme';
+import {connect} from 'react-redux';
+import {extensionTheme} from '../style/theme';
 import SvgContent from '../components/svg/SvgContent';
 import SvgSpecs from '../components/svg/SvgSpecs';
 import SvgRange from '../components/svg/SvgRange';
@@ -10,7 +10,7 @@ import SvgTrash from '../components/svg/SvgTrash';
 import SvgArrowDouble from '../components/svg/SvgArrowDouble';
 import BoxesContent from './BoxesContent';
 import BoxesSettings from './BoxesSettings';
-import { getCountryISO } from '../utils/functions';
+import {getCountryISO} from '../utils/functions';
 
 import {
     Container,
@@ -23,7 +23,7 @@ import {
     Range,
     SafeDelete
 } from '../style/styledComponents';
-import { CheckBox } from '../style/styledComponentsBoxes';
+import {CheckBox} from '../style/styledComponentsBoxes';
 import components from '../config/components';
 import {
     moveComponentToTop,
@@ -177,8 +177,9 @@ const Settings = styled(OptionsBlock)`
     }
   }
 `;
+
 class ComponentDOM extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -189,14 +190,16 @@ class ComponentDOM extends Component {
             openContentField: true,
             component: null,
             openSafeDelete: false,
-            language: 0
+            language: 0,
+            config: {}
         };
     }
 
     // content = require('../boxes/content/Title').default;
 
-    componentDidMount = () => {
-        this.setState({ component: this.props.component });
+    componentDidMount =  async () => {
+        this.setState({component: this.props.component}, async () => {
+        });
     }
 
     getLazyComponent = path => {
@@ -206,7 +209,7 @@ class ComponentDOM extends Component {
     updateModel = model => {
         this.setState({
             component: update(this.state.component, {
-                model: { $set: model },
+                model: {$set: model},
             })
         });
     }
@@ -214,14 +217,14 @@ class ComponentDOM extends Component {
     updateName = name => {
         this.setState({
             component: update(this.state.component, {
-                name: { $set: name },
+                name: {$set: name},
             })
         });
     }
     toggleActive = () => {
         this.setState({
             component: update(this.state.component, {
-                active: { $set: !this.state.component.active },
+                active: {$set: !this.state.component.active},
             })
         }, () => {
             this.props.dispatch(toggleComponentActive(this.state.component.active, this.props.index, this.props.indexParent));
@@ -244,24 +247,24 @@ class ComponentDOM extends Component {
     })
 
     toggleBoxes = () => {
-        this.setState({ openBoxes: !this.state.openBoxes }, () => {
+        this.setState({openBoxes: !this.state.openBoxes}, () => {
             if (!this.state.openBoxes) {
-                this.setState({ semiOpenBoxes: true });
+                this.setState({semiOpenBoxes: true});
             }
         });
     }
     toggleBoxesSettings = () => {
-        this.setState({ openBoxesSettings: !this.state.openBoxesSettings }, () => {
+        this.setState({openBoxesSettings: !this.state.openBoxesSettings}, () => {
             if (!this.state.openBoxesSettings) {
-                this.setState({ semiOpenBoxes: true });
+                this.setState({semiOpenBoxes: true});
             }
         });
     }
 
     toggleBoxesField = () => {
-        this.setState({ semiOpenBoxes: !this.state.semiOpenBoxes }, () => {
+        this.setState({semiOpenBoxes: !this.state.semiOpenBoxes}, () => {
             if (!this.state.semiOpenBoxes) {
-                this.setState({ openBoxes: true });
+                this.setState({openBoxes: true});
             }
         });
     }
@@ -270,10 +273,12 @@ class ComponentDOM extends Component {
         this.state.component.model !== this.props.component.model))
 
     getContentAvailable = () => components.find(c => c.name === this.props.component.model).content;
+
     getSettingsAvailable = () => (components.find(c => c.name === this.props.component.model).settings);
 
-    render () {
-        const { dispatch, extensionInfo, currentLanguage, component, index, indexParent, lengthParent } = this.props;
+
+    render() {
+        const {dispatch, extensionInfo, currentLanguage, component, index, indexParent, lengthParent} = this.props;
         let inputName, selectModel;
 
         if (!this.state.component || !extensionInfo.extension.locales) return null;
@@ -293,11 +298,11 @@ class ComponentDOM extends Component {
                     </Description>
                     <Actions>
                         <Icon className={this.state.openContent ? 'active' : ''}
-                            onClick={() => this.toggleOpenContent()}>
+                              onClick={() => this.toggleOpenContent()}>
                             <SvgContent/>
                         </Icon>
                         <Icon className={this.state.openSettings ? 'active' : ''}
-                            onClick={() => this.toggleOpenSettings()}>
+                              onClick={() => this.toggleOpenSettings()}>
                             <SvgSpecs/>
                         </Icon>
                         <Range>
@@ -327,7 +332,7 @@ class ComponentDOM extends Component {
                         <ButtonBasic onClick={() => this.toggleSafeSecure()}>Cancel</ButtonBasic>
                         <ButtonDelete onClick={() => {
                             dispatch(removeComponent(index, indexParent));
-                            this.setState({ openSafeDelete: false });
+                            this.setState({openSafeDelete: false});
                         }}>
                             Delete
                         </ButtonDelete>
@@ -345,18 +350,18 @@ class ComponentDOM extends Component {
                         <div>
                             <label>Component Name</label>
                             <input ref={node => (inputName = node)} type={'text'}
-                                defaultValue={component.name ? component.name : ''}
-                                onChange={e => {
-                                    this.updateName(e.target.value);
-                                }}/>
+                                   defaultValue={component.name ? component.name : ''}
+                                   onChange={e => {
+                                       this.updateName(e.target.value);
+                                   }}/>
                         </div>
                         <div>
                             <label>Model</label>
                             <select ref={node => (selectModel = node)}
-                                defaultValue={component.model ? component.model : null}
-                                onChange={e => {
-                                    this.updateModel(e.target.value);
-                                }}>
+                                    defaultValue={component.model ? component.model : null}
+                                    onChange={e => {
+                                        this.updateModel(e.target.value);
+                                    }}>
                                 {components.map((model, i) => <option value={model.name} key={i}>{model.name}</option>)}
                             </select>
                         </div>
@@ -366,7 +371,7 @@ class ComponentDOM extends Component {
                                 onClick={e => {
                                     e.preventDefault();
                                     this.toggleOpenSettings();
-                                    this.setState({ component: this.props.component });
+                                    this.setState({component: this.props.component});
                                     inputName.value = component.name;
                                     selectModel.value = component.model;
                                 }}>
@@ -384,18 +389,19 @@ class ComponentDOM extends Component {
                         <p>settings</p>
                         <Toggle>
                             <Icon className={!this.state.openBoxesSettings ? '' : 'rotate'}
-                                onClick={() => {
-                                    this.toggleBoxesSettings();
-                                }}><SvgArrowDouble/></Icon>
+                                  onClick={() => {
+                                      this.toggleBoxesSettings();
+                                  }}><SvgArrowDouble/></Icon>
                         </Toggle>
 
                     </Banner>
-                    <BoxesSettings open={this.state.openBoxesSettings} fields={this.getSettingsAvailable()} index={index}
-                        indexParent={indexParent}/>
+                    <BoxesSettings open={this.state.openBoxesSettings} fields={this.getSettingsAvailable()}
+                                   index={index}
+                                   indexParent={indexParent}/>
 
                 </Settings>
                 <Content className={!this.state.openContent ? 'hidden' : ''}>
-                    <Banner >
+                    <Banner>
                         <p>content</p>
                         <Toggle>
                             <Languages>
@@ -405,21 +411,21 @@ class ComponentDOM extends Component {
                                             key={i}
                                             className={currentLanguage.language === i ? 'active' : ''}
                                             onClick={e => {
-                                                this.setState({ language: i });
+                                                this.setState({language: i});
                                                 dispatch(toggleLanguage(i));
                                             }}>{getCountryISO(language)}</ToogleLanguage>;
                                     })
                                 }
                             </Languages>
                             <Icon className={!this.state.openBoxes ? '' : 'rotate'}
-                                onClick={() => {
-                                    this.toggleBoxes();
-                                }}><SvgArrowDouble/></Icon>
+                                  onClick={() => {
+                                      this.toggleBoxes();
+                                  }}><SvgArrowDouble/></Icon>
                         </Toggle>
 
                     </Banner>
                     <BoxesContent open={this.state.openBoxes} fields={this.getContentAvailable()} index={index}
-                        indexParent={indexParent}/>
+                                  indexParent={indexParent}/>
                 </Content>
 
             </ContainerComponent>

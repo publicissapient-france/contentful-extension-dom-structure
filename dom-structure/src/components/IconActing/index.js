@@ -53,7 +53,7 @@ class IconActing extends Component {
 
 
 IconActing.propTypes = {
-    objectA: PropTypes.object.isRequired,
+    objectA: PropTypes.object,
     objectB: PropTypes.object.isRequired,
     targetProperty: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([

@@ -33,7 +33,7 @@ const config = [
                         typeface : null,
                         weight : null,
                         style : 'italic',
-                        size : null,
+                        size : '28',
                         lineHeight : null,
                         letterSpacing : '0'
                     },

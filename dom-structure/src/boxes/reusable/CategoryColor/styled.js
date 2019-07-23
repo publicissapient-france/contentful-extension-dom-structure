@@ -24,7 +24,6 @@ export const ChoiceColor = styled.div`
     padding-bottom :10px;
     display:flex;
     flex-direction:column;
-    
    }
   
    &>div:nth-child(2){
@@ -59,7 +58,6 @@ export const ChoiceOpacity = styled.div`
    & input{
     width : 50px;
     max-width : 50px;
-    
    }
 `;
 export const PaletteView = styled.div`

@@ -13,7 +13,7 @@ const mockObject2 = {
 }
 const mockTargetProperty = 'transform';
 
-describe("IconActing component", () => {
+describe("TEST IconActing component", () => {
     test("renders", () => {
         const wrapper = shallow(<IconActing objectA={mockObject1} objectB={mockObject2} targetProperty={mockTargetProperty} value={'uppercase'}/>);
         expect(wrapper.exists()).toBe(true);

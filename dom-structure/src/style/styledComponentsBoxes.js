@@ -345,20 +345,6 @@ export const Palette = styled.div`
     
   
 `;
-export const IconExtend = styled.div`
-  
-    & svg.extend{
-        cursor : pointer;
-        margin-right : 2px;
-        
-        & path{
-            fill : ${ contentfulTheme.grey };
-        }
-        & rect {
-            fill : none;
-        }
-    }
-`;
 export const IconContainer = styled.div`
   width:30px;
   height : 30px;
@@ -486,32 +472,5 @@ export const ChoiceConfirm = styled.div`
     
     & button:not(:first-child){
         margin-left : 10px;
-    }
-`;
-
-export const Dot = styled.div`
-   width : 30px;
-   min-width : 30px;
-   height : 30px;
-   display:flex;
-   justify-content:center;
-   align-items : center;
-   
-   &::before{
-       content: '';
-       display: inline-block;
-       width: 8px;
-       height: 8px;
-       -moz-border-radius: 50%;
-       -webkit-border-radius: 50%;
-       border-radius: 50%;
-       background-color: ${ extensionTheme.blueM};
-       display : none;
-    }
-    
-    &.active{
-        &::before{
-          display : block;
-        }
     }
 `;

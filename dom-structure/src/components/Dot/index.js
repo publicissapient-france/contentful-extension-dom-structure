@@ -32,7 +32,7 @@ class Dot extends Component {
 
 
 Dot.propTypes = {
-    enabled: PropTypes.bool.isRequired,
+    enabled: PropTypes.bool
 };
 
 export default Dot;

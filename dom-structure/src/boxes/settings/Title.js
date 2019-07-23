@@ -12,8 +12,8 @@ import SvgCheck from '../../components/svg/SvgCheck';
 import {connect} from 'react-redux';
 import {updateSettingsValue, getCurrentDOM} from '../../actions';
 import CategoryText from '../reusable/CategoryText/index';
-import CategoryColor from '../reusable/CategoryColor/CategoryColor';
-import CategorySeo from '../reusable/CategorySeo';
+import CategoryColor from '../reusable/CategoryColor/index';
+import CategorySeo from '../reusable/CategorySeo/index';
 import TextPreview from '../../components/TextPreview';
 import {extensionTheme} from '../../style/theme';
 import styled from 'styled-components';
@@ -38,6 +38,7 @@ export const Category = styled.div`
 export const ChoiceItemsConfirm = styled(ChoiceConfirm)`
     padding : 10px 15px 10px 0;
     width : 100%;
+    border-top : 1px solid ${ extensionTheme.grey20 };
 
 `;
 export const Column = styled.div`
