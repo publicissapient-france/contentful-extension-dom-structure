@@ -49,8 +49,6 @@ class Text extends Component {
             active: componentStore.content.Text ? componentStore.content.Text.active : true,
             open: this.props.open
         });
-
-        console.log('MOUNT');
     };
 
     extractFromHTML = value => {

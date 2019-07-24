@@ -121,14 +121,12 @@ class App extends React.Component {
         const locale = this.props.extension.locales.default;
         const styleguide = await this.getStyleGuide();
         const typographies = await this.getTypographies(styleguide.typography[locale]);
-        console.log('TYPO', typographies);
 
         this.props.dispatch(initStyleInformation(styleguide, typographies));
 
         const fonts = await typographies.map(entry => entry).filter(font => font.fields.fontFile[this.props.extension.locales.default].sys.id);
         fonts.forEach(async font => {
             let extractedValue = await extractFontValueToCSS(this, font, this.props.extension.locales.default);
-            console.log('EXTRACTED VALUE', extractedValue);
             this.props.dispatch(addFontFaces(extractedValue));
         });
     };

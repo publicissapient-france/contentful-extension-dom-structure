@@ -15,8 +15,7 @@ export default function FileView(props) {
     const type = file.contentType.split("/")[0]
     const prettySize = `${(file.details.size / 1000000).toFixed(2)} MB`
     const bg = {
-        backgroundImage: `url(${file.url})`,
-        backgroundSize : `100% auto`
+        backgroundImage: `url(${file.url})`
     }
 
     console.log('PROPS FILEVIEW', props);

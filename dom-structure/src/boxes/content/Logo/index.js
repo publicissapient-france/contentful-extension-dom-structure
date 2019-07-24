@@ -49,6 +49,8 @@ class Logo extends Component {
     render () {
         const { dispatch, dom, currentLanguage, indexComponent, indexSection, name } = this.props;
         const indexLanguage = currentLanguage.language;
+        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
+        const logoContent =  componentStore.content.Logo;
 
         return (
             <div>
@@ -71,7 +73,7 @@ class Logo extends Component {
                           }}><SvgToggle/></Icon>
                 </Banner>
                 <Fields className={this.state.open ? 'open' : ''}>
-                   <ImageUploader updateStateAsset={this.updateStateAsset}/>
+                   <ImageUploader currentAsset={ logoContent && logoContent.value ? logoContent.value : null} updateStateAsset={this.updateStateAsset} />
                 </Fields>
                 <ChoiceItemsConfirm>
                     <ButtonBasic

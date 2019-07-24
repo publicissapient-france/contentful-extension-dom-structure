@@ -6,7 +6,6 @@ class BoxesSettings extends Component {
     render () {
         const { fields, index, indexParent, open } = this.props;
 
-        console.log('fields  : ', fields);
         return (
             <BoxesContainer>
                 <React.Suspense fallback={<div>Loading Box...</div>}>

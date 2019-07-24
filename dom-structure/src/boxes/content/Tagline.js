@@ -62,7 +62,6 @@ class Tagline extends Component {
                                 ...this.state.value,
                                 [indexLanguage]: e.target.value
                             } }, () => {
-                                console.log('STATE : ', this.state.value);
                                 dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                             });
                         }}/>

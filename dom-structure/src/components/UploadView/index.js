@@ -41,6 +41,11 @@ export default function UploadView(props) {
                         </Button>
                         <TextLink
                             className="link-existing"
+                            onClick={props.createNewAssetWithContenful}
+                        >
+                            Add new asset
+                        </TextLink> <TextLink
+                            className="link-existing"
                             onClick={props.onClickLinkExisting}
                         >
                             Link existing asset
