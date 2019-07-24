@@ -1,0 +1,14 @@
+.viewport {
+    position: relative;
+    height: 20rem;
+}
+
+.viewport.non-image-file {
+    height: 10rem;
+}
+
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

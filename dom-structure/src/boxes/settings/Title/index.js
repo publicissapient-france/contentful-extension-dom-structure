@@ -1,60 +1,22 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {Icon, ButtonGreen, ButtonBasic} from '../../style/styledComponents';
+import _ from 'lodash';
+import {updateSettingsValue, getCurrentDOM} from '../../../actions/index';
+
+import {Category, ChoiceItemsConfirm, Choices, Column, FieldsTemplate} from './styled'
+import {Icon, ButtonGreen, ButtonBasic} from '../../../style/styledComponents';
 import {
     Banner,
-    Fields,
     ActiveCheckBox,
-    ChoiceConfirm
-} from '../../style/styledComponentsBoxes';
-import SvgArrow from '../../components/svg/SvgArrow';
-import SvgCheck from '../../components/svg/SvgCheck';
-import {connect} from 'react-redux';
-import {updateSettingsValue, getCurrentDOM} from '../../actions';
-import CategoryText from '../reusable/CategoryText/index';
-import CategoryColor from '../reusable/CategoryColor/index';
-import CategorySeo from '../reusable/CategorySeo/index';
-import TextPreview from '../../components/TextPreview';
-import {extensionTheme} from '../../style/theme';
-import styled from 'styled-components';
-import _ from 'lodash';
+} from '../../../style/styledComponentsBoxes';
+import SvgArrow from '../../../components/svg/SvgArrow';
+import SvgCheck from '../../../components/svg/SvgCheck';
+import CategoryText from '../../reusable/CategoryText/index';
+import CategoryColor from '../../reusable/CategoryColor/index';
+import CategorySeo from '../../reusable/CategorySeo/index';
+import TextPreview from '../../../components/TextPreview';
 
-export const FieldsTemplate = styled(Fields)`
-    padding :0px;
-`;
-export const FieldsError = styled(Fields)`
-    display : block;
-`;
-
-export const Choices = styled.div`
-    width : 100%;
-    display : flex;
-`;
-export const Category = styled.div`    
-    border : 1px solid ${ extensionTheme.grey20 };
-    border-left : 0px 
-    border-bottom : 0px 
-`;
-export const ChoiceItemsConfirm = styled(ChoiceConfirm)`
-    padding : 10px 15px 10px 0;
-    width : 100%;
-    border-top : 1px solid ${ extensionTheme.grey20 };
-
-`;
-export const Column = styled.div`
-    display : flex;
-    flex-direction : column;
-    
-    &.full-width{
-        width : 100%;
-        
-        & ${Category}{
-            width : 100%;
-            padding-top : 0;
-        }
-    }
-
-`;
 
 class Title extends Component {
     constructor(props) {
@@ -65,7 +27,7 @@ class Title extends Component {
             value: {},
             active: true,
             openView: false,
-            openPreview : false
+            openPreview: false
         };
 
         this.toggleOpenView = this.toggleOpenView.bind(this);
@@ -85,27 +47,27 @@ class Title extends Component {
 
     };
 
-    updateStateProps = (props , value) => {
+    updateStateProps = (props, value) => {
         this.setState({
             value: {
                 ...this.state.value,
                 [props]: value
             }
         }, () => {
-                console.log('STATE AFTER UPDATE :', this.state)
-            });
+            console.log('STATE AFTER UPDATE :', this.state)
+        });
     }
 
     toggleOpenView = () => this.setState({openView: !this.state.openView});
-
     toggleOpenPreview = () => this.setState({openPreview: !this.state.openPreview});
+    viewIsOpen = () => (this.state.openView || this.state.openPreview);
 
 
     isUpdated = () => {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
         const titleSettings = componentStore.settings.Title;
 
-        if ( _.isEqual(titleSettings && titleSettings.value , this.state.value) ) return false;
+        if (_.isEqual(titleSettings && titleSettings.value, this.state.value)) return false;
         return true;
     }
 
@@ -147,11 +109,11 @@ class Title extends Component {
                                     toggleOpenPreview={this.toggleOpenPreview}
                                 />
                             </Category>
-                            <Category className={[ this.state.openPreview  ? 'hidden' : '']}>
+                            <Category className={this.state.openPreview ? 'hidden' : ''}>
                                 <CategoryColor openView={this.state.openView}
                                                toggleOpenView={this.toggleOpenView}
-                                               storeValueColor={titleSettings && titleSettings.value.color ? titleSettings.value.color : null }
-                                               storeValueOpacity={titleSettings && titleSettings.value.opacity ? titleSettings.value.opacity : null }
+                                               storeValueColor={titleSettings.value.color || null}
+                                               storeValueOpacity={titleSettings.value.opacity || null}
                                                color={this.state.value.color}
                                                opacity={this.state.value.opacity}
                                                defaultColor={defaultValue.color}
@@ -160,19 +122,19 @@ class Title extends Component {
                                 />
                             </Category>
 
-                            <Category className={[ this.state.openView || this.state.openPreview ? 'hidden' : '']}>
+                            <Category className={this.viewIsOpen() ? 'hidden' : ''}>
                                 <CategorySeo
-                                    storeValueSeo={titleSettings && titleSettings.value.seo ? titleSettings.value.seo : null}
+                                    storeValueSeo={titleSettings.value.seo || null}
                                     seo={this.state.value.seo}
                                     defaultSeo={defaultValue.seo}
                                     updateStateProps={this.updateStateProps}/>
                             </Category>
                         </Column>
 
-                        <Category className={[ this.state.openView || this.state.openPreview  ? 'hidden' : '']}>
+                        <Category className={this.viewIsOpen() ? 'hidden' : ''}>
                             <CategoryText
-                                storeValueFont={titleSettings && titleSettings.value.font ? titleSettings.value.font: null}
-                                storeValueText={titleSettings && titleSettings.value.text ? titleSettings.value.text : null}
+                                storeValueFont={titleSettings.value.font || null}
+                                storeValueText={titleSettings.value.text || null}
                                 font={this.state.value.font}
                                 text={this.state.value.text}
                                 defaultFont={defaultValue.font}
@@ -182,12 +144,12 @@ class Title extends Component {
                         </Category>
                     </Choices>
 
-                    <ChoiceItemsConfirm className={this.state.openView || this.state.openPreview || !this.isUpdated()  ? 'hidden' : ''}>
+                    <ChoiceItemsConfirm className={this.viewIsOpen() || !this.isUpdated() ? 'hidden' : ''}>
                         <ButtonBasic
                             className={this.isUpdated() ? '' : 'disable'}
                             onClick={e => {
                                 e.preventDefault();
-                                if(titleSettings.value){
+                                if (titleSettings.value) {
                                     this.setState({
                                         value: titleSettings.value
                                     });
@@ -214,7 +176,8 @@ Title.propTypes = {
     indexSection: PropTypes.number.isRequired,
     indexComponent: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    defaultValue : PropTypes.object
+    defaultValue: PropTypes.object,
+    open: PropTypes.bool
 };
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state),

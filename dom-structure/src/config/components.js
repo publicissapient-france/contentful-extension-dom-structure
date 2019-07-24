@@ -12,7 +12,7 @@ const config = [
     },
     {
         name: 'Leading',
-        content: ['Title', 'Tagline', 'Text'],
+        content: ['Title', 'Tagline', 'Text', 'Logo'],
         settings : [
             {
                 name : 'Title',

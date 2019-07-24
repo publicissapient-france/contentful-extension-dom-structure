@@ -16,8 +16,8 @@ import {
     SelectedColor
 } from './styled'
 import SvgCross from '../../../components/svg/SvgCross';
-import ColorView from '../../../components/ColorView';
-import ColorAdd from '../../../components/ColorAdd';
+import ColorView from '../../../components/ColorView/ColorView';
+import ColorAdd from '../../../components/ColorAdd/index';
 import ColorsList from '../../../components/ColorsList';
 import Dot from '../../../components/Dot';
 
@@ -70,7 +70,6 @@ class CategoryColor extends Component {
                 </Error>
             </FieldsError>
         )
-        console.log('CATAGORY COLOR PROPS', this.props)
         return (
             <ChoiceColor className={openView ? 'full-width' : ''}>
                 <div>

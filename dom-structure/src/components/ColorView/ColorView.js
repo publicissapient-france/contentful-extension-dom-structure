@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { createSlug, hexToRgb, RGBtoString } from '../utils/functions';
+import { createSlug, hexToRgb, RGBtoString } from '../../utils/functions';
 
 import {
     BoxColor, Specification, ChoiceColor, ChoiceName, ChoiceShade, Property
-} from '../style/styledComponentsBoxes';
+} from '../../style/styledComponentsBoxes';
 import styled from 'styled-components';
 
 const Container = styled.div`

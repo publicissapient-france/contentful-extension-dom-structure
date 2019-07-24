@@ -15,7 +15,7 @@ class BoxesSettings extends Component {
                         fields.map((box, i) => {
                             switch (box.name) {
                             case 'Title':
-                                return React.createElement(React.lazy(() => import('../boxes/settings/Title')), { indexComponent: index, indexSection: indexParent, name: box.name, defaultValue : box.defaultValue ,open: open , key : i});
+                                return React.createElement(React.lazy(() => import('../boxes/settings/Title/index')), { indexComponent: index, indexSection: indexParent, name: box.name, defaultValue : box.defaultValue ,open: open , key : i});
 
                             default :
                                 return <div className={'error'}><p>No content-box <strong>{box}</strong> matches</p></div>;
