@@ -42,7 +42,7 @@ class ImageUploader extends Component {
 
     }
 
-    onDropFiles = event => {
+   /* onDropFiles = event => {
         event.preventDefault()
         event.stopPropagation()
 
@@ -119,8 +119,8 @@ class ImageUploader extends Component {
         return this.props.extensionInfo.extension.space.createAsset(asset)
     }
 
-    createNewAssetWithContenful = async () => {
-        console.log('createNewAssetWithContenful');
+    onClickNewAsset = async () => {
+        console.log('onClickNewAsset');
 
         const result = await this.props.extensionInfo.extension.navigator.openNewAsset({ slideIn: true }).then(({ entity }) => {
             /* new entry of the "blogPost" content type was opened in the slide-in editor */
@@ -253,48 +253,7 @@ class ImageUploader extends Component {
         )*/
     }
 
-    processAndPublishAsset = async (rawAsset, locale) => {
-        // Send a request to start processing the asset. This will happen asynchronously.
-        await this.props.extensionInfo.extension.space.processAsset(rawAsset, locale)
 
-        this.setUploadProgress(55)
-
-        // Wait until asset is processed.
-        const processedAsset = await this.props.extensionInfo.extension.space.waitUntilAssetProcessed(
-            rawAsset.sys.id,
-            locale
-        )
-        this.setUploadProgress(85)
-
-        // Publish the asset, ignore if it fails
-        let publishedAsset
-        try {
-            publishedAsset = await this.props.extensionInfo.extension.space.publishAsset(processedAsset)
-        } catch (err) {}
-
-        this.setUploadProgress(95)
-
-        const asset = publishedAsset || processedAsset
-        this.setState({
-            asset
-        }, () => {
-            console.log('PROCESS AND PUBLISH ASSET state', this.state);
-        })
-
-        // Set the value of the reference field as a link to the asset created above
-        /*await this.props.sdk.field.setValue(
-            {
-                sys: {
-                    type: "Link",
-                    linkType: "Asset",
-                    id: asset.sys.id
-                }
-            },
-            locale
-        )*/
-
-        this.setUploadProgress(100)
-    }
 
     onClickLinkExisting = async () => {
         const selectedAsset = await this.props.extensionInfo.extension.dialogs.selectSingleAsset({
@@ -303,7 +262,6 @@ class ImageUploader extends Component {
         console.log('selected asset : ', selectedAsset);
 
         try {
-            //await this.setFieldLink(selectedAsset.sys.id)
             this.setSelectedAsset(selectedAsset);
         } catch (err) {
             this.onError(err)
@@ -331,6 +289,17 @@ class ImageUploader extends Component {
         })
     }
 
+    removeSelectedAsset = () => {
+        this.setState({
+            ...this.state,
+            value : null,
+            asset : null
+        }, () => {
+            console.log("STATE AFTER SELECTED", this.state);
+            this.props.updateStateAsset(this.state.value);
+        })
+    }
+
     setFieldLink(assetId) {
         /*return this.setState({
             selectedValue : {
@@ -346,13 +315,6 @@ class ImageUploader extends Component {
                 .then(asset => This.setState({ asset }))
         })*/
     }
-    onDragOverEnd = () => {
-        this.setState({ isDraggingOver: false })
-    }
-
-    onDragOverStart = () => {
-        this.setState({ isDraggingOver: true })
-    }
 
     onError = error => {
         console.error(error)
@@ -366,20 +328,15 @@ class ImageUploader extends Component {
         })
     }
 
+    onClickRemove = () => {
+        this.removeSelectedAsset()
+    }
+
 
     render = () => {
         const { currentAsset } = this.props;
         console.log('PROPS EXTENSION PROPS EXTENSION ', this.props.extensionInfo.extension)
-        if (this.state.uploading) {
-            return (
-                <ProgressView
-                    imageUrl={this.state.imageUrl}
-                    base64Prefix={this.state.base64Prefix}
-                    base64Data={this.state.base64Data}
-                    uploadProgress={this.state.uploadProgress}
-                />
-            )
-        } else if(!this.state.isDraggingOver && this.state.asset && !this.state.asset.fields.file){
+        if(!this.state.isDraggingOver && this.state.asset && !this.state.asset.fields.file){
             return (
                 <button onClick={ () => {
                     this.reuseExistingAsset(this.state.asset.sys.id)
@@ -397,9 +354,6 @@ class ImageUploader extends Component {
                         (this.state.asset.sys.publishedVersion || 0) + 1
                     }
                     isDraggingOver={this.state.isDraggingOver}
-                    onDrop={this.onDropFiles}
-                    onDragOverStart={this.onDragOverStart}
-                    onDragOverEnd={this.onDragOverEnd}
                     onClickEdit={this.onClickEdit}
                     onClickRemove={this.onClickRemove}
                 />
@@ -417,11 +371,8 @@ class ImageUploader extends Component {
         return (
             <UploadView
                 isDraggingOver={this.state.isDraggingOver}
-                onDrop={this.onDropFiles}
-                onDragOverStart={this.onDragOverStart}
-                onDragOverEnd={this.onDragOverEnd}
                 onClickLinkExisting={this.onClickLinkExisting}
-                createNewAssetWithContenful={this.createNewAssetWithContenful}
+                onClickNewAsset={this.onClickNewAsset}
             />
         )
     }

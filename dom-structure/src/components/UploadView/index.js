@@ -5,17 +5,14 @@ import {
     Icon,
     TextLink
 } from "@contentful/forma-36-react-components"
-import Dropzone from "../Dropzone"
 import "./upload-view.css"
 
 export default function UploadView(props) {
     return (
-        <Dropzone
+        <div
             className="upload-view viewport centered"
             isDraggingOver={props.isDraggingOver}
-            onDrop={props.onDrop}
-            onDragOverStart={props.onDragOverStart}
-            onDragOverEnd={props.onDragOverEnd}
+
         >
             <main>
                 <Icon
@@ -41,7 +38,7 @@ export default function UploadView(props) {
                         </Button>
                         <TextLink
                             className="link-existing"
-                            onClick={props.createNewAssetWithContenful}
+                            onClick={props.onClickNewAsset}
                         >
                             Add new asset
                         </TextLink> <TextLink
@@ -53,6 +50,6 @@ export default function UploadView(props) {
                     </nav>
                 ) : null}
             </main>
-        </Dropzone>
+        </div>
     )
 }
