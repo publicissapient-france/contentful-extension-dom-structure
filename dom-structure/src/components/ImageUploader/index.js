@@ -12,7 +12,9 @@ import {
 } from "../../utils/imageLoader"
 import {getCurrentExtension} from "../../actions/index";
 import { Spinner } from "@contentful/forma-36-react-components"
-import UploadView from '../UploadView/index'
+import UploadView from '../UploadView'
+import FileView from '../FileView'
+
 import "./index.css"
 
 
@@ -22,7 +24,8 @@ class ImageUploader extends Component {
 
         this.state = {
             isDraggingOver: false,
-            value: null
+            value: null,
+            selectedValue : {}
         }
 
     }
@@ -39,39 +42,58 @@ class ImageUploader extends Component {
         const selectedAsset = await this.props.extensionInfo.extension.dialogs.selectSingleAsset({
             locale: this.props.extensionInfo.extension.field.locale
         })
+        console.log('selected asset : ', selectedAsset);
 
         try {
-            await this.setFieldLink(selectedAsset.sys.id)
+            //await this.setFieldLink(selectedAsset.sys.id)
+            this.setSelectedAsset(selectedAsset);
         } catch (err) {
             this.onError(err)
         }
     }
 
     findProperLocale() {
-        if (this.props.extensionInfo.extension.fields[this.props.extensionInfo.extension.field.id].type === "Link") {
+        /*if (this.props.extensionInfo.extension.fields[this.props.extensionInfo.extension.field.id].type === "Link") {
             return this.props.extensionInfo.extension.locales.default
         }
 
-        return this.props.extensionInfo.extension.field.locale
+        return this.props.extensionInfo.extension.field.locale*/
+        return this.props.extensionInfo.extension.locales.default
+    }
+
+    setSelectedAsset = (asset) => {
+        if(!asset) return
+        this.setState({
+            ...this.state,
+            value : asset,
+            asset : asset
+        }, () => {
+            console.log("STATE AFTER SELECTED", this.state);
+            this.props.updateStateAsset(this.state.value);
+        })
     }
 
     setFieldLink(assetId) {
-        return this.props.extensionInfo.extension.field
-            .setValue(
-                {
-                    sys: {
-                        type: "Link",
-                        linkType: "Asset",
-                        id: assetId
-                    }
-                },
-                this.findProperLocale()
-            )
-            .then(() =>
-                this.props.extensionInfo.extension.space
-                    .getAsset(this.state.value.sys.id)
-                    .then(asset => this.setState({ asset }))
-            )
+        /*return this.setState({
+            selectedValue : {
+                sys: {
+                    type: "Link",
+                    linkType: "Asset",
+                    id: assetId
+                }
+            }
+        }, () => {
+            this.props.extensionInfo.extension.space
+                .getAsset(this.state.value.sys.id)
+                .then(asset => This.setState({ asset }))
+        })*/
+    }
+    onDragOverEnd = () => {
+        this.setState({ isDraggingOver: false })
+    }
+
+    onDragOverStart = () => {
+        this.setState({ isDraggingOver: true })
     }
 
     onError = error => {

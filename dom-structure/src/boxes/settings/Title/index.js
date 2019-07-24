@@ -112,8 +112,8 @@ class Title extends Component {
                             <Category className={this.state.openPreview ? 'hidden' : ''}>
                                 <CategoryColor openView={this.state.openView}
                                                toggleOpenView={this.toggleOpenView}
-                                               storeValueColor={titleSettings.value.color || null}
-                                               storeValueOpacity={titleSettings.value.opacity || null}
+                                               storeValueColor={titleSettings && titleSettings.value.color ? titleSettings.value.color : null}
+                                               storeValueOpacity={titleSettings && titleSettings.value.opacity ? titleSettings.value.opacity : null}
                                                color={this.state.value.color}
                                                opacity={this.state.value.opacity}
                                                defaultColor={defaultValue.color}
@@ -124,7 +124,7 @@ class Title extends Component {
 
                             <Category className={this.viewIsOpen() ? 'hidden' : ''}>
                                 <CategorySeo
-                                    storeValueSeo={titleSettings.value.seo || null}
+                                    storeValueSeo={titleSettings && titleSettings.value.seo ? titleSettings.value.seo : null}
                                     seo={this.state.value.seo}
                                     defaultSeo={defaultValue.seo}
                                     updateStateProps={this.updateStateProps}/>
@@ -133,8 +133,8 @@ class Title extends Component {
 
                         <Category className={this.viewIsOpen() ? 'hidden' : ''}>
                             <CategoryText
-                                storeValueFont={titleSettings.value.font || null}
-                                storeValueText={titleSettings.value.text || null}
+                                storeValueFont={titleSettings && titleSettings.value.font ? titleSettings.value.font : null}
+                                storeValueText={titleSettings && titleSettings.value.text ? titleSettings.value.text : null}
                                 font={this.state.value.font}
                                 text={this.state.value.text}
                                 defaultFont={defaultValue.font}

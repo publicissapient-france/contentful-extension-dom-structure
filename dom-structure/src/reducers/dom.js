@@ -3,6 +3,7 @@ import update from 'react-addons-update';
 const dom = (state = [], action) => {
     switch (action.type) {
     case 'INIT_DOM' :
+        console.log(action.dom)
         return [...action.dom];
 
     case 'GET_DOM' :

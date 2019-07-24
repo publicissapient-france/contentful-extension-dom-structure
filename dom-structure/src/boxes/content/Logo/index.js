@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateContentValue, getCurrentDOM, getCurrentLanguage } from '../../actions';
+import {updateContentValue, getCurrentDOM, getCurrentLanguage, updateSettingsValue} from '../../../actions/index';
 
-import { Icon } from '../../style/styledComponents';
-import { Banner, Fields, ActiveCheckBox } from '../../style/styledComponentsBoxes';
-import SvgToggle from '../../components/svg/SvgToggle';
-import SvgCheck from '../../components/svg/SvgCheck';
-import ImageUploader from '../../components/ImageUploader';
+import { ChoiceItemsConfirm } from './styled';
+import { Icon, ButtonBasic, ButtonGreen } from '../../../style/styledComponents';
+import { Banner, Fields, ActiveCheckBox } from '../../../style/styledComponentsBoxes';
+import SvgToggle from '../../../components/svg/SvgToggle';
+import SvgCheck from '../../../components/svg/SvgCheck';
+import ImageUploader from '../../../components/ImageUploader/index';
 
 class Logo extends Component {
     constructor (props) {
@@ -18,6 +19,8 @@ class Logo extends Component {
             value: {},
             active: true
         };
+
+        this.updateStateAsset = this.updateStateAsset.bind(this);
     }
 
     componentDidMount = () => {
@@ -31,6 +34,17 @@ class Logo extends Component {
 
         console.log('language on Logo', this.props.currentLanguage);
     };
+
+    updateStateAsset = (value) => {
+        this.setState({
+            value: {
+                ...this.state.value,
+                asset: value
+            }
+        }, () => {
+            console.log('STATE AFTER UPDATE :', this.state)
+        });
+    }
 
     render () {
         const { dispatch, dom, currentLanguage, indexComponent, indexSection, name } = this.props;
@@ -57,8 +71,27 @@ class Logo extends Component {
                           }}><SvgToggle/></Icon>
                 </Banner>
                 <Fields className={this.state.open ? 'open' : ''}>
-                   <ImageUploader/>
+                   <ImageUploader updateStateAsset={this.updateStateAsset}/>
                 </Fields>
+                <ChoiceItemsConfirm>
+                    <ButtonBasic
+                        className={'disable'}
+                        onClick={e => {
+                            e.preventDefault();
+                            console.log('Cancel Logo');
+                        }}>
+                        Cancel
+                    </ButtonBasic>
+                    <ButtonGreen
+                        disabled={false}
+                        className={'active'}
+                        onClick={() => {
+                            console.log('Validate Logo');
+                            dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                        }}>
+                        Update
+                    </ButtonGreen>
+                </ChoiceItemsConfirm>
             </div>
         );
     }

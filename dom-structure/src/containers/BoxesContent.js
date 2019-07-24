@@ -38,7 +38,7 @@ class BoxesContent extends Component {
                                         key: i
                                     });
                                 case 'Logo':
-                                    return React.createElement(React.lazy(() => import('../boxes/content/Logo')), {
+                                    return React.createElement(React.lazy(() => import('../boxes/content/Logo/index')), {
                                         indexComponent: index,
                                         indexSection: indexParent,
                                         name: box,
