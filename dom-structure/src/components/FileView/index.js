@@ -1,12 +1,12 @@
 import React from "react"
 import {
     Heading,
-    Button,
     Paragraph,
     Asset
 } from "@contentful/forma-36-react-components"
-import { Container, IconContainer} from "./styled";
-import SvgTrash from '../svg/SvgTrash'
+import { Container, Actions} from "./styled";
+import { ButtonBasic, ButtonDelete} from "../../style/styledComponents";
+
 
 import "./fileview.css"
 
@@ -39,6 +39,11 @@ export default function FileView(props) {
             <section className="details">
                 <main>
                     <Heading className="filename">Title : {title}</Heading>
+                    {description ? (
+                        <Paragraph className="row">
+                            <strong>Description:</strong> {description}
+                        </Paragraph>
+                    ) : null}
                     <Paragraph className="row">
                         <strong>File name:</strong> {file.fileName}
                     </Paragraph>
@@ -58,32 +63,17 @@ export default function FileView(props) {
                         <strong>Status:</strong> {props.isPublished ? "Published" : "Draft"}
                     </Paragraph>
                 </main>
-                <nav className="buttonset">
-                    <IconContainer>
-                        <SvgTrash/>
-                    </IconContainer>
-                    <Button
-                        buttonType="muted"
-                        className="button"
-                        onClick={props.onClickEdit}
-                    >
+                <Actions>
+                    <ButtonBasic onClick={props.onClickEdit} >
                         Edit
-                    </Button>
-                    <Button
-                        buttonType="muted"
-                        className="button"
-                        onClick={props.onClickRemove}
-                    >
-                        Remove
-                    </Button>
-                    <Button
-                        buttonType="muted"
-                        className="button"
-                        onClick={props.onClickReload}
-                    >
+                    </ButtonBasic>
+                    <ButtonBasic onClick={props.onClickReload} >
                         Reload
-                    </Button>
-                </nav>
+                    </ButtonBasic>
+                    <ButtonDelete onClick={props.onClickRemove} >
+                        Remove
+                    </ButtonDelete>
+                </Actions>
             </section>
         </Container>
     )

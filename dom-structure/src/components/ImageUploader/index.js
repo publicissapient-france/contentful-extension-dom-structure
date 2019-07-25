@@ -22,7 +22,7 @@ class ImageUploader extends Component {
 
         this.state = {
             isDraggingOver: false,
-            value: null
+            asset: null
         }
 
 
@@ -143,22 +143,20 @@ class ImageUploader extends Component {
         }
         this.setState({
             ...this.state,
-            value : asset,
             asset : asset
         }, () => {
             console.log("STATE AFTER SELECTED", this.state);
-            this.props.updateStateAsset(this.state.value);
+            this.props.updateStateAsset(this.state.asset);
         })
     }
 
     removeSelectedAsset = () => {
         this.setState({
             ...this.state,
-            value : null,
             asset : null
         }, () => {
             console.log("STATE AFTER SELECTED", this.state);
-            this.props.updateStateAsset(this.state.value);
+            this.props.updateStateAsset(this.state.asset);
         })
     }
 
@@ -233,7 +231,7 @@ class ImageUploader extends Component {
                     onClickReload={this.reloadAsset}
                 />
             )
-        } else if (!this.state.isDraggingOver && this.state.value) {
+        } else if (!this.state.isDraggingOver && this.state.asset) {
             // If `asset` is not set but `value` is, the entry was just opened
             // and we're currently loading the asset value.
             return (
