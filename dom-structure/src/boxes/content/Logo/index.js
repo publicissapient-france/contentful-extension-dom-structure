@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {updateContentValue, getCurrentDOM, getCurrentLanguage, updateSettingsValue} from '../../../actions/index';
+import _ from 'lodash'
 
 import { ChoiceItemsConfirm } from './styled';
 import { Icon, ButtonBasic, ButtonGreen } from '../../../style/styledComponents';
@@ -36,6 +37,9 @@ class Logo extends Component {
     };
 
     updateStateAsset = (value) => {
+        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
+        const logoContent =  componentStore.content.Logo;
+
         this.setState({
             value: {
                 ...this.state.value,
@@ -43,13 +47,21 @@ class Logo extends Component {
             }
         }, () => {
             console.log('STATE AFTER UPDATE :', this.state)
+            console.log('LOGO CONTENT AFTER UPDATE :', logoContent)
         });
+    }
+
+    isUpdated = () => {
+        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
+        const logoContent =  componentStore.content.Logo;
+        if(!_.isEqual(logoContent.value, this.state.value)) return true;
+        return false;
     }
 
     render () {
         const { dispatch, dom, currentLanguage, indexComponent, indexSection, name } = this.props;
         const indexLanguage = currentLanguage.language;
-        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
+        const componentStore = dom.sections[indexSection].components[indexComponent];
         const logoContent =  componentStore.content.Logo;
 
         return (
@@ -75,18 +87,10 @@ class Logo extends Component {
                 <Fields className={this.state.open ? 'open' : ''}>
                    <ImageUploader currentAsset={ logoContent && logoContent.value ? logoContent.value : null} updateStateAsset={this.updateStateAsset} />
                 </Fields>
-                <ChoiceItemsConfirm>
-                    <ButtonBasic
-                        className={'disable'}
-                        onClick={e => {
-                            e.preventDefault();
-                            console.log('Cancel Logo');
-                        }}>
-                        Cancel
-                    </ButtonBasic>
+                <ChoiceItemsConfirm className={!this.isUpdated() ? 'hidden' : ''}>
                     <ButtonGreen
-                        disabled={false}
-                        className={'active'}
+                        disabled={!this.isUpdated()}
+                        className={this.isUpdated() ? 'active' : ''}
                         onClick={() => {
                             console.log('Validate Logo');
                             dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));

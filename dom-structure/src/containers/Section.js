@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import SvgAdd from '../components/svg/SvgAdd';
-import SvgSpecs from '../components/svg/SvgSpecs';
+import SvgSetting from '../components/svg/SvgSetting';
 import SvgRange from '../components/svg/SvgRange';
 import SvgCheck from '../components/svg/SvgCheck';
 import SvgTrash from '../components/svg/SvgTrash';
@@ -165,7 +165,7 @@ class Section extends Component {
                         </Icon>
                         <Icon className={this.state.openSettings ? 'active' : ''}
                             onClick={() => this.toggleOpenSettings()}>
-                            <SvgSpecs/>
+                            <SvgSetting/>
                         </Icon>
                         <Range>
                             <Icon className={index === 0 ? 'disable' : ''} onClick={() => {

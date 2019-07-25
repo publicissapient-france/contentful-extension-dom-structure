@@ -1,21 +1,7 @@
 import styled from "styled-components";
 import {extensionTheme} from "../../style/theme";
 
-export const ChoiceImage = styled.div`
-   display : flex;
-   padding: 10px 0;
-`;
-
-export const Field = styled.div`
-    display : flex;  
-`;
-export const ReloadView = styled.div`
-   display : flex;
-   flex-direction : column;
-   align-items : center;
-   align-content : center;
-   margin : auto;
-   
+export const Container = styled.div`
 `;
 
 export const IconContainer = styled.div`
