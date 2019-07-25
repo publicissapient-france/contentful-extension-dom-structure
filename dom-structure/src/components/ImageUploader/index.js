@@ -2,12 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {
-    readFileAsUrl,
-    findImageContentType
-} from "../../utils/imageLoader"
 import {getCurrentExtension} from "../../actions/index";
-import { Spinner } from "@contentful/forma-36-react-components"
+import {Spinner} from "@contentful/forma-36-react-components"
 import {ReloadView, IconContainer} from "./styled";
 import UploadView from '../UploadView'
 import FileView from '../FileView'
@@ -22,7 +18,8 @@ class ImageUploader extends Component {
 
         this.state = {
             isDraggingOver: false,
-            asset: null
+            asset: null,
+            valid: true
         }
 
 
@@ -30,15 +27,24 @@ class ImageUploader extends Component {
 
     componentDidMount = () => {
         console.log('currentAsset', this.props.currentAsset.asset);
-        if(this.props.currentAsset ) {
+        if (this.props.currentAsset) {
             this.setSelectedAsset(this.props.currentAsset.asset);
+           // this.assetIsValid()
         }
+
+
     };
 
     componentDidUpdate = prevProps => {
-        if(this.props.value != prevProps.value){
-            this.setSelectedAsset(this.props.currentAsset.asset);
-        }
+        /* if(this.props.currentAsset != prevProps.currentAsset){
+             this.setSelectedAsset(this.props.currentAsset.asset);
+         }*/
+           if(this.props.currentAsset != prevProps.currentAsset){
+             //this.setSelectedAsset(this.props.currentAsset.asset);
+              // this.assetIsValid();
+         }
+
+
     }
 
     createAsset = (upload, file, locale) => {
@@ -70,17 +76,13 @@ class ImageUploader extends Component {
     onClickNewAsset = async () => {
         console.log('onClickNewAsset');
 
-        const result = await this.props.extensionInfo.extension.navigator.openNewAsset({ slideIn: true }).then(({ entity }) => {
-            /* new entry of the "blogPost" content type was opened in the slide-in editor */
-            console.log('ENTITY ON OPENNEWASSET', entity)
+        const result = await this.props.extensionInfo.extension.navigator.openNewAsset({slideIn: true}).then(({entity}) => {
             return entity
         })
-        console.log('"RESULT CREAT WITH CONTENTFUL', result);
         this.reuseExistingAsset(result.sys.id);
 
     }
 
-    // createAssetWithImageUrl(imageUrl, contentType, locale)
     createAssetWithImageUrl = (imageUrl, contentType, locale) => {
         const asset = {
             fields: {
@@ -114,13 +116,10 @@ class ImageUploader extends Component {
     }
 
 
-
     onClickLinkExisting = async () => {
         const selectedAsset = await this.props.extensionInfo.extension.dialogs.selectSingleAsset({
             locale: this.props.extensionInfo.extension.field.locale
         })
-        console.log('selected asset : ', selectedAsset);
-
         try {
             this.setSelectedAsset(selectedAsset);
         } catch (err) {
@@ -138,14 +137,14 @@ class ImageUploader extends Component {
     }
 
     setSelectedAsset = (asset) => {
-        if(!asset){
+        if (!asset) {
             this.removeSelectedAsset()
         }
         this.setState({
             ...this.state,
-            asset : asset
+            asset: asset
         }, () => {
-            console.log("STATE AFTER SELECTED", this.state);
+            this.assetIsValid();
             this.props.updateStateAsset(this.state.asset);
         })
     }
@@ -153,9 +152,8 @@ class ImageUploader extends Component {
     removeSelectedAsset = () => {
         this.setState({
             ...this.state,
-            asset : null
+            asset: null
         }, () => {
-            console.log("STATE AFTER SELECTED", this.state);
             this.props.updateStateAsset(this.state.asset);
         })
     }
@@ -163,6 +161,11 @@ class ImageUploader extends Component {
     onError = error => {
         console.error(error)
         this.props.extensionInfo.extension.notifier.error(error.message)
+    }
+
+    onCustomError = message => {
+        console.error(message)
+        this.props.extensionInfo.extension.notifier.error(message)
     }
 
     setUploadProgress(percent) {
@@ -188,25 +191,50 @@ class ImageUploader extends Component {
 
         try {
             asset = await this.props.extensionInfo.extension.space.getAsset(assetId);
-            if(!asset.fields.file){
-                console.log('you asset asset file, please verify your asset has required data')
+            if (!asset.fields.file) {
                 this.removeSelectedAsset();
-            }else{
+                this.onCustomError('Request failed : Asset hasn\'t required data. Please complete Asset before')
+            } else {
                 this.setSelectedAsset(asset);
             }
         } catch (err) {
-            this.onError(err)
+            this.onCustomError('Request failed : Asset doesn\'t exist anymore')
+            this.removeSelectedAsset();
+            //this.onError(err)
+        }
+    }
+
+    assetIsValid = async () => {
+        let assetId = this.state.asset.sys.id;
+        let asset
+
+        try {
+            asset = await this.props.extensionInfo.extension.space.getAsset(assetId);
+            this.setState({
+                ...this.state,
+                valid: true
+            })
+            return true
+        } catch (err) {
+            this.setState({
+                ...this.state,
+                valid: false
+            }, () => {
+                console.log('ERROR DETECTED STATE', this.state);
+            })
+            //this.onCustomError('Request failed : Asset doesn\'t exist anymore 2')
+            return false
         }
     }
 
 
     render = () => {
-        const { currentAsset } = this.props;
+        const {currentAsset} = this.props;
         console.log('PROPS EXTENSION PROPS EXTENSION ', this.props.extensionInfo.extension)
-        if(!this.state.isDraggingOver && this.state.asset && !this.state.asset.fields.file ){
+        if (!this.state.isDraggingOver && this.state.asset && !this.state.asset.fields.file) {
             return (
                 <ReloadView>
-                    <IconContainer onClick={ () => {
+                    <IconContainer onClick={() => {
                         this.reloadAsset(this.state.asset.sys.id);
                     }}>
                         <SvgRefresh/>
@@ -214,7 +242,7 @@ class ImageUploader extends Component {
                     must reload image
                 </ReloadView>
             )
-        }else if (!this.state.isDraggingOver && this.state.asset) {
+        } else if (!this.state.isDraggingOver && this.state.asset) {
             // Display existing asset if user is not dragging over an image
             return (
                 <FileView
@@ -229,6 +257,7 @@ class ImageUploader extends Component {
                     onClickEdit={this.onClickEdit}
                     onClickRemove={this.onClickRemove}
                     onClickReload={this.reloadAsset}
+                    valid={this.state.valid}
                 />
             )
         } else if (!this.state.isDraggingOver && this.state.asset) {
@@ -253,8 +282,8 @@ class ImageUploader extends Component {
 
 
 ImageUploader.protoTypes = {
-    value : PropTypes.shape({
-        asset : PropTypes.object
+    value: PropTypes.shape({
+        asset: PropTypes.object
     })
 };
 

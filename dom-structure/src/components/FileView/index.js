@@ -4,7 +4,7 @@ import {
     Paragraph,
     Asset
 } from "@contentful/forma-36-react-components"
-import { Container, Actions} from "./styled";
+import { Container, Actions, Warning, DataContainer, Details} from "./styled";
 import { ButtonBasic, ButtonDelete} from "../../style/styledComponents";
 
 
@@ -29,52 +29,62 @@ export default function FileView(props) {
                 }`}
             isDraggingOver={props.isDraggingOver}
         >
-            {type === "image" ? (
-                <header style={bg} />
+            { !props.valid ? (
+                <Warning>
+                    <strong>WARNING : </strong><br/>
+                    The selected asset does NOT exist anymore on Media
+                </Warning>
             ) : (
-                <header>
-                    <Asset type={type} className="file-type-icon" />
-                </header>
+                null
             )}
-            <section className="details">
-                <main>
-                    <Heading className="filename">Title : {title}</Heading>
-                    {description ? (
+            <DataContainer>
+                {type === "image" ? (
+                    <header style={bg} />
+                ) : (
+                    <header>
+                        <Asset type={type} className="file-type-icon" />
+                    </header>
+                )}
+                <Details className="details">
+                    <main>
+                        <Heading className="filename">Title : {title}</Heading>
+                        {description ? (
+                            <Paragraph className="row">
+                                <strong>Description:</strong> {description}
+                            </Paragraph>
+                        ) : null}
                         <Paragraph className="row">
-                            <strong>Description:</strong> {description}
+                            <strong>File name:</strong> {file.fileName}
                         </Paragraph>
-                    ) : null}
-                    <Paragraph className="row">
-                        <strong>File name:</strong> {file.fileName}
-                    </Paragraph>
-                    {type === "image" ? (
+                        {type === "image" ? (
+                            <Paragraph className="row">
+                                <strong>Dimensions:</strong> {file.details.image.width}x
+                                {file.details.image.height}
+                            </Paragraph>
+                        ) : null}
                         <Paragraph className="row">
-                            <strong>Dimensions:</strong> {file.details.image.width}x
-                            {file.details.image.height}
+                            <strong>Size:</strong> {prettySize}
                         </Paragraph>
-                    ) : null}
-                    <Paragraph className="row">
-                        <strong>Size:</strong> {prettySize}
-                    </Paragraph>
-                    <Paragraph className="row">
-                        <strong>Type:</strong> {file.contentType}
-                    </Paragraph>
-                    <Paragraph className="row">
-                        <strong>Status:</strong> {props.isPublished ? "Published" : "Draft"}
-                    </Paragraph>
-                </main>
-                <Actions>
-                    <ButtonBasic onClick={props.onClickEdit} >
-                        Edit
-                    </ButtonBasic>
-                    <ButtonBasic onClick={props.onClickReload} >
-                        Reload
-                    </ButtonBasic>
-                    <ButtonDelete onClick={props.onClickRemove} >
-                        Remove
-                    </ButtonDelete>
-                </Actions>
-            </section>
+                        <Paragraph className="row">
+                            <strong>Type:</strong> {file.contentType}
+                        </Paragraph>
+                        <Paragraph className="row">
+                            <strong>Status:</strong> {props.isPublished ? "Published" : "Draft"}
+                        </Paragraph>
+                    </main>
+                    <Actions>
+                        <ButtonBasic onClick={props.onClickEdit} >
+                            Edit
+                        </ButtonBasic>
+                        <ButtonBasic onClick={props.onClickReload} >
+                            Reload
+                        </ButtonBasic>
+                        <ButtonDelete onClick={props.onClickRemove} >
+                            Remove
+                        </ButtonDelete>
+                    </Actions>
+                </Details>
+            </DataContainer>
         </Container>
     )
 }

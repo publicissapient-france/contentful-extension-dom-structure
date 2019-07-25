@@ -3,9 +3,7 @@
 }
 
 .file-view {
-    display: grid;
-    grid-template-columns: var(--file-icon-size) auto;
-    grid-column-gap: 1rem;
+
 }
 
 .file-view.image-file {
@@ -48,13 +46,4 @@
 
 .file-view .buttonset .button:first-child {
     margin-left: 0;
-}
-
-.file-view img {
-    height: 100%;
-}
-
-.file-view header {
-    width : 300px;
-    height : 300px;
 }
