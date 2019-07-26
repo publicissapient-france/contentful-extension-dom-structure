@@ -43,6 +43,23 @@ const config = [
                         decoration : null
                     }
                 }
+            },
+            {
+                name : 'Logo',
+                defaultValue : {
+                    size : {
+                        width : '500',
+                        height : '500',
+                        maxWidth : null,
+                        maxHeight : null
+                    },
+                    margin : {
+                        top : '0',
+                        right : '0',
+                        bottom : '0',
+                        left : '0',
+                    }
+                }
             }
         ]
 

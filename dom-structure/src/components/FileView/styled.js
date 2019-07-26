@@ -3,14 +3,7 @@ import {extensionTheme} from "../../style/theme";
 import {ChoiceConfirm} from "../../style/styledComponentsBoxes";
 
 export const Container = styled.div`
-   
-`;
-export const DataContainer = styled.div`
-   display : flex;
-   margin-bottom : 10px;
-   
-   
-    &.image-file {
+   &.image-file {
         grid-template-columns: 1fr minmax(40%, 1fr);
         grid-column-gap: 2rem;
     }
@@ -21,8 +14,8 @@ export const DataContainer = styled.div`
     }
     
     &.non-image-file header .file-type-icon svg {
-        width: var(--file-icon-size);
-        height: var(--file-icon-size);
+        width: 4rem;
+        height: 4rem;
     }
     
     & header {
@@ -32,7 +25,14 @@ export const DataContainer = styled.div`
     & img {
         height: 100%;
     }
-
+    
+    p{
+        line-height : 20px;
+    }
+`;
+export const DataContainer = styled.div`
+   display : flex;
+   margin-bottom : 10px;
    
 `;
 
@@ -84,5 +84,25 @@ export const Details =  styled.div`
     }
     
     overflow-wrap: break-word;
-   
+    
+    & h1{
+        margin-top : 0;
+    }
+`;
+
+export const Title =  styled.p`
+    margin : 0;
+    padding-bottom : 10px;
+    font-size : 16px;
+`;
+export const Status =  styled.span`
+    font-size : 14px !important;
+    font-weight : 400;
+    color : black;
+    &.published{
+        color : ${ extensionTheme.greenM}
+    } 
+    &.draft{
+        color : ${ extensionTheme.orange}
+    }
 `;

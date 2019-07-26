@@ -1,11 +1,5 @@
 import React from "react"
-import {
-    Subheading,
-    Button,
-    Icon,
-    TextLink
-} from "@contentful/forma-36-react-components"
-import "./upload-view.css"
+import { Icon } from "@contentful/forma-36-react-components"
 import { Container, ViewPort, IconContainer } from "./styled"
 
 import SvgAdd from '../svg/SvgAdd'
@@ -33,6 +27,5 @@ export default function UploadView(props) {
                 </nav>
             ) : null}
         </Container>
-
     )
 }

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {updateContentValue, getCurrentDOM, getCurrentLanguage, updateSettingsValue} from '../../../actions/index';
+import {updateContentValue, getCurrentDOM, getCurrentLanguage} from '../../../actions/index';
 import _ from 'lodash'
 
 import { ChoiceItemsConfirm } from './styled';
-import { Icon, ButtonBasic, ButtonGreen } from '../../../style/styledComponents';
+import { Icon, ButtonGreen } from '../../../style/styledComponents';
 import { Banner, Fields, ActiveCheckBox } from '../../../style/styledComponentsBoxes';
 import SvgToggle from '../../../components/svg/SvgToggle';
 import SvgCheck from '../../../components/svg/SvgCheck';
@@ -54,7 +54,7 @@ class Logo extends Component {
     isUpdated = () => {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
         const logoContent =  componentStore.content.Logo;
-        if(!_.isEqual(logoContent.value, this.state.value)) return true;
+        if(!_.isEqual(logoContent && logoContent.value, this.state.value)) return true;
         return false;
     }
 
@@ -92,7 +92,6 @@ class Logo extends Component {
                         disabled={!this.isUpdated()}
                         className={this.isUpdated() ? 'active' : ''}
                         onClick={() => {
-                            console.log('Validate Logo');
                             dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                         }}>
                         Update
