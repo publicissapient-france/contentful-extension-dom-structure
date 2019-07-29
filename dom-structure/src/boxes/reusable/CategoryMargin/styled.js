@@ -25,7 +25,6 @@ export const Field = styled.div`
 export const Inputs = styled.div`
     display : flex; 
     
-    
     & input{
         width : 40px;
         margin-right : 10px;

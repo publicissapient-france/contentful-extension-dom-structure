@@ -85,7 +85,7 @@ const sum = (a, b) => {
 }
 
 const hasNotSamePropertyValue = (defaultValue, currentValue, prop) => {
-    if(!defaultValue || !currentValue || !prop)  {
+    if(!defaultValue || !currentValue || !prop || prop === '')  {
         return false
     }
     return defaultValue[prop] && currentValue[prop] != defaultValue[prop];

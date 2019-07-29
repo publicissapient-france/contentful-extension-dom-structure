@@ -25,6 +25,8 @@ class Title extends Component {
             value: componentStore.content.Title ? componentStore.content.Title.value : {},
             active: componentStore.content.Title ? componentStore.content.Title.active : true,
             open: this.props.open
+        }, () => {
+            console.log('STATE AFTER UPDATE Title content :', this.state)
         });
     };
 

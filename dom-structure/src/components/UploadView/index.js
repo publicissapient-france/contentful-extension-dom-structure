@@ -3,7 +3,7 @@ import { Icon } from "@contentful/forma-36-react-components"
 import { Container, ViewPort, IconContainer } from "./styled"
 
 import SvgAdd from '../svg/SvgAdd'
-import SvgAttachement from '../svg/SvgAttachement'
+import SvgLink from '../svg/SvgLink'
 
 export default function UploadView(props) {
     return (
@@ -18,11 +18,11 @@ export default function UploadView(props) {
             </ViewPort>
             {!props.isDraggingOver ? (
                 <nav>
+                    <IconContainer  onClick={props.onClickLinkExisting}>
+                        <SvgLink/>
+                    </IconContainer>
                     <IconContainer  onClick={props.onClickNewAsset}>
                         <SvgAdd/>
-                    </IconContainer>
-                    <IconContainer  onClick={props.onClickLinkExisting}>
-                        <SvgAttachement/>
                     </IconContainer>
                 </nav>
             ) : null}

@@ -50,8 +50,8 @@ const config = [
                     size : {
                         width : '500',
                         height : '500',
-                        maxWidth : null,
-                        maxHeight : null
+                        maxWidth : '',
+                        maxHeight : ''
                     },
                     margin : {
                         top : '0',

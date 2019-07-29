@@ -70,13 +70,13 @@ class CategoryMargin extends Component {
                                     className={hasNotSamePropertyValue(storeValueMargin, margin, 'bottom') ? 'updated' : ''}
                                     value={margin.bottom}
                                     onChange={e => {
-                                        this.updateMargin('right', e.target.bottom)
+                                        this.updateMargin('bottom', e.target.value)
                                     }}/>
                                 <input
                                     className={hasNotSamePropertyValue(storeValueMargin, margin, 'left') ? 'updated' : ''}
                                     value={margin.left}
                                     onChange={e => {
-                                        this.updateMargin('left', e.target.left)
+                                        this.updateMargin('left', e.target.value)
                                     }}/>
                             </Inputs>
                         </div>

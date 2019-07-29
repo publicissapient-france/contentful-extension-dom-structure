@@ -21,12 +21,17 @@ class ImageUploader extends Component {
 
     componentDidMount = () => {
         if (this.props.currentAsset) {
-            this.setSelectedAsset(this.props.currentAsset.asset);
+            console.log('000000000000000000 this.props.currentAsset MOUNT', this.props.currentAsset )
+            this.setSelectedAsset(this.props.currentAsset);
         }
     };
 
     componentDidUpdate = prevProps => {
-        if (this.props.currentAsset != prevProps.currentAsset) {}
+        if (this.props.currentAsset != prevProps.currentAsset && this.props.currentAsset) {
+            console.log('IL Y A UN CHANGEMENT DE PROPS CURRENTASSET');
+            console.log('00000000000 this.props.currentAsset UPDATE', this.props.currentAsset )
+            this.setSelectedAsset(this.props.currentAsset);
+        }
     }
 
     onClickNewAsset = async () => {
@@ -76,7 +81,7 @@ class ImageUploader extends Component {
             asset: asset
         }, () => {
             this.assetIsValid();
-            this.props.updateStateAsset(this.state.asset);
+            this.props.updateStateProps('asset', this.state.asset);
         })
     }
 
@@ -85,7 +90,7 @@ class ImageUploader extends Component {
             ...this.state,
             asset: null
         }, () => {
-            this.props.updateStateAsset(this.state.asset);
+            this.props.updateStateProps('asset', this.state.asset);
         })
     }
 
