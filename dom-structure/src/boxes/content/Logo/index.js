@@ -9,7 +9,7 @@ import {Icon, ButtonGreen} from '../../../style/styledComponents';
 import {Banner, Fields, ActiveCheckBox, Property} from '../../../style/styledComponentsBoxes';
 import SvgToggle from '../../../components/svg/SvgToggle';
 import SvgCheck from '../../../components/svg/SvgCheck';
-import ImageUploader from '../../../components/ImageUploader/index';
+import ImageUploader from '../../../containers/ImageUploader/index';
 import CategoryImage from '../../reusable/CategoryImage'
 
 class Logo extends Component {

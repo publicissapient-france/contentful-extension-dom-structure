@@ -51,11 +51,7 @@ export const MainContainer = styled.div`
         background-position:center right 0.8em;
         background-repeat : no-repeat, repeat;
         background-size : 12px, 100%;
-        font-size : 13px;
-        
-        
-
-        
+        font-size : 13px;       
     }
 
     input {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {BoxesContainer} from '../style/styledComponentsBoxes';
+import {BoxesContainer} from '../../style/styledComponentsBoxes';
 
 class BoxesContent extends Component {
     render() {
@@ -13,7 +13,7 @@ class BoxesContent extends Component {
                         fields.map((box, i) => {
                             switch (box) {
                                 case 'Title':
-                                    return React.createElement(React.lazy(() => import('../boxes/content/Title')), {
+                                    return React.createElement(React.lazy(() => import('../../boxes/content/Title/index')), {
                                         indexComponent: index,
                                         indexSection: indexParent,
                                         name: box,
@@ -22,7 +22,7 @@ class BoxesContent extends Component {
                                     });
 
                                 case 'Tagline':
-                                    return React.createElement(React.lazy(() => import('../boxes/content/Tagline')), {
+                                    return React.createElement(React.lazy(() => import('../../boxes/content/Tagline/index')), {
                                         indexComponent: index,
                                         indexSection: indexParent,
                                         name: box,
@@ -30,7 +30,7 @@ class BoxesContent extends Component {
                                         key: i
                                     });
                                 case 'Text':
-                                    return React.createElement(React.lazy(() => import('../boxes/content/Text')), {
+                                    return React.createElement(React.lazy(() => import('../../boxes/content/Text/index')), {
                                         indexComponent: index,
                                         indexSection: indexParent,
                                         name: box,
@@ -38,7 +38,7 @@ class BoxesContent extends Component {
                                         key: i
                                     });
                                 case 'Logo':
-                                    return React.createElement(React.lazy(() => import('../boxes/content/Logo/index')), {
+                                    return React.createElement(React.lazy(() => import('../../boxes/content/Logo/index')), {
                                         indexComponent: index,
                                         indexSection: indexParent,
                                         name: box,

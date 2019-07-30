@@ -1,23 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addComponent } from '../actions';
-import { Container, ButtonBasic, ButtonGreen, Form } from '../style/styledComponents';
+import { addComponent } from '../../actions/index';
+import { ButtonBasic, ButtonGreen } from '../../style/styledComponents';
+import {ContainerForm, FormComponent } from './styled';
 import update from 'react-addons-update';
-import components from '../config/components';
-import styled from 'styled-components';
-import { extensionTheme } from '../style/theme';
+import components from '../../config/components';
 import PropTypes from 'prop-types';
-
-const ContainerForm = styled(Container)`
-    padding-right : 0px;
-    margin-left : 15px;
-`;
-const FormComponent = styled(Form)`
-    background :  ${ extensionTheme.white };
-    padding-left : 15px;
-    padding-right : 15px;
-    box-sizing: border-box;
-`;
 
 class AddComponent extends Component {
     constructor (props) {

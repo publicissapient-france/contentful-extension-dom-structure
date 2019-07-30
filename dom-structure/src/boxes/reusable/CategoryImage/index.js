@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 
 import {Choices, Field} from "./styled";
-import ImageUploader from '../../../components/ImageUploader'
+import ImageUploader from '../../../containers/ImageUploader'
 
 class CategoryImage extends Component {
     constructor(props) {
@@ -30,26 +30,25 @@ class CategoryImage extends Component {
                     <ImageUploader currentAsset={asset}
                                    updateStateProps={this.props.updateStateProps}/>
                 </Field>
-                <Field>
-                    <div>
+                <div>
+                    <Field>
                         <label>alt</label>
                         <input type={'text'}
                                value={alt}
                                onChange={e => {
                                    this.props.updateStateTranslatedProps('alt', e.target.value);
                                }}/>
-                    </div>
-                </Field>
-                <Field>
-                    <div>
+                    </Field>
+                    <Field>
                         <label>description</label>
                         <input type={'text'}
                                value={description}
                                onChange={e => {
                                    this.props.updateStateTranslatedProps('description', e.target.value);
                                }}/>
-                    </div>
-                </Field>
+                    </Field>
+                </div>
+
             </Choices>
         );
     }

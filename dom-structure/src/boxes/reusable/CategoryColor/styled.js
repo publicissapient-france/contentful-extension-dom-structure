@@ -15,8 +15,12 @@ export const SelectedColor = styled(BoxColor)`
 
 export const ChoiceColor = styled.div`
    display : flex;
+   padding-bottom : 16px;
+   
    &.full-width{
      width : 100%;
+     padding-bottom : 0px;
+
    }
    
    &>div{

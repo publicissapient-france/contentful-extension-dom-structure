@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addSection, addSectionToTop, toggleFormAddSection, toggleFormAddSectionToTop } from '../actions';
-import { Container, ButtonBasic, ButtonGreen, Form } from '../style/styledComponents';
+import { addSection, addSectionToTop, toggleFormAddSection, toggleFormAddSectionToTop } from '../../actions/index';
+import { Container, ButtonBasic, ButtonGreen } from '../../style/styledComponents';
+import { FormSection} from './styled';
 import update from 'react-addons-update';
-import sections from '../config/sections';
-import styled from 'styled-components';
-
-const FormSection = styled(Form)`
-    padding-left : 8px;
-`;
+import sections from '../../config/sections';
 
 class AddSection extends Component {
     constructor (props) {

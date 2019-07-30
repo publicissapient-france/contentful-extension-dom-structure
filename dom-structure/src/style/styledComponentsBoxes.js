@@ -132,7 +132,6 @@ export const ActiveCheckBox = styled(CheckBox)`
 `;
 export const BoxesContainer = styled.div`
 
-
     & div.error{
         padding-left : 8px;
         padding-bottom : 15px;
@@ -141,10 +140,7 @@ export const BoxesContainer = styled.div`
         border-bottom : 1px solid ${ extensionTheme.grey20 }; 
         
     }
-    
-    &.semiOpen{
-      
-    }
+   
 `;
 
 export const BoxColor = styled.div`
@@ -284,11 +280,6 @@ export const IconAdd = styled.div`
     
 `;
 
-export const ColorListContainer = styled.div`
-    width : auto;
-    display : flex;  
-    flex-wrap:wrap;
-`;
 export const Palette = styled.div`
     width : fit-content;
     height : auto;
@@ -394,7 +385,6 @@ export const Specification = styled.div`
         font-size : 14px;
     }
     
-    
     & div>input {
         width : 100px;
     }
@@ -423,43 +413,7 @@ export const Specification = styled.div`
     }
 `;
 
-export const ChoiceColor = styled.div`
-  display : flex;
-  flex-direction : column;
-  margin-right : 30px;
-  
-`;
-export const ChoiceName = styled.div`
-  display : flex;
-  flex-direction : column;
-  margin-right : 30px;
-  
-  & p{
-    & span{
-        display : none;
-    }
-  
-    &.invalid{
-        color : ${ extensionTheme.red };
-        
-         & span{
-            display : block;
-        }
-    }
-  }
-`;
 
-export const ChoiceShade = styled.div`
-  display : flex;
-  flex-direction : column;
-  margin-right : 30px;
-`;
-
-export const Buttons = styled.div`
-  align-self : flex-start;
-  margin-top:30px;
-  
-`;
 
 export const Property = styled.label`
     margin-left : 30px;

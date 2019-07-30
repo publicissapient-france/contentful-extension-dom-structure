@@ -1,30 +1,26 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {extensionTheme} from '../style/theme';
-import SvgContent from '../components/svg/SvgContent';
-import SvgSetting from '../components/svg/SvgSetting';
-import SvgRange from '../components/svg/SvgRange';
-import SvgCheck from '../components/svg/SvgCheck';
-import SvgTrash from '../components/svg/SvgTrash';
-import SvgArrowDouble from '../components/svg/SvgArrowDouble';
-import BoxesContent from './BoxesContent';
-import BoxesSettings from './BoxesSettings';
-import {getCountryISO} from '../utils/functions';
+import SvgContent from '../../components/svg/SvgContent';
+import SvgSetting from '../../components/svg/SvgSetting';
+import SvgRange from '../../components/svg/SvgRange';
+import SvgCheck from '../../components/svg/SvgCheck';
+import SvgTrash from '../../components/svg/SvgTrash';
+import SvgArrowDouble from '../../components/svg/SvgArrowDouble';
+import BoxesContent from '../BoxesContent/index';
+import BoxesSettings from '../BoxesSettings/index';
+import {getCountryISO} from '../../utils/functions';
 
 import {
-    Container,
-    OptionsBlock,
-    Form,
     ButtonGreen,
     ButtonBasic,
     ButtonDelete,
     Icon,
     Range,
     SafeDelete
-} from '../style/styledComponents';
-import {CheckBox} from '../style/styledComponentsBoxes';
-import components from '../config/components';
+} from '../../style/styledComponents';
+import {ContainerComponent, FormComponent, Banner, ToogleLanguage, Description, Actions, Active, Content, Languages, Settings, Toggle, TopBar} from './styled';
+import components from '../../config/components';
 import {
     moveComponentToTop,
     moveComponentToDown,
@@ -32,151 +28,9 @@ import {
     updateComponent,
     toggleComponentActive
     , getCurrentExtension, getCurrentLanguage, toggleLanguage
-} from '../actions/index';
+} from '../../actions/index';
 import update from 'react-addons-update';
 import PropTypes from 'prop-types';
-
-const ContainerComponent = styled(Container)`
-  border: 1px solid ${ extensionTheme.grey };
-  border-left : 5px solid ${ extensionTheme.blueM }; 
-  width : 100%;
-  padding-right :0px;
-  margin-top :0px;
-  margin-left : 15px;
-  background : ${ extensionTheme.white };
-  border-radius : 0px 20px 20px 0px;
-  overflow : hidden;
-`;
-
-const TopBar = styled.div`
-  width : 100%;
-  display : flex;
-  justify-content: space-between;
-`;
-
-const Description = styled.div`
-  display : flex;
-  width : fit-content
-  padding-left:10px;
-`;
-const Actions = styled.div`
-  display : flex;
-  width : fit-content;
-  padding-right: 3px;
-`;
-
-const Languages = styled.div`
-  display : flex;
-  height : auto;
-  align-items : center;
-  width : fit-content;
-  justify-content : space-between;
-`;
-
-const ToogleLanguage = styled.div`
-  display : flex;
-  border-width : 1px;
-  border-style : solid;
-  border-color :  ${ extensionTheme.white }; 
-  color :  ${ extensionTheme.white }; 
-  border-radius : 3px;
-  padding : 3px;
-  font-size : 11px;
-  letter-spacing:1px;
-  cursor : pointer;
-  background : ${ extensionTheme.blueM }; 
-  transition: background 0.6s ease, color 0.6s ease;
-  margin 0 8px;
-  
-  &.active{
-    color :  ${ extensionTheme.blueM }; 
-    background : ${ extensionTheme.white }; 
-
-  }
-`;
-
-const Banner = styled.div`
-  display : flex;
-  align-items : center;
-  justify-content: space-between;
-  width : 100%;
-  background : ${ extensionTheme.blueM }; 
-  color :  ${ extensionTheme.white }; 
-  padding-right : 3px;
-  
-  & p{
-    padding-left : 10px;
-    text-transform : uppercase;
-    font-weight : 300;
-  }
-  
-  & ${ Icon }{
-    height : 34px;
-    & svg{
-    width : 40px;
-    height : 40px;
-  }
-    
-    & svg g path, & svg  path, & svg rect {
-        fill : ${ extensionTheme.white };   
-    }
-    
-    &:hover{
-        & svg g path, & svg  path {
-            fill : ${ extensionTheme.grey10 };   
-        }
-    }
-  }
-`;
-
-const FormComponent = styled(Form)`
-  padding : 15px;
-`;
-
-export const Active = styled(CheckBox)`
-    & svg{
-        width : 12px;
-        height : 12px;
-        margin : auto;
-        display:none;
-    }
-
-    &.active{
-        background:  ${ extensionTheme.blueM }; 
-        
-        & svg{
-            width : 12px;
-            height : 12px;
-            margin : auto;
-            display:block;
-        }
-    }
-    
-`;
-
-const Toggle = styled.div`
-  display : flex;
-`;
-
-const Content = styled(OptionsBlock)`
- 
-  & ${ Banner } ${ Toggle } ${ Icon }{
-    &:hover{
-         & svg g path, & svg path, & svg  rect {
-            fill : ${ extensionTheme.white };
-        }
-    }
-  }
-`;
-const Settings = styled(OptionsBlock)`
-  & ${ Banner } ${ Toggle } ${ Icon }{
-    &:hover{
-         & svg g path, & svg path, & svg  rect {
-            fill : ${ extensionTheme.white };
-        }
-    }
-  }
-`;
 
 class ComponentDOM extends Component {
     constructor(props) {
@@ -195,7 +49,6 @@ class ComponentDOM extends Component {
         };
     }
 
-    // content = require('../boxes/content/Title').default;
 
     componentDidMount =  async () => {
         this.setState({component: this.props.component}, async () => {

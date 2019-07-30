@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import sections from '../config/sections';
 import components from '../config/components';
 import { Extension, MainContainer } from '../style/styledComponents';
-import ButtonAddSection from '../components/ButtonAddSection/index';
-import Section from './Section';
-import AddSection from './AddSection';
+import ButtonAddSection from './AddingSection';
+import Section from './Section/index';
+import AddSection from './AddSection/index';
 import GlobalStyle from '../style/globalStyle';
 import {
     initDOM,

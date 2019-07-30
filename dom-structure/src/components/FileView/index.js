@@ -60,19 +60,21 @@ export default function FileView(props) {
                                 {props.isPublished ? "Published" : "Draft"}
                             </Status></p>
                     </main>
-                    <Actions>
-                        <ButtonBasic onClick={props.onClickEdit}>
-                            Edit
-                        </ButtonBasic>
-                        <ButtonBasic onClick={props.onClickReload}>
-                            Reload
-                        </ButtonBasic>
-                        <ButtonDelete onClick={props.onClickRemove}>
-                            Remove
-                        </ButtonDelete>
-                    </Actions>
+
                 </Details>
+
             </DataContainer>
+            <Actions>
+                <ButtonBasic onClick={props.onClickEdit}>
+                    Edit
+                </ButtonBasic>
+                <ButtonBasic onClick={props.onClickReload}>
+                    Reload
+                </ButtonBasic>
+                <ButtonDelete onClick={props.onClickRemove}>
+                    Remove
+                </ButtonDelete>
+            </Actions>
         </Container>
     )
 }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { toggleFormAddSection, toggleFormAddSectionToTop } from '../../actions/index';
 import { Button } from './styled'
 
-class ButtonAddSection extends Component {
+class AddingSection extends Component {
     render () {
         const { dispatch, onTop } = this.props;
         if (onTop)
@@ -13,4 +13,4 @@ class ButtonAddSection extends Component {
     }
 }
 
-export default connect()(ButtonAddSection);
+export default connect()(AddingSection);

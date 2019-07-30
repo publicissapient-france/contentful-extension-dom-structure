@@ -109,7 +109,7 @@ class Title extends Component {
                                     toggleOpenPreview={this.toggleOpenPreview}
                                 />
                             </Category>
-                            <Category className={this.state.openPreview ? 'hidden' : ''}>
+                            <Category  className={this.state.openPreview ? 'hidden' : ''}>
                                 <CategoryColor openView={this.state.openView}
                                                toggleOpenView={this.toggleOpenView}
                                                storeValueColor={titleSettings && titleSettings.value.color ? titleSettings.value.color : null}

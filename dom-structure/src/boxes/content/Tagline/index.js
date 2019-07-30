@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from '../../style/styledComponents';
-import { Banner, Fields, ActiveCheckBox } from '../../style/styledComponentsBoxes';
-import SvgToggle from '../../components/svg/SvgToggle';
-import SvgCheck from '../../components/svg/SvgCheck';
+import { Icon } from '../../../style/styledComponents';
+import { Banner, Fields, ActiveCheckBox } from '../../../style/styledComponentsBoxes';
+import SvgToggle from '../../../components/svg/SvgToggle';
+import SvgCheck from '../../../components/svg/SvgCheck';
 import { connect } from 'react-redux';
-import { updateContentValue, getCurrentDOM, getCurrentLanguage } from '../../actions';
+import { getCurrentDOM, getCurrentLanguage, updateContentValue } from '../../../actions/index';
 
-class Title extends Component {
+class Tagline extends Component {
     constructor (props) {
         super(props);
 
@@ -22,16 +22,14 @@ class Title extends Component {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
         this.setState({
-            value: componentStore.content.Title ? componentStore.content.Title.value : {},
-            active: componentStore.content.Title ? componentStore.content.Title.active : true,
+            value: componentStore.content.Tagline ? componentStore.content.Tagline.value : {},
+            active: componentStore.content.Tagline ? componentStore.content.Tagline.active : true,
             open: this.props.open
-        }, () => {
-            console.log('STATE AFTER UPDATE Title content :', this.state)
         });
-    };
+    }
 
     render () {
-        const { dispatch, dom, currentLanguage, indexComponent, indexSection, name } = this.props;
+        const { dispatch, currentLanguage, indexComponent, indexSection, name } = this.props;
         const maxLength = 140;
         const indexLanguage = currentLanguage.language;
 
@@ -50,10 +48,11 @@ class Title extends Component {
                         </ActiveCheckBox>
                         <p>{name}</p>
                     </div>
-                    <Icon className={this.state.open ? '' : 'rotate'}
-                        onClick={() => {
-                            this.setState({ open: !this.state.open });
-                        }}><SvgToggle/></Icon>
+                    <Icon className={this.state.open ? '' : 'rotate'} onClick={() => {
+                        this.setState({ open: !this.state.open });
+                    }}>
+                        <SvgToggle/>
+                    </Icon>
                 </Banner>
                 <Fields className={this.state.open ? 'open' : ''}>
                     <input type={'text'} maxLength={maxLength}
@@ -63,7 +62,6 @@ class Title extends Component {
                                 ...this.state.value,
                                 [indexLanguage]: e.target.value
                             } }, () => {
-                                console.log('STATE : ', this.state.value);
                                 dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                             });
                         }}/>
@@ -74,15 +72,15 @@ class Title extends Component {
     }
 }
 
-Title.propTypes = {
+Tagline.propTypes = {
     indexSection: PropTypes.number.isRequired,
     indexComponent: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     language: PropTypes.number
 };
+
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state),
     currentLanguage: getCurrentLanguage(state)
 });
-
-export default connect(mapStateToProps)(Title);
+export default connect(mapStateToProps)(Tagline);

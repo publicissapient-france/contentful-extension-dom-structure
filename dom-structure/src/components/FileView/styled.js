@@ -62,9 +62,9 @@ export const IconContainer = styled.div`
 
 
 export const Actions =  styled(ChoiceConfirm)`
-    padding : 10px 15px 10px 0;
-    width : 100%;
-    justify-content : flex-start;
+    padding : 0 10px;
+    width : 300px;
+    justify-content :center;
 `;
 
 export const Warning =  styled.div`

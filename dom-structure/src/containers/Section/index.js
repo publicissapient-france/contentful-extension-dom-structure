@@ -1,89 +1,29 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
-import SvgAdd from '../components/svg/SvgAdd';
-import SvgSetting from '../components/svg/SvgSetting';
-import SvgRange from '../components/svg/SvgRange';
-import SvgCheck from '../components/svg/SvgCheck';
-import SvgTrash from '../components/svg/SvgTrash';
-import ComponentDOM from './ComponentDOM';
+import SvgAdd from '../../components/svg/SvgAdd';
+import SvgSetting from '../../components/svg/SvgSetting';
+import SvgRange from '../../components/svg/SvgRange';
+import SvgCheck from '../../components/svg/SvgCheck';
+import SvgTrash from '../../components/svg/SvgTrash';
+import ComponentDOM from '../ComponentDOM/index';
 import {
     Container,
     ButtonBasic,
     ButtonGreen,
-    Form,
-    OptionsBlock,
     Icon,
     Range,
     ButtonDelete,
     SafeDelete
-} from '../style/styledComponents';
-import { CheckBox } from '../style/styledComponentsBoxes';
-import { updateSection, removeSection, moveSectionToTop, moveSectionToDown, toggleSectionActive } from '../actions/index';
-import sections from '../config/sections';
+} from '../../style/styledComponents';
+import {Settings, TopBar, Active, Actions, Description, FormSection, AddChild, Children} from './styled'
+import { updateSection, removeSection, moveSectionToTop, moveSectionToDown, toggleSectionActive } from '../../actions/index';
+import sections from '../../config/sections';
 import update from 'react-addons-update';
-import AddComponent from './AddComponent';
+import AddComponent from '../AddComponent/index';
 
-import { extensionTheme } from '../style/theme';
 import PropTypes from 'prop-types';
 
-const TopBar = styled.div`
-  width : 100%;
-  display : flex;
-  justify-content: space-between;
-`;
-
-const Description = styled.div`
-  display : flex;
-  width : fit-content
-  
-`;
-const Actions = styled(Description)`
-    padding-right : 3px;
-`;
-
-const Children = styled.div`
-  display : flex;
-  flex-wrap : wrap;
-`;
-
-const AddChild = styled.div`
-  display : flex;
-  width : 100%;
-`;
-
-const FormSection = styled(Form)`
-    padding-left : 15px;
-    box-sizing: border-box;
-    
-    
-`;
-
-const Active = styled(CheckBox)`
-    margin-left : 15px;
-    & svg{
-        width : 12px;
-        height : 12px;
-        margin : auto;
-        display:none;
-    }
-
-    &.active{
-        background:  ${ extensionTheme.orange }; 
-        
-        & svg{
-            width : 12px;
-            height : 12px;
-            margin : auto;
-            display:block;
-        }
-    }
-`;
-
-const Settings = styled(OptionsBlock)`
-  
-`;
-class Section extends Component {
+class Index extends Component {
     constructor (props) {
         super(props);
 
@@ -246,7 +186,7 @@ class Section extends Component {
     }
 };
 
-Section.propTypes = {
+Index.propTypes = {
     section: PropTypes.shape({
         active: PropTypes.bool.isRequired,
         name: PropTypes.string.isRequired,
@@ -256,4 +196,4 @@ Section.propTypes = {
     domLength: PropTypes.number
 };
 
-export default connect()(Section);
+export default connect()(Index);

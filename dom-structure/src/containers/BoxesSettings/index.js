@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {BoxesContainer} from '../style/styledComponentsBoxes';
+import {BoxesContainer} from '../../style/styledComponentsBoxes';
 
 class BoxesSettings extends Component {
     render() {
@@ -14,7 +14,7 @@ class BoxesSettings extends Component {
                         fields.map((box, i) => {
                             switch (box.name) {
                                 case 'Title':
-                                    return React.createElement(React.lazy(() => import('../boxes/settings/Title')), {
+                                    return React.createElement(React.lazy(() => import('../../boxes/settings/Title/index')), {
                                         indexComponent: index,
                                         indexSection: indexParent,
                                         name: box.name,
@@ -23,7 +23,7 @@ class BoxesSettings extends Component {
                                         key: i
                                     });
                                 case 'Logo':
-                                    return React.createElement(React.lazy(() => import('../boxes/settings/Logo')), {
+                                    return React.createElement(React.lazy(() => import('../../boxes/settings/Logo/index')), {
                                         indexComponent: index,
                                         indexSection: indexParent,
                                         name: box.name,

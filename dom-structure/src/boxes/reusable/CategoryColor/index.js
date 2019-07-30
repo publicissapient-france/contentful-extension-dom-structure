@@ -17,7 +17,7 @@ import {
 } from './styled'
 import SvgCross from '../../../components/svg/SvgCross';
 import ColorView from '../../../components/ColorView/ColorView';
-import ColorAdd from '../../../components/ColorAdd/index';
+import ColorAdd from '../../../containers/ColorAdd/index';
 import ColorsList from '../../../components/ColorsList';
 import Dot from '../../../components/Dot';
 

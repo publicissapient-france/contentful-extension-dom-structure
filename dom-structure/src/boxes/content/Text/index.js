@@ -4,23 +4,14 @@ import * as Showdown from 'showdown';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { Icon, ButtonGreen, ButtonBasic } from '../../style/styledComponents';
-
-import { Banner, Fields, ActiveCheckBox, ChoiceConfirm } from '../../style/styledComponentsBoxes';
-import SvgToggle from '../../components/svg/SvgToggle';
-import SvgCheck from '../../components/svg/SvgCheck';
+import { Icon, ButtonGreen, ButtonBasic } from '../../../style/styledComponents';
+import { TextArea } from './styled'
+import { Banner, Fields, ActiveCheckBox, ChoiceConfirm } from '../../../style/styledComponentsBoxes';
+import SvgToggle from '../../../components/svg/SvgToggle';
+import SvgCheck from '../../../components/svg/SvgCheck';
 import { connect } from 'react-redux';
-import { updateContentValue, getCurrentDOM, getCurrentLanguage } from '../../actions';
-import styled from 'styled-components';
+import { updateContentValue, getCurrentDOM, getCurrentLanguage } from '../../../actions/index';
 
-const TextArea = styled.div`
-  margin-bottom : 10px;
-  
-  & textarea{
-   font-size : 14px;
-  }
- 
-`;
 
 class Text extends Component {
     constructor (props) {
