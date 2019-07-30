@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {BoxesContainer} from '../../style/styledComponentsBoxes';
 
 class BoxesSettings extends Component {
+
     render() {
         const {fields, index, indexParent, open} = this.props;
 

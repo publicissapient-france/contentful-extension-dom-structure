@@ -4,7 +4,8 @@ import { addComponent } from '../../actions/index';
 import { ButtonBasic, ButtonGreen } from '../../style/styledComponents';
 import {ContainerForm, FormComponent } from './styled';
 import update from 'react-addons-update';
-import components from '../../config/components';
+import componentConfig from '../../config/components/*.js';
+
 import PropTypes from 'prop-types';
 
 class AddComponent extends Component {
@@ -75,7 +76,11 @@ class AddComponent extends Component {
                         <select ref={node => (selectModel = node)} defaultValue={''}
                             onChange={e => { this.updateModel(e.target.value); }}>
                             <option value={null}></option>
-                            {components.map((model, i) => <option value={model.name} key={i}>{model.name}</option>)}
+                            {
+                                Object.keys(componentConfig).map((key, i) => {
+                                    return <option value={key} key={i}>{key}</option>;
+                                })
+                            }
                         </select>
                     </div>
                     <div className={'buttons'}>

@@ -33,6 +33,7 @@
         "helpers": false,
         "regenerator": true
       }
-    ]
+    ],
+    ["syntax-dynamic-import"]
   ]
 }

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import SvgAdd from '../../components/svg/SvgAdd';
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgRange from '../../components/svg/SvgRange';
@@ -16,15 +16,21 @@ import {
     SafeDelete
 } from '../../style/styledComponents';
 import {Settings, TopBar, Active, Actions, Description, FormSection, AddChild, Children} from './styled'
-import { updateSection, removeSection, moveSectionToTop, moveSectionToDown, toggleSectionActive } from '../../actions/index';
-import sections from '../../config/sections';
+import {
+    updateSection,
+    removeSection,
+    moveSectionToTop,
+    moveSectionToDown,
+    toggleSectionActive
+} from '../../actions/index';
+import sectionsConfig from '../../config/sections/*.js';
 import update from 'react-addons-update';
 import AddComponent from '../AddComponent/index';
 
 import PropTypes from 'prop-types';
 
 class Index extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -36,13 +42,13 @@ class Index extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({ section: this.props.section });
+        this.setState({section: this.props.section});
     }
 
     updateModel = model => {
         this.setState({
             section: update(this.state.section, {
-                model: { $set: model },
+                model: {$set: model},
             })
         });
     }
@@ -50,7 +56,7 @@ class Index extends Component {
     updateName = name => {
         this.setState({
             section: update(this.state.section, {
-                name: { $set: name },
+                name: {$set: name},
             })
         });
     }
@@ -58,7 +64,7 @@ class Index extends Component {
     toggleActive = () => {
         this.setState({
             section: update(this.state.section, {
-                active: { $set: !this.state.section.active },
+                active: {$set: !this.state.section.active},
             })
         }, () => {
             this.props.dispatch(toggleSectionActive(this.state.section.active, this.props.index));
@@ -69,7 +75,7 @@ class Index extends Component {
         openAdd: false,
         openSettings: false
     })
-    toggleOpenAdd = () => this.setState({ openAdd: !this.state.openAdd, openSettings: false, openSafeDelete: false })
+    toggleOpenAdd = () => this.setState({openAdd: !this.state.openAdd, openSettings: false, openSafeDelete: false})
     toggleOpenSettings = () => this.setState({
         openSettings: !this.state.openSettings,
         openAdd: false,
@@ -79,12 +85,12 @@ class Index extends Component {
     isUpdated = () => (this.state.section && (this.state.section.name !== this.props.section.name ||
         this.state.section.model !== this.props.section.model))
 
-    render () {
-        const { dispatch, domLength, section, index } = this.props;
+    render() {
+        const {dispatch, domLength, section, index} = this.props;
         let inputName, selectModel;
         let children = (section.components && section.components.length !== 0) ? section.components.map((component, i) =>
             <ComponentDOM key={i} component={component} index={i} indexParent={index}
-                lengthParent={section.components.length}/>
+                          lengthParent={section.components.length}/>
         ) : null;
         if (!this.state.section) return null;
         return (
@@ -93,7 +99,9 @@ class Index extends Component {
                     <Description>
                         <Active
                             className={this.state.section.active ? 'active' : ''}
-                            onClick={e => { this.toggleActive(); }}>
+                            onClick={e => {
+                                this.toggleActive();
+                            }}>
                             <SvgCheck/>
                         </Active>
                         <h3>{section.name} </h3>
@@ -104,7 +112,7 @@ class Index extends Component {
                             <SvgAdd/>
                         </Icon>
                         <Icon className={this.state.openSettings ? 'active' : ''}
-                            onClick={() => this.toggleOpenSettings()}>
+                              onClick={() => this.toggleOpenSettings()}>
                             <SvgSetting/>
                         </Icon>
                         <Range>
@@ -128,7 +136,7 @@ class Index extends Component {
                         <ButtonBasic onClick={() => this.toggleSafeSecure()}>Cancel</ButtonBasic>
                         <ButtonDelete onClick={() => {
                             dispatch(removeSection(index));
-                            this.setState({ openSafeDelete: false });
+                            this.setState({openSafeDelete: false});
                         }}>
                             Delete
                         </ButtonDelete>
@@ -144,19 +152,23 @@ class Index extends Component {
                         <div>
                             <label>Section Name</label>
                             <input ref={node => (inputName = node)} type={'text'}
-                                defaultValue={section.name ? section.name : ''}
-                                onChange={e => {
-                                    this.updateName(e.target.value);
-                                }}/>
+                                   defaultValue={section.name ? section.name : ''}
+                                   onChange={e => {
+                                       this.updateName(e.target.value);
+                                   }}/>
                         </div>
                         <div>
                             <label>Model</label>
                             <select ref={node => (selectModel = node)}
-                                defaultValue={section.model ? section.model : null}
-                                onChange={e => {
-                                    this.updateModel(e.target.value);
-                                }}>
-                                {sections.map((model, i) => <option value={model.name} key={i}>{model.name}</option>)}
+                                    defaultValue={section.model ? section.model : null}
+                                    onChange={e => {
+                                        this.updateModel(e.target.value);
+                                    }}>
+                                {
+                                    Object.keys(sectionsConfig).map((key, i) => {
+                                        return <option value={key} key={i}>{key}</option>;
+                                    })
+                                }
                             </select>
                         </div>
                         <div className={'buttons'}>
@@ -165,7 +177,7 @@ class Index extends Component {
                                 onClick={e => {
                                     e.preventDefault();
                                     this.toggleOpenSettings();
-                                    this.setState({ section: this.props.section });
+                                    this.setState({section: this.props.section});
                                     inputName.value = section.name;
                                     selectModel.value = section.model;
                                 }}>

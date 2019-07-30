@@ -5,7 +5,7 @@ import { addSection, addSectionToTop, toggleFormAddSection, toggleFormAddSection
 import { Container, ButtonBasic, ButtonGreen } from '../../style/styledComponents';
 import { FormSection} from './styled';
 import update from 'react-addons-update';
-import sections from '../../config/sections';
+import sectionsConfig from '../../config/sections/*.js';
 
 class AddSection extends Component {
     constructor (props) {
@@ -81,7 +81,10 @@ class AddSection extends Component {
                         <select ref={node => (selectModel = node)} defaultValue={''}
                             onChange={e => { this.updateModel(e.target.value); }}>
                             <option value={null}></option>
-                            {sections.map((model, i) => <option value={model.name} key={i}>{model.name}</option>)}
+                            {
+                                Object.keys(sectionsConfig).map((key, i) => {
+                                    return <option value={key} key={i}>{key}</option>;
+                                })                            }
                         </select>
                     </div>
                     <div className={'buttons'}>

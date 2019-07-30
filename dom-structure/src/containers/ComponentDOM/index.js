@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import styled from 'styled-components';
 import {connect} from 'react-redux';
 import SvgContent from '../../components/svg/SvgContent';
 import SvgSetting from '../../components/svg/SvgSetting';
@@ -19,8 +18,25 @@ import {
     Range,
     SafeDelete
 } from '../../style/styledComponents';
-import {ContainerComponent, FormComponent, Banner, ToogleLanguage, Description, Actions, Active, Content, Languages, Settings, Toggle, TopBar} from './styled';
-import components from '../../config/components';
+import {
+    ContainerComponent,
+    FormComponent,
+    Banner,
+    ToogleLanguage,
+    Description,
+    Actions,
+    Active,
+    Content,
+    Languages,
+    Settings,
+    Toggle,
+    TopBar
+} from './styled';
+//import components from '../../config/components';
+import componentConfig from '../../config/components/*.js';
+//import componentConfig from '../../config/components/*/index.js';
+
+
 import {
     moveComponentToTop,
     moveComponentToDown,
@@ -49,8 +65,7 @@ class ComponentDOM extends Component {
         };
     }
 
-
-    componentDidMount =  async () => {
+    componentDidMount = async () => {
         this.setState({component: this.props.component}, async () => {
         });
     }
@@ -125,9 +140,18 @@ class ComponentDOM extends Component {
     isUpdated = () => (this.state.component && (this.state.component.name !== this.props.component.name ||
         this.state.component.model !== this.props.component.model))
 
-    getContentAvailable = () => components.find(c => c.name === this.props.component.model).content;
+    // getContentAvailable = () => components.find(c => c.name === this.props.component.model).content;
 
-    getSettingsAvailable = () => (components.find(c => c.name === this.props.component.model).settings);
+    //getSettingsAvailable = () => (components.find(c => c.name === this.props.component.model).settings);
+
+    getSettingsComponent = () => {
+        console.log('COMPONENT SETTINGS 2 >>>>>', componentConfig[this.props.component.model].default.settings)
+        return componentConfig[this.props.component.model].default.settings;
+    }
+
+    getContentComponent = () => {
+        return componentConfig[this.props.component.model].default.content;
+    }
 
 
     render() {
@@ -135,6 +159,10 @@ class ComponentDOM extends Component {
         let inputName, selectModel;
 
         if (!this.state.component || !extensionInfo.extension.locales) return null;
+
+        console.log('COMPONENTS AVAILABLE 2', componentConfig);
+
+        this.getSettingsComponent()
         return (
             <ContainerComponent>
                 <TopBar>
@@ -215,7 +243,12 @@ class ComponentDOM extends Component {
                                     onChange={e => {
                                         this.updateModel(e.target.value);
                                     }}>
-                                {components.map((model, i) => <option value={model.name} key={i}>{model.name}</option>)}
+                                {
+                                    Object.keys(componentConfig).map((key, i) => {
+                                        return <option value={key} key={i}>{key}</option>;
+                                    })
+                                }
+
                             </select>
                         </div>
                         <div className={'buttons'}>
@@ -248,7 +281,7 @@ class ComponentDOM extends Component {
                         </Toggle>
 
                     </Banner>
-                    <BoxesSettings open={this.state.openBoxesSettings} fields={this.getSettingsAvailable()}
+                    <BoxesSettings open={this.state.openBoxesSettings} fields={this.getSettingsComponent()}
                                    index={index}
                                    indexParent={indexParent}/>
 
@@ -277,7 +310,7 @@ class ComponentDOM extends Component {
                         </Toggle>
 
                     </Banner>
-                    <BoxesContent open={this.state.openBoxes} fields={this.getContentAvailable()} index={index}
+                    <BoxesContent open={this.state.openBoxes} fields={this.getContentComponent()} index={index}
                                   indexParent={indexParent}/>
                 </Content>
 

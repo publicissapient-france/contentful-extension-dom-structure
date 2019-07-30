@@ -1,8 +1,6 @@
 import debounce from 'debounce-fn';
 import React from 'react';
 import { connect } from 'react-redux';
-import sections from '../config/sections';
-import components from '../config/components';
 import { Extension, MainContainer } from '../style/styledComponents';
 import ButtonAddSection from './AddingSection';
 import Section from './Section/index';
@@ -23,9 +21,6 @@ import { extractActiveValue, arrayToString, extractFontValueToCSS } from '../uti
 class App extends React.Component {
     constructor (props) {
         super(props);
-
-        this.availableSections = sections;
-        this.availableComponents = components;
 
         this.state = {
             dom: null,
