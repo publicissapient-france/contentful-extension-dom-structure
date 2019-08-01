@@ -85,7 +85,6 @@ class CategoryColor extends Component {
                                 background: color.hex
                             }}/>
                     </Field>
-
                 </div>
                 <PaletteView className={openView ? '' : 'hidden'}>
                     <div>

@@ -2,12 +2,25 @@ import React from "react"
 import {
     Asset
 } from "@contentful/forma-36-react-components"
-import {Container, Actions, Warning, DataContainer, Details, Title, Status} from "./styled";
+import {
+    Container,
+    Actions,
+    Warning,
+    DataContainer,
+    Details,
+    Title,
+    Status,
+    IconContainer,
+    Preview,
+    Field, Information, Modifier
+} from "./styled";
 import {ButtonBasic, ButtonDelete} from "../../style/styledComponents";
+import SvgLink from '../svg/SvgLink';
+import SvgAdd from '../svg/SvgAdd';
+import SvgInformation from '../svg/SvgInformation';
 
 export default function FileView(props) {
     const title = props.title;
-    const description = props.description;
     const file = props.file
     const type = file.contentType.split("/")[0]
     const prettySize = `${(file.details.size / 1000000).toFixed(2)} MB`
@@ -31,50 +44,96 @@ export default function FileView(props) {
                 null
             )}
             <DataContainer>
-                {type === "image" ? (
-                    <header style={bg}/>
-                ) : (
-                    <header>
-                        <Asset type={type} className="file-type-icon"/>
-                    </header>
-                )}
-                <Details>
+                <div>
+                    {type === "image" ? (
+                        <Preview style={bg}/>
+                    ) : (
+                        <Preview>
+                            <Asset type={type} className="file-type-icon"/>
+                        </Preview>
+                    )}
+                    {title ? (
+                        <Title className="filename">{title}</Title>
+                    ) : null}
+                    <Modifier>
+                        <ButtonBasic onClick={props.onClickEdit}>
+                            Edit
+                        </ButtonBasic>
+                        <ButtonBasic onClick={props.onClickReload}>
+                            Reload
+                        </ButtonBasic>
+                        <ButtonDelete onClick={props.onClickRemove}>
+                            Remove
+                        </ButtonDelete>
+                    </Modifier>
+                </div>
+                <Actions>
+                    <IconContainer onClick={props.onClickLinkExisting}>
+                        <SvgLink/>
+                    </IconContainer>
+                    <IconContainer onClick={props.onClickNewAsset}>
+                        <SvgAdd/>
+                    </IconContainer>
+                    <IconContainer
+                        className={['informations',props.openInformations ? 'active' : '', !props.validInformations ? 'invalid' : '']}
+                        onClick={props.toggleOpenInformations}>
+                        <SvgInformation/>
+                    </IconContainer>
+                </Actions>
+                <Details className={!props.openInformations ? 'hidden' : ''}>
+                    <div>
+                        <Field>
+                            <label>Alt (required)</label>
+                            <input type={'text'}
+                                   value={props.alt}
+                                   onChange={e => {
+                                       props.updateStateTranslatedProps('alt', e.target.value, props.index);
+                                   }}/>
+                        </Field>
+                        <Field>
+                            <label>Description</label>
+                            <input type={'text'}
+                                   value={props.description}
+                                   onChange={e => {
+                                       props.updateStateTranslatedProps('description', e.target.value, props.index);
+                                   }}/>
+                        </Field>
+                    </div>
                     <main>
-                        {title ? (
-                            <Title className="filename"><strong>Title :</strong> {title}</Title>
-                        ) : null}
-                        {description ? (
-                            <p><strong>Description:</strong> {description}</p>
-                        ) : null}
-                        <p><strong>File name:</strong> {file.fileName}</p>
-                        {type === "image" ? (
+                        <div>
+                            <Information>
+                                <label>File name</label>
+                                <p>{file.fileName}</p>
+                            </Information>
+                            <Information>
+                                <label>Dimensions</label>
+                                {type === "image" ? (
+                                    <p>
+                                        {file.details.image.width}x
+                                        {file.details.image.height}
+                                    </p>
+                                ) : null}
+                            </Information>
+                            <Information>
+                                <label>Size</label>
+                                <p>{prettySize}</p>
+                            </Information>
+                            <Information>
+                                <label>Type</label>
+                                <p>{file.contentType}</p>
+                            </Information>
+                        </div>
+                        <div>
+                            <label>Status</label>
                             <p>
-                                <strong>Dimensions:</strong> {file.details.image.width}x
-                                {file.details.image.height}
-                            </p>
-                        ) : null}
-                        <p><strong>Size:</strong> {prettySize}</p>
-                        <p><strong>Type:</strong> {file.contentType}</p>
-                        <p><strong>Status: </strong>
-                            <Status className={props.isPublished ? "published" : "draft"}>
-                                {props.isPublished ? "Published" : "Draft"}
-                            </Status></p>
+                                <Status className={props.isPublished ? "published" : "draft"}>
+                                    {props.isPublished ? "Published" : "Draft"}
+                                </Status></p>
+                        </div>
                     </main>
 
                 </Details>
-
             </DataContainer>
-            <Actions>
-                <ButtonBasic onClick={props.onClickEdit}>
-                    Edit
-                </ButtonBasic>
-                <ButtonBasic onClick={props.onClickReload}>
-                    Reload
-                </ButtonBasic>
-                <ButtonDelete onClick={props.onClickRemove}>
-                    Remove
-                </ButtonDelete>
-            </Actions>
         </Container>
     )
 }

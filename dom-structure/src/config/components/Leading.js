@@ -1,6 +1,6 @@
 export default {
     name: 'Leading',
-    content: ['Title', 'Tagline', 'Text', 'Logo'],
+    content: ['Title', 'Tagline', 'Text', 'Logo', 'HeaderImages'],
     settings : [
         {
             name : 'Title',

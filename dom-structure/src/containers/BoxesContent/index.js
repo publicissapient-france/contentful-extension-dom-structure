@@ -45,6 +45,14 @@ class BoxesContent extends Component {
                                         open: open,
                                         key: i
                                     });
+                                case 'HeaderImages':
+                                    return React.createElement(React.lazy(() => import('../../boxes/content/HeaderImages/index')), {
+                                        indexComponent: index,
+                                        indexSection: indexParent,
+                                        name: 'HeaderImages',
+                                        open: open,
+                                        key: i
+                                    });
 
                                 default :
                                     return <div className={'error'}><p>No content-box <strong>{box}</strong> matches</p>

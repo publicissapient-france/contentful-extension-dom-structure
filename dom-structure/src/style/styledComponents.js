@@ -83,7 +83,7 @@ export const MainContainer = styled.div`
         font-size : 12px;
         line-height : 24px;
         font-weight : 200;
-        color : ${ contentfulTheme.grey };
+        color : ${ extensionTheme.grey20 };
         font-family :${ contentfulTheme.basicFont };
 
     }

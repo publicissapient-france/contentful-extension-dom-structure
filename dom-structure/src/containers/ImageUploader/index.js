@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {getCurrentExtension} from "../../actions/index";
-import {ReloadView, IconContainer} from "./styled";
+import {ReloadView, IconContainer, ViewPort} from "./styled";
 import UploadView from '../../components/UploadView/index'
 import FileView from '../../components/FileView/index'
 import SvgRefresh from '../../components/svg/SvgRefresh'
@@ -15,8 +15,11 @@ class ImageUploader extends Component {
         this.state = {
             isDraggingOver: false,
             asset: null,
-            valid: true
+            valid: true,
+            openInformations: false
         }
+
+        this.toggleOpenInformations = this.toggleOpenInformations.bind(this);
     }
 
     componentDidMount = () => {
@@ -30,6 +33,8 @@ class ImageUploader extends Component {
             this.setSelectedAsset(this.props.currentAsset);
         }
     }
+
+    toggleOpenInformations = () => this.setState({openInformations: !this.state.openInformations});
 
     onClickNewAsset = async () => {
         const result = await this.props.extensionInfo.extension.navigator.openNewAsset({slideIn: true}).then(({entity}) => {
@@ -78,7 +83,7 @@ class ImageUploader extends Component {
             asset: asset
         }, () => {
             this.assetIsValid();
-            this.props.updateStateProps('asset', this.state.asset);
+            this.props.updateStateAsset(this.state.asset, this.props.index);
         })
     }
 
@@ -87,7 +92,7 @@ class ImageUploader extends Component {
             ...this.state,
             asset: null
         }, () => {
-            this.props.updateStateProps('asset', this.state.asset);
+            this.props.updateStateAsset(this.state.asset, this.props.index);
         })
     }
 
@@ -130,7 +135,7 @@ class ImageUploader extends Component {
     }
 
     assetIsValid = async () => {
-        if(!this.state.asset) return
+        if (!this.state.asset) return
         let assetId = this.state.asset.sys.id;
         try {
             let asset = await this.props.extensionInfo.extension.space.getAsset(assetId);
@@ -146,35 +151,51 @@ class ImageUploader extends Component {
         }
     }
 
+    informationsAreValid = () => {
+        if (this.props.alt) {
+            return true
+        }
+        return false
+    }
+
 
     render = () => {
-        const {currentAsset} = this.props;
+        const {currentAsset, alt, description} = this.props;
         if (!this.state.isDraggingOver && this.state.asset && !this.state.asset.fields.file) {
             return (
                 <ReloadView>
-                    <IconContainer onClick={() => {
-                        this.reloadAsset(this.state.asset.sys.id);
-                    }}>
-                        <SvgRefresh/>
-                    </IconContainer>
-                    must reload image
+                    <ViewPort>
+                        <IconContainer onClick={() => {
+                            this.reloadAsset(this.state.asset.sys.id);
+                        }}>
+                            <SvgRefresh/>
+                        </IconContainer>
+                    </ViewPort>
                 </ReloadView>
             )
         } else if (!this.state.isDraggingOver && this.state.asset) {
             return (
                 <FileView
+                    openInformations={this.state.openInformations}
+                    toggleOpenInformations={this.toggleOpenInformations}
+                    index={this.props.index}
                     file={this.state.asset.fields.file[this.findProperLocale()]}
                     title={this.state.asset.fields.title[this.findProperLocale()]}
-                    description={this.state.asset.fields.description ? this.state.asset.fields.description[this.findProperLocale()] : null}
+                    alt={alt}
+                    description={description}
                     isPublished={
                         this.state.asset.sys.version ===
                         (this.state.asset.sys.publishedVersion || 0) + 1
                     }
                     isDraggingOver={this.state.isDraggingOver}
+                    onClickLinkExisting={this.onClickLinkExisting}
+                    onClickNewAsset={this.onClickNewAsset}
                     onClickEdit={this.onClickEdit}
                     onClickRemove={this.onClickRemove}
                     onClickReload={this.reloadAsset}
+                    updateStateTranslatedProps={this.props.updateStateTranslatedProps}
                     valid={this.state.valid}
+                    validInformations={this.informationsAreValid()}
                 />
             )
         }
@@ -185,6 +206,8 @@ class ImageUploader extends Component {
                 onClickLinkExisting={this.onClickLinkExisting}
                 onClickNewAsset={this.onClickNewAsset}
             />
+
+
         )
     }
 }

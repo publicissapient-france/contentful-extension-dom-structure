@@ -26,7 +26,7 @@ class Logo extends Component {
             active: true,
         };
 
-        this.updateStateProps = this.updateStateProps.bind(this);
+        this.updateStateAsset = this.updateStateProps.bind(this);
     }
 
     componentDidMount = () => {

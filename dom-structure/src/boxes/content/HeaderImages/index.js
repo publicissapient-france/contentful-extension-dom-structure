@@ -9,9 +9,9 @@ import {Icon, ButtonGreen} from '../../../style/styledComponents';
 import {Banner, Fields, ActiveCheckBox, Property} from '../../../style/styledComponentsBoxes';
 import SvgToggle from '../../../components/svg/SvgToggle';
 import SvgCheck from '../../../components/svg/SvgCheck';
-import CategoryImage from '../../reusable/CategoryImage'
+import CategoryMultipleImage from '../../reusable/CategoryMultipleImage'
 
-class Logo extends Component {
+class HeaderImages extends Component {
     constructor(props) {
         super(props);
 
@@ -29,8 +29,8 @@ class Logo extends Component {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
         this.setState({
-            value: componentStore.content.Logo ? componentStore.content.Logo.value : {},
-            active: componentStore.content.Logo ? componentStore.content.Logo.active : true,
+            value: componentStore.content.HeaderImages ? componentStore.content.HeaderImages.value : {},
+            active: componentStore.content.HeaderImages ? componentStore.content.HeaderImages.active : true,
             open: this.props.open
         }, () => {
             console.log('MOUNT ON LOGO CONTENT', this.state)
@@ -40,14 +40,17 @@ class Logo extends Component {
     };
 
 
-    updateStateTranslatedProps = (props, value) => {
+    updateStateTranslatedProps = (props, value, index) => {
         const indexLanguage = this.props.currentLanguage.language;
         this.setState({
             value: {
                 ...this.state.value,
-                [props]: {
-                    ...this.state.value[props],
-                    [indexLanguage]: value
+                [index]: {
+                    ...this.state.value[index],
+                    [props]: {
+                        ...this.state.value[props],
+                        [indexLanguage]: value
+                    }
                 }
             }
         }, () => {
@@ -55,11 +58,14 @@ class Logo extends Component {
         });
     }
 
-    updateStateAsset = (value) => {
+    updateStateAsset = (value, index) => {
         this.setState({
             value: {
                 ...this.state.value,
-                asset: value
+                [index]: {
+                    ...this.state.value[index],
+                    asset: value
+                }
             }
         }, () => {
             console.log('STATE AFTER UPDATE updateStateAssetupdateStateAssetupdateStateAssetupdateStateAsset :', this.state)
@@ -68,23 +74,34 @@ class Logo extends Component {
 
     isUpdated = () => {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
-        const logoContent = componentStore.content.Logo;
+        const logoContent = componentStore.content.HeaderImages;
         if (!_.isEqual(logoContent && logoContent.value, this.state.value)) return true;
         return false;
+        return true
     }
 
     isValid = () => {
         const indexLanguage = this.props.currentLanguage.language;
+        let valid = true;
+        Object.keys(this.state.value).forEach(key => {
+            console.log('e on valid', this.state.value[key]);
+            const currentAlt = this.state.value[key].alt;
+            console.log('current alt', currentAlt)
+            if( !currentAlt || !currentAlt[indexLanguage] || currentAlt[indexLanguage] === '' ) {
+                console.log('no alt exist')
+                valid = false;
+            }
+        });
+        console.log('VALID', valid);
+        return valid;
 
-        if(!this.state.value.alt || !this.state.value.alt[indexLanguage] || this.state.value.alt[indexLanguage] === '') return false
-        return true;
     }
 
     render() {
         const {dispatch, dom, currentLanguage, indexComponent, indexSection, name} = this.props;
         const indexLanguage = currentLanguage.language;
         const componentStore = dom.sections[indexSection].components[indexComponent];
-        const logoContent = componentStore.content.Logo;
+        const headerContent = componentStore.content.HeaderImages;
 
         return (
             <div>
@@ -108,10 +125,10 @@ class Logo extends Component {
                 </Banner>
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
                     <Choices>
-                        <CategoryImage
-                            alt={this.state.value.alt ? this.state.value.alt[indexLanguage] : ''}
-                            description={this.state.value.description ? this.state.value.description[indexLanguage] : ''}
-                            asset={this.state.value.asset}
+                        <CategoryMultipleImage
+                            multiple={3}
+                            indexLanguage={indexLanguage}
+                            value={this.state.value}
                             updateStateAsset={this.updateStateAsset}
                             updateStateTranslatedProps={this.updateStateTranslatedProps}
                         />
@@ -119,10 +136,10 @@ class Logo extends Component {
                 </FieldsTemplate>
                 <ChoiceItemsConfirm className={!this.isUpdated() || !this.isValid() ? 'hidden' : ''}>
                     <ButtonGreen
-                        disabled={!this.isUpdated() && this.isValid()}
-                        className={this.isUpdated() && this.isValid() ? 'active' : ''}
+                        disabled={!this.isUpdated()}
+                        className={this.isUpdated() ? 'active' : ''}
                         onClick={() => {
-                            console.log('CLICK ON BUTTON UPDTE CONTENT LOGO', this.state.value)
+                            console.log('CLICK ON BUTTON UPDTE CONTENT HeaderImages', this.state.value)
                             dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                         }}>
                         Update
@@ -133,7 +150,7 @@ class Logo extends Component {
     }
 }
 
-Logo.propTypes = {
+HeaderImages.propTypes = {
     indexSection: PropTypes.number.isRequired,
     indexComponent: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -144,4 +161,4 @@ const mapStateToProps = state => ({
     currentLanguage: getCurrentLanguage(state)
 });
 
-export default connect(mapStateToProps)(Logo);
+export default connect(mapStateToProps)(HeaderImages);

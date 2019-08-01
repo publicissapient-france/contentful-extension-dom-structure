@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import {extensionTheme} from "../../style/theme";
-import {ChoiceConfirm} from "../../style/styledComponentsBoxes";
 
 export const Container = styled.div`
+    width : 100%;
+    display  : flex;
+    flex-direction:column;
+    
    &.image-file {
         grid-template-columns: 1fr minmax(40%, 1fr);
         grid-column-gap: 2rem;
@@ -18,10 +21,7 @@ export const Container = styled.div`
         height: 4rem;
     }
     
-    & header {
-        width : 300px;
-        height : 300px;
-    }
+   
     & img {
         height: 100%;
     }
@@ -30,6 +30,12 @@ export const Container = styled.div`
         line-height : 20px;
     }
 `;
+export const Preview = styled.header`
+   width : 180px;
+   height : 180px;
+   
+`;
+
 export const DataContainer = styled.div`
    display : flex;
    margin-bottom : 10px;
@@ -37,34 +43,67 @@ export const DataContainer = styled.div`
 `;
 
 export const IconContainer = styled.div`
- width : 40px;
- height : 40px;
- cursor : pointer;
- 
- & svg{
     width : 40px;
     height : 40px;
-    & path, & rect{
-       transition : fill .2s ease;
-        fill : ${extensionTheme.black}
-    }
- }
+    display : flex;
+    align-items : center;
+    justify-content: center;
+    cursor : pointer;
  
- &:hover{
-    & svg{
-        & path, & rect{
-            fill : ${extensionTheme.greenM}
+     & svg{
+        & path, & rect, & circle{
+           transition : fill .2s ease;
+            fill : ${extensionTheme.black}
         }
-    }
+     }
+     
+     &.invalid{
+        & svg{
+            & path, & rect, & circle{
+                fill : ${extensionTheme.redM} !important;
+            }
+        }
+     }
+     
+     &:hover{
+        & svg{
+            & path, & rect, & circle{
+                fill : ${extensionTheme.greenM}
+            }
+        }
+     }
+     
+     .informations&:hover{
+        & svg{
+            & path, & rect, & circle{
+                fill : ${extensionTheme.blueM}
+            }
+        }
+     }
+     
+     
+     &.active{
+        & svg{
+             & path, & rect, & circle{
+                fill : ${extensionTheme.blueM}
+        }
+     }
+     
+     
+     
+        
+        
  }
  
 `;
 
 
-export const Actions =  styled(ChoiceConfirm)`
+export const Actions =  styled.nav`
+    diplay:flex;
+    flex-direction : column;
+    
     padding : 0 10px;
-    width : 300px;
-    justify-content :center;
+    
 `;
 
 export const Warning =  styled.div`
@@ -76,9 +115,14 @@ export const Warning =  styled.div`
     margin-bottom : 20px;
 `;
 
+
+export const Information = styled.div`
+  min-width : 88px;
+`;
+
 export const Details =  styled.div`
+    width : 100%;
     padding: 0 15px;
-    max-width : 50%;
     & strong {
         font-weight: 700;
     }
@@ -88,12 +132,32 @@ export const Details =  styled.div`
     & h1{
         margin-top : 0;
     }
+    
+    & main{
+        border : 1px solid ${ extensionTheme.grey20 };
+        padding : 10px 20px;
+        
+        display : flex;
+        
+        &>div{            
+            &:nth-child(1){
+                display : flex;
+                flex-wrap : wrap;
+                padding-right : 20px;
+                width : min-content;
+
+            }
+        }
+        
+
+    }
 `;
 
 export const Title =  styled.p`
     margin : 0;
-    padding-bottom : 10px;
-    font-size : 16px;
+    padding-top : 5px;
+    font-size : 14px;
+    max-width : 180px;
 `;
 export const Status =  styled.span`
     font-size : 14px !important;
@@ -105,4 +169,27 @@ export const Status =  styled.span`
     &.draft{
         color : ${ extensionTheme.orange}
     }
+`;
+
+
+export const Field = styled.div`
+   margin-bottom : 20px;   
+   
+   & label{
+    font-size : 14px;
+   }
+   
+   & input{
+    padding-left : 0px;
+   }
+`;
+
+export const Modifier = styled.div`
+  display :flex;
+  & button {
+    margin-right : 5px;
+    font-size : 10px;
+    padding : 3px;
+    height : 20px;
+  }
 `;
