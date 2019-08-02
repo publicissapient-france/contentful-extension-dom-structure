@@ -5,7 +5,7 @@ import _ from 'lodash';
 import {updateSettingsValue, getCurrentDOM} from '../../../actions/index';
 
 import {Category, ChoiceItemsConfirm, Choices, Column, FieldsTemplate} from './styled'
-import {Icon, ButtonGreen, ButtonBasic} from '../../../style/styledComponents';
+import {Icon, ButtonGreen} from '../../../style/styledComponents';
 import {
     Banner,
     ActiveCheckBox,
@@ -16,6 +16,7 @@ import CategoryText from '../../reusable/CategoryText/index';
 import CategoryColor from '../../reusable/CategoryColor/index';
 import CategorySeo from '../../reusable/CategorySeo/index';
 import TextPreview from '../../../components/TextPreview';
+import ButtonBasic from '../../../components/ui/ButtonBasic';
 
 
 class Title extends Component {
@@ -30,9 +31,6 @@ class Title extends Component {
             openPreview: false
         };
 
-        this.toggleOpenView = this.toggleOpenView.bind(this);
-        this.toggleOpenPreview = this.toggleOpenPreview.bind(this);
-        this.updateStateProps = this.updateStateProps.bind(this);
     }
 
     componentDidMount = () => {
@@ -53,8 +51,6 @@ class Title extends Component {
                 ...this.state.value,
                 [props]: value
             }
-        }, () => {
-            console.log('STATE AFTER UPDATE :', this.state)
         });
     }
 
@@ -69,6 +65,18 @@ class Title extends Component {
 
         if (_.isEqual(titleSettings && titleSettings.value, this.state.value)) return false;
         return true;
+    }
+
+    cancelStateValue = (e) => {
+        e.preventDefault();
+
+        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
+        const titleSettings = componentStore.settings.Title;
+        if (titleSettings.value) {
+            this.setState({
+                value: titleSettings.value
+            });
+        }
     }
 
     render() {
@@ -146,17 +154,9 @@ class Title extends Component {
 
                     <ChoiceItemsConfirm className={this.viewIsOpen() || !this.isUpdated() ? 'hidden' : ''}>
                         <ButtonBasic
-                            className={this.isUpdated() ? '' : 'disable'}
-                            onClick={e => {
-                                e.preventDefault();
-                                if (titleSettings.value) {
-                                    this.setState({
-                                        value: titleSettings.value
-                                    });
-                                }
-                            }}>
-                            Cancel
-                        </ButtonBasic>
+                            label={'Cancel'}
+                            disaled={!this.isUpdated()}
+                            action={this.cancelStateValue}/>
                         <ButtonGreen
                             disabled={!this.isUpdated()}
                             className={this.isUpdated() ? 'active' : ''}

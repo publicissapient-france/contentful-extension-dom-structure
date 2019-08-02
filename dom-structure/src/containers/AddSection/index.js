@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addSection, addSectionToTop, toggleFormAddSection, toggleFormAddSectionToTop } from '../../actions/index';
-import { Container, ButtonBasic, ButtonGreen } from '../../style/styledComponents';
-import { FormSection} from './styled';
 import update from 'react-addons-update';
 import sectionsConfig from '../../config/sections/*.js';
+import { addSection, addSectionToTop, toggleFormAddSection, toggleFormAddSectionToTop } from '../../actions/index';
+import { Container, ButtonGreen } from '../../style/styledComponents';
+import { FormSection} from './styled';
+import ButtonBasic from '../../components/ui/ButtonBasic';
+
 
 class AddSection extends Component {
     constructor (props) {
@@ -89,13 +91,14 @@ class AddSection extends Component {
                     </div>
                     <div className={'buttons'}>
                         <ButtonBasic
-                            onClick={e => {
+                            label={'Cancel'}
+                            action={ (e) => {
                                 this.clearForm();
                                 inputName.value = '';
                                 selectModel.value = '';
                                 dispatch(toggleFormAddSection());
                             }}
-                        >Cancel</ButtonBasic>
+                        />
                         <ButtonGreen
                             disabled={!this.isComplete()}
                             className={this.isComplete() ? 'active' : ''} type="submit">Add</ButtonGreen>

@@ -12,7 +12,6 @@ import {getCountryISO} from '../../utils/functions';
 
 import {
     ButtonGreen,
-    ButtonBasic,
     ButtonDelete,
     Icon,
     Range,
@@ -32,6 +31,7 @@ import {
     Toggle,
     TopBar
 } from './styled';
+import ButtonBasic from '../../components/ui/ButtonBasic';
 //import components from '../../config/components';
 import componentConfig from '../../config/components/*.js';
 //import componentConfig from '../../config/components/*/index.js';
@@ -210,7 +210,7 @@ class ComponentDOM extends Component {
                 <SafeDelete className={!this.state.openSafeDelete ? 'hidden' : ''}>
                     <p>The deletion is final. Are you sure you want to delete this component?</p>
                     <div className={'buttons'}>
-                        <ButtonBasic onClick={() => this.toggleSafeSecure()}>Cancel</ButtonBasic>
+                        <ButtonBasic label={'Cancel'} action={this.toggleSafeSecure}/>
                         <ButtonDelete onClick={() => {
                             dispatch(removeComponent(index, indexParent));
                             this.setState({openSafeDelete: false});
@@ -253,16 +253,14 @@ class ComponentDOM extends Component {
                         </div>
                         <div className={'buttons'}>
                             <ButtonBasic
-                                className={this.isUpdated() ? '' : 'disable'}
-                                onClick={e => {
+                                label={'Cancel'}
+                                disabled={!this.isUpdated()}
+                                action={ (e) => {
                                     e.preventDefault();
-                                    this.toggleOpenSettings();
                                     this.setState({component: this.props.component});
                                     inputName.value = component.name;
                                     selectModel.value = component.model;
-                                }}>
-                                Cancel
-                            </ButtonBasic>
+                                }}/>
                             <ButtonGreen
                                 disabled={!this.isUpdated()}
                                 className={this.isUpdated() ? 'active' : ''}>Update</ButtonGreen>

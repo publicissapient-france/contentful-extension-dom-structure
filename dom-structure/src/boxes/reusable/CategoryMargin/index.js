@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-
 import Dot from '../../../components/Dot'
 import {hasNotSamePropertyValue} from "../../../utils/functions";
 import {Choices, Field, Inputs} from "./styled";
@@ -17,8 +16,6 @@ class CategoryMargin extends Component {
     componentDidMount = () => {
         this.setState({
             margin: this.props.margin
-        }, () => {
-            console.log('MARGIN AFTER INIT', this.state);
         });
     };
 
@@ -55,24 +52,28 @@ class CategoryMargin extends Component {
                             <label>margin</label>
                             <Inputs>
                                 <input
+                                    type={'number'}
                                     className={hasNotSamePropertyValue(storeValueMargin, margin, 'top') ? 'updated' : ''}
                                     value={margin.top}
                                     onChange={e => {
                                         this.updateMargin('top', e.target.value)
                                     }}/>
                                 <input
+                                    type={'number'}
                                     className={hasNotSamePropertyValue(storeValueMargin, margin, 'right') ? 'updated' : ''}
                                     value={margin.right}
                                     onChange={e => {
                                         this.updateMargin('right', e.target.value)
                                     }}/>
                                 <input
+                                    type={'number'}
                                     className={hasNotSamePropertyValue(storeValueMargin, margin, 'bottom') ? 'updated' : ''}
                                     value={margin.bottom}
                                     onChange={e => {
                                         this.updateMargin('bottom', e.target.value)
                                     }}/>
                                 <input
+                                    type={'number'}
                                     className={hasNotSamePropertyValue(storeValueMargin, margin, 'left') ? 'updated' : ''}
                                     value={margin.left}
                                     onChange={e => {
@@ -87,7 +88,6 @@ class CategoryMargin extends Component {
         );
     }
 }
-
 
 CategoryMargin.protoTypes = {
     margin: PropTypes.shape({
@@ -108,8 +108,6 @@ CategoryMargin.protoTypes = {
         bottom: PropTypes.number,
         left: PropTypes.number
     })
-
-
 };
 
 

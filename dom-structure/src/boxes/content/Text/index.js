@@ -65,7 +65,7 @@ class Text extends Component {
         return true;
     }
 
-    cancelState = (e) => {
+    cancelStateValue = (e) => {
         e.preventDefault();
         const indexLanguage = this.props.currentLanguage.language;
         const indexSection = this.props.indexSection;
@@ -138,7 +138,7 @@ class Text extends Component {
                         <ButtonBasic
                             label={'Cancel'}
                             disabled={!this.isUpdated()}
-                            action={this.cancelState}/>
+                            action={this.cancelStateValue}/>
                         <ButtonGreen
                             disabled={!this.isUpdated()}
                             className={this.isUpdated() ? 'active' : ''}

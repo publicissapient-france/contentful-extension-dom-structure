@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addComponent } from '../../actions/index';
-import { ButtonBasic, ButtonGreen } from '../../style/styledComponents';
+import { ButtonGreen } from '../../style/styledComponents';
 import {ContainerForm, FormComponent } from './styled';
 import update from 'react-addons-update';
 import componentConfig from '../../config/components/*.js';
+import ButtonBasic from '../../components/ui/ButtonBasic'
 
 import PropTypes from 'prop-types';
 
@@ -85,14 +86,15 @@ class AddComponent extends Component {
                     </div>
                     <div className={'buttons'}>
                         <ButtonBasic
-                            onClick={e => {
+                            label={'Cancel'}
+                            action={ (e) => {
                                 e.preventDefault();
                                 this.clearForm();
                                 inputName.value = '';
                                 selectModel.value = '';
                                 parent.setState({ openAdd: !parent.state.openAdd });
                             }}
-                        >Cancel</ButtonBasic>
+                        />
                         <ButtonGreen
                             disabled={!this.isComplete()}
                             className={this.isComplete() ? 'active' : ''} type="submit">Add</ButtonGreen>

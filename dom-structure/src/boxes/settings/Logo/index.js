@@ -5,7 +5,7 @@ import _ from 'lodash';
 import {updateSettingsValue, getCurrentDOM} from '../../../actions/index';
 
 import {ChoiceItemsConfirm, Choices, FieldsTemplate} from './styled'
-import {Icon, ButtonGreen, ButtonBasic} from '../../../style/styledComponents';
+import {Icon, ButtonGreen} from '../../../style/styledComponents';
 import {
     Banner,
     ActiveCheckBox,
@@ -14,6 +14,7 @@ import CategorySize from '../../reusable/CategorySize';
 import CategoryMargin from '../../reusable/CategoryMargin';
 import SvgArrow from '../../../components/svg/SvgArrow';
 import SvgCheck from '../../../components/svg/SvgCheck';
+import ButtonBasic from '../../../components/ui/ButtonBasic';
 
 
 class Logo extends Component {
@@ -26,7 +27,6 @@ class Logo extends Component {
             active: true,
         };
 
-        this.updateStateAsset = this.updateStateProps.bind(this);
     }
 
     componentDidMount = () => {
@@ -37,12 +37,7 @@ class Logo extends Component {
             value: logoSettings ? logoSettings.value : this.props.defaultValue,
             active: logoSettings ? logoSettings.active : true,
             open: this.props.open
-        }, () => {
-            console.log('LOGO INIT SETTING', this.state)
         });
-
-
-
     };
 
     updateStateProps = (props, value) => {
@@ -51,8 +46,6 @@ class Logo extends Component {
                 ...this.state.value,
                 [props]: value
             }
-        }, () => {
-            console.log('STATE AFTER UPDATE :', this.state)
         });
     }
 
@@ -62,6 +55,17 @@ class Logo extends Component {
 
         if (_.isEqual(logoSettings && logoSettings.value, this.state.value)) return false;
         return true;
+    }
+
+    cancelStateValue = (e) => {
+        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
+        const logoSettings = componentStore.settings.Logo;
+        e.preventDefault();
+        if (logoSettings.value) {
+            this.setState({
+                value: logoSettings.value
+            });
+        }
     }
 
     render() {
@@ -107,17 +111,10 @@ class Logo extends Component {
 
                     <ChoiceItemsConfirm className={ !this.isUpdated() ? 'hidden' : ''}>
                         <ButtonBasic
-                            className={this.isUpdated() ? '' : 'disable'}
-                            onClick={e => {
-                                e.preventDefault();
-                                if (logoSettings.value) {
-                                    this.setState({
-                                        value: logoSettings.value
-                                    });
-                                }
-                            }}>
-                            Cancel
-                        </ButtonBasic>
+                            label={'Cancel'}
+                            disabled={!this.isUpdated()}
+                            action={this.cancelStateValue}
+                        />
                         <ButtonGreen
                             disabled={!this.isUpdated()}
                             className={this.isUpdated() ? 'active' : ''}
