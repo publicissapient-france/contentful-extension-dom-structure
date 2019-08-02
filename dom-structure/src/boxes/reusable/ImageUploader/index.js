@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {getCurrentExtension} from "../../actions/index";
+import {getCurrentExtension} from "../../../actions/index";
 import {ReloadView, IconContainer, ViewPort} from "./styled";
-import UploadView from '../../components/UploadView/index'
-import FileView from '../../components/FileView/index'
-import SvgRefresh from '../../components/svg/SvgRefresh'
+import UploadView from '../../../components/UploadView/index'
+import FileView from '../../../components/FileView/index'
+import SvgRefresh from '../../../components/svg/SvgRefresh'
 
 class ImageUploader extends Component {
     constructor(props) {
@@ -18,19 +18,17 @@ class ImageUploader extends Component {
             valid: true,
             openInformations: false
         }
-
-        this.toggleOpenInformations = this.toggleOpenInformations.bind(this);
     }
 
     componentDidMount = () => {
-        if (this.props.currentAsset) {
-            this.setSelectedAsset(this.props.currentAsset);
+        if (this.props.asset) {
+            this.setSelectedAsset(this.props.asset);
         }
     };
 
     componentDidUpdate = prevProps => {
-        if (this.props.currentAsset != prevProps.currentAsset && this.props.currentAsset) {
-            this.setSelectedAsset(this.props.currentAsset);
+        if (this.props.asset != prevProps.asset && this.props.asset) {
+            this.setSelectedAsset(this.props.asset);
         }
     }
 
@@ -160,10 +158,11 @@ class ImageUploader extends Component {
 
 
     render = () => {
-        const {currentAsset, alt, description} = this.props;
+        const {asset, alt, description} = this.props;
         if (!this.state.isDraggingOver && this.state.asset && !this.state.asset.fields.file) {
             return (
                 <ReloadView>
+                    <p>You added a new image. Click on "refresh" to see it</p>
                     <ViewPort>
                         <IconContainer onClick={() => {
                             this.reloadAsset(this.state.asset.sys.id);
@@ -187,7 +186,6 @@ class ImageUploader extends Component {
                         this.state.asset.sys.version ===
                         (this.state.asset.sys.publishedVersion || 0) + 1
                     }
-                    isDraggingOver={this.state.isDraggingOver}
                     onClickLinkExisting={this.onClickLinkExisting}
                     onClickNewAsset={this.onClickNewAsset}
                     onClickEdit={this.onClickEdit}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 
 import {Choices} from "./styled";
-import ImageUploader from '../../../containers/ImageUploader'
+import ImageUploader from '../ImageUploader'
 
 class CategoryImage extends Component {
     constructor(props) {

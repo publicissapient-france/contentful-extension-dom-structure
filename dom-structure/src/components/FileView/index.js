@@ -14,26 +14,24 @@ import {
     Preview,
     Field, Information, Modifier
 } from "./styled";
-import {ButtonBasic, ButtonDelete} from "../../style/styledComponents";
 import SvgLink from '../svg/SvgLink';
 import SvgAdd from '../svg/SvgAdd';
+import SvgTrash from '../svg/SvgTrash';
 import SvgInformation from '../svg/SvgInformation';
+import ButtonBasic from '../ui/ButtonBasic';
 
 export default function FileView(props) {
     const title = props.title;
     const file = props.file
     const type = file.contentType.split("/")[0]
     const prettySize = `${(file.details.size / 1000000).toFixed(2)} MB`
-    const bg = {
-        backgroundImage: `url(${file.url})`
-    }
+    const bg = { backgroundImage: `url(${file.url})`}
 
     return (
         <Container
             className={`file-view  ${
                 type === "image" ? "image-file" : "non-image-file"
                 }`}
-            isDraggingOver={props.isDraggingOver}
         >
             {!props.valid ? (
                 <Warning>
@@ -52,19 +50,9 @@ export default function FileView(props) {
                             <Asset type={type} className="file-type-icon"/>
                         </Preview>
                     )}
-                    {title ? (
-                        <Title className="filename">{title}</Title>
-                    ) : null}
                     <Modifier>
-                        <ButtonBasic onClick={props.onClickEdit}>
-                            Edit
-                        </ButtonBasic>
-                        <ButtonBasic onClick={props.onClickReload}>
-                            Reload
-                        </ButtonBasic>
-                        <ButtonDelete onClick={props.onClickRemove}>
-                            Remove
-                        </ButtonDelete>
+                        <ButtonBasic action={props.onClickEdit} label={'Edit'}/>
+                        <ButtonBasic onClick={props.onClickReload} label={'Reload'}/>
                     </Modifier>
                 </div>
                 <Actions>
@@ -78,6 +66,9 @@ export default function FileView(props) {
                         className={['informations',props.openInformations ? 'active' : '', !props.validInformations ? 'invalid' : '']}
                         onClick={props.toggleOpenInformations}>
                         <SvgInformation/>
+                    </IconContainer>
+                    <IconContainer className="delete" onClick={props.onClickRemove}>
+                        <SvgTrash/>
                     </IconContainer>
                 </Actions>
                 <Details className={!props.openInformations ? 'hidden' : ''}>
@@ -101,10 +92,13 @@ export default function FileView(props) {
                     </div>
                     <main>
                         <div>
-                            <Information>
-                                <label>File name</label>
-                                <p>{file.fileName}</p>
-                            </Information>
+                            {title ? (
+                                <Information>
+                                    <label>title</label>
+                                    <p>{title}</p>
+                                </Information>
+                            ) : null}
+
                             <Information>
                                 <label>Dimensions</label>
                                 {type === "image" ? (
@@ -131,7 +125,6 @@ export default function FileView(props) {
                                 </Status></p>
                         </div>
                     </main>
-
                 </Details>
             </DataContainer>
         </Container>

@@ -11,6 +11,7 @@ import SvgToggle from '../../../components/svg/SvgToggle';
 import SvgCheck from '../../../components/svg/SvgCheck';
 import CategoryMultipleImage from '../../reusable/CategoryMultipleImage'
 
+
 class HeaderImages extends Component {
     constructor(props) {
         super(props);
@@ -20,9 +21,6 @@ class HeaderImages extends Component {
             value: {},
             active: true
         };
-
-        this.updateStateAsset = this.updateStateAsset.bind(this);
-        this.updateStateTranslatedProps = this.updateStateTranslatedProps.bind(this);
     }
 
     componentDidMount = () => {
@@ -32,11 +30,7 @@ class HeaderImages extends Component {
             value: componentStore.content.HeaderImages ? componentStore.content.HeaderImages.value : {},
             active: componentStore.content.HeaderImages ? componentStore.content.HeaderImages.active : true,
             open: this.props.open
-        }, () => {
-            console.log('MOUNT ON LOGO CONTENT', this.state)
         });
-
-        console.log('language on Logo', this.props.currentLanguage);
     };
 
 
@@ -53,8 +47,6 @@ class HeaderImages extends Component {
                     }
                 }
             }
-        }, () => {
-            console.log('STATE AFTER UPDATE updateStateTranslatedPropsupdateStateTranslatedPropsupdateStateTranslatedProps:', this.state)
         });
     }
 
@@ -67,8 +59,6 @@ class HeaderImages extends Component {
                     asset: value
                 }
             }
-        }, () => {
-            console.log('STATE AFTER UPDATE updateStateAssetupdateStateAssetupdateStateAssetupdateStateAsset :', this.state)
         });
     }
 
@@ -86,13 +76,10 @@ class HeaderImages extends Component {
         Object.keys(this.state.value).forEach(key => {
             console.log('e on valid', this.state.value[key]);
             const currentAlt = this.state.value[key].alt;
-            console.log('current alt', currentAlt)
-            if( !currentAlt || !currentAlt[indexLanguage] || currentAlt[indexLanguage] === '' ) {
-                console.log('no alt exist')
+            if (!currentAlt || !currentAlt[indexLanguage] || currentAlt[indexLanguage] === '') {
                 valid = false;
             }
         });
-        console.log('VALID', valid);
         return valid;
 
     }
@@ -139,7 +126,6 @@ class HeaderImages extends Component {
                         disabled={!this.isUpdated()}
                         className={this.isUpdated() ? 'active' : ''}
                         onClick={() => {
-                            console.log('CLICK ON BUTTON UPDTE CONTENT HeaderImages', this.state.value)
                             dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                         }}>
                         Update

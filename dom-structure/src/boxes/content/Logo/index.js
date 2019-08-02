@@ -6,10 +6,12 @@ import _ from 'lodash'
 
 import {ChoiceItemsConfirm, FieldsTemplate, Choices} from './styled';
 import {Icon, ButtonGreen} from '../../../style/styledComponents';
-import {Banner, Fields, ActiveCheckBox, Property} from '../../../style/styledComponentsBoxes';
+import {Banner, ActiveCheckBox} from '../../../style/styledComponentsBoxes';
 import SvgToggle from '../../../components/svg/SvgToggle';
 import SvgCheck from '../../../components/svg/SvgCheck';
-import CategoryImage from '../../reusable/CategoryImage'
+import ImageUploader from '../../reusable/ImageUploader';
+
+//const LogoContext = React.createContext();
 
 class Logo extends Component {
     constructor(props) {
@@ -21,8 +23,6 @@ class Logo extends Component {
             active: true
         };
 
-        this.updateStateAsset = this.updateStateAsset.bind(this);
-        this.updateStateTranslatedProps = this.updateStateTranslatedProps.bind(this);
     }
 
     componentDidMount = () => {
@@ -32,11 +32,7 @@ class Logo extends Component {
             value: componentStore.content.Logo ? componentStore.content.Logo.value : {},
             active: componentStore.content.Logo ? componentStore.content.Logo.active : true,
             open: this.props.open
-        }, () => {
-            console.log('MOUNT ON LOGO CONTENT', this.state)
         });
-
-        console.log('language on Logo', this.props.currentLanguage);
     };
 
 
@@ -50,8 +46,6 @@ class Logo extends Component {
                     [indexLanguage]: value
                 }
             }
-        }, () => {
-            console.log('STATE AFTER UPDATE updateStateTranslatedPropsupdateStateTranslatedPropsupdateStateTranslatedProps:', this.state)
         });
     }
 
@@ -61,8 +55,6 @@ class Logo extends Component {
                 ...this.state.value,
                 asset: value
             }
-        }, () => {
-            console.log('STATE AFTER UPDATE updateStateAssetupdateStateAssetupdateStateAssetupdateStateAsset :', this.state)
         });
     }
 
@@ -76,7 +68,7 @@ class Logo extends Component {
     isValid = () => {
         const indexLanguage = this.props.currentLanguage.language;
 
-        if(!this.state.value.alt || !this.state.value.alt[indexLanguage] || this.state.value.alt[indexLanguage] === '') return false
+        if (!this.state.value.alt || !this.state.value.alt[indexLanguage] || this.state.value.alt[indexLanguage] === '') return false
         return true;
     }
 
@@ -108,10 +100,11 @@ class Logo extends Component {
                 </Banner>
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
                     <Choices>
-                        <CategoryImage
+                        <ImageUploader
                             alt={this.state.value.alt ? this.state.value.alt[indexLanguage] : ''}
                             description={this.state.value.description ? this.state.value.description[indexLanguage] : ''}
                             asset={this.state.value.asset}
+                            index={null}
                             updateStateAsset={this.updateStateAsset}
                             updateStateTranslatedProps={this.updateStateTranslatedProps}
                         />
@@ -122,7 +115,6 @@ class Logo extends Component {
                         disabled={!this.isUpdated() && this.isValid()}
                         className={this.isUpdated() && this.isValid() ? 'active' : ''}
                         onClick={() => {
-                            console.log('CLICK ON BUTTON UPDTE CONTENT LOGO', this.state.value)
                             dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                         }}>
                         Update
@@ -145,3 +137,4 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(Logo);
+//export const LogoConsumer = LogoContext.Consumer;
