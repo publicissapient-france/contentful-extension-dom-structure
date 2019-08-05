@@ -43,7 +43,7 @@ class HeaderImages extends Component {
                 [index]: {
                     ...this.state.value[index],
                     [props]: {
-                        ...this.state.value[props],
+                        ...this.state.value[index][props],
                         [indexLanguage]: value
                     }
                 }
@@ -113,7 +113,7 @@ class HeaderImages extends Component {
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
                     <Choices>
                         <CategoryMultipleImage
-                            multiple={3}
+                            multiple={8}
                             indexLanguage={indexLanguage}
                             value={this.state.value}
                             updateStateAsset={this.updateStateAsset}

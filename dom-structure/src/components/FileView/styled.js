@@ -5,6 +5,7 @@ export const Container = styled.div`
     width : 100%;
     display  : flex;
     flex-direction:column;
+    padding-right : 20px;
     
    &.image-file {
         grid-template-columns: 1fr minmax(40%, 1fr);
@@ -116,7 +117,6 @@ export const Warning =  styled.div`
 
 export const Details =  styled.div`
     width : 100%;
-    padding: 0 15px;
     & strong {
         font-weight: 700;
     }

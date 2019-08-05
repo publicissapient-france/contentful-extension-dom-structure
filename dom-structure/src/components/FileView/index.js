@@ -63,19 +63,20 @@ export default function FileView(props) {
                         <SvgTrashSmall/>
                     </IconContainer>
                 </Actions>
-                <Details>
-                    <div>
-                        <Field>
-                            <label>Alt (required)</label>
-                            <input type={'text'}
-                                   value={props.alt}
-                                   onChange={e => {
-                                       props.updateStateTranslatedProps('alt', e.target.value, props.index);
-                                   }}/>
-                        </Field>
-                    </div>
-                </Details>
+
             </DataContainer>
+            <Details>
+                <div>
+                    <Field>
+                        <label>Alt (required)</label>
+                        <input type={'text'}
+                               value={props.alt}
+                               onChange={e => {
+                                   props.updateStateTranslatedProps('alt', e.target.value, props.index);
+                               }}/>
+                    </Field>
+                </div>
+            </Details>
         </Container>
     )
 }

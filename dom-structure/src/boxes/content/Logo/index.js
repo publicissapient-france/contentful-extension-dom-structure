@@ -9,6 +9,7 @@ import {Icon} from '../../../style/styledComponents';
 import {Banner, ActiveCheckBox} from '../../../style/styledComponentsBoxes';
 import SvgToggle from '../../../components/svg/SvgToggle';
 import SvgCheck from '../../../components/svg/SvgCheck';
+import CategoryImage from '../../reusable/CategoryImage';
 import ImageUploader from '../../reusable/ImageUploader';
 import ButtonValidate from '../../../components/ui/ButtonValidate';
 
@@ -101,13 +102,14 @@ class Logo extends Component {
                 </Banner>
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
                     <Choices>
-                        <ImageUploader
+                        <CategoryImage
                             alt={this.state.value.alt ? this.state.value.alt[indexLanguage] : ''}
                             asset={this.state.value.asset}
                             index={null}
                             updateStateAsset={this.updateStateAsset}
                             updateStateTranslatedProps={this.updateStateTranslatedProps}
                         />
+
                     </Choices>
                 </FieldsTemplate>
                 <ChoiceItemsConfirm className={!this.isUpdated() || !this.isValid() ? 'hidden' : ''}>

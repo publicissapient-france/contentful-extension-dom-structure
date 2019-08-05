@@ -9,7 +9,6 @@ export const Choices = styled.div`
    &>div{
     display : flex;
     margin-top : 20px;
-    width : fit-content;
     width : calc(100% / 3 - 10px);
     
    }
