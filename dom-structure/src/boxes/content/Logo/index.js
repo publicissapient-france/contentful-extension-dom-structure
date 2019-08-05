@@ -10,7 +10,6 @@ import {Banner, ActiveCheckBox} from '../../../style/styledComponentsBoxes';
 import SvgToggle from '../../../components/svg/SvgToggle';
 import SvgCheck from '../../../components/svg/SvgCheck';
 import CategoryImage from '../../reusable/CategoryImage';
-import ImageUploader from '../../reusable/ImageUploader';
 import ButtonValidate from '../../../components/ui/ButtonValidate';
 
 //const LogoContext = React.createContext();
@@ -77,8 +76,6 @@ class Logo extends Component {
     render() {
         const {dispatch, dom, currentLanguage, indexComponent, indexSection, name} = this.props;
         const indexLanguage = currentLanguage.language;
-        const componentStore = dom.sections[indexSection].components[indexComponent];
-        const logoContent = componentStore.content.Logo;
 
         return (
             <div>

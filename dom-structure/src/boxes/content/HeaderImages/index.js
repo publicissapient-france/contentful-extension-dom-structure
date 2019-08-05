@@ -68,7 +68,6 @@ class HeaderImages extends Component {
         const logoContent = componentStore.content.HeaderImages;
         if (!_.isEqual(logoContent && logoContent.value, this.state.value)) return true;
         return false;
-        return true
     }
 
     isValid = () => {
@@ -87,8 +86,6 @@ class HeaderImages extends Component {
     render() {
         const {dispatch, dom, currentLanguage, indexComponent, indexSection, name} = this.props;
         const indexLanguage = currentLanguage.language;
-        const componentStore = dom.sections[indexSection].components[indexComponent];
-        const headerContent = componentStore.content.HeaderImages;
 
         return (
             <div>

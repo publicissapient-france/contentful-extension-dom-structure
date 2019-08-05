@@ -102,7 +102,6 @@ class Text extends Component {
     render() {
         const {dispatch, dom, currentLanguage, indexComponent, indexSection, name} = this.props;
         const indexLanguage = currentLanguage.language;
-        const componentStore = dom.sections[indexSection].components[indexComponent];
 
         return (
             <div>

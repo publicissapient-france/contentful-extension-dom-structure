@@ -137,10 +137,6 @@ class ComponentDOM extends Component {
     isUpdated = () => (this.state.component && (this.state.component.name !== this.props.component.name ||
         this.state.component.model !== this.props.component.model))
 
-    // getContentAvailable = () => components.find(c => c.name === this.props.component.model).content;
-
-    //getSettingsAvailable = () => (components.find(c => c.name === this.props.component.model).settings);
-
     getSettingsComponent = () => {
         return componentConfig[this.props.component.model].default.settings;
     }
@@ -249,13 +245,13 @@ class ComponentDOM extends Component {
                             <ButtonBasic
                                 label={'Cancel'}
                                 disabled={!this.isUpdated()}
-                                action={ (e) => {
+                                action={(e) => {
                                     e.preventDefault();
                                     this.setState({component: this.props.component});
                                     inputName.value = component.name;
                                     selectModel.value = component.model;
                                 }}/>
-                            <ButtonValidate label={'Update'} type={'submit'} disabled={!this.isUpdated()} />
+                            <ButtonValidate label={'Update'} type={'submit'} disabled={!this.isUpdated()}/>
                         </div>
                     </FormComponent>
                 </div>

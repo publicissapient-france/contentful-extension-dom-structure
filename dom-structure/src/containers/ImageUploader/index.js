@@ -2,16 +2,16 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {getCurrentExtension} from "../../../actions/index";
+import {getCurrentExtension} from "../../actions/index";
 import {ReloadView, IconContainer, ViewPort, RefreshMessage, Actions} from "./styled";
-import UploadView from '../../../components/UploadView/index'
-import FileView from '../../../components/FileView/index'
-import SvgRefresh from '../../../components/svg/SvgRefresh'
+import UploadView from '../../components/UploadView/index'
+import FileView from '../../components/FileView/index'
+import SvgRefresh from '../../components/svg/SvgRefresh'
 
-import SvgAttachement from '../../../components/svg/SvgAttachement';
-import SvgAddSmall from '../../../components/svg/SvgAddSmall';
-import SvgTrashSmall from '../../../components/svg/SvgTrashSmall';
-import ButtonValidate from "../../../components/ui/ButtonValidate";
+import SvgAttachement from '../../components/svg/SvgAttachement';
+import SvgAddSmall from '../../components/svg/SvgAddSmall';
+import SvgTrashSmall from '../../components/svg/SvgTrashSmall';
+import ButtonValidate from "../../components/ui/ButtonValidate/index";
 
 class ImageUploader extends Component {
     constructor(props) {
@@ -67,11 +67,6 @@ class ImageUploader extends Component {
     }
 
     findProperLocale() {
-        //TO DO : MULTILANGUE
-        /*if (this.props.extensionInfo.extension.fields[this.props.extensionInfo.extension.field.id].type === "Link") {
-            return this.props.extensionInfo.extension.locales.default
-        }
-        return this.props.extensionInfo.extension.field.locale*/
         return this.props.extensionInfo.extension.locales.default
     }
 

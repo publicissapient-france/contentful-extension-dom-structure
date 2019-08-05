@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {extensionTheme} from "../../../style/theme";
+import {extensionTheme} from "../../style/theme";
 
 export const ChoiceImage = styled.div`
    display : flex;
