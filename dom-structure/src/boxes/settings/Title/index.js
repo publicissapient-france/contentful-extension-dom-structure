@@ -5,7 +5,7 @@ import _ from 'lodash';
 import {updateSettingsValue, getCurrentDOM} from '../../../actions/index';
 
 import {Category, ChoiceItemsConfirm, Choices, Column, FieldsTemplate} from './styled'
-import {Icon, ButtonGreen} from '../../../style/styledComponents';
+import {Icon} from '../../../style/styledComponents';
 import {
     Banner,
     ActiveCheckBox,
@@ -17,6 +17,7 @@ import CategoryColor from '../../reusable/CategoryColor/index';
 import CategorySeo from '../../reusable/CategorySeo/index';
 import TextPreview from '../../../components/TextPreview';
 import ButtonBasic from '../../../components/ui/ButtonBasic';
+import ButtonValidate from '../../../components/ui/ButtonValidate'
 
 
 class Title extends Component {
@@ -157,14 +158,11 @@ class Title extends Component {
                             label={'Cancel'}
                             disaled={!this.isUpdated()}
                             action={this.cancelStateValue}/>
-                        <ButtonGreen
-                            disabled={!this.isUpdated()}
-                            className={this.isUpdated() ? 'active' : ''}
-                            onClick={() => {
+                        <ButtonValidate label={'Update'} disabled={!this.isUpdated()} action={() => {
                                 dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                             }}>
                             Update
-                        </ButtonGreen>
+                        </ButtonValidate>
                     </ChoiceItemsConfirm>
                 </FieldsTemplate>
             </div>

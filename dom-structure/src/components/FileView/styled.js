@@ -31,8 +31,8 @@ export const Container = styled.div`
     }
 `;
 export const Preview = styled.header`
-   width : 180px;
-   height : 180px;
+   width : 150px;
+   height : 150px;
    
 `;
 
@@ -43,11 +43,9 @@ export const DataContainer = styled.div`
 `;
 
 export const IconContainer = styled.div`
-    width : 40px;
-    height : 40px;
-    display : flex;
-    align-items : center;
-    justify-content: center;
+    width : 20px;
+    height : 20px;
+    margin-bottom : 10px;
     cursor : pointer;
  
      & svg{
@@ -116,10 +114,6 @@ export const Warning =  styled.div`
 `;
 
 
-export const Information = styled.div`
-  min-width : 88px;
-`;
-
 export const Details =  styled.div`
     width : 100%;
     padding: 0 15px;
@@ -153,23 +147,6 @@ export const Details =  styled.div`
     }
 `;
 
-export const Title =  styled.p`
-    margin : 0;
-    padding-top : 5px;
-    font-size : 14px;
-    max-width : 180px;
-`;
-export const Status =  styled.span`
-    font-size : 14px !important;
-    font-weight : 400;
-    color : black;
-    &.published{
-        color : ${ extensionTheme.greenM}
-    } 
-    &.draft{
-        color : ${ extensionTheme.orange}
-    }
-`;
 
 
 export const Field = styled.div`

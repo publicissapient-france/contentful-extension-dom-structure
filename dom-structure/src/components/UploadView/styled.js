@@ -25,13 +25,12 @@ export const ViewPort = styled.div`
  `
 
 export const IconContainer = styled.div`
- width : 40px;
- height : 40px;
+ width : 20px;
+ height : 20px;
+ margin-bottom : 10px;
  cursor : pointer;
  
  & svg{
-    width : 40px;
-    height : 40px;
     & path, & rect{
        transition : fill .2s ease;
         fill : ${extensionTheme.black}
@@ -47,3 +46,13 @@ export const IconContainer = styled.div`
  }
  
 `;
+
+
+export const Actions =  styled.nav`
+    diplay:flex;
+    flex-direction : column;
+    
+    padding : 0 10px;
+    
+`;
+

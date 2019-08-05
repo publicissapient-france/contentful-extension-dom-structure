@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import update from 'react-addons-update';
 import sectionsConfig from '../../config/sections/*.js';
 import { addSection, addSectionToTop, toggleFormAddSection, toggleFormAddSectionToTop } from '../../actions/index';
-import { Container, ButtonGreen } from '../../style/styledComponents';
+import { Container } from '../../style/styledComponents';
 import { FormSection} from './styled';
 import ButtonBasic from '../../components/ui/ButtonBasic';
+import ButtonValidate from '../../components/ui/ButtonValidate';
 
 
 class AddSection extends Component {
@@ -99,9 +100,7 @@ class AddSection extends Component {
                                 dispatch(toggleFormAddSection());
                             }}
                         />
-                        <ButtonGreen
-                            disabled={!this.isComplete()}
-                            className={this.isComplete() ? 'active' : ''} type="submit">Add</ButtonGreen>
+                        <ButtonValidate label={'Add'} type={'submit'} disabled={!this.isComplete()}/>
                     </div>
                 </FormSection>
             </Container>

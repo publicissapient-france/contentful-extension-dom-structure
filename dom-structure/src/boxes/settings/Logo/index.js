@@ -5,7 +5,7 @@ import _ from 'lodash';
 import {updateSettingsValue, getCurrentDOM} from '../../../actions/index';
 
 import {ChoiceItemsConfirm, Choices, FieldsTemplate} from './styled'
-import {Icon, ButtonGreen} from '../../../style/styledComponents';
+import {Icon} from '../../../style/styledComponents';
 import {
     Banner,
     ActiveCheckBox,
@@ -15,6 +15,7 @@ import CategoryMargin from '../../reusable/CategoryMargin';
 import SvgArrow from '../../../components/svg/SvgArrow';
 import SvgCheck from '../../../components/svg/SvgCheck';
 import ButtonBasic from '../../../components/ui/ButtonBasic';
+import ButtonValidate from '../../../components/ui/ButtonValidate';
 
 
 class Logo extends Component {
@@ -115,14 +116,14 @@ class Logo extends Component {
                             disabled={!this.isUpdated()}
                             action={this.cancelStateValue}
                         />
-                        <ButtonGreen
+                        <ButtonValidate
+                            label={'Update'}
                             disabled={!this.isUpdated()}
-                            className={this.isUpdated() ? 'active' : ''}
-                            onClick={() => {
+                            action={() => {
                                 dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
                             }}>
                             Update
-                        </ButtonGreen>
+                        </ButtonValidate>
                     </ChoiceItemsConfirm>
                 </FieldsTemplate>
             </div>

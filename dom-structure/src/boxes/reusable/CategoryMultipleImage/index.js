@@ -27,10 +27,9 @@ class CategoryMultipleImage extends Component {
         return (
             <Choices>
                 {Array.from(Array(multiple), (e, i) => {
-                    return <ImageUploader currentAsset={value[i] ? value[i].asset : null}
+                    return <ImageUploader asset={value[i] && value[i].asset ? value[i].asset : null}
                                           alt={value[i] && value[i].alt ? value[i].alt[indexLanguage]  : ''}
                                           index={i}
-                                          description={value[i] && value[i].description ? value[i].description[indexLanguage] : ''}
                                           updateStateAsset={this.props.updateStateAsset}
                                           updateStateTranslatedProps={this.props.updateStateTranslatedProps}
                     />
@@ -43,7 +42,7 @@ class CategoryMultipleImage extends Component {
 
 CategoryMultipleImage.protoTypes = {
     indexLanguage: PropTypes.number,
-    alt: PropTypes.arrayOf(PropTypes.string)
+    value: PropTypes.arrayOf(PropTypes.string)
 };
 
 

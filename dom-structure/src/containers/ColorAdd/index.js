@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {ButtonGreen} from '../../style/styledComponents';
 import {getCurrentExtension, getStyleGuideName} from '../../actions/index';
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
+import ButtonValidate from "../../components/ui/ButtonValidate";
 
 class ColorAdd extends Component {
     openStyleGuide = e => {
@@ -16,7 +16,7 @@ class ColorAdd extends Component {
         return (
             <section className={!display ? 'hidden' : ''}>
                 <h2>Do you want to add a color on <strong>{styleGuideName}</strong>'s palette ? </h2>
-                <ButtonGreen className={'active'} onClick={e => this.openStyleGuide(e)}>Open color chart </ButtonGreen>
+                <ButtonValidate label={'Open color chart'} action={ this.openStyleGuide} />
             </section>
         );
     }

@@ -1,9 +1,9 @@
 import React from "react"
 import { Icon } from "@contentful/forma-36-react-components"
-import { Container, ViewPort, IconContainer } from "./styled"
+import { Container, ViewPort, IconContainer, Actions } from "./styled"
 
-import SvgAdd from '../svg/SvgAdd'
-import SvgLink from '../svg/SvgLink'
+import SvgAddSmall from '../svg/SvgAddSmall'
+import SvgAttachement from '../svg/SvgAttachement'
 
 export default function UploadView(props) {
     return (
@@ -17,14 +17,14 @@ export default function UploadView(props) {
                     />
             </ViewPort>
             {!props.isDraggingOver ? (
-                <nav>
+                <Actions>
                     <IconContainer  onClick={props.onClickLinkExisting}>
-                        <SvgLink/>
+                        <SvgAttachement/>
                     </IconContainer>
                     <IconContainer  onClick={props.onClickNewAsset}>
-                        <SvgAdd/>
+                        <SvgAddSmall/>
                     </IconContainer>
-                </nav>
+                </Actions>
             ) : null}
         </Container>
     )

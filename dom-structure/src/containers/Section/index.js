@@ -26,6 +26,7 @@ import ButtonBasic from '../../components/ui/ButtonBasic';
 import sectionsConfig from '../../config/sections/*.js';
 import update from 'react-addons-update';
 import AddComponent from '../AddComponent/index';
+import ButtonValidate from '../../components/ui/ButtonValidate'
 
 import PropTypes from 'prop-types';
 
@@ -182,9 +183,7 @@ class Index extends Component {
                                     inputName.value = section.name;
                                     selectModel.value = section.model;
                                 }}/>
-                            <ButtonGreen
-                                disabled={!this.isUpdated()}
-                                className={this.isUpdated() ? 'active' : ''}>Update</ButtonGreen>
+                            <ButtonValidate label={'Update'} disabled={!this.isUpdated()} />
                         </div>
                     </FormSection>
                 </Settings>

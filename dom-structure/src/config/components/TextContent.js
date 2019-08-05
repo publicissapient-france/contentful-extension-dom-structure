@@ -1,5 +1,5 @@
 export default {
     name: 'TextContent',
-    settings: [],
+    settings: ['Yolo'],
     content: ['Title', 'Text']
 }

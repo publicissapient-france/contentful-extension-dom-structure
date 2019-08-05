@@ -5,11 +5,12 @@ import {updateContentValue, getCurrentDOM, getCurrentLanguage} from '../../../ac
 import _ from 'lodash'
 
 import {ChoiceItemsConfirm, FieldsTemplate, Choices} from './styled';
-import {Icon, ButtonGreen} from '../../../style/styledComponents';
+import {Icon} from '../../../style/styledComponents';
 import {Banner, Fields, ActiveCheckBox, Property} from '../../../style/styledComponentsBoxes';
 import SvgToggle from '../../../components/svg/SvgToggle';
 import SvgCheck from '../../../components/svg/SvgCheck';
-import CategoryMultipleImage from '../../reusable/CategoryMultipleImage'
+import CategoryMultipleImage from '../../reusable/CategoryMultipleImage';
+import ButtonValidate from '../../../components/ui/ButtonValidate';
 
 
 class HeaderImages extends Component {
@@ -74,7 +75,6 @@ class HeaderImages extends Component {
         const indexLanguage = this.props.currentLanguage.language;
         let valid = true;
         Object.keys(this.state.value).forEach(key => {
-            console.log('e on valid', this.state.value[key]);
             const currentAlt = this.state.value[key].alt;
             if (!currentAlt || !currentAlt[indexLanguage] || currentAlt[indexLanguage] === '') {
                 valid = false;
@@ -122,14 +122,9 @@ class HeaderImages extends Component {
                     </Choices>
                 </FieldsTemplate>
                 <ChoiceItemsConfirm className={!this.isUpdated() || !this.isValid() ? 'hidden' : ''}>
-                    <ButtonGreen
-                        disabled={!this.isUpdated()}
-                        className={this.isUpdated() ? 'active' : ''}
-                        onClick={() => {
-                            dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
-                        }}>
-                        Update
-                    </ButtonGreen>
+                    <ButtonValidate label={'Update'} disabled={!this.isUpdated()} action={() => {
+                        dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                    }}/>
                 </ChoiceItemsConfirm>
             </div>
         );

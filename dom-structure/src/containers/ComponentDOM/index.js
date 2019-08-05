@@ -6,12 +6,11 @@ import SvgRange from '../../components/svg/SvgRange';
 import SvgCheck from '../../components/svg/SvgCheck';
 import SvgTrash from '../../components/svg/SvgTrash';
 import SvgArrowDouble from '../../components/svg/SvgArrowDouble';
-import BoxesContent from '../BoxesContent/index';
-import BoxesSettings from '../BoxesSettings/index';
+import BoxesContent from '../../components/BoxesContent/index';
+import BoxesSettings from '../../components/BoxesSettings/index';
 import {getCountryISO} from '../../utils/functions';
 
 import {
-    ButtonGreen,
     ButtonDelete,
     Icon,
     Range,
@@ -32,10 +31,8 @@ import {
     TopBar
 } from './styled';
 import ButtonBasic from '../../components/ui/ButtonBasic';
-//import components from '../../config/components';
+import ButtonValidate from '../../components/ui/ButtonValidate';
 import componentConfig from '../../config/components/*.js';
-//import componentConfig from '../../config/components/*/index.js';
-
 
 import {
     moveComponentToTop,
@@ -145,7 +142,6 @@ class ComponentDOM extends Component {
     //getSettingsAvailable = () => (components.find(c => c.name === this.props.component.model).settings);
 
     getSettingsComponent = () => {
-        console.log('COMPONENT SETTINGS 2 >>>>>', componentConfig[this.props.component.model].default.settings)
         return componentConfig[this.props.component.model].default.settings;
     }
 
@@ -159,8 +155,6 @@ class ComponentDOM extends Component {
         let inputName, selectModel;
 
         if (!this.state.component || !extensionInfo.extension.locales) return null;
-
-        console.log('COMPONENTS AVAILABLE 2', componentConfig);
 
         this.getSettingsComponent()
         return (
@@ -261,9 +255,7 @@ class ComponentDOM extends Component {
                                     inputName.value = component.name;
                                     selectModel.value = component.model;
                                 }}/>
-                            <ButtonGreen
-                                disabled={!this.isUpdated()}
-                                className={this.isUpdated() ? 'active' : ''}>Update</ButtonGreen>
+                            <ButtonValidate label={'Update'} type={'submit'} disabled={!this.isUpdated()} />
                         </div>
                     </FormComponent>
                 </div>

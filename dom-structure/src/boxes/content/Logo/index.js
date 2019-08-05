@@ -5,11 +5,12 @@ import {updateContentValue, getCurrentDOM, getCurrentLanguage} from '../../../ac
 import _ from 'lodash'
 
 import {ChoiceItemsConfirm, FieldsTemplate, Choices} from './styled';
-import {Icon, ButtonGreen} from '../../../style/styledComponents';
+import {Icon} from '../../../style/styledComponents';
 import {Banner, ActiveCheckBox} from '../../../style/styledComponentsBoxes';
 import SvgToggle from '../../../components/svg/SvgToggle';
 import SvgCheck from '../../../components/svg/SvgCheck';
 import ImageUploader from '../../reusable/ImageUploader';
+import ButtonValidate from '../../../components/ui/ButtonValidate';
 
 //const LogoContext = React.createContext();
 
@@ -102,7 +103,6 @@ class Logo extends Component {
                     <Choices>
                         <ImageUploader
                             alt={this.state.value.alt ? this.state.value.alt[indexLanguage] : ''}
-                            description={this.state.value.description ? this.state.value.description[indexLanguage] : ''}
                             asset={this.state.value.asset}
                             index={null}
                             updateStateAsset={this.updateStateAsset}
@@ -111,14 +111,12 @@ class Logo extends Component {
                     </Choices>
                 </FieldsTemplate>
                 <ChoiceItemsConfirm className={!this.isUpdated() || !this.isValid() ? 'hidden' : ''}>
-                    <ButtonGreen
+                    <ButtonValidate
+                        label={'Update'}
                         disabled={!this.isUpdated() && this.isValid()}
-                        className={this.isUpdated() && this.isValid() ? 'active' : ''}
-                        onClick={() => {
+                        action={() => {
                             dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
-                        }}>
-                        Update
-                    </ButtonGreen>
+                        }}/>
                 </ChoiceItemsConfirm>
             </div>
         );

@@ -4,7 +4,7 @@ import * as Showdown from 'showdown';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import {Icon, ButtonGreen} from '../../../style/styledComponents';
+import {Icon} from '../../../style/styledComponents';
 import {TextArea} from './styled'
 import {Banner, Fields, ActiveCheckBox, ChoiceConfirm} from '../../../style/styledComponentsBoxes';
 import SvgToggle from '../../../components/svg/SvgToggle';
@@ -12,6 +12,8 @@ import SvgCheck from '../../../components/svg/SvgCheck';
 import {connect} from 'react-redux';
 import {updateContentValue, getCurrentDOM, getCurrentLanguage} from '../../../actions/index';
 import ButtonBasic from '../../../components/ui/ButtonBasic';
+import ButtonValidate from '../../../components/ui/ButtonValidate';
+
 
 class Text extends Component {
     constructor(props) {
@@ -139,14 +141,9 @@ class Text extends Component {
                             label={'Cancel'}
                             disabled={!this.isUpdated()}
                             action={this.cancelStateValue}/>
-                        <ButtonGreen
-                            disabled={!this.isUpdated()}
-                            className={this.isUpdated() ? 'active' : ''}
-                            onClick={() => {
-                                dispatch(updateContentValue(name, this.convertToHTML(this.state.value), this.state.active, indexComponent, indexSection));
-                            }}>
-                            Update
-                        </ButtonGreen>
+                        <ButtonValidate label={'Update'}  disabled={!this.isUpdated()} action={() => {
+                            dispatch(updateContentValue(name, this.convertToHTML(this.state.value), this.state.active, indexComponent, indexSection));
+                        }}/>
                     </ChoiceConfirm>
 
                 </Fields>

@@ -34,11 +34,11 @@ class TextPreview extends Component {
                 <TextContainer className={[!this.state.light ? 'on-dark' : '', open ? 'is-open' : '']}>
                     <p
                         style={{
-                            fontSize: font.size + 'px',
-                            fontFamily: ' "' + font.family + '",' + font.typeface,
+                            fontSize: `${font.size}px`,
+                            fontFamily: `"${font.family}",${font.typeface}`,
                             fontWeight: font.weight ? font.weight[1] : '',
-                            lineHeight: font.lineHeight + 'px',
-                            letterSpacing: font.letterSpacing + 'px',
+                            lineHeight: `${font.lineHeight}px`,
+                            letterSpacing: `${font.letterSpacing}px`,
                             fontStyle: font.style,
                             color: color.hex,
                             opacity: opacity,

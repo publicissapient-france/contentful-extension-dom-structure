@@ -34,11 +34,7 @@ class CategoryColor extends Component {
             currentAction: 'view'
         };
 
-        this.toggleAction = this.toggleAction.bind(this);
-        this.toggleOpenBasic = this.toggleOpenBasic.bind(this);
-        this.toggleOpenCustom = this.toggleOpenCustom.bind(this);
-        this.isSelected = this.isSelected.bind(this);
-        this.updateColor = this.updateColor.bind(this);
+
 
     }
 

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addComponent } from '../../actions/index';
-import { ButtonGreen } from '../../style/styledComponents';
 import {ContainerForm, FormComponent } from './styled';
 import update from 'react-addons-update';
 import componentConfig from '../../config/components/*.js';
 import ButtonBasic from '../../components/ui/ButtonBasic'
 
 import PropTypes from 'prop-types';
+import ButtonValidate from "../../components/ui/ButtonValidate";
 
 class AddComponent extends Component {
     constructor (props) {
@@ -95,9 +95,7 @@ class AddComponent extends Component {
                                 parent.setState({ openAdd: !parent.state.openAdd });
                             }}
                         />
-                        <ButtonGreen
-                            disabled={!this.isComplete()}
-                            className={this.isComplete() ? 'active' : ''} type="submit">Add</ButtonGreen>
+                        <ButtonValidate type={'submit'} label={'Add'} disabled={!this.isComplete()}/>
                     </div>
                 </FormComponent>
             </ContainerForm>

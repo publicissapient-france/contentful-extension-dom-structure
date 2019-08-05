@@ -28,8 +28,6 @@ class CategoryText extends Component {
         super(props);
 
         this.state = {familyFonts: []};
-
-        this.updateTextProp = this.updateTextProp.bind(this);
     }
 
     componentDidMount = () => {

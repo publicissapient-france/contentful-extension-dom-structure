@@ -33,7 +33,6 @@ class App extends React.Component {
     }
 
     componentDidMount = async () => {
-        console.log('STORE MOUNT ', this.props.store.getState());
         if (this.props.extension.field && this.props.extension.field.getValue()) {
             this.props.dispatch(initDOM(this.props.extension.field.getValue().dom));
             this.props.dispatch(initDOMbuild(this.props.extension.field.getValue().build));
@@ -83,8 +82,6 @@ class App extends React.Component {
 
     subscribe = () => {
         this.props.store.subscribe(() => {
-            console.log('STORE SUBSCRIBE', this.props.store.getState());
-            console.log('STORE SUBSCRIBE', JSON.stringify(extractActiveValue(this.props.store.getState().dom)));
             this.setFieldValue();
         });
     }
