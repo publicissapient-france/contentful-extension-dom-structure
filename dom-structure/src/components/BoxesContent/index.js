@@ -11,48 +11,27 @@ class BoxesContent extends Component {
 
                     {
                         fields.map((box, i) => {
-                            switch (box) {
+                            const params = {
+                                indexComponent: index,
+                                indexSection: indexParent,
+                                defaultValue : box.defaultValue,
+                                name: box.name,
+                                contentType : box.contentType,
+                                open: open,
+                                key: i
+                            }
+                            switch (box.contentType) {
                                 case 'Title':
-                                    return React.createElement(React.lazy(() => import('../../boxes/content/Title/index')), {
-                                        indexComponent: index,
-                                        indexSection: indexParent,
-                                        name: box,
-                                        open: open,
-                                        key: i
-                                    });
+                                    return React.createElement(React.lazy(() => import('../../boxes/content/Title/index')), params);
 
                                 case 'Tagline':
-                                    return React.createElement(React.lazy(() => import('../../boxes/content/Tagline/index')), {
-                                        indexComponent: index,
-                                        indexSection: indexParent,
-                                        name: box,
-                                        open: open,
-                                        key: i
-                                    });
+                                    return React.createElement(React.lazy(() => import('../../boxes/content/Tagline/index')), params);
                                 case 'Text':
-                                    return React.createElement(React.lazy(() => import('../../boxes/content/Text/index')), {
-                                        indexComponent: index,
-                                        indexSection: indexParent,
-                                        name: box,
-                                        open: open,
-                                        key: i
-                                    });
+                                    return React.createElement(React.lazy(() => import('../../boxes/content/Text/index')), params);
                                 case 'Logo':
-                                    return React.createElement(React.lazy(() => import('../../boxes/content/Logo/index')), {
-                                        indexComponent: index,
-                                        indexSection: indexParent,
-                                        name: box,
-                                        open: open,
-                                        key: i
-                                    });
+                                    return React.createElement(React.lazy(() => import('../../boxes/content/Logo/index')),params);
                                 case 'HeaderImages':
-                                    return React.createElement(React.lazy(() => import('../../boxes/content/HeaderImages/index')), {
-                                        indexComponent: index,
-                                        indexSection: indexParent,
-                                        name: 'HeaderImages',
-                                        open: open,
-                                        key: i
-                                    });
+                                    return React.createElement(React.lazy(() => import('../../boxes/content/HeaderImages/index')), params);
 
                                 default :
                                     return <div className={'error'}><p>No content-box <strong>{box}</strong> matches</p>

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {getCurrentExtension} from "../../actions/index";
-import {ReloadView, IconContainer, ViewPort, RefreshMessage, Actions} from "./styled";
+import {IconContainer, ViewPort, RefreshMessage, Actions} from "./styled";
 import UploadView from '../../components/UploadView/index'
 import FileView from '../../components/FileView/index'
 import SvgRefresh from '../../components/svg/SvgRefresh'
@@ -12,6 +12,7 @@ import SvgAttachement from '../../components/svg/SvgAttachement';
 import SvgAddSmall from '../../components/svg/SvgAddSmall';
 import SvgTrashSmall from '../../components/svg/SvgTrashSmall';
 import ButtonValidate from "../../components/ui/ButtonValidate/index";
+import ReloadView from '../../components/RealoadView'
 
 class ImageUploader extends Component {
     constructor(props) {
@@ -171,12 +172,7 @@ class ImageUploader extends Component {
         return false
     }
 
-
-    render = () => {
-        const {asset, alt, index} = this.props;
-        if (!this.state.isDraggingOver && this.state.asset && !this.state.asset.fields.file) {
-            return (
-                <ReloadView>
+/*<ReloadView>
                     <ViewPort>
                         <IconContainer>
                             <SvgRefresh/>
@@ -197,7 +193,16 @@ class ImageUploader extends Component {
                         <p>You added a new image. Click on "refresh" to see it</p>
                         <ButtonValidate label={'Refresh'} action={() => {this.reloadAsset(this.state.asset.sys.id);}}/>
                     </RefreshMessage>
-                </ReloadView>
+                </ReloadView>*/
+    render = () => {
+        const {asset, alt, index} = this.props;
+        if (!this.state.isDraggingOver && this.state.asset && !this.state.asset.fields.file) {
+            return (
+                <ReloadView
+                    assetId={this.state.asset.sys.id}
+                    onClickReload={this.reloadAsset}
+                />
+
             )
         } else if (!this.state.isDraggingOver && this.state.asset) {
             return (

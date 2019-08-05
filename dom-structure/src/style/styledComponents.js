@@ -189,6 +189,7 @@ export const ButtonDelete = styled.button`
   line-height : 11px;
   font-weight : 300;
   height : 33px;
+  border : 1px solid transparent;
    
   &:hover{
      background : ${ extensionTheme.redL } !important;
@@ -295,8 +296,10 @@ export const SafeDelete = styled.div`
   
   & ${ ButtonDelete }{
     margin-right : 8px;
+    margin-left : 10px;
   }
 `;
+
 export const Error = styled.div`
   
   & h2{

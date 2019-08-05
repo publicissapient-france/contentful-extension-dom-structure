@@ -74,7 +74,7 @@ class Logo extends Component {
     }
 
     render() {
-        const {dispatch, dom, currentLanguage, indexComponent, indexSection, name} = this.props;
+        const {dispatch, dom, currentLanguage, indexComponent, indexSection, name, contentType} = this.props;
         const indexLanguage = currentLanguage.language;
 
         return (
@@ -85,7 +85,7 @@ class Logo extends Component {
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
                                 this.setState({active: !this.state.active}, () => {
-                                    dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                                    dispatch(updateContentValue(contentType, this.state.value, this.state.active, indexComponent, indexSection));
                                 });
                             }}>
                             <SvgCheck/>
@@ -114,7 +114,7 @@ class Logo extends Component {
                         label={'Update'}
                         disabled={!this.isUpdated() && this.isValid()}
                         action={() => {
-                            dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                            dispatch(updateContentValue(contentType, this.state.value, this.state.active, indexComponent, indexSection));
                         }}/>
                 </ChoiceItemsConfirm>
             </div>

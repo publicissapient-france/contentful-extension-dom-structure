@@ -48,6 +48,8 @@ class HeaderImages extends Component {
                     }
                 }
             }
+        }, () => {
+            console.log('TRANSLATED PROPS ON HEADERIMAGES', this.state)
         });
     }
 
@@ -84,7 +86,7 @@ class HeaderImages extends Component {
     }
 
     render() {
-        const {dispatch, dom, currentLanguage, indexComponent, indexSection, name} = this.props;
+        const {dispatch, dom, currentLanguage, indexComponent, indexSection, name, contentType, defaultValue} = this.props;
         const indexLanguage = currentLanguage.language;
 
         return (
@@ -110,7 +112,7 @@ class HeaderImages extends Component {
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
                     <Choices>
                         <CategoryMultipleImage
-                            multiple={8}
+                            numberImages={defaultValue.numberImages || 2}
                             indexLanguage={indexLanguage}
                             value={this.state.value}
                             updateStateAsset={this.updateStateAsset}
@@ -120,7 +122,7 @@ class HeaderImages extends Component {
                 </FieldsTemplate>
                 <ChoiceItemsConfirm className={!this.isUpdated() || !this.isValid() ? 'hidden' : ''}>
                     <ButtonValidate label={'Update'} disabled={!this.isUpdated()} action={() => {
-                        dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                        dispatch(updateContentValue(contentType, this.state.value, this.state.active, indexComponent, indexSection));
                     }}/>
                 </ChoiceItemsConfirm>
             </div>

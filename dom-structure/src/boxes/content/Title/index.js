@@ -29,7 +29,7 @@ class Title extends Component {
     };
 
     render () {
-        const { dispatch, dom, currentLanguage, indexComponent, indexSection, name } = this.props;
+        const { dispatch, dom, currentLanguage, indexComponent, indexSection, name, contentType } = this.props;
         const maxLength = 140;
         const indexLanguage = currentLanguage.language;
 
@@ -41,7 +41,7 @@ class Title extends Component {
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
                                 this.setState({ active: !this.state.active }, () => {
-                                    dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                                    dispatch(updateContentValue(contentType, this.state.value, this.state.active, indexComponent, indexSection));
                                 });
                             }}>
                             <SvgCheck/>
@@ -61,7 +61,7 @@ class Title extends Component {
                                 ...this.state.value,
                                 [indexLanguage]: e.target.value
                             } }, () => {
-                                dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                                dispatch(updateContentValue(contentType, this.state.value, this.state.active, indexComponent, indexSection));
                             });
                         }}/>
                     <span>{maxLength} characters</span>

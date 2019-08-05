@@ -22,11 +22,11 @@ class CategoryMultipleImage extends Component {
     }
 
     render() {
-        const {multiple, value, indexLanguage} = this.props;
+        const {numberImages, value, indexLanguage} = this.props;
         console.log('VALUE ON CATEGORY MULTIPLE IMAGE', value)
         return (
             <Choices>
-                {Array.from(Array(multiple), (e, i) => {
+                {Array.from(Array(numberImages), (e, i) => {
                     return <ImageUploader asset={value[i] && value[i].asset ? value[i].asset : null}
                                           alt={value[i] && value[i].alt ? value[i].alt[indexLanguage]  : ''}
                                           index={i}

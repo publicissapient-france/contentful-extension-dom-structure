@@ -25,10 +25,11 @@ class BoxesSettings extends Component {
                                 indexComponent: index,
                                 indexSection: indexParent,
                                 name: box.name,
+                                contentType : box.contentType,
                                 defaultValue: box.defaultValue,
                                 open: open,
                                 key: i}
-                            switch (box.name) {
+                            switch (box.contentType) {
                                 case 'Title':
                                     return React.createElement(React.lazy(() => import('../../boxes/settings/Title/index')), params);
                                 case 'Logo':

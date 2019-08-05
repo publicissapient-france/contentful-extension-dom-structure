@@ -100,7 +100,7 @@ class Text extends Component {
     };
 
     render() {
-        const {dispatch, dom, currentLanguage, indexComponent, indexSection, name} = this.props;
+        const {dispatch, dom, currentLanguage, indexComponent, indexSection, name, contentType} = this.props;
         const indexLanguage = currentLanguage.language;
 
         return (
@@ -111,7 +111,7 @@ class Text extends Component {
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
                                 this.setState({active: !this.state.active}, () => {
-                                    dispatch(updateContentValue(name, this.convertToHTML(this.state.value), this.state.active, indexComponent, indexSection));
+                                    dispatch(updateContentValue(contentType, this.convertToHTML(this.state.value), this.state.active, indexComponent, indexSection));
                                 });
                             }}>
                             <SvgCheck/>
@@ -141,7 +141,7 @@ class Text extends Component {
                             disabled={!this.isUpdated()}
                             action={this.cancelStateValue}/>
                         <ButtonValidate label={'Update'}  disabled={!this.isUpdated()} action={() => {
-                            dispatch(updateContentValue(name, this.convertToHTML(this.state.value), this.state.active, indexComponent, indexSection));
+                            dispatch(updateContentValue(contentType, this.convertToHTML(this.state.value), this.state.active, indexComponent, indexSection));
                         }}/>
                     </ChoiceConfirm>
 

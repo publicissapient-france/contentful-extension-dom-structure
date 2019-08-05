@@ -70,7 +70,7 @@ class Logo extends Component {
     }
 
     render() {
-        const {dispatch, dom, indexComponent, indexSection, name, defaultValue} = this.props;
+        const {dispatch, dom, indexComponent, indexSection, name, contentType, defaultValue} = this.props;
         const componentStore = dom.sections[indexSection].components[indexComponent];
         const logoSettings = componentStore.settings.Logo;
 
@@ -82,7 +82,7 @@ class Logo extends Component {
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
                                 this.setState({active: !this.state.active}, () => {
-                                    dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                                    dispatch(updateSettingsValue(contentType, this.state.value, this.state.active, indexComponent, indexSection));
                                 });
                             }}>
                             <SvgCheck/>
@@ -120,7 +120,7 @@ class Logo extends Component {
                             label={'Update'}
                             disabled={!this.isUpdated()}
                             action={() => {
-                                dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                                dispatch(updateSettingsValue(contentType, this.state.value, this.state.active, indexComponent, indexSection));
                             }}>
                             Update
                         </ButtonValidate>

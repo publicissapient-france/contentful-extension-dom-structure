@@ -81,7 +81,7 @@ class Title extends Component {
     }
 
     render() {
-        const {dispatch, dom, indexComponent, indexSection, name, defaultValue} = this.props;
+        const {dispatch, dom, indexComponent, indexSection, name, contentType, defaultValue} = this.props;
         const componentStore = dom.sections[indexSection].components[indexComponent];
         const titleSettings = componentStore.settings.Title;
 
@@ -93,7 +93,7 @@ class Title extends Component {
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
                                 this.setState({active: !this.state.active}, () => {
-                                    dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                                    dispatch(updateSettingsValue(contentType, this.state.value, this.state.active, indexComponent, indexSection));
                                 });
                             }}>
                             <SvgCheck/>
@@ -159,7 +159,7 @@ class Title extends Component {
                             disaled={!this.isUpdated()}
                             action={this.cancelStateValue}/>
                         <ButtonValidate label={'Update'} disabled={!this.isUpdated()} action={() => {
-                                dispatch(updateSettingsValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+                                dispatch(updateSettingsValue(contentType, this.state.value, this.state.active, indexComponent, indexSection));
                             }}>
                             Update
                         </ButtonValidate>
