@@ -17,6 +17,7 @@ class BoxesContent extends Component {
                                 defaultValue : box.defaultValue,
                                 name: box.name,
                                 contentType : box.contentType,
+                                responsive : box.responsive,
                                 open: open,
                                 key: i
                             }

@@ -4,31 +4,36 @@ export default {
         {
             name: 'Title',
             contentType: 'Title',
+            responsive : null,
             defaultValue : {}
         },
         {
             name: 'Tagline',
             contentType: 'Tagline',
+            responsive : null,
             defaultValue : {}
 
         },
         {
             name: 'Text',
             contentType: 'Text',
+            responsive : null,
             defaultValue : {}
 
         },
         {
             name: 'Logo',
             contentType: 'Logo',
+            responsive : ['S', 'M', 'L'],
             defaultValue : {}
 
         },
         {
-            name: 'Header Four Images',
+            name: 'Header Images',
             contentType: 'HeaderImages',
+            responsive : null,
             defaultValue: {
-                numberImages: 5
+                numberImages: 4
             }
 
         },
@@ -37,6 +42,7 @@ export default {
         {
             name: 'Title',
             contentType: 'Title',
+            responsive : null,
             defaultValue: {
                 color: {
                     hex: '#000000',
@@ -68,6 +74,7 @@ export default {
         {
             name: 'Image Logo',
             contentType: 'Logo',
+            responsive : null,
             defaultValue: {
                 size: {
                     width: '500',

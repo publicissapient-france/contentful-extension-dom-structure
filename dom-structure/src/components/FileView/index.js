@@ -67,14 +67,7 @@ export default function FileView(props) {
             </DataContainer>
             <Details>
                 <div>
-                    <Field>
-                        <label>Alt (required)</label>
-                        <input type={'text'}
-                               value={props.alt}
-                               onChange={e => {
-                                   props.updateStateTranslatedProps('alt', e.target.value, props.index);
-                               }}/>
-                    </Field>
+
                 </div>
             </Details>
         </Container>

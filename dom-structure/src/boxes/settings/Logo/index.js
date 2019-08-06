@@ -70,9 +70,10 @@ class Logo extends Component {
     }
 
     render() {
-        const {dispatch, dom, indexComponent, indexSection, name, contentType, defaultValue} = this.props;
+        const {dispatch, dom, indexComponent, indexSection, name, contentType, responsive, defaultValue} = this.props;
         const componentStore = dom.sections[indexSection].components[indexComponent];
         const logoSettings = componentStore.settings.Logo;
+
 
         return (
             <div>

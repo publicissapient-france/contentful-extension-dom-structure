@@ -14,11 +14,20 @@ class CategoryImage extends Component {
     }
 
     componentDidMount = () => {
-
+        this.setState({
+            alt : this.props.alt,
+            asset : this.props.asset
+        })
     };
 
     componentDidUpdate = prevProps => {
-
+        console.log('PREVPROPS', prevProps);
+        console.log('PROPS', this.props);
+        if(prevProps.asset != this.props.asset){
+            this.setState({
+                asset : this.props.asset
+            })
+        }
     }
 
     render() {

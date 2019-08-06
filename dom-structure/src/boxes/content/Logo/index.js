@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {updateContentValue, getCurrentDOM, getCurrentLanguage} from '../../../actions/index';
 import _ from 'lodash'
 
-import {ChoiceItemsConfirm, FieldsTemplate, Choices} from './styled';
+import {ChoiceItemsConfirm, FieldsTemplate, Choices, Toggle, Responsive, ToogleResponsive} from './styled';
 import {Icon} from '../../../style/styledComponents';
 import {Banner, ActiveCheckBox} from '../../../style/styledComponentsBoxes';
 import SvgToggle from '../../../components/svg/SvgToggle';
@@ -32,6 +32,7 @@ class Logo extends Component {
         this.setState({
             value: componentStore.content.Logo ? componentStore.content.Logo.value : {},
             active: componentStore.content.Logo ? componentStore.content.Logo.active : true,
+            currentResponsiveMode : this.props.responsive ? this.props.responsive[0] : null,
             open: this.props.open
         });
     };
@@ -51,12 +52,25 @@ class Logo extends Component {
     }
 
     updateStateAsset = (value) => {
-        this.setState({
-            value: {
-                ...this.state.value,
-                asset: value
-            }
-        });
+        if(this.props.responsive){
+            this.setState({
+                value: {
+                    ...this.state.value,
+                    asset: {
+                        ...this.state.value.asset,
+                        [this.state.currentResponsiveMode] : value
+                    }
+                }
+            });
+        }else{
+            this.setState({
+                value: {
+                    ...this.state.value,
+                    asset: value
+                }
+            });
+        }
+
     }
 
     isUpdated = () => {
@@ -73,9 +87,21 @@ class Logo extends Component {
         return true;
     }
 
+    getCurrentAsset = (mode) => {
+        console.log('RESPONSIVE MODE ON CURRENTASSET',mode);
+        console.log('VALUE ON CURRENTASSET',this.state.value);
+        if(mode){
+            return this.state.value.asset && this.state.value.asset[mode] ? this.state.value.asset[mode] : null
+        }else{
+           return  this.state.value.asset ? this.state.value.asset : null
+        }
+    }
+
     render() {
-        const {dispatch, dom, currentLanguage, indexComponent, indexSection, name, contentType} = this.props;
+        const {dispatch, dom, currentLanguage, indexComponent, indexSection, name, contentType, responsive} = this.props;
         const indexLanguage = currentLanguage.language;
+
+        console.log('responsive on logo >>>>>>', responsive)
 
         return (
             <div>
@@ -92,16 +118,34 @@ class Logo extends Component {
                         </ActiveCheckBox>
                         <p>{name}</p>
                     </div>
-                    <Icon className={this.state.open ? '' : 'rotate'}
-                          onClick={() => {
-                              this.setState({open: !this.state.open});
-                          }}><SvgToggle/></Icon>
+                    <Toggle>
+                        <Responsive>
+                            {
+                                responsive ?
+                               responsive.map((mode, i) => {
+                                    return <ToogleResponsive
+                                        key={mode}
+                                        className={this.state.currentResponsiveMode === mode ? 'active' : ''}
+                                        onClick={e => {
+                                            this.setState({currentResponsiveMode: mode}, () => {
+                                                console.log('CURRENT RESPONSIVE MODE', this.state.currentResponsiveMode);
+                                            });
+                                        }}>{mode}</ToogleResponsive>;
+                                }) : null
+                            }
+                        </Responsive>
+                        <Icon className={this.state.open ? '' : 'rotate'}
+                              onClick={() => {
+                                  this.setState({open: !this.state.open});
+                              }}><SvgToggle/>
+                        </Icon>
+                    </Toggle>
                 </Banner>
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
                     <Choices>
                         <CategoryImage
                             alt={this.state.value.alt ? this.state.value.alt[indexLanguage] : ''}
-                            asset={this.state.value.asset}
+                            asset={this.getCurrentAsset(this.state.currentResponsiveMode)}
                             index={null}
                             updateStateAsset={this.updateStateAsset}
                             updateStateTranslatedProps={this.updateStateTranslatedProps}

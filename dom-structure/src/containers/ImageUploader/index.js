@@ -2,16 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { Container, Field} from "./styled";
 import {getCurrentExtension} from "../../actions/index";
-import {IconContainer, ViewPort, RefreshMessage, Actions} from "./styled";
 import UploadView from '../../components/UploadView/index'
 import FileView from '../../components/FileView/index'
-import SvgRefresh from '../../components/svg/SvgRefresh'
-
-import SvgAttachement from '../../components/svg/SvgAttachement';
-import SvgAddSmall from '../../components/svg/SvgAddSmall';
-import SvgTrashSmall from '../../components/svg/SvgTrashSmall';
-import ButtonValidate from "../../components/ui/ButtonValidate/index";
 import ReloadView from '../../components/RealoadView'
 
 class ImageUploader extends Component {
@@ -32,9 +26,14 @@ class ImageUploader extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        if (this.props.asset != prevProps.asset && this.props.asset) {
-            this.setSelectedAsset(this.props.asset);
-            this.publishAsset();
+        if (this.props.asset != prevProps.asset) {
+            if(this.props.asset){
+                this.setSelectedAsset(this.props.asset);
+                this.publishAsset();
+            }else{
+                this.setSelectedAsset(null);
+            }
+
         }
     }
 
@@ -172,41 +171,18 @@ class ImageUploader extends Component {
         return false
     }
 
-/*<ReloadView>
-                    <ViewPort>
-                        <IconContainer>
-                            <SvgRefresh/>
-                        </IconContainer>
-                    </ViewPort>
-                    <Actions>
-                        <IconContainer>
-                            <SvgAttachement/>
-                        </IconContainer>
-                        <IconContainer>
-                            <SvgAddSmall/>
-                        </IconContainer>
-                        <IconContainer>
-                            <SvgTrashSmall/>
-                        </IconContainer>
-                    </Actions>
-                    <RefreshMessage>
-                        <p>You added a new image. Click on "refresh" to see it</p>
-                        <ButtonValidate label={'Refresh'} action={() => {this.reloadAsset(this.state.asset.sys.id);}}/>
-                    </RefreshMessage>
-                </ReloadView>*/
     render = () => {
         const {asset, alt, index} = this.props;
+        let view;
+
+
         if (!this.state.isDraggingOver && this.state.asset && !this.state.asset.fields.file) {
-            return (
-                <ReloadView
+            view = <ReloadView
                     assetId={this.state.asset.sys.id}
                     onClickReload={this.reloadAsset}
                 />
-
-            )
         } else if (!this.state.isDraggingOver && this.state.asset) {
-            return (
-                <FileView
+           view =  <FileView
                     index={this.props.index}
                     file={this.state.asset.fields.file[this.findProperLocale()]}
                     title={this.state.asset.fields.title[this.findProperLocale()]}
@@ -224,18 +200,32 @@ class ImageUploader extends Component {
                     valid={this.state.valid}
                     validInformations={this.informationsAreValid()}
                 />
-            )
-        }
 
-        return (
-            <UploadView
+        }else{
+            view = <UploadView
                 isDraggingOver={this.state.isDraggingOver}
                 onClickLinkExisting={this.onClickLinkExisting}
                 onClickNewAsset={this.onClickNewAsset}
             />
+        }
 
+
+
+        return(
+            <Container>
+                { view }
+                <Field>
+                    <label>Alt (required)</label>
+                    <input type={'text'}
+                           value={alt}
+                           onChange={e => {
+                               this.props.updateStateTranslatedProps('alt', e.target.value, index);
+                           }}/>
+                </Field>
+            </Container>
 
         )
+
     }
 }
 

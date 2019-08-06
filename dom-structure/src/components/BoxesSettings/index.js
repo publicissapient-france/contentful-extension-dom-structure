@@ -26,6 +26,7 @@ class BoxesSettings extends Component {
                                 indexSection: indexParent,
                                 name: box.name,
                                 contentType : box.contentType,
+                                responsive : box.responsive,
                                 defaultValue: box.defaultValue,
                                 open: open,
                                 key: i}
