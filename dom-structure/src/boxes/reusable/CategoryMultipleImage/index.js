@@ -23,7 +23,6 @@ class CategoryMultipleImage extends Component {
 
     render() {
         const {numberImages, value, indexLanguage} = this.props;
-        console.log('VALUE ON CATEGORY MULTIPLE IMAGE', value)
         return (
             <Choices>
                 {Array.from(Array(numberImages), (e, i) => {

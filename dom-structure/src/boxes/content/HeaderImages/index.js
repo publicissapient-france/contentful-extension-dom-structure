@@ -48,8 +48,6 @@ class HeaderImages extends Component {
                     }
                 }
             }
-        }, () => {
-            console.log('TRANSLATED PROPS ON HEADERIMAGES', this.state)
         });
     }
 
