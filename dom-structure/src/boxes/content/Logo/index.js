@@ -4,13 +4,15 @@ import {connect} from 'react-redux';
 import {updateContentValue, getCurrentDOM, getCurrentLanguage} from '../../../actions/index';
 import _ from 'lodash'
 
-import {ChoiceItemsConfirm, FieldsTemplate, Choices, Toggle, Responsive, ToogleResponsive} from './styled';
+import {ChoiceItemsConfirm, FieldsTemplate, Choices} from './styled';
 import {Icon} from '../../../style/styledComponents';
-import {Banner, ActiveCheckBox} from '../../../style/styledComponentsBoxes';
+import {Banner, ActiveCheckBox, Toggle, ToogleResponsive, Responsive} from '../../../style/styledComponentsBoxes';
 import SvgToggle from '../../../components/svg/SvgToggle';
 import SvgCheck from '../../../components/svg/SvgCheck';
 import CategoryImage from '../../reusable/CategoryImage';
 import ButtonValidate from '../../../components/ui/ButtonValidate';
+import {getResponsiveMode, toggleResponsiveMode} from "../../../actions/visibility";
+
 
 //const LogoContext = React.createContext();
 
@@ -29,14 +31,15 @@ class Logo extends Component {
     componentDidMount = () => {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
+        console.log('storestorestorestorestore responsivemode', this.props.responsiveMode )
         this.setState({
             value: componentStore.content.Logo ? componentStore.content.Logo.value : {},
             active: componentStore.content.Logo ? componentStore.content.Logo.active : true,
-            currentResponsiveMode : this.props.responsive ? this.props.responsive[0] : null,
+            currentResponsiveMode : this.props.responsive && this.props.responsiveMode ? this.props.responsiveMode : null,
             open: this.props.open
         });
+        console.log('IS MOUUUUUUUUUUUUNT')
     };
-
 
     updateStateTranslatedProps = (props, value) => {
         const indexLanguage = this.props.currentLanguage.language;
@@ -88,8 +91,6 @@ class Logo extends Component {
     }
 
     getCurrentAsset = (mode) => {
-        console.log('RESPONSIVE MODE ON CURRENTASSET',mode);
-        console.log('VALUE ON CURRENTASSET',this.state.value);
         if(mode){
             return this.state.value.asset && this.state.value.asset[mode] ? this.state.value.asset[mode] : null
         }else{
@@ -98,10 +99,11 @@ class Logo extends Component {
     }
 
     render() {
-        const {dispatch, dom, currentLanguage, indexComponent, indexSection, name, contentType, responsive} = this.props;
+        const {dispatch, dom, currentLanguage, responsiveMode, indexComponent, indexSection, name, contentType, responsive} = this.props;
         const indexLanguage = currentLanguage.language;
 
         console.log('responsive on logo >>>>>>', responsive)
+        console.log('responsive mode >>>>>>',responsiveMode)
 
         return (
             <div>
@@ -129,6 +131,7 @@ class Logo extends Component {
                                         onClick={e => {
                                             this.setState({currentResponsiveMode: mode}, () => {
                                                 console.log('CURRENT RESPONSIVE MODE', this.state.currentResponsiveMode);
+                                                if(responsiveMode !== mode){dispatch(toggleResponsiveMode(mode))}
                                             });
                                         }}>{mode}</ToogleResponsive>;
                                 }) : null
@@ -174,7 +177,8 @@ Logo.propTypes = {
 };
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state),
-    currentLanguage: getCurrentLanguage(state)
+    currentLanguage: getCurrentLanguage(state),
+    responsiveMode: getResponsiveMode(state).mode
 });
 
 export default connect(mapStateToProps)(Logo);

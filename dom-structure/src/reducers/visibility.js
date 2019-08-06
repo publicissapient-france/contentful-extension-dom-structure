@@ -2,33 +2,40 @@ import update from 'react-addons-update';
 
 const visibility = (state = [], action) => {
     switch (action.type) {
-    case 'INIT_VISIBILITY' :
-        return {
-            openFormAddSection: false,
-            openFormAddSectionToTop: false,
-            selectedLanguage: 0
-        };
+        case 'INIT_VISIBILITY' :
+            return {
+                openFormAddSection: false,
+                openFormAddSectionToTop: false,
+                selectedLanguage: 0,
+                responsiveMode: 'M'
+            };
 
-    case 'TOGGLE_FORM_ADD_SECTION':
-        return update(state, {
-            openFormAddSection: { $set: !state.openFormAddSection }
-        });
+        case 'TOGGLE_FORM_ADD_SECTION':
+            return update(state, {
+                openFormAddSection: {$set: !state.openFormAddSection}
+            });
 
-    case 'TOGGLE_FORM_ADD_SECTION_TO_TOP':
-        return update(state, {
-            openFormAddSectionToTop: { $set: !state.openFormAddSectionToTop }
-        });
+        case 'TOGGLE_FORM_ADD_SECTION_TO_TOP':
+            return update(state, {
+                openFormAddSectionToTop: {$set: !state.openFormAddSectionToTop}
+            });
 
-    case 'TOGGLE_SELECTED_LANGUAGE':
-        return update(state, {
-            selectedLanguage: { $set: action.language }
-        });
+        case 'TOGGLE_SELECTED_LANGUAGE':
+            return update(state, {
+                selectedLanguage: {$set: action.language}
+            });
 
-    case 'GET_VISIBILITY_FORM_ADD_SECTION':
-        return state;
+        case 'TOGGLE_RESPONSIVE_MODE':
+            return update(state, {
+                responsiveMode: {$set: action.mode}
+            });
 
-    default:
-        return state;
+
+        case 'GET_VISIBILITY_FORM_ADD_SECTION':
+            return state;
+
+        default:
+            return state;
     }
 };
 

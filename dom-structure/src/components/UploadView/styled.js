@@ -3,6 +3,8 @@ import {extensionTheme} from "../../style/theme";
 
 export const Container = styled.div`
   display : flex;
+  margin-bottom : 10px;
+
 `;
 
 export const ViewPort = styled.div`

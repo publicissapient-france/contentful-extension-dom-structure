@@ -9,13 +9,17 @@ import {Icon} from '../../../style/styledComponents';
 import {
     Banner,
     ActiveCheckBox,
+    Toggle,
+    ToogleResponsive,
+    Responsive
 } from '../../../style/styledComponentsBoxes';
 import CategorySize from '../../reusable/CategorySize';
 import CategoryMargin from '../../reusable/CategoryMargin';
-import SvgArrow from '../../../components/svg/SvgArrow';
+import SvgToggle from '../../../components/svg/SvgToggle';
 import SvgCheck from '../../../components/svg/SvgCheck';
 import ButtonBasic from '../../../components/ui/ButtonBasic';
 import ButtonValidate from '../../../components/ui/ButtonValidate';
+import {getResponsiveMode, toggleResponsiveMode} from "../../../actions/visibility";
 
 
 class Logo extends Component {
@@ -37,17 +41,31 @@ class Logo extends Component {
         this.setState({
             value: logoSettings ? logoSettings.value : this.props.defaultValue,
             active: logoSettings ? logoSettings.active : true,
+            currentResponsiveMode : this.props.responsive && this.props.responsiveMode ? this.props.responsiveMode : null,
             open: this.props.open
         });
     };
 
     updateStateProps = (props, value) => {
-        this.setState({
-            value: {
-                ...this.state.value,
-                [props]: value
-            }
-        });
+        if (this.props.responsive) {
+            this.setState({
+                value: {
+                    ...this.state.value,
+                    [props]: {
+                        ...this.state.value[props],
+                        [this.state.currentResponsiveMode]: value
+                    }
+                }
+            });
+        } else {
+            this.setState({
+                value: {
+                    ...this.state.value,
+                    [props]: value
+                }
+            });
+        }
+
     }
 
     isUpdated = () => {
@@ -69,8 +87,23 @@ class Logo extends Component {
         }
     }
 
+    getCurrentSize = (mode) => {
+        if(mode){
+            return this.state.value.size && this.state.value.size[mode] ? this.state.value.size[mode] : null
+        }else{
+            return  this.state.value.size ? this.state.value.size : null
+        }
+    }
+    getDefaultSize = (mode) => {
+        if(mode){
+            return this.props.defaultValue.size && this.props.defaultValue.size[mode] ? this.props.defaultValue.size[mode] : null
+        }else{
+            return  this.props.defaultValue.size ? this.props.defaultValue.size : null
+        }
+    }
+
     render() {
-        const {dispatch, dom, indexComponent, indexSection, name, contentType, responsive, defaultValue} = this.props;
+        const {dispatch, dom, responsiveMode, indexComponent, indexSection, name, contentType, responsive, defaultValue} = this.props;
         const componentStore = dom.sections[indexSection].components[indexComponent];
         const logoSettings = componentStore.settings.Logo;
 
@@ -90,17 +123,36 @@ class Logo extends Component {
                         </ActiveCheckBox>
                         <p>{name}</p>
                     </div>
-                    <Icon className={this.state.open ? '' : 'rotate'}
-                          onClick={() => {
-                              this.setState({open: !this.state.open});
-                          }}><SvgArrow/></Icon>
+                    <Toggle>
+                        <Responsive>
+                            {
+                                responsive ?
+                                    responsive.map((mode, i) => {
+                                        return <ToogleResponsive
+                                            key={mode}
+                                            className={this.state.currentResponsiveMode === mode ? 'active' : ''}
+                                            onClick={e => {
+                                                this.setState({currentResponsiveMode: mode}, () => {
+                                                    console.log('CURRENT RESPONSIVE MODE LOGO SETTINGS', this.state.currentResponsiveMode);
+                                                    if(responsiveMode !== mode){dispatch(toggleResponsiveMode(mode))}
+                                                });
+                                            }}>{mode}</ToogleResponsive>;
+                                    }) : null
+                            }
+                        </Responsive>
+                        <Icon className={this.state.open ? '' : 'rotate'}
+                              onClick={() => {
+                                  this.setState({open: !this.state.open});
+                              }}><SvgToggle/>
+                        </Icon>
+                    </Toggle>
                 </Banner>
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
                     <Choices>
                         <CategorySize
                             storeValueSize={logoSettings && logoSettings.value.size ? logoSettings.value.size : null}
-                            defaultSize={defaultValue.size}
-                            size={this.state.value.size}
+                            defaultSize={this.getDefaultSize(this.state.currentResponsiveMode)}
+                            size={this.getCurrentSize(this.state.currentResponsiveMode)}
                             updateStateProps={this.updateStateProps}
                         />
                         <CategoryMargin
@@ -111,7 +163,7 @@ class Logo extends Component {
                         />
                     </Choices>
 
-                    <ChoiceItemsConfirm className={ !this.isUpdated() ? 'hidden' : ''}>
+                    <ChoiceItemsConfirm className={!this.isUpdated() ? 'hidden' : ''}>
                         <ButtonBasic
                             label={'Cancel'}
                             disabled={!this.isUpdated()}
@@ -141,6 +193,7 @@ Logo.propTypes = {
 };
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state),
+    responsiveMode: getResponsiveMode(state).mode
 });
 
 export default connect(mapStateToProps)(Logo);

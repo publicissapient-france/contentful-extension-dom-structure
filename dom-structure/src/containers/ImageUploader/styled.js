@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const Container = styled.div`
    display : flex;
-   flex-rirection : column;
+   flex-direction : column;
+   padding-right : 40px;
 `;
 export const Field = styled.div`
    margin-bottom : 20px;   

@@ -24,7 +24,7 @@ export default {
         {
             name: 'Logo',
             contentType: 'Logo',
-            responsive : ['S', 'M', 'L'],
+            responsive : ['M', 'T', 'D'],
             defaultValue : {}
 
         },
@@ -74,13 +74,27 @@ export default {
         {
             name: 'Image Logo',
             contentType: 'Logo',
-            responsive : null,
+            responsive : ['M', 'T', 'D'],
             defaultValue: {
                 size: {
-                    width: '500',
-                    height: '500',
-                    maxWidth: '',
-                    maxHeight: ''
+                    M : {
+                        width: '200',
+                        height: '200',
+                        maxWidth: '',
+                        maxHeight: ''
+                    },
+                    T : {
+                        width: '400',
+                        height: '400',
+                        maxWidth: '',
+                        maxHeight: ''
+                    },
+                    D : {
+                        width: '500',
+                        height: '500',
+                        maxWidth: '',
+                        maxHeight: ''
+                    }
                 },
                 margin: {
                     top: '0',

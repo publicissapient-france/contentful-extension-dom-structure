@@ -54,7 +54,6 @@ class ComponentDOM extends Component {
             semiOpenBoxes: false,
             openSettings: false,
             openContent: false,
-            openContentField: true,
             component: null,
             openSafeDelete: false,
             language: 0,

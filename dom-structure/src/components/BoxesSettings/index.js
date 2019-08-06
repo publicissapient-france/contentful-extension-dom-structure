@@ -2,18 +2,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {BoxesContainer} from '../../style/styledComponentsBoxes';
 
-//import Title from '../../boxes/settings/Title/index';
-//import Logo from '../../boxes/settings/Title/index';
-
 class BoxesSettings extends Component {
 
     render() {
         const {fields, index, indexParent, open} = this.props;
-
-       /* const mapSettingsBoxes = new Map([
-            ['Title', Title],
-            ['Logo', Logo]
-        ]);*/
 
         return (
             <BoxesContainer>
