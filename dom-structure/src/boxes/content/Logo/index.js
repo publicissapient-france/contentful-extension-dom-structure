@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {updateContentValue, getCurrentDOM, getCurrentLanguage} from '../../../actions/index';
 import _ from 'lodash'
-
 import {ChoiceItemsConfirm, FieldsTemplate, Choices} from './styled';
 import {Icon} from '../../../style/styledComponents';
 import {Banner, ActiveCheckBox, Toggle, ToogleResponsive, Responsive} from '../../../style/styledComponentsBoxes';
@@ -12,6 +11,7 @@ import SvgCheck from '../../../components/svg/SvgCheck';
 import CategoryImage from '../../reusable/CategoryImage';
 import ButtonValidate from '../../../components/ui/ButtonValidate';
 import {getResponsiveMode, toggleResponsiveMode} from "../../../actions/visibility";
+import update from "react-addons-update";
 
 
 //const LogoContext = React.createContext();
@@ -31,49 +31,70 @@ class Logo extends Component {
     componentDidMount = () => {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
-        console.log('storestorestorestorestore responsivemode', this.props.responsiveMode )
         this.setState({
             value: componentStore.content.Logo ? componentStore.content.Logo.value : {},
             active: componentStore.content.Logo ? componentStore.content.Logo.active : true,
-            currentResponsiveMode : this.props.responsive && this.props.responsiveMode ? this.props.responsiveMode : null,
+            currentResponsiveMode: this.props.responsive && this.props.responsiveMode ? this.props.responsiveMode : null,
             open: this.props.open
+        }, () => {
+            if (!this.state.value.image) {
+                this.initImage();
+            }
         });
-        console.log('IS MOUUUUUUUUUUUUNT')
     };
 
-    updateStateTranslatedProps = (props, value) => {
-        const indexLanguage = this.props.currentLanguage.language;
+    initImage = () => {
+        let assetStructure = {};
+        this.props.responsive ? this.props.responsive.map((mode) => {
+            assetStructure[mode] = {};
+        }): {}
+
+        let image = {
+            alt: {},
+            asset: assetStructure
+        };
+
         this.setState({
             value: {
                 ...this.state.value,
-                [props]: {
-                    ...this.state.value[props],
-                    [indexLanguage]: value
-                }
+                image: image
             }
+        })
+    }
+
+    updateStateTranslatedProps = (props, value) => {
+        const indexLanguage = this.props.indexLanguage;
+        this.setState({
+            value: update(this.state.value, {
+                image: {
+                    [props]: {
+                        [indexLanguage]: {$set: value}
+                    }
+                }
+            })
         });
     }
 
     updateStateAsset = (value) => {
         if(this.props.responsive){
             this.setState({
-                value: {
-                    ...this.state.value,
-                    asset: {
-                        ...this.state.value.asset,
-                        [this.state.currentResponsiveMode] : value
+                value: update(this.state.value, {
+                    image: {
+                        asset: {
+                            [this.state.currentResponsiveMode] : {$set: value}
+                        }
                     }
-                }
+                })
             });
         }else{
             this.setState({
-                value: {
-                    ...this.state.value,
-                    asset: value
-                }
+                value: update(this.state.value, {
+                    image: {
+                        asset: {$set: value}
+                    }
+                })
             });
         }
-
     }
 
     isUpdated = () => {
@@ -84,26 +105,14 @@ class Logo extends Component {
     }
 
     isValid = () => {
-        const indexLanguage = this.props.currentLanguage.language;
+        /*const indexLanguage = this.props.currentLanguage.language;
 
-        if (!this.state.value.alt || !this.state.value.alt[indexLanguage] || this.state.value.alt[indexLanguage] === '') return false
+        if (!this.state.value.alt || !this.state.value.alt[indexLanguage] || this.state.value.alt[indexLanguage] === '') return false*/
         return true;
     }
 
-    getCurrentAsset = (mode) => {
-        if(mode){
-            return this.state.value.asset && this.state.value.asset[mode] ? this.state.value.asset[mode] : null
-        }else{
-           return  this.state.value.asset ? this.state.value.asset : null
-        }
-    }
-
     render() {
-        const {dispatch, dom, currentLanguage, responsiveMode, indexComponent, indexSection, name, contentType, responsive} = this.props;
-        const indexLanguage = currentLanguage.language;
-
-        console.log('responsive on logo >>>>>>', responsive)
-        console.log('responsive mode >>>>>>',responsiveMode)
+        const {dispatch, dom, indexLanguage, responsiveMode, indexComponent, indexSection, name, contentType, responsive} = this.props;
 
         return (
             <div>
@@ -124,17 +133,18 @@ class Logo extends Component {
                         <Responsive>
                             {
                                 responsive ?
-                               responsive.map((mode, i) => {
-                                    return <ToogleResponsive
-                                        key={mode}
-                                        className={this.state.currentResponsiveMode === mode ? 'active' : ''}
-                                        onClick={e => {
-                                            this.setState({currentResponsiveMode: mode}, () => {
-                                                console.log('CURRENT RESPONSIVE MODE', this.state.currentResponsiveMode);
-                                                if(responsiveMode !== mode){dispatch(toggleResponsiveMode(mode))}
-                                            });
-                                        }}>{mode}</ToogleResponsive>;
-                                }) : null
+                                    responsive.map((mode, i) => {
+                                        return <ToogleResponsive
+                                            key={mode}
+                                            className={this.state.currentResponsiveMode === mode ? 'active' : ''}
+                                            onClick={e => {
+                                                this.setState({currentResponsiveMode: mode}, () => {
+                                                    if (responsiveMode !== mode) {
+                                                        dispatch(toggleResponsiveMode(mode))
+                                                    }
+                                                });
+                                            }}>{mode}</ToogleResponsive>;
+                                    }) : null
                             }
                         </Responsive>
                         <Icon className={this.state.open ? '' : 'rotate'}
@@ -147,9 +157,8 @@ class Logo extends Component {
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
                     <Choices>
                         <CategoryImage
-                            alt={this.state.value.alt ? this.state.value.alt[indexLanguage] : ''}
-                            asset={this.getCurrentAsset(this.state.currentResponsiveMode)}
-                            index={null}
+                            image={this.state.value.image}
+                            mode={this.state.currentResponsiveMode}
                             updateStateAsset={this.updateStateAsset}
                             updateStateTranslatedProps={this.updateStateTranslatedProps}
                         />
@@ -177,7 +186,7 @@ Logo.propTypes = {
 };
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state),
-    currentLanguage: getCurrentLanguage(state),
+    indexLanguage: getCurrentLanguage(state).language,
     responsiveMode: getResponsiveMode(state).mode
 });
 

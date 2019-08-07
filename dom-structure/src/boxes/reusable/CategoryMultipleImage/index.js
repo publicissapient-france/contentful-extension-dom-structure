@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import {Choices} from "./styled";
 import ImageUploader from '../../../containers/ImageUploader'
+import {getCurrentLanguage, getResponsiveMode} from "../../../actions";
 
 class CategoryMultipleImage extends Component {
     constructor(props) {
@@ -13,26 +14,29 @@ class CategoryMultipleImage extends Component {
         this.state = {};
     }
 
-    componentDidMount = () => {
-
-    };
-
-    componentDidUpdate = prevProps => {
-
+    getAsset = (i) => {
+        if (this.props.mode) {
+            return this.props.images[i].asset[this.props.mode]
+        } else {
+            return this.props.images[i].asset
+        }
     }
 
     render() {
-        const {numberImages, value, indexLanguage} = this.props;
+        const {images, mode, indexLanguage} = this.props;
+        if (!images) return null
         return (
             <Choices>
-                {Array.from(Array(numberImages), (e, i) => {
-                    return <ImageUploader asset={value[i] && value[i].asset ? value[i].asset : null}
-                                          alt={value[i] && value[i].alt ? value[i].alt[indexLanguage]  : ''}
-                                          index={i}
-                                          updateStateAsset={this.props.updateStateAsset}
-                                          updateStateTranslatedProps={this.props.updateStateTranslatedProps}
-                    />
-                })}
+                {
+                    images.map((image, i) => {
+                        return <ImageUploader asset={this.getAsset(i)}
+                                              alt={image.alt[indexLanguage] ? image.alt[indexLanguage] : ''}
+                                              index={i}
+                                              updateStateAsset={this.props.updateStateAsset}
+                                              updateStateTranslatedProps={this.props.updateStateTranslatedProps}
+                        />
+                    })
+                }
             </Choices>
         );
     }
@@ -41,8 +45,13 @@ class CategoryMultipleImage extends Component {
 
 CategoryMultipleImage.protoTypes = {
     indexLanguage: PropTypes.number,
-    value: PropTypes.arrayOf(PropTypes.string)
+    value: PropTypes.arrayOf(PropTypes.string),
+    mode: PropTypes.string
 };
 
+const mapStateToProps = state => ({
+    indexLanguage: getCurrentLanguage(state).language,
+    responsiveMode: getResponsiveMode(state).mode
+});
 
-export default connect()(CategoryMultipleImage);
+export default connect(mapStateToProps)(CategoryMultipleImage);

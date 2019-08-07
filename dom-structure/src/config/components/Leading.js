@@ -4,45 +4,44 @@ export default {
         {
             name: 'Title',
             contentType: 'Title',
-            responsive : null,
-            defaultValue : {}
+            responsive: null,
+            defaultValue: {}
         },
         {
             name: 'Tagline',
             contentType: 'Tagline',
-            responsive : null,
-            defaultValue : {}
+            responsive: null,
+            defaultValue: {}
 
         },
         {
             name: 'Text',
             contentType: 'Text',
-            responsive : null,
-            defaultValue : {}
+            responsive: null,
+            defaultValue: {}
 
         },
         {
             name: 'Logo',
             contentType: 'Logo',
-            responsive : ['M', 'T', 'D'],
-            defaultValue : {}
+            responsive: ['M', 'T', 'D'],
+            defaultValue: {}
 
         },
         {
             name: 'Header Images',
             contentType: 'HeaderImages',
-            responsive : null,
+            responsive: ['M', 'D'],
             defaultValue: {
                 numberImages: 4
             }
-
-        },
+        }
     ],
     settings: [
         {
             name: 'Title',
             contentType: 'Title',
-            responsive : null,
+            responsive: null,
             defaultValue: {
                 color: {
                     hex: '#000000',
@@ -74,22 +73,22 @@ export default {
         {
             name: 'Image Logo',
             contentType: 'Logo',
-            responsive : ['M', 'T', 'D'],
+            responsive: ['M', 'T', 'D'],
             defaultValue: {
                 size: {
-                    M : {
+                    M: {
                         width: '200',
                         height: '200',
                         maxWidth: '',
                         maxHeight: ''
                     },
-                    T : {
+                    T: {
                         width: '400',
                         height: '400',
                         maxWidth: '',
                         maxHeight: ''
                     },
-                    D : {
+                    D: {
                         width: '500',
                         height: '500',
                         maxWidth: '',

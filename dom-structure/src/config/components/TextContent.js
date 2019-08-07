@@ -15,5 +15,21 @@ export default {
             }
         }
     ],
-    content: []
+    content: [
+        {
+            name: 'Logo',
+            contentType: 'Logo',
+            responsive :null,
+            defaultValue : {}
+
+        },
+        {
+        name: 'Header Images',
+        contentType: 'HeaderImages',
+        responsive : null,
+        defaultValue: {
+            numberImages: 4
+        }
+
+    }]
 }

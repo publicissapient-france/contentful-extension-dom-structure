@@ -14,7 +14,7 @@ class ImageUploader extends Component {
 
         this.state = {
             isDraggingOver: false,
-            asset: null,
+            asset: {},
             valid: true,
         }
     }
@@ -23,6 +23,7 @@ class ImageUploader extends Component {
         if (this.props.asset) {
             this.setSelectedAsset(this.props.asset);
         }
+        console.log('props on mount', this.props)
     };
 
     componentDidUpdate = prevProps => {
@@ -35,6 +36,8 @@ class ImageUploader extends Component {
             }
 
         }
+        console.log('props on didUpdate', this.props)
+
     }
 
     onClickNewAsset = async () => {
@@ -78,6 +81,7 @@ class ImageUploader extends Component {
             ...this.state,
             asset: asset
         }, () => {
+            console.log('STATE SETSELECTED ASSET', this.state)
             this.assetIsValid();
             this.props.updateStateAsset(this.state.asset, this.props.index);
         })
@@ -86,7 +90,7 @@ class ImageUploader extends Component {
     removeSelectedAsset = () => {
         this.setState({
             ...this.state,
-            asset: null
+            asset: {}
         }, () => {
             this.props.updateStateAsset(this.state.asset, this.props.index);
         })
@@ -131,7 +135,7 @@ class ImageUploader extends Component {
     }
 
     assetIsValid = async () => {
-        if (!this.state.asset) return
+        if (!this.state.asset || !this.state.asset.sys) return
         let assetId = this.state.asset.sys.id;
         try {
             let asset = await this.props.extensionInfo.extension.space.getAsset(assetId);
@@ -148,7 +152,7 @@ class ImageUploader extends Component {
     }
 
     publishAsset = async () => {
-        if(!this.state.asset) return;
+        if(!this.state.asset || !this.state.asset.sys) return;
         let assetId = this.state.asset.sys.id;
         try {
             let asset = await this.props.extensionInfo.extension.space.getAsset(assetId);
@@ -176,12 +180,12 @@ class ImageUploader extends Component {
         let view;
 
 
-        if (!this.state.isDraggingOver && this.state.asset && !this.state.asset.fields.file) {
+        if (!this.state.isDraggingOver && this.state.asset && this.state.asset.fields && !this.state.asset.fields.file) {
             view = <ReloadView
                     assetId={this.state.asset.sys.id}
                     onClickReload={this.reloadAsset}
                 />
-        } else if (!this.state.isDraggingOver && this.state.asset) {
+        } else if (!this.state.isDraggingOver && this.state.asset && this.state.asset.fields) {
            view =  <FileView
                     index={this.props.index}
                     file={this.state.asset.fields.file[this.findProperLocale()]}

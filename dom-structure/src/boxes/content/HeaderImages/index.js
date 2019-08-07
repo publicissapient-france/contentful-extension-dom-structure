@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {updateContentValue, getCurrentDOM, getCurrentLanguage} from '../../../actions/index';
 import _ from 'lodash'
+import update from 'react-addons-update';
 
 import {ChoiceItemsConfirm, FieldsTemplate, Choices} from './styled';
 import {Icon} from '../../../style/styledComponents';
-import {Banner, Fields, ActiveCheckBox, Property} from '../../../style/styledComponentsBoxes';
+import {Banner, ActiveCheckBox, Toggle, ToogleResponsive, Responsive} from '../../../style/styledComponentsBoxes';
 import SvgToggle from '../../../components/svg/SvgToggle';
 import SvgCheck from '../../../components/svg/SvgCheck';
 import CategoryMultipleImage from '../../reusable/CategoryMultipleImage';
 import ButtonValidate from '../../../components/ui/ButtonValidate';
+import {getResponsiveMode, toggleResponsiveMode} from "../../../actions/visibility";
 
 
 class HeaderImages extends Component {
@@ -30,37 +32,76 @@ class HeaderImages extends Component {
         this.setState({
             value: componentStore.content.HeaderImages ? componentStore.content.HeaderImages.value : {},
             active: componentStore.content.HeaderImages ? componentStore.content.HeaderImages.active : true,
+            currentResponsiveMode: this.props.responsive && this.props.responsiveMode ? this.props.responsiveMode : null,
             open: this.props.open
+        }, () => {
+            if (!this.state.value.images) {
+                this.initImages();
+            }
         });
     };
 
+    initImages = () => {
+        const length = this.props.defaultValue.numberImages || 2;
+        let assetStructure = {};
+        this.props.responsive ? this.props.responsive.map((mode) => {
+            assetStructure[mode] = {};
+        }) : {}
 
-    updateStateTranslatedProps = (props, value, index) => {
-        const indexLanguage = this.props.currentLanguage.language;
+        const images = new Array(length).fill({
+            alt: {},
+            asset: assetStructure
+        });
+
         this.setState({
             value: {
                 ...this.state.value,
-                [index]: {
-                    ...this.state.value[index],
-                    [props]: {
-                        ...this.state.value[index][props],
-                        [indexLanguage]: value
+                images: images
+            }
+        })
+    }
+
+
+    updateStateTranslatedProps = (props, value, index) => {
+        const indexLanguage = this.props.indexLanguage;
+        this.setState({
+            value: update(this.state.value, {
+                images: {
+                    [index]: {
+                        [props]: {
+                            [indexLanguage]: {$set: value}
+                        }
                     }
                 }
-            }
+
+            })
         });
     }
 
     updateStateAsset = (value, index) => {
-        this.setState({
-            value: {
-                ...this.state.value,
-                [index]: {
-                    ...this.state.value[index],
-                    asset: value
-                }
-            }
-        });
+        if (this.props.responsive) {
+            this.setState({
+                value: update(this.state.value, {
+                    images: {
+                        [index]: {
+                            asset: {
+                                [this.state.currentResponsiveMode]: {$set: value}
+                            }
+                        }
+                    }
+                })
+            });
+        } else {
+            this.setState({
+                value: update(this.state.value, {
+                    images: {
+                        [index]: {
+                            asset: {$set: value}
+                        }
+                    }
+                })
+            });
+        }
     }
 
     isUpdated = () => {
@@ -71,21 +112,22 @@ class HeaderImages extends Component {
     }
 
     isValid = () => {
-        const indexLanguage = this.props.currentLanguage.language;
+        /*if(!this.state.value.images) return
+        const indexLanguage = this.props.indexLanguage;
         let valid = true;
-        Object.keys(this.state.value).forEach(key => {
-            const currentAlt = this.state.value[key].alt;
+        Object.keys(this.state.value.images).forEach(key => {
+            const currentAlt = this.state.value.images[key].alt;
             if (!currentAlt || !currentAlt[indexLanguage] || currentAlt[indexLanguage] === '') {
                 valid = false;
             }
         });
-        return valid;
+        return valid;*/
+        return true
 
     }
 
     render() {
-        const {dispatch, dom, currentLanguage, indexComponent, indexSection, name, contentType, defaultValue} = this.props;
-        const indexLanguage = currentLanguage.language;
+        const {dispatch, dom, indexLanguage, responsiveMode, indexComponent, indexSection, name, contentType, defaultValue, responsive} = this.props;
 
         return (
             <div>
@@ -102,17 +144,36 @@ class HeaderImages extends Component {
                         </ActiveCheckBox>
                         <p>{name}</p>
                     </div>
-                    <Icon className={this.state.open ? '' : 'rotate'}
-                          onClick={() => {
-                              this.setState({open: !this.state.open});
-                          }}><SvgToggle/></Icon>
+                    <Toggle>
+                        <Responsive>
+                            {
+                                responsive ?
+                                    responsive.map((mode, i) => {
+                                        return <ToogleResponsive
+                                            key={mode}
+                                            className={this.state.currentResponsiveMode === mode ? 'active' : ''}
+                                            onClick={e => {
+                                                this.setState({currentResponsiveMode: mode}, () => {
+                                                    if (responsiveMode !== mode) {
+                                                        dispatch(toggleResponsiveMode(mode))
+                                                    }
+                                                });
+                                            }}>{mode}</ToogleResponsive>;
+                                    }) : null
+                            }
+                        </Responsive>
+                        <Icon className={this.state.open ? '' : 'rotate'}
+                              onClick={() => {
+                                  this.setState({open: !this.state.open});
+                              }}><SvgToggle/>
+                        </Icon>
+                    </Toggle>
                 </Banner>
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
                     <Choices>
                         <CategoryMultipleImage
-                            numberImages={defaultValue.numberImages || 2}
-                            indexLanguage={indexLanguage}
-                            value={this.state.value}
+                            images={this.state.value.images}
+                            mode={this.state.currentResponsiveMode}
                             updateStateAsset={this.updateStateAsset}
                             updateStateTranslatedProps={this.updateStateTranslatedProps}
                         />
@@ -136,7 +197,8 @@ HeaderImages.propTypes = {
 };
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state),
-    currentLanguage: getCurrentLanguage(state)
+    indexLanguage: getCurrentLanguage(state).language,
+    responsiveMode: getResponsiveMode(state).mode
 });
 
 export default connect(mapStateToProps)(HeaderImages);

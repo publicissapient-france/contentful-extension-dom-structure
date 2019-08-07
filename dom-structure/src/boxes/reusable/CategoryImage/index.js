@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 
 import {Choices} from "./styled";
 import ImageUploader from '../../../containers/ImageUploader'
+import {getCurrentLanguage} from "../../../actions";
+import {getResponsiveMode} from "../../../actions/visibility";
 
 class CategoryImage extends Component {
     constructor(props) {
@@ -13,20 +15,21 @@ class CategoryImage extends Component {
         this.state = {};
     }
 
-    componentDidMount = () => {
-
-    };
-
-    componentDidUpdate = prevProps => {
-
+    getAsset = () => {
+        if(this.props.mode){
+            return this.props.image.asset[this.props.mode]
+        }else{
+            return this.props.image.asset
+        }
     }
 
     render() {
-        const {alt, asset} = this.props;
+        const {image, mode, indexLanguage} = this.props;
+        if(!image) return null
         return (
             <Choices>
-                <ImageUploader asset={asset || null}
-                               alt={alt || ''}
+                <ImageUploader asset={this.getAsset()}
+                               alt={image.alt[indexLanguage] ? image.alt[indexLanguage]  : ''}
                                index={null}
                                updateStateAsset={this.props.updateStateAsset}
                                updateStateTranslatedProps={this.props.updateStateTranslatedProps}
@@ -40,8 +43,14 @@ class CategoryImage extends Component {
 
 CategoryImage.protoTypes = {
     indexLanguage: PropTypes.number,
-    value: PropTypes.arrayOf(PropTypes.string)
+    value: PropTypes.arrayOf(PropTypes.string),
+    mode: PropTypes.string
 };
 
 
-export default connect()(CategoryImage);
+const mapStateToProps = state => ({
+    indexLanguage: getCurrentLanguage(state).language,
+    responsiveMode: getResponsiveMode(state).mode
+});
+
+export default connect(mapStateToProps)(CategoryImage);
