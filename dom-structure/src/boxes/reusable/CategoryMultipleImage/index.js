@@ -32,6 +32,7 @@ class CategoryMultipleImage extends Component {
                         return <ImageUploader asset={this.getAsset(i)}
                                               alt={image.alt[indexLanguage] ? image.alt[indexLanguage] : ''}
                                               index={i}
+                                              key={i}
                                               updateStateAsset={this.props.updateStateAsset}
                                               updateStateTranslatedProps={this.props.updateStateTranslatedProps}
                         />

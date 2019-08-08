@@ -88,7 +88,8 @@ const hasNotSamePropertyValue = (defaultValue, currentValue, prop) => {
     if(!defaultValue || !currentValue || !prop || prop === '')  {
         return false
     }
-    return defaultValue[prop] && currentValue[prop] != defaultValue[prop];
+    if(defaultValue[prop] && currentValue[prop] != defaultValue[prop])return true;
+    return false
 }
 
 

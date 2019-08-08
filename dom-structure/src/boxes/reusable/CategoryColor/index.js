@@ -33,9 +33,6 @@ class CategoryColor extends Component {
             openCustom: false,
             currentAction: 'view'
         };
-
-
-
     }
 
     toggleAction = () => this.state.currentAction === 'view' ? this.setState({currentAction: 'add'}) : this.setState({currentAction: 'view'});

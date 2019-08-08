@@ -53,19 +53,19 @@ class HeaderImages extends Component {
             asset: assetStructure
         });
 
-        this.setState({
+        this.setState(prevState => ({
             value: {
-                ...this.state.value,
+                ...prevState.value,
                 images: images
             }
-        })
+        }))
     }
 
 
     updateStateTranslatedProps = (props, value, index) => {
         const indexLanguage = this.props.indexLanguage;
-        this.setState({
-            value: update(this.state.value, {
+        this.setState(prevState => ({
+            value: update(prevState.value, {
                 images: {
                     [index]: {
                         [props]: {
@@ -75,32 +75,32 @@ class HeaderImages extends Component {
                 }
 
             })
-        });
+        }));
     }
 
     updateStateAsset = (value, index) => {
         if (this.props.responsive) {
-            this.setState({
-                value: update(this.state.value, {
+            this.setState(prevState => ({
+                value: update(prevState.value, {
                     images: {
                         [index]: {
                             asset: {
-                                [this.state.currentResponsiveMode]: {$set: value}
+                                [prevState.currentResponsiveMode]: {$set: value}
                             }
                         }
                     }
                 })
-            });
+            }));
         } else {
-            this.setState({
-                value: update(this.state.value, {
+            this.setState(prevState => ({
+                value: update(prevState.value, {
                     images: {
                         [index]: {
                             asset: {$set: value}
                         }
                     }
                 })
-            });
+            }));
         }
     }
 

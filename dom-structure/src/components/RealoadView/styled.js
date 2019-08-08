@@ -23,7 +23,7 @@ export const IconContainer = styled.div`
 
 
 export const Actions =  styled.nav`
-    diplay:flex;
+    display:flex;
     flex-direction : column;
     
     padding : 0 10px;

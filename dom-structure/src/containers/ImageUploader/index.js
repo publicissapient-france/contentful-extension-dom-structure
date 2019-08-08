@@ -19,14 +19,13 @@ class ImageUploader extends Component {
         }
     }
 
-    componentDidMount = () => {
+    componentDidMount(){
         if (this.props.asset) {
             this.setSelectedAsset(this.props.asset);
         }
-        console.log('props on mount', this.props)
     };
 
-    componentDidUpdate = prevProps => {
+    componentDidUpdate(prevProps){
         if (this.props.asset != prevProps.asset) {
             if(this.props.asset){
                 this.setSelectedAsset(this.props.asset);
@@ -36,7 +35,9 @@ class ImageUploader extends Component {
             }
 
         }
-        console.log('props on didUpdate', this.props)
+    }
+
+    componentWillUnmount(){
 
     }
 
@@ -81,7 +82,6 @@ class ImageUploader extends Component {
             ...this.state,
             asset: asset
         }, () => {
-            console.log('STATE SETSELECTED ASSET', this.state)
             this.assetIsValid();
             this.props.updateStateAsset(this.state.asset, this.props.index);
         })
@@ -104,12 +104,6 @@ class ImageUploader extends Component {
     onCustomError = message => {
         console.error(message)
         this.props.extensionInfo.extension.notifier.error(message)
-    }
-
-    onClickEdit = () => {
-        this.props.extensionInfo.extension.navigator.openAsset(this.state.asset.sys.id, {
-            slideIn: true
-        })
     }
 
     onClickRemove = () => {
@@ -158,9 +152,7 @@ class ImageUploader extends Component {
             let asset = await this.props.extensionInfo.extension.space.getAsset(assetId);
             if(asset.sys.version ===
                 (asset.sys.publishedVersion || 0) + 1){
-                console.log('asset en publish', asset)
             }else{
-                console.log('asset en draft')
                 this.props.extensionInfo.extension.space.publishAsset(asset);
             }
         } catch (err) {
@@ -197,9 +189,7 @@ class ImageUploader extends Component {
                     }
                     onClickLinkExisting={this.onClickLinkExisting}
                     onClickNewAsset={this.onClickNewAsset}
-                    //onClickEdit={this.onClickEdit}
                     onClickRemove={this.onClickRemove}
-                    //onClickReload={this.reloadAsset}
                     updateStateTranslatedProps={this.props.updateStateTranslatedProps}
                     valid={this.state.valid}
                     validInformations={this.informationsAreValid()}
