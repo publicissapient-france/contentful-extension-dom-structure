@@ -11,7 +11,6 @@ import BoxesSettings from '../../components/BoxesSettings/index';
 import {getCountryISO} from '../../utils/functions';
 
 import {
-    ButtonDelete,
     Icon,
     Range,
     SafeDelete
@@ -32,6 +31,7 @@ import {
 } from './styled';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
+import ButtonDelete from '../../components/ui/ButtonDelete';
 import componentConfig from '../../config/components/*.js';
 
 import {
@@ -200,12 +200,10 @@ class ComponentDOM extends Component {
                     <p>The deletion is final. Are you sure you want to delete this component?</p>
                     <div className={'buttons'}>
                         <ButtonBasic label={'Cancel'} action={this.toggleSafeSecure}/>
-                        <ButtonDelete onClick={() => {
+                        <ButtonDelete label={'Delete'} action={ () => {
                             dispatch(removeComponent(index, indexParent));
                             this.setState({openSafeDelete: false});
-                        }}>
-                            Delete
-                        </ButtonDelete>
+                        }}/>
                     </div>
                 </SafeDelete>
                 <div className={!this.state.openSettings && !this.state.openContent ? 'hidden' : ''}>

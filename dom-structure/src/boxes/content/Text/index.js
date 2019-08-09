@@ -67,6 +67,12 @@ class Text extends Component {
         return true;
     }
 
+    isInit = () => {
+        const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
+        if(!componentStore.content.Text) return false
+        return true
+    }
+
     cancelStateValue = (e) => {
         e.preventDefault();
         const indexLanguage = this.props.currentLanguage.language;
@@ -74,25 +80,23 @@ class Text extends Component {
         const indexComponent = this.props.indexComponent
         const componentStore = this.props.dom.sections[indexSection].components[indexComponent];
 
-        this.setState({
+        this.setState(prevState => ({
             value: {
-                ...this.state.value,
+                ...prevState.value,
                 [indexLanguage]: this.extractFromHTML(componentStore.content.Text.value)[indexLanguage]
             }
-        });
+        }));
     }
 
     handleValueChange = value => {
         const indexLanguage = this.props.currentLanguage.language;
 
-        this.setState({
+        this.setState(prevState => ({
             value: {
-                ...this.state.value,
+                ...prevState.value,
                 [indexLanguage]: value
             }
-        }, () => {
-            // console.log('state afetr upedate', this.state);
-        });
+        }));
     };
 
     handleTabChange = tab => {
@@ -138,7 +142,7 @@ class Text extends Component {
                     <ChoiceConfirm>
                         <ButtonBasic
                             label={'Cancel'}
-                            disabled={!this.isUpdated()}
+                            disabled={!this.isUpdated() || !this.isInit()}
                             action={this.cancelStateValue}/>
                         <ButtonValidate label={'Update'}  disabled={!this.isUpdated()} action={() => {
                             dispatch(updateContentValue(contentType, this.convertToHTML(this.state.value), this.state.active, indexComponent, indexSection));

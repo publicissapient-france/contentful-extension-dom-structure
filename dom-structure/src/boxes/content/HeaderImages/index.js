@@ -112,17 +112,16 @@ class HeaderImages extends Component {
     }
 
     isValid = () => {
-        /*if(!this.state.value.images) return
+        if(!this.state.value.images) return
         const indexLanguage = this.props.indexLanguage;
         let valid = true;
-        Object.keys(this.state.value.images).forEach(key => {
-            const currentAlt = this.state.value.images[key].alt;
-            if (!currentAlt || !currentAlt[indexLanguage] || currentAlt[indexLanguage] === '') {
+
+        this.state.value.images.map((image) => {
+            if(!image.alt || !image.alt[indexLanguage] || image.alt[indexLanguage] === '' ){
                 valid = false;
             }
-        });
-        return valid;*/
-        return true
+        })
+        return valid;
 
     }
 
@@ -137,7 +136,8 @@ class HeaderImages extends Component {
                             className={this.state.active ? 'active' : ''}
                             onClick={e => {
                                 this.setState({active: !this.state.active}, () => {
-                                    dispatch(updateContentValue(name, this.state.value, this.state.active, indexComponent, indexSection));
+
+                                    dispatch(updateContentValue(contentType, this.state.value, this.state.active, indexComponent, indexSection));
                                 });
                             }}>
                             <SvgCheck/>

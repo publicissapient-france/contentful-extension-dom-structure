@@ -8,10 +8,8 @@ import SvgTrash from '../../components/svg/SvgTrash';
 import ComponentDOM from '../ComponentDOM/index';
 import {
     Container,
-    ButtonGreen,
     Icon,
     Range,
-    ButtonDelete,
     SafeDelete
 } from '../../style/styledComponents';
 import {Settings, TopBar, Active, Actions, Description, FormSection, AddChild, Children} from './styled'
@@ -23,6 +21,7 @@ import {
     toggleSectionActive
 } from '../../actions/index';
 import ButtonBasic from '../../components/ui/ButtonBasic';
+import ButtonDelete from '../../components/ui/ButtonDelete';
 import sectionsConfig from '../../config/sections/*.js';
 import update from 'react-addons-update';
 import AddComponent from '../AddComponent/index';
@@ -135,12 +134,10 @@ class Index extends Component {
                     <p>The deletion is final. Are you sure you want to delete this section?</p>
                     <div className={'buttons'}>
                         <ButtonBasic label={'Cancel'} action={this.toggleSafeSecure}/>
-                        <ButtonDelete onClick={() => {
+                        <ButtonDelete label={'Delete'} action={() => {
                             dispatch(removeSection(index));
                             this.setState({openSafeDelete: false});
-                        }}>
-                            Delete
-                        </ButtonDelete>
+                        }}/>
                     </div>
                 </SafeDelete>
                 <Settings className={!this.state.openSettings ? 'hidden' : ''}>

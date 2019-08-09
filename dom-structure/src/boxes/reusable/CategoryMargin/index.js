@@ -21,23 +21,23 @@ class CategoryMargin extends Component {
 
     componentDidUpdate = prevProps => {
         if (this.props.margin !== prevProps.margin) {
-            this.setState({
-                ...this.state,
+            this.setState(prevState => ({
+                ...prevState,
                 margin: this.props.margin
-            });
+            }));
         }
     }
 
     updateMargin = (prop, value) => {
-        this.setState({
-            ...this.state,
+        this.setState(prevState => ({
+            ...prevState,
             margin: {
-                ...this.state.margin,
+                ...prevState.margin,
                 [prop]: value,
             }
         }, () => {
             this.props.updateStateProps('margin', this.state.margin);
-        })
+        }));
     }
 
     render() {

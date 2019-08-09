@@ -54,46 +54,46 @@ class Logo extends Component {
             asset: assetStructure
         };
 
-        this.setState({
+        this.setState(prevState => ({
             value: {
-                ...this.state.value,
+                ...prevState.value,
                 image: image
             }
-        })
+        }));
     }
 
     updateStateTranslatedProps = (props, value) => {
         const indexLanguage = this.props.indexLanguage;
-        this.setState({
-            value: update(this.state.value, {
+        this.setState(prevState => ({
+            value: update(prevState.value, {
                 image: {
                     [props]: {
                         [indexLanguage]: {$set: value}
                     }
                 }
             })
-        });
+        }));
     }
 
     updateStateAsset = (value) => {
         if(this.props.responsive){
-            this.setState({
-                value: update(this.state.value, {
+            this.setState(prevState => ({
+                value: update(prevState.value, {
                     image: {
                         asset: {
-                            [this.state.currentResponsiveMode] : {$set: value}
+                            [prevState.currentResponsiveMode] : {$set: value}
                         }
                     }
                 })
-            });
+            }));
         }else{
-            this.setState({
-                value: update(this.state.value, {
+            this.setState(prevState => ({
+                value: update(prevState.value, {
                     image: {
                         asset: {$set: value}
                     }
                 })
-            });
+            }));
         }
     }
 
@@ -105,9 +105,8 @@ class Logo extends Component {
     }
 
     isValid = () => {
-        /*const indexLanguage = this.props.currentLanguage.language;
-
-        if (!this.state.value.alt || !this.state.value.alt[indexLanguage] || this.state.value.alt[indexLanguage] === '') return false*/
+        const indexLanguage = this.props.indexLanguage;
+        if(!this.state.value.image || !this.state.value.image.alt || !this.state.value.image.alt[indexLanguage] || this.state.value.image.alt[indexLanguage] === '' )return false
         return true;
     }
 

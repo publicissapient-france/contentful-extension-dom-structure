@@ -57,12 +57,13 @@ class Title extends Component {
                     <input type={'text'} maxLength={maxLength}
                         defaultValue={this.state.value[indexLanguage]}
                         onBlur={e => {
-                            this.setState({ value: {
-                                ...this.state.value,
+                            this.setState(prevState => ({
+                                value: {
+                                ...prevState.value,
                                 [indexLanguage]: e.target.value
                             } }, () => {
                                 dispatch(updateContentValue(contentType, this.state.value, this.state.active, indexComponent, indexSection));
-                            });
+                            }));
                         }}/>
                     <span>{maxLength} characters</span>
                 </Fields>

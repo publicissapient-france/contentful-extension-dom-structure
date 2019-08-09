@@ -177,28 +177,6 @@ export const Container = styled.div`
   }
 `;
 
-export const ButtonDelete = styled.button`
-  align-self : center;
-  cursor : pointer;
-  font-size : 14px;
-  transition : background .2s ease, background-image .2s ease,opacity .2s ease-in-out,border-color .2s ease;
-  background : ${ extensionTheme.redM } !important;  
-  color : white !important;
-  border-radius : 4px;
-  padding : 10px;
-  line-height : 11px;
-  font-weight : 300;
-  height : 33px;
-  border : 1px solid transparent;
-   
-  &:hover{
-     background : ${ extensionTheme.redL } !important;
-    }
-  &:focus{
-    outline : none;
-  }
-`;
-
 export const Form = styled.form`
   display : flex;
   width : 100%;
@@ -292,11 +270,6 @@ export const SafeDelete = styled.div`
   & div.buttons{
     margin-left : 10px;
     min-width : 150px;
-  }
-  
-  & ${ ButtonDelete }{
-    margin-right : 8px;
-    margin-left : 10px;
   }
 `;
 
