@@ -8,7 +8,9 @@ export default {
             content : {
                 responsive : null,
                 parameters : {},
-                defaultValue : {}
+                defaultValue : {
+                    title : null
+                }
             },
             settings : {
                 responsive : null,

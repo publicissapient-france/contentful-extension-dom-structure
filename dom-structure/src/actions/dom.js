@@ -140,3 +140,12 @@ export const toggleFieldActive = (type, bool, number, numberParent) => ({
     indexSection: numberParent
 });
 
+
+export const updateFieldContent = (type, content, number, numberParent) => ({
+    type: 'UPDATE_FIELD_CONTENT',
+    typeField: type,
+    content: content,
+    indexComponent: number,
+    indexSection: numberParent
+});
+

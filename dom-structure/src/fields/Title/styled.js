@@ -1,5 +1,6 @@
 import {extensionTheme} from "../../style/theme";
 import styled from "styled-components";
+import {ChoiceConfirm} from "../../style/styledComponentsBoxes";
 
 export const Languages = styled.div`
   display : flex;
@@ -35,4 +36,12 @@ export const ToogleLanguage = styled.div`
     border-color :  ${ extensionTheme.blueM }; 
 
   }
+`;
+
+
+export const ChoiceItemsConfirm = styled(ChoiceConfirm)`
+    padding : 10px 15px 10px 0;
+    width : 100%;
+    border-top : 1px solid ${ extensionTheme.grey20 };
+
 `;

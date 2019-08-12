@@ -197,6 +197,22 @@ const dom = (state = [], action) => {
                 }
             });
 
+        case 'UPDATE_FIELD_CONTENT':
+            console.log("update field content !!!!!")
+            return update(state, {
+                [action.indexSection]: {
+                    components: {
+                        [action.indexComponent]: {
+                            fields: {
+                                [action.typeField]: {
+                                    content: {$set: action.content}
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
         default:
             return state;
     }
