@@ -29,7 +29,7 @@ import ButtonValidate from '../../components/ui/ButtonValidate'
 
 import PropTypes from 'prop-types';
 
-class Index extends Component {
+class Section extends Component {
     constructor(props) {
         super(props);
 
@@ -93,6 +93,7 @@ class Index extends Component {
                           lengthParent={section.components.length}/>
         ) : null;
         if (!this.state.section) return null;
+        console.log('SECTIONSECTIONSECTIONSECTION', section)
         return (
             <Container>
                 <TopBar>
@@ -193,7 +194,7 @@ class Index extends Component {
     }
 };
 
-Index.propTypes = {
+Section.propTypes = {
     section: PropTypes.shape({
         active: PropTypes.bool.isRequired,
         name: PropTypes.string.isRequired,
@@ -203,4 +204,4 @@ Index.propTypes = {
     domLength: PropTypes.number
 };
 
-export default connect()(Index);
+export default connect()(Section);

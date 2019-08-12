@@ -45,3 +45,9 @@ export const ChoiceItemsConfirm = styled(ChoiceConfirm)`
     border-top : 1px solid ${ extensionTheme.grey20 };
 
 `;
+export const Content = styled.div`
+   
+`;
+export const Settings = styled.div`
+   
+`;

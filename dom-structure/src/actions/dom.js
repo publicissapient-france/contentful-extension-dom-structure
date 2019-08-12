@@ -71,12 +71,12 @@ export const addComponent = (object, number) => ({
 
 });
 
-export const updateComponent = (object, number, numberParent) => ({
+export const updateComponent = (name, model, number, numberParent) => ({
     type: 'UPDATE_COMPONENT',
-    component: object,
+    name: name,
+    model: model,
     index: number,
     indexParent: numberParent
-
 });
 
 export const removeComponent = (number, numberParent) => ({
@@ -149,3 +149,10 @@ export const updateFieldContent = (type, content, number, numberParent) => ({
     indexSection: numberParent
 });
 
+export const updateFieldStatus = (type, status, number, numberParent) => ({
+    type: 'UPDATE_FIELD_STATUS',
+    typeField: type,
+    status: status,
+    indexComponent: number,
+    indexSection: numberParent
+});

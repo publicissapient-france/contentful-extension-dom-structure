@@ -8,47 +8,32 @@ import SvgContent from '../../components/svg/SvgContent';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
 import {connect} from 'react-redux';
-import {toggleFieldActive, getCurrentDOM, getCurrentLanguage} from '../../actions/index';
+import {toggleFieldActive, getCurrentDOM, getCurrentLanguage, updateFieldStatus} from '../../actions/index';
 import {
     getCurrentExtension,
     toggleLanguage,
     updateFieldContent,
 } from "../../actions";
 import {getCountryISO} from "../../utils/functions";
-import {ToogleLanguage, Languages, ChoiceItemsConfirm} from './styled'
+import {ToogleLanguage, Languages, ChoiceItemsConfirm, Content, Settings} from './styled'
 import InputText from '../../interfaces/InputText'
 
 class Title extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            active: true,
-            openSettings: false,
-            openContent: false,
-        };
+        this.state = { }
     }
 
     componentDidMount() {
         const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.type];
         this.setState({
-            active: TitleOnStore ? TitleOnStore.active : true,
             content: TitleOnStore.content,
             settings: TitleOnStore.settings,
         }, () => {
-            console.log('STATE AFTER MOUNT', this.state)
             if(!this.state.content.title){ this.init()}
         });
     };
-
-    componentDidUpdate(prevProps, prevState) {
-        if(this.state.openContent != prevState.openContent || this.state.openSettings != prevState.openSettings){
-            this.setState({
-                openSettings : prevState.openSettings,
-                openContent : prevState.openContent
-            })
-        }
-    }
 
     init = () => {
         this.setState(prevState => ({
@@ -56,12 +41,11 @@ class Title extends Component {
                 ...prevState.content,
                 title: {}
             }
-        }), () => {
-            console.log('state after init', this.state)
-        });
+        }));
     }
 
     updateTranlatedContent = (value, targetProperty) => {
+
         this.setState(prevState => ({
             content: {
                 ...prevState.content,
@@ -70,47 +54,45 @@ class Title extends Component {
                     [this.props.indexLanguage] : value
                 }
             }
-        }), () => {
-            console.log('state after update', this.state)
-        });
+        }));
 
-    }
-
-    toggleViewSettings = () => {
-        this.setState({
-            openSettings: !this.state.openSettings,
-            openContent: false
-        })
-    }
-
-    toggleViewContent = () => {
-        this.setState({
-            openContent: !this.state.openContent,
-            openSettings: false
-        })
     }
 
     getTitle = () => {
-        return this.state.content ? this.state.content.title[this.props.indexLanguage] : ''
+        return this.state.content && this.state.content.title && this.state.content.title[this.props.indexLanguage] ? this.state.content.title[this.props.indexLanguage] : ''
     }
 
+    isUpdated = () => {
+        const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.type];
+        return (this.state.content != TitleOnStore.content )
+    }
+
+    cancelStateValue = (e) => {
+        e.preventDefault();
+        const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.type];
+        this.setState({
+            content: TitleOnStore.content,
+            settings: TitleOnStore.settings
+        });
+    }
 
     render() {
         const {dispatch, extension, indexLanguage, name, type, indexComponent, indexSection} = this.props;
+
+        const TitleOnStore = this.props.dom.sections[indexSection].components[indexComponent].fields[type];
 
         return (
             <div>
                 <Banner>
                     <div>
                         <ActiveCheckBox
-                            className={this.state.active ? 'active' : ''}
+                            className={ TitleOnStore.active ? 'active' : ''}
                             onClick={e => {
-                                this.setState({
-                                    active: !this.state.active
-                                }, () => {
-                                    dispatch(toggleFieldActive(type, this.state.active, indexComponent, indexSection))
-                                })
-
+                                if(TitleOnStore.active){
+                                    dispatch(toggleFieldActive(type, false, indexComponent, indexSection))
+                                }else{
+                                    dispatch(toggleFieldActive(type, true, indexComponent, indexSection))
+                                }
                             }}>
                             <SvgCheck/>
                         </ActiveCheckBox>
@@ -129,36 +111,35 @@ class Title extends Component {
                                 })
                             }
                         </Languages>
-                        <Icon className={this.state.openContent ? 'active' : ''}
+                        <Icon className={TitleOnStore.status == 'content' ? 'active' : ''}
                               onClick={() => {
-                                  this.toggleViewContent();
+                                  dispatch(updateFieldStatus(type, 'content', indexComponent, indexSection))
                               }}><SvgContent/></Icon>
-                        <Icon className={this.state.openSettings ? 'active' : ''}
+                        <Icon className={TitleOnStore.status == 'settings' ? 'active' : ''}
                               onClick={() => {
-                                  this.toggleViewSettings();
+                                  dispatch(updateFieldStatus(type, 'settings', indexComponent, indexSection))
                               }}><SvgSetting/></Icon>
                     </div>
-
-
                 </Banner>
                 <Field>
-                    <div className={!this.state.openContent ? 'hidden' : ''}>
+                    <Content className={TitleOnStore.status !== 'content' ? 'hidden' : ''}>
                         <InputText action={this.updateTranlatedContent} targetProperty={'title'} defaultValue={this.getTitle()}/>
-                        <ChoiceItemsConfirm>
-                            <ButtonBasic
-                                label={'Cancel'}
-                                disaled={false}/>
-                            <ButtonValidate label={'Update'} disabled={false} action={() => {
-                                dispatch(updateFieldContent(type, this.state.content, indexComponent, indexSection));
-                            }}>
-                                Update
-                            </ButtonValidate>
-                        </ChoiceItemsConfirm>
-                    </div>
-                    <div className={!this.state.openSettings ? 'hidden' : ''}>
+                    </Content>
+                    <Settings className={TitleOnStore.status !== 'settings' ? 'hidden' : ''}>
                         settings
-                    </div>
+
+
+
+                    </Settings>
                 </Field>
+                <ChoiceItemsConfirm className={!this.isUpdated() ? 'hidden' : ''}>
+                    <ButtonBasic label={'Cancel'} disabled={!this.isUpdated()} action={this.cancelStateValue}/>
+                    <ButtonValidate label={'Update'} disabled={!this.isUpdated()} action={() => {
+                        dispatch(updateFieldContent(type, this.state.content, indexComponent, indexSection));
+                    }}>
+                        Update
+                    </ButtonValidate>
+                </ChoiceItemsConfirm>
             </div>
         );
     }

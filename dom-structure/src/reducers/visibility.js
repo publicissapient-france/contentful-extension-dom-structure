@@ -7,7 +7,7 @@ const visibility = (state = [], action) => {
                 openFormAddSection: false,
                 openFormAddSectionToTop: false,
                 selectedLanguage: 0,
-                responsiveMode: 'M'
+                view: {}
             };
 
         case 'TOGGLE_FORM_ADD_SECTION':

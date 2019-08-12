@@ -94,8 +94,8 @@ const dom = (state = [], action) => {
                 [action.indexParent]: {
                     components: {
                         [action.index]: {
-                            name: {$set: action.component.name},
-                            model: {$set: action.component.model}
+                            name: {$set: action.name},
+                            model: {$set: action.model}
                         }
                     }
                 }
@@ -212,6 +212,33 @@ const dom = (state = [], action) => {
                     }
                 }
             });
+
+
+        case 'UPDATE_FIELD_STATUS':
+            console.log('on chage status : ', state[action.indexSection].components[action.indexComponent].fields[action.typeField].status)
+            const current = state[action.indexSection].components[action.indexComponent].fields[action.typeField].status;
+            let newStatus;
+            if(current  == action.status){
+                newStatus = null;
+            }else{
+                newStatus = action.status
+            }
+            return update(state, {
+                [action.indexSection]: {
+                    components: {
+                        [action.indexComponent]: {
+                            fields: {
+                                [action.typeField]: {
+                                    status: {$set: newStatus}
+
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+
 
         default:
             return state;

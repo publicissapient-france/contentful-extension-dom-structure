@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {} from './styled';
+import { Container} from './styled';
 import PropTypes from 'prop-types';
 
 class InputText extends Component {
@@ -9,15 +9,14 @@ class InputText extends Component {
 
     render() {
         const { action, targetProperty, defaultValue } = this.props;
-        return ( <div>
+        return ( <Container>
             <input type={'text'} maxLength={140}
-                   defaultValue={defaultValue}
+                   value={defaultValue}
                    onChange={e => {
-                       console.log('e', e.target.value)
                        action(e.target.value, targetProperty)
                    }}/>
             <span>{140} characters</span>
-        </div> )
+        </Container> )
     }
 }
 
