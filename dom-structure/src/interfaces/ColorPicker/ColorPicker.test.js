@@ -5,7 +5,7 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 
 
-import ConnectedCategoryColor, {CategoryColor} from "./";
+import ConnectedColorPicker, {ColorPicker} from "./index";
 import {FieldsError, ChoiceColor} from "./styled";
 
 Enzyme.configure({adapter: new Adapter()});
@@ -51,7 +51,7 @@ describe("TEST Category Color ", () => {
 
 
     it("renders", () => {
-        const wrapper = shallow(<ConnectedCategoryColor store={store}/>);
+        const wrapper = shallow(<ConnectedColorPicker store={store}/>);
         expect(wrapper.exists()).toBe(true);
     });
 
@@ -60,13 +60,13 @@ describe("TEST Category Color ", () => {
             style: {}
         };
         const emptyStore = mockStore(emptyState);
-        const wrapper = mount(<ConnectedCategoryColor color={color} store={emptyStore}/>);
+        const wrapper = mount(<ConnectedColorPicker color={color} store={emptyStore}/>);
         expect(wrapper.find(FieldsError).exists()).toBe(true)
 
     });
 
     it('should render Choice color view', () => {
-        const wrapper = mount(<Provider store={store}><ConnectedCategoryColor openView color={color}
+        const wrapper = mount(<Provider store={store}><ConnectedColorPicker openView color={color}
                                                                               store={store}/></Provider>);
         expect(wrapper.find(ChoiceColor).exists()).toBe(true);
 

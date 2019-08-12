@@ -1,6 +1,7 @@
 import {extensionTheme} from "../../style/theme";
 import styled from "styled-components";
 import {ChoiceConfirm} from "../../style/styledComponentsBoxes";
+import {Category} from "../../boxes/settings/Title/styled";
 
 export const Languages = styled.div`
   display : flex;
@@ -50,4 +51,25 @@ export const Content = styled.div`
 `;
 export const Settings = styled.div`
    
+`;
+
+
+
+export const Choices = styled.div`
+   display : flex;
+`;
+
+
+export const Column = styled.div`
+   display : flex;
+    flex-direction : column;
+    
+    &.full-width{
+        width : 100%;
+        
+        & ${Category}{
+            width : 100%;
+            padding-top : 0;
+        }
+    }
 `;

@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash'
 
-import {Error} from '../../../style/styledComponents';
-import {Property} from '../../../style/styledComponentsBoxes';
+import {Error} from '../../style/styledComponents';
+import {Property} from '../../style/styledComponentsBoxes';
 import {
     Field,
     ChoiceColor,
@@ -15,16 +15,16 @@ import {
     PaletteView,
     SelectedColor
 } from './styled'
-import SvgCross from '../../../components/svg/SvgCross';
-import ColorView from '../../../components/ColorView/index';
-import ColorAdd from '../../../containers/ColorAdd/index';
-import ColorsList from '../../../components/ColorsList';
-import Dot from '../../../components/Dot';
+import SvgCross from '../../components/svg/SvgCross';
+import ColorView from '../../components/ColorView/index';
+import ColorAdd from '../../containers/ColorAdd/index';
+import ColorsList from '../../components/ColorsList/index';
+import Dot from '../../components/Dot/index';
 
-import {getColors} from '../../../actions/index';
-import {hasNotSamePropertyValue} from "../../../utils/functions";
+import {getColors} from '../../actions/index';
+import {hasNotSamePropertyValue} from "../../utils/functions";
 
-class CategoryColor extends Component {
+class ColorPicker extends Component {
     constructor(props) {
         super(props);
 
@@ -122,7 +122,7 @@ class CategoryColor extends Component {
     }
 }
 
-CategoryColor.protoTypes = {
+ColorPicker.protoTypes = {
     color: PropTypes.shape({
         name: PropTypes.string.isRequired,
         hex: PropTypes.string.isRequired,
@@ -162,4 +162,4 @@ const mapStateToProps = state => ({
     colors: getColors(state).value
 });
 
-export default connect(mapStateToProps)(CategoryColor);
+export default connect(mapStateToProps)(ColorPicker);

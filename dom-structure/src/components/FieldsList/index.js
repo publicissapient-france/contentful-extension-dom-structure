@@ -18,7 +18,8 @@ class FieldsList extends Component {
                                 name: field.name,
                                 type : field.type,
                                 responsive : field.responsive,
-                                defaultValue : field.defaultValue,
+                                defaultContent : field.content.defaultValue,
+                                defaultSettings : field.settings.defaultValue,
                                 key: i
                             }
                             switch (field.type) {

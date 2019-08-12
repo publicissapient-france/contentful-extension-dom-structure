@@ -7,6 +7,7 @@ import SvgSetting from '../../components/svg/SvgSetting';
 import SvgContent from '../../components/svg/SvgContent';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
+import TextPreview from '../../components/TextPreview';
 import {connect} from 'react-redux';
 import {toggleFieldActive, getCurrentDOM, getCurrentLanguage, updateFieldStatus} from '../../actions/index';
 import {
@@ -15,14 +16,22 @@ import {
     updateFieldContent,
 } from "../../actions";
 import {getCountryISO} from "../../utils/functions";
-import {ToogleLanguage, Languages, ChoiceItemsConfirm, Content, Settings} from './styled'
+import {ToogleLanguage, Languages, ChoiceItemsConfirm, Content, Settings, Choices, Column} from './styled'
 import InputText from '../../interfaces/InputText'
+import Typography from '../../interfaces/Typography';
+import ColorPicker from '../../interfaces/ColorPicker'
+import {isEmpty} from "lodash"
+
 
 class Title extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { }
+        this.state = {
+            openView : false,
+            openPreview: false
+
+        }
     }
 
     componentDidMount() {
@@ -31,17 +40,31 @@ class Title extends Component {
             content: TitleOnStore.content,
             settings: TitleOnStore.settings,
         }, () => {
-            if(!this.state.content.title){ this.init()}
+            if (!this.state.content.title) {
+                this.initTitle()
+            }
+            console.log('éta du state au mount', this.state)
+            if (isEmpty(this.state.settings)) {
+                this.initSettings()
+            }
         });
     };
 
-    init = () => {
+    initTitle = () => {
         this.setState(prevState => ({
             content: {
                 ...prevState.content,
                 title: {}
             }
         }));
+    }
+    initSettings = () => {
+        const initValue = this.props.defaultSettings;
+        this.setState({
+            settings: initValue
+        }, () => {
+            console.log('after init settings : ', this.state);
+        });
     }
 
     updateTranlatedContent = (value, targetProperty) => {
@@ -51,12 +74,25 @@ class Title extends Component {
                 ...prevState.content,
                 [targetProperty]: {
                     ...prevState.content[targetProperty],
-                    [this.props.indexLanguage] : value
+                    [this.props.indexLanguage]: value
                 }
             }
         }));
 
     }
+
+    updateSettings = (targetProperty, value) => {
+        this.setState({
+            settings: {
+                ...this.state.settings,
+                [targetProperty]: value
+            }
+        });
+    }
+
+    toggleOpenView = () => this.setState({openView: !this.state.openView});
+    toggleOpenPreview = () => this.setState({openPreview: !this.state.openPreview});
+
 
     getTitle = () => {
         return this.state.content && this.state.content.title && this.state.content.title[this.props.indexLanguage] ? this.state.content.title[this.props.indexLanguage] : ''
@@ -64,7 +100,7 @@ class Title extends Component {
 
     isUpdated = () => {
         const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.type];
-        return (this.state.content != TitleOnStore.content )
+        return (this.state.content != TitleOnStore.content)
     }
 
     cancelStateValue = (e) => {
@@ -81,16 +117,17 @@ class Title extends Component {
 
         const TitleOnStore = this.props.dom.sections[indexSection].components[indexComponent].fields[type];
 
+        if(!this.state.settings) return null
         return (
             <div>
                 <Banner>
                     <div>
                         <ActiveCheckBox
-                            className={ TitleOnStore.active ? 'active' : ''}
+                            className={TitleOnStore.active ? 'active' : ''}
                             onClick={e => {
-                                if(TitleOnStore.active){
+                                if (TitleOnStore.active) {
                                     dispatch(toggleFieldActive(type, false, indexComponent, indexSection))
-                                }else{
+                                } else {
                                     dispatch(toggleFieldActive(type, true, indexComponent, indexSection))
                                 }
                             }}>
@@ -123,11 +160,39 @@ class Title extends Component {
                 </Banner>
                 <Field>
                     <Content className={TitleOnStore.status !== 'content' ? 'hidden' : ''}>
-                        <InputText action={this.updateTranlatedContent} targetProperty={'title'} defaultValue={this.getTitle()}/>
+                        <InputText action={this.updateTranlatedContent} targetProperty={'title'}
+                                   defaultValue={this.getTitle()}/>
                     </Content>
                     <Settings className={TitleOnStore.status !== 'settings' ? 'hidden' : ''}>
-                        settings
+                        <Choices>
+                            <Column className={this.state.openView ? 'full-width' : ''}>
+                                <TextPreview color={this.state.settings.color}
+                                             font={this.state.settings.font}
+                                             text={this.state.settings.text}
+                                             opacity={this.state.settings.opacity}
+                                             open={this.state.openPreview}
+                                             toggleOpenPreview={this.toggleOpenPreview}
 
+                                />
+                                <ColorPicker className={this.state.openPreview ? 'hidden' : ''}
+                                    color={this.state.settings.color}
+                                             opacity={this.state.settings.opacity}
+                                             storeValueColor={TitleOnStore && TitleOnStore.settings.color ? TitleOnStore.settings.color : null}
+                                             storeValueOpacity={TitleOnStore && TitleOnStore.settings.opacity ? TitleOnStore.settings.opacity : null}
+                                             defaultColor={this.props.defaultSettings.color}
+                                             defaultOpacity={this.props.defaultSettings.opacity}
+                                             openView={this.state.openView}
+                                             updateStateProps={this.updateSettings}
+                                             toggleOpenView={this.toggleOpenView}
+
+
+
+                                />
+                            </Column>
+
+                        </Choices>
+
+                        <Typography/>
 
 
                     </Settings>

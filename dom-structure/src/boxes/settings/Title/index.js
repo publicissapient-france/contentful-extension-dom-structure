@@ -13,7 +13,7 @@ import {
 import SvgArrow from '../../../components/svg/SvgArrow';
 import SvgCheck from '../../../components/svg/SvgCheck';
 import CategoryText from '../../reusable/CategoryText/index';
-import CategoryColor from '../../reusable/CategoryColor/index';
+import CategoryColor from '../../../interfaces/ColorPicker/index';
 import CategorySeo from '../../reusable/CategorySeo/index';
 import TextPreview from '../../../components/TextPreview';
 import ButtonBasic from '../../../components/ui/ButtonBasic';
