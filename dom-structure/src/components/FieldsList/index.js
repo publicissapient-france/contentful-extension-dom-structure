@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { FieldContainer} from "./styled";
+import Title  from '../../fields/Title/index';
 
 class FieldsList extends Component {
     render() {
@@ -8,7 +9,6 @@ class FieldsList extends Component {
         console.log('props on FieldsList', this.props)
         return (
             <FieldContainer>
-                <React.Suspense fallback={<div>Loading Box...</div>}>
 
                     {
                         fields.map((field, i) => {
@@ -20,11 +20,12 @@ class FieldsList extends Component {
                                 responsive : field.responsive,
                                 defaultContent : field.content.defaultValue,
                                 defaultSettings : field.settings.defaultValue,
-                                key: i
+                                key: `${indexParent}${index}Title`
                             }
+                            console.log(`${indexParent}${index}Title`);
                             switch (field.type) {
                                 case 'Title':
-                                    return React.createElement(React.lazy(() => import('../../fields/Title/index')), params);
+                                    return <Title {...params} />;
 
 
                                 default :
@@ -33,7 +34,6 @@ class FieldsList extends Component {
                             }
                         })
                     }
-                </React.Suspense>
             </FieldContainer>
         );
     }

@@ -29,12 +29,15 @@ class Title extends Component {
 
         this.state = {
             openView : false,
-            openPreview: false
+            openPreview: false,
+            openSettings : false,
+            openContent : false
 
         }
     }
 
     componentDidMount() {
+        console.log('MOUNT TITLE');
         const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.type];
         this.setState({
             content: TitleOnStore.content,
@@ -93,6 +96,15 @@ class Title extends Component {
     toggleOpenView = () => this.setState({openView: !this.state.openView});
     toggleOpenPreview = () => this.setState({openPreview: !this.state.openPreview});
 
+    toggleContent = () => this.setState(prevState => ({
+        openContent: !prevState.openContent,
+        openSettings : false
+    }));
+    toggleSettings = () => this.setState(prevState => ({
+        openSettings: !prevState.openSettings,
+        openContent: false
+    }));
+
 
     getTitle = () => {
         return this.state.content && this.state.content.title && this.state.content.title[this.props.indexLanguage] ? this.state.content.title[this.props.indexLanguage] : ''
@@ -148,22 +160,24 @@ class Title extends Component {
                                 })
                             }
                         </Languages>
-                        <Icon className={TitleOnStore.status == 'content' ? 'active' : ''}
+                        <Icon className={this.state.openContent ? 'active' : ''}
                               onClick={() => {
-                                  dispatch(updateFieldStatus(type, 'content', indexComponent, indexSection))
+                                  this.toggleContent();
+                                  /*dispatch(updateFieldStatus(type, 'content', indexComponent, indexSection))*/
                               }}><SvgContent/></Icon>
-                        <Icon className={TitleOnStore.status == 'settings' ? 'active' : ''}
+                        <Icon className={this.state.openSettings  ? 'active' : ''}
                               onClick={() => {
-                                  dispatch(updateFieldStatus(type, 'settings', indexComponent, indexSection))
+                                  this.toggleSettings();
+                                  /*dispatch(updateFieldStatus(type, 'settings', indexComponent, indexSection))*/
                               }}><SvgSetting/></Icon>
                     </div>
                 </Banner>
                 <Field>
-                    <Content className={TitleOnStore.status !== 'content' ? 'hidden' : ''}>
+                    <Content className={!this.state.openContent ? 'hidden' : ''}>
                         <InputText action={this.updateTranlatedContent} targetProperty={'title'}
                                    defaultValue={this.getTitle()}/>
                     </Content>
-                    <Settings className={TitleOnStore.status !== 'settings' ? 'hidden' : ''}>
+                    <Settings className={!this.state.openSettings ? 'hidden' : ''}>
                         <Choices>
                             <Column className={this.state.openView ? 'full-width' : ''}>
                                 <TextPreview color={this.state.settings.color}
