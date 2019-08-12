@@ -30,10 +30,15 @@ class AddComponent extends Component {
     }
 
     updateModel = model => {
+        let fields = {};
+        componentConfig[model].default.fields.map((field) => {
+            fields[field.type] = { active : true, content : {}, settings : {}};
+        })
         this.setState(
             {
                 component: update(this.state.component, {
                     model: { $set: model },
+                    fields: { $set: fields }
                 })
             });
     }

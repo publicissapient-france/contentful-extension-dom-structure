@@ -8,6 +8,7 @@ import SvgTrash from '../../components/svg/SvgTrash';
 import SvgArrowDouble from '../../components/svg/SvgArrowDouble';
 import BoxesContent from '../../components/BoxesContent/index';
 import BoxesSettings from '../../components/BoxesSettings/index';
+import FieldsList from '../../components/FieldsList';
 import {getCountryISO} from '../../utils/functions';
 
 import {
@@ -27,7 +28,9 @@ import {
     Languages,
     Settings,
     Toggle,
-    TopBar
+    TopBar,
+    FieldsContainer,
+    Fields
 } from './styled';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
@@ -136,12 +139,16 @@ class ComponentDOM extends Component {
     isUpdated = () => (this.state.component && (this.state.component.name !== this.props.component.name ||
         this.state.component.model !== this.props.component.model))
 
-    getSettingsComponent = () => {
+   /* getSettingsComponent = () => {
         return componentConfig[this.props.component.model].default.settings;
     }
 
     getContentComponent = () => {
         return componentConfig[this.props.component.model].default.content;
+    }*/
+
+    getComponentFields = () => {
+        return componentConfig[this.props.component.model].default.fields;
     }
 
 
@@ -151,7 +158,6 @@ class ComponentDOM extends Component {
 
         if (!this.state.component || !extensionInfo.extension.locales) return null;
 
-        this.getSettingsComponent()
         return (
             <ContainerComponent>
                 <TopBar>
@@ -200,7 +206,7 @@ class ComponentDOM extends Component {
                     <p>The deletion is final. Are you sure you want to delete this component?</p>
                     <div className={'buttons'}>
                         <ButtonBasic label={'Cancel'} action={this.toggleSafeSecure}/>
-                        <ButtonDelete label={'Delete'} action={ () => {
+                        <ButtonDelete label={'Delete'} action={() => {
                             dispatch(removeComponent(index, indexParent));
                             this.setState({openSafeDelete: false});
                         }}/>
@@ -252,6 +258,22 @@ class ComponentDOM extends Component {
                         </div>
                     </FormComponent>
                 </div>
+                <FieldsContainer>
+                    <Banner>
+                        <p>Content & Specifications</p>
+                        <Toggle>
+                            <Icon className={!this.state.openBoxesSettings ? '' : 'rotate'}
+                                  onClick={() => {
+                                      console.log('Click on new Toggle Component Doms');
+                                  }}><SvgArrowDouble/></Icon>
+                        </Toggle>
+                    </Banner>
+                    <Fields>
+                        <FieldsList fields={this.getComponentFields()} index={index} indexParent={indexParent}/>
+                    </Fields>
+                </FieldsContainer>
+
+
                 <Settings className={!this.state.openSettings ? 'hidden' : ''}>
 
                     <Banner>
@@ -264,9 +286,7 @@ class ComponentDOM extends Component {
                         </Toggle>
 
                     </Banner>
-                    <BoxesSettings open={this.state.openBoxesSettings} fields={this.getSettingsComponent()}
-                                   index={index}
-                                   indexParent={indexParent}/>
+
 
                 </Settings>
                 <Content className={!this.state.openContent ? 'hidden' : ''}>
@@ -293,14 +313,18 @@ class ComponentDOM extends Component {
                         </Toggle>
 
                     </Banner>
-                    <BoxesContent open={this.state.openBoxes} fields={this.getContentComponent()} index={index}
-                                  indexParent={indexParent}/>
+
                 </Content>
 
             </ContainerComponent>
         );
     }
 };
+/*<BoxesSettings open={this.state.openBoxesSettings} fields={this.getSettingsComponent()}
+                                  index={index}
+                                  indexParent={indexParent}/>*/
+/*<BoxesContent open={this.state.openBoxes} fields={this.getContentComponent()} index={index}
+                                  indexParent={indexParent}/>*/
 
 ComponentDOM.propTypes = {
     component: PropTypes.shape({

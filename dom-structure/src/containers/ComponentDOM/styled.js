@@ -144,3 +144,11 @@ export const Settings = styled(OptionsBlock)`
     }
   }
 `;
+//STYLE REFONT
+export const FieldsContainer = styled.div`
+ 
+`;
+
+export const Fields = styled.div`
+ 
+`;

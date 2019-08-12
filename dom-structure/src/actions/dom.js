@@ -130,4 +130,13 @@ export const updateSettingsValue = (props, value, bool, number, numberParent) =>
     indexComponent: number,
     indexSection: numberParent
 });
+// COMPONENT SETTINGS
+
+export const toggleFieldActive = (type, bool, number, numberParent) => ({
+    type: 'TOGGLE_FIELD_ACTIVE',
+    typeField: type,
+    active: bool,
+    indexComponent: number,
+    indexSection: numberParent
+});
 

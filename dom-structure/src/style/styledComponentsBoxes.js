@@ -13,6 +13,7 @@ export const Banner = styled.div`
   border-bottom : 1px solid ${ extensionTheme.grey20 }; 
   justify-content: space-between;
   padding-right : 3px;
+  height : 35px;
   
   & p{
     padding-left : 10px;
@@ -50,6 +51,50 @@ export const Fields = styled.div`
   padding :20px 15px 20px 15px;
   box-sizing : border-box;
   display: none;
+  
+  input{
+    border : 1px solid  ${ extensionTheme.grey80 };
+    width : 100%;
+    padding : 0;
+    padding-left : 5px;
+    box-sizing:border-box;
+    line-height : 30px;
+    
+    &.updated{
+        background : ${ extensionTheme.blueM };
+        color :  ${ extensionTheme.white };
+    }
+  }
+  
+  select {
+    &.updated{
+            background : ${ extensionTheme.blueM };
+            color : ${ extensionTheme.white }
+        }
+  }
+  
+  label {
+    font-size : 12px;
+    font-weight : 300;
+    color :  ${ extensionTheme.grey80 };
+  }
+  
+  span {
+    font-size : 11px;
+    color :  ${ extensionTheme.grey50 };
+    margin-top:3px;
+  }
+  
+  &.open{
+    display: flex;
+  }
+`;
+
+export const Field = styled.div`
+  display : flex;
+  flex-direction : column;
+  width : 100%;
+  box-sizing : border-box;
   
   input{
     border : 1px solid  ${ extensionTheme.grey80 };

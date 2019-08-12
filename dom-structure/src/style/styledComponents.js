@@ -211,6 +211,10 @@ export const Icon = styled.div`
   width : 40px;
   height : 40px;
   cursor  : pointer;
+  
+  & svg g path, & svg path, & svg rect {
+        fill : ${ extensionTheme.grey40 };
+    }
 
   &.active{
     & svg g path, & svg path, & svg rect {
