@@ -12,9 +12,9 @@ import {
 } from '../../../style/styledComponentsBoxes';
 import SvgArrow from '../../../components/svg/SvgArrow';
 import SvgCheck from '../../../components/svg/SvgCheck';
-import CategoryText from '../../reusable/CategoryText/index';
+import CategoryText from '../../../interfaces/Typography/index';
 import CategoryColor from '../../../interfaces/ColorPicker/index';
-import CategorySeo from '../../reusable/CategorySeo/index';
+import CategorySeo from '../../../interfaces/Seo/index';
 import TextPreview from '../../../components/TextPreview';
 import ButtonBasic from '../../../components/ui/ButtonBasic';
 import ButtonValidate from '../../../components/ui/ButtonValidate'
@@ -28,7 +28,7 @@ class Title extends Component {
             open: true,
             value: {},
             active: true,
-            openView: false,
+            openColorView: false,
             openPreview: false
         };
 
@@ -40,7 +40,7 @@ class Title extends Component {
 
         this.setState({
             value: titleSettings ? titleSettings.value : this.props.defaultValue,
-            active: titleSettings ? titleSettings.active : true,
+
             open: this.props.open
         });
 
@@ -55,9 +55,9 @@ class Title extends Component {
         });
     }
 
-    toggleOpenView = () => this.setState({openView: !this.state.openView});
+    toggleOpenView = () => this.setState({openColorView: !this.state.openColorView});
     toggleOpenPreview = () => this.setState({openPreview: !this.state.openPreview});
-    viewIsOpen = () => (this.state.openView || this.state.openPreview);
+    viewIsOpen = () => (this.state.openColorView || this.state.openPreview);
 
 
     isUpdated = () => {
@@ -107,7 +107,7 @@ class Title extends Component {
                 </Banner>
                 <FieldsTemplate className={this.state.open ? 'open' : ''}>
                     <Choices>
-                        <Column className={this.state.openView ? 'full-width' : ''}>
+                        <Column className={this.state.openColorView || this.state.openPreview  ? 'full-width' : ''}>
                             <Category>
                                 <TextPreview
                                     color={this.state.value.color}
@@ -119,7 +119,7 @@ class Title extends Component {
                                 />
                             </Category>
                             <Category  className={this.state.openPreview ? 'hidden' : ''}>
-                                <CategoryColor openView={this.state.openView}
+                                <CategoryColor openView={this.state.openColorView}
                                                toggleOpenView={this.toggleOpenView}
                                                storeValueColor={titleSettings && titleSettings.value.color ? titleSettings.value.color : null}
                                                storeValueOpacity={titleSettings && titleSettings.value.opacity ? titleSettings.value.opacity : null}

@@ -6,6 +6,7 @@ import SvgSun from '../svg/SvgSun';
 import SvgA from '../svg/SvgA';
 import SvgP from '../svg/SvgP';
 import SvgExtend from '../svg/SvgExtend';
+import PropTypes from 'prop-types';
 
 import { PreviewContainer, Options, TextContainer } from './styled';
 
@@ -24,13 +25,13 @@ class TextPreview extends Component {
     }
 
     render() {
-        const {font, text, color, opacity, open} = this.props;
+        const {font, text, color, opacity, open, hidden} = this.props;
         let lightIcon = this.state.light ? <SvgMoon/> : <SvgSun/>;
         let textIcon = this.state.alphabet ? <SvgA/> : <SvgP/>;
         let extendIcon = this.state.alphabet ? <SvgExtend/> : <SvgExtend/>;
         if (!font || !text) return <p>preview impossible</p>
         return (
-            <PreviewContainer className={'textPreview'}>
+            <PreviewContainer className={hidden ? 'hidden' : ''}>
                 <TextContainer className={[!this.state.light ? 'on-dark' : '', open ? 'is-open' : '']}>
                     <p
                         style={{
@@ -77,5 +78,10 @@ class TextPreview extends Component {
         );
     }
 };
+
+TextPreview.propTypes = {
+    hidden : PropTypes.bool
+}
+
 
 export default TextPreview;

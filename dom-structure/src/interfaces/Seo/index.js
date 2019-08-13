@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {tags} from '../../../config/defaultConfig';
+import {tags} from '../../config/defaultConfig';
 
-import Dot from '../../../components/Dot'
-import {hasNotSamePropertyValue} from "../../../utils/functions";
+import Dot from '../../components/Dot/index'
+import {hasNotSamePropertyValue} from "../../utils/functions";
 import { ChoiceSeo, Field} from "./styled";
 
-class CategorySeo extends Component {
+class Seo extends Component {
     constructor(props) {
         super(props);
 
@@ -43,10 +43,10 @@ class CategorySeo extends Component {
     }
 
     render() {
-        const {storeValueSeo, seo, defaultSeo} = this.props;
+        const {storeValueSeo, seo, defaultSeo, hidden} = this.props;
         if (!seo) return null
         return (
-            <ChoiceSeo>
+            <ChoiceSeo className={hidden ? 'hidden' : ''}>
                 <div>
                     <Field>
                         <Dot enabled={hasNotSamePropertyValue(defaultSeo, seo, 'tag')}/>
@@ -66,7 +66,7 @@ class CategorySeo extends Component {
 }
 
 
-CategorySeo.protoTypes = {
+Seo.protoTypes = {
     seo: PropTypes.shape({
         tag: PropTypes.oneOf(tags)
     }),
@@ -75,10 +75,11 @@ CategorySeo.protoTypes = {
     }),
     storeValueSeo: PropTypes.shape({
         tag: PropTypes.oneOf(tags)
-    })
+    }),
+    hidden : PropTypes.bool
 
 
 };
 
 
-export default connect()(CategorySeo);
+export default connect()(Seo);

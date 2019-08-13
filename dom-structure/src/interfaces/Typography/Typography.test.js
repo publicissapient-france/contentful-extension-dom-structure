@@ -4,7 +4,7 @@ import Adapter from "enzyme-adapter-react-16";
 import configureStore from 'redux-mock-store';
 
 
-import ConnectedCategoryText, {CategoryText} from "./";
+import ConnectedTypography, {Typography} from "./";
 import {} from "./styled";
 
 Enzyme.configure({adapter: new Adapter()});
@@ -40,7 +40,7 @@ describe("TEST Category Text ", () => {
 
 
     it("renders", () => {
-        const wrapper = shallow(<ConnectedCategoryText store={store}/>);
+        const wrapper = shallow(<ConnectedTypography store={store}/>);
         expect(wrapper.exists()).toBe(true);
     });
 

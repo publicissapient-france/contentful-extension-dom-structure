@@ -32,7 +32,7 @@ export default {
                         weight: null,
                         style: 'italic',
                         size: '28',
-                        lineHeight: null,
+                        lineHeight: '40',
                         letterSpacing: '0'
                     },
                     text: {

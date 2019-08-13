@@ -52,7 +52,7 @@ class ColorPicker extends Component {
     }
 
     render() {
-        const {storeValueColor, storeValueOpacity, colors, color, opacity, defaultColor, defaultOpacity, openView} = this.props;
+        const {storeValueColor, storeValueOpacity, colors, color, opacity, defaultColor, defaultOpacity, openView, hidden} = this.props;
         if (!color) return <p>no color defined</p>
         if (!colors) return (
             <FieldsError>
@@ -64,7 +64,7 @@ class ColorPicker extends Component {
             </FieldsError>
         )
         return (
-            <ChoiceColor className={openView ? 'full-width' : ''}>
+            <ChoiceColor className={[openView ? 'full-width' : '', hidden ? 'hidden' : '']}>
                 <div>
                     <Property>Color</Property>
                     <Field>
@@ -155,7 +155,8 @@ ColorPicker.protoTypes = {
             slug: PropTypes.string.isRequired
         }))
     }),
-    openView: PropTypes.bool.isRequired
+    openView: PropTypes.bool.isRequired,
+    hidden : PropTypes.bool
 };
 
 const mapStateToProps = state => ({

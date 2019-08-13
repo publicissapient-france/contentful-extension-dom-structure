@@ -5,7 +5,7 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 
 
-import ConnectedCategorySeo, {CategorySeo} from "./";
+import ConnectedSeo, {Seo} from "./index";
 import {} from "./styled";
 
 Enzyme.configure({adapter: new Adapter()});
@@ -28,7 +28,7 @@ describe("TEST Category Seo ", () => {
 
 
     it("renders", () => {
-        const wrapper = shallow(<ConnectedCategorySeo store={store}/>);
+        const wrapper = shallow(<ConnectedSeo store={store}/>);
         expect(wrapper.exists()).toBe(true);
     });
 

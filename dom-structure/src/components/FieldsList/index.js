@@ -6,7 +6,6 @@ import Title  from '../../fields/Title/index';
 class FieldsList extends Component {
     render() {
         const {fields, index, indexParent} = this.props;
-        console.log('props on FieldsList', this.props)
         return (
             <FieldContainer>
 
@@ -20,9 +19,8 @@ class FieldsList extends Component {
                                 responsive : field.responsive,
                                 defaultContent : field.content.defaultValue,
                                 defaultSettings : field.settings.defaultValue,
-                                key: `${indexParent}${index}Title`
+                                key: i
                             }
-                            console.log(`${indexParent}${index}Title`);
                             switch (field.type) {
                                 case 'Title':
                                     return <Title {...params} />;

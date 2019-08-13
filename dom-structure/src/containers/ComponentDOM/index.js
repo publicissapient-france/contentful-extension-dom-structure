@@ -52,9 +52,6 @@ class ComponentDOM extends Component {
     constructor(props) {
         super(props);
 
-        this.inputName = React.createRef();
-        this.selectModel = React.createRef();
-
         this.state = {
             openBoxes: true,
             semiOpenBoxes: false,
@@ -66,9 +63,10 @@ class ComponentDOM extends Component {
         };
     }
 
-    componentDidMount() {}
-
-
+    componentDidMount = async () => {
+        this.setState({component: this.props.component}, async () => {
+        });
+    }
 
     updateModel = model => {
         this.setState({
@@ -127,42 +125,14 @@ class ComponentDOM extends Component {
         });
     }
 
-    isUpdated = () => {
-        if(!this.inputName.current && !this.selectModel.current) return;
-        if(this.inputName.current.value !== this.props.component.name ||
-            this.selectModel.current.value !== this.props.component.model) return true
-        return false
-
-    }
-    /*(this.inputName.current && (this.state.component.name !== this.props.component.name ||
+    isUpdated = () => (this.state.component && (this.state.component.name !== this.props.component.name ||
         this.state.component.model !== this.props.component.model))
-        //if(this.inputName.current && this.inputName.current.value !== this.props.component.name) return true
 
-       /* (this.state.component && (this.state.component.name !== this.props.component.name ||
-            this.state.component.model !== this.props.component.model))*/
-
-
-    /* getSettingsComponent = () => {
-         return componentConfig[this.props.component.model].default.settings;
-     }
-
-     getContentComponent = () => {
-         return componentConfig[this.props.component.model].default.content;
-     }*/
 
     getComponentFields = () => {
         return componentConfig[this.props.component.model].default.fields;
     }
 
-
-    getComponentName = () => {
-        if (!this.inputName.current) return
-        return this.inputName.current.value;
-    }
-    getComponentModel = () => {
-        if (!this.selectModel.current) return
-        return this.selectModel.current.value;
-    }
 
     render() {
         const {dispatch, component, index, indexParent, lengthParent} = this.props;
@@ -228,23 +198,26 @@ class ComponentDOM extends Component {
                     <FormComponent onSubmit={e => {
                         e.preventDefault();
                         if (!this.isUpdated()) {
-                            console.log('desactive !this.isUpdated :(')
                             return;
                         }
-                        dispatch(updateComponent(this.getComponentName(), this.getComponentModel(), index, indexParent));
+                        dispatch(updateComponent(this.state.component, index, indexParent));
                     }}
                     >
                         <div>
                             <label>Component Name</label>
-                            <input ref={this.inputName} type={'text'}
+                            <input ref={node => (inputName = node)} type={'text'}
                                    defaultValue={component.name ? component.name : ''}
-                                   onChange={e => {}}/>
+                                   onChange={e => {
+                                       this.updateName(e.target.value);
+                                   }}/>
                         </div>
                         <div>
                             <label>Model</label>
-                            <select ref={this.selectModel}
+                            <select ref={node => (selectModel = node)}
                                     defaultValue={component.model ? component.model : null}
-                                    onChange={e => {}}>
+                                    onChange={e => {
+                                        this.updateModel(e.target.value);
+                                    }}>
                                 {
                                     Object.keys(componentConfig).map((key, i) => {
                                         return <option value={key} key={i}>{key}</option>;
@@ -259,16 +232,17 @@ class ComponentDOM extends Component {
                                 disabled={!this.isUpdated()}
                                 action={(e) => {
                                     e.preventDefault();
+                                    this.setState({component: this.props.component});
                                     inputName.value = component.name;
                                     selectModel.value = component.model;
                                 }}/>
-                            <ButtonValidate label={'Update'} type={'submit'} disabled={false/*!this.isUpdated()*/}/>
+                            <ButtonValidate label={'Update'} type={'submit'} disabled={!this.isUpdated()}/>
                         </div>
                     </FormComponent>
                 </div>
                 <FieldsContainer>
                     <Banner>
-                        <p>Content & Specifications</p>
+                        <p> Content & Specifications </p>
                         <Toggle>
                             <Icon className={!this.state.openBoxesSettings ? '' : 'rotate'}
                                   onClick={() => {
@@ -280,14 +254,11 @@ class ComponentDOM extends Component {
                         <FieldsList fields={this.getComponentFields()} index={index} indexParent={indexParent}/>
                     </Fields>
                 </FieldsContainer>
-
-
-
-
             </ContainerComponent>
         );
     }
 };
+
 /*<BoxesSettings open={this.state.openBoxesSettings} fields={this.getSettingsComponent()}
                                   index={index}
                                   indexParent={indexParent}/>*/
@@ -347,6 +318,5 @@ ComponentDOM.propTypes = {
     lengthParent: PropTypes.number.isRequired
 };
 
-const mapStateToProps = state => ({
-});
+const mapStateToProps = state => ({});
 export default connect(mapStateToProps)(ComponentDOM);

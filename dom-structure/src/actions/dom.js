@@ -141,18 +141,11 @@ export const toggleFieldActive = (type, bool, number, numberParent) => ({
 });
 
 
-export const updateFieldContent = (type, content, number, numberParent) => ({
-    type: 'UPDATE_FIELD_CONTENT',
+export const updateField = (type, content,settings, number, numberParent) => ({
+    type: 'UPDATE_FIELD_CONTENT_AND_SETTINGS',
     typeField: type,
     content: content,
-    indexComponent: number,
-    indexSection: numberParent
-});
-
-export const updateFieldStatus = (type, status, number, numberParent) => ({
-    type: 'UPDATE_FIELD_STATUS',
-    typeField: type,
-    status: status,
+    settings : settings,
     indexComponent: number,
     indexSection: numberParent
 });

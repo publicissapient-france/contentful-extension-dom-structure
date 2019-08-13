@@ -197,47 +197,21 @@ const dom = (state = [], action) => {
                 }
             });
 
-        case 'UPDATE_FIELD_CONTENT':
-            console.log("update field content !!!!!")
+        case 'UPDATE_FIELD_CONTENT_AND_SETTINGS':
             return update(state, {
                 [action.indexSection]: {
                     components: {
                         [action.indexComponent]: {
                             fields: {
                                 [action.typeField]: {
-                                    content: {$set: action.content}
+                                    content: {$set: action.content},
+                                    settings: {$set: action.settings}
                                 }
                             }
                         }
                     }
                 }
             });
-
-
-        case 'UPDATE_FIELD_STATUS':
-            console.log('on chage status : ', state[action.indexSection].components[action.indexComponent].fields[action.typeField].status)
-            const current = state[action.indexSection].components[action.indexComponent].fields[action.typeField].status;
-            let newStatus;
-            if(current  == action.status){
-                newStatus = null;
-            }else{
-                newStatus = action.status
-            }
-            return update(state, {
-                [action.indexSection]: {
-                    components: {
-                        [action.indexComponent]: {
-                            fields: {
-                                [action.typeField]: {
-                                    status: {$set: newStatus}
-
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
 
 
         default:
