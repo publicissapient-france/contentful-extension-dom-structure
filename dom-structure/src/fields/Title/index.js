@@ -1,24 +1,29 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsBoxes';
+import {connect} from 'react-redux';
+import update from "react-addons-update";
+import isEmpty from "lodash/isEmpty"
+import {toggleFieldActive, getCurrentDOM, getCurrentLanguage, updateField} from '../../actions';
+
+
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgContent from '../../components/svg/SvgContent';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
 import TextPreview from '../../components/TextPreview';
-import {connect} from 'react-redux';
-import {toggleFieldActive, getCurrentDOM, getCurrentLanguage, updateField} from '../../actions';
-import {ChoiceItemsConfirm, Content, Settings, Choices, Column} from './styled'
+import ResponsiveToggle from "../../components/ResponsiveToggle";
+import LanguageToggle from '../../containers/LanguageToggle';
+import ActiveCheckBox from '../../components/ActiveCheckBox';
+
 import InputText from '../../interfaces/InputText'
 import Typography from '../../interfaces/Typography';
 import ColorPicker from '../../interfaces/ColorPicker'
 import Seo from '../../interfaces/Seo'
-import {isEmpty} from "lodash"
-import update from "react-addons-update";
-import ResponsiveToggle from "../../components/ResponsiveToggle";
-import LanguageToggle from '../../containers/LanguageToggle';
-import ActiveCheckBox from '../../components/ActiveCheckBox';
+
+import {Icon} from '../../style/styledComponents';
+import {Banner, Field} from '../../style/styledComponentsBoxes';
+import {ChoiceItemsConfirm, Content, Settings, Choices, Column} from './styled'
+
 
 
 class Title extends Component {
@@ -162,7 +167,7 @@ class Title extends Component {
                     <div>
                         <ActiveCheckBox
                             active={this.state.active}
-                            action={ () => {
+                            action={() => {
                                 this.setState({active: !this.state.active}, () => {
                                     dispatch(toggleFieldActive(type, this.state.active, indexComponent, indexSection))
                                 });
@@ -201,7 +206,6 @@ class Title extends Component {
                                              opacity={this.getCurrentSettingsProperty('opacity')}
                                              open={this.state.openPreview}
                                              toggleOpenPreview={this.toggleOpenPreview}
-
                                 />
                                 <ColorPicker hidden={this.state.openPreview}
                                              color={this.getCurrentSettingsProperty('color')}
@@ -213,7 +217,6 @@ class Title extends Component {
                                              openView={this.state.openColorView}
                                              updateStateProps={this.updateSettings}
                                              toggleOpenView={this.toggleOpenView}
-
                                 />
                                 <Seo hidden={this.state.openPreview || this.state.openColorView}
                                      seo={this.getCurrentSettingsProperty('seo')}
@@ -233,16 +236,13 @@ class Title extends Component {
                                 />
                             </Column>
                         </Choices>
-
                     </Settings>
                 </Field>
                 <ChoiceItemsConfirm className={!this.isUpdated() ? 'hidden' : ''}>
                     <ButtonBasic label={'Cancel'} disabled={!this.isUpdated()} action={this.cancelStateValue}/>
                     <ButtonValidate label={'Update'} disabled={!this.isUpdated()} action={() => {
                         dispatch(updateField(type, this.state.content, this.state.settings, indexComponent, indexSection));
-                    }}>
-                        Update
-                    </ButtonValidate>
+                    }}/>
                 </ChoiceItemsConfirm>
             </div>
         );
