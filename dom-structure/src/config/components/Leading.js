@@ -6,7 +6,7 @@ export default {
             type : 'Title',
 
             content : {
-                responsive : null,
+                responsive : [],
                 parameters : {},
                 defaultValue : {
                     title : null

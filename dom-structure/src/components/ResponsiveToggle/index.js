@@ -1,22 +1,14 @@
 import React, {Component} from 'react';
-
 import PropTypes from 'prop-types';
 import {ToogleResponsive, Responsive} from './styled';
 
 class ResponsiveToggle extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {};
-    }
-
     render() {
         const {responsive, currentMode, action} = this.props;
-
         return (
-            <Responsive className={!responsive ? 'hidden' : ''}>
+            <Responsive className={!responsive.length ? 'hidden' : ''}>
                 {
-                    responsive ?
+                    responsive.length ?
                         responsive.map((mode, i) => {
                             return <ToogleResponsive
                                 key={mode}
@@ -32,8 +24,9 @@ class ResponsiveToggle extends Component {
 };
 
 ResponsiveToggle.propTypes = {
-
+    responsive : PropTypes.array,
+    currentMode : PropTypes.string,
+    action : PropTypes.func
 }
-
 
 export default ResponsiveToggle;

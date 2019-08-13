@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {extensionTheme} from "../../style/theme";
 
-export const Responsive = styled.div`
+export const Languages = styled.div`
   display : flex;
   height : auto;
   align-items : center;
@@ -11,8 +11,8 @@ export const Responsive = styled.div`
   padding-right : 20px;
 `;
 
-export const ToogleResponsive = styled.div`
-   width : 22px;
+export const ToogleLanguage = styled.div`
+  width : 22px;
   height : 20px;
   display : flex;
   border-width : 1px;
@@ -29,11 +29,9 @@ export const ToogleResponsive = styled.div`
   transition: background 0.6s ease, color 0.6s ease;
   margin-left : 10px;
   
-  
   &.active{
     color :  ${ extensionTheme.white }; 
     background : ${ extensionTheme.blueM }; 
     border-color :  ${ extensionTheme.blueM }; 
-
   }
 `;

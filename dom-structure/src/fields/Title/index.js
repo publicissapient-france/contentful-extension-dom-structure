@@ -1,22 +1,15 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Icon} from '../../style/styledComponents';
-import {Banner, Field, ActiveCheckBox} from '../../style/styledComponentsBoxes';
-import SvgCheck from '../../components/svg/SvgCheck';
+import {Banner, Field} from '../../style/styledComponentsBoxes';
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgContent from '../../components/svg/SvgContent';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
 import TextPreview from '../../components/TextPreview';
 import {connect} from 'react-redux';
-import {toggleFieldActive, getCurrentDOM, getCurrentLanguage} from '../../actions/index';
-import {
-    getCurrentExtension,
-    toggleLanguage,
-    updateField
-} from "../../actions";
-import {getCountryISO} from "../../utils/functions";
-import {ToogleLanguage, Languages, ChoiceItemsConfirm, Content, Settings, Choices, Column} from './styled'
+import {toggleFieldActive, getCurrentDOM, getCurrentLanguage, updateField} from '../../actions';
+import {ChoiceItemsConfirm, Content, Settings, Choices, Column} from './styled'
 import InputText from '../../interfaces/InputText'
 import Typography from '../../interfaces/Typography';
 import ColorPicker from '../../interfaces/ColorPicker'
@@ -24,6 +17,8 @@ import Seo from '../../interfaces/Seo'
 import {isEmpty} from "lodash"
 import update from "react-addons-update";
 import ResponsiveToggle from "../../components/ResponsiveToggle";
+import LanguageToggle from '../../containers/LanguageToggle';
+import ActiveCheckBox from '../../components/ActiveCheckBox';
 
 
 class Title extends Component {
@@ -35,7 +30,6 @@ class Title extends Component {
             openPreview: false,
             openSettings: false,
             openContent: false
-
         }
     }
 
@@ -47,12 +41,8 @@ class Title extends Component {
             active: TitleOnStore.active,
         }, () => {
             this.initResponsiveMode();
-            if (!this.state.content.title) {
-                this.initTitle()
-            }
-            if (isEmpty(this.state.settings)) {
-                this.initSettings()
-            }
+            if (!this.state.content.title) this.initTitle()
+            if (isEmpty(this.state.settings)) this.initSettings()
         });
     };
 
@@ -72,20 +62,11 @@ class Title extends Component {
     }
 
     initResponsiveMode = () => {
-        let mode;
-        if (!this.props.responsiveContent && !this.props.responsiveSettings) {
-            mode = null;
-        }
-        else if (this.props.responsiveContent) {
-            mode = this.props.responsiveContent[0]
-        } else {
-            mode = this.props.responsiveSettings[0]
-        }
+        const mode = this.props.responsiveContent[0] || this.props.responsiveSettings[0] || null;
         this.setState({currentResponsiveMode: mode})
     }
 
     updateTranlatedContent = (value, targetProperty) => {
-
         this.setState(prevState => ({
             content: {
                 ...prevState.content,
@@ -95,7 +76,6 @@ class Title extends Component {
                 }
             }
         }));
-
     }
 
     updateSettings = (targetProperty, value) => {
@@ -108,7 +88,6 @@ class Title extends Component {
                     }
                 })
             }));
-
         } else {
             this.setState(prevState => ({
                 settings: update(prevState.settings, {
@@ -116,13 +95,11 @@ class Title extends Component {
 
                 })
             }));
-
         }
-
     }
 
-    toggleOpenView = () => this.setState({openColorView: !this.state.openColorView});
-    toggleOpenPreview = () => this.setState({openPreview: !this.state.openPreview});
+    toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
+    toggleOpenPreview = () => this.setState(prevState => ({openPreview: !prevState.openPreview}));
 
     toggleContent = () => this.setState(prevState => ({
         openContent: !prevState.openContent,
@@ -137,10 +114,7 @@ class Title extends Component {
         currentResponsiveMode: mode
     });
 
-
-    getTitle = () => {
-        return this.state.content && this.state.content.title && this.state.content.title[this.props.indexLanguage] ? this.state.content.title[this.props.indexLanguage] : ''
-    }
+    getTitle = () => this.state.content.title && this.state.content.title[this.props.indexLanguage] ? this.state.content.title[this.props.indexLanguage] : '';
 
     isUpdated = () => {
         const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.type];
@@ -156,38 +130,30 @@ class Title extends Component {
         });
     }
 
-    getCurrentSettingsProperty = (property) => {
-        if (this.state.currentResponsiveMode) {
-            return this.state.settings[property][this.state.currentResponsiveMode]
-        } else {
-            return this.state.settings[property]
-        }
-    }
+    getCurrentSettingsProperty = (property) => this.state.currentResponsiveMode ?
+        this.state.settings[property][this.state.currentResponsiveMode]
+        : this.state.settings[property]
 
-    getCurrentDefaultSettingsProperty = (property) => {
-        if (this.state.currentResponsiveMode) {
-            return this.props.defaultSettings[property][this.state.currentResponsiveMode]
-        } else {
-            return this.props.defaultSettings[property]
-        }
-    }
+
+    getCurrentDefaultSettingsProperty = (property) => this.state.currentResponsiveMode ?
+        this.props.defaultSettings[property][this.state.currentResponsiveMode]
+        : this.props.defaultSettings[property]
+
 
     getCurrentStoreSettingsProperty = (property) => {
         const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.type];
 
-        if(!TitleOnStore.settings[property]) return null
+        if (!TitleOnStore.settings[property]) return null;
 
-        if (this.state.currentResponsiveMode) {
-            if (TitleOnStore && TitleOnStore.settings[property][this.state.currentResponsiveMode]) return null
-            return TitleOnStore.settings[property][this.state.currentResponsiveMode]
-        } else {
-            if (TitleOnStore && TitleOnStore.settings[property]) return null
-            return TitleOnStore.settings[property]
-        }
+        return (this.state.currentResponsiveMode) ?
+            TitleOnStore.settings[property][this.state.currentResponsiveMode]
+            : TitleOnStore.settings[property]
     }
 
+    getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
+
     render() {
-        const {dispatch, extension, indexLanguage, name, type, indexComponent, indexSection, defaultSettings, responsiveContent, responsiveSettings} = this.props;
+        const {dispatch, name, type, indexComponent, indexSection} = this.props;
 
         if (!this.state.settings) return null
         return (
@@ -195,31 +161,20 @@ class Title extends Component {
                 <Banner>
                     <div>
                         <ActiveCheckBox
-                            className={this.state.active ? 'active' : ''}
-                            onClick={e => {
+                            active={this.state.active}
+                            action={ () => {
                                 this.setState({active: !this.state.active}, () => {
                                     dispatch(toggleFieldActive(type, this.state.active, indexComponent, indexSection))
                                 });
                             }}>
-                            <SvgCheck/>
                         </ActiveCheckBox>
                         <p>{name}</p>
                     </div>
                     <div>
-                        <Languages
-                            className={(!this.state.openContent && !this.state.openSettings) || (this.state.openSettings) ? 'hidden' : ''}>
-                            {
-                                extension.locales.available.map((language, i) => {
-                                    return <ToogleLanguage
-                                        key={i}
-                                        className={indexLanguage === i ? 'active' : ''}
-                                        onClick={e => {
-                                            dispatch(toggleLanguage(i));
-                                        }}>{getCountryISO(language)}</ToogleLanguage>;
-                                })
-                            }
-                        </Languages>
-                        <ResponsiveToggle responsive={this.state.openContent ? responsiveContent : (this.state.openSettings ? responsiveSettings : null)} currentMode={this.state.currentResponsiveMode}
+                        <LanguageToggle
+                            hidden={(!this.state.openContent && !this.state.openSettings) || this.state.openSettings}/>
+                        <ResponsiveToggle responsive={this.getResponsiveChoices()}
+                                          currentMode={this.state.currentResponsiveMode}
                                           action={this.toggleResponsiveMode}/>
                         <Icon className={this.state.openContent ? 'active' : ''}
                               onClick={() => {
@@ -298,10 +253,12 @@ Title.propTypes = {
     indexSection: PropTypes.number.isRequired,
     indexComponent: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    language: PropTypes.number
+    language: PropTypes.number,
+    responsiveContent: PropTypes.array,
+    responsiveSettings: PropTypes.array,
+    defaultSettings: PropTypes.object
 };
 const mapStateToProps = state => ({
-    extension: getCurrentExtension(state).extension,
     dom: getCurrentDOM(state),
     indexLanguage: getCurrentLanguage(state).language
 });

@@ -6,14 +6,14 @@ export default {
             type : 'Title',
 
             content : {
-                responsive : null,
+                responsive : [],
                 parameters : {},
                 defaultValue : {
                     title : null
                 }
             },
             settings : {
-                responsive : null,
+                responsive : [],
                 defaultValue: {
                     color: {
                         hex: '#000000',
