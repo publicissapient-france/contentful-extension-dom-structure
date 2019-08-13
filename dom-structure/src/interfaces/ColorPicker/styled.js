@@ -8,6 +8,7 @@ export const SelectedColor = styled(BoxColor)`
     height : 30px;
     align-self:flex-start;
     
+    
     &.updated{
         border : 2px solid ${extensionTheme.blueM};
     }
@@ -16,6 +17,7 @@ export const SelectedColor = styled(BoxColor)`
 export const ChoiceColor = styled.div`
    display : flex;
    padding-bottom : 16px;
+   border-bottom : 1px solid ${ extensionTheme.grey20 }
    
    &.full-width{
      width : 100%;

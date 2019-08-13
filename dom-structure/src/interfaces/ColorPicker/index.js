@@ -51,6 +51,15 @@ class ColorPicker extends Component {
         this.props.updateStateProps('color', selectedColor);
     }
 
+    updateOpacity = (value) => {
+        const opacity = {
+            value :  String(value / 100)
+        }
+        this.props.updateStateProps('opacity', opacity);
+
+
+    }
+
     render() {
         const {storeValueColor, storeValueOpacity, colors, color, opacity, defaultColor, defaultOpacity, openView, hidden} = this.props;
         if (!color) return <p>no color defined</p>
@@ -105,13 +114,13 @@ class ColorPicker extends Component {
                 <ChoiceOpacity className={openView ? 'hidden' : ''}>
                     <Property>Opacity</Property>
                     <Field>
-                        <Dot enabled={!_.isEqual(defaultOpacity, opacity)}/>
+                        <Dot enabled={hasNotSamePropertyValue(defaultOpacity, opacity, 'value')}/>
                         <div>
                             <input type={'number'} max={100} min={0}
-                                   className={storeValueOpacity && opacity !== storeValueOpacity ? 'updated' : ''}
-                                   value={opacity * 100 || 100}
+                                   className={hasNotSamePropertyValue(storeValueOpacity, opacity, 'value') ? 'updated' : ''}
+                                   value={opacity.value * 100 || 100}
                                    onChange={e => {
-                                       this.props.updateStateProps('opacity', String(e.target.value / 100));
+                                       this.updateOpacity(e.target.value)
                                    }}/>
                             <span>%</span>
                         </div>

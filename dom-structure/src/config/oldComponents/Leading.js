@@ -48,7 +48,9 @@ export default {
                     name: 'Black',
                     shade: null
                 },
-                opacity: '0.85',
+                opacity: {
+                    value : '0.85'
+                },
                 seo: {
                     tag: 'h2'
                 },

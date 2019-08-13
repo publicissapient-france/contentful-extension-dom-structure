@@ -22,6 +22,8 @@ import Typography from '../../interfaces/Typography';
 import ColorPicker from '../../interfaces/ColorPicker'
 import Seo from '../../interfaces/Seo'
 import {isEmpty} from "lodash"
+import update from "react-addons-update";
+import ResponsiveToggle from "../../components/ResponsiveToggle";
 
 
 class Title extends Component {
@@ -42,9 +44,9 @@ class Title extends Component {
         this.setState({
             content: TitleOnStore.content,
             settings: TitleOnStore.settings,
-            active: TitleOnStore.active
-
+            active: TitleOnStore.active,
         }, () => {
+            this.initResponsiveMode();
             if (!this.state.content.title) {
                 this.initTitle()
             }
@@ -69,6 +71,19 @@ class Title extends Component {
         });
     }
 
+    initResponsiveMode = () => {
+        let mode;
+        if (!this.props.responsiveContent && !this.props.responsiveSettings) {
+            mode = null;
+        }
+        else if (this.props.responsiveContent) {
+            mode = this.props.responsiveContent[0]
+        } else {
+            mode = this.props.responsiveSettings[0]
+        }
+        this.setState({currentResponsiveMode: mode})
+    }
+
     updateTranlatedContent = (value, targetProperty) => {
 
         this.setState(prevState => ({
@@ -84,12 +99,26 @@ class Title extends Component {
     }
 
     updateSettings = (targetProperty, value) => {
-        this.setState({
-            settings: {
-                ...this.state.settings,
-                [targetProperty]: value
-            }
-        });
+        if (this.state.currentResponsiveMode) {
+            this.setState(prevState => ({
+                settings: update(prevState.settings, {
+                    [targetProperty]: {
+                        [prevState.currentResponsiveMode]: {$set: value}
+
+                    }
+                })
+            }));
+
+        } else {
+            this.setState(prevState => ({
+                settings: update(prevState.settings, {
+                    [targetProperty]: {$set: value}
+
+                })
+            }));
+
+        }
+
     }
 
     toggleOpenView = () => this.setState({openColorView: !this.state.openColorView});
@@ -103,6 +132,10 @@ class Title extends Component {
         openSettings: !prevState.openSettings,
         openContent: false
     }));
+
+    toggleResponsiveMode = (mode) => this.setState({
+        currentResponsiveMode: mode
+    });
 
 
     getTitle = () => {
@@ -123,10 +156,38 @@ class Title extends Component {
         });
     }
 
-    render() {
-        const {dispatch, extension, indexLanguage, name, type, indexComponent, indexSection, defaultSettings} = this.props;
+    getCurrentSettingsProperty = (property) => {
+        if (this.state.currentResponsiveMode) {
+            return this.state.settings[property][this.state.currentResponsiveMode]
+        } else {
+            return this.state.settings[property]
+        }
+    }
 
-        const TitleOnStore = this.props.dom.sections[indexSection].components[indexComponent].fields[type];
+    getCurrentDefaultSettingsProperty = (property) => {
+        if (this.state.currentResponsiveMode) {
+            return this.props.defaultSettings[property][this.state.currentResponsiveMode]
+        } else {
+            return this.props.defaultSettings[property]
+        }
+    }
+
+    getCurrentStoreSettingsProperty = (property) => {
+        const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.type];
+
+        if(!TitleOnStore.settings[property]) return null
+
+        if (this.state.currentResponsiveMode) {
+            if (TitleOnStore && TitleOnStore.settings[property][this.state.currentResponsiveMode]) return null
+            return TitleOnStore.settings[property][this.state.currentResponsiveMode]
+        } else {
+            if (TitleOnStore && TitleOnStore.settings[property]) return null
+            return TitleOnStore.settings[property]
+        }
+    }
+
+    render() {
+        const {dispatch, extension, indexLanguage, name, type, indexComponent, indexSection, defaultSettings, responsiveContent, responsiveSettings} = this.props;
 
         if (!this.state.settings) return null
         return (
@@ -145,7 +206,8 @@ class Title extends Component {
                         <p>{name}</p>
                     </div>
                     <div>
-                        <Languages>
+                        <Languages
+                            className={(!this.state.openContent && !this.state.openSettings) || (this.state.openSettings) ? 'hidden' : ''}>
                             {
                                 extension.locales.available.map((language, i) => {
                                     return <ToogleLanguage
@@ -157,6 +219,8 @@ class Title extends Component {
                                 })
                             }
                         </Languages>
+                        <ResponsiveToggle responsive={this.state.openContent ? responsiveContent : (this.state.openSettings ? responsiveSettings : null)} currentMode={this.state.currentResponsiveMode}
+                                          action={this.toggleResponsiveMode}/>
                         <Icon className={this.state.openContent ? 'active' : ''}
                               onClick={() => {
                                   this.toggleContent();
@@ -176,43 +240,42 @@ class Title extends Component {
                         <Choices>
                             <Column className={this.state.openPreview ? 'full-width' : ''}>
                                 <TextPreview hidden={this.state.openColorView}
-                                             color={this.state.settings.color}
-                                             font={this.state.settings.font}
-                                             text={this.state.settings.text}
-                                             opacity={this.state.settings.opacity}
+                                             color={this.getCurrentSettingsProperty('color')}
+                                             font={this.getCurrentSettingsProperty('font')}
+                                             text={this.getCurrentSettingsProperty('text')}
+                                             opacity={this.getCurrentSettingsProperty('opacity')}
                                              open={this.state.openPreview}
                                              toggleOpenPreview={this.toggleOpenPreview}
 
                                 />
                                 <ColorPicker hidden={this.state.openPreview}
-                                             color={this.state.settings.color}
-                                             opacity={this.state.settings.opacity}
-                                             storeValueColor={TitleOnStore && TitleOnStore.settings.color ? TitleOnStore.settings.color : null}
-                                             storeValueOpacity={TitleOnStore && TitleOnStore.settings.opacity ? TitleOnStore.settings.opacity : null}
-                                             defaultColor={defaultSettings.color}
-                                             defaultOpacity={defaultSettings.opacity}
+                                             color={this.getCurrentSettingsProperty('color')}
+                                             opacity={this.getCurrentSettingsProperty('opacity')}
+                                             storeValueColor={this.getCurrentStoreSettingsProperty('color')}
+                                             storeValueOpacity={this.getCurrentStoreSettingsProperty('opacity')}
+                                             defaultColor={this.getCurrentDefaultSettingsProperty('color')}
+                                             defaultOpacity={this.getCurrentDefaultSettingsProperty('opacity')}
                                              openView={this.state.openColorView}
                                              updateStateProps={this.updateSettings}
                                              toggleOpenView={this.toggleOpenView}
 
                                 />
                                 <Seo hidden={this.state.openPreview || this.state.openColorView}
-                                     seo={this.state.settings.seo}
-                                     defaultSeo={defaultSettings.seo}
-                                     storeValueSeo={TitleOnStore && TitleOnStore.settings.seo ? TitleOnStore.settings.seo : null}
+                                     seo={this.getCurrentSettingsProperty('seo')}
+                                     defaultSeo={this.getCurrentDefaultSettingsProperty('seo')}
+                                     storeValueSeo={this.getCurrentStoreSettingsProperty('seo')}
                                      updateStateProps={this.updateSettings}
                                 />
                             </Column>
                             <Column className={this.state.openPreview || this.state.openColorView ? 'hidden' : ''}>
-                                <Typography font={this.state.settings.font}
-                                            text={this.state.settings.text}
-                                            defaultFont={defaultSettings.font}
-                                            defaultText={defaultSettings.text}
-                                            storeValueFont={TitleOnStore && TitleOnStore.settings.font ? TitleOnStore.settings.font : null}
-                                            storeValueText={TitleOnStore && TitleOnStore.settings.text ? TitleOnStore.settings.text : null}
+                                <Typography font={this.getCurrentSettingsProperty('font')}
+                                            text={this.getCurrentSettingsProperty('text')}
+                                            defaultFont={this.getCurrentDefaultSettingsProperty('font')}
+                                            defaultText={this.getCurrentDefaultSettingsProperty('text')}
+                                            storeValueFont={this.getCurrentStoreSettingsProperty('font')}
+                                            storeValueText={this.getCurrentStoreSettingsProperty('text')}
                                             updateStateProps={this.updateSettings}
                                 />
-
                             </Column>
                         </Choices>
 

@@ -6,13 +6,17 @@ export const PreviewContainer = styled.div`
     display : flex;
 `;
 export const TextContainer = styled.div`
-    max-height : 97px;
+    max-height : 95px;
+    max-width : 270px;
     overflow : hidden;
     display : flex;
-    
+    border-bottom : 1px solid ${ extensionTheme.grey20 }
+
     &.is-open{
         height : 240px;
         max-height : none;
+        max-width : 100%;
+
     }
     
     &.on-dark{

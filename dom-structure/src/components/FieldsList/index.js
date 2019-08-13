@@ -16,7 +16,8 @@ class FieldsList extends Component {
                                 indexSection: indexParent,
                                 name: field.name,
                                 type : field.type,
-                                responsive : field.responsive,
+                                responsiveContent : field.content.responsive,
+                                responsiveSettings : field.settings.responsive,
                                 defaultContent : field.content.defaultValue,
                                 defaultSettings : field.settings.defaultValue,
                                 key: i
@@ -24,7 +25,6 @@ class FieldsList extends Component {
                             switch (field.type) {
                                 case 'Title':
                                     return <Title {...params} />;
-
 
                                 default :
                                     return <div className={'error'}><p>No field <strong>{field}</strong> matches</p>

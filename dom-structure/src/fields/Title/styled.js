@@ -35,16 +35,15 @@ export const ToogleLanguage = styled.div`
     color :  ${ extensionTheme.white }; 
     background : ${ extensionTheme.blueM }; 
     border-color :  ${ extensionTheme.blueM }; 
-
   }
 `;
 
 
 export const ChoiceItemsConfirm = styled(ChoiceConfirm)`
-    padding : 10px 15px 10px 0;
+    padding : 10px 15px 10px 20px;
     width : 100%;
     border-top : 1px solid ${ extensionTheme.grey20 };
-
+    box-sizing : border-box;
 `;
 export const Content = styled.div`
    
@@ -63,6 +62,9 @@ export const Choices = styled.div`
 export const Column = styled.div`
    display : flex;
     flex-direction : column;
+    width : 100%;
+    border-right : 1px solid ${ extensionTheme.grey20 }
+
     
     &.full-width{
         width : 100%;
