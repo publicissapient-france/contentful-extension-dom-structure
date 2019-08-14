@@ -18,6 +18,10 @@ export const getCurrentDOM = state => ({
 });
 
 
+
+
+
+
 // SECTION
 
 export const addSection = object => ({
@@ -127,6 +131,13 @@ export const updateSettingsValue = (props, value, bool, number, numberParent) =>
     indexSection: numberParent
 });
 // COMPONENT SETTINGS
+
+export const initField = (nameProperty, number, numberParent) => ({
+    type: 'INIT_FIELD',
+    nameProperty: nameProperty,
+    indexComponent: number,
+    indexSection: numberParent
+});
 
 export const toggleFieldActive = (type, bool, number, numberParent) => ({
     type: 'TOGGLE_FIELD_ACTIVE',

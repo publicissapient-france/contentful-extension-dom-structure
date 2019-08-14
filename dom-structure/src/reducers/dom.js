@@ -182,6 +182,24 @@ const dom = (state = [], action) => {
                 }
             });
 
+        case 'INIT_FIELD':
+            const newField = {
+                active : false,
+                content : {},
+                settings : {}
+            }
+            return update(state, {
+                [action.indexSection]: {
+                    components: {
+                        [action.indexComponent]: {
+                            fields: {
+                                [action.nameProperty]: {$set: newField}
+                            }
+                        }
+                    }
+                }
+            });
+
         case 'TOGGLE_FIELD_ACTIVE':
             return update(state, {
                 [action.indexSection]: {

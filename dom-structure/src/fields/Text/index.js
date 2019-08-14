@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import update from "react-addons-update";
 import isEmpty from "lodash/isEmpty"
-import { getCurrentDOM, getCurrentLanguage,toggleFieldActive, updateField} from '../../actions';
+import { getCurrentDOM, getCurrentLanguage,initField, toggleFieldActive, updateField} from '../../actions';
 
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgContent from '../../components/svg/SvgContent';
@@ -40,7 +40,10 @@ class Text extends Component {
     componentDidMount() {
         const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
         console.log('FieldOnStore', FieldOnStore)
-        this.setState({
+        if(!FieldOnStore){
+            this.initField();
+        }else{
+            this.setState({
                 content: FieldOnStore.content,
                 settings: FieldOnStore.settings,
                 active: FieldOnStore.active,
@@ -49,8 +52,14 @@ class Text extends Component {
                 if (!this.state.content.text) this.initTitle()
                 if (isEmpty(this.state.settings)) this.initSettings()
             });
+        }
+
 
     };
+
+    initField = () => {
+        this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
+    }
 
     initTitle = () => {
         this.setState(prevState => ({
