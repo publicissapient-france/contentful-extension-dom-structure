@@ -9,7 +9,7 @@ export default {
                 responsive: [],
                 parameters: {},
                 defaultValue: {
-                    title: null
+                    text: null
                 }
             },
             settings: {
@@ -211,6 +211,25 @@ export default {
                             decoration: null
                         }
                     }
+                }
+            }
+
+        },
+        {
+            name: 'Text Content',
+            nameProperty: 'TextMarkdown',
+            typeField: 'TextMarkdown',
+            content: {
+                responsive: [],
+                parameters: {},
+                defaultValue: {
+                    markdown: null
+                }
+            },
+            settings: {
+                responsive: [],
+                defaultValue: {
+
                 }
             }
 

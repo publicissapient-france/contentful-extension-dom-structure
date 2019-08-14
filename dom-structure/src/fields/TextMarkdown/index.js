@@ -9,23 +9,19 @@ import SvgSetting from '../../components/svg/SvgSetting';
 import SvgContent from '../../components/svg/SvgContent';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
-import TextPreview from '../../components/TextPreview';
 import ResponsiveToggle from "../../components/ResponsiveToggle";
 import LanguageToggle from '../../containers/LanguageToggle';
 import ActiveCheckBox from '../../components/ActiveCheckBox';
 
 import InputText from '../../interfaces/InputText'
-import Typography from '../../interfaces/Typography';
-import ColorPicker from '../../interfaces/ColorPicker'
-import Seo from '../../interfaces/Seo'
 
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsBoxes';
-import {ChoiceItemsConfirm, Content, Settings, Choices, Column} from './styled'
+import {ChoiceItemsConfirm, Content, Settings, Choices} from './styled'
 
 
 
-class Text extends Component {
+class TextMarkdown extends Component {
     constructor(props) {
         super(props);
 
@@ -48,7 +44,7 @@ class Text extends Component {
                 active: FieldOnStore.active,
             }, () => {
                 this.initResponsiveMode();
-                if (!this.state.content.text) this.initContent()
+                if (!this.state.content.markdown) this.initContent()
                 if (isEmpty(this.state.settings)) this.initSettings()
             });
         }
@@ -64,7 +60,7 @@ class Text extends Component {
         this.setState(prevState => ({
             content: {
                 ...prevState.content,
-                text: {}
+                markdown: {}
             }
         }));
     }
@@ -128,7 +124,7 @@ class Text extends Component {
         currentResponsiveMode: mode
     });
 
-    getText = () => this.state.content.text && this.state.content.text[this.props.indexLanguage] ? this.state.content.text[this.props.indexLanguage] : '';
+    getTitle = () => this.state.content.text && this.state.content.text[this.props.indexLanguage] ? this.state.content.text[this.props.indexLanguage] : '';
 
     isUpdated = () => {
         const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
@@ -155,13 +151,13 @@ class Text extends Component {
 
 
     getCurrentStoreSettingsProperty = (property) => {
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
+        const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
 
-        if (!FieldOnStore.settings[property]) return null;
+        if (!TitleOnStore.settings[property]) return null;
 
         return (this.state.currentResponsiveMode) ?
-            FieldOnStore.settings[property][this.state.currentResponsiveMode]
-            : FieldOnStore.settings[property]
+            TitleOnStore.settings[property][this.state.currentResponsiveMode]
+            : TitleOnStore.settings[property]
     }
 
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
@@ -169,7 +165,6 @@ class Text extends Component {
     render() {
         const {dispatch, name, nameProperty, indexComponent, indexSection} = this.props;
 
-        console.log('PROPS', this.props)
         if (!this.state.settings) return null
         return (
             <div>
@@ -204,47 +199,11 @@ class Text extends Component {
                 <Field>
                     <Content className={!this.state.openContent ? 'hidden' : ''}>
                         <InputText action={this.updateTranlatedContent} targetProperty={'text'}
-                                   defaultValue={this.getText()}/>
+                                   defaultValue={this.getTitle()}/>
                     </Content>
                     <Settings className={!this.state.openSettings ? 'hidden' : ''}>
                         <Choices>
-                            <Column className={this.state.openPreview ? 'full-width' : ''}>
-                                <TextPreview hidden={this.state.openColorView}
-                                             color={this.getCurrentSettingsProperty('color')}
-                                             font={this.getCurrentSettingsProperty('font')}
-                                             text={this.getCurrentSettingsProperty('text')}
-                                             opacity={this.getCurrentSettingsProperty('opacity')}
-                                             open={this.state.openPreview}
-                                             toggleOpenPreview={this.toggleOpenPreview}
-                                />
-                                <ColorPicker hidden={this.state.openPreview}
-                                             color={this.getCurrentSettingsProperty('color')}
-                                             opacity={this.getCurrentSettingsProperty('opacity')}
-                                             storeValueColor={this.getCurrentStoreSettingsProperty('color')}
-                                             storeValueOpacity={this.getCurrentStoreSettingsProperty('opacity')}
-                                             defaultColor={this.getCurrentDefaultSettingsProperty('color')}
-                                             defaultOpacity={this.getCurrentDefaultSettingsProperty('opacity')}
-                                             openView={this.state.openColorView}
-                                             updateStateProps={this.updateSettings}
-                                             toggleOpenView={this.toggleOpenView}
-                                />
-                                <Seo hidden={this.state.openPreview || this.state.openColorView}
-                                     seo={this.getCurrentSettingsProperty('seo')}
-                                     defaultSeo={this.getCurrentDefaultSettingsProperty('seo')}
-                                     storeValueSeo={this.getCurrentStoreSettingsProperty('seo')}
-                                     updateStateProps={this.updateSettings}
-                                />
-                            </Column>
-                            <Column className={this.state.openPreview || this.state.openColorView ? 'hidden' : ''}>
-                                <Typography font={this.getCurrentSettingsProperty('font')}
-                                            text={this.getCurrentSettingsProperty('text')}
-                                            defaultFont={this.getCurrentDefaultSettingsProperty('font')}
-                                            defaultText={this.getCurrentDefaultSettingsProperty('text')}
-                                            storeValueFont={this.getCurrentStoreSettingsProperty('font')}
-                                            storeValueText={this.getCurrentStoreSettingsProperty('text')}
-                                            updateStateProps={this.updateSettings}
-                                />
-                            </Column>
+                            settings of TextMarkdown not available
                         </Choices>
                     </Settings>
                 </Field>
@@ -259,7 +218,7 @@ class Text extends Component {
     }
 }
 
-Text.propTypes = {
+TextMarkdown.propTypes = {
     indexSection: PropTypes.number.isRequired,
     indexComponent: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -275,4 +234,4 @@ const mapStateToProps = state => ({
     indexLanguage: getCurrentLanguage(state).language
 });
 
-export default connect(mapStateToProps)(Text);
+export default connect(mapStateToProps)(TextMarkdown);

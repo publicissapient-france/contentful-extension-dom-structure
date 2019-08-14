@@ -9,7 +9,7 @@ export default {
                 responsive : [],
                 parameters : {},
                 defaultValue : {
-                    title : null
+                    text : null
                 }
             },
             settings : {

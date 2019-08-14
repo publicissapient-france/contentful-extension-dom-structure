@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { FieldContainer} from "./styled";
 import Text  from '../../fields/Text/index';
+import TextMarkdown  from '../../fields/TextMarkdown/index';
 
 class FieldsList extends Component {
     render() {
@@ -25,6 +26,9 @@ class FieldsList extends Component {
                             }
                             switch (field.typeField) {
                                 case 'Text':
+                                    return <Text {...params} />;
+
+                                case 'TextMarkdown':
                                     return <Text {...params} />;
 
                                 default :
