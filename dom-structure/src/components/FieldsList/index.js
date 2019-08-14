@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { FieldContainer} from "./styled";
-import Title  from '../../fields/Title/index';
+import Text  from '../../fields/Text/index';
 
 class FieldsList extends Component {
     render() {
@@ -15,16 +15,17 @@ class FieldsList extends Component {
                                 indexComponent: index,
                                 indexSection: indexParent,
                                 name: field.name,
-                                type : field.type,
+                                nameProperty : field.nameProperty,
+                                typeField : field.typeField,
                                 responsiveContent : field.content.responsive,
                                 responsiveSettings : field.settings.responsive,
                                 defaultContent : field.content.defaultValue,
                                 defaultSettings : field.settings.defaultValue,
                                 key: i
                             }
-                            switch (field.type) {
-                                case 'Title':
-                                    return <Title {...params} />;
+                            switch (field.typeField) {
+                                case 'Text':
+                                    return <Text {...params} />;
 
                                 default :
                                     return <div className={'error'}><p>No field <strong>{field}</strong> matches</p>

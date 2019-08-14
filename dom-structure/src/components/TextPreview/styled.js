@@ -16,6 +16,10 @@ export const TextContainer = styled.div`
         height : 240px;
         max-height : none;
         max-width : 100%;
+        
+        & p{
+            max-width : 100%;
+        }
 
     }
     
@@ -28,6 +32,8 @@ export const TextContainer = styled.div`
         margin:0;
         padding :10px;
         word-break : break-all;
+        max-width : 220px;
+        box-sizing : border-box;
     }
     
 `;

@@ -3,8 +3,8 @@ export default {
     fields : [
         {
             name : 'Main Title',
-            type : 'Title',
-
+            nameProperty : 'Title',
+            typeField : 'Text',
             content : {
                 responsive : [],
                 parameters : {},

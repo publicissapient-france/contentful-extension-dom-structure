@@ -18,10 +18,6 @@ export const getCurrentDOM = state => ({
 });
 
 
-
-
-
-
 // SECTION
 
 export const addSection = object => ({
@@ -141,7 +137,7 @@ export const toggleFieldActive = (type, bool, number, numberParent) => ({
 });
 
 
-export const updateField = (type, content,settings, number, numberParent) => ({
+export const updateField = (type, content, settings, number, numberParent) => ({
     type: 'UPDATE_FIELD_CONTENT_AND_SETTINGS',
     typeField: type,
     content: content,

@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import update from "react-addons-update";
 import isEmpty from "lodash/isEmpty"
-import {toggleFieldActive, getCurrentDOM, getCurrentLanguage, updateField} from '../../actions';
-
+import { getCurrentDOM, getCurrentLanguage,toggleFieldActive, updateField} from '../../actions';
 
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgContent from '../../components/svg/SvgContent';
@@ -26,7 +25,7 @@ import {ChoiceItemsConfirm, Content, Settings, Choices, Column} from './styled'
 
 
 
-class Title extends Component {
+class Text extends Component {
     constructor(props) {
         super(props);
 
@@ -39,23 +38,25 @@ class Title extends Component {
     }
 
     componentDidMount() {
-        const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.type];
+        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
+        console.log('FieldOnStore', FieldOnStore)
         this.setState({
-            content: TitleOnStore.content,
-            settings: TitleOnStore.settings,
-            active: TitleOnStore.active,
-        }, () => {
-            this.initResponsiveMode();
-            if (!this.state.content.title) this.initTitle()
-            if (isEmpty(this.state.settings)) this.initSettings()
-        });
+                content: FieldOnStore.content,
+                settings: FieldOnStore.settings,
+                active: FieldOnStore.active,
+            }, () => {
+                this.initResponsiveMode();
+                if (!this.state.content.text) this.initTitle()
+                if (isEmpty(this.state.settings)) this.initSettings()
+            });
+
     };
 
     initTitle = () => {
         this.setState(prevState => ({
             content: {
                 ...prevState.content,
-                title: {}
+                text: {}
             }
         }));
     }
@@ -119,16 +120,16 @@ class Title extends Component {
         currentResponsiveMode: mode
     });
 
-    getTitle = () => this.state.content.title && this.state.content.title[this.props.indexLanguage] ? this.state.content.title[this.props.indexLanguage] : '';
+    getTitle = () => this.state.content.text && this.state.content.text[this.props.indexLanguage] ? this.state.content.text[this.props.indexLanguage] : '';
 
     isUpdated = () => {
-        const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.type];
+        const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
         return (this.state.content != TitleOnStore.content || this.state.settings != TitleOnStore.settings)
     }
 
     cancelStateValue = (e) => {
         e.preventDefault();
-        const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.type];
+        const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
         this.setState({
             content: TitleOnStore.content,
             settings: TitleOnStore.settings
@@ -146,7 +147,7 @@ class Title extends Component {
 
 
     getCurrentStoreSettingsProperty = (property) => {
-        const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.type];
+        const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
 
         if (!TitleOnStore.settings[property]) return null;
 
@@ -158,8 +159,9 @@ class Title extends Component {
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
 
     render() {
-        const {dispatch, name, type, indexComponent, indexSection} = this.props;
+        const {dispatch, name, nameProperty, typeField, indexComponent, indexSection} = this.props;
 
+        console.log('PROPS', this.props)
         if (!this.state.settings) return null
         return (
             <div>
@@ -169,7 +171,7 @@ class Title extends Component {
                             active={this.state.active}
                             action={() => {
                                 this.setState({active: !this.state.active}, () => {
-                                    dispatch(toggleFieldActive(type, this.state.active, indexComponent, indexSection))
+                                    dispatch(toggleFieldActive(nameProperty, this.state.active, indexComponent, indexSection))
                                 });
                             }}>
                         </ActiveCheckBox>
@@ -193,7 +195,7 @@ class Title extends Component {
                 </Banner>
                 <Field>
                     <Content className={!this.state.openContent ? 'hidden' : ''}>
-                        <InputText action={this.updateTranlatedContent} targetProperty={'title'}
+                        <InputText action={this.updateTranlatedContent} targetProperty={'text'}
                                    defaultValue={this.getTitle()}/>
                     </Content>
                     <Settings className={!this.state.openSettings ? 'hidden' : ''}>
@@ -241,7 +243,7 @@ class Title extends Component {
                 <ChoiceItemsConfirm className={!this.isUpdated() ? 'hidden' : ''}>
                     <ButtonBasic label={'Cancel'} disabled={!this.isUpdated()} action={this.cancelStateValue}/>
                     <ButtonValidate label={'Update'} disabled={!this.isUpdated()} action={() => {
-                        dispatch(updateField(type, this.state.content, this.state.settings, indexComponent, indexSection));
+                        dispatch(updateField(nameProperty, this.state.content, this.state.settings, indexComponent, indexSection));
                     }}/>
                 </ChoiceItemsConfirm>
             </div>
@@ -249,10 +251,12 @@ class Title extends Component {
     }
 }
 
-Title.propTypes = {
+Text.propTypes = {
     indexSection: PropTypes.number.isRequired,
     indexComponent: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
+    nameProperty: PropTypes.string.isRequired,
+    typeField: PropTypes.string.isRequired,
     language: PropTypes.number,
     responsiveContent: PropTypes.array,
     responsiveSettings: PropTypes.array,
@@ -263,4 +267,4 @@ const mapStateToProps = state => ({
     indexLanguage: getCurrentLanguage(state).language
 });
 
-export default connect(mapStateToProps)(Title);
+export default connect(mapStateToProps)(Text);
