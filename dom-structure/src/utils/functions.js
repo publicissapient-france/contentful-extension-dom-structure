@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { getAssetsUrlById } from './getters';
+import {getAssetsUrlById} from './getters';
 
 const createSlug = (name, shade) => (shade !== '') ? name + '-' + shade : name;
 
@@ -85,12 +85,24 @@ const sum = (a, b) => {
 }
 
 const hasNotSamePropertyValue = (defaultValue, currentValue, prop) => {
-    if(!defaultValue || !currentValue || !prop || prop === '')  {
+    if (!defaultValue || !currentValue || !prop || prop === '') {
         return false
     }
-    if(defaultValue[prop] && currentValue[prop] != defaultValue[prop])return true;
+    if (defaultValue[prop] && currentValue[prop] != defaultValue[prop]) return true;
     return false
 }
 
 
-export { getShadePosition, extractActiveValue, getLanguageISO, getCountryISO, createSlug, hexToRgb, RGBtoString, arrayToString, extractFontValueToCSS, sum, hasNotSamePropertyValue };
+export {
+    getShadePosition,
+    extractActiveValue,
+    getLanguageISO,
+    getCountryISO,
+    createSlug,
+    hexToRgb,
+    RGBtoString,
+    arrayToString,
+    extractFontValueToCSS,
+    sum,
+    hasNotSamePropertyValue
+};

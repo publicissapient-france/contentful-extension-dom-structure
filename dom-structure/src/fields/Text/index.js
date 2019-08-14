@@ -166,6 +166,8 @@ class Text extends Component {
 
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
 
+
+
     render() {
         const {dispatch, name, nameProperty, indexComponent, indexSection} = this.props;
 

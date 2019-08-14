@@ -14,7 +14,19 @@ import {updateContentValue, getCurrentDOM, getCurrentLanguage} from '../../../ac
 import ButtonBasic from '../../../components/ui/ButtonBasic';
 import ButtonValidate from '../../../components/ui/ButtonValidate';
 
+extractFromHTML = value => {
+    let result = _.mapValues(value, html => {
+        return (this.converter.makeMarkdown(html)).replace('<!-- -->', '');
+    });
+    return result;
+}
 
+convertToHTML = value => {
+    let result = _.mapValues(value, markdown => {
+        return this.converter.makeHtml(markdown);
+    });
+    return result;
+}
 class Text extends Component {
     constructor(props) {
         super(props);
@@ -34,7 +46,7 @@ class Text extends Component {
         });
     }
 
-    componentDidMount = () => {
+    componentDidMount(){
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];
 
         this.setState({
@@ -44,19 +56,7 @@ class Text extends Component {
         });
     };
 
-    extractFromHTML = value => {
-        let result = _.mapValues(value, html => {
-            return (this.converter.makeMarkdown(html)).replace('<!-- -->', '');
-        });
-        return result;
-    }
 
-    convertToHTML = value => {
-        let result = _.mapValues(value, markdown => {
-            return this.converter.makeHtml(markdown);
-        });
-        return result;
-    }
 
     isUpdated = () => {
         const componentStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent];

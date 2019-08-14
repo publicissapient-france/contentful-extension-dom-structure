@@ -29,7 +29,7 @@ class FieldsList extends Component {
                                     return <Text {...params} />;
 
                                 case 'TextMarkdown':
-                                    return <Text {...params} />;
+                                    return <TextMarkdown {...params} />;
 
                                 default :
                                     return <div className={'error'}><p>No field <strong>{field}</strong> matches</p>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import update from "react-addons-update";
 import isEmpty from "lodash/isEmpty"
-import { getCurrentDOM, getCurrentLanguage,initField, toggleFieldActive, updateField} from '../../actions';
+import {getCurrentDOM, getCurrentLanguage, initField, toggleFieldActive, updateField} from '../../actions';
 
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgContent from '../../components/svg/SvgContent';
@@ -13,12 +13,10 @@ import ResponsiveToggle from "../../components/ResponsiveToggle";
 import LanguageToggle from '../../containers/LanguageToggle';
 import ActiveCheckBox from '../../components/ActiveCheckBox';
 
-import InputText from '../../interfaces/InputText'
-
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsBoxes';
 import {ChoiceItemsConfirm, Content, Settings, Choices} from './styled'
-
+import InputMarkdown from "../../interfaces/InputMarkdown";
 
 
 class TextMarkdown extends Component {
@@ -35,9 +33,9 @@ class TextMarkdown extends Component {
 
     componentDidMount() {
         const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        if(!FieldOnStore){
+        if (!FieldOnStore) {
             this.initField();
-        }else{
+        } else {
             this.setState({
                 content: FieldOnStore.content,
                 settings: FieldOnStore.settings,
@@ -48,13 +46,9 @@ class TextMarkdown extends Component {
                 if (isEmpty(this.state.settings)) this.initSettings()
             });
         }
-
-
     };
 
-    initField = () => {
-        this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
-    }
+    initField = () => this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
 
     initContent = () => {
         this.setState(prevState => ({
@@ -64,6 +58,7 @@ class TextMarkdown extends Component {
             }
         }));
     }
+
     initSettings = () => {
         const initValue = this.props.defaultSettings;
         this.setState({
@@ -124,7 +119,8 @@ class TextMarkdown extends Component {
         currentResponsiveMode: mode
     });
 
-    getTitle = () => this.state.content.text && this.state.content.text[this.props.indexLanguage] ? this.state.content.text[this.props.indexLanguage] : '';
+
+    getMarkdown = () => this.state.content.markdown && this.state.content.markdown[this.props.indexLanguage] ? this.state.content.markdown[this.props.indexLanguage] : '';
 
     isUpdated = () => {
         const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
@@ -151,20 +147,19 @@ class TextMarkdown extends Component {
 
 
     getCurrentStoreSettingsProperty = (property) => {
-        const TitleOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
+        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
 
-        if (!TitleOnStore.settings[property]) return null;
+        if (!FieldOnStore.settings[property]) return null;
 
         return (this.state.currentResponsiveMode) ?
-            TitleOnStore.settings[property][this.state.currentResponsiveMode]
-            : TitleOnStore.settings[property]
+            FieldOnStore.settings[property][this.state.currentResponsiveMode]
+            : FieldOnStore.settings[property]
     }
 
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
 
     render() {
-        const {dispatch, name, nameProperty, indexComponent, indexSection} = this.props;
-
+        const {dispatch,indexLanguage, name, nameProperty, indexComponent, indexSection} = this.props;
         if (!this.state.settings) return null
         return (
             <div>
@@ -198,8 +193,8 @@ class TextMarkdown extends Component {
                 </Banner>
                 <Field>
                     <Content className={!this.state.openContent ? 'hidden' : ''}>
-                        <InputText action={this.updateTranlatedContent} targetProperty={'text'}
-                                   defaultValue={this.getTitle()}/>
+                        <InputMarkdown currentLanguage={indexLanguage} action={this.updateTranlatedContent} targetProperty={'markdown'}
+                                       defaultValue={this.getMarkdown()}/>
                     </Content>
                     <Settings className={!this.state.openSettings ? 'hidden' : ''}>
                         <Choices>
