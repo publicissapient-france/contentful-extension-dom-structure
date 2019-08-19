@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+   width : min-content;
    display : flex;
    flex-direction : column;
-   padding: 20px 20px 0;
+   padding-left : 20px;
+   padding-top : 20px;
    
 `;
 export const Field = styled.div`

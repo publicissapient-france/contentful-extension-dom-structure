@@ -46,8 +46,9 @@ export const ChoiceItemsConfirm = styled(ChoiceConfirm)`
     box-sizing : border-box;
 `;
 export const Content = styled.div`
-   display: flex;
+    display: flex;
     flex-wrap : wrap;
+   
 `;
 export const Settings = styled.div`
    
@@ -58,6 +59,8 @@ export const Settings = styled.div`
 export const Choices = styled.div`
    display : flex;
 `;
+
+
 
 
 export const Column = styled.div`

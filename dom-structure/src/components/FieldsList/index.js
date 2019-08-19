@@ -4,6 +4,7 @@ import { FieldContainer} from "./styled";
 import Text  from '../../fields/Text/index';
 import TextMarkdown  from '../../fields/TextMarkdown/index';
 import SingleImage from '../../fields/SingleImage/index';
+import MultipleImages from '../../fields/MultipleImages/index';
 
 class FieldsList extends Component {
     render() {
@@ -23,6 +24,7 @@ class FieldsList extends Component {
                                 responsiveSettings : field.settings.responsive,
                                 defaultContent : field.content.defaultValue,
                                 defaultSettings : field.settings.defaultValue,
+                                parametersContent : field.content.parameters,
                                 key: i
                             }
                             switch (field.typeField) {
@@ -34,6 +36,9 @@ class FieldsList extends Component {
 
                                 case 'SingleImage':
                                     return <SingleImage {...params} />;
+
+                                case 'MultipleImages':
+                                    return <MultipleImages {...params} />;
 
                                 default :
                                     return <div className={'error'}><p>No field <strong>{field}</strong> matches</p>

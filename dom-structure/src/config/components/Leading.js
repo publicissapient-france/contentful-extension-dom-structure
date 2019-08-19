@@ -244,12 +244,18 @@ export default {
                 }
             },
             settings: {
-                responsive: ['M', 'D'],
+                responsive: ['M','T', 'D'],
                 defaultValue: {
                     size: {
                         M: {
                             width: '200',
                             height: '200',
+                            maxWidth: '',
+                            maxHeight: ''
+                        },
+                        T: {
+                            width: '500',
+                            height: '500',
                             maxWidth: '',
                             maxHeight: ''
                         },
@@ -262,6 +268,12 @@ export default {
                     },
                     padding: {
                         M: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        T: {
                             top: '0',
                             right: '0',
                             bottom: '0',
@@ -287,6 +299,70 @@ export default {
                 parameters: {},
                 defaultValue: {
                     image: null
+                }
+            },
+            settings: {
+                responsive: [],
+                defaultValue: {
+                    size: {
+                        width: '200',
+                        height: '200',
+                        maxWidth: '',
+                        maxHeight: ''
+                    },
+                    padding: {
+                        top: '10',
+                        right: '5',
+                        bottom: '10',
+                        left: '5'
+                    }
+                }
+            }
+
+        },
+        {
+            name: 'Corner Images ',
+            nameProperty: 'CornerImages',
+            typeField: 'MultipleImages',
+            content: {
+                responsive: [],
+                parameters: {
+                    multiple: 4
+                },
+                defaultValue: {
+                    images : null
+                }
+            },
+            settings: {
+                responsive: [],
+                defaultValue: {
+                    size: {
+                        width: '200',
+                        height: '200',
+                        maxWidth: '',
+                        maxHeight: ''
+                    },
+                    padding: {
+                        top: '10',
+                        right: '5',
+                        bottom: '10',
+                        left: '5'
+                    }
+                }
+            }
+
+        },
+        {
+            name: 'Corner Images Responsive',
+            nameProperty: 'CornerImagesResponsive',
+            typeField: 'MultipleImages',
+            content: {
+                responsive: ['M', 'T', 'D'],
+                parameters: {
+                    multiple: 4
+                },
+                defaultValue: {
+                    images : null
                 }
             },
             settings: {
