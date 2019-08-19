@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 
 
 import {Choices} from "./styled";
-import ImageUploader from '../../../containers/ImageUploader'
+import ImageUploader from '../../../interfaces/ImageUploader'
 import {getCurrentLanguage} from "../../../actions";
-import {getResponsiveMode} from "../../../actions/visibility";
 
 class CategoryImage extends Component {
     constructor(props) {
@@ -24,7 +23,7 @@ class CategoryImage extends Component {
     }
 
     render() {
-        const {image, mode, indexLanguage} = this.props;
+        const {image, indexLanguage} = this.props;
         if(!image) return null
         return (
             <Choices>
@@ -49,8 +48,7 @@ CategoryImage.protoTypes = {
 
 
 const mapStateToProps = state => ({
-    indexLanguage: getCurrentLanguage(state).language,
-    responsiveMode: getResponsiveMode(state).mode
+    indexLanguage: getCurrentLanguage(state).language
 });
 
 export default connect(mapStateToProps)(CategoryImage);

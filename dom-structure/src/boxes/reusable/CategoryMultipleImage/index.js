@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 
 import {Choices} from "./styled";
-import ImageUploader from '../../../containers/ImageUploader'
+import ImageUploader from '../../../interfaces/ImageUploader'
 import {getCurrentLanguage, getResponsiveMode} from "../../../actions";
 
 class CategoryMultipleImage extends Component {

@@ -6,7 +6,7 @@ import { Container, Field} from "./styled";
 import {getCurrentExtension} from "../../actions/index";
 import UploadView from '../../components/UploadView/index'
 import FileView from '../../components/FileView/index'
-import ReloadView from '../../components/RealoadView'
+import ReloadView from '../../components/RealoadView/index'
 
 class ImageUploader extends Component {
     constructor(props) {
@@ -23,16 +23,18 @@ class ImageUploader extends Component {
         if (this.props.asset) {
             this.setSelectedAsset(this.props.asset);
         }
+        console.log('PROPS IMAGE UPLOADER ON MOUNT', this.props)
     };
 
     componentDidUpdate(prevProps){
-        if (this.props.asset != prevProps.asset) {
-            if(this.props.asset){
-                this.setSelectedAsset(this.props.asset);
-                this.publishAsset();
-            }else{
-                this.setSelectedAsset(null);
-            }
+        if(this.props.asset !== prevProps.asset){
+            if(this.props.asset && this.props.asset.sys){
+                        this.setSelectedAsset(this.props.asset);
+                        this.publishAsset();
+                    }else{
+                        this.setSelectedAsset(null);
+                    }
+
 
         }
     }
@@ -213,7 +215,7 @@ class ImageUploader extends Component {
                     <input type={'text'}
                            value={alt}
                            onChange={e => {
-                               this.props.updateStateTranslatedProps('alt', e.target.value, index);
+                               this.props.updateStateTranslatedProps( e.target.value, 'alt',  index);
                            }}/>
                 </Field>
             </Container>

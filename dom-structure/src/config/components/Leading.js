@@ -228,8 +228,82 @@ export default {
             },
             settings: {
                 responsive: [],
-                defaultValue: {
+                defaultValue: {}
+            }
 
+        },
+        {
+            name: 'Image Logo',
+            nameProperty: 'Logo',
+            typeField: 'SingleImage',
+            content: {
+                responsive: ['M', 'T', 'D'],
+                parameters: {},
+                defaultValue: {
+                    image: null
+                }
+            },
+            settings: {
+                responsive: ['M', 'D'],
+                defaultValue: {
+                    size: {
+                        M: {
+                            width: '200',
+                            height: '200',
+                            maxWidth: '',
+                            maxHeight: ''
+                        },
+                        D: {
+                            width: '500',
+                            height: '500',
+                            maxWidth: '',
+                            maxHeight: ''
+                        }
+                    },
+                    padding: {
+                        M: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        D: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        }
+                    }
+                }
+            }
+
+        },
+        {
+            name: 'Image Illustration',
+            nameProperty: 'Illustration',
+            typeField: 'SingleImage',
+            content: {
+                responsive: [],
+                parameters: {},
+                defaultValue: {
+                    image: null
+                }
+            },
+            settings: {
+                responsive: [],
+                defaultValue: {
+                    size: {
+                        width: '200',
+                        height: '200',
+                        maxWidth: '',
+                        maxHeight: ''
+                    },
+                    padding: {
+                        top: '10',
+                        right: '5',
+                        bottom: '10',
+                        left: '5'
+                    }
                 }
             }
 

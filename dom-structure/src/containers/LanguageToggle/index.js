@@ -9,6 +9,7 @@ class LanguageToggle extends Component {
     render() {
         const {dispatch, extension, indexLanguage, hidden} = this.props;
 
+        if(!extension.locales) return null
         return (
             <Languages className={hidden ? 'hidden' : ''}>
                 {

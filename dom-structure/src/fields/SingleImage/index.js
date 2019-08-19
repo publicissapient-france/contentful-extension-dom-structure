@@ -13,13 +13,15 @@ import ResponsiveToggle from "../../components/ResponsiveToggle";
 import LanguageToggle from '../../containers/LanguageToggle';
 import ActiveCheckBox from '../../components/ActiveCheckBox';
 
+import ImageUploader from '../../interfaces/ImageUploader';
+import Padding from '../../interfaces/Padding';
+
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsBoxes';
-import {ChoiceItemsConfirm, Content, Settings, Choices} from './styled'
-import InputMarkdown from "../../interfaces/InputMarkdown";
+import {ChoiceItemsConfirm, Content, Settings, Choices} from './styled';
 
 
-class TextMarkdown extends Component {
+class SingleImage extends Component {
     constructor(props) {
         super(props);
 
@@ -36,31 +38,56 @@ class TextMarkdown extends Component {
         if (!FieldOnStore) {
             this.initField();
         } else {
-            this.setState({
-                content: FieldOnStore.content,
-                settings: FieldOnStore.settings,
-                active: FieldOnStore.active,
-            }, () => {
-                this.initResponsiveMode();
-                if (!this.state.content.markdown) this.initContent()
-                if (isEmpty(this.state.settings)) this.initSettings()
-            });
+            this.initState()
         }
     };
 
+    initState = () => {
+
+        console.log('init state')
+        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
+
+        this.setState({
+            content: FieldOnStore.content,
+            settings: FieldOnStore.settings,
+            active: FieldOnStore.active,
+        }, () => {
+            this.initResponsiveMode();
+            if (!this.state.content.image) this.initContent()
+            if (isEmpty(this.state.settings)) this.initSettings()
+        });
+    }
+
     initField = () => {
+        console.log('init field')
+
         this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
+        this.initState();
     }
 
     initContent = () => {
+        console.log('init content')
+
+        let assetStructure = {};
+
+        this.props.responsiveContent.length ? this.props.responsiveContent.map((mode) => {
+            assetStructure[mode] = {};
+        }) : {};
+
+        let image = {
+            alt: {},
+            asset: assetStructure
+        };
+
         this.setState(prevState => ({
             content: {
                 ...prevState.content,
-                markdown: {}
+                image: image
             }
-        }));
+        }), () => {
+            console.log('after init content', this.state);
+        });
     }
-
     initSettings = () => {
         const initValue = this.props.defaultSettings;
         this.setState({
@@ -75,18 +102,51 @@ class TextMarkdown extends Component {
 
     updateTranlatedContent = (value, targetProperty) => {
         this.setState(prevState => ({
-            content: {
-                ...prevState.content,
+            content: update(prevState.content, {
                 [targetProperty]: {
-                    ...prevState.content[targetProperty],
                     [this.props.indexLanguage]: value
                 }
-            }
+            })
         }));
     }
 
+    updateTranlatedContentImage = (value, targetProperty) => {
+        this.setState(prevState => ({
+            content: update(prevState.content, {
+                image: {
+                    [targetProperty]: {
+                        [this.props.indexLanguage]: {$set: value}
+                    }
+                }
+            })
+        }));
+    }
+
+    updateAsset = (value) => {
+        if (this.state.currentResponsiveMode && this.props.responsiveContent.length) {
+            this.setState(prevState => ({
+                content: update(prevState.content, {
+                    image: {
+                        asset: {
+                            [prevState.currentResponsiveMode]: {$set: value}
+                        }
+                    }
+                })
+            }));
+        } else {
+            this.setState(prevState => ({
+                content: update(prevState.content, {
+                    image: {
+                        asset: {$set: value}
+                    }
+                })
+            }));
+        }
+    }
+
     updateSettings = (targetProperty, value) => {
-        if (this.state.currentResponsiveMode) {
+        console.log('update settings !');
+        if (this.state.currentResponsiveMode && this.props.responsiveSettings.length) {
             this.setState(prevState => ({
                 settings: update(prevState.settings, {
                     [targetProperty]: {
@@ -121,8 +181,21 @@ class TextMarkdown extends Component {
         currentResponsiveMode: mode
     });
 
+    getAlt = () => this.state.content.image && this.state.content.image.alt && this.state.content.image.alt[this.props.indexLanguage] ? this.state.content.image.alt[this.props.indexLanguage] : '';
 
-    getMarkdown = () => this.state.content.markdown && this.state.content.markdown[this.props.indexLanguage] ? this.state.content.markdown[this.props.indexLanguage] : '';
+    getAsset = () => {
+        let result = {};
+        if(!this.state.content.image){
+            result = {}
+        }
+        else if(this.props.responsiveContent.length){
+            result = this.state.content.image.asset[this.state.currentResponsiveMode]
+        }else{
+            result = this.state.content.image.asset
+        }
+        console.log('RESULT ON GETASSET', result);
+        return result;
+    }
 
     isUpdated = () => {
         const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
@@ -138,12 +211,23 @@ class TextMarkdown extends Component {
         });
     }
 
-    getCurrentSettingsProperty = (property) => this.state.currentResponsiveMode ?
-        this.state.settings[property][this.state.currentResponsiveMode]
-        : this.state.settings[property]
+    getCurrentSettingsProperty = (property) => {
+        console.log('getCurrentSettingsProperty ', this.state.currentResponsiveMode)
+            if(this.state.currentResponsiveMode && this.props.responsiveSettings.length){
+            console.log('property', property)
+                console.log('responsive settings exist');
+                console.log('return value : ', this.state.settings[property][this.state.currentResponsiveMode]);
+                return this.state.settings[property][this.state.currentResponsiveMode]
+            }else{
+                console.log('property', property)
+                console.log('responsive settings NOT exist');
+                console.log('result return value : ', this.state.settings[property])
+                return this.state.settings[property];
+            }
+    }
 
 
-    getCurrentDefaultSettingsProperty = (property) => this.state.currentResponsiveMode ?
+    getCurrentDefaultSettingsProperty = (property) => (this.state.currentResponsiveMode && this.props.responsiveSettings.length) ?
         this.props.defaultSettings[property][this.state.currentResponsiveMode]
         : this.props.defaultSettings[property]
 
@@ -161,7 +245,8 @@ class TextMarkdown extends Component {
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
 
     render() {
-        const {dispatch,indexLanguage, name, nameProperty, indexComponent, indexSection} = this.props;
+        const {dispatch, name, nameProperty, indexComponent, indexSection} = this.props;
+
         if (!this.state.settings) return null
         return (
             <div>
@@ -195,12 +280,21 @@ class TextMarkdown extends Component {
                 </Banner>
                 <Field>
                     <Content className={!this.state.openContent ? 'hidden' : ''}>
-                        <InputMarkdown currentLanguage={indexLanguage} action={this.updateTranlatedContent} targetProperty={'markdown'}
-                                       defaultValue={this.getMarkdown()}/>
+                        <ImageUploader asset={this.getAsset()}
+                                       alt={this.getAlt()}
+                                       index={null}
+                                       updateStateAsset={this.updateAsset}
+                                       updateStateTranslatedProps={this.updateTranlatedContentImage}
+                        />
                     </Content>
                     <Settings className={!this.state.openSettings ? 'hidden' : ''}>
                         <Choices>
-                            settings of TextMarkdown not available
+                            <Padding
+                                padding={this.getCurrentSettingsProperty('padding')}
+                                storeValuePadding={this.getCurrentStoreSettingsProperty('padding')}
+                                defaultPadding={this.getCurrentDefaultSettingsProperty('padding')}
+                                updateStateProps={this.updateSettings}
+                            />
                         </Choices>
                     </Settings>
                 </Field>
@@ -215,7 +309,7 @@ class TextMarkdown extends Component {
     }
 }
 
-TextMarkdown.propTypes = {
+SingleImage.propTypes = {
     indexSection: PropTypes.number.isRequired,
     indexComponent: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -231,4 +325,4 @@ const mapStateToProps = state => ({
     indexLanguage: getCurrentLanguage(state).language
 });
 
-export default connect(mapStateToProps)(TextMarkdown);
+export default connect(mapStateToProps)(SingleImage);

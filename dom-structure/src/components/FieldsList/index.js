@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FieldContainer} from "./styled";
 import Text  from '../../fields/Text/index';
 import TextMarkdown  from '../../fields/TextMarkdown/index';
+import SingleImage from '../../fields/SingleImage/index';
 
 class FieldsList extends Component {
     render() {
@@ -30,6 +31,9 @@ class FieldsList extends Component {
 
                                 case 'TextMarkdown':
                                     return <TextMarkdown {...params} />;
+
+                                case 'SingleImage':
+                                    return <SingleImage {...params} />;
 
                                 default :
                                     return <div className={'error'}><p>No field <strong>{field}</strong> matches</p>
