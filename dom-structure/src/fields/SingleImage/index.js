@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import update from "react-addons-update";
+import isEqual from 'lodash/isEqual'
 import isEmpty from "lodash/isEmpty"
 import {getCurrentDOM, getCurrentLanguage, initField, toggleFieldActive, updateField} from '../../actions';
 
@@ -15,6 +16,7 @@ import ActiveCheckBox from '../../components/ActiveCheckBox';
 
 import ImageUploader from '../../interfaces/ImageUploader';
 import Padding from '../../interfaces/Padding';
+import Size from '../../interfaces/Size';
 
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsBoxes';
@@ -145,7 +147,6 @@ class SingleImage extends Component {
     }
 
     updateSettings = (targetProperty, value) => {
-        console.log('update settings !');
         if (this.state.currentResponsiveMode && this.props.responsiveSettings.length) {
             this.setState(prevState => ({
                 settings: update(prevState.settings, {
@@ -185,21 +186,20 @@ class SingleImage extends Component {
 
     getAsset = () => {
         let result = {};
-        if(!this.state.content.image){
+        if (!this.state.content.image) {
             result = {}
         }
-        else if(this.props.responsiveContent.length){
+        else if (this.props.responsiveContent.length) {
             result = this.state.content.image.asset[this.state.currentResponsiveMode]
-        }else{
+        } else {
             result = this.state.content.image.asset
         }
-        console.log('RESULT ON GETASSET', result);
         return result;
     }
 
     isUpdated = () => {
         const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        return (this.state.content != FieldOnStore.content || this.state.settings != FieldOnStore.settings)
+        return (!isEqual(this.state.content, FieldOnStore.content) || !isEqual(this.state.settings, FieldOnStore.settings))
     }
 
     cancelStateValue = (e) => {
@@ -212,18 +212,12 @@ class SingleImage extends Component {
     }
 
     getCurrentSettingsProperty = (property) => {
-        console.log('getCurrentSettingsProperty ', this.state.currentResponsiveMode)
-            if(this.state.currentResponsiveMode && this.props.responsiveSettings.length){
+        if (this.state.currentResponsiveMode && this.props.responsiveSettings.length) {
             console.log('property', property)
-                console.log('responsive settings exist');
-                console.log('return value : ', this.state.settings[property][this.state.currentResponsiveMode]);
-                return this.state.settings[property][this.state.currentResponsiveMode]
-            }else{
-                console.log('property', property)
-                console.log('responsive settings NOT exist');
-                console.log('result return value : ', this.state.settings[property])
-                return this.state.settings[property];
-            }
+            return this.state.settings[property][this.state.currentResponsiveMode]
+        } else {
+            return this.state.settings[property];
+        }
     }
 
 
@@ -289,11 +283,15 @@ class SingleImage extends Component {
                     </Content>
                     <Settings className={!this.state.openSettings ? 'hidden' : ''}>
                         <Choices>
-                            <Padding
-                                padding={this.getCurrentSettingsProperty('padding')}
-                                storeValuePadding={this.getCurrentStoreSettingsProperty('padding')}
-                                defaultPadding={this.getCurrentDefaultSettingsProperty('padding')}
-                                updateStateProps={this.updateSettings}
+                            <Size size={this.getCurrentSettingsProperty('size')}
+                                  storeValueSize={this.getCurrentStoreSettingsProperty('size')}
+                                  defaultSize={this.getCurrentDefaultSettingsProperty('size')}
+                                  updateStateProps={this.updateSettings}
+                            />
+                            <Padding padding={this.getCurrentSettingsProperty('padding')}
+                                     storeValuePadding={this.getCurrentStoreSettingsProperty('padding')}
+                                     defaultPadding={this.getCurrentDefaultSettingsProperty('padding')}
+                                     updateStateProps={this.updateSettings}
                             />
                         </Choices>
                     </Settings>

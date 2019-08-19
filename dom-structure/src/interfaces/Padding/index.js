@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Container, Field, Inputs} from './styled';
 import PropTypes from 'prop-types';
+import isEqual from 'lodash/isEqual';
 import {hasNotSamePropertyValue} from "../../utils/functions";
 import Dot from '../../components/Dot'
 
@@ -48,7 +49,7 @@ class Padding extends Component {
         return (
             <Container>
                 <Field>
-                    <Dot enabled={hasNotSamePropertyValue(defaultPadding, padding, 'top')}/>
+                    <Dot enabled={!isEqual(defaultPadding, padding)}/>
                     <div>
                         <label>padding</label>
                         <Inputs>

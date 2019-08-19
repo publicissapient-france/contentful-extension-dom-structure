@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import update from "react-addons-update";
+import isEqual from 'lodash/isEqual'
 import isEmpty from "lodash/isEmpty"
 import {getCurrentDOM, getCurrentLanguage, initField, toggleFieldActive, updateField} from '../../actions';
 
@@ -126,7 +127,7 @@ class TextMarkdown extends Component {
 
     isUpdated = () => {
         const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        return (this.state.content != FieldOnStore.content || this.state.settings != FieldOnStore.settings)
+        return (!isEqual(this.state.content, FieldOnStore.content) || !isEqual(this.state.settings, FieldOnStore.settings ))
     }
 
     cancelStateValue = (e) => {
