@@ -63,21 +63,22 @@ class SingleImage extends Component {
             active: FieldOnStore.active,
         }, () => {
             this.initResponsiveMode();
-            if (!this.state.content.image) this.initContent()
+            if (isEmpty(this.state.content)) this.initContent()
+            if (!this.state.content.image) this.initContentImage()
             if (isEmpty(this.state.settings)) this.initSettings()
         });
     }
 
     initField = () => {
         console.log('init field')
-
         this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
         this.initState();
     }
 
-    initContent = () => {
+    initContentImage = () => {
         console.log('init content')
 
+        const initValue = this.props.defaultContent;
         let assetStructure = {};
 
         this.props.responsiveContent.length ? this.props.responsiveContent.map((mode) => {
@@ -96,6 +97,12 @@ class SingleImage extends Component {
             }
         }), () => {
             console.log('after init content', this.state);
+        });
+    }
+    initContent = () => {
+        const initValue = this.props.defaultContent;
+        this.setState({
+            content: initValue
         });
     }
     initSettings = () => {

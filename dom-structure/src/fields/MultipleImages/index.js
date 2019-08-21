@@ -55,7 +55,8 @@ class MultipleImages extends Component {
             active: FieldOnStore.active,
         }, () => {
             this.initResponsiveMode();
-            if (!this.state.content.images) this.initContent()
+            if (isEmpty(this.state.content)) this.initContent()
+            if (!this.state.content.images) this.initContentImages()
             if (isEmpty(this.state.settings)) this.initSettings()
         });
     }
@@ -70,7 +71,7 @@ class MultipleImages extends Component {
         });
     }
 
-    initContent = () => {
+    initContentImages = () => {
         console.log('init content')
         const length = this.props.parametersContent.multiple;
         let assetStructure = {};
@@ -91,6 +92,12 @@ class MultipleImages extends Component {
             }
         }), () => {
             console.log('after init content', this.state);
+        });
+    }
+    initContent = () => {
+        const initValue = this.props.defaultContent;
+        this.setState({
+            content: initValue
         });
     }
     initSettings = () => {

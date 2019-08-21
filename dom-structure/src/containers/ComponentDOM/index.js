@@ -155,10 +155,6 @@ class ComponentDOM extends Component {
                         <h4>{component.model} </h4>
                     </Description>
                     <Actions>
-                        <Icon className={this.state.openContent ? 'active' : ''}
-                              onClick={() => this.toggleOpenContent()}>
-                            <SvgContent/>
-                        </Icon>
                         <Icon className={this.state.openSettings ? 'active' : ''}
                               onClick={() => this.toggleOpenSettings()}>
                             <SvgSetting/>
@@ -240,7 +236,7 @@ class ComponentDOM extends Component {
                         </div>
                     </FormComponent>
                 </div>
-                <FieldsContainer>
+                <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>
                     <Banner>
                         <p> Content & Specifications </p>
                         <Toggle>

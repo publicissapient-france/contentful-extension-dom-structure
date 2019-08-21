@@ -43,7 +43,8 @@ class TextMarkdown extends Component {
                 active: FieldOnStore.active,
             }, () => {
                 this.initResponsiveMode();
-                if (!this.state.content.markdown) this.initContent()
+                if (isEmpty(this.state.content)) this.initContent()
+                if (!this.state.content.markdown) this.initContentMarkdown()
                 if (isEmpty(this.state.settings)) this.initSettings()
             });
         }
@@ -53,13 +54,19 @@ class TextMarkdown extends Component {
         this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
     }
 
-    initContent = () => {
+    initContentMarkdown = () => {
         this.setState(prevState => ({
             content: {
                 ...prevState.content,
                 markdown: {}
             }
         }));
+    }
+    initContent = () => {
+        const initValue = this.props.defaultContent;
+        this.setState({
+            content: initValue
+        });
     }
 
     initSettings = () => {

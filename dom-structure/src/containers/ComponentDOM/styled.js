@@ -78,10 +78,11 @@ export const Banner = styled.div`
   }
   
   & ${ Icon }{
-    height : 34px;
-    & svg{
-    width : 40px;
     height : 40px;
+    
+  & svg{
+    //width : 40px;
+    //height : 40px;
   }
     
     & svg g path, & svg  path, & svg rect {

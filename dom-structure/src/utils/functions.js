@@ -60,8 +60,23 @@ const filterActiveSettings = dom => {
     });
 };
 
+const filterActiveFields = dom => {
+    return dom.map(section => {
+        section.components.map(component => {
+            _.mapKeys(component.fields, (value, key) => {
+                if (!value.active) {
+                    _.unset(component.fields, key);
+                }
+            });
+            return component;
+        });
+        return section;
+    });
+};
+
 const extractActiveValue = dom => {
-    return filterActiveContent(filterActiveSettings(filterActiveComponents(filterActiveSections(_.cloneDeep(dom)))));
+    console.log('EXTRACT', filterActiveFields(filterActiveComponents(filterActiveSections(_.cloneDeep(dom)))))
+    return filterActiveFields(filterActiveComponents(filterActiveSections(_.cloneDeep(dom))));
 };
 
 const getLanguageISO = language => language.split('-')[0];

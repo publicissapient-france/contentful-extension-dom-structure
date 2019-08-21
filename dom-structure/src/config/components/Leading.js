@@ -321,7 +321,7 @@ export default {
 
         },
         {
-            name: 'Corner Images ',
+            name: 'Corner Images',
             nameProperty: 'CornerImages',
             typeField: 'MultipleImages',
             content: {

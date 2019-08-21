@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { FieldContainer} from "./styled";
+import Template from '../../fields/Template'
 import Text  from '../../fields/Text/index';
 import TextMarkdown  from '../../fields/TextMarkdown/index';
 import SingleImage from '../../fields/SingleImage/index';
@@ -22,12 +23,15 @@ class FieldsList extends Component {
                                 typeField : field.typeField,
                                 responsiveContent : field.content.responsive,
                                 responsiveSettings : field.settings.responsive,
-                                defaultContent : field.content.defaultValue,
-                                defaultSettings : field.settings.defaultValue,
+                                defaultContent :  field.content.defaultValue,
+                                defaultSettings :  field.settings.defaultValue,
                                 parametersContent : field.content.parameters,
                                 key: i
                             }
                             switch (field.typeField) {
+                                case 'Template':
+                                    return <Template {...params} />;
+
                                 case 'Text':
                                     return <Text {...params} />;
 
