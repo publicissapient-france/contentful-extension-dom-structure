@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import update from "react-addons-update";
 import isEmpty from "lodash/isEmpty"
-import { getCurrentDOM, getCurrentLanguage,initField, toggleFieldActive, updateField} from '../../actions';
+import {getCurrentDOM, getCurrentLanguage, initField, toggleFieldActive, updateField} from '../../actions';
 
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgContent from '../../components/svg/SvgContent';
@@ -20,9 +20,8 @@ import ColorPicker from '../../interfaces/ColorPicker'
 import Seo from '../../interfaces/Seo'
 
 import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsBoxes';
+import {Banner, Field} from '../../style/styledComponentsFields';
 import {ChoiceItemsConfirm, Content, Settings, Choices, Column} from './styled'
-
 
 
 class Text extends Component {
@@ -39,9 +38,9 @@ class Text extends Component {
 
     componentDidMount() {
         const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        if(!FieldOnStore){
+        if (!FieldOnStore) {
             this.initField();
-        }else{
+        } else {
             this.setState({
                 content: FieldOnStore.content,
                 settings: FieldOnStore.settings,
@@ -53,8 +52,6 @@ class Text extends Component {
                 if (isEmpty(this.state.settings)) this.initSettings()
             });
         }
-
-
     };
 
     initField = () => {
@@ -73,12 +70,16 @@ class Text extends Component {
         const initValue = this.props.defaultContent;
         this.setState({
             content: initValue
+        }, () => {
+            this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
         });
     }
     initSettings = () => {
         const initValue = this.props.defaultSettings;
         this.setState({
             settings: initValue
+        }, () => {
+            this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
         });
     }
 
@@ -100,23 +101,27 @@ class Text extends Component {
     }
 
     updateSettings = (targetProperty, value) => {
-        if (this.state.currentResponsiveMode) {
-            this.setState(prevState => ({
-                settings: update(prevState.settings, {
-                    [targetProperty]: {
-                        [prevState.currentResponsiveMode]: {$set: value}
+        this.setState(prevState => ({
+            settings: update(prevState.settings, {
+                [targetProperty]: {
+                    [prevState.currentResponsiveMode]: {$set: value}
+                }
+            })
+        }));
 
-                    }
-                })
-            }));
-        } else {
-            this.setState(prevState => ({
-                settings: update(prevState.settings, {
-                    [targetProperty]: {$set: value}
+    }
 
-                })
-            }));
-        }
+    updateSettingsNoResponsive = (targetProperty, value) => {
+        this.setState(prevState => ({
+            settings: update(prevState.settings, {
+                [targetProperty]: {$set: value}
+            })
+        }));
+
+    }
+
+    updateStore = () => {
+        this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
     }
 
     toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
@@ -124,11 +129,13 @@ class Text extends Component {
 
     toggleContent = () => this.setState(prevState => ({
         openContent: !prevState.openContent,
-        openSettings: false
+        openSettings: false,
+        currentResponsiveMode: this.props.responsiveContent[0]
     }));
     toggleSettings = () => this.setState(prevState => ({
         openSettings: !prevState.openSettings,
-        openContent: false
+        openContent: false,
+        currentResponsiveMode: this.props.responsiveSettings[0]
     }));
 
     toggleResponsiveMode = (mode) => this.setState({
@@ -151,14 +158,13 @@ class Text extends Component {
         });
     }
 
-    getCurrentSettingsProperty = (property) => this.state.currentResponsiveMode ?
-        this.state.settings[property][this.state.currentResponsiveMode]
-        : this.state.settings[property]
+    getCurrentSettingsProperty = (property) => this.state.settings[property] ? this.state.settings[property][this.state.currentResponsiveMode] : null
 
+    getCurrentSettingsPropertyNoResponsive = (property) => this.state.settings[property]
 
-    getCurrentDefaultSettingsProperty = (property) => this.state.currentResponsiveMode ?
-        this.props.defaultSettings[property][this.state.currentResponsiveMode]
-        : this.props.defaultSettings[property]
+    getCurrentDefaultSettingsProperty = (property) => this.props.defaultSettings[property][this.state.currentResponsiveMode]
+
+    getCurrentDefaultSettingsPropertyNoResponsive = (property) => this.props.defaultSettings[property]
 
 
     getCurrentStoreSettingsProperty = (property) => {
@@ -166,19 +172,21 @@ class Text extends Component {
 
         if (!FieldOnStore.settings[property]) return null;
 
-        return (this.state.currentResponsiveMode) ?
-            FieldOnStore.settings[property][this.state.currentResponsiveMode]
-            : FieldOnStore.settings[property]
+        return FieldOnStore.settings[property][this.state.currentResponsiveMode]
+    }
+
+    getCurrentStoreSettingsPropertyNoResponsive = (property) => {
+        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
+        if (!FieldOnStore.settings[property]) return null;
+        return FieldOnStore.settings[property]
     }
 
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
 
 
-
     render() {
         const {dispatch, name, nameProperty, indexComponent, indexSection} = this.props;
 
-        console.log('PROPS', this.props)
         if (!this.state.settings) return null
         return (
             <div>
@@ -238,10 +246,10 @@ class Text extends Component {
                                              toggleOpenView={this.toggleOpenView}
                                 />
                                 <Seo hidden={this.state.openPreview || this.state.openColorView}
-                                     seo={this.getCurrentSettingsProperty('seo')}
-                                     defaultSeo={this.getCurrentDefaultSettingsProperty('seo')}
-                                     storeValueSeo={this.getCurrentStoreSettingsProperty('seo')}
-                                     updateStateProps={this.updateSettings}
+                                     seo={this.getCurrentSettingsPropertyNoResponsive('seo')}
+                                     defaultSeo={this.getCurrentDefaultSettingsPropertyNoResponsive('seo')}
+                                     storeValueSeo={this.getCurrentStoreSettingsPropertyNoResponsive('seo')}
+                                     updateStateProps={this.updateSettingsNoResponsive}
                                 />
                             </Column>
                             <Column className={this.state.openPreview || this.state.openColorView ? 'hidden' : ''}>
@@ -252,6 +260,7 @@ class Text extends Component {
                                             storeValueFont={this.getCurrentStoreSettingsProperty('font')}
                                             storeValueText={this.getCurrentStoreSettingsProperty('text')}
                                             updateStateProps={this.updateSettings}
+                                            updateStore={this.updateStore}
                                 />
                             </Column>
                         </Choices>

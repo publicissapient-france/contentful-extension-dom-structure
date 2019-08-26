@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash'
 
 import {Error} from '../../style/styledComponents';
-import {Property} from '../../style/styledComponentsBoxes';
+import {Property} from '../../style/styledComponentsFields';
 import {
     Field,
     ChoiceColor,

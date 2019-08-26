@@ -6,7 +6,7 @@ class ResponsiveToggle extends Component {
     render() {
         const {responsive, currentMode, action} = this.props;
         return (
-            <Responsive className={!responsive.length ? 'hidden' : ''}>
+            <Responsive className={!responsive.length || responsive[0] === 'A' ? 'hidden' : ''}>
                 {
                     responsive.length ?
                         responsive.map((mode, i) => {

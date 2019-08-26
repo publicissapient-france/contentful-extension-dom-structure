@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {extensionTheme} from "../../style/theme";
-import {CheckBox} from "../../style/styledComponentsBoxes";
+import {CheckBox} from "../../style/styledComponentsFields";
 
 export const Check = styled(CheckBox)`
     & svg{

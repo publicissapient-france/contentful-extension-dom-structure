@@ -15,7 +15,7 @@ import LanguageToggle from '../../containers/LanguageToggle';
 import ActiveCheckBox from '../../components/ActiveCheckBox';
 
 import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsBoxes';
+import {Banner, Field} from '../../style/styledComponentsFields';
 import {ChoiceItemsConfirm, Content, Settings, Choices} from './styled'
 import InputMarkdown from "../../interfaces/InputMarkdown";
 

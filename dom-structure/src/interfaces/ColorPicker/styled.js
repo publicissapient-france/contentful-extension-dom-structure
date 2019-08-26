@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {extensionTheme} from "../../style/theme";
-import {BoxColor, Fields} from "../../style/styledComponentsBoxes";
+import {BoxColor, Fields} from "../../style/styledComponentsFields";
 import {Icon} from "../../style/styledComponents";
 
 export const SelectedColor = styled(BoxColor)`

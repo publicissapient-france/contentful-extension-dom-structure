@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {Form, OptionsBlock} from "../../style/styledComponents";
 import {extensionTheme} from "../../style/theme";
-import { CheckBox } from '../../style/styledComponentsBoxes';
+import { CheckBox } from '../../style/styledComponentsFields';
 
 export const Settings = styled(OptionsBlock)`
   

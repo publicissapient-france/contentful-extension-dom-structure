@@ -1,7 +1,6 @@
 import {extensionTheme} from "../../style/theme";
 import styled from "styled-components";
-import {ChoiceConfirm} from "../../style/styledComponentsBoxes";
-import {Category} from "../../boxes/settings/Title/styled";
+import {ChoiceConfirm} from "../../style/styledComponentsFields";
 
 export const Languages = styled.div`
   display : flex;
@@ -58,6 +57,13 @@ export const Choices = styled.div`
    display : flex;
 `;
 
+/*
+export const Category = styled.div`    
+    border : 1px solid ${ extensionTheme.grey20 };
+    border-left : 0px 
+    border-bottom : 0px 
+`;*/
+
 
 export const Column = styled.div`
    display : flex;
@@ -69,9 +75,6 @@ export const Column = styled.div`
     &.full-width{
         width : 100%;
         
-        & ${Category}{
-            width : 100%;
-            padding-top : 0;
-        }
+       
     }
 `;

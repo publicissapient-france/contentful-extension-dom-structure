@@ -12,7 +12,7 @@ class AssetPreview extends Component{
 
     render(){
         const { asset, locale } = this.props
-        const file = asset && asset.fields  ? asset.fields.file[locale] : null;
+        const file = asset && asset.fields  && asset.fields.file  ? asset.fields.file[locale] : null;
         const type = file ? file.contentType.split("/")[0] : null;
         const bg = file ? {backgroundImage: `url(${file.url})`} : '';
 

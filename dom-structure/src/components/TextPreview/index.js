@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {IconContainer} from '../../style/styledComponentsBoxes';
+import {IconContainer} from '../../style/styledComponentsFields';
 import SvgMoon from '../svg/SvgMoon';
 import SvgSun from '../svg/SvgSun';
 import SvgA from '../svg/SvgA';
@@ -42,7 +42,7 @@ class TextPreview extends Component {
                             letterSpacing: `${font.letterSpacing}px`,
                             fontStyle: font.style,
                             color: color.hex,
-                            opacity: opacity,
+                            opacity: opacity.value,
                             textAlign: text.align,
                             textTransform: text.transform,
                             textDecoration: text.decoration

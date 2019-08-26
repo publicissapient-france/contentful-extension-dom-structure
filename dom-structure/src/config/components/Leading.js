@@ -6,7 +6,7 @@ export default {
             nameProperty: 'Title',
             typeField: 'Text',
             content: {
-                responsive: [],
+                responsive: ['A'],
                 parameters: {},
                 defaultValue: {
                     text: null
@@ -45,15 +45,7 @@ export default {
                         }
                     },
                     seo: {
-                        M: {
-                            tag: 'h2'
-                        },
-                        T: {
-                            tag: 'h2'
-                        },
-                        D: {
-                            tag: 'h2'
-                        }
+                        tag: 'h2'
                     },
                     font: {
                         M: {
@@ -113,7 +105,7 @@ export default {
             nameProperty: 'Tagline',
             typeField: 'Text',
             content: {
-                responsive: [],
+                responsive: ['A'],
                 parameters: {},
                 defaultValue: {
                     title: null
@@ -152,15 +144,7 @@ export default {
                         }
                     },
                     seo: {
-                        M: {
-                            tag: 'h2'
-                        },
-                        T: {
-                            tag: 'h2'
-                        },
-                        D: {
-                            tag: 'h2'
-                        }
+                        tag: 'h2'
                     },
                     font: {
                         M: {
@@ -220,14 +204,14 @@ export default {
             nameProperty: 'TextMarkdown',
             typeField: 'TextMarkdown',
             content: {
-                responsive: [],
+                responsive: ['A'],
                 parameters: {},
                 defaultValue: {
                     markdown: null
                 }
             },
             settings: {
-                responsive: [],
+                responsive: ['A'],
                 defaultValue: {}
             }
 
@@ -244,7 +228,7 @@ export default {
                 }
             },
             settings: {
-                responsive: ['M','T', 'D'],
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
                     size: {
                         M: {
@@ -295,26 +279,31 @@ export default {
             nameProperty: 'Illustration',
             typeField: 'SingleImage',
             content: {
-                responsive: [],
+                responsive: ['A'],
                 parameters: {},
                 defaultValue: {
                     image: null
                 }
             },
             settings: {
-                responsive: [],
+                responsive: ['A'],
                 defaultValue: {
                     size: {
-                        width: '200',
-                        height: '200',
-                        maxWidth: '',
-                        maxHeight: ''
+                        A : {
+                            width: '200',
+                            height: '200',
+                            maxWidth: '',
+                            maxHeight: ''
+                        }
+
                     },
                     padding: {
-                        top: '10',
-                        right: '5',
-                        bottom: '10',
-                        left: '5'
+                        A : {
+                            top: '10',
+                            right: '5',
+                            bottom: '10',
+                            left: '5'
+                        }
                     }
                 }
             }
@@ -325,28 +314,33 @@ export default {
             nameProperty: 'CornerImages',
             typeField: 'MultipleImages',
             content: {
-                responsive: [],
+                responsive: ['A'],
                 parameters: {
                     multiple: 4
                 },
                 defaultValue: {
-                    images : null
+                    images: null
                 }
             },
             settings: {
-                responsive: [],
+                responsive: ['A'],
                 defaultValue: {
                     size: {
-                        width: '200',
-                        height: '200',
-                        maxWidth: '',
-                        maxHeight: ''
+                        A: {
+                            width: '200',
+                            height: '200',
+                            maxWidth: '',
+                            maxHeight: ''
+                        }
                     },
                     padding: {
-                        top: '10',
-                        right: '5',
-                        bottom: '10',
-                        left: '5'
+                        A: {
+                            top: '10',
+                            right: '5',
+                            bottom: '10',
+                            left: '5'
+                        }
+
                     }
                 }
             }
@@ -362,23 +356,27 @@ export default {
                     multiple: 4
                 },
                 defaultValue: {
-                    images : null
+                    images: null
                 }
             },
             settings: {
-                responsive: [],
+                responsive: ['A'],
                 defaultValue: {
                     size: {
-                        width: '200',
-                        height: '200',
-                        maxWidth: '',
-                        maxHeight: ''
+                        A: {
+                            width: '200',
+                            height: '200',
+                            maxWidth: '',
+                            maxHeight: ''
+                        }
                     },
                     padding: {
-                        top: '10',
-                        right: '5',
-                        bottom: '10',
-                        left: '5'
+                        A: {
+                            top: '10',
+                            right: '5',
+                            bottom: '10',
+                            left: '5'
+                        }
                     }
                 }
             }

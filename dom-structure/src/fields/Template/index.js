@@ -15,7 +15,7 @@ import ActiveCheckBox from '../../components/ActiveCheckBox';
 import ColorPicker from '../../interfaces/ColorPicker'
 
 import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsBoxes';
+import {Banner, Field} from '../../style/styledComponentsFields';
 import {ChoiceItemsConfirm, Settings, Choices} from './styled'
 
 
@@ -35,60 +35,55 @@ class Template extends Component {
             this.initField();
         } else {
             this.setState({
-                content : {},
-                settings:  FieldOnStore.settings,
+                content: {},
+                settings: FieldOnStore.settings,
                 active: FieldOnStore.active,
             }, () => {
                 this.initResponsiveMode();
                 if (isEmpty(this.state.settings)) this.initSettings()
             });
         }
-
-
     };
 
     initField = () => {
         this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
     }
 
-
     initSettings = () => {
         const initValue = this.props.defaultSettings;
         this.setState({
             settings: initValue
+        }, () => {
+            this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
         });
     }
 
     initResponsiveMode = () => {
-        const mode = this.props.responsiveContent[0] || this.props.responsiveSettings[0] || null;
+        console.log()
+        const mode = this.props.responsiveContent[0] || this.props.responsiveSettings[0] ;
+        console.log('init responsive mode', mode)
+
         this.setState({currentResponsiveMode: mode})
     }
 
     updateSettings = (targetProperty, value) => {
-        if (this.state.currentResponsiveMode) {
-            this.setState(prevState => ({
-                settings: update(prevState.settings, {
-                    [targetProperty]: {
-                        [prevState.currentResponsiveMode]: {$set: value}
+        this.setState(prevState => ({
+            settings: update(prevState.settings, {
+                [targetProperty]: {
+                    [prevState.currentResponsiveMode]: {$set: value}
 
-                    }
-                })
-            }));
-        } else {
-            this.setState(prevState => ({
-                settings: update(prevState.settings, {
-                    [targetProperty]: {$set: value}
-
-                })
-            }));
-        }
+                }
+            })
+        }));
     }
+
 
     toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
 
     toggleSettings = () => this.setState(prevState => ({
         openSettings: !prevState.openSettings,
-        openContent: false
+        openContent: false,
+        currentResponsiveMode: this.props.responsiveSettings[0]
     }));
 
     toggleResponsiveMode = (mode) => this.setState({
@@ -109,24 +104,16 @@ class Template extends Component {
         });
     }
 
-    getCurrentSettingsProperty = (property) => this.state.currentResponsiveMode ?
-        this.state.settings[property][this.state.currentResponsiveMode]
-        : this.state.settings[property]
+    getCurrentSettingsProperty = (property) => this.state.settings[property] ? this.state.settings[property][this.state.currentResponsiveMode] : null
 
 
-    getCurrentDefaultSettingsProperty = (property) => this.state.currentResponsiveMode ?
-        this.props.defaultSettings[property][this.state.currentResponsiveMode]
-        : this.props.defaultSettings[property]
+    getCurrentDefaultSettingsProperty = (property) =>  this.props.defaultSettings[property][this.state.currentResponsiveMode]
 
 
     getCurrentStoreSettingsProperty = (property) => {
         const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-
         if (!FieldOnStore.settings[property]) return null;
-
-        return (this.state.currentResponsiveMode) ?
-            FieldOnStore.settings[property][this.state.currentResponsiveMode]
-            : FieldOnStore.settings[property]
+        return FieldOnStore.settings[property][this.state.currentResponsiveMode]
     }
 
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))

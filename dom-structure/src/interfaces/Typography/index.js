@@ -6,7 +6,7 @@ import _ from 'lodash';
 import {getCurrentStyle} from '../../actions/index';
 import {hasNotSamePropertyValue} from '../../utils/functions'
 
-import {Property, IconContainer} from '../../style/styledComponentsBoxes';
+import {Property, IconContainer} from '../../style/styledComponentsFields';
 import {ChoiceFont, ContainerProps, FontProps, AlignProps, Field, TransformProps, TypoProps} from "./styled";
 import SvgFontSize from '../../components/svg/SvgFontSize';
 import SvgLineHeight from '../../components/svg/SvgLineHeight';
@@ -30,15 +30,15 @@ class Typography extends Component {
         this.state = {familyFonts: []};
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.setState({
             familyFonts: _.groupBy(this.props.fonts, 'family'),
-            font: this.props.font,
-            text: this.props.text
+            font: this.props.font || this.props.defaultFont,
+            text: this.props.text || this.props.defaultText
         });
     };
 
-    componentDidUpdate(prevProps){
+    componentDidUpdate(prevProps) {
         if (this.props.fonts != prevProps.fonts) {
             this.setState({
                 familyFonts: _.groupBy(this.props.fonts, 'family'),
@@ -51,10 +51,33 @@ class Typography extends Component {
                 font: this.props.font,
                 text: this.props.text
             }, () => {
-                if (this.state.font && this.state.font.theme && this.props.themes && !this.state.font.family) {this.updateWithTheme();
+                if (this.state.font && this.state.font.theme && this.props.themes && !this.state.font.family) {
+                    this.initWithTheme();
                 }
             });
         }
+    }
+
+    initWithTheme = () => {
+        let selectedTheme = this.getThemeValue(this.props.themes, this.state.font.theme);
+        this.setState({
+            ...this.state,
+            font: {
+                ...this.state.font,
+                family: selectedTheme.family,
+                typeface: selectedTheme.typeface,
+                weight: selectedTheme.weight,
+                size: selectedTheme.fontsize,
+                lineHeight: selectedTheme.lineheight
+            }
+        }, () => {
+            new Promise( (resolve, reject) => {
+                this.props.updateStateProps('font', this.state.font);
+                resolve();
+            }).then(() => {
+                this.props.updateStore();
+            })
+        })
     }
 
     updateWithTheme = () => {

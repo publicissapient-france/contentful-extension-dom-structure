@@ -93,7 +93,6 @@ class Section extends Component {
                           lengthParent={section.components.length}/>
         ) : null;
         if (!this.state.section) return null;
-        console.log('SECTIONSECTIONSECTIONSECTION', section)
         return (
             <Container>
                 <TopBar>

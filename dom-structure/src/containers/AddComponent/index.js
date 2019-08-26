@@ -33,7 +33,7 @@ class AddComponent extends Component {
         let fields = {};
         componentConfig[model].default.fields.map((field) => {
             fields[field.nameProperty] = {
-                active : true, content : {}, settings : {}};
+                active : true, content : {}, settings : {}, responsiveSettings : field.settings.responsive};
         })
         this.setState(
             {

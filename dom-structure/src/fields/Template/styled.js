@@ -1,6 +1,6 @@
 import {extensionTheme} from "../../style/theme";
 import styled from "styled-components";
-import {ChoiceConfirm} from "../../style/styledComponentsBoxes";
+import {ChoiceConfirm} from "../../style/styledComponentsFields";
 
 export const Languages = styled.div`
   display : flex;

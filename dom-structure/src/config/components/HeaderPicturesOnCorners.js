@@ -6,7 +6,7 @@ export default {
             nameProperty : 'Template',
             typeField : 'Template',
             content : {
-                responsive : [],
+                responsive : ['A'],
                 parameters : {},
                 defaultValue : {
                 }
@@ -52,41 +52,52 @@ export default {
             nameProperty : 'Title',
             typeField : 'Text',
             content : {
-                responsive : [],
+                responsive : ['A'],
                 parameters : {},
                 defaultValue : {
                     text : null
                 }
             },
             settings : {
-                responsive : [],
+                responsive : ['A'],
                 defaultValue: {
                     color: {
-                        hex: '#000000',
-                        name: 'Black',
-                        shade: null
+                        A : {
+                            hex: '#000000',
+                            name: 'Black',
+                            shade: null
+                        }
                     },
                     opacity: {
-                        value : '0.85'
+                        A : {
+                            value : '0.85'
+                        }
+
                     },
                     seo: {
                         tag: 'h2'
                     },
 
                     font: {
-                        theme: 'TitleLight',
-                        family: null,
-                        typeface: null,
-                        weight: null,
-                        style: 'italic',
-                        size: '28',
-                        lineHeight: '40',
-                        letterSpacing: '0'
+                        A : {
+                            theme: 'TitleLight',
+                            family: null,
+                            typeface: null,
+                            weight: null,
+                            style: 'italic',
+                            size: '28',
+                            lineHeight: '40',
+                            letterSpacing: '0'
+                        }
+
                     },
                     text: {
-                        align: 'left',
-                        transform: null,
-                        decoration: null
+                        A : {
+                            align: 'left',
+                            transform: null,
+                            decoration: null
+                        }
+
                     }
                 }
             }
@@ -97,7 +108,7 @@ export default {
             nameProperty: 'Tagline',
             typeField: 'Text',
             content: {
-                responsive: [],
+                responsive: ['A'],
                 parameters: {},
                 defaultValue: {
                     title: null
@@ -136,15 +147,7 @@ export default {
                         }
                     },
                     seo: {
-                        M: {
-                            tag: 'h2'
-                        },
-                        T: {
-                            tag: 'h2'
-                        },
-                        D: {
-                            tag: 'h2'
-                        }
+                        tag: 'h2'
                     },
                     font: {
                         M: {
@@ -262,7 +265,7 @@ export default {
             nameProperty: 'CornerImages',
             typeField: 'MultipleImages',
             content: {
-                responsive: [],
+                responsive: ['A'],
                 parameters: {
                     multiple: 4
                 },
@@ -271,19 +274,23 @@ export default {
                 }
             },
             settings: {
-                responsive: [],
+                responsive: ['A'],
                 defaultValue: {
                     size: {
-                        width: '200',
-                        height: '200',
-                        maxWidth: '',
-                        maxHeight: ''
+                        A : {
+                            width: '200',
+                            height: '200',
+                            maxWidth: '',
+                            maxHeight: ''
+                        }
                     },
                     padding: {
-                        top: '0',
-                        right: '0',
-                        bottom: '0',
-                        left: '0'
+                        A : {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        }
                     }
                 }
             }

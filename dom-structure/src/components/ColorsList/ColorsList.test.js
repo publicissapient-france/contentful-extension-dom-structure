@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, { shallow, mount} from "enzyme";
 import ColorsList from "./";
 import { List, BlockColor } from "./styled";
-import { IconAdd } from "../../style/styledComponentsBoxes";
+import { IconAdd } from "../../style/styledComponentsFields";
 import Adapter from "enzyme-adapter-react-16";
 
 Enzyme.configure({ adapter : new Adapter()});

@@ -75,7 +75,6 @@ const filterActiveFields = dom => {
 };
 
 const extractActiveValue = dom => {
-    console.log('EXTRACT', filterActiveFields(filterActiveComponents(filterActiveSections(_.cloneDeep(dom)))))
     return filterActiveFields(filterActiveComponents(filterActiveSections(_.cloneDeep(dom))));
 };
 

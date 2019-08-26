@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {HexColor, NameColor, BlockColor, BoxColor, Palette, IconAdd} from '../../style/styledComponentsBoxes'
+import {HexColor, NameColor, BlockColor, BoxColor, Palette, IconAdd} from '../../style/styledComponentsFields'
 import {List, IconExtend} from './styled'
 import SvgExtended from '../svg/SvgExtended'
 import SvgNotExtended from '../svg/SvgNotExtended'

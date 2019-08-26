@@ -3,7 +3,7 @@ import { createSlug, hexToRgb, RGBtoString } from '../../utils/functions';
 
 import {
     BoxColor, Specification, Property
-} from '../../style/styledComponentsBoxes';
+} from '../../style/styledComponentsFields';
 import {ChoiceColor, ChoiceShade, ChoiceName} from './styled'
 import styled from 'styled-components';
 

@@ -7,10 +7,8 @@ import {
     Actions,
     Warning,
     DataContainer,
-    Details,
     IconContainer,
-    Preview,
-    Field, Modifier
+    Preview
 } from "./styled";
 import SvgAttachement from '../svg/SvgAttachement';
 import SvgAddSmall from '../svg/SvgAddSmall';
@@ -44,13 +42,6 @@ export default function FileView(props) {
                             <Asset type={type} className="file-type-icon"/>
                         </Preview>
                     )}
-                    {
-                        /*<Modifier>
-                            <ButtonBasic action={props.onClickEdit} label={'Edit'}/>
-                            <ButtonBasic onClick={props.onClickReload} label={'Reload'}/>
-                        </Modifier>*/
-                    }
-
                 </div>
                 <Actions>
                     <IconContainer onClick={props.onClickLinkExisting}>
@@ -65,11 +56,6 @@ export default function FileView(props) {
                 </Actions>
 
             </DataContainer>
-            <Details>
-                <div>
-
-                </div>
-            </Details>
         </Container>
     )
 }

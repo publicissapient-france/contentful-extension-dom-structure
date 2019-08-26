@@ -1,4 +1,4 @@
-import {IconContainer} from "../../style/styledComponentsBoxes";
+import {IconContainer} from "../../style/styledComponentsFields";
 import styled from "styled-components";
 import {extensionTheme} from "../../style/theme";
 

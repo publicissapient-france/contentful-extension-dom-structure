@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Container, Field} from "./styled";
+import {Container, Field} from "./styled";
 import {getCurrentExtension} from "../../actions/index";
 import UploadView from '../../components/UploadView/index'
 import FileView from '../../components/FileView/index'
@@ -19,28 +19,23 @@ class ImageUploader extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         if (this.props.asset) {
             this.setSelectedAsset(this.props.asset);
         }
-        console.log('PROPS IMAGE UPLOADER ON MOUNT', this.props)
     };
 
-    componentDidUpdate(prevProps){
-        if(this.props.asset !== prevProps.asset){
-            if(this.props.asset && this.props.asset.sys){
-                        this.setSelectedAsset(this.props.asset);
-                        this.publishAsset();
-                    }else{
-                        this.setSelectedAsset(null);
-                    }
-
-
+    componentDidUpdate(prevProps) {
+        if (this.props.asset !== prevProps.asset) {
+            if (this.props.asset && this.props.asset.sys) {
+                this.setState({
+                    ...this.state,
+                    asset: this.props.asset
+                }, () => {
+                    this.publishAsset()
+                })
+            }
         }
-    }
-
-    componentWillUnmount(){
-
     }
 
     onClickNewAsset = async () => {
@@ -148,25 +143,13 @@ class ImageUploader extends Component {
     }
 
     publishAsset = async () => {
-        if(!this.state.asset || !this.state.asset.sys) return;
-        let assetId = this.state.asset.sys.id;
+        if (!this.state.asset || !this.state.asset.sys) return;
         try {
-            let asset = await this.props.extensionInfo.extension.space.getAsset(assetId);
-            if(asset.sys.version ===
-                (asset.sys.publishedVersion || 0) + 1){
-            }else{
-                this.props.extensionInfo.extension.space.publishAsset(asset);
+            if (this.state.asset.sys.version === (this.state.asset.sys.publishedVersion || 0) + 1) {
+            } else {
+                this.props.extensionInfo.extension.space.publishAsset(this.state.asset);
             }
-        } catch (err) {
-
-        }
-    }
-
-    informationsAreValid = () => {
-        if (this.props.alt) {
-            return true
-        }
-        return false
+        } catch (err) {}
     }
 
     render = () => {
@@ -176,28 +159,27 @@ class ImageUploader extends Component {
 
         if (!this.state.isDraggingOver && this.state.asset && this.state.asset.fields && !this.state.asset.fields.file) {
             view = <ReloadView
-                    assetId={this.state.asset.sys.id}
-                    onClickReload={this.reloadAsset}
-                />
+                assetId={this.state.asset.sys.id}
+                onClickReload={this.reloadAsset}
+            />
         } else if (!this.state.isDraggingOver && this.state.asset && this.state.asset.fields) {
-           view =  <FileView
-                    index={this.props.index}
-                    file={this.state.asset.fields.file[this.findProperLocale()]}
-                    title={this.state.asset.fields.title[this.findProperLocale()]}
-                    alt={alt}
-                    isPublished={
-                        this.state.asset.sys.version ===
-                        (this.state.asset.sys.publishedVersion || 0) + 1
-                    }
-                    onClickLinkExisting={this.onClickLinkExisting}
-                    onClickNewAsset={this.onClickNewAsset}
-                    onClickRemove={this.onClickRemove}
-                    updateStateTranslatedProps={this.props.updateStateTranslatedProps}
-                    valid={this.state.valid}
-                    validInformations={this.informationsAreValid()}
-                />
+            view = <FileView
+                index={this.props.index}
+                file={this.state.asset.fields.file[this.findProperLocale()]}
+                title={this.state.asset.fields.title[this.findProperLocale()]}
+                alt={alt}
+                isPublished={
+                    this.state.asset.sys.version ===
+                    (this.state.asset.sys.publishedVersion || 0) + 1
+                }
+                onClickLinkExisting={this.onClickLinkExisting}
+                onClickNewAsset={this.onClickNewAsset}
+                onClickRemove={this.onClickRemove}
+                updateStateTranslatedProps={this.props.updateStateTranslatedProps}
+                valid={this.state.valid}
+            />
 
-        }else{
+        } else {
             view = <UploadView
                 isDraggingOver={this.state.isDraggingOver}
                 onClickLinkExisting={this.onClickLinkExisting}
@@ -206,16 +188,15 @@ class ImageUploader extends Component {
         }
 
 
-
-        return(
+        return (
             <Container>
-                { view }
+                {view}
                 <Field>
                     <label>Alt (required)</label>
                     <input type={'text'}
                            value={alt}
                            onChange={e => {
-                               this.props.updateStateTranslatedProps( e.target.value, 'alt',  index);
+                               this.props.updateStateTranslatedProps(e.target.value, 'alt', index);
                            }}/>
                 </Field>
             </Container>
@@ -226,9 +207,9 @@ class ImageUploader extends Component {
 }
 
 ImageUploader.protoTypes = {
-    value: PropTypes.shape({
-        asset: PropTypes.object
-    })
+    asset: PropTypes.object,
+    alt : PropTypes.string,
+    index : PropTypes.number
 };
 
 const mapStateToProps = state => ({

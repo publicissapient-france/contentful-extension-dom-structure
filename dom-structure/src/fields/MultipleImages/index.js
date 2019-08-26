@@ -19,7 +19,7 @@ import Padding from '../../interfaces/Padding';
 import Size from '../../interfaces/Size';
 
 import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsBoxes';
+import {Banner, Field} from '../../style/styledComponentsFields';
 import {ChoiceItemsConfirm, Content, Settings, Choices, ImagesSettings} from './styled';
 
 
@@ -67,7 +67,6 @@ class MultipleImages extends Component {
             this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
         }).then(() => {
             this.initState();
-
         });
     }
 
@@ -137,7 +136,6 @@ class MultipleImages extends Component {
     }
 
     updateAsset = (value, index) => {
-        if (this.state.currentResponsiveMode && this.props.responsiveContent.length) {
             this.setState(prevState => ({
                 content: update(prevState.content, {
                     images: {
@@ -149,21 +147,9 @@ class MultipleImages extends Component {
                     }
                 })
             }));
-        } else {
-            this.setState(prevState => ({
-                content: update(prevState.content, {
-                    images: {
-                        [index]: {
-                            asset: {$set: value}
-                        }
-                    }
-                })
-            }));
         }
-    }
 
     updateSettings = (targetProperty, value) => {
-        if (this.state.currentResponsiveMode && this.props.responsiveSettings.length) {
             this.setState(prevState => ({
                 settings: update(prevState.settings, {
                     [targetProperty]: {
@@ -172,14 +158,7 @@ class MultipleImages extends Component {
                     }
                 })
             }));
-        } else {
-            this.setState(prevState => ({
-                settings: update(prevState.settings, {
-                    [targetProperty]: {$set: value}
 
-                })
-            }));
-        }
     }
 
     toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
@@ -187,11 +166,13 @@ class MultipleImages extends Component {
 
     toggleContent = () => this.setState(prevState => ({
         openContent: !prevState.openContent,
-        openSettings: false
+        openSettings: false,
+        currentResponsiveMode: this.props.responsiveContent[0]
     }));
     toggleSettings = () => this.setState(prevState => ({
         openSettings: !prevState.openSettings,
-        openContent: false
+        openContent: false,
+        currentResponsiveMode: this.props.responsiveSettings[0]
     }));
 
     toggleResponsiveMode = (mode) => this.setState({
@@ -205,10 +186,8 @@ class MultipleImages extends Component {
         if (!this.state.content.images[i]) {
             result = {}
         }
-        else if (this.props.responsiveContent.length) {
+        else{
             result = this.state.content.images[i].asset[this.state.currentResponsiveMode]
-        } else {
-            result = this.state.content.images[i].asset
         }
         return result;
     }
@@ -227,29 +206,17 @@ class MultipleImages extends Component {
         });
     }
 
-    getCurrentSettingsProperty = (property) => {
-        if (this.state.currentResponsiveMode && this.props.responsiveSettings.length) {
-            console.log('property', property)
-            return this.state.settings[property][this.state.currentResponsiveMode]
-        } else {
-            return this.state.settings[property];
-        }
-    }
+    getCurrentSettingsProperty = (property) => this.state.settings[property] ? this.state.settings[property][this.state.currentResponsiveMode] : null
 
 
-    getCurrentDefaultSettingsProperty = (property) => (this.state.currentResponsiveMode && this.props.responsiveSettings.length) ?
-        this.props.defaultSettings[property][this.state.currentResponsiveMode]
-        : this.props.defaultSettings[property]
-
+    getCurrentDefaultSettingsProperty = (property) =>  this.props.defaultSettings[property][this.state.currentResponsiveMode]
 
     getCurrentStoreSettingsProperty = (property) => {
         const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
 
         if (!FieldOnStore.settings[property]) return null;
 
-        return (this.state.currentResponsiveMode) ?
-            FieldOnStore.settings[property][this.state.currentResponsiveMode]
-            : FieldOnStore.settings[property]
+        return FieldOnStore.settings[property][this.state.currentResponsiveMode]
     }
 
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))

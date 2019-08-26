@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {contentfulTheme, extensionTheme} from "../../style/theme";
-import { Palette } from '../../style/styledComponentsBoxes';
+import { Palette } from '../../style/styledComponentsFields';
 
 export const List = styled(Palette)`
      width : auto;

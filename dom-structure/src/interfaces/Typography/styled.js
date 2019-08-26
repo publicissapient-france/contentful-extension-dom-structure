@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import {extensionTheme} from '../../style/theme';
-import {IconContainer} from "../../style/styledComponentsBoxes";
+import {IconContainer} from "../../style/styledComponentsFields";
 
 export const ChoiceFont = styled.div`
    display : flex;

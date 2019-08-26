@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import SvgContent from '../../components/svg/SvgContent';
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgRange from '../../components/svg/SvgRange';
 import SvgCheck from '../../components/svg/SvgCheck';
 import SvgTrash from '../../components/svg/SvgTrash';
 import SvgArrowDouble from '../../components/svg/SvgArrowDouble';
-import BoxesContent from '../../components/BoxesContent/index';
-import BoxesSettings from '../../components/BoxesSettings/index';
 import FieldsList from '../../components/FieldsList';
-import {getCountryISO} from '../../utils/functions';
 
 import {
     Icon,
@@ -20,13 +16,9 @@ import {
     ContainerComponent,
     FormComponent,
     Banner,
-    ToogleLanguage,
     Description,
     Actions,
     Active,
-    Content,
-    Languages,
-    Settings,
     Toggle,
     TopBar,
     FieldsContainer,
@@ -43,7 +35,6 @@ import {
     removeComponent,
     updateComponent,
     toggleComponentActive
-    , getCurrentExtension, getCurrentLanguage, toggleLanguage
 } from '../../actions/index';
 import update from 'react-addons-update';
 import PropTypes from 'prop-types';
@@ -255,53 +246,6 @@ class ComponentDOM extends Component {
     }
 };
 
-/*<BoxesSettings open={this.state.openBoxesSettings} fields={this.getSettingsComponent()}
-                                  index={index}
-                                  indexParent={indexParent}/>*/
-/*<BoxesContent open={this.state.openBoxes} fields={this.getContentComponent()} index={index}
-                                  indexParent={indexParent}/>*/
-
-/* <Settings className={!this.state.openSettings ? 'hidden' : ''}>
-
-                    <Banner>
-                        <p>settings</p>
-                        <Toggle>
-                            <Icon className={!this.state.openBoxesSettings ? '' : 'rotate'}
-                                  onClick={() => {
-                                      this.toggleBoxesSettings();
-                                  }}><SvgArrowDouble/></Icon>
-                        </Toggle>
-
-                    </Banner>
-
-
-                </Settings>
-                <Content className={!this.state.openContent ? 'hidden' : ''}>
-                    <Banner>
-                        <p>content</p>
-                        <Toggle>
-                            <Languages>
-                                {
-                                    extensionInfo.extension.locales.available.map((language, i) => {
-                                        return <ToogleLanguage
-                                            key={i}
-                                            className={currentLanguage.language === i ? 'active' : ''}
-                                            onClick={e => {
-                                                //this.setState({language: i});
-                                                dispatch(toggleLanguage(i));
-                                            }}>{getCountryISO(language)}</ToogleLanguage>;
-                                    })
-                                }
-                            </Languages>
-                            <Icon className={!this.state.openBoxes ? '' : 'rotate'}
-                                  onClick={() => {
-                                      this.toggleBoxes();
-                                  }}><SvgArrowDouble/></Icon>
-                        </Toggle>
-
-                    </Banner>
-
-                </Content> */
 
 ComponentDOM.propTypes = {
     component: PropTypes.shape({
