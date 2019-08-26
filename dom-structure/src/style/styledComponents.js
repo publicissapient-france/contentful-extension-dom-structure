@@ -241,6 +241,11 @@ export const Icon = styled.div`
         fill : ${ extensionTheme.redM };
     }
   }
+  &.trash.active{
+    & svg g path, & svg path, & svg  rect {
+        fill : ${ extensionTheme.redM };
+    }
+  }
   
   &.rotate{
     transform : rotate(180deg);

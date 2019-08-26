@@ -172,7 +172,7 @@ class ComponentDOM extends Component {
                             </Icon>
 
                         </Range>
-                        <Icon className={'trash'} onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
+                        <Icon className={['trash', this.state.openSafeDelete ? 'active' : '']} onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
                     </Actions>
 
                 </TopBar>
