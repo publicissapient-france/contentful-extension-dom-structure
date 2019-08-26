@@ -8,8 +8,9 @@ import SingleImage from '../../fields/SingleImage/index';
 import MultipleImages from '../../fields/MultipleImages/index';
 
 class FieldsList extends Component {
+
     render() {
-        const {fields, index, indexParent} = this.props;
+        const {fields, index, indexParent, triggerOpening} = this.props;
         return (
             <FieldContainer>
 
@@ -26,11 +27,12 @@ class FieldsList extends Component {
                                 defaultContent :  field.content.defaultValue,
                                 defaultSettings :  field.settings.defaultValue,
                                 parametersContent : field.content.parameters,
-                                key: i
+                                key: i,
+                                triggerOpening : triggerOpening
                             }
                             switch (field.typeField) {
                                 case 'Template':
-                                    return <Template {...params} />;
+                                    return <Template {...params}/>;
 
                                 case 'Text':
                                     return <Text {...params} />;

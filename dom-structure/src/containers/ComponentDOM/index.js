@@ -50,7 +50,8 @@ class ComponentDOM extends Component {
             openContent: false,
             component: null,
             openSafeDelete: false,
-            config: {}
+            config: {},
+            triggerOpening : false
         };
     }
 
@@ -97,6 +98,9 @@ class ComponentDOM extends Component {
         openSettings: false,
         openSafeDelete: false
     })
+    triggerOpening = () => this.setState(prevState => ({
+        triggerOpening: !prevState.triggerOpening
+    }))
 
     toggleBoxes = () => {
         this.setState({openBoxes: !this.state.openBoxes}, () => {
@@ -127,6 +131,10 @@ class ComponentDOM extends Component {
 
     getComponentFields = () => {
         return componentConfig[this.props.component.model].default.fields;
+    }
+
+    triggerChildAlert = () => {
+        this.child.current.triggerOpen();
     }
 
 
@@ -236,14 +244,12 @@ class ComponentDOM extends Component {
                     <Banner>
                         <p> Content & Specifications </p>
                         <Toggle>
-                            <Icon className={!this.state.openBoxesSettings ? '' : 'rotate'}
-                                  onClick={() => {
-                                      console.log('Click on new Toggle Component Doms');
-                                  }}><SvgArrowDouble/></Icon>
+                            <Icon className={['toggleAll', !this.state.triggerOpening ? '' : 'rotate']}
+                                  onClick={() => this.triggerOpening()}><SvgArrowDouble/></Icon>
                         </Toggle>
                     </Banner>
                     <Fields>
-                        <FieldsList fields={this.getComponentFields()} index={index} indexParent={indexParent}/>
+                        <FieldsList triggerOpening={this.state.triggerOpening} fields={this.getComponentFields()} index={index} indexParent={indexParent}/>
                     </Fields>
                 </FieldsContainer>
             </ContainerComponent>

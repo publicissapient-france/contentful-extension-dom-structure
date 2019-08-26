@@ -71,8 +71,6 @@ const dom = (state = [], action) => {
             });
 
         case 'ADD_COMPONENT':
-            console.log(action);
-
             return update(state, {
                 [action.index]: {
                     components: {
@@ -90,7 +88,6 @@ const dom = (state = [], action) => {
             });
 
         case 'UPDATE_COMPONENT':
-            console.log('action update on store : ', action)
             return update(state, {
                 [action.indexParent]: {
                     components: {

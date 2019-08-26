@@ -64,6 +64,13 @@ class MultipleImages extends Component {
                 storeSettings : currentFieldStore.settings,
             });
         }
+        if(this.props.triggerOpening != prevProps.triggerOpening){
+            this.setState(prevState => ({
+                openSettings: this.props.triggerOpening,
+                openContent: false,
+                currentResponsiveMode: this.props.responsiveSettings[0]
+            }));
+        }
     }
 
     initField = () => {

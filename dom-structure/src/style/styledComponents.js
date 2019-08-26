@@ -213,6 +213,7 @@ export const Icon = styled.div`
   cursor  : pointer;
   display :flex;
   align-items : center;
+  transition : transform 0.3s ease; 
   
   & svg g path, & svg path, & svg rect {
         fill : ${ extensionTheme.grey40 };
@@ -249,6 +250,18 @@ export const Icon = styled.div`
   
   &.rotate{
     transform : rotate(180deg);
+  }
+  
+  &.toggleAll{
+    & svg g path, & svg path, & svg  rect {
+        fill : ${ extensionTheme.white };
+    }
+    
+    &:hover{
+        & svg g path, & svg path, & svg  rect {
+            fill : ${ extensionTheme.white };
+        }
+    }
   }
   
 `;
