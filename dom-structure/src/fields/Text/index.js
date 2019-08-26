@@ -45,6 +45,8 @@ class Text extends Component {
                 content: FieldOnStore.content,
                 settings: FieldOnStore.settings,
                 active: FieldOnStore.active,
+                storeContent : FieldOnStore.content,
+                storeSettings : FieldOnStore.settings,
             }, () => {
                 this.initResponsiveMode();
                 if (isEmpty(this.state.content)) this.initContent()
@@ -53,6 +55,20 @@ class Text extends Component {
             });
         }
     };
+
+    componentDidUpdate(prevProps) {
+        if (this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]
+            !== prevProps.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]) {
+
+            const currentFieldStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
+            this.setState({
+                content :currentFieldStore.content,
+                settings : currentFieldStore.settings,
+                storeContent : currentFieldStore.content,
+                storeSettings : currentFieldStore.settings,
+            });
+        }
+    }
 
     initField = () => {
         this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
@@ -144,18 +160,15 @@ class Text extends Component {
 
     getText = () => this.state.content.text && this.state.content.text[this.props.indexLanguage] ? this.state.content.text[this.props.indexLanguage] : '';
 
-    isUpdated = () => {
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        return (this.state.content != FieldOnStore.content || this.state.settings != FieldOnStore.settings)
-    }
+    isUpdated = () => (this.state.content != this.state.storeContent || this.state.settings != this.state.storeSettings)
+
 
     cancelStateValue = (e) => {
         e.preventDefault();
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        this.setState({
-            content: FieldOnStore.content,
-            settings: FieldOnStore.settings
-        });
+        this.setState(prevState => ({
+            content:prevState.storeContent,
+            settings: prevState.storeSettings
+        }));
     }
 
     getCurrentSettingsProperty = (property) => this.state.settings[property] ? this.state.settings[property][this.state.currentResponsiveMode] : null
@@ -168,17 +181,13 @@ class Text extends Component {
 
 
     getCurrentStoreSettingsProperty = (property) => {
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-
-        if (!FieldOnStore.settings[property]) return null;
-
-        return FieldOnStore.settings[property][this.state.currentResponsiveMode]
+        if (!this.state.storeSettings[property]) return null;
+        return this.state.storeSettings[property][this.state.currentResponsiveMode]
     }
 
     getCurrentStoreSettingsPropertyNoResponsive = (property) => {
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        if (!FieldOnStore.settings[property]) return null;
-        return FieldOnStore.settings[property]
+        if (!this.state.storeSettings[property]) return null;
+        return this.state.storeSettings[property]
     }
 
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))

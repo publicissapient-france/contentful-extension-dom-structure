@@ -111,7 +111,7 @@ export default {
                 responsive: ['A'],
                 parameters: {},
                 defaultValue: {
-                    title: null
+                    text: null
                 }
             },
             settings: {
@@ -282,14 +282,6 @@ export default {
                             height: '200',
                             maxWidth: '',
                             maxHeight: ''
-                        }
-                    },
-                    padding: {
-                        A : {
-                            top: '0',
-                            right: '0',
-                            bottom: '0',
-                            left: '0'
                         }
                     }
                 }

@@ -50,14 +50,29 @@ class SingleImage extends Component {
                 content: FieldOnStore.content,
                 settings: FieldOnStore.settings,
                 active: FieldOnStore.active,
+                storeContent : FieldOnStore.content,
+                storeSettings : FieldOnStore.settings,
             }, () => {
                 this.initResponsiveMode();
-                if (isEmpty(this.state.content)) this.initContent()
                 if (!this.state.content.image) this.initContentImage()
                 if (isEmpty(this.state.settings)) this.initSettings()
             });
         }
     };
+
+    componentDidUpdate(prevProps) {
+        if (this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]
+            !== prevProps.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]) {
+
+            const currentFieldStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
+            this.setState({
+                content :currentFieldStore.content,
+                settings : currentFieldStore.settings,
+                storeContent : currentFieldStore.content,
+                storeSettings : currentFieldStore.settings,
+            });
+        }
+    }
 
 
     initField = () => {
@@ -84,14 +99,7 @@ class SingleImage extends Component {
             }
         }));
     }
-    initContent = () => {
-        /*const initValue = this.props.defaultContent;
-        this.setState({
-            content: initValue
-        }, () => {
-            this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
-        });*/
-    }
+
     initSettings = () => {
         const initValue = this.props.defaultSettings;
         this.setState({
@@ -182,29 +190,23 @@ class SingleImage extends Component {
         }
     }
 
-    isUpdated = () => {
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        return (!isEqual(this.state.content, FieldOnStore.content) || !isEqual(this.state.settings, FieldOnStore.settings))
-    }
+    isUpdated = () => (this.state.content != this.state.storeContent || this.state.settings != this.state.storeSettings)
 
     cancelStateValue = (e) => {
         e.preventDefault();
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        this.setState({
-            content: FieldOnStore.content,
-            settings: FieldOnStore.settings
-        });
+        this.setState(prevState => ({
+            content:prevState.storeContent,
+            settings: prevState.storeSettings
+        }));
     }
 
     getCurrentSettingsProperty = (property) => this.state.settings[property] ? this.state.settings[property][this.state.currentResponsiveMode] : null
 
-
     getCurrentDefaultSettingsProperty = (property) => this.props.defaultSettings[property][this.state.currentResponsiveMode]
 
     getCurrentStoreSettingsProperty = (property) => {
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        if (!FieldOnStore.settings[property]) return null;
-        return FieldOnStore.settings[property][this.state.currentResponsiveMode]
+        if (!this.state.storeSettings[property]) return null;
+        return this.state.storeSettings[property][this.state.currentResponsiveMode]
     }
 
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))

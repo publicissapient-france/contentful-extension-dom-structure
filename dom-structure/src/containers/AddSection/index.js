@@ -75,14 +75,9 @@ class AddSection extends Component {
                     }}
                 >
                     <div>
-                        <label>Section Name</label>
-                        <input ref={node => (inputName = node)} type={'text'}
-                            onChange={e => { this.updateName(e.target.value); }}/>
-                    </div>
-                    <div>
                         <label>Model</label>
                         <select ref={node => (selectModel = node)} defaultValue={''}
-                            onChange={e => { this.updateModel(e.target.value); }}>
+                                onChange={e => { this.updateModel(e.target.value); }}>
                             <option value={null}></option>
                             {
                                 Object.keys(sectionsConfig).map((key, i) => {
@@ -90,9 +85,16 @@ class AddSection extends Component {
                                 })                            }
                         </select>
                     </div>
+                    <div>
+                        <label>Section Name</label>
+                        <input ref={node => (inputName = node)} type={'text'}
+                            onChange={e => { this.updateName(e.target.value); }}/>
+                    </div>
+
                     <div className={'buttons'}>
                         <ButtonBasic
                             label={'Cancel'}
+                            disabled={!this.isComplete()}
                             action={ (e) => {
                                 this.clearForm();
                                 inputName.value = '';

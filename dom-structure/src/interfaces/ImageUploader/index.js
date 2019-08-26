@@ -34,6 +34,11 @@ class ImageUploader extends Component {
                 }, () => {
                     this.publishAsset()
                 })
+            }else{
+                this.setState({
+                    ...this.state,
+                    asset: {}
+                })
             }
         }
     }

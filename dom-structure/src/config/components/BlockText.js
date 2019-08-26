@@ -221,14 +221,6 @@ export default {
                             maxWidth: '',
                             maxHeight: ''
                         }
-                    },
-                    padding: {
-                        A : {
-                            top: '0',
-                            right: '0',
-                            bottom: '0',
-                            left: '0'
-                        }
                     }
                 }
             }
@@ -304,18 +296,42 @@ export default {
                 }
             },
             settings: {
-                responsive: ['A'],
+                responsive: ['M','T', 'D'],
                 defaultValue: {
                     size: {
-                        A: {
+                        M: {
                             width: '200',
                             height: '200',
+                            maxWidth: '',
+                            maxHeight: ''
+                        },
+                        T: {
+                            width: '500',
+                            height: '500',
+                            maxWidth: '',
+                            maxHeight: ''
+                        },
+                        D: {
+                            width: '500',
+                            height: '500',
                             maxWidth: '',
                             maxHeight: ''
                         }
                     },
                     padding: {
-                        A: {
+                        M: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        T: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        D: {
                             top: '0',
                             right: '0',
                             bottom: '0',

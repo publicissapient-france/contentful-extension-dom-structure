@@ -38,12 +38,28 @@ class Template extends Component {
                 content: {},
                 settings: FieldOnStore.settings,
                 active: FieldOnStore.active,
+                storeContent : FieldOnStore.content,
+                storeSettings : FieldOnStore.settings,
             }, () => {
                 this.initResponsiveMode();
                 if (isEmpty(this.state.settings)) this.initSettings()
             });
         }
     };
+
+    componentDidUpdate(prevProps) {
+        if (this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]
+            !== prevProps.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]) {
+
+            const currentFieldStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
+            this.setState({
+                content :currentFieldStore.content,
+                settings : currentFieldStore.settings,
+                storeContent : currentFieldStore.content,
+                storeSettings : currentFieldStore.settings,
+            });
+        }
+    }
 
     initField = () => {
         this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
@@ -59,10 +75,7 @@ class Template extends Component {
     }
 
     initResponsiveMode = () => {
-        console.log()
         const mode = this.props.responsiveContent[0] || this.props.responsiveSettings[0] ;
-        console.log('init responsive mode', mode)
-
         this.setState({currentResponsiveMode: mode})
     }
 
@@ -91,17 +104,14 @@ class Template extends Component {
     });
 
 
-    isUpdated = () => {
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        return (this.state.settings != FieldOnStore.settings)
-    }
+    isUpdated = () => (this.state.settings != this.state.storeSettings)
+
 
     cancelStateValue = (e) => {
         e.preventDefault();
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        this.setState({
-            settings: FieldOnStore.settings
-        });
+        this.setState(prevState => ({
+            settings: prevState.storeSettings
+        }));
     }
 
     getCurrentSettingsProperty = (property) => this.state.settings[property] ? this.state.settings[property][this.state.currentResponsiveMode] : null
@@ -111,9 +121,8 @@ class Template extends Component {
 
 
     getCurrentStoreSettingsProperty = (property) => {
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        if (!FieldOnStore.settings[property]) return null;
-        return FieldOnStore.settings[property][this.state.currentResponsiveMode]
+        if (!this.state.storeSettings[property]) return null;
+        return this.state.storeSettings[property][this.state.currentResponsiveMode]
     }
 
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
@@ -123,6 +132,7 @@ class Template extends Component {
         const {dispatch, name, nameProperty, indexComponent, indexSection} = this.props;
 
         if (!this.state.settings) return null
+
         return (
             <div>
                 <Banner>
@@ -190,7 +200,7 @@ Template.propTypes = {
 };
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state),
-    indexLanguage: getCurrentLanguage(state).language
+    indexLanguage: getCurrentLanguage(state).language,
 });
 
 export default connect(mapStateToProps)(Template);

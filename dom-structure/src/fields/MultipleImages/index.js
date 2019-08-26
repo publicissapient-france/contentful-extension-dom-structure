@@ -28,8 +28,6 @@ class MultipleImages extends Component {
         super(props);
 
         this.state = {
-            openColorView: false,
-            openPreview: false,
             openSettings: false,
             openContent: false
         }
@@ -40,38 +38,39 @@ class MultipleImages extends Component {
         if (!FieldOnStore) {
             this.initField();
         } else {
-            this.initState()
+            this.setState({
+                content: FieldOnStore.content,
+                settings: FieldOnStore.settings,
+                active: FieldOnStore.active,
+                storeContent : FieldOnStore.content,
+                storeSettings : FieldOnStore.settings,
+            }, () => {
+                this.initResponsiveMode();
+                if (!this.state.content.images) this.initContentImages()
+                if (isEmpty(this.state.settings)) this.initSettings()
+            });
         }
     };
 
-    initState = () => {
+    componentDidUpdate(prevProps) {
+        if (this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]
+            !== prevProps.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]) {
 
-        console.log('init state')
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-
-        this.setState({
-            content: FieldOnStore.content,
-            settings: FieldOnStore.settings,
-            active: FieldOnStore.active,
-        }, () => {
-            this.initResponsiveMode();
-            if (isEmpty(this.state.content)) this.initContent()
-            if (!this.state.content.images) this.initContentImages()
-            if (isEmpty(this.state.settings)) this.initSettings()
-        });
+            const currentFieldStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
+            this.setState({
+                content :currentFieldStore.content,
+                settings : currentFieldStore.settings,
+                storeContent : currentFieldStore.content,
+                storeSettings : currentFieldStore.settings,
+            });
+        }
     }
 
     initField = () => {
-        console.log('init field')
-        return new Promise((resolve, reject) => {
-            this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
-        }).then(() => {
-            this.initState();
-        });
+        this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
     }
 
     initContentImages = () => {
-        console.log('init content')
         const length = this.props.parametersContent.multiple;
         let assetStructure = {};
 
@@ -89,20 +88,15 @@ class MultipleImages extends Component {
                 ...prevState.content,
                 images: images
             }
-        }), () => {
-            console.log('after init content', this.state);
-        });
+        }));
     }
-    initContent = () => {
-        const initValue = this.props.defaultContent;
-        this.setState({
-            content: initValue
-        });
-    }
+
     initSettings = () => {
         const initValue = this.props.defaultSettings;
         this.setState({
             settings: initValue
+        }, () => {
+            this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
         });
     }
 
@@ -161,8 +155,6 @@ class MultipleImages extends Component {
 
     }
 
-    toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
-    toggleOpenPreview = () => this.setState(prevState => ({openPreview: !prevState.openPreview}));
 
     toggleContent = () => this.setState(prevState => ({
         openContent: !prevState.openContent,
@@ -181,42 +173,25 @@ class MultipleImages extends Component {
 
     getAlt = (i) => this.state.content.images && this.state.content.images[i].alt && this.state.content.images[i].alt[this.props.indexLanguage] ? this.state.content.images[i].alt[this.props.indexLanguage] : '';
 
-    getAsset = (i) => {
-        let result = {};
-        if (!this.state.content.images[i]) {
-            result = {}
-        }
-        else{
-            result = this.state.content.images[i].asset[this.state.currentResponsiveMode]
-        }
-        return result;
-    }
+    getAsset = (i) => this.state.content.images[i] ? this.state.content.images[i].asset[this.state.currentResponsiveMode] : null;
 
-    isUpdated = () => {
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        return (!isEqual(this.state.content, FieldOnStore.content) || !isEqual(this.state.settings, FieldOnStore.settings))
-    }
+    isUpdated = () => (this.state.content != this.state.storeContent || this.state.settings != this.state.storeSettings)
 
     cancelStateValue = (e) => {
         e.preventDefault();
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        this.setState({
-            content: FieldOnStore.content,
-            settings: FieldOnStore.settings
-        });
+        this.setState(prevState => ({
+            content:prevState.storeContent,
+            settings: prevState.storeSettings
+        }));
     }
 
     getCurrentSettingsProperty = (property) => this.state.settings[property] ? this.state.settings[property][this.state.currentResponsiveMode] : null
 
-
     getCurrentDefaultSettingsProperty = (property) =>  this.props.defaultSettings[property][this.state.currentResponsiveMode]
 
     getCurrentStoreSettingsProperty = (property) => {
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-
-        if (!FieldOnStore.settings[property]) return null;
-
-        return FieldOnStore.settings[property][this.state.currentResponsiveMode]
+        if (!this.state.storeSettings[property]) return null;
+        return this.state.storeSettings[property][this.state.currentResponsiveMode]
     }
 
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))

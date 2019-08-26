@@ -156,3 +156,10 @@ export const updateField = (type, content, settings, number, numberParent) => ({
     indexComponent: number,
     indexSection: numberParent
 });
+
+export const getField = (type, number, numberParent) => ({
+    type: 'GET_FIELD',
+    typeField: type,
+    indexComponent: number,
+    indexSection: numberParent
+});

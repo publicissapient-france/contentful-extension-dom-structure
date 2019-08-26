@@ -45,6 +45,12 @@ class Section extends Component {
         this.setState({section: this.props.section});
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.section !== prevProps.section) {
+            this.setState({section: this.props.section});
+        }
+    }
+
     updateModel = model => {
         this.setState({
             section: update(this.state.section, {
@@ -148,17 +154,9 @@ class Section extends Component {
                     }}
                     >
                         <div>
-                            <label>Section Name</label>
-                            <input ref={node => (inputName = node)} type={'text'}
-                                   defaultValue={section.name ? section.name : ''}
-                                   onChange={e => {
-                                       this.updateName(e.target.value);
-                                   }}/>
-                        </div>
-                        <div>
                             <label>Model</label>
                             <select ref={node => (selectModel = node)}
-                                    defaultValue={section.model ? section.model : null}
+                                    value={this.state.section.model || null}
                                     onChange={e => {
                                         this.updateModel(e.target.value);
                                     }}>
@@ -168,6 +166,14 @@ class Section extends Component {
                                     })
                                 }
                             </select>
+                        </div>
+                        <div>
+                            <label>Section Name</label>
+                            <input ref={node => (inputName = node)} type={'text'}
+                                   value={this.state.section.name || ''}
+                                   onChange={e => {
+                                       this.updateName(e.target.value);
+                                   }}/>
                         </div>
                         <div className={'buttons'}>
                             <ButtonBasic

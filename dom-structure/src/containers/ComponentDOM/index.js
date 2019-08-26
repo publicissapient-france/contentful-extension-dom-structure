@@ -55,8 +55,13 @@ class ComponentDOM extends Component {
     }
 
     componentDidMount = async () => {
-        this.setState({component: this.props.component}, async () => {
-        });
+        this.setState({component: this.props.component});
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.component !== prevProps.component) {
+            this.setState({component: this.props.component});
+        }
     }
 
     updateModel = model => {
@@ -68,11 +73,11 @@ class ComponentDOM extends Component {
     }
 
     updateName = name => {
-        this.setState({
-            component: update(this.state.component, {
-                name: {$set: name},
+        this.setState(prevState => ({
+            component: update(prevState.component, {
+                name: {$set: name}
             })
-        });
+        }));
     }
     toggleActive = () => this.props.dispatch(toggleComponentActive(!this.props.component.active, this.props.index, this.props.indexParent));
 
@@ -129,7 +134,7 @@ class ComponentDOM extends Component {
         const {dispatch, component, index, indexParent, lengthParent} = this.props;
         let inputName, selectModel;
 
-        if (!component) return null;
+        if (!this.state.component) return null;
 
         return (
             <ContainerComponent>
@@ -187,13 +192,13 @@ class ComponentDOM extends Component {
                         if (!this.isUpdated()) {
                             return;
                         }
-                        dispatch(updateComponent(this.state.component, index, indexParent));
+                        dispatch(updateComponent(this.state.component.name, this.state.component.model, index, indexParent));
                     }}
                     >
                         <div>
                             <label>Component Name</label>
                             <input ref={node => (inputName = node)} type={'text'}
-                                   defaultValue={component.name ? component.name : ''}
+                                   value={this.state.component.name || ''}
                                    onChange={e => {
                                        this.updateName(e.target.value);
                                    }}/>
@@ -201,7 +206,7 @@ class ComponentDOM extends Component {
                         <div>
                             <label>Model</label>
                             <select ref={node => (selectModel = node)}
-                                    defaultValue={component.model ? component.model : null}
+                                    value={this.state.component.model || null}
                                     onChange={e => {
                                         this.updateModel(e.target.value);
                                     }}>

@@ -25,8 +25,6 @@ class TextMarkdown extends Component {
         super(props);
 
         this.state = {
-            openColorView: false,
-            openPreview: false,
             openSettings: false,
             openContent: false
         }
@@ -41,6 +39,8 @@ class TextMarkdown extends Component {
                 content: FieldOnStore.content,
                 settings: FieldOnStore.settings,
                 active: FieldOnStore.active,
+                storeContent : FieldOnStore.content,
+                storeSettings : FieldOnStore.settings,
             }, () => {
                 this.initResponsiveMode();
                 if (isEmpty(this.state.content)) this.initContent()
@@ -49,6 +49,20 @@ class TextMarkdown extends Component {
             });
         }
     };
+
+    componentDidUpdate(prevProps) {
+        if (this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]
+            !== prevProps.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]) {
+
+            const currentFieldStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
+            this.setState({
+                content :currentFieldStore.content,
+                settings : currentFieldStore.settings,
+                storeContent : currentFieldStore.content,
+                storeSettings : currentFieldStore.settings,
+            });
+        }
+    }
 
     initField = () => {
         this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
@@ -62,10 +76,13 @@ class TextMarkdown extends Component {
             }
         }));
     }
+
     initContent = () => {
         const initValue = this.props.defaultContent;
         this.setState({
             content: initValue
+        }, () => {
+            this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
         });
     }
 
@@ -73,6 +90,8 @@ class TextMarkdown extends Component {
         const initValue = this.props.defaultSettings;
         this.setState({
             settings: initValue
+        }, () => {
+            this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
         });
     }
 
@@ -94,35 +113,26 @@ class TextMarkdown extends Component {
     }
 
     updateSettings = (targetProperty, value) => {
-        if (this.state.currentResponsiveMode) {
-            this.setState(prevState => ({
-                settings: update(prevState.settings, {
-                    [targetProperty]: {
-                        [prevState.currentResponsiveMode]: {$set: value}
+        this.setState(prevState => ({
+            settings: update(prevState.settings, {
+                [targetProperty]: {
+                    [prevState.currentResponsiveMode]: {$set: value}
+                }
+            })
+        }));
 
-                    }
-                })
-            }));
-        } else {
-            this.setState(prevState => ({
-                settings: update(prevState.settings, {
-                    [targetProperty]: {$set: value}
-
-                })
-            }));
-        }
     }
-
-    toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
-    toggleOpenPreview = () => this.setState(prevState => ({openPreview: !prevState.openPreview}));
 
     toggleContent = () => this.setState(prevState => ({
         openContent: !prevState.openContent,
-        openSettings: false
+        openSettings: false,
+        currentResponsiveMode: this.props.responsiveContent[0]
     }));
+
     toggleSettings = () => this.setState(prevState => ({
         openSettings: !prevState.openSettings,
-        openContent: false
+        openContent: false,
+        currentResponsiveMode: this.props.responsiveSettings[0]
     }));
 
     toggleResponsiveMode = (mode) => this.setState({
@@ -132,38 +142,24 @@ class TextMarkdown extends Component {
 
     getMarkdown = () => this.state.content.markdown && this.state.content.markdown[this.props.indexLanguage] ? this.state.content.markdown[this.props.indexLanguage] : '';
 
-    isUpdated = () => {
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        return (!isEqual(this.state.content, FieldOnStore.content) || !isEqual(this.state.settings, FieldOnStore.settings ))
-    }
+    isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings,this.state.storeSettings ))
+
 
     cancelStateValue = (e) => {
         e.preventDefault();
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-        this.setState({
-            content: FieldOnStore.content,
-            settings: FieldOnStore.settings
-        });
+        this.setState(prevState => ({
+            content:prevState.storeContent,
+            settings: prevState.storeSettings
+        }));
     }
 
-    getCurrentSettingsProperty = (property) => this.state.currentResponsiveMode ?
-        this.state.settings[property][this.state.currentResponsiveMode]
-        : this.state.settings[property]
+    getCurrentSettingsProperty = (property) => this.state.settings[property] ? this.state.settings[property][this.state.currentResponsiveMode] : null
 
-
-    getCurrentDefaultSettingsProperty = (property) => this.state.currentResponsiveMode ?
-        this.props.defaultSettings[property][this.state.currentResponsiveMode]
-        : this.props.defaultSettings[property]
-
+    getCurrentDefaultSettingsProperty = (property) => this.props.defaultSettings[property][this.state.currentResponsiveMode]
 
     getCurrentStoreSettingsProperty = (property) => {
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
-
-        if (!FieldOnStore.settings[property]) return null;
-
-        return (this.state.currentResponsiveMode) ?
-            FieldOnStore.settings[property][this.state.currentResponsiveMode]
-            : FieldOnStore.settings[property]
+        if (!this.state.storeSettings[property]) return null;
+        return this.state.storeSettings[property][this.state.currentResponsiveMode]
     }
 
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))

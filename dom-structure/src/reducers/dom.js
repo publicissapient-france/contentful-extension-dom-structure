@@ -90,6 +90,7 @@ const dom = (state = [], action) => {
             });
 
         case 'UPDATE_COMPONENT':
+            console.log('action update on store : ', action)
             return update(state, {
                 [action.indexParent]: {
                     components: {
@@ -126,6 +127,9 @@ const dom = (state = [], action) => {
         case 'MOVE_COMPONENT_TO_TOP':
             const componentToTop = state[action.indexParent].components[action.index];
             const componentToDown = state[action.indexParent].components[action.index - 1];
+
+
+
             return update(state, {
                 [action.indexParent]: {
                     components: {
@@ -134,6 +138,7 @@ const dom = (state = [], action) => {
                     }
                 }
             });
+
         case 'MOVE_COMPONENT_TO_DOWN':
             const componentMoveToDown = state[action.indexParent].components[action.index];
             const componentMoveToTop = state[action.indexParent].components[action.index + 1];
@@ -231,6 +236,10 @@ const dom = (state = [], action) => {
                 }
             });
 
+        case 'GET_FIELD':
+            return state[action.indexSection]
+                .components[action.indexComponent]
+                .fields[action.typeField]
 
         default:
             return state;
