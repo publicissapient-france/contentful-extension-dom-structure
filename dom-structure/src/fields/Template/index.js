@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import update from "react-addons-update";
+import isEqual from "lodash/isEqual"
 import isEmpty from "lodash/isEmpty"
 import {getCurrentDOM, getCurrentLanguage, initField, toggleFieldActive, updateField} from '../../actions';
 
@@ -112,7 +113,7 @@ class Template extends Component {
     });
 
 
-    isUpdated = () => (this.state.settings != this.state.storeSettings)
+    isUpdated = () => !isEqual(this.state.settings, this.state.storeSettings)
 
 
     cancelStateValue = (e) => {

@@ -35,7 +35,7 @@ export const IconContainer = styled.div`
  & svg{
     & path, & rect{
        transition : fill .2s ease;
-        fill : ${extensionTheme.black}
+        fill : ${extensionTheme.grey40}
     }
  }
  
@@ -46,6 +46,15 @@ export const IconContainer = styled.div`
         }
     }
  }
+ &.delete{
+    cursor : auto;
+ 
+    & svg{
+        & path, & rect{
+            fill : ${extensionTheme.grey20}
+        }
+    }
+ }
  
 `;
 
@@ -53,7 +62,7 @@ export const IconContainer = styled.div`
 export const Actions =  styled.nav`
     display:flex;
     flex-direction : column;
-    
+    justify-content : space-between; 
     padding : 0 10px;
     
 `;

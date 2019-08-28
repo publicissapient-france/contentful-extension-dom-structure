@@ -19,7 +19,7 @@ const hexToRgb = hex => {
 
 const RGBtoString = rgb => {
     if (!rgb) return false;
-    return '(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ')';
+    return  rgb.r + ',' + rgb.g + ',' + rgb.b ;
 };
 
 const getShadePosition = (shade, array) => array.indexOf(shade);

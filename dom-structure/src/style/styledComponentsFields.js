@@ -513,3 +513,10 @@ export const ToogleResponsive = styled.div`
 
   }
 `;
+
+export const ErrorMessage = styled.div`
+  color : ${ extensionTheme.grey40 }; 
+  margin-left : 30px;
+  font-size : 12px;
+
+`;

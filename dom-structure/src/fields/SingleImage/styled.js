@@ -64,7 +64,6 @@ export const Column = styled.div`
     flex-direction : column;
     width : 100%;
     border-right : 1px solid ${ extensionTheme.grey20 }
-
     
     &.full-width{
         width : 100%;

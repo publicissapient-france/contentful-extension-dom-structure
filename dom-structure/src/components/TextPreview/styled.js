@@ -31,7 +31,7 @@ export const TextContainer = styled.div`
     & p{
         margin:0;
         padding :10px;
-        word-break : break-all;
+        word-break : break-word;
         max-width : 220px;
         box-sizing : border-box;
     }

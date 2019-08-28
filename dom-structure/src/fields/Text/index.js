@@ -22,6 +22,7 @@ import Seo from '../../interfaces/Seo'
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
 import {ChoiceItemsConfirm, Content, Settings, Choices, Column} from './styled'
+import isEqual from "lodash/isEqual";
 
 
 class Text extends Component {
@@ -168,8 +169,7 @@ class Text extends Component {
 
     getText = () => this.state.content.text && this.state.content.text[this.props.indexLanguage] ? this.state.content.text[this.props.indexLanguage] : '';
 
-    isUpdated = () => (this.state.content != this.state.storeContent || this.state.settings != this.state.storeSettings)
-
+    isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings, this.state.storeSettings))
 
     cancelStateValue = (e) => {
         e.preventDefault();

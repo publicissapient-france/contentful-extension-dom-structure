@@ -25,6 +25,7 @@ import AssetPreview from '../../components/AssetPreview';
 import ImageUploader from '../../interfaces/ImageUploader';
 import Padding from '../../interfaces/Padding';
 import Size from '../../interfaces/Size';
+import Margin from '../../interfaces/Margin';
 
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
@@ -198,7 +199,7 @@ class SingleImage extends Component {
         }
     }
 
-    isUpdated = () => (this.state.content != this.state.storeContent || this.state.settings != this.state.storeSettings)
+    isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings, this.state.storeSettings))
 
     cancelStateValue = (e) => {
         e.preventDefault();
@@ -278,6 +279,11 @@ class SingleImage extends Component {
                                          storeValuePadding={this.getCurrentStoreSettingsProperty('padding')}
                                          defaultPadding={this.getCurrentDefaultSettingsProperty('padding')}
                                          updateStateProps={this.updateSettings}
+                                />
+                                <Margin margin={this.getCurrentSettingsProperty('margin')}
+                                        storeValueMargin={this.getCurrentStoreSettingsProperty('margin')}
+                                        defaultMargin={this.getCurrentDefaultSettingsProperty('margin')}
+                                        updateStateProps={this.updateSettings}
                                 />
                             </Column>
                         </Choices>

@@ -75,8 +75,12 @@ export const MainContainer = styled.div`
             border-image-source :url("https://static.contentful.com/app/svg/dotted-border.svg");
             border-image-repeat : round;
             border-image-slice : 1.1; 
-        
+            
+            
         }
+       
+        
+      
     }
     
     label{

@@ -25,7 +25,7 @@ export const IconContainer = styled.div`
 export const Actions =  styled.nav`
     display:flex;
     flex-direction : column;
-    
+    justify-content: space-between;
     padding : 0 10px;
     
 `;
@@ -80,7 +80,7 @@ export const Container = styled.div`
       width : 20px;
      height : 20px;
      margin-bottom : 10px;
-     cursor : pointer;
+     cursor : auto;
  
         & svg{
             & path, & g, & rect{

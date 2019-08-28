@@ -5,7 +5,7 @@ import isEqual from 'lodash/isEqual';
 import {hasNotSamePropertyValue} from "../../utils/functions";
 import Dot from '../../components/Dot'
 
-class Padding extends Component {
+class Margin extends Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -14,16 +14,16 @@ class Padding extends Component {
 
     componentDidMount = () => {
         this.setState({
-            padding: this.props.padding
+            margin: this.props.margin
         });
     };
 
 
     componentDidUpdate = prevProps => {
-        if (this.props.padding !== prevProps.padding) {
+        if (this.props.margin !== prevProps.margin) {
             this.setState(prevState => ({
                 ...prevState,
-                padding: this.props.padding
+                margin: this.props.margin
             }));
         }
     }
@@ -32,56 +32,56 @@ class Padding extends Component {
     updatePadding = (prop, value) => {
         this.setState(prevState => ({
             ...prevState,
-            padding: {
-                ...prevState.padding,
+            margin: {
+                ...prevState.margin,
                 [prop]: String(value),
             }
         }), () => {
-            this.props.updateStateProps('padding', this.state.padding);
+            this.props.updateStateProps('margin', this.state.margin);
         });
     }
 
 
     render() {
-        const {padding, storeValuePadding, defaultPadding} = this.props;
+        const {margin, storeValueMargin, defaultMargin} = this.props;
 
-        if(!this.state.padding)return null
+        if(!this.state.margin)return null
         return (
             <Container>
                 <Field>
-                    <Dot enabled={!isEqual(defaultPadding, padding)}/>
+                    <Dot enabled={!isEqual(defaultMargin, margin)}/>
                     <div>
-                        <label>padding</label>
+                        <label>margin</label>
                         <Inputs>
                             <input
                                 type={'number'}
                                 min={0}
-                                className={hasNotSamePropertyValue(storeValuePadding, padding, 'top') ? 'updated' : ''}
-                                value={this.state.padding.top}
+                                className={hasNotSamePropertyValue(storeValueMargin, margin, 'top') ? 'updated' : ''}
+                                value={this.state.margin.top}
                                 onChange={e => {
                                     this.updatePadding('top', e.target.value)
                                 }}/>
                             <input
                                 type={'number'}
                                 min={0}
-                                className={hasNotSamePropertyValue(storeValuePadding, padding, 'right') ? 'updated' : ''}
-                                value={this.state.padding.right}
+                                className={hasNotSamePropertyValue(storeValueMargin, margin, 'right') ? 'updated' : ''}
+                                value={this.state.margin.right}
                                 onChange={e => {
                                     this.updatePadding('right', e.target.value)
                                 }}/>
                             <input
                                 type={'number'}
                                 min={0}
-                                className={hasNotSamePropertyValue(storeValuePadding, padding, 'bottom') ? 'updated' : ''}
-                                value={this.state.padding.bottom}
+                                className={hasNotSamePropertyValue(storeValueMargin, margin, 'bottom') ? 'updated' : ''}
+                                value={this.state.margin.bottom}
                                 onChange={e => {
                                     this.updatePadding('bottom', e.target.value)
                                 }}/>
                             <input
                                 type={'number'}
                                 min={0}
-                                className={hasNotSamePropertyValue(storeValuePadding, padding, 'left') ? 'updated' : ''}
-                                value={this.state.padding.left}
+                                className={hasNotSamePropertyValue(storeValueMargin, margin, 'left') ? 'updated' : ''}
+                                value={this.state.margin.left}
                                 onChange={e => {
                                     this.updatePadding('left', e.target.value)
                                 }}/>
@@ -95,21 +95,21 @@ class Padding extends Component {
 }
 
 
-Padding.propTypes = {
+Margin.propTypes = {
     updateStateProps: PropTypes.func,
-    padding: PropTypes.shape({
+    margin: PropTypes.shape({
         top: PropTypes.string,
         right: PropTypes.string,
         bottom: PropTypes.string,
         left: PropTypes.string
     }),
-    storeValuePadding: PropTypes.shape({
+    storeValueMargin: PropTypes.shape({
         top: PropTypes.string,
         right: PropTypes.string,
         bottom: PropTypes.string,
         left: PropTypes.string
     }),
-    defaultPadding: PropTypes.shape({
+    defaultMargin: PropTypes.shape({
         top: PropTypes.string,
         right: PropTypes.string,
         bottom: PropTypes.string,
@@ -117,4 +117,4 @@ Padding.propTypes = {
     }),
 };
 
-export default Padding;
+export default Margin;

@@ -22,7 +22,7 @@ import ColorsList from '../../components/ColorsList/index';
 import Dot from '../../components/Dot/index';
 
 import {getColors} from '../../actions/index';
-import {hasNotSamePropertyValue} from "../../utils/functions";
+import {hasNotSamePropertyValue, hexToRgb, RGBtoString} from "../../utils/functions";
 
 class ColorPicker extends Component {
     constructor(props) {
@@ -44,6 +44,7 @@ class ColorPicker extends Component {
     updateColor = (value) => {
         const selectedColor = {
             hex: value.hex,
+            rgb: RGBtoString(hexToRgb(value.hex)),
             name: value.name,
             shade: value.shade
         }
@@ -53,7 +54,7 @@ class ColorPicker extends Component {
 
     updateOpacity = (value) => {
         const opacity = {
-            value :  String(value / 100)
+            value: String(value / 100)
         }
         this.props.updateStateProps('opacity', opacity);
 
@@ -117,8 +118,8 @@ class ColorPicker extends Component {
                         <Dot enabled={hasNotSamePropertyValue(defaultOpacity, opacity, 'value')}/>
                         <div>
                             <input type={'number'} max={100} min={0}
-                                   className={hasNotSamePropertyValue(storeValueOpacity, opacity, 'value') ? 'updated' : ''}
-                                   value={opacity.value * 100 || 100}
+                                   className={ hasNotSamePropertyValue(storeValueOpacity, opacity, 'value') ? 'updated' : ''}
+                                   defaultValue={Number(opacity.value) * 100 || 100}
                                    onChange={e => {
                                        this.updateOpacity(e.target.value)
                                    }}/>
@@ -165,7 +166,7 @@ ColorPicker.protoTypes = {
         }))
     }),
     openView: PropTypes.bool.isRequired,
-    hidden : PropTypes.bool
+    hidden: PropTypes.bool
 };
 
 const mapStateToProps = state => ({

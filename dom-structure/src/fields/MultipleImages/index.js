@@ -182,7 +182,7 @@ class MultipleImages extends Component {
 
     getAsset = (i) => this.state.content.images[i] ? this.state.content.images[i].asset[this.state.currentResponsiveMode] : null;
 
-    isUpdated = () => (this.state.content != this.state.storeContent || this.state.settings != this.state.storeSettings)
+    isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings, this.state.storeSettings))
 
     cancelStateValue = (e) => {
         e.preventDefault();

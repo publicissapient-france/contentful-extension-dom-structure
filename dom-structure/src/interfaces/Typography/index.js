@@ -232,7 +232,7 @@ class Typography extends Component {
                             </IconContainer>
                             <input type={'number'}
                                    className={hasNotSamePropertyValue(storeValueFont, font, 'size') ? 'updated' : ''}
-                                   value={font.size || 0}
+                                   value={font.size || ''}
                                    onChange={e => {
                                        this.updateFontProp('size', e.target.value);
                                    }}/>
@@ -244,7 +244,7 @@ class Typography extends Component {
                             </IconContainer>
                             <input type={'number'}
                                    className={hasNotSamePropertyValue(storeValueFont, font, 'lineHeight') ? 'updated' : ''}
-                                   value={font.lineHeight || 0}
+                                   value={font.lineHeight || ''}
                                    onChange={e => {
                                        this.updateFontProp('lineHeight', e.target.value);
                                    }}/>
@@ -256,7 +256,7 @@ class Typography extends Component {
                             </IconContainer>
                             <input type={'number'}
                                    className={hasNotSamePropertyValue(storeValueFont, font, 'letterSpacing') ? 'updated' : ''}
-                                   value={font.letterSpacing || 0}
+                                   value={font.letterSpacing || ''}
                                    onChange={e => {
                                        this.updateFontProp('letterSpacing', e.target.value);
                                    }}/>

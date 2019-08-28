@@ -44,12 +44,14 @@ export default function FileView(props) {
                     )}
                 </div>
                 <Actions>
-                    <IconContainer onClick={props.onClickLinkExisting}>
-                        <SvgAttachement/>
-                    </IconContainer>
-                    <IconContainer onClick={props.onClickNewAsset}>
-                        <SvgAddSmall/>
-                    </IconContainer>
+                    <div>
+                        <IconContainer onClick={props.onClickLinkExisting}>
+                            <SvgAttachement/>
+                        </IconContainer>
+                        <IconContainer onClick={props.onClickNewAsset}>
+                            <SvgAddSmall/>
+                        </IconContainer>
+                    </div>
                     <IconContainer className="delete" onClick={props.onClickRemove}>
                         <SvgTrashSmall/>
                     </IconContainer>

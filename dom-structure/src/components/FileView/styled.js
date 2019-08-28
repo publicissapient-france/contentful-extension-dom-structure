@@ -52,27 +52,26 @@ export const IconContainer = styled.div`
      & svg{
         & path, & rect, & circle{
            transition : fill .2s ease;
-            fill : ${extensionTheme.black}
+            fill : ${extensionTheme.grey40}
         }
      }
      
-     &.invalid{
-        & svg{
-            & path, & rect, & circle{
-                fill : ${extensionTheme.redM} !important;
-            }
-        }
-     }
-     
+   
      &:hover{
         & svg{
             & path, & rect, & circle{
                 fill : ${extensionTheme.greenM}
             }
         }
+        &.delete{
+            & svg{
+                 & path, & rect, & circle{
+                    fill : ${extensionTheme.redM};
+            }
+         }
      }
      
-     .informations&:hover{
+     &.informations:hover{
         & svg{
             & path, & rect, & circle{
                 fill : ${extensionTheme.blueM}
@@ -86,7 +85,9 @@ export const IconContainer = styled.div`
              & path, & rect, & circle{
                 fill : ${extensionTheme.blueM}
         }
-     }
+     } 
+     
+     
      
      
      
@@ -100,8 +101,8 @@ export const IconContainer = styled.div`
 export const Actions =  styled.nav`
     display:flex;
     flex-direction : column;
-    
-    padding : 0 10px;
+    justify-content : space-between; 
+     padding : 0 10px;
     
 `;
 

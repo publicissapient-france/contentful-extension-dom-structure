@@ -133,9 +133,6 @@ class ComponentDOM extends Component {
         return componentConfig[this.props.component.model].default.fields;
     }
 
-    triggerChildAlert = () => {
-        this.child.current.triggerOpen();
-    }
 
 
     render() {

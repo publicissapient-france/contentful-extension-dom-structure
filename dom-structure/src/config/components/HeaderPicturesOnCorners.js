@@ -17,27 +17,30 @@ export default {
                     color: {
                         M: {
                             hex: '#000000',
-                            name: 'Black',
+                            rgb: '0,0,0',
+                            name: 'black',
                             shade: null
                         },
                         T: {
                             hex: '#000000',
-                            name: 'Black',
+                            rgb: '0,0,0',
+                            name: 'black',
                             shade: null
                         },
                         D: {
                             hex: '#000000',
-                            name: 'Black',
+                            rgb: '0,0,0',
+                            name: 'black',
                             shade: null
                         }
 
                     },
                     opacity: {
                         M: {
-                            value: '0.80'
+                            value: '0.8'
                         },
                         T: {
-                            value: '0.90'
+                            value: '0.9'
                         },
                         D: {
                             value: '0.95'
@@ -64,7 +67,8 @@ export default {
                     color: {
                         A : {
                             hex: '#000000',
-                            name: 'Black',
+                            rgb: '0,0,0',
+                            name: 'black',
                             shade: null
                         }
                     },
@@ -120,27 +124,30 @@ export default {
                     color: {
                         M: {
                             hex: '#000000',
-                            name: 'Black',
+                            rgb: '0,0,0',
+                            name: 'black',
                             shade: null
                         },
                         T: {
                             hex: '#000000',
-                            name: 'Black',
+                            rgb: '0,0,0',
+                            name: 'black',
                             shade: null
                         },
                         D: {
                             hex: '#000000',
-                            name: 'Black',
+                            rgb: '0,0,0',
+                            name: 'black',
                             shade: null
                         }
 
                     },
                     opacity: {
                         M: {
-                            value: '0.80'
+                            value: '0.8'
                         },
                         T: {
-                            value: '0.90'
+                            value: '0.9'
                         },
                         D: {
                             value: '0.95'
@@ -237,6 +244,26 @@ export default {
                         }
                     },
                     padding: {
+                        M: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        T: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        D: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        }
+                    },
+                    margin: {
                         M: {
                             top: '0',
                             right: '0',

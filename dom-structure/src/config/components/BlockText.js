@@ -16,9 +16,10 @@ export default {
                 defaultValue: {
                     color: {
                         A: {
-                            hex: '#989898',
-                            name: 'Grey',
-                            shade: '50'
+                            hex: '#000000',
+                            rgb: '0,0,0',
+                            name: 'black',
+                            shade: null
                         }
                     },
                     opacity: {
@@ -116,16 +117,19 @@ export default {
                     color: {
                         M: {
                             hex: '#FFFFFF',
+                            rgb: '255,255,255',
                             name: 'white',
                             shade: null
                         },
                         T: {
                             hex: '#FFFFFF',
+                            rgb: '255,255,255',
                             name: 'white',
                             shade: null
                         },
                         D: {
                             hex: '#FFFFFF',
+                            rgb: '255,255,255',
                             name: 'white',
                             shade: null
                         }
@@ -279,6 +283,26 @@ export default {
                             bottom: '0',
                             left: '0'
                         }
+                    },
+                    margin: {
+                        M: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        T: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        D: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        }
                     }
                 }
             }
@@ -319,6 +343,26 @@ export default {
                         }
                     },
                     padding: {
+                        M: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        T: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        D: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        }
+                    },
+                    margin: {
                         M: {
                             top: '0',
                             right: '0',

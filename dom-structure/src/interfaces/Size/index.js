@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Container, Field} from './styled';
+import {Container, ContainerFields, Field} from './styled';
+import {ErrorMessage} from '../../style/styledComponentsFields'
 import PropTypes from 'prop-types';
 import {hasNotSamePropertyValue} from "../../utils/functions";
 import Dot from '../../components/Dot'
@@ -40,65 +41,75 @@ class Size extends Component {
         });
     }
 
+    isValid = (value) => {
+        return false
+    }
+
 
     render() {
         const {size, storeValueSize, defaultSize} = this.props;
 
-        if(!this.state.size)return null
+        const error = `Size available : number, number%, auto, fit-content, min-width, max-width`
+
+        if (!this.state.size) return null
         return (
             <Container>
-                <Field>
-                    <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'width')}/>
-                    <div>
-                        <label>width</label>
-                        <input
-                            type={'text'}
-                            className={hasNotSamePropertyValue(storeValueSize, size, 'width') ? 'updated' : ''}
-                            value={this.state.size.width}
-                            onChange={e => {
-                                this.updateSize('width', e.target.value)
-                            }}/>
-                    </div>
-                </Field>
-                <Field>
-                    <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'height')}/>
-                    <div>
-                        <label>height</label>
-                        <input
-                            type={'text'}
-                            className={hasNotSamePropertyValue(storeValueSize, size, 'height') ? 'updated' : ''}
-                            value={this.state.size.height}
-                            onChange={e => {
-                                this.updateSize('height', e.target.value)
-                            }}/>
-                    </div>
-                </Field>
-                <Field>
-                    <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'maxWidth')}/>
-                    <div>
-                        <label>max-width</label>
-                        <input
-                            type={'text'}
-                            className={hasNotSamePropertyValue(storeValueSize, size, 'maxWidth') ? 'updated' : ''}
-                            value={this.state.size.maxWidth}
-                            onChange={e => {
-                                this.updateSize('maxWidth', e.target.value)
-                            }}/>
-                    </div>
-                </Field>
-                <Field>
-                    <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'maxHeight')}/>
-                    <div>
-                        <label>max-height</label>
-                        <input
-                            type={'text'}
-                            className={hasNotSamePropertyValue(storeValueSize, size, 'maxHeight') ? 'updated' : ''}
-                            value={this.state.size.maxHeight}
-                            onChange={e => {
-                                this.updateSize('maxHeight', e.target.value)
-                            }}/>
-                    </div>
-                </Field>
+                <ContainerFields>
+                    <Field>
+                        <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'width')}/>
+                        <div>
+                            <label>width</label>
+                            <input
+                                type={'text'}
+                                className={[hasNotSamePropertyValue(storeValueSize, size, 'width') ? 'updated' : '',
+                                    !this.isValid(this.state.size.width) ? 'invalid' : '']}
+                                value={this.state.size.width}
+                                onChange={e => {
+                                    this.updateSize('width', e.target.value)
+                                }}/>
+                        </div>
+                    </Field>
+                    <Field>
+                        <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'height')}/>
+                        <div>
+                            <label>height</label>
+                            <input
+                                type={'text'}
+                                className={hasNotSamePropertyValue(storeValueSize, size, 'height') ? 'updated' : ''}
+                                value={this.state.size.height}
+                                onChange={e => {
+                                    this.updateSize('height', e.target.value)
+                                }}/>
+                        </div>
+                    </Field>
+                    <Field>
+                        <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'maxWidth')}/>
+                        <div>
+                            <label>max-width</label>
+                            <input
+                                type={'text'}
+                                className={hasNotSamePropertyValue(storeValueSize, size, 'maxWidth') ? 'updated' : ''}
+                                value={this.state.size.maxWidth}
+                                onChange={e => {
+                                    this.updateSize('maxWidth', e.target.value)
+                                }}/>
+                        </div>
+                    </Field>
+                    <Field>
+                        <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'maxHeight')}/>
+                        <div>
+                            <label>max-height</label>
+                            <input
+                                type={'text'}
+                                className={hasNotSamePropertyValue(storeValueSize, size, 'maxHeight') ? 'updated' : ''}
+                                value={this.state.size.maxHeight}
+                                onChange={e => {
+                                    this.updateSize('maxHeight', e.target.value)
+                                }}/>
+                        </div>
+                    </Field>
+                </ContainerFields>
+                <ErrorMessage>{ error }</ErrorMessage>
             </Container>
         )
     }
