@@ -1,4 +1,4 @@
-import {IconContainer} from "../../style/styledComponentsBoxes";
+import {IconContainer} from "../../style/styledComponentsFields";
 import styled from "styled-components";
 import {extensionTheme} from "../../style/theme";
 
@@ -6,13 +6,21 @@ export const PreviewContainer = styled.div`
     display : flex;
 `;
 export const TextContainer = styled.div`
-    max-height : 97px;
+    max-height : 95px;
+    max-width : 270px;
     overflow : hidden;
     display : flex;
-    
+    border-bottom : 1px solid ${ extensionTheme.grey20 }
+
     &.is-open{
         height : 240px;
         max-height : none;
+        max-width : 100%;
+        
+        & p{
+            max-width : 100%;
+        }
+
     }
     
     &.on-dark{
@@ -23,7 +31,9 @@ export const TextContainer = styled.div`
     & p{
         margin:0;
         padding :10px;
-        word-break : break-all;
+        word-break : break-word;
+        max-width : 220px;
+        box-sizing : border-box;
     }
     
 `;

@@ -75,15 +75,19 @@ export const MainContainer = styled.div`
             border-image-source :url("https://static.contentful.com/app/svg/dotted-border.svg");
             border-image-repeat : round;
             border-image-slice : 1.1; 
-        
+            
+            
         }
+       
+        
+      
     }
     
     label{
         font-size : 12px;
         line-height : 24px;
         font-weight : 200;
-        color : ${ extensionTheme.grey20 };
+        color : ${ extensionTheme.grey40 };
         font-family :${ contentfulTheme.basicFont };
 
     }
@@ -177,28 +181,6 @@ export const Container = styled.div`
   }
 `;
 
-export const ButtonDelete = styled.button`
-  align-self : center;
-  cursor : pointer;
-  font-size : 14px;
-  transition : background .2s ease, background-image .2s ease,opacity .2s ease-in-out,border-color .2s ease;
-  background : ${ extensionTheme.redM } !important;  
-  color : white !important;
-  border-radius : 4px;
-  padding : 10px;
-  line-height : 11px;
-  font-weight : 300;
-  height : 33px;
-  border : 1px solid transparent;
-   
-  &:hover{
-     background : ${ extensionTheme.redL } !important;
-    }
-  &:focus{
-    outline : none;
-  }
-`;
-
 export const Form = styled.form`
   display : flex;
   width : 100%;
@@ -233,6 +215,13 @@ export const Icon = styled.div`
   width : 40px;
   height : 40px;
   cursor  : pointer;
+  display :flex;
+  align-items : center;
+  transition : transform 0.3s ease; 
+  
+  & svg g path, & svg path, & svg rect {
+        fill : ${ extensionTheme.grey40 };
+    }
 
   &.active{
     & svg g path, & svg path, & svg rect {
@@ -257,9 +246,26 @@ export const Icon = styled.div`
         fill : ${ extensionTheme.redM };
     }
   }
+  &.trash.active{
+    & svg g path, & svg path, & svg  rect {
+        fill : ${ extensionTheme.redM };
+    }
+  }
   
   &.rotate{
     transform : rotate(180deg);
+  }
+  
+  &.toggleAll{
+    & svg g path, & svg path, & svg  rect {
+        fill : ${ extensionTheme.white };
+    }
+    
+    &:hover{
+        & svg g path, & svg path, & svg  rect {
+            fill : ${ extensionTheme.white };
+        }
+    }
   }
   
 `;
@@ -292,11 +298,6 @@ export const SafeDelete = styled.div`
   & div.buttons{
     margin-left : 10px;
     min-width : 150px;
-  }
-  
-  & ${ ButtonDelete }{
-    margin-right : 8px;
-    margin-left : 10px;
   }
 `;
 

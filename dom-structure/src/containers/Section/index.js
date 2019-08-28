@@ -8,10 +8,8 @@ import SvgTrash from '../../components/svg/SvgTrash';
 import ComponentDOM from '../ComponentDOM/index';
 import {
     Container,
-    ButtonGreen,
     Icon,
     Range,
-    ButtonDelete,
     SafeDelete
 } from '../../style/styledComponents';
 import {Settings, TopBar, Active, Actions, Description, FormSection, AddChild, Children} from './styled'
@@ -23,6 +21,7 @@ import {
     toggleSectionActive
 } from '../../actions/index';
 import ButtonBasic from '../../components/ui/ButtonBasic';
+import ButtonDelete from '../../components/ui/ButtonDelete';
 import sectionsConfig from '../../config/sections/*.js';
 import update from 'react-addons-update';
 import AddComponent from '../AddComponent/index';
@@ -30,7 +29,7 @@ import ButtonValidate from '../../components/ui/ButtonValidate'
 
 import PropTypes from 'prop-types';
 
-class Index extends Component {
+class Section extends Component {
     constructor(props) {
         super(props);
 
@@ -44,6 +43,12 @@ class Index extends Component {
 
     componentDidMount = () => {
         this.setState({section: this.props.section});
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.section !== prevProps.section) {
+            this.setState({section: this.props.section});
+        }
     }
 
     updateModel = model => {
@@ -128,19 +133,17 @@ class Index extends Component {
                                 <SvgRange/>
                             </Icon>
                         </Range>
-                        <Icon className={'trash'} onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
+                        <Icon className={['trash', this.state.openSafeDelete ? 'active' : '']} onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
                     </Actions>
                 </TopBar>
                 <SafeDelete className={!this.state.openSafeDelete ? 'hidden' : ''}>
                     <p>The deletion is final. Are you sure you want to delete this section?</p>
                     <div className={'buttons'}>
                         <ButtonBasic label={'Cancel'} action={this.toggleSafeSecure}/>
-                        <ButtonDelete onClick={() => {
+                        <ButtonDelete label={'Delete'} action={() => {
                             dispatch(removeSection(index));
                             this.setState({openSafeDelete: false});
-                        }}>
-                            Delete
-                        </ButtonDelete>
+                        }}/>
                     </div>
                 </SafeDelete>
                 <Settings className={!this.state.openSettings ? 'hidden' : ''}>
@@ -151,17 +154,9 @@ class Index extends Component {
                     }}
                     >
                         <div>
-                            <label>Section Name</label>
-                            <input ref={node => (inputName = node)} type={'text'}
-                                   defaultValue={section.name ? section.name : ''}
-                                   onChange={e => {
-                                       this.updateName(e.target.value);
-                                   }}/>
-                        </div>
-                        <div>
                             <label>Model</label>
                             <select ref={node => (selectModel = node)}
-                                    defaultValue={section.model ? section.model : null}
+                                    value={this.state.section.model || null}
                                     onChange={e => {
                                         this.updateModel(e.target.value);
                                     }}>
@@ -171,6 +166,14 @@ class Index extends Component {
                                     })
                                 }
                             </select>
+                        </div>
+                        <div>
+                            <label>Section Name</label>
+                            <input ref={node => (inputName = node)} type={'text'}
+                                   value={this.state.section.name || ''}
+                                   onChange={e => {
+                                       this.updateName(e.target.value);
+                                   }}/>
                         </div>
                         <div className={'buttons'}>
                             <ButtonBasic
@@ -196,7 +199,7 @@ class Index extends Component {
     }
 };
 
-Index.propTypes = {
+Section.propTypes = {
     section: PropTypes.shape({
         active: PropTypes.bool.isRequired,
         name: PropTypes.string.isRequired,
@@ -206,4 +209,4 @@ Index.propTypes = {
     domLength: PropTypes.number
 };
 
-export default connect()(Index);
+export default connect()(Section);

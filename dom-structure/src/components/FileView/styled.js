@@ -52,27 +52,26 @@ export const IconContainer = styled.div`
      & svg{
         & path, & rect, & circle{
            transition : fill .2s ease;
-            fill : ${extensionTheme.black}
+            fill : ${extensionTheme.grey40}
         }
      }
      
-     &.invalid{
-        & svg{
-            & path, & rect, & circle{
-                fill : ${extensionTheme.redM} !important;
-            }
-        }
-     }
-     
+   
      &:hover{
         & svg{
             & path, & rect, & circle{
                 fill : ${extensionTheme.greenM}
             }
         }
+        &.delete{
+            & svg{
+                 & path, & rect, & circle{
+                    fill : ${extensionTheme.redM};
+            }
+         }
      }
      
-     .informations&:hover{
+     &.informations:hover{
         & svg{
             & path, & rect, & circle{
                 fill : ${extensionTheme.blueM}
@@ -86,7 +85,9 @@ export const IconContainer = styled.div`
              & path, & rect, & circle{
                 fill : ${extensionTheme.blueM}
         }
-     }
+     } 
+     
+     
      
      
      
@@ -100,8 +101,8 @@ export const IconContainer = styled.div`
 export const Actions =  styled.nav`
     display:flex;
     flex-direction : column;
-    
-    padding : 0 10px;
+    justify-content : space-between; 
+     padding : 0 10px;
     
 `;
 
@@ -114,59 +115,3 @@ export const Warning =  styled.div`
     margin-bottom : 20px;
 `;
 
-
-export const Details =  styled.div`
-    width : 100%;
-    & strong {
-        font-weight: 700;
-    }
-    
-    overflow-wrap: break-word;
-    
-    & h1{
-        margin-top : 0;
-    }
-    
-    & main{
-        border : 1px solid ${ extensionTheme.grey20 };
-        padding : 10px 20px;
-        
-        display : flex;
-        
-        &>div{            
-            &:nth-child(1){
-                display : flex;
-                flex-wrap : wrap;
-                padding-right : 20px;
-                width : min-content;
-
-            }
-        }
-        
-
-    }
-`;
-
-
-
-export const Field = styled.div`
-   margin-bottom : 20px;   
-   
-   & label{
-    font-size : 14px;
-   }
-   
-   & input{
-    padding-left : 0px;
-   }
-`;
-
-export const Modifier = styled.div`
-  display :flex;
-  & button {
-    margin-right : 5px;
-    font-size : 10px;
-    padding : 3px;
-    height : 20px;
-  }
-`;

@@ -45,9 +45,12 @@ class App extends React.Component {
 
         const fields = this.props.extension.entry.fields;
         for (let key in fields) {
+
             this.detachFns.push(
                 fields[key].onValueChanged(this.onViewingEntryUpdated)
             );
+
+
         }
         this.detachFns.push(
             this.props.extension.entry.onSysChanged(this.onViewingEntryUpdated)

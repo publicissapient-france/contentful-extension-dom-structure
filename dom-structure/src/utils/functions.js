@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { getAssetsUrlById } from './getters';
+import {getAssetsUrlById} from './getters';
 
 const createSlug = (name, shade) => (shade !== '') ? name + '-' + shade : name;
 
@@ -19,7 +19,7 @@ const hexToRgb = hex => {
 
 const RGBtoString = rgb => {
     if (!rgb) return false;
-    return '(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ')';
+    return  rgb.r + ',' + rgb.g + ',' + rgb.b ;
 };
 
 const getShadePosition = (shade, array) => array.indexOf(shade);
@@ -60,8 +60,22 @@ const filterActiveSettings = dom => {
     });
 };
 
+const filterActiveFields = dom => {
+    return dom.map(section => {
+        section.components.map(component => {
+            _.mapKeys(component.fields, (value, key) => {
+                if (!value.active) {
+                    _.unset(component.fields, key);
+                }
+            });
+            return component;
+        });
+        return section;
+    });
+};
+
 const extractActiveValue = dom => {
-    return filterActiveContent(filterActiveSettings(filterActiveComponents(filterActiveSections(_.cloneDeep(dom)))));
+    return filterActiveFields(filterActiveComponents(filterActiveSections(_.cloneDeep(dom))));
 };
 
 const getLanguageISO = language => language.split('-')[0];
@@ -85,12 +99,24 @@ const sum = (a, b) => {
 }
 
 const hasNotSamePropertyValue = (defaultValue, currentValue, prop) => {
-    if(!defaultValue || !currentValue || !prop || prop === '')  {
+    if (!defaultValue || !currentValue || !prop || prop === '') {
         return false
     }
-    if(defaultValue[prop] && currentValue[prop] != defaultValue[prop])return true;
+    if (defaultValue[prop] && currentValue[prop] != defaultValue[prop]) return true;
     return false
 }
 
 
-export { getShadePosition, extractActiveValue, getLanguageISO, getCountryISO, createSlug, hexToRgb, RGBtoString, arrayToString, extractFontValueToCSS, sum, hasNotSamePropertyValue };
+export {
+    getShadePosition,
+    extractActiveValue,
+    getLanguageISO,
+    getCountryISO,
+    createSlug,
+    hexToRgb,
+    RGBtoString,
+    arrayToString,
+    extractFontValueToCSS,
+    sum,
+    hasNotSamePropertyValue
+};

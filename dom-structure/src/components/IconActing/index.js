@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {IconContainer} from '../../style/styledComponentsBoxes';
+import {IconContainer} from '../../style/styledComponentsFields';
 import PropTypes from 'prop-types';
 
 const classByState = {

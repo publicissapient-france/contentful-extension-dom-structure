@@ -26,7 +26,10 @@ export const getCurrentLanguage = state => ({
 });
 
 
+
+
+/*
 export const getResponsiveMode = state => ({
     type: 'GET_RESPONSIVE_MODE',
     mode: state.visibility.responsiveMode
-});
+});*/

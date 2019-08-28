@@ -4,6 +4,7 @@ import { Container, ViewPort, IconContainer, Actions } from "./styled"
 
 import SvgAddSmall from '../svg/SvgAddSmall'
 import SvgAttachement from '../svg/SvgAttachement'
+import SvgTrashSmall from '../svg/SvgTrashSmall'
 
 export default function UploadView(props) {
     return (
@@ -18,11 +19,16 @@ export default function UploadView(props) {
             </ViewPort>
             {!props.isDraggingOver ? (
                 <Actions>
-                    <IconContainer  onClick={props.onClickLinkExisting}>
-                        <SvgAttachement/>
-                    </IconContainer>
-                    <IconContainer  onClick={props.onClickNewAsset}>
-                        <SvgAddSmall/>
+                    <div>
+                        <IconContainer  onClick={props.onClickLinkExisting}>
+                            <SvgAttachement/>
+                        </IconContainer>
+                        <IconContainer  onClick={props.onClickNewAsset}>
+                            <SvgAddSmall/>
+                        </IconContainer>
+                    </div>
+                    <IconContainer className={'delete'}>
+                        <SvgTrashSmall/>
                     </IconContainer>
                 </Actions>
             ) : null}

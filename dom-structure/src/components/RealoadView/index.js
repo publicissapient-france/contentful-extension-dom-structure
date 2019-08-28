@@ -19,12 +19,14 @@ export default function ReloadView(props) {
                     </IconContainer>
                 </ViewPort>
                 <Actions>
-                    <IconContainer>
-                        <SvgAttachement/>
-                    </IconContainer>
-                    <IconContainer>
-                        <SvgAddSmall/>
-                    </IconContainer>
+                    <div>
+                        <IconContainer>
+                            <SvgAttachement/>
+                        </IconContainer>
+                        <IconContainer>
+                            <SvgAddSmall/>
+                        </IconContainer>
+                    </div>
                     <IconContainer>
                         <SvgTrashSmall/>
                     </IconContainer>

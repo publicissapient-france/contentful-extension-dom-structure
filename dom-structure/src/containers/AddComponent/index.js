@@ -30,10 +30,16 @@ class AddComponent extends Component {
     }
 
     updateModel = model => {
+        let fields = {};
+        componentConfig[model].default.fields.map((field) => {
+            fields[field.nameProperty] = {
+                active : true, content : {}, settings : {}, responsiveSettings : field.settings.responsive};
+        })
         this.setState(
             {
                 component: update(this.state.component, {
                     model: { $set: model },
+                    fields: { $set: fields }
                 })
             });
     }
@@ -68,14 +74,9 @@ class AddComponent extends Component {
                     }}
                 >
                     <div>
-                        <label>Component Name</label>
-                        <input ref={node => (inputName = node)} type={'text'}
-                            onChange={e => { this.updateName(e.target.value); }}/>
-                    </div>
-                    <div>
                         <label>Model</label>
                         <select ref={node => (selectModel = node)} defaultValue={''}
-                            onChange={e => { this.updateModel(e.target.value); }}>
+                                onChange={e => { this.updateModel(e.target.value); }}>
                             <option value={null}></option>
                             {
                                 Object.keys(componentConfig).map((key, i) => {
@@ -84,8 +85,15 @@ class AddComponent extends Component {
                             }
                         </select>
                     </div>
+                    <div>
+                        <label>Component Name</label>
+                        <input ref={node => (inputName = node)} type={'text'}
+                            onChange={e => { this.updateName(e.target.value); }}/>
+                    </div>
+
                     <div className={'buttons'}>
                         <ButtonBasic
+                            disabled={!this.isComplete()}
                             label={'Cancel'}
                             action={ (e) => {
                                 e.preventDefault();

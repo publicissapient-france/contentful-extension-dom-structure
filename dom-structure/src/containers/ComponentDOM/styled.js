@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {Container, Form, Icon, OptionsBlock} from "../../style/styledComponents";
-import { CheckBox} from "../../style/styledComponentsBoxes";
+import { CheckBox} from "../../style/styledComponentsFields";
 import {extensionTheme} from "../../style/theme";
 
 export const ContainerComponent = styled(Container)`
@@ -40,27 +40,6 @@ export const Languages = styled.div`
   justify-content : space-between;
 `;
 
-export const ToogleLanguage = styled.div`
-  display : flex;
-  border-width : 1px;
-  border-style : solid;
-  border-color :  ${ extensionTheme.white }; 
-  color :  ${ extensionTheme.white }; 
-  border-radius : 3px;
-  padding : 3px;
-  font-size : 11px;
-  letter-spacing:1px;
-  cursor : pointer;
-  background : ${ extensionTheme.blueM }; 
-  transition: background 0.6s ease, color 0.6s ease;
-  margin 0 8px;
-  
-  &.active{
-    color :  ${ extensionTheme.blueM }; 
-    background : ${ extensionTheme.white }; 
-
-  }
-`;
 
 export const Banner = styled.div`
   display : flex;
@@ -78,10 +57,11 @@ export const Banner = styled.div`
   }
   
   & ${ Icon }{
-    height : 34px;
-    & svg{
-    width : 40px;
     height : 40px;
+    
+  & svg{
+    //width : 40px;
+    //height : 40px;
   }
     
     & svg g path, & svg  path, & svg rect {
@@ -125,22 +105,12 @@ export const Toggle = styled.div`
   display : flex;
 `;
 
-export const Content = styled(OptionsBlock)`
+
+//STYLE REFONT
+export const FieldsContainer = styled.div`
  
-  & ${ Banner } ${ Toggle } ${ Icon }{
-    &:hover{
-         & svg g path, & svg path, & svg  rect {
-            fill : ${ extensionTheme.white };
-        }
-    }
-  }
 `;
-export const Settings = styled(OptionsBlock)`
-  & ${ Banner } ${ Toggle } ${ Icon }{
-    &:hover{
-         & svg g path, & svg path, & svg  rect {
-            fill : ${ extensionTheme.white };
-        }
-    }
-  }
+
+export const Fields = styled.div`
+ 
 `;

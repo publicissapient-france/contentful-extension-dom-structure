@@ -71,12 +71,12 @@ export const addComponent = (object, number) => ({
 
 });
 
-export const updateComponent = (object, number, numberParent) => ({
+export const updateComponent = (name, model, number, numberParent) => ({
     type: 'UPDATE_COMPONENT',
-    component: object,
+    name: name,
+    model: model,
     index: number,
     indexParent: numberParent
-
 });
 
 export const removeComponent = (number, numberParent) => ({
@@ -130,4 +130,36 @@ export const updateSettingsValue = (props, value, bool, number, numberParent) =>
     indexComponent: number,
     indexSection: numberParent
 });
+// COMPONENT SETTINGS
 
+export const initField = (nameProperty, number, numberParent) => ({
+    type: 'INIT_FIELD',
+    nameProperty: nameProperty,
+    indexComponent: number,
+    indexSection: numberParent
+});
+
+export const toggleFieldActive = (type, bool, number, numberParent) => ({
+    type: 'TOGGLE_FIELD_ACTIVE',
+    typeField: type,
+    active: bool,
+    indexComponent: number,
+    indexSection: numberParent
+});
+
+
+export const updateField = (type, content, settings, number, numberParent) => ({
+    type: 'UPDATE_FIELD_CONTENT_AND_SETTINGS',
+    typeField: type,
+    content: content,
+    settings : settings,
+    indexComponent: number,
+    indexSection: numberParent
+});
+
+export const getField = (type, number, numberParent) => ({
+    type: 'GET_FIELD',
+    typeField: type,
+    indexComponent: number,
+    indexSection: numberParent
+});
