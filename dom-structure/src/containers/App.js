@@ -5,6 +5,7 @@ import { Extension, MainContainer } from '../style/styledComponents';
 import ButtonAddSection from './AddingSection';
 import Section from './Section/index';
 import AddSection from './AddSection/index';
+import isEqual from 'lodash/isEqual';
 import GlobalStyle from '../style/globalStyle';
 import {
     initDOM,
@@ -49,17 +50,15 @@ class App extends React.Component {
             this.detachFns.push(
                 fields[key].onValueChanged(this.onViewingEntryUpdated)
             );
-
-
         }
         this.detachFns.push(
             this.props.extension.entry.onSysChanged(this.onViewingEntryUpdated)
         );
 
-        this.subscribe();
         this.props.extension.window.startAutoResizer();
 
         await this.initStyleStore();
+        this.subscribe();
 
     }
 
@@ -71,7 +70,7 @@ class App extends React.Component {
     }
 
     setFieldValue = () => {
-        extractActiveValue(this.props.store.getState().dom);
+       extractActiveValue(this.props.store.getState().dom);
         this.setState({
             dom: this.props.store.getState().dom
         });
@@ -85,7 +84,7 @@ class App extends React.Component {
 
     subscribe = () => {
         this.props.store.subscribe(() => {
-            this.setFieldValue();
+               this.setFieldValue();
         });
     }
 

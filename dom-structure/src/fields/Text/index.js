@@ -106,9 +106,9 @@ class Text extends Component {
             this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
         });
     }
-    initSettings = () => {
+    initSettings = async () => {
         const initValue = this.props.defaultSettings;
-        initValue.font = this.initFontsWithTheme(initValue.font)
+        initValue.font = await this.initFontsWithTheme(initValue.font)
 
         this.setState({
             settings: initValue
@@ -118,8 +118,8 @@ class Text extends Component {
     }
 
     initFontsWithTheme = (font) => {
-        this.props.responsiveSettings.map((mode) => {
-            let selectedTheme = this.getThemeValue(this.props.themes, font[mode].theme);
+        this.props.responsiveSettings.map(async (mode) => {
+            let selectedTheme = await this.getThemeValue(this.props.themes, font[mode].theme);
             font[mode].family = selectedTheme.family;
             font[mode].typeface = selectedTheme.typeface;
             font[mode].weight = selectedTheme.weight;
