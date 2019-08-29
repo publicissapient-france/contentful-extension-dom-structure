@@ -127,7 +127,7 @@ class SingleImage extends Component {
         this.setState(prevState => ({
             content: update(prevState.content, {
                 [targetProperty]: {
-                    [this.props.indexLanguage]: value
+                    [this.props.indexLanguage]: {$set: value}
                 }
             })
         }));
