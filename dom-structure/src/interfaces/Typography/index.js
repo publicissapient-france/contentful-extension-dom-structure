@@ -52,14 +52,17 @@ class Typography extends Component {
                 text: this.props.text
             }, () => {
                 if (this.state.font && this.state.font.theme && this.props.themes && !this.state.font.family) {
-                    this.initWithTheme();
+                   // this.initWithTheme();
                 }
             });
         }
     }
 
-    initWithTheme = () => {
+   /* initWithTheme = () => {
         let selectedTheme = this.getThemeValue(this.props.themes, this.state.font.theme);
+        console.log('INIT THEME >>>>>>>>>>>>>>');
+        console.log('init theme state', this.state);
+        console.log('init theme selectedTheme', selectedTheme);
         this.setState({
             ...this.state,
             font: {
@@ -78,7 +81,7 @@ class Typography extends Component {
                 this.props.updateStore();
             })
         })
-    }
+    }*/
 
     updateWithTheme = () => {
         let selectedTheme = this.getThemeValue(this.props.themes, this.state.font.theme);
@@ -89,8 +92,8 @@ class Typography extends Component {
                 family: selectedTheme.family,
                 typeface: selectedTheme.typeface,
                 weight: selectedTheme.weight,
-                size: selectedTheme.fontsize,
-                lineHeight: selectedTheme.lineheight
+                size: selectedTheme.fontsize[this.props.currentMode],
+                lineHeight: selectedTheme.lineheight[this.props.currentMode]
             }
         }, () => {
             this.props.updateStateProps('font', this.state.font);
@@ -316,6 +319,7 @@ class Typography extends Component {
 
 
 Typography.protoTypes = {
+    currentMode : PropTypes.string.isRequired,
     font: PropTypes.shape({
         family: PropTypes.string.isRequired,
         typeface: PropTypes.string.isRequired,

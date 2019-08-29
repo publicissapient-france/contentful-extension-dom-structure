@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import update from "react-addons-update";
 import isEmpty from "lodash/isEmpty"
-import {getCurrentDOM, getCurrentLanguage, initField, toggleFieldActive, updateField} from '../../actions';
+import {
+    getCurrentDOM,
+    getCurrentLanguage,
+    getCurrentStyle,
+    initField,
+    toggleFieldActive,
+    updateField
+} from '../../actions';
 
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgContent from '../../components/svg/SvgContent';
@@ -101,12 +108,33 @@ class Text extends Component {
     }
     initSettings = () => {
         const initValue = this.props.defaultSettings;
+        initValue.font = this.initFontsWithTheme(initValue.font)
+
         this.setState({
             settings: initValue
         }, () => {
             this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
         });
     }
+
+    initFontsWithTheme = (font) => {
+        this.props.responsiveSettings.map((mode) => {
+            let selectedTheme = this.getThemeValue(this.props.themes, font[mode].theme);
+            font[mode].family = selectedTheme.family;
+            font[mode].typeface = selectedTheme.typeface;
+            font[mode].weight = selectedTheme.weight;
+            font[mode].size = selectedTheme.fontsize[mode];
+            font[mode].lineHeight = selectedTheme.lineheight[mode];
+        })
+        return font;
+    }
+
+
+    getThemeValue = (themes, selectedTheme) => {
+        if (!themes || !selectedTheme) return
+        return themes.find(theme => theme.name === selectedTheme);
+    }
+
 
     initResponsiveMode = () => {
         const mode = this.props.responsiveContent[0] || this.props.responsiveSettings[0] || null;
@@ -277,7 +305,7 @@ class Text extends Component {
                                             storeValueFont={this.getCurrentStoreSettingsProperty('font')}
                                             storeValueText={this.getCurrentStoreSettingsProperty('text')}
                                             updateStateProps={this.updateSettings}
-                                            updateStore={this.updateStore}
+                                            currentMode={this.state.currentResponsiveMode}
                                 />
                             </Column>
                         </Choices>
@@ -307,7 +335,8 @@ Text.propTypes = {
 };
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state),
-    indexLanguage: getCurrentLanguage(state).language
+    indexLanguage: getCurrentLanguage(state).language,
+    themes: getCurrentStyle(state).style.themes
 });
 
 export default connect(mapStateToProps)(Text);
