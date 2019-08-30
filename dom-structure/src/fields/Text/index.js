@@ -106,20 +106,36 @@ class Text extends Component {
             this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
         });
     }
-    initSettings = async () => {
-        const initValue = this.props.defaultSettings;
-        initValue.font = await this.initFontsWithTheme(initValue.font)
+    initSettings = () => {
+        let initValue = this.props.defaultSettings;
 
-        this.setState({
-            settings: initValue
-        }, () => {
-            this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
-        });
+        new Promise( (resolve, reject) => {
+
+            this.props.responsiveSettings.map((mode) => {
+                let selectedTheme = this.getThemeValue(this.props.themes, initValue.font[mode].theme);
+                if(selectedTheme){
+                    initValue.font[mode].family = selectedTheme.family;
+                    initValue.font[mode].typeface = selectedTheme.typeface;
+                    initValue.font[mode].weight = selectedTheme.weight;
+                    initValue.font[mode].size = selectedTheme.fontsize[mode];
+                    initValue.font[mode].lineHeight = selectedTheme.lineheight[mode];
+                }
+            })
+            resolve();
+        }).then(() => {
+            this.setState({
+                settings: initValue
+            }, () => {
+                this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
+            });
+        })
     }
 
-    initFontsWithTheme = (font) => {
-        this.props.responsiveSettings.map(async (mode) => {
-            let selectedTheme = await this.getThemeValue(this.props.themes, font[mode].theme);
+    initFontsWithTheme = async (font) => {
+        this.props.responsiveSettings.map((mode) => {
+            let selectedTheme = this.getThemeValue(this.props.themes, font[mode].theme);
+
+
             font[mode].family = selectedTheme.family;
             font[mode].typeface = selectedTheme.typeface;
             font[mode].weight = selectedTheme.weight;

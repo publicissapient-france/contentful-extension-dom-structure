@@ -266,7 +266,7 @@ class SingleImage extends Component {
                     <Settings className={!this.state.openSettings ? 'hidden' : ''}>
                         <Choices>
                             <AssetPreview
-                                locale={this.props.extensionInfo.extension.locales.default}
+                                locale={this.props.extensionInfo.extension.locales.default || null}
                                 asset={this.getAssetToPreview()}
                             />
                             <Column>
