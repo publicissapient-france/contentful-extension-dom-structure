@@ -20,6 +20,7 @@ import {Banner, Field} from '../../style/styledComponentsFields';
 import {ChoiceItemsConfirm, Settings, Choices} from './styled'
 
 
+
 class Template extends Component {
     constructor(props) {
         super(props);
@@ -212,4 +213,7 @@ const mapStateToProps = state => ({
     indexLanguage: getCurrentLanguage(state).language,
 });
 
+
+/*const WrappedComponent = HocField(connect(mapStateToProps)(Template))
+export default WrappedComponent;*/
 export default connect(mapStateToProps)(Template);

@@ -30,6 +30,7 @@ import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
 import {ChoiceItemsConfirm, Content, Settings, Choices, Column} from './styled'
 import isEqual from "lodash/isEqual";
+import HocField from "../../HOC/HocField";
 
 
 class Text extends Component {
@@ -262,6 +263,8 @@ class Text extends Component {
                             }}>
                         </ActiveCheckBox>
                         <p>{name}</p>
+                        <p>{this.props.secretToLife}</p>
+
                     </div>
                     <div>
                         <LanguageToggle
@@ -355,4 +358,7 @@ const mapStateToProps = state => ({
     themes: getCurrentStyle(state).style.themes
 });
 
-export default connect(mapStateToProps)(Text);
+const WrappedComponent = HocField(connect(mapStateToProps)(Text))
+export default WrappedComponent;
+
+//export default connect(mapStateToProps)(Text);

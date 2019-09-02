@@ -35,6 +35,7 @@ class App extends React.Component {
 
     componentDidMount = async () => {
         if (this.props.extension.field && this.props.extension.field.getValue()) {
+            console.log('TEST EXTENSION FIELD VALUE', this.props.extension.field.getValue());
             this.props.dispatch(initDOM(this.props.extension.field.getValue().dom));
             this.props.dispatch(initDOMbuild(this.props.extension.field.getValue().build));
             this.props.dispatch(initExtensionInformation(this.props.extension));
@@ -74,12 +75,33 @@ class App extends React.Component {
         this.setState({
             dom: this.props.store.getState().dom
         });
-        this.props.extension.field.setValue(
+       /* this.props.extension.field.setValue(
             {
                 dom: this.props.store.getState().dom,
                 build: JSON.stringify(extractActiveValue(this.props.store.getState().dom))
             }
-        );
+        ).then((result) => {
+            console.log('result after setvalue : ', result);
+        });*/
+
+       //let apiName = this.props.extension.field.id;
+
+
+
+        //this.props.extension.field.removeValue().then( () => {
+            //this.props.extension.field.setValue(
+            this.props.extension.entry.fields[this.props.extension.field.id].setValue(
+                {
+                    dom: this.props.store.getState().dom,
+                    build: JSON.stringify(extractActiveValue(this.props.store.getState().dom)),
+                    test : { text : 'test'}
+                }
+            ).then((result) => {
+                console.log('RESULT EXTENSION FIELD VALUE : ', result);
+            });
+        //})
+
+
     }
 
     subscribe = () => {
