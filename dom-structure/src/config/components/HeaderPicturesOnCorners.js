@@ -61,63 +61,6 @@ export default {
                     text : null
                 }
             },
-            settings : {
-                responsive : ['A'],
-                defaultValue: {
-                    color: {
-                        A : {
-                            hex: '#000000',
-                            rgb: '0,0,0',
-                            name: 'black',
-                            shade: null
-                        }
-                    },
-                    opacity: {
-                        A : {
-                            value : '0.85'
-                        }
-
-                    },
-                    seo: {
-                        tag: 'h2'
-                    },
-
-                    font: {
-                        A : {
-                            theme: 'TitleLight',
-                            family: null,
-                            typeface: null,
-                            weight: null,
-                            style: 'italic',
-                            size: '28',
-                            lineHeight: '40',
-                            letterSpacing: '0'
-                        }
-
-                    },
-                    text: {
-                        A : {
-                            align: 'left',
-                            transform: null,
-                            decoration: null
-                        }
-
-                    }
-                }
-            }
-
-        },
-        {
-            name : 'Title Header',
-            nameProperty : 'Title',
-            typeField : 'Text',
-            content : {
-                responsive : ['A'],
-                parameters : {},
-                defaultValue : {
-                    text : null
-                }
-            },
             settings: {
                 responsive: ['M', 'T', 'D'],
                 defaultValue: {

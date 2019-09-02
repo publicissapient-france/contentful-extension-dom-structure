@@ -15,7 +15,7 @@ import {
     initStyleInformation,
     addFontFaces,
     getFontfaces,
-    getCurrentStyle
+    getCurrentStyle, getCurrentDOM
 } from '../actions';
 import { extractActiveValue, arrayToString, extractFontValueToCSS } from '../utils/functions';
 
@@ -24,7 +24,7 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            dom: null,
+           // dom: null,
             openAddSectionTop: false
         };
 
@@ -59,11 +59,21 @@ class App extends React.Component {
         this.props.extension.window.startAutoResizer();
 
         await this.initStyleStore();
-        this.subscribe();
+       // this.subscribe();
 
     }
 
-    componentDidUpdate = () => {}
+    componentDidUpdate = (prevProps) => {
+        if(!isEqual(prevProps.dom,  this.props.dom)){
+            console.log('DOM IS UPDATED ON UPDATE')
+            console.log('DOM ', this.props.dom)
+
+            if( this.props.extension.field.getValue() && !isEqual(this.props.dom, this.props.extension.field.getValue().dom) ){
+                this.setFieldValue();
+                console.log('SET FIELD VALUE CONTENTFUL');
+            }
+        }
+    }
 
     componentWillUnmount = () => {
         this.detachFns.forEach(detach => detach());
@@ -71,8 +81,8 @@ class App extends React.Component {
     }
 
     setFieldValue = () => {
-       extractActiveValue(this.props.store.getState().dom);
-        this.setState({
+      // extractActiveValue(this.props.store.getState().dom);
+        /*this.setState({
             dom: this.props.store.getState().dom
         });
        /* this.props.extension.field.setValue(
@@ -88,25 +98,23 @@ class App extends React.Component {
 
 
 
-        //this.props.extension.field.removeValue().then( () => {
+        this.props.extension.field.removeValue().then( () => {
             //this.props.extension.field.setValue(
-            this.props.extension.entry.fields[this.props.extension.field.id].setValue(
-                {
-                    dom: this.props.store.getState().dom,
-                    build: JSON.stringify(extractActiveValue(this.props.store.getState().dom)),
-                    test : { text : 'test'}
+            this.props.extension.field.setValue(                {
+                    dom: this.props.dom,
+                    build: JSON.stringify(extractActiveValue(this.props.dom))
                 }
             ).then((result) => {
                 console.log('RESULT EXTENSION FIELD VALUE : ', result);
             });
-        //})
+        })
 
 
     }
 
     subscribe = () => {
         this.props.store.subscribe(() => {
-               this.setFieldValue();
+               //this.setFieldValue();
         });
     }
 
@@ -209,8 +217,8 @@ class App extends React.Component {
         return (
             <section>
                 {
-                    this.props.store.getState().dom.map((section, i) =>
-                        <Section key={i} section={section} index={i} domLength={this.props.store.getState().dom.length}/>
+                    this.props.dom.sections.map((section, i) =>
+                        <Section key={i} section={section} index={i} domLength={this.props.dom.sections.length}/>
                     )
                 }
             </section>
@@ -221,6 +229,7 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
     fonts: getCurrentStyle(state).style.fonts,
+    dom: getCurrentDOM(state),
     fontfaces: getFontfaces(state).value
 });
 export default connect(mapStateToProps)(App);
