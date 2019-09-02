@@ -24,7 +24,6 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-           // dom: null,
             openAddSectionTop: false
         };
 
@@ -40,7 +39,6 @@ class App extends React.Component {
             this.props.dispatch(initDOMbuild(this.props.extension.field.getValue().build));
             this.props.dispatch(initExtensionInformation(this.props.extension));
             this.props.dispatch(initVisibility());
-            this.setState({ state: this.state });
         }
 
         this.detachFns = [];
@@ -68,7 +66,12 @@ class App extends React.Component {
             console.log('DOM IS UPDATED ON UPDATE')
             console.log('DOM ', this.props.dom)
 
-            if( this.props.extension.field.getValue() && !isEqual(this.props.dom, this.props.extension.field.getValue().dom) ){
+            if(!this.props.extension.field.getValue()){
+                console.log('aucune valeur à init')
+                this.setFieldValue();
+            }
+
+            if(this.props.extension.field.getValue() && this.props.extension.field.getValue().dom && !isEqual(this.props.dom.sections, this.props.extension.field.getValue().dom) ){
                 this.setFieldValue();
                 console.log('SET FIELD VALUE CONTENTFUL');
             }
@@ -99,10 +102,9 @@ class App extends React.Component {
 
 
         this.props.extension.field.removeValue().then( () => {
-            //this.props.extension.field.setValue(
             this.props.extension.field.setValue(                {
-                    dom: this.props.dom,
-                    build: JSON.stringify(extractActiveValue(this.props.dom))
+                    dom: this.props.store.getState().dom,
+                    build: JSON.stringify(extractActiveValue(this.props.store.getState().dom))
                 }
             ).then((result) => {
                 console.log('RESULT EXTENSION FIELD VALUE : ', result);
