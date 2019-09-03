@@ -40,8 +40,8 @@ class Text extends Component {
         this.state = {
             openColorView: false,
             openPreview: false,
-            openSettings: false,
-            openContent: false
+            //openSettings: false,
+           // openContent: false
         }
     }
 
@@ -57,7 +57,7 @@ class Text extends Component {
                 storeContent : FieldOnStore.content,
                 storeSettings : FieldOnStore.settings,
             }, () => {
-                this.initResponsiveMode();
+                //this.initResponsiveMode();
                 if (isEmpty(this.state.content)) this.initContent()
                 if (!this.state.content.text) this.initContentText()
                 if (isEmpty(this.state.settings)) this.initSettings()
@@ -76,15 +76,14 @@ class Text extends Component {
                 storeContent : currentFieldStore.content,
                 storeSettings : currentFieldStore.settings,
             });
+
+
         }
 
         if(this.props.triggerOpening != prevProps.triggerOpening){
-            this.setState(prevState => ({
-                openSettings: this.props.triggerOpening,
-                openContent: false,
-                currentResponsiveMode: this.props.responsiveSettings[0]
-            }));
+            this.props.toggleWithTrigger(this.props.triggerOpening);
         }
+
     }
 
     initField = () => {
@@ -136,7 +135,6 @@ class Text extends Component {
         this.props.responsiveSettings.map((mode) => {
             let selectedTheme = this.getThemeValue(this.props.themes, font[mode].theme);
 
-
             font[mode].family = selectedTheme.family;
             font[mode].typeface = selectedTheme.typeface;
             font[mode].weight = selectedTheme.weight;
@@ -150,12 +148,6 @@ class Text extends Component {
     getThemeValue = (themes, selectedTheme) => {
         if (!themes || !selectedTheme) return
         return themes.find(theme => theme.name === selectedTheme);
-    }
-
-
-    initResponsiveMode = () => {
-        const mode = this.props.responsiveContent[0] || this.props.responsiveSettings[0] || null;
-        this.setState({currentResponsiveMode: mode})
     }
 
     updateTranlatedContent = (value, targetProperty) => {
@@ -174,7 +166,7 @@ class Text extends Component {
         this.setState(prevState => ({
             settings: update(prevState.settings, {
                 [targetProperty]: {
-                    [prevState.currentResponsiveMode]: {$set: value}
+                    [this.props.currentResponsiveMode]: {$set: value}
                 }
             })
         }));
@@ -190,14 +182,12 @@ class Text extends Component {
 
     }
 
-    updateStore = () => {
-        this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
-    }
+
 
     toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
     toggleOpenPreview = () => this.setState(prevState => ({openPreview: !prevState.openPreview}));
 
-    toggleContent = () => this.setState(prevState => ({
+   /* toggleContent = () => this.setState(prevState => ({
         openContent: !prevState.openContent,
         openSettings: false,
         currentResponsiveMode: this.props.responsiveContent[0]
@@ -206,11 +196,11 @@ class Text extends Component {
         openSettings: !prevState.openSettings,
         openContent: false,
         currentResponsiveMode: this.props.responsiveSettings[0]
-    }));
+    }));*/
 
-    toggleResponsiveMode = (mode) => this.setState({
+    /*toggleResponsiveMode = (mode) => this.setState({
         currentResponsiveMode: mode
-    });
+    });*/
 
     getText = () => this.state.content.text && this.state.content.text[this.props.indexLanguage] ? this.state.content.text[this.props.indexLanguage] : '';
 
@@ -224,18 +214,18 @@ class Text extends Component {
         }));
     }
 
-    getCurrentSettingsProperty = (property) => this.state.settings[property] ? this.state.settings[property][this.state.currentResponsiveMode] : null
+    getCurrentSettingsProperty = (property) => this.state.settings[property] ? this.state.settings[property][this.props.currentResponsiveMode] : null
 
     getCurrentSettingsPropertyNoResponsive = (property) => this.state.settings[property]
 
-    getCurrentDefaultSettingsProperty = (property) => this.props.defaultSettings[property][this.state.currentResponsiveMode]
+    getCurrentDefaultSettingsProperty = (property) => this.props.defaultSettings[property][this.props.currentResponsiveMode]
 
     getCurrentDefaultSettingsPropertyNoResponsive = (property) => this.props.defaultSettings[property]
 
 
     getCurrentStoreSettingsProperty = (property) => {
         if (!this.state.storeSettings[property]) return null;
-        return this.state.storeSettings[property][this.state.currentResponsiveMode]
+        return this.state.storeSettings[property][this.props.currentResponsiveMode]
     }
 
     getCurrentStoreSettingsPropertyNoResponsive = (property) => {
@@ -243,7 +233,7 @@ class Text extends Component {
         return this.state.storeSettings[property]
     }
 
-    getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
+    //getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
 
 
     render() {
@@ -268,26 +258,26 @@ class Text extends Component {
                     </div>
                     <div>
                         <LanguageToggle
-                            hidden={(!this.state.openContent && !this.state.openSettings) || this.state.openSettings}/>
-                        <ResponsiveToggle responsive={this.getResponsiveChoices()}
-                                          currentMode={this.state.currentResponsiveMode}
-                                          action={this.toggleResponsiveMode}/>
-                        <Icon className={this.state.openContent ? 'active' : ''}
+                            hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
+                        <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
+                                          currentMode={this.props.currentResponsiveMode}
+                                          action={this.props.toggleResponsiveMode}/>
+                        <Icon className={this.props.openContent ? 'active' : ''}
                               onClick={() => {
-                                  this.toggleContent();
+                                  this.props.toggleContent();
                               }}><SvgContent/></Icon>
-                        <Icon className={this.state.openSettings ? 'active' : ''}
+                        <Icon className={this.props.openSettings ? 'active' : ''}
                               onClick={() => {
-                                  this.toggleSettings();
+                                  this.props.toggleSettings();
                               }}><SvgSetting/></Icon>
                     </div>
                 </Banner>
                 <Field>
-                    <Content className={!this.state.openContent ? 'hidden' : ''}>
+                    <Content className={!this.props.openContent ? 'hidden' : ''}>
                         <InputText action={this.updateTranlatedContent} targetProperty={'text'}
                                    defaultValue={this.getText()}/>
                     </Content>
-                    <Settings className={!this.state.openSettings ? 'hidden' : ''}>
+                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>
                             <Column className={this.state.openPreview ? 'full-width' : ''}>
                                 <TextPreview hidden={this.state.openColorView}
@@ -324,7 +314,7 @@ class Text extends Component {
                                             storeValueFont={this.getCurrentStoreSettingsProperty('font')}
                                             storeValueText={this.getCurrentStoreSettingsProperty('text')}
                                             updateStateProps={this.updateSettings}
-                                            currentMode={this.state.currentResponsiveMode}
+                                            currentMode={this.props.currentResponsiveMode}
                                 />
                             </Column>
                         </Choices>
