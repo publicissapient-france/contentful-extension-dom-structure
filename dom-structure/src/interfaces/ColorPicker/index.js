@@ -119,7 +119,7 @@ class ColorPicker extends Component {
                         <div>
                             <input type={'number'} max={100} min={0}
                                    className={ hasNotSamePropertyValue(storeValueOpacity, opacity, 'value') ? 'updated' : ''}
-                                   defaultValue={Number(opacity.value) * 100 || 100}
+                                   value={Number(opacity.value) * 100}
                                    onChange={e => {
                                        this.updateOpacity(e.target.value)
                                    }}/>

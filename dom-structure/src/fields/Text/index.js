@@ -95,7 +95,6 @@ class Text extends Component {
                             action={this.props.toggleActive}>
                         </ActiveCheckBox>
                         <p>{name}</p>
-                        <p>{this.props.secretToLife}</p>
                     </div>
                     <div>
                         <LanguageToggle

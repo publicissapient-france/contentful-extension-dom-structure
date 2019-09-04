@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import isEqual from "lodash/isEqual";
+import isEmpty from "lodash/isEmpty";
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 
@@ -46,6 +47,7 @@ const FieldWrapper = (WrappedComponent) => {
                     storeSettings: FieldOnStore.settings,
                 }, () => {
                     this.initResponsiveMode();
+                    if (isEmpty(this.state.settings)) this.initSettings(this.props.defaultSettings)
                 });
             }
         }
@@ -85,6 +87,8 @@ const FieldWrapper = (WrappedComponent) => {
             });
         }
         initSettings = (initialValue) => {
+            console.log('init settings wrapper', this.props.nameProperty);
+            console.log('init settings wrapper initialValue',initialValue);
             this.setState({
                 settings: initialValue
             }, () => {
@@ -170,7 +174,6 @@ const FieldWrapper = (WrappedComponent) => {
                     }
                 })
             }));
-
         }
 
         updateSettingsNoResponsive = (targetProperty, value) => {
@@ -179,7 +182,6 @@ const FieldWrapper = (WrappedComponent) => {
                     [targetProperty]: {$set: value}
                 })
             }));
-
         }
 
         updateField = () => {
