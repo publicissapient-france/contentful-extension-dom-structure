@@ -157,9 +157,7 @@ export const updateField = (type, content, settings, number, numberParent) => ({
     indexSection: numberParent
 });
 
-export const getField = (type, number, numberParent) => ({
+export const getField = (state, indexComponent, indexSection, nameProperty) => ({
     type: 'GET_FIELD',
-    typeField: type,
-    indexComponent: number,
-    indexSection: numberParent
+    field : state.dom[indexSection].components[indexComponent].fields[nameProperty]
 });

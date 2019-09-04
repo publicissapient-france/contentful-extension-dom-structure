@@ -234,9 +234,7 @@ const dom = (state = [], action) => {
             });
 
         case 'GET_FIELD':
-            return state[action.indexSection]
-                .components[action.indexComponent]
-                .fields[action.typeField]
+            return action.field
 
         default:
             return state;
