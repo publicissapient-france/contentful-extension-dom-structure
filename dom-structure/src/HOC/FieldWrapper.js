@@ -29,7 +29,8 @@ const FieldWrapper = WrappedComponent => {
         }
 
         componentDidMount() {
-            const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
+            const FieldOnStore = this.getFieldOnStore(this.props);
+
             if (!FieldOnStore) {
                 this.initField();
             } else {
@@ -48,9 +49,9 @@ const FieldWrapper = WrappedComponent => {
         }
 
         componentDidUpdate(prevProps) {
-            if (this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty] !==
-                prevProps.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]) {
-                const currentFieldStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
+            const currentFieldStore = this.getFieldOnStore(this.props);
+
+            if (currentFieldStore !== this.getFieldOnStore(prevProps)){
                 this.setState({
                     content: currentFieldStore.content,
                     settings: currentFieldStore.settings,
@@ -62,6 +63,10 @@ const FieldWrapper = WrappedComponent => {
             if (this.props.triggerOpening !== prevProps.triggerOpening) {
                 this.toggleWithTrigger(this.props.triggerOpening);
             }
+        }
+
+        getFieldOnStore = ({dom, indexSection, indexComponent, nameProperty }) => {
+            return dom.sections[indexSection].components[indexComponent].fields[nameProperty];
         }
 
         initField = () => {
@@ -112,7 +117,7 @@ const FieldWrapper = WrappedComponent => {
             });
         }
 
-        toggleResponsiveMode = mode => this.setState({currentResponsiveMode: mode});
+        setResponsiveMode = mode => this.setState({currentResponsiveMode: mode});
 
         toggleActive = () => {
             this.setState(prevState => ({
@@ -197,7 +202,10 @@ const FieldWrapper = WrappedComponent => {
         }
 
         updateField = () => {
-            this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
+            const {dispatch, nameProperty, indexComponent, indexSection} = this.props;
+            const {content, settings} = this.state;
+
+            dispatch(updateField(nameProperty, content, settings, indexComponent, indexSection));
         }
 
         cancelStateValue = e => {
@@ -216,7 +224,7 @@ const FieldWrapper = WrappedComponent => {
                     toggleContent={this.toggleContent}
                     toggleSettings={this.toggleSettings}
                     currentResponsiveMode={this.state.currentResponsiveMode}
-                    toggleResponsiveMode={this.toggleResponsiveMode}
+                    setResponsiveMode={this.setResponsiveMode}
                     getResponsiveChoices={this.getResponsiveChoices}
                     toggleWithTrigger={this.toggleWithTrigger}
                     updated={this.isUpdated()}
@@ -240,6 +248,7 @@ const FieldWrapper = WrappedComponent => {
                     updateField={this.updateField}
                     updateContentSubProperty={this.updateContentSubProperty}
                     updateTranlatedContentSubProperty={this.updateTranlatedContentSubProperty}
+
                     {...this.props}
                 />
             );

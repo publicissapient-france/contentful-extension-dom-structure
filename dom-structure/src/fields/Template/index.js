@@ -50,7 +50,7 @@ class Template extends Component {
                             hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
                         <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
                             currentMode={this.props.currentResponsiveMode}
-                            action={this.props.toggleResponsiveMode}/>
+                            action={this.props.setResponsiveMode}/>
                         <Icon className={this.props.openSettings ? 'active' : ''}
                             onClick={() => {
                                 this.props.toggleSettings();
