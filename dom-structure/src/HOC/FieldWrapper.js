@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
+import {connect} from 'react-redux';
+import {compose} from 'redux';
 
 import {
     getCurrentDOM,
@@ -18,7 +18,7 @@ import PropTypes from 'prop-types';
 
 const FieldWrapper = WrappedComponent => {
     class HOC extends Component {
-        constructor (props) {
+        constructor(props) {
             super(props);
 
             this.state = {
@@ -26,15 +26,9 @@ const FieldWrapper = WrappedComponent => {
                 openSettings: false,
                 currentResponsiveMode: null
             };
-
-            this.toggleContent = this.toggleContent.bind(this);
-            this.toggleSettings = this.toggleSettings.bind(this);
-            this.toggleResponsiveMode = this.toggleResponsiveMode.bind(this);
-            this.getResponsiveChoices = this.getResponsiveChoices.bind(this);
-            this.toggleWithTrigger = this.toggleWithTrigger.bind(this);
         }
 
-        componentDidMount () {
+        componentDidMount() {
             const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
             if (!FieldOnStore) {
                 this.initField();
@@ -53,7 +47,7 @@ const FieldWrapper = WrappedComponent => {
             }
         }
 
-        componentDidUpdate (prevProps) {
+        componentDidUpdate(prevProps) {
             if (this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty] !==
                 prevProps.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]) {
                 const currentFieldStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
@@ -76,7 +70,7 @@ const FieldWrapper = WrappedComponent => {
 
         initResponsiveMode = () => {
             const mode = this.props.responsiveContent[0] || this.props.responsiveSettings[0] || null;
-            this.setState({ currentResponsiveMode: mode });
+            this.setState({currentResponsiveMode: mode});
         }
 
         initContent = initialValue => {
@@ -118,9 +112,7 @@ const FieldWrapper = WrappedComponent => {
             });
         }
 
-        toggleResponsiveMode = mode => this.setState({
-            currentResponsiveMode: mode
-        });
+        toggleResponsiveMode = mode => this.setState({currentResponsiveMode: mode});
 
         toggleActive = () => {
             this.setState(prevState => ({
@@ -140,14 +132,9 @@ const FieldWrapper = WrappedComponent => {
 
         getDefaultSettingsPropertyNoResponsive = property => this.props.defaultSettings[property]
 
-        getStoreSettingsProperty = property => {
-            if (!this.state.storeSettings[property]) return null;
-            return this.state.storeSettings[property][this.state.currentResponsiveMode];
-        }
-        getStoreSettingsPropertyNoResponsive = property => {
-            if (!this.state.storeSettings[property]) return null;
-            return this.state.storeSettings[property];
-        }
+        getStoreSettingsProperty = property => this.state.storeSettings[property] ? this.state.storeSettings[property][this.state.currentResponsiveMode] : null
+
+        getStoreSettingsPropertyNoResponsive = property => this.state.storeSettings[property] ? this.state.storeSettings[property] : null
 
         isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings, this.state.storeSettings))
 
@@ -169,7 +156,7 @@ const FieldWrapper = WrappedComponent => {
                     [property]: {
                         [index]: {
                             [subProperty]: {
-                                [prevState.currentResponsiveMode]: { $set: value }
+                                [prevState.currentResponsiveMode]: {$set: value}
                             }
                         }
                     }
@@ -183,7 +170,7 @@ const FieldWrapper = WrappedComponent => {
                     [property]: {
                         [index]: {
                             [subProperty]: {
-                                [this.props.indexLanguage]: { $set: value }
+                                [this.props.indexLanguage]: {$set: value}
                             }
                         }
                     }
@@ -195,7 +182,7 @@ const FieldWrapper = WrappedComponent => {
             this.setState(prevState => ({
                 settings: update(prevState.settings, {
                     [targetProperty]: {
-                        [this.state.currentResponsiveMode]: { $set: value }
+                        [this.state.currentResponsiveMode]: {$set: value}
                     }
                 })
             }));
@@ -204,7 +191,7 @@ const FieldWrapper = WrappedComponent => {
         updateSettingsNoResponsive = (targetProperty, value) => {
             this.setState(prevState => ({
                 settings: update(prevState.settings, {
-                    [targetProperty]: { $set: value }
+                    [targetProperty]: {$set: value}
                 })
             }));
         }
@@ -221,10 +208,9 @@ const FieldWrapper = WrappedComponent => {
             }));
         }
 
-        render () {
+        render() {
             return (
                 <WrappedComponent
-                    secretToLife={42}
                     openContent={this.state.openContent}
                     openSettings={this.state.openSettings}
                     toggleContent={this.toggleContent}
