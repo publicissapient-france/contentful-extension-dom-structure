@@ -1,7 +1,7 @@
-import React from "react"
+import React from 'react';
 import {
     Asset
-} from "@contentful/forma-36-react-components"
+} from '@contentful/forma-36-react-components';
 import {
     Container,
     Actions,
@@ -9,21 +9,21 @@ import {
     DataContainer,
     IconContainer,
     Preview
-} from "./styled";
+} from './styled';
 import SvgAttachement from '../svg/SvgAttachement';
 import SvgAddSmall from '../svg/SvgAddSmall';
 import SvgTrashSmall from '../svg/SvgTrashSmall';
 
-export default function FileView(props) {
-    const file = props.file
-    const type = file.contentType.split("/")[0]
-    const bg = {backgroundImage: `url(${file.url})`}
+export default function FileView (props) {
+    const file = props.file;
+    const type = file.contentType.split('/')[0];
+    const bg = { backgroundImage: `url(${ file.url })` };
 
     return (
         <Container
             className={`file-view  ${
-                type === "image" ? "image-file" : "non-image-file"
-                }`}
+                type === 'image' ? 'image-file' : 'non-image-file'
+            }`}
         >
             {!props.valid ? (
                 <Warning>
@@ -35,7 +35,7 @@ export default function FileView(props) {
             )}
             <DataContainer>
                 <div>
-                    {type === "image" ? (
+                    {type === 'image' ? (
                         <Preview style={bg}/>
                     ) : (
                         <Preview>
@@ -59,5 +59,5 @@ export default function FileView(props) {
 
             </DataContainer>
         </Container>
-    )
+    );
 }

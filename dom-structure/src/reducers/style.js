@@ -24,7 +24,7 @@ const style = (state = [], action) => {
             name: { $set: name },
             colors: { $set: colors },
             fonts: { $set: fonts },
-            themes : { $set : themes }
+            themes: { $set: themes }
         });
 
     case 'GET_STYLE' :

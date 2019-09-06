@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgRange from '../../components/svg/SvgRange';
 import SvgCheck from '../../components/svg/SvgCheck';
@@ -40,7 +40,7 @@ import update from 'react-addons-update';
 import PropTypes from 'prop-types';
 
 class ComponentDOM extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
 
         this.state = {
@@ -51,24 +51,24 @@ class ComponentDOM extends Component {
             component: null,
             openSafeDelete: false,
             config: {},
-            triggerOpening : false
+            triggerOpening: false
         };
     }
 
     componentDidMount = async () => {
-        this.setState({component: this.props.component});
+        this.setState({ component: this.props.component });
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate (prevProps) {
         if (this.props.component !== prevProps.component) {
-            this.setState({component: this.props.component});
+            this.setState({ component: this.props.component });
         }
     }
 
     updateModel = model => {
         this.setState({
             component: update(this.state.component, {
-                model: {$set: model},
+                model: { $set: model },
             })
         });
     }
@@ -76,12 +76,11 @@ class ComponentDOM extends Component {
     updateName = name => {
         this.setState(prevState => ({
             component: update(prevState.component, {
-                name: {$set: name}
+                name: { $set: name }
             })
         }));
     }
     toggleActive = () => this.props.dispatch(toggleComponentActive(!this.props.component.active, this.props.index, this.props.indexParent));
-
 
     toggleSafeSecure = () => this.setState({
         openSafeDelete: !this.state.openSafeDelete,
@@ -103,24 +102,24 @@ class ComponentDOM extends Component {
     }))
 
     toggleBoxes = () => {
-        this.setState({openBoxes: !this.state.openBoxes}, () => {
+        this.setState({ openBoxes: !this.state.openBoxes }, () => {
             if (!this.state.openBoxes) {
-                this.setState({semiOpenBoxes: true});
+                this.setState({ semiOpenBoxes: true });
             }
         });
     }
     toggleBoxesSettings = () => {
-        this.setState({openBoxesSettings: !this.state.openBoxesSettings}, () => {
+        this.setState({ openBoxesSettings: !this.state.openBoxesSettings }, () => {
             if (!this.state.openBoxesSettings) {
-                this.setState({semiOpenBoxes: true});
+                this.setState({ semiOpenBoxes: true });
             }
         });
     }
 
     toggleBoxesField = () => {
-        this.setState({semiOpenBoxes: !this.state.semiOpenBoxes}, () => {
+        this.setState({ semiOpenBoxes: !this.state.semiOpenBoxes }, () => {
             if (!this.state.semiOpenBoxes) {
-                this.setState({openBoxes: true});
+                this.setState({ openBoxes: true });
             }
         });
     }
@@ -128,15 +127,12 @@ class ComponentDOM extends Component {
     isUpdated = () => (this.state.component && (this.state.component.name !== this.props.component.name ||
         this.state.component.model !== this.props.component.model))
 
-
     getComponentFields = () => {
         return componentConfig[this.props.component.model].default.fields;
     }
 
-
-
-    render() {
-        const {dispatch, component, index, indexParent, lengthParent} = this.props;
+    render () {
+        const { dispatch, component, index, indexParent, lengthParent } = this.props;
         let inputName, selectModel;
 
         if (!this.state.component) return null;
@@ -157,7 +153,7 @@ class ComponentDOM extends Component {
                     </Description>
                     <Actions>
                         <Icon className={this.state.openSettings ? 'active' : ''}
-                              onClick={() => this.toggleOpenSettings()}>
+                            onClick={() => this.toggleOpenSettings()}>
                             <SvgSetting/>
                         </Icon>
                         <Range>
@@ -187,7 +183,7 @@ class ComponentDOM extends Component {
                         <ButtonBasic label={'Cancel'} action={this.toggleSafeSecure}/>
                         <ButtonDelete label={'Delete'} action={() => {
                             dispatch(removeComponent(index, indexParent));
-                            this.setState({openSafeDelete: false});
+                            this.setState({ openSafeDelete: false });
                         }}/>
                     </div>
                 </SafeDelete>
@@ -203,18 +199,18 @@ class ComponentDOM extends Component {
                         <div>
                             <label>Component Name</label>
                             <input ref={node => (inputName = node)} type={'text'}
-                                   value={this.state.component.name || ''}
-                                   onChange={e => {
-                                       this.updateName(e.target.value);
-                                   }}/>
+                                value={this.state.component.name || ''}
+                                onChange={e => {
+                                    this.updateName(e.target.value);
+                                }}/>
                         </div>
                         <div>
                             <label>Model</label>
                             <select ref={node => (selectModel = node)}
-                                    value={this.state.component.model || null}
-                                    onChange={e => {
-                                        this.updateModel(e.target.value);
-                                    }}>
+                                value={this.state.component.model || null}
+                                onChange={e => {
+                                    this.updateModel(e.target.value);
+                                }}>
                                 {
                                     Object.keys(componentConfig).map((key, i) => {
                                         return <option value={key} key={i}>{key}</option>;
@@ -227,9 +223,9 @@ class ComponentDOM extends Component {
                             <ButtonBasic
                                 label={'Cancel'}
                                 disabled={!this.isUpdated()}
-                                action={(e) => {
+                                action={e => {
                                     e.preventDefault();
-                                    this.setState({component: this.props.component});
+                                    this.setState({ component: this.props.component });
                                     inputName.value = component.name;
                                     selectModel.value = component.model;
                                 }}/>
@@ -242,7 +238,7 @@ class ComponentDOM extends Component {
                         <p> Content & Specifications </p>
                         <Toggle>
                             <Icon className={['toggleAll', !this.state.triggerOpening ? '' : 'rotate']}
-                                  onClick={() => this.triggerOpening()}><SvgArrowDouble/></Icon>
+                                onClick={() => this.triggerOpening()}><SvgArrowDouble/></Icon>
                         </Toggle>
                     </Banner>
                     <Fields>
@@ -253,7 +249,6 @@ class ComponentDOM extends Component {
         );
     }
 };
-
 
 ComponentDOM.propTypes = {
     component: PropTypes.shape({

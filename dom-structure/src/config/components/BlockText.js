@@ -1,18 +1,18 @@
 export default {
     model: 'BlockText',
-    fields : [
+    fields: [
         {
-            name : 'Template',
-            nameProperty : 'Template',
-            typeField : 'Template',
-            content : {
-                responsive : ['A'],
-                parameters : {},
-                defaultValue : {
+            name: 'Template',
+            nameProperty: 'Template',
+            typeField: 'Template',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
                 }
             },
-            settings : {
-                responsive : ['A'],
+            settings: {
+                responsive: ['A'],
                 defaultValue: {
                     color: {
                         A: {
@@ -28,7 +28,7 @@ export default {
                         }
                     }
                 }
-                /*responsive : ['M','T','D'],
+                /* responsive : ['M','T','D'],
                 defaultValue: {
                     color: {
                         M: {
@@ -59,23 +59,23 @@ export default {
                             value: '1'
                         }
                     }
-                }*/
+                } */
             }
 
         },
         {
-            name : 'Text',
-            nameProperty : 'Title',
-            typeField : 'Text',
-            content : {
-                responsive : ['A'],
-                parameters : {},
-                defaultValue : {
-                    text : null
+            name: 'Text',
+            nameProperty: 'Title',
+            typeField: 'Text',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                    text: {}
                 }
             },
-            settings : {
-                /*responsive : ['A'],
+            settings: {
+                /* responsive : ['A'],
                 defaultValue: {
                     color: {
                         A: {
@@ -111,8 +111,8 @@ export default {
                             decoration: null
                         }
                     }
-                }*/
-                responsive : ['M','T','D'],
+                } */
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
                     color: {
                         M: {
@@ -147,7 +147,7 @@ export default {
                         }
                     },
                     seo: {
-                       tag: 'h2'
+                        tag: 'h2'
                     },
                     font: {
                         M: {
@@ -212,26 +212,26 @@ export default {
                     multiple: 4
                 },
                 defaultValue: {
-                    images : [
+                    images: [
                         {
-                            alt : {},
-                            asset : {
-                                A : {}
+                            alt: {},
+                            asset: {
+                                A: {}
                             }
-                        },{
-                            alt : {},
-                            asset : {
-                                A : {}
+                        }, {
+                            alt: {},
+                            asset: {
+                                A: {}
                             }
-                        },{
-                            alt : {},
-                            asset : {
-                                A : {}
+                        }, {
+                            alt: {},
+                            asset: {
+                                A: {}
                             }
-                        },{
-                            alt : {},
-                            asset : {
-                                A : {}
+                        }, {
+                            alt: {},
+                            asset: {
+                                A: {}
                             }
                         },
                     ]
@@ -241,7 +241,7 @@ export default {
                 responsive: ['A'],
                 defaultValue: {
                     size: {
-                        A : {
+                        A: {
                             width: '200',
                             height: '200',
                             maxWidth: '',
@@ -260,18 +260,18 @@ export default {
                 responsive: ['A'],
                 parameters: {},
                 defaultValue: {
-                    images : [
+                    images: [
                         {
-                            alt : {},
-                            asset : {
-                                A : {}
+                            alt: {},
+                            asset: {
+                                A: {}
                             }
                         }
                     ]
                 }
             },
             settings: {
-                responsive: ['M','T', 'D'],
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
                     size: {
                         M: {
@@ -345,20 +345,20 @@ export default {
                 responsive: ['M', 'T', 'D'],
                 parameters: {},
                 defaultValue: {
-                    images : [
+                    images: [
                         {
-                            alt : {},
-                            asset : {
-                                M : {},
-                                T : {},
-                                D : {}
+                            alt: {},
+                            asset: {
+                                M: {},
+                                T: {},
+                                D: {}
                             }
                         }
                     ]
                 }
             },
             settings: {
-                responsive: ['M','T', 'D'],
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
                     size: {
                         M: {
@@ -425,21 +425,21 @@ export default {
 
         },
         {
-            name : 'Text Content',
-            nameProperty : 'TextContent',
-            typeField : 'TextMarkdown',
-            content : {
-                responsive : ['A'],
-                parameters : {},
-                defaultValue : {
-                    markdown : {}
+            name: 'Text Content',
+            nameProperty: 'TextContent',
+            typeField: 'TextMarkdown',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                    markdown: {}
                 }
             },
-            settings : {
-                responsive : ['A'],
+            settings: {
+                responsive: ['A'],
                 defaultValue: {}
             }
 
         }
     ]
-}
+};

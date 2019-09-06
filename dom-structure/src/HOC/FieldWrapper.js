@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import isEqual from "lodash/isEqual";
-import isEmpty from "lodash/isEmpty";
-import {connect} from 'react-redux';
-import {compose} from 'redux';
+import React, { Component } from 'react';
+import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 import {
     getCurrentDOM,
@@ -12,14 +12,13 @@ import {
     toggleFieldActive,
     updateFieldContent,
     updateFieldSettings
-} from "../actions";
-import update from "react-addons-update";
-import PropTypes from "prop-types";
+} from '../actions';
+import update from 'react-addons-update';
+import PropTypes from 'prop-types';
 
-
-const FieldWrapper = (WrappedComponent) => {
-    class HOC extends React.Component {
-        constructor(props) {
+const FieldWrapper = WrappedComponent => {
+    class HOC extends Component {
+        constructor (props) {
             super(props);
 
             this.state = {
@@ -35,8 +34,7 @@ const FieldWrapper = (WrappedComponent) => {
             this.toggleWithTrigger = this.toggleWithTrigger.bind(this);
         }
 
-
-        componentDidMount() {
+        componentDidMount () {
             const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
             if (!FieldOnStore) {
                 this.initField();
@@ -49,16 +47,15 @@ const FieldWrapper = (WrappedComponent) => {
                     storeSettings: FieldOnStore.settings,
                 }, () => {
                     this.initResponsiveMode();
-                    if (isEmpty(this.state.settings)) this.initSettings(this.props.defaultSettings)
-                    if (isEmpty(this.state.content)) this.initContent(this.props.defaultContent)
+                    if (isEmpty(this.state.settings)) this.initSettings(this.props.defaultSettings);
+                    if (isEmpty(this.state.content)) this.initContent(this.props.defaultContent);
                 });
             }
         }
 
-        componentDidUpdate(prevProps) {
-            if (this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]
-                !== prevProps.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]) {
-
+        componentDidUpdate (prevProps) {
+            if (this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty] !==
+                prevProps.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]) {
                 const currentFieldStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
                 this.setState({
                     content: currentFieldStore.content,
@@ -68,7 +65,7 @@ const FieldWrapper = (WrappedComponent) => {
                 });
             }
 
-            if (this.props.triggerOpening != prevProps.triggerOpening) {
+            if (this.props.triggerOpening !== prevProps.triggerOpening) {
                 this.toggleWithTrigger(this.props.triggerOpening);
             }
         }
@@ -79,17 +76,17 @@ const FieldWrapper = (WrappedComponent) => {
 
         initResponsiveMode = () => {
             const mode = this.props.responsiveContent[0] || this.props.responsiveSettings[0] || null;
-            this.setState({currentResponsiveMode: mode})
+            this.setState({ currentResponsiveMode: mode });
         }
 
-        initContent = (initialValue) => {
+        initContent = initialValue => {
             this.setState({
                 content: initialValue
             }, () => {
                 this.props.dispatch(updateFieldContent(this.props.nameProperty, this.state.content, this.props.indexComponent, this.props.indexSection));
             });
         }
-        initSettings = (initialValue) => {
+        initSettings = initialValue => {
             this.setState({
                 settings: initialValue
             }, () => {
@@ -113,7 +110,7 @@ const FieldWrapper = (WrappedComponent) => {
             }));
         }
 
-        toggleWithTrigger = (trigger) => {
+        toggleWithTrigger = trigger => {
             this.setState({
                 openSettings: trigger,
                 openContent: false,
@@ -121,7 +118,7 @@ const FieldWrapper = (WrappedComponent) => {
             });
         }
 
-        toggleResponsiveMode = (mode) => this.setState({
+        toggleResponsiveMode = mode => this.setState({
             currentResponsiveMode: mode
         });
 
@@ -129,31 +126,30 @@ const FieldWrapper = (WrappedComponent) => {
             this.setState(prevState => ({
                 active: !prevState.active
             }), () => {
-                this.props.dispatch(toggleFieldActive(this.props.nameProperty, this.state.active, this.props.indexComponent, this.props.indexSection))
+                this.props.dispatch(toggleFieldActive(this.props.nameProperty, this.state.active, this.props.indexComponent, this.props.indexSection));
             });
         }
 
         getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
 
-        getSettingsProperty = (property) => this.state.settings[property] ? this.state.settings[property][this.state.currentResponsiveMode] : null
+        getSettingsProperty = property => this.state.settings[property] ? this.state.settings[property][this.state.currentResponsiveMode] : null
 
-        getSettingsPropertyNoResponsive = (property) => this.state.settings[property]
+        getSettingsPropertyNoResponsive = property => this.state.settings[property]
 
-        getDefaultSettingsProperty = (property) => this.props.defaultSettings[property][this.state.currentResponsiveMode]
+        getDefaultSettingsProperty = property => this.props.defaultSettings[property][this.state.currentResponsiveMode]
 
-        getDefaultSettingsPropertyNoResponsive = (property) => this.props.defaultSettings[property]
+        getDefaultSettingsPropertyNoResponsive = property => this.props.defaultSettings[property]
 
-        getStoreSettingsProperty = (property) => {
+        getStoreSettingsProperty = property => {
             if (!this.state.storeSettings[property]) return null;
-            return this.state.storeSettings[property][this.state.currentResponsiveMode]
+            return this.state.storeSettings[property][this.state.currentResponsiveMode];
         }
-        getStoreSettingsPropertyNoResponsive = (property) => {
+        getStoreSettingsPropertyNoResponsive = property => {
             if (!this.state.storeSettings[property]) return null;
-            return this.state.storeSettings[property]
+            return this.state.storeSettings[property];
         }
 
         isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings, this.state.storeSettings))
-
 
         updateTranlatedContent = (value, targetProperty) => {
             this.setState(prevState => ({
@@ -167,33 +163,27 @@ const FieldWrapper = (WrappedComponent) => {
             }));
         }
 
-
         updateContentSubProperty = (property, subProperty, value, index) => {
-            console.log('updateContentSubProperty', this.state.content);
             this.setState(prevState => ({
                 content: update(prevState.content, {
                     [property]: {
                         [index]: {
                             [subProperty]: {
-                                [prevState.currentResponsiveMode]: {$set: value}
+                                [prevState.currentResponsiveMode]: { $set: value }
                             }
                         }
                     }
                 })
             }));
-
-
         }
 
         updateTranlatedContentSubProperty = (property, subProperty, value, index) => {
-            console.log('updateTranlatedContentSubProperty', this.state.content);
-
             this.setState(prevState => ({
                 content: update(prevState.content, {
                     [property]: {
                         [index]: {
                             [subProperty]: {
-                                [this.props.indexLanguage]: {$set: value}
+                                [this.props.indexLanguage]: { $set: value }
                             }
                         }
                     }
@@ -205,7 +195,7 @@ const FieldWrapper = (WrappedComponent) => {
             this.setState(prevState => ({
                 settings: update(prevState.settings, {
                     [targetProperty]: {
-                        [this.state.currentResponsiveMode]: {$set: value}
+                        [this.state.currentResponsiveMode]: { $set: value }
                     }
                 })
             }));
@@ -214,7 +204,7 @@ const FieldWrapper = (WrappedComponent) => {
         updateSettingsNoResponsive = (targetProperty, value) => {
             this.setState(prevState => ({
                 settings: update(prevState.settings, {
-                    [targetProperty]: {$set: value}
+                    [targetProperty]: { $set: value }
                 })
             }));
         }
@@ -223,7 +213,7 @@ const FieldWrapper = (WrappedComponent) => {
             this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
         }
 
-        cancelStateValue = (e) => {
+        cancelStateValue = e => {
             e.preventDefault();
             this.setState(prevState => ({
                 content: prevState.storeContent,
@@ -231,7 +221,7 @@ const FieldWrapper = (WrappedComponent) => {
             }));
         }
 
-        render() {
+        render () {
             return (
                 <WrappedComponent
                     secretToLife={42}
@@ -273,7 +263,6 @@ const FieldWrapper = (WrappedComponent) => {
     return HOC;
 };
 
-
 FieldWrapper.propTypes = {
     indexSection: PropTypes.number.isRequired,
     indexComponent: PropTypes.number.isRequired,
@@ -286,7 +275,7 @@ FieldWrapper.propTypes = {
     defaultSettings: PropTypes.object
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     dom: getCurrentDOM(state),
     indexLanguage: getCurrentLanguage(state).language
 });
@@ -294,6 +283,6 @@ const mapStateToProps = (state) => ({
 const composedFieldWrapper = compose(
     connect(mapStateToProps, null),
     FieldWrapper
-)
+);
 
 export default composedFieldWrapper;

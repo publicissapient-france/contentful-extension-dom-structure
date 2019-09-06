@@ -1,18 +1,18 @@
 export default {
     model: 'HeaderPicturesOnCorners',
-    fields : [
+    fields: [
         {
-            name : 'Template',
-            nameProperty : 'Template',
-            typeField : 'Template',
-            content : {
-                responsive : ['A'],
-                parameters : {},
-                defaultValue : {
+            name: 'Template',
+            nameProperty: 'Template',
+            typeField: 'Template',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
                 }
             },
-            settings : {
-                responsive : ['M','T','D'],
+            settings: {
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
                     color: {
                         M: {
@@ -51,14 +51,14 @@ export default {
 
         },
         {
-            name : 'Title Header',
-            nameProperty : 'Title',
-            typeField : 'Text',
-            content : {
-                responsive : ['A'],
-                parameters : {},
-                defaultValue : {
-                    text : null
+            name: 'Title Header',
+            nameProperty: 'Title',
+            typeField: 'Text',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                    text: {}
                 }
             },
             settings: {
@@ -160,7 +160,7 @@ export default {
                 responsive: ['A'],
                 parameters: {},
                 defaultValue: {
-                    text: null
+                    text: {}
                 }
             },
             settings: {
@@ -262,20 +262,20 @@ export default {
                 responsive: ['M', 'T', 'D'],
                 parameters: {},
                 defaultValue: {
-                    images : [
+                    images: [
                         {
-                            alt : {},
-                            asset : {
-                                M : {},
-                                T : {},
-                                D : {}
+                            alt: {},
+                            asset: {
+                                M: {},
+                                T: {},
+                                D: {}
                             }
                         }
                     ]
                 }
             },
             settings: {
-                responsive: ['M','T', 'D'],
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
                     size: {
                         M: {
@@ -351,26 +351,26 @@ export default {
                     multiple: 4
                 },
                 defaultValue: {
-                    images : [
+                    images: [
                         {
-                            alt : {},
-                            asset : {
-                                A : {}
+                            alt: {},
+                            asset: {
+                                A: {}
                             }
-                        },{
-                            alt : {},
-                            asset : {
-                                A : {}
+                        }, {
+                            alt: {},
+                            asset: {
+                                A: {}
                             }
-                        },{
-                            alt : {},
-                            asset : {
-                                A : {}
+                        }, {
+                            alt: {},
+                            asset: {
+                                A: {}
                             }
-                        },{
-                            alt : {},
-                            asset : {
-                                A : {}
+                        }, {
+                            alt: {},
+                            asset: {
+                                A: {}
                             }
                         },
                     ]
@@ -380,7 +380,7 @@ export default {
                 responsive: ['A'],
                 defaultValue: {
                     size: {
-                        A : {
+                        A: {
                             width: '200',
                             height: '200',
                             maxWidth: '',
@@ -392,4 +392,4 @@ export default {
 
         }
     ]
-}
+};

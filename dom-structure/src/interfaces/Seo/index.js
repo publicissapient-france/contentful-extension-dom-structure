@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {tags} from '../../config/defaultConfig';
+import { tags } from '../../config/defaultConfig';
 
-import Dot from '../../components/Dot/index'
-import {hasNotSamePropertyValue} from "../../utils/functions";
-import { ChoiceSeo, Field} from "./styled";
+import Dot from '../../components/Dot/index';
+import { hasNotSamePropertyValue } from '../../utils/functions';
+import { ChoiceSeo, Field } from './styled';
 
 class Seo extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
 
         this.state = {};
@@ -39,12 +39,12 @@ class Seo extends Component {
             }
         }, () => {
             this.props.updateStateProps('seo', this.state.seo);
-        })
+        });
     }
 
-    render() {
-        const {storeValueSeo, seo, defaultSeo, hidden} = this.props;
-        if (!seo) return null
+    render () {
+        const { storeValueSeo, seo, defaultSeo, hidden } = this.props;
+        if (!seo) return null;
         return (
             <ChoiceSeo className={hidden ? 'hidden' : ''}>
                 <div>
@@ -65,7 +65,6 @@ class Seo extends Component {
     }
 }
 
-
 Seo.protoTypes = {
     seo: PropTypes.shape({
         tag: PropTypes.oneOf(tags)
@@ -76,10 +75,8 @@ Seo.protoTypes = {
     storeValueSeo: PropTypes.shape({
         tag: PropTypes.oneOf(tags)
     }),
-    hidden : PropTypes.bool
-
+    hidden: PropTypes.bool
 
 };
-
 
 export default connect()(Seo);

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {extensionTheme} from "../../style/theme";
+import styled from 'styled-components';
+import { extensionTheme } from '../../style/theme';
 
 export const Container = styled.div`
     width : 100%;
@@ -52,7 +52,7 @@ export const IconContainer = styled.div`
      & svg{
         & path, & rect, & circle{
            transition : fill .2s ease;
-            fill : ${extensionTheme.grey40}
+            fill : ${ extensionTheme.grey40 }
         }
      }
      
@@ -60,13 +60,13 @@ export const IconContainer = styled.div`
      &:hover{
         & svg{
             & path, & rect, & circle{
-                fill : ${extensionTheme.greenM}
+                fill : ${ extensionTheme.greenM }
             }
         }
         &.delete{
             & svg{
                  & path, & rect, & circle{
-                    fill : ${extensionTheme.redM};
+                    fill : ${ extensionTheme.redM };
             }
          }
      }
@@ -74,7 +74,7 @@ export const IconContainer = styled.div`
      &.informations:hover{
         & svg{
             & path, & rect, & circle{
-                fill : ${extensionTheme.blueM}
+                fill : ${ extensionTheme.blueM }
             }
         }
      }
@@ -83,7 +83,7 @@ export const IconContainer = styled.div`
      &.active{
         & svg{
              & path, & rect, & circle{
-                fill : ${extensionTheme.blueM}
+                fill : ${ extensionTheme.blueM }
         }
      } 
      
@@ -97,8 +97,7 @@ export const IconContainer = styled.div`
  
 `;
 
-
-export const Actions =  styled.nav`
+export const Actions = styled.nav`
     display:flex;
     flex-direction : column;
     justify-content : space-between; 
@@ -106,12 +105,11 @@ export const Actions =  styled.nav`
     
 `;
 
-export const Warning =  styled.div`
-    background : ${extensionTheme.redXS};
+export const Warning = styled.div`
+    background : ${ extensionTheme.redXS };
     padding : 15px;
     width : 100%;
     justify-content : center;
-    color : ${ extensionTheme.redL};
+    color : ${ extensionTheme.redL };
     margin-bottom : 20px;
 `;
-

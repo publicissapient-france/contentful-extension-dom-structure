@@ -312,4 +312,3 @@ export const Error = styled.div`
     color : ${ extensionTheme.redM };
   }
 `;
-

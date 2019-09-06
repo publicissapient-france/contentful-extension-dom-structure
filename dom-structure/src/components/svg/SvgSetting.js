@@ -2,8 +2,8 @@ import React from 'react';
 
 const SvgSetting = () => {
     return <svg version="1.2" baseProfile="tiny" id="Calque_1"
-                xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="34px"
-                viewBox="0 0 40 34">
+        xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="34px"
+        viewBox="0 0 40 34">
         <g>
             <g id="Groupe_49_2_" transform="translate(12 9)">
                 <path id="Tracé_22_2_" d="M15.2,8c0-1,0.7-2,1.6-2.4c-0.2-0.6-0.4-1.1-0.7-1.7c-1,0.2-2-0.1-2.7-0.9c-0.7-0.7-1-1.8-0.7-2.7

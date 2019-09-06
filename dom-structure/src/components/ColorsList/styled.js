@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {contentfulTheme, extensionTheme} from "../../style/theme";
+import styled from 'styled-components';
+import { contentfulTheme } from '../../style/theme';
 import { Palette } from '../../style/styledComponentsFields';
 
 export const List = styled(Palette)`
@@ -7,7 +7,6 @@ export const List = styled(Palette)`
     display : flex;  
     flex-wrap:wrap;
 `;
-
 
 export const IconExtend = styled.div`
   
@@ -23,4 +22,3 @@ export const IconExtend = styled.div`
         }
     }
 `;
-

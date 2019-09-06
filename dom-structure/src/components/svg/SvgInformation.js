@@ -2,8 +2,8 @@ import React from 'react';
 
 const SvgInformation = () => {
     return <svg version="1.2" baseProfile="tiny" id="Calque_1"
-                xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20px" height="20px"
-                viewBox="0 0 20 20">
+        xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20px" height="20px"
+        viewBox="0 0 20 20">
         <g>
             <g>
                 <rect x="9.1" y="8.5" width="1.9" height="7"/>

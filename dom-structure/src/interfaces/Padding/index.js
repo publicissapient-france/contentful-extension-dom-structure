@@ -1,15 +1,14 @@
-import React, {Component} from 'react';
-import {Container, Field, Inputs} from './styled';
+import React, { Component } from 'react';
+import { Container, Field, Inputs } from './styled';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
-import {hasNotSamePropertyValue} from "../../utils/functions";
-import Dot from '../../components/Dot'
+import { hasNotSamePropertyValue } from '../../utils/functions';
+import Dot from '../../components/Dot';
 
 class Padding extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         this.state = {};
-
     }
 
     componentDidMount = () => {
@@ -17,7 +16,6 @@ class Padding extends Component {
             padding: this.props.padding
         });
     };
-
 
     componentDidUpdate = prevProps => {
         if (this.props.padding !== prevProps.padding) {
@@ -27,7 +25,6 @@ class Padding extends Component {
             }));
         }
     }
-
 
     updatePadding = (prop, value) => {
         this.setState(prevState => ({
@@ -41,11 +38,10 @@ class Padding extends Component {
         });
     }
 
+    render () {
+        const { padding, storeValuePadding, defaultPadding } = this.props;
 
-    render() {
-        const {padding, storeValuePadding, defaultPadding} = this.props;
-
-        if(!this.state.padding)return null
+        if (!this.state.padding) return null;
         return (
             <Container>
                 <Field>
@@ -59,7 +55,7 @@ class Padding extends Component {
                                 className={hasNotSamePropertyValue(storeValuePadding, padding, 'top') ? 'updated' : ''}
                                 value={this.state.padding.top}
                                 onChange={e => {
-                                    this.updatePadding('top', e.target.value)
+                                    this.updatePadding('top', e.target.value);
                                 }}/>
                             <input
                                 type={'number'}
@@ -67,7 +63,7 @@ class Padding extends Component {
                                 className={hasNotSamePropertyValue(storeValuePadding, padding, 'right') ? 'updated' : ''}
                                 value={this.state.padding.right}
                                 onChange={e => {
-                                    this.updatePadding('right', e.target.value)
+                                    this.updatePadding('right', e.target.value);
                                 }}/>
                             <input
                                 type={'number'}
@@ -75,7 +71,7 @@ class Padding extends Component {
                                 className={hasNotSamePropertyValue(storeValuePadding, padding, 'bottom') ? 'updated' : ''}
                                 value={this.state.padding.bottom}
                                 onChange={e => {
-                                    this.updatePadding('bottom', e.target.value)
+                                    this.updatePadding('bottom', e.target.value);
                                 }}/>
                             <input
                                 type={'number'}
@@ -83,17 +79,16 @@ class Padding extends Component {
                                 className={hasNotSamePropertyValue(storeValuePadding, padding, 'left') ? 'updated' : ''}
                                 value={this.state.padding.left}
                                 onChange={e => {
-                                    this.updatePadding('left', e.target.value)
+                                    this.updatePadding('left', e.target.value);
                                 }}/>
                         </Inputs>
                     </div>
 
                 </Field>
             </Container>
-        )
+        );
     }
 }
-
 
 Padding.propTypes = {
     updateStateProps: PropTypes.func,

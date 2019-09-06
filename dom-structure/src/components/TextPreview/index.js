@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import {IconContainer} from '../../style/styledComponentsFields';
+import { IconContainer } from '../../style/styledComponentsFields';
 import SvgMoon from '../svg/SvgMoon';
 import SvgSun from '../svg/SvgSun';
 import SvgA from '../svg/SvgA';
@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { PreviewContainer, Options, TextContainer } from './styled';
 
 class TextPreview extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
 
         this.state = {
@@ -24,22 +24,22 @@ class TextPreview extends Component {
         };
     }
 
-    render() {
-        const {font, text, color, opacity, open, hidden} = this.props;
+    render () {
+        const { font, text, color, opacity, open, hidden } = this.props;
         let lightIcon = this.state.light ? <SvgMoon/> : <SvgSun/>;
         let textIcon = this.state.alphabet ? <SvgA/> : <SvgP/>;
         let extendIcon = this.state.alphabet ? <SvgExtend/> : <SvgExtend/>;
-        if (!font || !text) return <p>preview impossible</p>
+        if (!font || !text) return <p>preview impossible</p>;
         return (
             <PreviewContainer className={hidden ? 'hidden' : ''}>
                 <TextContainer className={[!this.state.light ? 'on-dark' : '', open ? 'is-open' : '']}>
                     <p
                         style={{
-                            fontSize: `${font.size}px`,
-                            fontFamily: `"${font.family}",${font.typeface}`,
+                            fontSize: `${ font.size }px`,
+                            fontFamily: `"${ font.family }",${ font.typeface }`,
                             fontWeight: font.weight ? font.weight[1] : '',
-                            lineHeight: `${font.lineHeight}px`,
-                            letterSpacing: `${font.letterSpacing}px`,
+                            lineHeight: `${ font.lineHeight }px`,
+                            letterSpacing: `${ font.letterSpacing }px`,
                             fontStyle: font.style,
                             color: color.hex,
                             opacity: opacity.value,
@@ -48,8 +48,8 @@ class TextPreview extends Component {
                             textDecoration: text.decoration
                         }}
                     >{
-                        this.state.alphabet ? this.state.text.alphabet : this.state.text.paragraph
-                    }
+                            this.state.alphabet ? this.state.text.alphabet : this.state.text.paragraph
+                        }
                     </p>
                     <Options>
                         <IconContainer
@@ -62,7 +62,7 @@ class TextPreview extends Component {
                         </IconContainer>
                         <IconContainer
                             onClick={e => {
-                                this.setState({alphabet: !this.state.alphabet});
+                                this.setState({ alphabet: !this.state.alphabet });
                             }}>
                             {textIcon}
                         </IconContainer>
@@ -80,8 +80,7 @@ class TextPreview extends Component {
 };
 
 TextPreview.propTypes = {
-    hidden : PropTypes.bool
-}
-
+    hidden: PropTypes.bool
+};
 
 export default TextPreview;

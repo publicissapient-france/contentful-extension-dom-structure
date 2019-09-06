@@ -2,8 +2,8 @@ import React from 'react';
 
 const SvgTrashSmall = () => {
     return <svg version="1.2" baseProfile="tiny" id="Calque_1"
-                xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20px" height="20px"
-                viewBox="0 0 20 20">
+        xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20px" height="20px"
+        viewBox="0 0 20 20">
         <g id="Groupe_50" transform="translate(1659 630) rotate(180)">
             <g id="Groupe_67" transform="translate(263.416 -268.944)">
                 <rect id="Rectangle_78" x="1386.6" y="883.8" fill="#1D1D1B" width="1" height="8"/>

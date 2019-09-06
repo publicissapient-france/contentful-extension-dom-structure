@@ -5,10 +5,9 @@ import update from 'react-addons-update';
 import sectionsConfig from '../../config/sections/*.js';
 import { addSection, addSectionToTop, toggleFormAddSection, toggleFormAddSectionToTop } from '../../actions/index';
 import { Container } from '../../style/styledComponents';
-import { FormSection} from './styled';
+import { FormSection } from './styled';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
-
 
 class AddSection extends Component {
     constructor (props) {
@@ -77,12 +76,12 @@ class AddSection extends Component {
                     <div>
                         <label>Model</label>
                         <select ref={node => (selectModel = node)} defaultValue={''}
-                                onChange={e => { this.updateModel(e.target.value); }}>
+                            onChange={e => { this.updateModel(e.target.value); }}>
                             <option value={null}></option>
                             {
                                 Object.keys(sectionsConfig).map((key, i) => {
                                     return <option value={key} key={i}>{key}</option>;
-                                })                            }
+                                }) }
                         </select>
                     </div>
                     <div>
@@ -95,7 +94,7 @@ class AddSection extends Component {
                         <ButtonBasic
                             label={'Cancel'}
                             disabled={!this.isComplete()}
-                            action={ (e) => {
+                            action={ e => {
                                 this.clearForm();
                                 inputName.value = '';
                                 selectModel.value = '';

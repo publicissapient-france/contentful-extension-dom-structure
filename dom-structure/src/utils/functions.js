@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {getAssetsUrlById} from './getters';
+import { getAssetsUrlById } from './getters';
 
 const createSlug = (name, shade) => (shade !== '') ? name + '-' + shade : name;
 
@@ -19,7 +19,7 @@ const hexToRgb = hex => {
 
 const RGBtoString = rgb => {
     if (!rgb) return false;
-    return  rgb.r + ',' + rgb.g + ',' + rgb.b ;
+    return rgb.r + ',' + rgb.g + ',' + rgb.b;
 };
 
 const getShadePosition = (shade, array) => array.indexOf(shade);
@@ -29,33 +29,6 @@ const filterActiveSections = dom => dom.filter(section => section.active);
 const filterActiveComponents = dom => {
     return dom.map(section => {
         section.components = section.components.filter(component => component.active);
-        return section;
-    });
-};
-
-const filterActiveContent = dom => {
-    return dom.map(section => {
-        section.components.map(component => {
-            _.mapKeys(component.content, (value, key) => {
-                if (!value.active) {
-                    _.unset(component.content, key);
-                }
-            });
-            return component;
-        });
-        return section;
-    });
-};
-const filterActiveSettings = dom => {
-    return dom.map(section => {
-        section.components.map(component => {
-            _.mapKeys(component.settings, (value, key) => {
-                if (!value.active) {
-                    _.unset(component.settings, key);
-                }
-            });
-            return component;
-        });
         return section;
     });
 };
@@ -82,7 +55,6 @@ const getLanguageISO = language => language.split('-')[0];
 const getCountryISO = language => language.split('-')[1];
 const arrayToString = array => array.join('');
 
-
 const extractFontValueToCSS = async (This, font, locale) => {
     return `@font-face {
                  font-family: "${ font.fields.name[locale] }";
@@ -96,16 +68,15 @@ const extractFontValueToCSS = async (This, font, locale) => {
 
 const sum = (a, b) => {
     return a + b;
-}
+};
 
 const hasNotSamePropertyValue = (defaultValue, currentValue, prop) => {
     if (!defaultValue || !currentValue || !prop || prop === '') {
-        return false
+        return false;
     }
-    if (defaultValue[prop] && currentValue[prop] != defaultValue[prop]) return true;
-    return false
-}
-
+    if (defaultValue[prop] && currentValue[prop] !== defaultValue[prop]) return true;
+    return false;
+};
 
 export {
     getShadePosition,

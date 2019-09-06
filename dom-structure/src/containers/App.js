@@ -45,7 +45,6 @@ class App extends React.Component {
 
         const fields = this.props.extension.entry.fields;
         for (let key in fields) {
-
             this.detachFns.push(
                 fields[key].onValueChanged(this.onViewingEntryUpdated)
             );
@@ -57,21 +56,19 @@ class App extends React.Component {
         this.props.extension.window.startAutoResizer();
 
         await this.initStyleStore();
-       // this.subscribe();
-
     }
 
-    componentDidUpdate = (prevProps) => {
-        if(!isEqual(prevProps.dom,  this.props.dom)){
-            console.log('DOM IS UPDATED ON UPDATE')
-            console.log('DOM ', this.props.dom)
+    componentDidUpdate = prevProps => {
+        if (!isEqual(prevProps.dom, this.props.dom)) {
+            console.log('DOM IS UPDATED ON UPDATE');
+            console.log('DOM ', this.props.dom);
 
-            if(!this.props.extension.field.getValue()){
-                console.log('aucune valeur à init')
+            if (!this.props.extension.field.getValue()) {
+                console.log('aucune valeur à init');
                 this.setFieldValue();
             }
 
-            if(this.props.extension.field.getValue() && this.props.extension.field.getValue().dom && !isEqual(this.props.dom.sections, this.props.extension.field.getValue().dom) ){
+            if (this.props.extension.field.getValue() && this.props.extension.field.getValue().dom && !isEqual(this.props.dom.sections, this.props.extension.field.getValue().dom)) {
                 this.setFieldValue();
                 console.log('SET FIELD VALUE CONTENTFUL');
             }
@@ -84,39 +81,11 @@ class App extends React.Component {
     }
 
     setFieldValue = () => {
-      // extractActiveValue(this.props.store.getState().dom);
-        /*this.setState({
-            dom: this.props.store.getState().dom
-        });
-       /* this.props.extension.field.setValue(
-            {
+        this.props.extension.field.removeValue().then(() => {
+            this.props.extension.field.setValue({
                 dom: this.props.store.getState().dom,
                 build: JSON.stringify(extractActiveValue(this.props.store.getState().dom))
-            }
-        ).then((result) => {
-            console.log('result after setvalue : ', result);
-        });*/
-
-       //let apiName = this.props.extension.field.id;
-
-
-
-        this.props.extension.field.removeValue().then( () => {
-            this.props.extension.field.setValue(                {
-                    dom: this.props.store.getState().dom,
-                    build: JSON.stringify(extractActiveValue(this.props.store.getState().dom))
-                }
-            ).then((result) => {
-                console.log('RESULT EXTENSION FIELD VALUE : ', result);
             });
-        })
-
-
-    }
-
-    subscribe = () => {
-        this.props.store.subscribe(() => {
-               //this.setFieldValue();
         });
     }
 
@@ -131,7 +100,6 @@ class App extends React.Component {
     getStyleGuide = () => {
         if (!this.props.extension.entry.fields['styleGuide'].getValue()) return;
         let styleGuideID = this.props.extension.entry.fields['styleGuide'].getValue().sys.id;
-        const locale = this.props.extension.locales.default;
         return this.props.extension.space
             .getEntries({
                 'sys.id': styleGuideID
@@ -140,8 +108,6 @@ class App extends React.Component {
                 return result.items[0].fields;
             });
     }
-
-
 
     initStyleStore = async () => {
         const locale = this.props.extension.locales.default;
@@ -156,7 +122,6 @@ class App extends React.Component {
             this.props.dispatch(addFontFaces(extractedValue));
         });
     };
-
 
     getTypographies = typographies => {
         const locale = this.props.extension.locales.default;
@@ -178,7 +143,6 @@ class App extends React.Component {
                 return result.fields.file[this.props.extension.locales.default].url;
             });
     }
-
 
     onError = error => {
         this.props.extension.notifier.error(error.message);
@@ -227,7 +191,6 @@ class App extends React.Component {
         );
     }
 }
-
 
 const mapStateToProps = state => ({
     fonts: getCurrentStyle(state).style.fonts,

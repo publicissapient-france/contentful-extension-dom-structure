@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import {extensionTheme} from "../../style/theme";
-import {BoxColor, Fields} from "../../style/styledComponentsFields";
-import {Icon} from "../../style/styledComponents";
+import styled from 'styled-components';
+import { extensionTheme } from '../../style/theme';
+import { BoxColor, Fields } from '../../style/styledComponentsFields';
+import { Icon } from '../../style/styledComponents';
 
 export const SelectedColor = styled(BoxColor)`
     width : 30px;
@@ -10,7 +10,7 @@ export const SelectedColor = styled(BoxColor)`
     
     
     &.updated{
-        border : 2px solid ${extensionTheme.blueM};
+        border : 2px solid ${ extensionTheme.blueM };
     }
 `;
 

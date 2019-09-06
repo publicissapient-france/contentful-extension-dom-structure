@@ -1,15 +1,14 @@
-import React, {Component} from 'react';
-import {Container, Field, Inputs} from './styled';
+import React, { Component } from 'react';
+import { Container, Field, Inputs } from './styled';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
-import {hasNotSamePropertyValue} from "../../utils/functions";
-import Dot from '../../components/Dot'
+import { hasNotSamePropertyValue } from '../../utils/functions';
+import Dot from '../../components/Dot';
 
 class Margin extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         this.state = {};
-
     }
 
     componentDidMount = () => {
@@ -17,7 +16,6 @@ class Margin extends Component {
             margin: this.props.margin
         });
     };
-
 
     componentDidUpdate = prevProps => {
         if (this.props.margin !== prevProps.margin) {
@@ -27,7 +25,6 @@ class Margin extends Component {
             }));
         }
     }
-
 
     updatePadding = (prop, value) => {
         this.setState(prevState => ({
@@ -41,11 +38,10 @@ class Margin extends Component {
         });
     }
 
+    render () {
+        const { margin, storeValueMargin, defaultMargin } = this.props;
 
-    render() {
-        const {margin, storeValueMargin, defaultMargin} = this.props;
-
-        if(!this.state.margin)return null
+        if (!this.state.margin) return null;
         return (
             <Container>
                 <Field>
@@ -59,7 +55,7 @@ class Margin extends Component {
                                 className={hasNotSamePropertyValue(storeValueMargin, margin, 'top') ? 'updated' : ''}
                                 value={this.state.margin.top}
                                 onChange={e => {
-                                    this.updatePadding('top', e.target.value)
+                                    this.updatePadding('top', e.target.value);
                                 }}/>
                             <input
                                 type={'number'}
@@ -67,7 +63,7 @@ class Margin extends Component {
                                 className={hasNotSamePropertyValue(storeValueMargin, margin, 'right') ? 'updated' : ''}
                                 value={this.state.margin.right}
                                 onChange={e => {
-                                    this.updatePadding('right', e.target.value)
+                                    this.updatePadding('right', e.target.value);
                                 }}/>
                             <input
                                 type={'number'}
@@ -75,7 +71,7 @@ class Margin extends Component {
                                 className={hasNotSamePropertyValue(storeValueMargin, margin, 'bottom') ? 'updated' : ''}
                                 value={this.state.margin.bottom}
                                 onChange={e => {
-                                    this.updatePadding('bottom', e.target.value)
+                                    this.updatePadding('bottom', e.target.value);
                                 }}/>
                             <input
                                 type={'number'}
@@ -83,17 +79,16 @@ class Margin extends Component {
                                 className={hasNotSamePropertyValue(storeValueMargin, margin, 'left') ? 'updated' : ''}
                                 value={this.state.margin.left}
                                 onChange={e => {
-                                    this.updatePadding('left', e.target.value)
+                                    this.updatePadding('left', e.target.value);
                                 }}/>
                         </Inputs>
                     </div>
 
                 </Field>
             </Container>
-        )
+        );
     }
 }
-
 
 Margin.propTypes = {
     updateStateProps: PropTypes.func,

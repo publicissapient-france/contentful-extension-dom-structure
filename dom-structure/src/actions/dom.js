@@ -10,17 +10,10 @@ export const initDOM = object => ({
 
 });
 
-
-
 export const getCurrentDOM = state => ({
     type: 'GET_DOM',
     sections: state.dom
 });
-
-
-
-
-
 
 // SECTION
 
@@ -105,10 +98,6 @@ export const toggleComponentActive = (bool, number, numberParent) => ({
     indexParent: numberParent
 });
 
-
-
-
-
 // COMPONENT CONTENT
 
 export const updateContentValue = (props, value, bool, number, numberParent) => ({
@@ -147,12 +136,11 @@ export const toggleFieldActive = (type, bool, number, numberParent) => ({
     indexSection: numberParent
 });
 
-
 export const updateField = (type, content, settings, number, numberParent) => ({
     type: 'UPDATE_FIELD_CONTENT_AND_SETTINGS',
     typeField: type,
     content: content,
-    settings : settings,
+    settings: settings,
     indexComponent: number,
     indexSection: numberParent
 });
@@ -167,12 +155,12 @@ export const updateFieldContent = (type, content, number, numberParent) => ({
 export const updateFieldSettings = (type, settings, number, numberParent) => ({
     type: 'UPDATE_FIELD_SETTINGS',
     typeField: type,
-    settings : settings,
+    settings: settings,
     indexComponent: number,
     indexSection: numberParent
 });
 
 export const getField = (state, indexComponent, indexSection, nameProperty) => ({
     type: 'GET_FIELD',
-    field : state.dom[indexSection].components[indexComponent].fields[nameProperty]
+    field: state.dom[indexSection].components[indexComponent].fields[nameProperty]
 });

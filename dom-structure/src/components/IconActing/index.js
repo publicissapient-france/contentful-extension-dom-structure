@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {IconContainer} from '../../style/styledComponentsFields';
+import React, { Component } from 'react';
+import { IconContainer } from '../../style/styledComponentsFields';
 import PropTypes from 'prop-types';
 
 const classByState = {
@@ -9,10 +9,10 @@ const classByState = {
 };
 
 class IconActing extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
 
-        this.state = {}
+        this.state = {};
     }
 
     getClassName = () => {
@@ -32,8 +32,8 @@ class IconActing extends Component {
         return 'NOT_SELECTED';
     }
 
-    render() {
-        const {children, objectA, objectB, targetProperty, value, nullAllowed} = this.props;
+    render () {
+        const { children, objectB, targetProperty, value, nullAllowed } = this.props;
 
         return (
             <IconContainer
@@ -47,10 +47,9 @@ class IconActing extends Component {
                 }}>
                 {children}
             </IconContainer>
-        )
+        );
     }
 }
-
 
 IconActing.propTypes = {
     objectA: PropTypes.object,

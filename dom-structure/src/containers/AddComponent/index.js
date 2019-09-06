@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addComponent } from '../../actions/index';
-import {ContainerForm, FormComponent } from './styled';
+import { ContainerForm, FormComponent } from './styled';
 import update from 'react-addons-update';
 import componentConfig from '../../config/components/*.js';
-import ButtonBasic from '../../components/ui/ButtonBasic'
+import ButtonBasic from '../../components/ui/ButtonBasic';
 
 import PropTypes from 'prop-types';
-import ButtonValidate from "../../components/ui/ButtonValidate";
+import ButtonValidate from '../../components/ui/ButtonValidate';
 
 class AddComponent extends Component {
     constructor (props) {
@@ -31,10 +31,10 @@ class AddComponent extends Component {
 
     updateModel = model => {
         let fields = {};
-        componentConfig[model].default.fields.map((field) => {
+        componentConfig[model].default.fields.map(field => {
             fields[field.nameProperty] = {
-                active : true, content : {}, settings : {}, responsiveSettings : field.settings.responsive};
-        })
+                active: true, content: {}, settings: {}, responsiveSettings: field.settings.responsive };
+        });
         this.setState(
             {
                 component: update(this.state.component, {
@@ -76,7 +76,7 @@ class AddComponent extends Component {
                     <div>
                         <label>Model</label>
                         <select ref={node => (selectModel = node)} defaultValue={''}
-                                onChange={e => { this.updateModel(e.target.value); }}>
+                            onChange={e => { this.updateModel(e.target.value); }}>
                             <option value={null}></option>
                             {
                                 Object.keys(componentConfig).map((key, i) => {
@@ -95,7 +95,7 @@ class AddComponent extends Component {
                         <ButtonBasic
                             disabled={!this.isComplete()}
                             label={'Cancel'}
-                            action={ (e) => {
+                            action={ e => {
                                 e.preventDefault();
                                 this.clearForm();
                                 inputName.value = '';

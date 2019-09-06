@@ -1,4 +1,3 @@
-
 export const initExtensionInformation = object => ({
     type: 'INIT_EXTENSION_INFORMATION',
     extension: object
