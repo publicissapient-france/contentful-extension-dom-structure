@@ -520,3 +520,9 @@ export const ErrorMessage = styled.div`
   font-size : 12px;
 
 `;
+
+export const InfoText = styled.div`
+  color : ${ extensionTheme.grey40 }; 
+  padding : 30px;
+
+`;

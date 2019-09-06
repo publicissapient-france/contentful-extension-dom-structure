@@ -9,7 +9,9 @@ import {
     getCurrentLanguage,
     initField,
     updateField,
-    toggleFieldActive
+    toggleFieldActive,
+    updateFieldContent,
+    updateFieldSettings
 } from "../actions";
 import update from "react-addons-update";
 import PropTypes from "prop-types";
@@ -48,6 +50,7 @@ const FieldWrapper = (WrappedComponent) => {
                 }, () => {
                     this.initResponsiveMode();
                     if (isEmpty(this.state.settings)) this.initSettings(this.props.defaultSettings)
+                    if (isEmpty(this.state.content)) this.initContent(this.props.defaultContent)
                 });
             }
         }
@@ -83,16 +86,14 @@ const FieldWrapper = (WrappedComponent) => {
             this.setState({
                 content: initialValue
             }, () => {
-                this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
+                this.props.dispatch(updateFieldContent(this.props.nameProperty, this.state.content, this.props.indexComponent, this.props.indexSection));
             });
         }
         initSettings = (initialValue) => {
-            console.log('init settings wrapper', this.props.nameProperty);
-            console.log('init settings wrapper initialValue',initialValue);
             this.setState({
                 settings: initialValue
             }, () => {
-                this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
+                this.props.dispatch(updateFieldSettings(this.props.nameProperty, this.state.settings, this.props.indexComponent, this.props.indexSection));
             });
         }
 
@@ -166,6 +167,40 @@ const FieldWrapper = (WrappedComponent) => {
             }));
         }
 
+
+        updateContentSubProperty = (property, subProperty, value, index) => {
+            console.log('updateContentSubProperty', this.state.content);
+            this.setState(prevState => ({
+                content: update(prevState.content, {
+                    [property]: {
+                        [index]: {
+                            [subProperty]: {
+                                [prevState.currentResponsiveMode]: {$set: value}
+                            }
+                        }
+                    }
+                })
+            }));
+
+
+        }
+
+        updateTranlatedContentSubProperty = (property, subProperty, value, index) => {
+            console.log('updateTranlatedContentSubProperty', this.state.content);
+
+            this.setState(prevState => ({
+                content: update(prevState.content, {
+                    [property]: {
+                        [index]: {
+                            [subProperty]: {
+                                [this.props.indexLanguage]: {$set: value}
+                            }
+                        }
+                    }
+                })
+            }));
+        }
+
         updateSettings = (targetProperty, value) => {
             this.setState(prevState => ({
                 settings: update(prevState.settings, {
@@ -227,12 +262,14 @@ const FieldWrapper = (WrappedComponent) => {
                     getStoreSettingsPropertyNoResponsive={this.getStoreSettingsPropertyNoResponsive}
                     cancelStateValue={this.cancelStateValue}
                     updateField={this.updateField}
-
+                    updateContentSubProperty={this.updateContentSubProperty}
+                    updateTranlatedContentSubProperty={this.updateTranlatedContentSubProperty}
                     {...this.props}
                 />
             );
         }
     }
+
     return HOC;
 };
 

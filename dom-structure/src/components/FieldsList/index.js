@@ -47,7 +47,7 @@ class FieldsList extends Component {
                                     return <MultipleImages {...params} />;
 
                                 default :
-                                    return <div className={'error'}><p>No field <strong>{field}</strong> matches</p>
+                                    return <div className={'error'}><p>No field <strong>{field.typefield}</strong> matches</p>
                                     </div>;
                             }
                         })

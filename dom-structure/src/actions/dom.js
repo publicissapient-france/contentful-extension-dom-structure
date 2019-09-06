@@ -157,6 +157,21 @@ export const updateField = (type, content, settings, number, numberParent) => ({
     indexSection: numberParent
 });
 
+export const updateFieldContent = (type, content, number, numberParent) => ({
+    type: 'UPDATE_FIELD_CONTENT',
+    typeField: type,
+    content: content,
+    indexComponent: number,
+    indexSection: numberParent
+});
+export const updateFieldSettings = (type, settings, number, numberParent) => ({
+    type: 'UPDATE_FIELD_SETTINGS',
+    typeField: type,
+    settings : settings,
+    indexComponent: number,
+    indexSection: numberParent
+});
+
 export const getField = (state, indexComponent, indexSection, nameProperty) => ({
     type: 'GET_FIELD',
     field : state.dom[indexSection].components[indexComponent].fields[nameProperty]

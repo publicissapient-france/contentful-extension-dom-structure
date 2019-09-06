@@ -212,7 +212,29 @@ export default {
                     multiple: 4
                 },
                 defaultValue: {
-                    images : null
+                    images : [
+                        {
+                            alt : {},
+                            asset : {
+                                A : {}
+                            }
+                        },{
+                            alt : {},
+                            asset : {
+                                A : {}
+                            }
+                        },{
+                            alt : {},
+                            asset : {
+                                A : {}
+                            }
+                        },{
+                            alt : {},
+                            asset : {
+                                A : {}
+                            }
+                        },
+                    ]
                 }
             },
             settings: {
@@ -238,7 +260,14 @@ export default {
                 responsive: ['A'],
                 parameters: {},
                 defaultValue: {
-                    image: null
+                    images : [
+                        {
+                            alt : {},
+                            asset : {
+                                A : {}
+                            }
+                        }
+                    ]
                 }
             },
             settings: {
@@ -316,7 +345,16 @@ export default {
                 responsive: ['M', 'T', 'D'],
                 parameters: {},
                 defaultValue: {
-                    image: null
+                    images : [
+                        {
+                            alt : {},
+                            asset : {
+                                M : {},
+                                T : {},
+                                D : {}
+                            }
+                        }
+                    ]
                 }
             },
             settings: {
@@ -383,6 +421,23 @@ export default {
                         }
                     }
                 }
+            }
+
+        },
+        {
+            name : 'Text Content',
+            nameProperty : 'TextContent',
+            typeField : 'TextMarkdown',
+            content : {
+                responsive : ['A'],
+                parameters : {},
+                defaultValue : {
+                    markdown : {}
+                }
+            },
+            settings : {
+                responsive : ['A'],
+                defaultValue: {}
             }
 
         }

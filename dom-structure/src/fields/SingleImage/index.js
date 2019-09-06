@@ -30,20 +30,18 @@ import Margin from '../../interfaces/Margin';
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
 import {ChoiceItemsConfirm, Content, Settings, Choices, Column} from './styled';
+import FieldWrapper from "../../HOC/FieldWrapper";
 
 
 class SingleImage extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            openSettings: false,
-            openContent: false
-        }
+        this.state = {}
     }
 
     componentDidMount() {
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
+        /*const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
         if (!FieldOnStore) {
             this.initField();
         } else {
@@ -58,11 +56,13 @@ class SingleImage extends Component {
                 if (!this.state.content.image) this.initContentImage()
                 if (isEmpty(this.state.settings)) this.initSettings()
             });
-        }
+        }*/
+        //if (isEmpty(this.props.content) || !this.props.content.images) this.initContent()
+
     };
 
     componentDidUpdate(prevProps) {
-        if (this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]
+        /*if (this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]
             !== prevProps.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]) {
 
             const currentFieldStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
@@ -80,50 +80,59 @@ class SingleImage extends Component {
                 openContent: false,
                 currentResponsiveMode: this.props.responsiveSettings[0]
             }));
-        }
+        }*/
     }
 
 
-    initField = () => {
+   /* initField = () => {
         this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
-    }
+    }*/
 
 
-    initContentImage = () => {
+    initContent = () => {
+        console.log('init content props content', this.props.content)
         let assetStructure = {};
 
         this.props.responsiveContent.length ? this.props.responsiveContent.map((mode) => {
             assetStructure[mode] = {};
         }) : {};
 
-        let image = {
+        let images = new Array(1).fill({
             alt: {},
             asset: assetStructure
-        };
+        });
 
-        this.setState(prevState => ({
+        const initialContent = {
+            images : images
+        }
+
+        this.props.initContent(initialContent);
+        console.log('init content singe image', initialContent);
+
+
+        /*this.setState(prevState => ({
             content: {
                 ...prevState.content,
                 image: image
             }
-        }));
+        }));*/
     }
 
-    initSettings = () => {
+   /* initSettings = () => {
         const initValue = this.props.defaultSettings;
         this.setState({
             settings: initValue
         }, () => {
             this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
         });
-    }
+    }*/
 
-    initResponsiveMode = () => {
+   /* initResponsiveMode = () => {
         const mode = this.props.responsiveContent[0] || this.props.responsiveSettings[0] || null;
         this.setState({currentResponsiveMode: mode})
-    }
+    }*/
 
-    updateTranlatedContent = (value, targetProperty) => {
+    /*updateTranlatedContent = (value, targetProperty) => {
         this.setState(prevState => ({
             content: update(prevState.content, {
                 [targetProperty]: {
@@ -131,9 +140,9 @@ class SingleImage extends Component {
                 }
             })
         }));
-    }
+    }*/
 
-    updateTranlatedContentImage = (value, targetProperty) => {
+  /*  updateTranlatedContentImage = (value, targetProperty) => {
         this.setState(prevState => ({
             content: update(prevState.content, {
                 image: {
@@ -145,7 +154,7 @@ class SingleImage extends Component {
         }));
     }
 
-    updateAsset = (value) => {
+    /*updateAsset = (value) => {
         this.setState(prevState => ({
             content: update(prevState.content, {
                 image: {
@@ -155,9 +164,9 @@ class SingleImage extends Component {
                 }
             })
         }));
-    }
+    }*/
 
-    updateSettings = (targetProperty, value) => {
+   /* updateSettings = (targetProperty, value) => {
         this.setState(prevState => ({
             settings: update(prevState.settings, {
                 [targetProperty]: {
@@ -167,10 +176,10 @@ class SingleImage extends Component {
             })
         }));
 
-    }
+    }*/
 
 
-    toggleContent = () => this.setState(prevState => ({
+    /*toggleContent = () => this.setState(prevState => ({
         openContent: !prevState.openContent,
         openSettings: false,
         currentResponsiveMode: this.props.responsiveContent[0]
@@ -184,32 +193,32 @@ class SingleImage extends Component {
 
     toggleResponsiveMode = (mode) => this.setState({
         currentResponsiveMode: mode
-    });
+    });*/
 
-    getAlt = () => this.state.content.image && this.state.content.image.alt && this.state.content.image.alt[this.props.indexLanguage] ? this.state.content.image.alt[this.props.indexLanguage] : '';
+    getAlt = () => this.props.content.images && this.props.content.images[0] && this.props.content.images[0].alt && this.props.content.images[0].alt[this.props.indexLanguage] ? this.props.content.images[0].alt[this.props.indexLanguage] : '';
 
-    getAsset = () => this.state.content.image && this.state.content.image.asset ? this.state.content.image.asset[this.state.currentResponsiveMode] : null
+    getAsset = () => this.props.content.images && this.props.content.images[0] && this.props.content.images[0].asset ? this.props.content.images[0].asset[this.props.currentResponsiveMode] : null
 
     getAssetToPreview = () => {
-        if(!this.state.content.image || !this.state.content.image.asset) return null
-        if(this.props.responsiveContent.includes(this.state.currentResponsiveMode)){
-            return this.state.content.image.asset[this.state.currentResponsiveMode]
+        if(!this.props.content.images || !this.props.content.images[0] || !this.props.content.images[0].asset) return null
+        if(this.props.responsiveContent.includes(this.props.currentResponsiveMode)){
+            return this.props.content.images[0].asset[this.props.currentResponsiveMode]
         }else{
-            return this.state.content.image.asset[this.props.responsiveContent[0]]
+            return this.props.content.images[0].asset[this.props.responsiveContent[0]]
         }
     }
 
-    isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings, this.state.storeSettings))
+    //isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings, this.state.storeSettings))
 
-    cancelStateValue = (e) => {
+    /*cancelStateValue = (e) => {
         e.preventDefault();
         this.setState(prevState => ({
             content:prevState.storeContent,
             settings: prevState.storeSettings
         }));
-    }
+    }*/
 
-    getCurrentSettingsProperty = (property) => this.state.settings[property] ? this.state.settings[property][this.state.currentResponsiveMode] : null
+   /* getCurrentSettingsProperty = (property) => this.state.settings[property] ? this.state.settings[property][this.state.currentResponsiveMode] : null
 
     getCurrentDefaultSettingsProperty = (property) => this.props.defaultSettings[property][this.state.currentResponsiveMode]
 
@@ -219,81 +228,75 @@ class SingleImage extends Component {
     }
 
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
-
+*/
     render() {
         const {dispatch, name, nameProperty, indexComponent, indexSection} = this.props;
 
-        if (!this.state.settings) return null
+        if (!this.props.settings) return null
         return (
             <div>
                 <Banner>
                     <div>
                         <ActiveCheckBox
-                            active={this.state.active}
-                            action={() => {
-                                this.setState({active: !this.state.active}, () => {
-                                    dispatch(toggleFieldActive(nameProperty, this.state.active, indexComponent, indexSection))
-                                });
-                            }}>
+                            active={this.props.active}
+                            action={this.props.toggleActive}>
                         </ActiveCheckBox>
                         <p>{name}</p>
                     </div>
                     <div>
                         <LanguageToggle
-                            hidden={(!this.state.openContent && !this.state.openSettings) || this.state.openSettings}/>
-                        <ResponsiveToggle responsive={this.getResponsiveChoices()}
-                                          currentMode={this.state.currentResponsiveMode}
-                                          action={this.toggleResponsiveMode}/>
-                        <Icon className={this.state.openContent ? 'active' : ''}
+                            hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
+                        <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
+                                          currentMode={this.props.currentResponsiveMode}
+                                          action={this.props.toggleResponsiveMode}/>
+                        <Icon className={this.props.openContent ? 'active' : ''}
                               onClick={() => {
-                                  this.toggleContent();
+                                  this.props.toggleContent();
                               }}><SvgContent/></Icon>
-                        <Icon className={this.state.openSettings ? 'active' : ''}
+                        <Icon className={this.props.openSettings ? 'active' : ''}
                               onClick={() => {
-                                  this.toggleSettings();
+                                  this.props.toggleSettings();
                               }}><SvgSetting/></Icon>
                     </div>
                 </Banner>
                 <Field>
-                    <Content className={!this.state.openContent ? 'hidden' : ''}>
+                    <Content className={!this.props.openContent ? 'hidden' : ''}>
                         <ImageUploader asset={this.getAsset()}
                                        alt={this.getAlt()}
-                                       index={null}
-                                       updateStateAsset={this.updateAsset}
-                                       updateStateTranslatedProps={this.updateTranlatedContentImage}
+                                       index={0}
+                                       updateStateAsset={this.props.updateContentSubProperty}
+                                       updateStateTranslatedProps={this.props.updateTranlatedContentSubProperty}
                         />
                     </Content>
-                    <Settings className={!this.state.openSettings ? 'hidden' : ''}>
+                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>
                             <AssetPreview
                                 locale={this.props.extensionInfo.extension.locales ? this.props.extensionInfo.extension.locales.default : null}
                                 asset={this.getAssetToPreview()}
                             />
                             <Column>
-                                <Size size={this.getCurrentSettingsProperty('size')}
-                                      storeValueSize={this.getCurrentStoreSettingsProperty('size')}
-                                      defaultSize={this.getCurrentDefaultSettingsProperty('size')}
-                                      updateStateProps={this.updateSettings}
+                                <Size size={this.props.getSettingsProperty('size')}
+                                      storeValueSize={this.props.getStoreSettingsProperty('size')}
+                                      defaultSize={this.props.getDefaultSettingsProperty('size')}
+                                      updateStateProps={this.props.updateSettings}
                                 />
-                                <Padding padding={this.getCurrentSettingsProperty('padding')}
-                                         storeValuePadding={this.getCurrentStoreSettingsProperty('padding')}
-                                         defaultPadding={this.getCurrentDefaultSettingsProperty('padding')}
-                                         updateStateProps={this.updateSettings}
+                                <Padding padding={this.props.getSettingsProperty('padding')}
+                                         storeValuePadding={this.props.getStoreSettingsProperty('padding')}
+                                         defaultPadding={this.props.getDefaultSettingsProperty('padding')}
+                                         updateStateProps={this.props.updateSettings}
                                 />
-                                <Margin margin={this.getCurrentSettingsProperty('margin')}
-                                        storeValueMargin={this.getCurrentStoreSettingsProperty('margin')}
-                                        defaultMargin={this.getCurrentDefaultSettingsProperty('margin')}
-                                        updateStateProps={this.updateSettings}
+                                <Margin margin={this.props.getSettingsProperty('margin')}
+                                        storeValueMargin={this.props.getStoreSettingsProperty('margin')}
+                                        defaultMargin={this.props.getDefaultSettingsProperty('margin')}
+                                        updateStateProps={this.props.updateSettings}
                                 />
                             </Column>
                         </Choices>
                     </Settings>
                 </Field>
-                <ChoiceItemsConfirm className={!this.isUpdated() ? 'hidden' : ''}>
-                    <ButtonBasic label={'Cancel'} disabled={!this.isUpdated()} action={this.cancelStateValue}/>
-                    <ButtonValidate label={'Update'} disabled={!this.isUpdated()} action={() => {
-                        dispatch(updateField(nameProperty, this.state.content, this.state.settings, indexComponent, indexSection));
-                    }}/>
+                <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
+                    <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
+                    <ButtonValidate label={'Update'} disabled={!this.props.updated} action={this.props.updateField}/>
                 </ChoiceItemsConfirm>
             </div>
         );
@@ -317,4 +320,7 @@ const mapStateToProps = state => ({
     indexLanguage: getCurrentLanguage(state).language
 });
 
-export default connect(mapStateToProps)(SingleImage);
+//export default connect(mapStateToProps)(SingleImage);
+
+const WrappedComponent = FieldWrapper(connect(mapStateToProps)(SingleImage))
+export default WrappedComponent;

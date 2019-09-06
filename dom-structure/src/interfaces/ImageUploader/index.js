@@ -85,7 +85,7 @@ class ImageUploader extends Component {
             asset: asset
         }, () => {
             this.assetIsValid();
-            this.props.updateStateAsset(this.state.asset, this.props.index);
+            this.props.updateStateAsset('images', 'asset', this.state.asset, this.props.index);
         })
     }
 
@@ -94,7 +94,7 @@ class ImageUploader extends Component {
             ...this.state,
             asset: {}
         }, () => {
-            this.props.updateStateAsset(this.state.asset, this.props.index);
+            this.props.updateStateAsset('images', 'asset', this.state.asset, this.props.index);
         })
     }
 
@@ -180,7 +180,6 @@ class ImageUploader extends Component {
                 onClickLinkExisting={this.onClickLinkExisting}
                 onClickNewAsset={this.onClickNewAsset}
                 onClickRemove={this.onClickRemove}
-                updateStateTranslatedProps={this.props.updateStateTranslatedProps}
                 valid={this.state.valid}
             />
 
@@ -201,7 +200,7 @@ class ImageUploader extends Component {
                     <input type={'text'}
                            value={alt}
                            onChange={e => {
-                               this.props.updateStateTranslatedProps(e.target.value, 'alt', index);
+                               this.props.updateStateTranslatedProps('images', 'alt', e.target.value, index);
                            }}/>
                 </Field>
             </Container>

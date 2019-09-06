@@ -15,23 +15,21 @@ import LanguageToggle from '../../containers/LanguageToggle';
 import ActiveCheckBox from '../../components/ActiveCheckBox';
 
 import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsFields';
+import {Banner, Field, InfoText} from '../../style/styledComponentsFields';
 import {ChoiceItemsConfirm, Content, Settings, Choices} from './styled'
 import InputMarkdown from "../../interfaces/InputMarkdown";
+import FieldWrapper from "../../HOC/FieldWrapper";
 
 
 class TextMarkdown extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            openSettings: false,
-            openContent: false
-        }
+        this.state = {}
     }
 
     componentDidMount() {
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
+       /* const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
         if (!FieldOnStore) {
             this.initField();
         } else {
@@ -47,11 +45,11 @@ class TextMarkdown extends Component {
                 if (!this.state.content.markdown) this.initContentMarkdown()
                 if (isEmpty(this.state.settings)) this.initSettings()
             });
-        }
+        }*/
     };
 
     componentDidUpdate(prevProps) {
-        if (this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]
+       /* if (this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]
             !== prevProps.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]) {
 
             const currentFieldStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
@@ -61,10 +59,10 @@ class TextMarkdown extends Component {
                 storeContent : currentFieldStore.content,
                 storeSettings : currentFieldStore.settings,
             });
-        }
+        }*/
     }
 
-    initField = () => {
+    /*initField = () => {
         this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
     }
 
@@ -99,7 +97,7 @@ class TextMarkdown extends Component {
         const mode = this.props.responsiveContent[0] || this.props.responsiveSettings[0] || null;
         this.setState({currentResponsiveMode: mode})
     }
-
+*//*
     updateTranlatedContent = (value, targetProperty) => {
         this.setState(prevState => ({
             content: {
@@ -110,9 +108,10 @@ class TextMarkdown extends Component {
                 }
             }
         }));
-    }
+    }*/
 
-    updateSettings = (targetProperty, value) => {
+
+  /*  updateSettings = (targetProperty, value) => {
         this.setState(prevState => ({
             settings: update(prevState.settings, {
                 [targetProperty]: {
@@ -122,8 +121,8 @@ class TextMarkdown extends Component {
         }));
 
     }
-
-    toggleContent = () => this.setState(prevState => ({
+*/
+   /* toggleContent = () => this.setState(prevState => ({
         openContent: !prevState.openContent,
         openSettings: false,
         currentResponsiveMode: this.props.responsiveContent[0]
@@ -138,14 +137,14 @@ class TextMarkdown extends Component {
     toggleResponsiveMode = (mode) => this.setState({
         currentResponsiveMode: mode
     });
+*/
+
+    getMarkdown = () => this.props.content.markdown && this.props.content.markdown[this.props.indexLanguage] ? this.props.content.markdown[this.props.indexLanguage] : '';
+
+   // isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings,this.state.storeSettings ))
 
 
-    getMarkdown = () => this.state.content.markdown && this.state.content.markdown[this.props.indexLanguage] ? this.state.content.markdown[this.props.indexLanguage] : '';
-
-    isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings,this.state.storeSettings ))
-
-
-    cancelStateValue = (e) => {
+  /*  cancelStateValue = (e) => {
         e.preventDefault();
         this.setState(prevState => ({
             content:prevState.storeContent,
@@ -163,56 +162,50 @@ class TextMarkdown extends Component {
     }
 
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
-
+*/
     render() {
         const {dispatch,indexLanguage, name, nameProperty, indexComponent, indexSection} = this.props;
-        if (!this.state.settings) return null
+        if (!this.props.settings) return null
         return (
             <div>
                 <Banner>
                     <div>
                         <ActiveCheckBox
-                            active={this.state.active}
-                            action={() => {
-                                this.setState({active: !this.state.active}, () => {
-                                    dispatch(toggleFieldActive(nameProperty, this.state.active, indexComponent, indexSection))
-                                });
-                            }}>
+                            active={this.props.active}
+                            action={this.props.toggleActive}>
                         </ActiveCheckBox>
                         <p>{name}</p>
                     </div>
                     <div>
                         <LanguageToggle
-                            hidden={(!this.state.openContent && !this.state.openSettings) || this.state.openSettings}/>
-                        <ResponsiveToggle responsive={this.getResponsiveChoices()}
-                                          currentMode={this.state.currentResponsiveMode}
-                                          action={this.toggleResponsiveMode}/>
-                        <Icon className={this.state.openContent ? 'active' : ''}
+                            hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
+                        <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
+                                          currentMode={this.props.currentResponsiveMode}
+                                          action={this.props.toggleResponsiveMode}/>
+                        <Icon className={this.props.openContent ? 'active' : ''}
                               onClick={() => {
-                                  this.toggleContent();
+                                  this.props.toggleContent();
                               }}><SvgContent/></Icon>
-                        <Icon className={this.state.openSettings ? 'active' : ''}
+                        <Icon className={this.props.openSettings ? 'active' : ''}
                               onClick={() => {
-                                  this.toggleSettings();
+                                  this.props.toggleSettings();
                               }}><SvgSetting/></Icon>
                     </div>
                 </Banner>
                 <Field>
-                    <Content className={!this.state.openContent ? 'hidden' : ''}>
-                        <InputMarkdown currentLanguage={indexLanguage} action={this.updateTranlatedContent} targetProperty={'markdown'}
+                    <Content className={!this.props.openContent ? 'hidden' : ''}>
+                        <InputMarkdown currentLanguage={indexLanguage} action={this.props.updateTranlatedContent} targetProperty={'markdown'}
                                        defaultValue={this.getMarkdown()}/>
                     </Content>
-                    <Settings className={!this.state.openSettings ? 'hidden' : ''}>
+                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>
-                            settings of TextMarkdown not available
+                            <InfoText>TextMarkdown field don't have settings</InfoText>
                         </Choices>
                     </Settings>
                 </Field>
-                <ChoiceItemsConfirm className={!this.isUpdated() ? 'hidden' : ''}>
-                    <ButtonBasic label={'Cancel'} disabled={!this.isUpdated()} action={this.cancelStateValue}/>
-                    <ButtonValidate label={'Update'} disabled={!this.isUpdated()} action={() => {
-                        dispatch(updateField(nameProperty, this.state.content, this.state.settings, indexComponent, indexSection));
-                    }}/>
+                <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
+                    <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
+                    <ButtonValidate label={'Update'} disabled={!this.props.updated} action={this.props.updateField}/>
                 </ChoiceItemsConfirm>
             </div>
         );
@@ -235,4 +228,7 @@ const mapStateToProps = state => ({
     indexLanguage: getCurrentLanguage(state).language
 });
 
-export default connect(mapStateToProps)(TextMarkdown);
+//export default connect(mapStateToProps)(TextMarkdown);
+
+const WrappedComponent = FieldWrapper(connect(mapStateToProps)(TextMarkdown))
+export default WrappedComponent;

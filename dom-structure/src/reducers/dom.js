@@ -126,7 +126,6 @@ const dom = (state = [], action) => {
             const componentToDown = state[action.indexParent].components[action.index - 1];
 
 
-
             return update(state, {
                 [action.indexParent]: {
                     components: {
@@ -186,9 +185,9 @@ const dom = (state = [], action) => {
 
         case 'INIT_FIELD':
             const newField = {
-                active : false,
-                content : {},
-                settings : {}
+                active: false,
+                content: {},
+                settings: {}
             }
             return update(state, {
                 [action.indexSection]: {
@@ -225,6 +224,35 @@ const dom = (state = [], action) => {
                             fields: {
                                 [action.typeField]: {
                                     content: {$set: action.content},
+                                    settings: {$set: action.settings}
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+        case 'UPDATE_FIELD_CONTENT':
+            return update(state, {
+                [action.indexSection]: {
+                    components: {
+                        [action.indexComponent]: {
+                            fields: {
+                                [action.typeField]: {
+                                    content: {$set: action.content}
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        case 'UPDATE_FIELD_SETTINGS':
+            return update(state, {
+                [action.indexSection]: {
+                    components: {
+                        [action.indexComponent]: {
+                            fields: {
+                                [action.typeField]: {
                                     settings: {$set: action.settings}
                                 }
                             }

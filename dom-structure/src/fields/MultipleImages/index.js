@@ -21,20 +21,18 @@ import Size from '../../interfaces/Size';
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
 import {ChoiceItemsConfirm, Content, Settings, Choices, ImagesSettings} from './styled';
+import FieldWrapper from "../../HOC/FieldWrapper";
 
 
 class MultipleImages extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            openSettings: false,
-            openContent: false
-        }
+        this.state = {}
     }
 
     componentDidMount() {
-        const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
+        /*const FieldOnStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
         if (!FieldOnStore) {
             this.initField();
         } else {
@@ -49,11 +47,13 @@ class MultipleImages extends Component {
                 if (!this.state.content.images) this.initContentImages()
                 if (isEmpty(this.state.settings)) this.initSettings()
             });
-        }
+        }*/
+        //if (!this.props.content ||  isEmpty(this.props.content) || !this.state.content.images) this.initContent()
+
     };
 
     componentDidUpdate(prevProps) {
-        if (this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]
+       /* if (this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]
             !== prevProps.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty]) {
 
             const currentFieldStore = this.props.dom.sections[this.props.indexSection].components[this.props.indexComponent].fields[this.props.nameProperty];
@@ -70,14 +70,14 @@ class MultipleImages extends Component {
                 openContent: false,
                 currentResponsiveMode: this.props.responsiveSettings[0]
             }));
-        }
+        }*/
     }
 
-    initField = () => {
+ /*   initField = () => {
         this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
-    }
+    }*/
 
-    initContentImages = () => {
+    initContent = () => {
         const length = this.props.parametersContent.multiple;
         let assetStructure = {};
 
@@ -90,28 +90,37 @@ class MultipleImages extends Component {
             asset: assetStructure
         });
 
-        this.setState(prevState => ({
+        const initialContent = {
+            images : images
+        }
+
+       /* this.setState(prevState => ({
             content: {
                 ...prevState.content,
                 images: images
             }
-        }));
+        }));*/
+        this.props.initContent(initialContent);
+
+        console.log('init content multiple image', initialContent);
+
+
     }
 
-    initSettings = () => {
-        const initValue = this.props.defaultSettings;
+   /* initSettings = () => {
+       const initValue = this.props.defaultSettings;
         this.setState({
             settings: initValue
         }, () => {
             this.props.dispatch(updateField(this.props.nameProperty, this.state.content, this.state.settings, this.props.indexComponent, this.props.indexSection));
         });
-    }
+    }*/
 
-    initResponsiveMode = () => {
+    /*initResponsiveMode = () => {
         const mode = this.props.responsiveContent[0] || this.props.responsiveSettings[0] || null;
         this.setState({currentResponsiveMode: mode})
     }
-
+*//*
     updateTranlatedContent = (value, targetProperty) => {
         this.setState(prevState => ({
             content: update(prevState.content, {
@@ -135,7 +144,7 @@ class MultipleImages extends Component {
             })
         }));
     }
-
+*//*
     updateAsset = (value, index) => {
             this.setState(prevState => ({
                 content: update(prevState.content, {
@@ -176,13 +185,13 @@ class MultipleImages extends Component {
 
     toggleResponsiveMode = (mode) => this.setState({
         currentResponsiveMode: mode
-    });
+    });*/
 
-    getAlt = (i) => this.state.content.images && this.state.content.images[i].alt && this.state.content.images[i].alt[this.props.indexLanguage] ? this.state.content.images[i].alt[this.props.indexLanguage] : '';
+    getAlt = (i) => this.props.content.images && this.props.content.images[i].alt && this.props.content.images[i].alt[this.props.indexLanguage] ? this.props.content.images[i].alt[this.props.indexLanguage] : '';
 
-    getAsset = (i) => this.state.content.images[i] ? this.state.content.images[i].asset[this.state.currentResponsiveMode] : null;
+    getAsset = (i) => this.props.content.images[i] ? this.props.content.images[i].asset[this.props.currentResponsiveMode] : null;
 
-    isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings, this.state.storeSettings))
+   /* isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings, this.state.storeSettings))
 
     cancelStateValue = (e) => {
         e.preventDefault();
@@ -202,71 +211,65 @@ class MultipleImages extends Component {
     }
 
     getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
-
+*/
     render() {
         const {dispatch, name, nameProperty, indexComponent, indexSection} = this.props;
 
-        if (!this.state.settings) return null
+        if (!this.props.settings) return null
         return (
             <div>
                 <Banner>
                     <div>
                         <ActiveCheckBox
-                            active={this.state.active}
-                            action={() => {
-                                this.setState({active: !this.state.active}, () => {
-                                    dispatch(toggleFieldActive(nameProperty, this.state.active, indexComponent, indexSection))
-                                });
-                            }}>
+                            active={this.props.active}
+                            action={this.props.toggleActive}>
                         </ActiveCheckBox>
                         <p>{name}</p>
                     </div>
                     <div>
                         <LanguageToggle
-                            hidden={(!this.state.openContent && !this.state.openSettings) || this.state.openSettings}/>
-                        <ResponsiveToggle responsive={this.getResponsiveChoices()}
+                            hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
+                        <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
                                           currentMode={this.state.currentResponsiveMode}
-                                          action={this.toggleResponsiveMode}/>
-                        <Icon className={this.state.openContent ? 'active' : ''}
+                                          action={this.props.toggleResponsiveMode}/>
+                        <Icon className={this.props.openContent ? 'active' : ''}
                               onClick={() => {
-                                  this.toggleContent();
+                                  this.props.toggleContent();
                               }}><SvgContent/></Icon>
-                        <Icon className={this.state.openSettings ? 'active' : ''}
+                        <Icon className={this.props.openSettings ? 'active' : ''}
                               onClick={() => {
-                                  this.toggleSettings();
+                                  this.props.toggleSettings();
                               }}><SvgSetting/></Icon>
                     </div>
                 </Banner>
                 <Field>
-                    <Content className={!this.state.openContent ? 'hidden' : ''}>
+                    <Content className={!this.props.openContent ? 'hidden' : ''}>
                         {
-                            this.state.content.images ?
-                                this.state.content.images.map((image, i) => {
+                            this.props.content.images ?
+                                this.props.content.images.map((image, i) => {
                                     return <ImageUploader asset={this.getAsset(i)}
                                                           alt={this.getAlt(i)}
                                                           index={i}
                                                           key={i}
-                                                          updateStateAsset={this.updateAsset}
-                                                          updateStateTranslatedProps={this.updateTranlatedContentImage}
+                                                          updateStateAsset={this.props.updateContentSubProperty}
+                                                          updateStateTranslatedProps={this.props.updateTranlatedContentSubProperty}
                                     />
                                 }) : null
                         }
                     </Content>
-                    <Settings className={!this.state.openSettings ? 'hidden' : ''}>
+                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>
-                            <Size size={this.getCurrentSettingsProperty('size')}
-                                  storeValueSize={this.getCurrentStoreSettingsProperty('size')}
-                                  defaultSize={this.getCurrentDefaultSettingsProperty('size')}
-                                  updateStateProps={this.updateSettings}
+                            <Size size={this.props.getSettingsProperty('size')}
+                                  storeValueSize={this.props.getStoreSettingsProperty('size')}
+                                  defaultSize={this.props.getDefaultSettingsProperty('size')}
+                                  updateStateProps={this.props.updateSettings}
                             />
                         </Choices>
                     </Settings>
                 </Field>
-                <ChoiceItemsConfirm className={!this.isUpdated() ? 'hidden' : ''}>
-                    <ButtonBasic label={'Cancel'} disabled={!this.isUpdated()} action={this.cancelStateValue}/>
-                    <ButtonValidate label={'Update'} disabled={!this.isUpdated()} action={() => {
-                        dispatch(updateField(nameProperty, this.state.content, this.state.settings, indexComponent, indexSection));
-                    }}/>
+                <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
+                    <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
+                    <ButtonValidate label={'Update'} disabled={!this.props.updated} action={this.props.updateField}/>
                 </ChoiceItemsConfirm>
             </div>
         );
@@ -289,4 +292,7 @@ const mapStateToProps = state => ({
     indexLanguage: getCurrentLanguage(state).language
 });
 
-export default connect(mapStateToProps)(MultipleImages);
+//export default connect(mapStateToProps)(MultipleImages);
+
+const WrappedComponent = FieldWrapper(connect(mapStateToProps)(MultipleImages))
+export default WrappedComponent;

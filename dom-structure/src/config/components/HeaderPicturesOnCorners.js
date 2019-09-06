@@ -106,28 +106,28 @@ export default {
                             typeface: null,
                             weight: null,
                             style: null,
-                            size: '28',
-                            lineHeight: '40',
+                            size: null,
+                            lineHeight: null,
                             letterSpacing: '0'
                         },
                         T: {
-                            theme: 'Paragraph',
+                            theme: 'Title1',
                             family: null,
                             typeface: null,
                             weight: null,
-                            style: 'italic',
-                            size: '18',
-                            lineHeight: '32',
+                            style: null,
+                            size: null,
+                            lineHeight: null,
                             letterSpacing: '0'
                         },
                         D: {
-                            theme: 'TitleLight',
+                            theme: 'Title1',
                             family: null,
                             typeface: null,
                             weight: null,
-                            style: 'italic',
-                            size: '16',
-                            lineHeight: '24',
+                            style: null,
+                            size: null,
+                            lineHeight: null,
                             letterSpacing: '0'
                         }
                     },
@@ -203,23 +203,23 @@ export default {
                     },
                     font: {
                         M: {
-                            theme: 'Title1',
+                            theme: 'TitleLight',
                             family: null,
                             typeface: null,
                             weight: null,
                             style: null,
-                            size: '28',
-                            lineHeight: '40',
+                            size: null,
+                            lineHeight: null,
                             letterSpacing: '0'
                         },
                         T: {
-                            theme: 'Paragraph',
+                            theme: 'TitleLight',
                             family: null,
                             typeface: null,
                             weight: null,
-                            style: 'italic',
-                            size: '18',
-                            lineHeight: '32',
+                            style: null,
+                            size: null,
+                            lineHeight: null,
                             letterSpacing: '0'
                         },
                         D: {
@@ -227,9 +227,9 @@ export default {
                             family: null,
                             typeface: null,
                             weight: null,
-                            style: 'italic',
-                            size: '16',
-                            lineHeight: '24',
+                            style: null,
+                            size: null,
+                            lineHeight: null,
                             letterSpacing: '0'
                         }
                     },
@@ -262,7 +262,16 @@ export default {
                 responsive: ['M', 'T', 'D'],
                 parameters: {},
                 defaultValue: {
-                    image: null
+                    images : [
+                        {
+                            alt : {},
+                            asset : {
+                                M : {},
+                                T : {},
+                                D : {}
+                            }
+                        }
+                    ]
                 }
             },
             settings: {
@@ -342,7 +351,29 @@ export default {
                     multiple: 4
                 },
                 defaultValue: {
-                    images : null
+                    images : [
+                        {
+                            alt : {},
+                            asset : {
+                                A : {}
+                            }
+                        },{
+                            alt : {},
+                            asset : {
+                                A : {}
+                            }
+                        },{
+                            alt : {},
+                            asset : {
+                                A : {}
+                            }
+                        },{
+                            alt : {},
+                            asset : {
+                                A : {}
+                            }
+                        },
+                    ]
                 }
             },
             settings: {
