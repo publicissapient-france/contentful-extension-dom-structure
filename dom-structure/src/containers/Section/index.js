@@ -5,14 +5,16 @@ import SvgSetting from '../../components/svg/SvgSetting';
 import SvgRange from '../../components/svg/SvgRange';
 import SvgCheck from '../../components/svg/SvgCheck';
 import SvgTrash from '../../components/svg/SvgTrash';
+import SvgArrowDouble from '../../components/svg/SvgArrowDouble';
 import ComponentDOM from '../ComponentDOM/index';
+
 import {
     Container,
     Icon,
     Range,
     SafeDelete
 } from '../../style/styledComponents';
-import { Settings, TopBar, Active, Actions, Description, FormSection, AddChild, Children } from './styled';
+import { ContainerSection, Settings, TopBar, Active, Actions, Description, FormSection, AddChild, Children, Fields,FieldsContainer, Toggle, Banner  } from './styled';
 import {
     updateSection,
     removeSection,
@@ -22,12 +24,14 @@ import {
 } from '../../actions/index';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonDelete from '../../components/ui/ButtonDelete';
-import sectionsConfig from '../../config/sections/*.js';
 import update from 'react-addons-update';
 import AddComponent from '../AddComponent/index';
 import ButtonValidate from '../../components/ui/ButtonValidate';
 
 import PropTypes from 'prop-types';
+import FieldsListOfSection from "../../components/FieldsListOfSection";
+import sectionConfig from '../../config/sections/*.js';
+
 
 class Section extends Component {
     constructor (props) {
@@ -37,7 +41,8 @@ class Section extends Component {
             openSettings: false,
             openAdd: false,
             openSafeDelete: false,
-            section: null
+            section: null,
+            triggerOpening: false
         };
     }
 
@@ -87,9 +92,16 @@ class Section extends Component {
         openAdd: false,
         openSafeDelete: false
     })
+    triggerOpening = () => this.setState(prevState => ({
+        triggerOpening: !prevState.triggerOpening
+    }))
 
     isUpdated = () => (this.state.section && (this.state.section.name !== this.props.section.name ||
         this.state.section.model !== this.props.section.model))
+
+    getSectionFields = () => {
+        return sectionConfig[this.props.section.model].default.fields;
+    }
 
     render () {
         const { dispatch, domLength, section, index } = this.props;
@@ -100,7 +112,7 @@ class Section extends Component {
         ) : null;
         if (!this.state.section) return null;
         return (
-            <Container>
+            <ContainerSection>
                 <TopBar>
                     <Description>
                         <Active
@@ -161,7 +173,7 @@ class Section extends Component {
                                     this.updateModel(e.target.value);
                                 }}>
                                 {
-                                    Object.keys(sectionsConfig).map((key, i) => {
+                                    Object.keys(sectionConfig).map((key, i) => {
                                         return <option value={key} key={i}>{key}</option>;
                                     })
                                 }
@@ -193,15 +205,27 @@ class Section extends Component {
                 <AddChild>
                     <AddComponent index={index} open={this.state.openAdd} parent={this}/>
                 </AddChild>
+                <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>
+                    <Banner>
+                        <p> Content & Specifications </p>
+                        <Toggle>
+                            <Icon className={['toggleAll', !this.state.triggerOpening ? '' : 'rotate']}
+                                  onClick={() => this.triggerOpening()}><SvgArrowDouble/></Icon>
+                        </Toggle>
+                    </Banner>
+                    <Fields>
+                        <FieldsListOfSection triggerOpening={this.state.triggerOpening} fields={this.getSectionFields()} index={index}/>
+                    </Fields>
+                </FieldsContainer>
                 <Children>{children}</Children>
-            </Container>
+            </ContainerSection>
         );
     }
 };
 
 Section.propTypes = {
     section: PropTypes.shape({
-        active: PropTypes.bool.isRequired,
+        active: PropTypes.bool,
         name: PropTypes.string.isRequired,
         model: PropTypes.string.isRequired,
     }),

@@ -7,16 +7,16 @@ import {compose} from 'redux';
 import {
     getCurrentDOM,
     getCurrentLanguage,
-    initField,
-    updateField,
-    toggleFieldActive,
-    updateFieldContent,
-    updateFieldSettings
+    initFieldOfSection,
+    updateFieldOfSection,
+    toggleFieldActiveOfSection,
+    updateFieldContentOfSection,
+    updateFieldSettingsOfSection
 } from '../actions';
 import update from 'react-addons-update';
 import PropTypes from 'prop-types';
 
-const FieldWrapper = WrappedComponent => {
+const FieldWrapperOfSection = WrappedComponent => {
     class HOC extends Component {
         constructor(props) {
             super(props);
@@ -29,7 +29,6 @@ const FieldWrapper = WrappedComponent => {
         }
 
         componentDidMount() {
-            console.log('PROPS FieldWrapper',this.props);
             const FieldOnStore = this.getFieldOnStore(this.props);
 
             if (!FieldOnStore) {
@@ -66,17 +65,12 @@ const FieldWrapper = WrappedComponent => {
             }
         }
 
-        getFieldOnStore = ({dom, indexSection, indexComponent, nameProperty }) => {
-            console.log('dom on getFieldstore', dom.sections);
-            console.log('dom on dom.sections[indexSection].components',dom.sections[indexSection].components);
-            console.log('dom on indexComponent',indexComponent);
-            console.log('dom on dom.sections[indexSection].components[indexComponent]',dom.sections[indexSection].components[indexComponent]);
-
-            return dom.sections[indexSection].components[indexComponent].fields[nameProperty];
+        getFieldOnStore = ({dom, indexSection, nameProperty }) => {
+            return dom.sections[indexSection].fields ? dom.sections[indexSection].fields[nameProperty] : null;
         }
 
         initField = () => {
-            this.props.dispatch(initField(this.props.nameProperty, this.props.indexComponent, this.props.indexSection));
+            this.props.dispatch(initFieldOfSection(this.props.nameProperty, this.props.indexSection));
         }
 
         initResponsiveMode = () => {
@@ -88,14 +82,14 @@ const FieldWrapper = WrappedComponent => {
             this.setState({
                 content: initialValue
             }, () => {
-                this.props.dispatch(updateFieldContent(this.props.nameProperty, this.state.content, this.props.indexComponent, this.props.indexSection));
+                this.props.dispatch(updateFieldContentOfSection(this.props.nameProperty, this.state.content, this.props.indexSection));
             });
         }
         initSettings = initialValue => {
             this.setState({
                 settings: initialValue
             }, () => {
-                this.props.dispatch(updateFieldSettings(this.props.nameProperty, this.state.settings, this.props.indexComponent, this.props.indexSection));
+                this.props.dispatch(updateFieldSettingsOfSection(this.props.nameProperty, this.state.settings, this.props.indexSection));
             });
         }
 
@@ -129,7 +123,7 @@ const FieldWrapper = WrappedComponent => {
             this.setState(prevState => ({
                 active: !prevState.active
             }), () => {
-                this.props.dispatch(toggleFieldActive(this.props.nameProperty, this.state.active, this.props.indexComponent, this.props.indexSection));
+                this.props.dispatch(toggleFieldActiveOfSection(this.props.nameProperty, this.state.active, this.props.indexSection));
             });
         }
 
@@ -208,10 +202,10 @@ const FieldWrapper = WrappedComponent => {
         }
 
         updateField = () => {
-            const {dispatch, nameProperty, indexComponent, indexSection} = this.props;
+            const {dispatch, nameProperty, indexSection} = this.props;
             const {content, settings} = this.state;
 
-            dispatch(updateField(nameProperty, content, settings, indexComponent, indexSection));
+            dispatch(updateFieldOfSection(nameProperty, content, settings, indexSection));
         }
 
         cancelStateValue = e => {
@@ -264,9 +258,8 @@ const FieldWrapper = WrappedComponent => {
     return HOC;
 };
 
-FieldWrapper.propTypes = {
+FieldWrapperOfSection.propTypes = {
     indexSection: PropTypes.number.isRequired,
-    indexComponent: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     nameProperty: PropTypes.string.isRequired,
     typeField: PropTypes.string.isRequired,
@@ -283,7 +276,7 @@ const mapStateToProps = state => ({
 
 const composedFieldWrapper = compose(
     connect(mapStateToProps, null),
-    FieldWrapper
+    FieldWrapperOfSection
 );
 
 export default composedFieldWrapper;

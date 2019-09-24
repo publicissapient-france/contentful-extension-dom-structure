@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FieldContainer } from './styled';
-import { TemplateForComponent } from '../../fields/Template/index';
-import Text from '../../fields/Text/index';
-import TextMarkdown from '../../fields/TextMarkdown/index';
-import SingleImage from '../../fields/SingleImage/index';
-import MultipleImages from '../../fields/MultipleImages/index';
+import { TemplateForSection } from '../../fields/Template/index';
 
-class FieldsList extends Component {
+class FieldsListOfSection extends Component {
     render () {
-        const { fields, index, indexParent, triggerOpening } = this.props;
+        const { fields, index, triggerOpening } = this.props;
         return (
             <FieldContainer>
+
                 {
                     fields.map((field, i) => {
                         const params = {
-                            indexComponent: index,
-                            indexSection: indexParent,
+                            indexSection: index,
                             name: field.name,
                             nameProperty: field.nameProperty,
                             typeField: field.typeField,
@@ -30,19 +26,7 @@ class FieldsList extends Component {
                         };
                         switch (field.typeField) {
                         case 'Template':
-                            return <TemplateForComponent {...params}/>;
-
-                        case 'Text':
-                            return <Text {...params} />;
-
-                        case 'TextMarkdown':
-                            return <TextMarkdown {...params} />;
-
-                        case 'SingleImage':
-                            return <SingleImage {...params} />;
-
-                        case 'MultipleImages':
-                            return <MultipleImages {...params} />;
+                            return <TemplateForSection {...params}/>;
 
                         default :
                             return <div className={'error'}><p>No field <strong>{field.typefield}</strong> matches</p>
@@ -55,11 +39,10 @@ class FieldsList extends Component {
     }
 };
 
-FieldsList.propTypes = {
+FieldsListOfSection.propTypes = {
     fields: PropTypes.array.isRequired,
     index: PropTypes.number.isRequired,
-    indexParent: PropTypes.number,
     triggerOpening: PropTypes.bool.isRequired
 };
 
-export default FieldsList;
+export default FieldsListOfSection;

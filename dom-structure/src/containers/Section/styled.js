@@ -1,10 +1,13 @@
 import styled from 'styled-components';
-import { Form, OptionsBlock, Icon } from '../../style/styledComponents';
+import { Form, OptionsBlock, Icon, Container } from '../../style/styledComponents';
 import { extensionTheme } from '../../style/theme';
 import { CheckBox } from '../../style/styledComponentsFields';
 
+export const ContainerSection = styled(Container)`
+
+`;
 export const Settings = styled(OptionsBlock)`
-  
+  padding-right : 15px;
 `;
 export const TopBar = styled.div`
   width : 100%;
@@ -24,6 +27,8 @@ export const Actions = styled(Description)`
 export const Children = styled.div`
   display : flex;
   flex-wrap : wrap;
+  padding-right : 15px;
+
 `;
 
 export const AddChild = styled.div`
@@ -93,14 +98,15 @@ export const Banner = styled.div`
   }
 `;
 
+
 export const Toggle = styled.div`
   display : flex;
 `;
 
 export const FieldsContainer = styled.div`
- 
+ padding-bottom : 10px;
 `;
 
 export const Fields = styled.div`
- 
+
 `;

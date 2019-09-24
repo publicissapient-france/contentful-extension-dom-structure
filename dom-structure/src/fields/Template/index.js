@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import FieldWrapper from '../../HOC/FieldWrapper';
+import FieldWrapperOfSection from '../../HOC/FieldWrapperOfSection';
 
 import LanguageToggle from '../../containers/LanguageToggle';
 import SvgSetting from '../../components/svg/SvgSetting';
@@ -85,3 +86,8 @@ class Template extends Component {
 
 const WrappedComponent = FieldWrapper(Template);
 export default WrappedComponent;
+
+export const TemplateForComponent = FieldWrapper(Template);
+export const TemplateForSection = FieldWrapperOfSection(Template);
+
+
