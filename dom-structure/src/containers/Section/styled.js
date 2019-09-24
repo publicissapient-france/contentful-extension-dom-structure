@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Form, OptionsBlock } from '../../style/styledComponents';
+import { Form, OptionsBlock, Icon } from '../../style/styledComponents';
 import { extensionTheme } from '../../style/theme';
 import { CheckBox } from '../../style/styledComponentsFields';
 
@@ -55,4 +55,52 @@ export const Active = styled(CheckBox)`
             display:block;
         }
     }
+`;
+
+
+export const Banner = styled.div`
+  display : flex;
+  align-items : center;
+  justify-content: space-between;
+  width : 100%;
+  background : ${ extensionTheme.orange }; 
+  color :  ${ extensionTheme.orange }; 
+  padding-right : 3px;
+  
+  & p{
+    padding-left : 10px;
+    text-transform : uppercase;
+    font-weight : 300;
+  }
+  
+  & ${ Icon }{
+    height : 40px;
+    
+  & svg{
+    //width : 40px;
+    //height : 40px;
+  }
+    
+    & svg g path, & svg  path, & svg rect {
+        fill : ${ extensionTheme.white };   
+    }
+    
+    &:hover{
+        & svg g path, & svg  path {
+            fill : ${ extensionTheme.grey10 };   
+        }
+    }
+  }
+`;
+
+export const Toggle = styled.div`
+  display : flex;
+`;
+
+export const FieldsContainer = styled.div`
+ 
+`;
+
+export const Fields = styled.div`
+ 
 `;

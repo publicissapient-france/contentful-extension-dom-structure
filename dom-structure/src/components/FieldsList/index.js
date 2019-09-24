@@ -59,7 +59,7 @@ class FieldsList extends Component {
 FieldsList.propTypes = {
     fields: PropTypes.array.isRequired,
     index: PropTypes.number.isRequired,
-    indexParent: PropTypes.number.isRequired,
+    indexParent: PropTypes.number,
     triggerOpening: PropTypes.bool.isRequired
 };
 
