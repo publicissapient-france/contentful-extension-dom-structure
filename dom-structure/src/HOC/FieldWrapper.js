@@ -67,11 +67,6 @@ const FieldWrapper = WrappedComponent => {
         }
 
         getFieldOnStore = ({dom, indexSection, indexComponent, nameProperty }) => {
-            console.log('dom on getFieldstore', dom.sections);
-            console.log('dom on dom.sections[indexSection].components',dom.sections[indexSection].components);
-            console.log('dom on indexComponent',indexComponent);
-            console.log('dom on dom.sections[indexSection].components[indexComponent]',dom.sections[indexSection].components[indexComponent]);
-
             return dom.sections[indexSection].components[indexComponent].fields[nameProperty];
         }
 
