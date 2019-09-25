@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {DotContainer} from './styled';
+import React, { Component } from 'react';
+import { DotContainer } from './styled';
 import PropTypes from 'prop-types';
 
 const classByState = {
@@ -8,10 +8,6 @@ const classByState = {
 };
 
 class Dot extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     getClassName = () => {
         const state = this.getElementState();
         return classByState[state];
@@ -24,12 +20,10 @@ class Dot extends Component {
         return 'DISABLED';
     }
 
-    render() {
-        const { enabled } = this.props;
-        return ( <DotContainer className={this.getClassName()}/> )
+    render () {
+        return (<DotContainer className={this.getClassName()}/>);
     }
 }
-
 
 Dot.propTypes = {
     enabled: PropTypes.bool

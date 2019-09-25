@@ -1,5 +1,5 @@
-import {extensionTheme} from "../../style/theme";
-import styled from "styled-components";
+import { extensionTheme } from '../../style/theme';
+import styled from 'styled-components';
 
 export const DotContainer = styled.div`
    width : 30px;
@@ -17,7 +17,7 @@ export const DotContainer = styled.div`
        -moz-border-radius: 50%;
        -webkit-border-radius: 50%;
        border-radius: 50%;
-       background-color: ${ extensionTheme.blueM};
+       background-color: ${ extensionTheme.blueM };
        display : none;
     }
     

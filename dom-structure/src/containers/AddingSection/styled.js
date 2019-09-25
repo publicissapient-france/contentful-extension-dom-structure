@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {contentfulTheme} from "../../style/theme";
+import styled from 'styled-components';
+import { contentfulTheme } from '../../style/theme';
 
 export const Button = styled.button`
   border : none;

@@ -5,6 +5,7 @@ import { Extension, MainContainer } from '../style/styledComponents';
 import ButtonAddSection from './AddingSection';
 import Section from './Section/index';
 import AddSection from './AddSection/index';
+import isEqual from 'lodash/isEqual';
 import GlobalStyle from '../style/globalStyle';
 import {
     initDOM,
@@ -14,7 +15,7 @@ import {
     initStyleInformation,
     addFontFaces,
     getFontfaces,
-    getCurrentStyle
+    getCurrentStyle, getCurrentDOM
 } from '../actions';
 import { extractActiveValue, arrayToString, extractFontValueToCSS } from '../utils/functions';
 
@@ -23,7 +24,6 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            dom: null,
             openAddSectionTop: false
         };
 
@@ -34,36 +34,46 @@ class App extends React.Component {
 
     componentDidMount = async () => {
         if (this.props.extension.field && this.props.extension.field.getValue()) {
+            console.log('TEST EXTENSION FIELD VALUE', this.props.extension.field.getValue());
             this.props.dispatch(initDOM(this.props.extension.field.getValue().dom));
             this.props.dispatch(initDOMbuild(this.props.extension.field.getValue().build));
             this.props.dispatch(initExtensionInformation(this.props.extension));
             this.props.dispatch(initVisibility());
-            this.setState({ state: this.state });
         }
 
         this.detachFns = [];
 
         const fields = this.props.extension.entry.fields;
         for (let key in fields) {
-
             this.detachFns.push(
                 fields[key].onValueChanged(this.onViewingEntryUpdated)
             );
-
-
         }
         this.detachFns.push(
             this.props.extension.entry.onSysChanged(this.onViewingEntryUpdated)
         );
 
-        this.subscribe();
         this.props.extension.window.startAutoResizer();
 
         await this.initStyleStore();
-
     }
 
-    componentDidUpdate = () => {}
+    componentDidUpdate = prevProps => {
+        if (!isEqual(prevProps.dom, this.props.dom)) {
+            console.log('DOM IS UPDATED ON UPDATE');
+            console.log('DOM ', this.props.dom);
+
+            if (!this.props.extension.field.getValue()) {
+                console.log('aucune valeur à init');
+                this.setFieldValue();
+            }
+
+            if (this.props.extension.field.getValue() && this.props.extension.field.getValue().dom && !isEqual(this.props.dom.sections, this.props.extension.field.getValue().dom)) {
+                this.setFieldValue();
+                console.log('SET FIELD VALUE CONTENTFUL');
+            }
+        }
+    }
 
     componentWillUnmount = () => {
         this.detachFns.forEach(detach => detach());
@@ -71,21 +81,11 @@ class App extends React.Component {
     }
 
     setFieldValue = () => {
-        extractActiveValue(this.props.store.getState().dom);
-        this.setState({
-            dom: this.props.store.getState().dom
-        });
-        this.props.extension.field.setValue(
-            {
+        this.props.extension.field.removeValue().then(() => {
+            this.props.extension.field.setValue({
                 dom: this.props.store.getState().dom,
                 build: JSON.stringify(extractActiveValue(this.props.store.getState().dom))
-            }
-        );
-    }
-
-    subscribe = () => {
-        this.props.store.subscribe(() => {
-            this.setFieldValue();
+            });
         });
     }
 
@@ -100,7 +100,6 @@ class App extends React.Component {
     getStyleGuide = () => {
         if (!this.props.extension.entry.fields['styleGuide'].getValue()) return;
         let styleGuideID = this.props.extension.entry.fields['styleGuide'].getValue().sys.id;
-        const locale = this.props.extension.locales.default;
         return this.props.extension.space
             .getEntries({
                 'sys.id': styleGuideID
@@ -109,8 +108,6 @@ class App extends React.Component {
                 return result.items[0].fields;
             });
     }
-
-
 
     initStyleStore = async () => {
         const locale = this.props.extension.locales.default;
@@ -125,7 +122,6 @@ class App extends React.Component {
             this.props.dispatch(addFontFaces(extractedValue));
         });
     };
-
 
     getTypographies = typographies => {
         const locale = this.props.extension.locales.default;
@@ -147,7 +143,6 @@ class App extends React.Component {
                 return result.fields.file[this.props.extension.locales.default].url;
             });
     }
-
 
     onError = error => {
         this.props.extension.notifier.error(error.message);
@@ -188,8 +183,8 @@ class App extends React.Component {
         return (
             <section>
                 {
-                    this.props.store.getState().dom.map((section, i) =>
-                        <Section key={i} section={section} index={i} domLength={this.props.store.getState().dom.length}/>
+                    this.props.dom.sections.map((section, i) =>
+                        <Section key={i} section={section} index={i} domLength={this.props.dom.sections.length}/>
                     )
                 }
             </section>
@@ -197,9 +192,9 @@ class App extends React.Component {
     }
 }
 
-
 const mapStateToProps = state => ({
     fonts: getCurrentStyle(state).style.fonts,
+    dom: getCurrentDOM(state),
     fontfaces: getFontfaces(state).value
 });
 export default connect(mapStateToProps)(App);

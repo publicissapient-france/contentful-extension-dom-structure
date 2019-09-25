@@ -1,13 +1,12 @@
-import styled from "styled-components";
-import {Container, Form, Icon, OptionsBlock} from "../../style/styledComponents";
-import { CheckBox} from "../../style/styledComponentsFields";
-import {extensionTheme} from "../../style/theme";
+import styled from 'styled-components';
+import { Container, Form, Icon } from '../../style/styledComponents';
+import { CheckBox } from '../../style/styledComponentsFields';
+import { extensionTheme } from '../../style/theme';
 
 export const ContainerComponent = styled(Container)`
   border: 1px solid ${ extensionTheme.grey };
   border-left : 5px solid ${ extensionTheme.blueM }; 
   width : 100%;
-  padding-right :0px;
   margin-top :0px;
   margin-left : 15px;
   background : ${ extensionTheme.white };
@@ -39,7 +38,6 @@ export const Languages = styled.div`
   width : fit-content;
   justify-content : space-between;
 `;
-
 
 export const Banner = styled.div`
   display : flex;
@@ -105,8 +103,7 @@ export const Toggle = styled.div`
   display : flex;
 `;
 
-
-//STYLE REFONT
+// STYLE REFONT
 export const FieldsContainer = styled.div`
  
 `;

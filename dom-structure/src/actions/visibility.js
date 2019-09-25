@@ -24,12 +24,3 @@ export const getCurrentLanguage = state => ({
     type: 'GET_LANGUAGE',
     language: state.visibility.selectedLanguage
 });
-
-
-
-
-/*
-export const getResponsiveMode = state => ({
-    type: 'GET_RESPONSIVE_MODE',
-    mode: state.visibility.responsiveMode
-});*/

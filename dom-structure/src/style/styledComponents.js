@@ -154,7 +154,6 @@ export const Container = styled.div`
   border-left : 5px solid ${ extensionTheme.orange };
   background : ${ extensionTheme.grey10 };
   margin-bottom : 10px;
-  padding-right :15px;
   width : 100%;
   
   box-sizing : border-box;
@@ -312,4 +311,3 @@ export const Error = styled.div`
     color : ${ extensionTheme.redM };
   }
 `;
-

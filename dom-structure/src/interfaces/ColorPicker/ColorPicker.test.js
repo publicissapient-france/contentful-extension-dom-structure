@@ -1,22 +1,20 @@
 import React from 'react';
-import Enzyme, {shallow, mount} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import Enzyme, { shallow, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 
+import ConnectedColorPicker, { ColorPicker } from './index';
+import { FieldsError, ChoiceColor } from './styled';
 
-import ConnectedColorPicker, {ColorPicker} from "./index";
-import {FieldsError, ChoiceColor} from "./styled";
+Enzyme.configure({ adapter: new Adapter() });
 
-Enzyme.configure({adapter: new Adapter()});
-
-
-describe("TEST Category Color ", () => {
+describe('TEST Category Color ', () => {
     const color = {
         name: 'Grey',
         hex: '#F0F0F0',
         shade: '10',
-    }
+    };
     const initialState = {
         style:
             {
@@ -40,17 +38,16 @@ describe("TEST Category Color ", () => {
                     ]
                 }
             }
-    }
+    };
 
     const mockStore = configureStore();
     let store;
 
     beforeEach(() => {
-        store = mockStore(initialState)
-    })
+        store = mockStore(initialState);
+    });
 
-
-    it("renders", () => {
+    it('renders', () => {
         const wrapper = shallow(<ConnectedColorPicker store={store}/>);
         expect(wrapper.exists()).toBe(true);
     });
@@ -61,17 +58,12 @@ describe("TEST Category Color ", () => {
         };
         const emptyStore = mockStore(emptyState);
         const wrapper = mount(<ConnectedColorPicker color={color} store={emptyStore}/>);
-        expect(wrapper.find(FieldsError).exists()).toBe(true)
-
+        expect(wrapper.find(FieldsError).exists()).toBe(true);
     });
 
     it('should render Choice color view', () => {
         const wrapper = mount(<Provider store={store}><ConnectedColorPicker openView color={color}
-                                                                              store={store}/></Provider>);
+            store={store}/></Provider>);
         expect(wrapper.find(ChoiceColor).exists()).toBe(true);
-
     });
-
-
-
 });

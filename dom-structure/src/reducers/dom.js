@@ -17,7 +17,8 @@ const dom = (state = [], action) => {
                     model: action.section.model,
                     settings: action.section.settings,
                     components: action.section.components,
-                    active: false
+                    active: false,
+                    fields: action.section.fields
                 }
             ];
         case 'ADD_SECTION_TO_TOP':
@@ -28,7 +29,8 @@ const dom = (state = [], action) => {
                     model: action.section.model,
                     settings: action.section.settings,
                     components: action.section.components,
-                    active: false
+                    active: false,
+                    fields: action.section.fields
                 },
                 ...state
             ];
@@ -125,8 +127,6 @@ const dom = (state = [], action) => {
             const componentToTop = state[action.indexParent].components[action.index];
             const componentToDown = state[action.indexParent].components[action.index - 1];
 
-
-
             return update(state, {
                 [action.indexParent]: {
                     components: {
@@ -186,10 +186,10 @@ const dom = (state = [], action) => {
 
         case 'INIT_FIELD':
             const newField = {
-                active : false,
-                content : {},
-                settings : {}
-            }
+                active: false,
+                content: {},
+                settings: {}
+            };
             return update(state, {
                 [action.indexSection]: {
                     components: {
@@ -201,6 +201,22 @@ const dom = (state = [], action) => {
                     }
                 }
             });
+
+        case 'INIT_FIELD_SECTION':
+
+            const newFieldSection = {
+                active: false,
+                content: {},
+                settings: {}
+            };
+            return update(state, {
+                [action.indexSection]: {
+                    fields: {
+                        [action.nameProperty]: {$set: newFieldSection}
+                    }
+                }
+            });
+
 
         case 'TOGGLE_FIELD_ACTIVE':
             return update(state, {
@@ -215,6 +231,17 @@ const dom = (state = [], action) => {
                         }
                     }
                 }
+            });
+        case 'TOGGLE_FIELD_SECTION_ACTIVE':
+            return update(state, {
+                [action.indexSection]: {
+                    fields: {
+                        [action.typeField]: {
+                            active: {$set: action.active}
+                        }
+                    }
+                }
+
             });
 
         case 'UPDATE_FIELD_CONTENT_AND_SETTINGS':
@@ -233,10 +260,70 @@ const dom = (state = [], action) => {
                 }
             });
 
+        case 'UPDATE_FIELD_SECTION_CONTENT_AND_SETTINGS':
+            return update(state, {
+                [action.indexSection]: {
+                    fields: {
+                        [action.typeField]: {
+                            content: {$set: action.content},
+                            settings: {$set: action.settings}
+                        }
+                    }
+                }
+            });
+
+        case 'UPDATE_FIELD_CONTENT':
+            return update(state, {
+                [action.indexSection]: {
+                    components: {
+                        [action.indexComponent]: {
+                            fields: {
+                                [action.typeField]: {
+                                    content: {$set: action.content}
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+        case 'UPDATE_FIELD_SECTION_CONTENT':
+            return update(state, {
+                [action.indexSection]: {
+                    fields: {
+                        [action.typeField]: {
+                            content: {$set: action.content}
+                        }
+                    }
+                }
+            });
+        case 'UPDATE_FIELD_SETTINGS':
+            return update(state, {
+                [action.indexSection]: {
+                    components: {
+                        [action.indexComponent]: {
+                            fields: {
+                                [action.typeField]: {
+                                    settings: {$set: action.settings}
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        case 'UPDATE_FIELD_SECTION_SETTINGS':
+            return update(state, {
+                [action.indexSection]: {
+                    fields: {
+                        [action.typeField]: {
+                            settings: {$set: action.settings}
+                        }
+                    }
+                }
+            });
+
         case 'GET_FIELD':
-            return state[action.indexSection]
-                .components[action.indexComponent]
-                .fields[action.typeField]
+            return action.field;
 
         default:
             return state;

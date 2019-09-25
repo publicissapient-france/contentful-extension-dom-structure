@@ -1,15 +1,14 @@
-import React, {Component} from 'react';
-import {Container, ContainerFields, Field} from './styled';
-import {ErrorMessage} from '../../style/styledComponentsFields'
+import React, { Component } from 'react';
+import { Container, ContainerFields, Field } from './styled';
+import { ErrorMessage } from '../../style/styledComponentsFields';
 import PropTypes from 'prop-types';
-import {hasNotSamePropertyValue} from "../../utils/functions";
-import Dot from '../../components/Dot'
+import { hasNotSamePropertyValue } from '../../utils/functions';
+import Dot from '../../components/Dot';
 
 class Size extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         this.state = {};
-
     }
 
     componentDidMount = () => {
@@ -17,7 +16,6 @@ class Size extends Component {
             size: this.props.size
         });
     };
-
 
     componentDidUpdate = prevProps => {
         if (this.props.size !== prevProps.size) {
@@ -27,7 +25,6 @@ class Size extends Component {
             }));
         }
     }
-
 
     updateSize = (prop, value) => {
         this.setState(prevState => ({
@@ -41,17 +38,16 @@ class Size extends Component {
         });
     }
 
-    isValid = (value) => {
-        return false
+    isValid = value => {
+        return false;
     }
 
+    render () {
+        const { size, storeValueSize, defaultSize } = this.props;
 
-    render() {
-        const {size, storeValueSize, defaultSize} = this.props;
+        const error = `Size available : number, number%, auto, fit-content, min-width, max-width`;
 
-        const error = `Size available : number, number%, auto, fit-content, min-width, max-width`
-
-        if (!this.state.size) return null
+        if (!this.state.size) return null;
         return (
             <Container>
                 <ContainerFields>
@@ -65,7 +61,7 @@ class Size extends Component {
                                     !this.isValid(this.state.size.width) ? 'invalid' : '']}
                                 value={this.state.size.width}
                                 onChange={e => {
-                                    this.updateSize('width', e.target.value)
+                                    this.updateSize('width', e.target.value);
                                 }}/>
                         </div>
                     </Field>
@@ -78,7 +74,7 @@ class Size extends Component {
                                 className={hasNotSamePropertyValue(storeValueSize, size, 'height') ? 'updated' : ''}
                                 value={this.state.size.height}
                                 onChange={e => {
-                                    this.updateSize('height', e.target.value)
+                                    this.updateSize('height', e.target.value);
                                 }}/>
                         </div>
                     </Field>
@@ -91,7 +87,7 @@ class Size extends Component {
                                 className={hasNotSamePropertyValue(storeValueSize, size, 'maxWidth') ? 'updated' : ''}
                                 value={this.state.size.maxWidth}
                                 onChange={e => {
-                                    this.updateSize('maxWidth', e.target.value)
+                                    this.updateSize('maxWidth', e.target.value);
                                 }}/>
                         </div>
                     </Field>
@@ -104,17 +100,16 @@ class Size extends Component {
                                 className={hasNotSamePropertyValue(storeValueSize, size, 'maxHeight') ? 'updated' : ''}
                                 value={this.state.size.maxHeight}
                                 onChange={e => {
-                                    this.updateSize('maxHeight', e.target.value)
+                                    this.updateSize('maxHeight', e.target.value);
                                 }}/>
                         </div>
                     </Field>
                 </ContainerFields>
                 <ErrorMessage>{ error }</ErrorMessage>
             </Container>
-        )
+        );
     }
 }
-
 
 Size.propTypes = {
     updateStateProps: PropTypes.func,

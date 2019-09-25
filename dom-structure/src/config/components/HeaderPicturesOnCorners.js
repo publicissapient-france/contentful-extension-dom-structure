@@ -1,18 +1,18 @@
 export default {
     model: 'HeaderPicturesOnCorners',
-    fields : [
+    fields: [
         {
-            name : 'Template',
-            nameProperty : 'Template',
-            typeField : 'Template',
-            content : {
-                responsive : ['A'],
-                parameters : {},
-                defaultValue : {
+            name: 'Template',
+            nameProperty: 'Template',
+            typeField: 'Template',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
                 }
             },
-            settings : {
-                responsive : ['M','T','D'],
+            settings: {
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
                     color: {
                         M: {
@@ -51,71 +51,14 @@ export default {
 
         },
         {
-            name : 'Title Header',
-            nameProperty : 'Title',
-            typeField : 'Text',
-            content : {
-                responsive : ['A'],
-                parameters : {},
-                defaultValue : {
-                    text : null
-                }
-            },
-            settings : {
-                responsive : ['A'],
-                defaultValue: {
-                    color: {
-                        A : {
-                            hex: '#000000',
-                            rgb: '0,0,0',
-                            name: 'black',
-                            shade: null
-                        }
-                    },
-                    opacity: {
-                        A : {
-                            value : '0.85'
-                        }
-
-                    },
-                    seo: {
-                        tag: 'h2'
-                    },
-
-                    font: {
-                        A : {
-                            theme: 'TitleLight',
-                            family: null,
-                            typeface: null,
-                            weight: null,
-                            style: 'italic',
-                            size: '28',
-                            lineHeight: '40',
-                            letterSpacing: '0'
-                        }
-
-                    },
-                    text: {
-                        A : {
-                            align: 'left',
-                            transform: null,
-                            decoration: null
-                        }
-
-                    }
-                }
-            }
-
-        },
-        {
-            name: 'Tagline Leading',
-            nameProperty: 'Tagline',
+            name: 'Title Header',
+            nameProperty: 'Title',
             typeField: 'Text',
             content: {
                 responsive: ['A'],
                 parameters: {},
                 defaultValue: {
-                    text: null
+                    text: {}
                 }
             },
             settings: {
@@ -163,18 +106,120 @@ export default {
                             typeface: null,
                             weight: null,
                             style: null,
-                            size: '28',
-                            lineHeight: '40',
+                            size: null,
+                            lineHeight: null,
                             letterSpacing: '0'
                         },
                         T: {
-                            theme: 'Paragraph',
+                            theme: 'Title1',
                             family: null,
                             typeface: null,
                             weight: null,
-                            style: 'italic',
-                            size: '18',
-                            lineHeight: '32',
+                            style: null,
+                            size: null,
+                            lineHeight: null,
+                            letterSpacing: '0'
+                        },
+                        D: {
+                            theme: 'Title1',
+                            family: null,
+                            typeface: null,
+                            weight: null,
+                            style: null,
+                            size: null,
+                            lineHeight: null,
+                            letterSpacing: '0'
+                        }
+                    },
+                    text: {
+                        M: {
+                            align: 'left',
+                            transform: null,
+                            decoration: 'underline'
+                        },
+                        T: {
+                            align: 'center',
+                            transform: 'uppercase',
+                            decoration: null
+                        },
+                        D: {
+                            align: 'justify',
+                            transform: 'capitalize',
+                            decoration: null
+                        }
+                    }
+                }
+            }
+
+        },
+        {
+            name: 'Tagline Leading',
+            nameProperty: 'Tagline',
+            typeField: 'Text',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                    text: {}
+                }
+            },
+            settings: {
+                responsive: ['M', 'T', 'D'],
+                defaultValue: {
+                    color: {
+                        M: {
+                            hex: '#000000',
+                            rgb: '0,0,0',
+                            name: 'black',
+                            shade: null
+                        },
+                        T: {
+                            hex: '#000000',
+                            rgb: '0,0,0',
+                            name: 'black',
+                            shade: null
+                        },
+                        D: {
+                            hex: '#000000',
+                            rgb: '0,0,0',
+                            name: 'black',
+                            shade: null
+                        }
+
+                    },
+                    opacity: {
+                        M: {
+                            value: '0.8'
+                        },
+                        T: {
+                            value: '0.9'
+                        },
+                        D: {
+                            value: '0.95'
+                        }
+                    },
+                    seo: {
+                        tag: 'h2'
+                    },
+                    font: {
+                        M: {
+                            theme: 'TitleLight',
+                            family: null,
+                            typeface: null,
+                            weight: null,
+                            style: null,
+                            size: null,
+                            lineHeight: null,
+                            letterSpacing: '0'
+                        },
+                        T: {
+                            theme: 'TitleLight',
+                            family: null,
+                            typeface: null,
+                            weight: null,
+                            style: null,
+                            size: null,
+                            lineHeight: null,
                             letterSpacing: '0'
                         },
                         D: {
@@ -182,9 +227,9 @@ export default {
                             family: null,
                             typeface: null,
                             weight: null,
-                            style: 'italic',
-                            size: '16',
-                            lineHeight: '24',
+                            style: null,
+                            size: null,
+                            lineHeight: null,
                             letterSpacing: '0'
                         }
                     },
@@ -217,11 +262,20 @@ export default {
                 responsive: ['M', 'T', 'D'],
                 parameters: {},
                 defaultValue: {
-                    image: null
+                    images: [
+                        {
+                            alt: {},
+                            asset: {
+                                M: {},
+                                T: {},
+                                D: {}
+                            }
+                        }
+                    ]
                 }
             },
             settings: {
-                responsive: ['M','T', 'D'],
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
                     size: {
                         M: {
@@ -297,14 +351,36 @@ export default {
                     multiple: 4
                 },
                 defaultValue: {
-                    images : null
+                    images: [
+                        {
+                            alt: {},
+                            asset: {
+                                A: {}
+                            }
+                        }, {
+                            alt: {},
+                            asset: {
+                                A: {}
+                            }
+                        }, {
+                            alt: {},
+                            asset: {
+                                A: {}
+                            }
+                        }, {
+                            alt: {},
+                            asset: {
+                                A: {}
+                            }
+                        },
+                    ]
                 }
             },
             settings: {
                 responsive: ['A'],
                 defaultValue: {
                     size: {
-                        A : {
+                        A: {
                             width: '200',
                             height: '200',
                             maxWidth: '',
@@ -316,4 +392,4 @@ export default {
 
         }
     ]
-}
+};

@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Languages, ToogleLanguage} from './styled';
-import {connect} from "react-redux";
-import {getCurrentExtension, getCurrentLanguage, toggleLanguage} from "../../actions/index";
-import {getCountryISO} from "../../utils/functions";
+import { Languages, ToogleLanguage } from './styled';
+import { connect } from 'react-redux';
+import { getCurrentExtension, getCurrentLanguage, toggleLanguage } from '../../actions/index';
+import { getCountryISO } from '../../utils/functions';
 
 class LanguageToggle extends Component {
-    render() {
-        const {dispatch, extension, indexLanguage, hidden} = this.props;
+    render () {
+        const { dispatch, extension, indexLanguage, hidden } = this.props;
 
-        if(!extension.locales) return null
+        if (!extension.locales) return null;
         return (
             <Languages className={hidden ? 'hidden' : ''}>
                 {
@@ -28,8 +28,8 @@ class LanguageToggle extends Component {
 };
 
 LanguageToggle.propTypes = {
-    hidden : PropTypes.bool
-}
+    hidden: PropTypes.bool
+};
 
 const mapStateToProps = state => ({
     extension: getCurrentExtension(state).extension,

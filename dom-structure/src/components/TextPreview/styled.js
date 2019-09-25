@@ -1,6 +1,6 @@
-import {IconContainer} from "../../style/styledComponentsFields";
-import styled from "styled-components";
-import {extensionTheme} from "../../style/theme";
+import { IconContainer } from '../../style/styledComponentsFields';
+import styled from 'styled-components';
+import { extensionTheme } from '../../style/theme';
 
 export const PreviewContainer = styled.div`
     display : flex;

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {extensionTheme} from "../../style/theme";
+import styled from 'styled-components';
+import { extensionTheme } from '../../style/theme';
 
 export const IconContainer = styled.div`
  
@@ -7,22 +7,21 @@ export const IconContainer = styled.div`
  & svg{
     & path, & rect{
        transition : fill .2s ease;
-        fill : ${extensionTheme.black}
+        fill : ${ extensionTheme.black }
     }
  }
  
  &:hover{
     & svg{
         & path, & rect{
-            fill : ${extensionTheme.greenM}
+            fill : ${ extensionTheme.greenM }
         }
     }
  }
  
 `;
 
-
-export const Actions =  styled.nav`
+export const Actions = styled.nav`
     display:flex;
     flex-direction : column;
     justify-content: space-between;
@@ -30,11 +29,10 @@ export const Actions =  styled.nav`
     
 `;
 
-export const View =  styled.div`
+export const View = styled.div`
     display:flex;
         
 `;
-
 
 export const ViewPort = styled.div`
   border :2px dashed #ccc
@@ -45,7 +43,7 @@ export const ViewPort = styled.div`
   align-items : center;
   justify-content : center;
   
-  $  ${IconContainer}{
+  $  ${ IconContainer }{
     cursor: auto;
         width : auto;
         height : auto;
@@ -57,26 +55,25 @@ export const ViewPort = styled.div`
    height : 50px;
    
    & g path {
-    fill : ${extensionTheme.grey30};
+    fill : ${ extensionTheme.grey30 };
    }
    
    &:hover{
        & path, & rect{
-           fill : ${extensionTheme.grey30}
+           fill : ${ extensionTheme.grey30 }
        }
         
      }
    
   } 
   
- `
-
+ `;
 
 export const Container = styled.div`
    display : flex;
    flex-direction : column;
    
-   & ${Actions}  ${IconContainer}{
+   & ${ Actions }  ${ IconContainer }{
       width : 20px;
      height : 20px;
      margin-bottom : 10px;
@@ -84,14 +81,13 @@ export const Container = styled.div`
  
         & svg{
             & path, & g, & rect{
-                fill : ${extensionTheme.grey20};
+                fill : ${ extensionTheme.grey20 };
             }
         
         }
    }
    
 `;
-
 
 export const RefreshMessage = styled.div`
    display : flex;

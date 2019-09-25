@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {extensionTheme} from "../../style/theme";
+import styled from 'styled-components';
+import { extensionTheme } from '../../style/theme';
 
 export const Container = styled.div`
     width : fit-content;
@@ -36,7 +36,6 @@ export const Preview = styled.header`
    height : 150px;
 `;
 
-
 export const ViewPort = styled.div`
   border :2px dashed #ccc
   width : 150px;
@@ -51,7 +50,7 @@ export const ViewPort = styled.div`
    height : 50px;
    
    & g path {
-    fill : ${extensionTheme.grey30};
+    fill : ${ extensionTheme.grey30 };
    }
   } 
- `
+ `;

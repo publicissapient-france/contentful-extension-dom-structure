@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
-import {getCurrentExtension, getStyleGuideName} from '../../actions/index';
-import {connect} from 'react-redux';
-import PropTypes from "prop-types";
-import ButtonValidate from "../../components/ui/ButtonValidate";
+import React, { Component } from 'react';
+import { getCurrentExtension, getStyleGuideName } from '../../actions/index';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import ButtonValidate from '../../components/ui/ButtonValidate';
 
 class ColorAdd extends Component {
     openStyleGuide = e => {
         this.props.extensionInfo.extension.navigator.openEntry(this.props.extensionInfo.extension.entry.fields['styleGuide']
-            .getValue().sys.id, {slideIn: true}).then(({entity}) => {});
+            .getValue().sys.id, { slideIn: true }).then(({ entity }) => {});
     }
 
-    render() {
-        const {styleGuideName, display} = this.props;
+    render () {
+        const { styleGuideName, display } = this.props;
 
         return (
             <section className={!display ? 'hidden' : ''}>

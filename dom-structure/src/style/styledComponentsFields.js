@@ -387,7 +387,7 @@ export const IconContainer = styled.div`
   cursor : pointer;
   
   &.updated{
-    background : ${ extensionTheme.blueM};
+    background : ${ extensionTheme.blueM };
      & svg{
         & g rect, & g path, & g polygon, & polygon{
             fill : ${ extensionTheme.white };
@@ -458,8 +458,6 @@ export const Specification = styled.div`
     }
 `;
 
-
-
 export const Property = styled.label`
     margin-left : 30px;
 `;
@@ -474,7 +472,6 @@ export const ChoiceConfirm = styled.div`
     }
 `;
 
-
 export const Toggle = styled.div`
   display : flex;
 `;
@@ -486,7 +483,6 @@ export const Responsive = styled.div`
   width : fit-content;
   justify-content : space-between;
 `;
-
 
 export const ToogleResponsive = styled.div`
   width : 20px;
@@ -518,5 +514,11 @@ export const ErrorMessage = styled.div`
   color : ${ extensionTheme.grey40 }; 
   margin-left : 30px;
   font-size : 12px;
+
+`;
+
+export const InfoText = styled.div`
+  color : ${ extensionTheme.grey40 }; 
+  padding : 30px;
 
 `;

@@ -1,19 +1,18 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import ReactMde from 'react-mde';
 import * as Showdown from 'showdown';
 import 'react-mde/lib/styles/css/react-mde-all.css';
-import {Container} from './styled';
-
+import { Container } from './styled';
 
 class InputMarkdown extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
 
         this.state = {
             value: ''
-        }
+        };
 
         this.converter = new Showdown.Converter({
             tables: true,
@@ -23,15 +22,14 @@ class InputMarkdown extends Component {
         });
     }
 
-    componentDidMount() {
+    componentDidMount () {
         this.setState({
             value: this.extractFromHTML(this.props.defaultValue)
         });
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate (prevProps) {
         if (this.props.currentLanguage !== prevProps.currentLanguage) {
-
             this.setState({
                 value: this.extractFromHTML(this.props.defaultValue)
             });
@@ -39,14 +37,14 @@ class InputMarkdown extends Component {
     }
 
     handleTabChange = tab => {
-        this.setState({tab: tab});
+        this.setState({ tab: tab });
     };
 
     handleValueChange = value => {
         this.setState({
             value: value
         }, () => {
-            this.props.action(this.convertToHTML(this.state.value), this.props.targetProperty)
+            this.props.action(this.convertToHTML(this.state.value), this.props.targetProperty);
         });
     };
 
@@ -54,9 +52,7 @@ class InputMarkdown extends Component {
 
     convertToHTML = value => this.converter.makeHtml(value);
 
-    render() {
-        const {} = this.props;
-
+    render () {
         return (<Container>
             <ReactMde
                 onChange={this.handleValueChange}
@@ -67,7 +63,7 @@ class InputMarkdown extends Component {
                 }
                 selectedTab={this.state.tab}
             />
-        </Container>)
+        </Container>);
     }
 }
 

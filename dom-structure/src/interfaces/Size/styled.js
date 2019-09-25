@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {extensionTheme} from "../../style/theme";
+import styled from 'styled-components';
+import { extensionTheme } from '../../style/theme';
 
 export const Container = styled.div`
   padding : 10px 0px;
@@ -7,12 +7,10 @@ export const Container = styled.div`
   flex-direction : column;
 `;
 
-
 export const ContainerFields = styled.div`
   display : flex;
   margin-bottom : 5px;
 `;
-
 
 export const Field = styled.div`
     display : flex;
@@ -30,8 +28,8 @@ export const Field = styled.div`
             border-image-source : none;
             
             &.invalid{
-                background-color : ${ extensionTheme.redXS};
-                color : ${ extensionTheme.redM};
+                background-color : ${ extensionTheme.redXS };
+                color : ${ extensionTheme.redM };
             }
         }
     }

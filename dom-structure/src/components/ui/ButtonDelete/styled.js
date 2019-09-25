@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {extensionTheme} from "../../../style/theme";
+import styled from 'styled-components';
+import { extensionTheme } from '../../../style/theme';
 
 export const Button = styled.button`
    align-self : center;

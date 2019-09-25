@@ -1,18 +1,20 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import SvgAdd from '../../components/svg/SvgAdd';
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgRange from '../../components/svg/SvgRange';
 import SvgCheck from '../../components/svg/SvgCheck';
 import SvgTrash from '../../components/svg/SvgTrash';
+import SvgArrowDouble from '../../components/svg/SvgArrowDouble';
 import ComponentDOM from '../ComponentDOM/index';
+
 import {
     Container,
     Icon,
     Range,
     SafeDelete
 } from '../../style/styledComponents';
-import {Settings, TopBar, Active, Actions, Description, FormSection, AddChild, Children} from './styled'
+import { ContainerSection, Settings, TopBar, Active, Actions, Description, FormSection, AddChild, Children, Fields,FieldsContainer, Toggle, Banner  } from './styled';
 import {
     updateSection,
     removeSection,
@@ -22,39 +24,42 @@ import {
 } from '../../actions/index';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonDelete from '../../components/ui/ButtonDelete';
-import sectionsConfig from '../../config/sections/*.js';
 import update from 'react-addons-update';
 import AddComponent from '../AddComponent/index';
-import ButtonValidate from '../../components/ui/ButtonValidate'
+import ButtonValidate from '../../components/ui/ButtonValidate';
 
 import PropTypes from 'prop-types';
+import FieldsListOfSection from "../../components/FieldsListOfSection";
+import sectionConfig from '../../config/sections/*.js';
+
 
 class Section extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
 
         this.state = {
             openSettings: false,
             openAdd: false,
             openSafeDelete: false,
-            section: null
+            section: null,
+            triggerOpening: false
         };
     }
 
     componentDidMount = () => {
-        this.setState({section: this.props.section});
+        this.setState({ section: this.props.section });
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate (prevProps) {
         if (this.props.section !== prevProps.section) {
-            this.setState({section: this.props.section});
+            this.setState({ section: this.props.section });
         }
     }
 
     updateModel = model => {
         this.setState({
             section: update(this.state.section, {
-                model: {$set: model},
+                model: { $set: model },
             })
         });
     }
@@ -62,7 +67,7 @@ class Section extends Component {
     updateName = name => {
         this.setState({
             section: update(this.state.section, {
-                name: {$set: name},
+                name: { $set: name },
             })
         });
     }
@@ -70,7 +75,7 @@ class Section extends Component {
     toggleActive = () => {
         this.setState({
             section: update(this.state.section, {
-                active: {$set: !this.state.section.active},
+                active: { $set: !this.state.section.active },
             })
         }, () => {
             this.props.dispatch(toggleSectionActive(this.state.section.active, this.props.index));
@@ -81,26 +86,33 @@ class Section extends Component {
         openAdd: false,
         openSettings: false
     })
-    toggleOpenAdd = () => this.setState({openAdd: !this.state.openAdd, openSettings: false, openSafeDelete: false})
+    toggleOpenAdd = () => this.setState({ openAdd: !this.state.openAdd, openSettings: false, openSafeDelete: false })
     toggleOpenSettings = () => this.setState({
         openSettings: !this.state.openSettings,
         openAdd: false,
         openSafeDelete: false
     })
+    triggerOpening = () => this.setState(prevState => ({
+        triggerOpening: !prevState.triggerOpening
+    }))
 
     isUpdated = () => (this.state.section && (this.state.section.name !== this.props.section.name ||
         this.state.section.model !== this.props.section.model))
 
-    render() {
-        const {dispatch, domLength, section, index} = this.props;
+    getSectionFields = () => {
+        return sectionConfig[this.props.section.model].default.fields;
+    }
+
+    render () {
+        const { dispatch, domLength, section, index } = this.props;
         let inputName, selectModel;
         let children = (section.components && section.components.length !== 0) ? section.components.map((component, i) =>
             <ComponentDOM key={i} component={component} index={i} indexParent={index}
-                          lengthParent={section.components.length}/>
+                lengthParent={section.components.length}/>
         ) : null;
         if (!this.state.section) return null;
         return (
-            <Container>
+            <ContainerSection>
                 <TopBar>
                     <Description>
                         <Active
@@ -118,7 +130,7 @@ class Section extends Component {
                             <SvgAdd/>
                         </Icon>
                         <Icon className={this.state.openSettings ? 'active' : ''}
-                              onClick={() => this.toggleOpenSettings()}>
+                            onClick={() => this.toggleOpenSettings()}>
                             <SvgSetting/>
                         </Icon>
                         <Range>
@@ -142,7 +154,7 @@ class Section extends Component {
                         <ButtonBasic label={'Cancel'} action={this.toggleSafeSecure}/>
                         <ButtonDelete label={'Delete'} action={() => {
                             dispatch(removeSection(index));
-                            this.setState({openSafeDelete: false});
+                            this.setState({ openSafeDelete: false });
                         }}/>
                     </div>
                 </SafeDelete>
@@ -156,12 +168,12 @@ class Section extends Component {
                         <div>
                             <label>Model</label>
                             <select ref={node => (selectModel = node)}
-                                    value={this.state.section.model || null}
-                                    onChange={e => {
-                                        this.updateModel(e.target.value);
-                                    }}>
+                                value={this.state.section.model || null}
+                                onChange={e => {
+                                    this.updateModel(e.target.value);
+                                }}>
                                 {
-                                    Object.keys(sectionsConfig).map((key, i) => {
+                                    Object.keys(sectionConfig).map((key, i) => {
                                         return <option value={key} key={i}>{key}</option>;
                                     })
                                 }
@@ -170,19 +182,19 @@ class Section extends Component {
                         <div>
                             <label>Section Name</label>
                             <input ref={node => (inputName = node)} type={'text'}
-                                   value={this.state.section.name || ''}
-                                   onChange={e => {
-                                       this.updateName(e.target.value);
-                                   }}/>
+                                value={this.state.section.name || ''}
+                                onChange={e => {
+                                    this.updateName(e.target.value);
+                                }}/>
                         </div>
                         <div className={'buttons'}>
                             <ButtonBasic
                                 label={'Cancel'}
                                 disabled={!this.isUpdated()}
-                                action={ (e) => {
+                                action={ e => {
                                     e.preventDefault();
                                     this.toggleOpenSettings();
-                                    this.setState({section: this.props.section});
+                                    this.setState({ section: this.props.section });
                                     inputName.value = section.name;
                                     selectModel.value = section.model;
                                 }}/>
@@ -193,15 +205,27 @@ class Section extends Component {
                 <AddChild>
                     <AddComponent index={index} open={this.state.openAdd} parent={this}/>
                 </AddChild>
+                <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>
+                    <Banner>
+                        <p> Content & Specifications </p>
+                        <Toggle>
+                            <Icon className={['toggleAll', !this.state.triggerOpening ? '' : 'rotate']}
+                                  onClick={() => this.triggerOpening()}><SvgArrowDouble/></Icon>
+                        </Toggle>
+                    </Banner>
+                    <Fields>
+                        <FieldsListOfSection triggerOpening={this.state.triggerOpening} fields={this.getSectionFields()} index={index}/>
+                    </Fields>
+                </FieldsContainer>
                 <Children>{children}</Children>
-            </Container>
+            </ContainerSection>
         );
     }
 };
 
 Section.propTypes = {
     section: PropTypes.shape({
-        active: PropTypes.bool.isRequired,
+        active: PropTypes.bool,
         name: PropTypes.string.isRequired,
         model: PropTypes.string.isRequired,
     }),

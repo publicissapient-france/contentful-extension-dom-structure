@@ -1,10 +1,9 @@
-import styled from "styled-components";
-import {extensionTheme} from "../../style/theme";
+import styled from 'styled-components';
+import { extensionTheme } from '../../style/theme';
 
 export const Container = styled.div`
   padding : 10px 5px;
 `;
-
 
 export const Field = styled.div`
     display : flex;  
@@ -18,16 +17,16 @@ export const Inputs = styled.div`
         margin-right : 10px;
         
         &:nth-child(1){
-            border-top : 3px solid ${extensionTheme.blueM}
+            border-top : 3px solid ${ extensionTheme.blueM }
         }
         &:nth-child(2){
-            border-right : 3px solid ${extensionTheme.blueM}
+            border-right : 3px solid ${ extensionTheme.blueM }
         }
         &:nth-child(3){
-            border-bottom : 3px solid ${extensionTheme.blueM}
+            border-bottom : 3px solid ${ extensionTheme.blueM }
         }
         &:nth-child(4){
-            border-left : 3px solid ${extensionTheme.blueM}
+            border-left : 3px solid ${ extensionTheme.blueM }
         }
     } 
 `;

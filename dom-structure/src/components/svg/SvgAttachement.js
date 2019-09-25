@@ -2,7 +2,7 @@ import React from 'react';
 
 const SvgAttachement = () => {
     return <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                width="20px" height="20px" viewBox="0 0 20 20">
+        width="20px" height="20px" viewBox="0 0 20 20">
 
         <g id="Groupe_50" transform="translate(1659 630) rotate(180)">
             <g>
@@ -13,7 +13,7 @@ const SvgAttachement = () => {
 			S1641.9,625,1644.6,625z"/>
             </g>
         </g>
-    </svg>
+    </svg>;
 };
 
 export default SvgAttachement;

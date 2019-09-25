@@ -10,17 +10,10 @@ export const initDOM = object => ({
 
 });
 
-
-
 export const getCurrentDOM = state => ({
     type: 'GET_DOM',
     sections: state.dom
 });
-
-
-
-
-
 
 // SECTION
 
@@ -105,10 +98,6 @@ export const toggleComponentActive = (bool, number, numberParent) => ({
     indexParent: numberParent
 });
 
-
-
-
-
 // COMPONENT CONTENT
 
 export const updateContentValue = (props, value, bool, number, numberParent) => ({
@@ -138,6 +127,11 @@ export const initField = (nameProperty, number, numberParent) => ({
     indexComponent: number,
     indexSection: numberParent
 });
+export const initFieldOfSection = (nameProperty, number) => ({
+    type: 'INIT_FIELD_SECTION',
+    nameProperty: nameProperty,
+    indexSection: number
+});
 
 export const toggleFieldActive = (type, bool, number, numberParent) => ({
     type: 'TOGGLE_FIELD_ACTIVE',
@@ -146,20 +140,59 @@ export const toggleFieldActive = (type, bool, number, numberParent) => ({
     indexComponent: number,
     indexSection: numberParent
 });
-
+export const toggleFieldActiveOfSection = (type, bool, number) => ({
+    type: 'TOGGLE_FIELD_SECTION_ACTIVE',
+    typeField: type,
+    active: bool,
+    indexSection: number
+});
 
 export const updateField = (type, content, settings, number, numberParent) => ({
     type: 'UPDATE_FIELD_CONTENT_AND_SETTINGS',
     typeField: type,
     content: content,
-    settings : settings,
+    settings: settings,
     indexComponent: number,
     indexSection: numberParent
 });
 
-export const getField = (type, number, numberParent) => ({
-    type: 'GET_FIELD',
+export const updateFieldOfSection = (type, content, settings, number) => ({
+    type: 'UPDATE_FIELD_SECTION_CONTENT_AND_SETTINGS',
     typeField: type,
+    content: content,
+    settings: settings,
+    indexSection: number
+});
+
+export const updateFieldContent = (type, content, number, numberParent) => ({
+    type: 'UPDATE_FIELD_CONTENT',
+    typeField: type,
+    content: content,
     indexComponent: number,
     indexSection: numberParent
+});
+
+export const updateFieldContentOfSection = (type, content, number) => ({
+    type: 'UPDATE_FIELD_SECTION_CONTENT',
+    typeField: type,
+    content: content,
+    indexSection: number
+});
+export const updateFieldSettings = (type, settings, number, numberParent) => ({
+    type: 'UPDATE_FIELD_SETTINGS',
+    typeField: type,
+    settings: settings,
+    indexComponent: number,
+    indexSection: numberParent
+});
+export const updateFieldSettingsOfSection = (type, settings, number) => ({
+    type: 'UPDATE_FIELD_SECTION_SETTINGS',
+    typeField: type,
+    settings: settings,
+    indexSection: number
+});
+
+export const getField = (state, indexComponent, indexSection, nameProperty) => ({
+    type: 'GET_FIELD',
+    field: state.dom[indexSection].components[indexComponent].fields[nameProperty]
 });

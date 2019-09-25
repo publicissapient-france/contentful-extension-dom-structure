@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import update from 'react-addons-update';
-import sectionsConfig from '../../config/sections/*.js';
 import { addSection, addSectionToTop, toggleFormAddSection, toggleFormAddSectionToTop } from '../../actions/index';
 import { Container } from '../../style/styledComponents';
-import { FormSection} from './styled';
+import { FormSection } from './styled';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
+import sectionConfig from '../../config/sections/*.js';
 
 
 class AddSection extends Component {
@@ -18,7 +18,8 @@ class AddSection extends Component {
             section: {
                 type: 'sections',
                 settings: [],
-                components: []
+                components: [],
+                fields : {}
             }
         };
     }
@@ -32,10 +33,16 @@ class AddSection extends Component {
     }
 
     updateModel = model => {
+        let fields = {};
+        sectionConfig[model].default.fields.map(field => {
+            fields[field.nameProperty] = {
+                active: true, content: {}, settings: {}, responsiveSettings: field.settings.responsive };
+        });
         this.setState(
             {
                 section: update(this.state.section, {
                     model: { $set: model },
+                    fields: { $set: fields }
                 })
             });
     }
@@ -77,12 +84,12 @@ class AddSection extends Component {
                     <div>
                         <label>Model</label>
                         <select ref={node => (selectModel = node)} defaultValue={''}
-                                onChange={e => { this.updateModel(e.target.value); }}>
+                            onChange={e => { this.updateModel(e.target.value); }}>
                             <option value={null}></option>
                             {
-                                Object.keys(sectionsConfig).map((key, i) => {
+                                Object.keys(sectionConfig).map((key, i) => {
                                     return <option value={key} key={i}>{key}</option>;
-                                })                            }
+                                }) }
                         </select>
                     </div>
                     <div>
@@ -95,7 +102,7 @@ class AddSection extends Component {
                         <ButtonBasic
                             label={'Cancel'}
                             disabled={!this.isComplete()}
-                            action={ (e) => {
+                            action={ e => {
                                 this.clearForm();
                                 inputName.value = '';
                                 selectModel.value = '';
