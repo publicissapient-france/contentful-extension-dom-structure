@@ -7,7 +7,6 @@ export const ContainerComponent = styled(Container)`
   border: 1px solid ${ extensionTheme.grey };
   border-left : 5px solid ${ extensionTheme.blueM }; 
   width : 100%;
-  padding-right :0px;
   margin-top :0px;
   margin-left : 15px;
   background : ${ extensionTheme.white };

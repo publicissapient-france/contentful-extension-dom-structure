@@ -64,7 +64,7 @@ export default {
 
         },
         {
-            name: 'Text',
+            name: 'Title',
             nameProperty: 'Title',
             typeField: 'Text',
             content: {
@@ -194,6 +194,55 @@ export default {
                         },
                         D: {
                             align: 'center',
+                            transform: null,
+                            decoration: null
+                        }
+                    }
+                }
+            }
+
+        },
+        {
+            name: 'Content',
+            nameProperty: 'Content',
+            typeField: 'TextMarkdown',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                    html: {}
+                }
+            },
+            settings: {
+                 responsive : ['A'],
+                defaultValue: {
+                    color: {
+                        A: {
+                            hex: '#000000',
+                            name: 'black',
+                            shade: null
+                        }
+                    },
+                    opacity: {
+                        A: {
+                            value: '1'
+                        }
+                    },
+                    font: {
+                        A: {
+                            theme: 'Paragraph',
+                            family: null,
+                            typeface: null,
+                            weight: null,
+                            style: null,
+                            size: null,
+                            lineHeight: null,
+                            letterSpacing: '0'
+                        }
+                    },
+                    text: {
+                        A: {
+                            align: 'left',
                             transform: null,
                             decoration: null
                         }

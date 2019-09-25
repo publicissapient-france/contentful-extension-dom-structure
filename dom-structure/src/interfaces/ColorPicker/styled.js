@@ -17,7 +17,8 @@ export const SelectedColor = styled(BoxColor)`
 export const ChoiceColor = styled.div`
    display : flex;
    padding-bottom : 16px;
-   border-bottom : 1px solid ${ extensionTheme.grey20 }
+   border-bottom : 1px solid ${ extensionTheme.grey20 };
+   width : 100%;
    
    &.full-width{
      width : 100%;
