@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import FieldWrapper from '../../HOC/FieldWrapper';
 import FieldWrapperOfSection from '../../HOC/FieldWrapperOfSection';
@@ -12,12 +12,12 @@ import ActiveCheckBox from '../../components/ActiveCheckBox';
 
 import ColorPicker from '../../interfaces/ColorPicker';
 
-import { Icon } from '../../style/styledComponents';
-import { Banner, Field } from '../../style/styledComponentsFields';
-import { ChoiceItemsConfirm, Settings, Choices } from './styled';
+import {Icon} from '../../style/styledComponents';
+import {Banner, Field} from '../../style/styledComponentsFields';
+import {ChoiceItemsConfirm, Settings, Choices} from './styled';
 
 class Template extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -25,14 +25,18 @@ class Template extends Component {
         };
     }
 
-    componentDidMount () {};
+    componentDidMount() {};
 
-    componentDidUpdate (prevProps) {}
+    componentDidUpdate(prevProps) {
+        if (this.props.responsiveSettings !== prevProps.responsiveSettings) {
+            this.props.setResponsiveMode(this.props.responsiveSettings[0]);
+        }
+    }
 
-    toggleOpenView = () => this.setState(prevState => ({ openColorView: !prevState.openColorView }));
+    toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
 
-    render () {
-        const { name } = this.props;
+    render() {
+        const {name} = this.props;
 
         if (!this.props.settings) return null;
 
@@ -53,27 +57,27 @@ class Template extends Component {
                         <LanguageToggle
                             hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
                         <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
-                            currentMode={this.props.currentResponsiveMode}
-                            action={this.props.setResponsiveMode}/>
+                                          currentMode={this.props.currentResponsiveMode}
+                                          action={this.props.setResponsiveMode}/>
                         <Icon className={this.props.openSettings ? 'active' : ''}
-                            onClick={() => {
-                                this.props.toggleSettings();
-                            }}><SvgSetting/></Icon>
+                              onClick={() => {
+                                  this.props.toggleSettings();
+                              }}><SvgSetting/></Icon>
                     </div>
                 </Banner>
                 <Field>
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>
                             <ColorPicker hidden={false}
-                                color={this.props.getSettingsProperty('color')}
-                                opacity={this.props.getSettingsProperty('opacity')}
-                                storeValueColor={this.props.getStoreSettingsProperty('color')}
-                                storeValueOpacity={this.props.getStoreSettingsProperty('opacity')}
-                                defaultColor={this.props.getDefaultSettingsProperty('color')}
-                                defaultOpacity={this.props.getDefaultSettingsProperty('opacity')}
-                                openView={this.state.openColorView}
-                                updateStateProps={this.props.updateSettings}
-                                toggleOpenView={this.toggleOpenView}
+                                         color={this.props.getSettingsProperty('color')}
+                                         opacity={this.props.getSettingsProperty('opacity')}
+                                         storeValueColor={this.props.getStoreSettingsProperty('color')}
+                                         storeValueOpacity={this.props.getStoreSettingsProperty('opacity')}
+                                         defaultColor={this.props.getDefaultSettingsProperty('color')}
+                                         defaultOpacity={this.props.getDefaultSettingsProperty('opacity')}
+                                         openView={this.state.openColorView}
+                                         updateStateProps={this.props.updateSettings}
+                                         toggleOpenView={this.toggleOpenView}
                             />
                         </Choices>
                     </Settings>

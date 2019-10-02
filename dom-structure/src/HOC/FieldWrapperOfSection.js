@@ -248,7 +248,6 @@ const FieldWrapperOfSection = WrappedComponent => {
                     updateField={this.updateField}
                     updateContentSubProperty={this.updateContentSubProperty}
                     updateTranlatedContentSubProperty={this.updateTranlatedContentSubProperty}
-
                     {...this.props}
                 />
             );

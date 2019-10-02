@@ -65,6 +65,8 @@ const FieldWrapper = WrappedComponent => {
             }
 
 
+
+
         }
 
         getFieldOnStore = ({dom, indexSection, indexComponent, nameProperty }) => {
