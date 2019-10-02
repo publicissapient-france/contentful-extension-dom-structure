@@ -14,12 +14,10 @@ import ActiveCheckBox from '../../components/ActiveCheckBox';
 import InputMarkdown from '../../interfaces/InputMarkdown';
 import Typography from '../../interfaces/Typography';
 import ColorPicker from '../../interfaces/ColorPicker';
-import Seo from '../../interfaces/Seo';
 
 import { Icon } from '../../style/styledComponents';
-import { Banner, Field, InfoText } from '../../style/styledComponentsFields';
+import { Banner, Field } from '../../style/styledComponentsFields';
 import { ChoiceItemsConfirm, Content, Settings, Choices, Column } from './styled';
-import isEmpty from "lodash/isEmpty";
 import {getCurrentStyle} from "../../actions";
 import {connect} from "react-redux";
 
@@ -33,11 +31,15 @@ class TextMarkdown extends Component {
         };
     }
 
-    componentDidMount () {
-        if (isEmpty(this.props.settings) && this.props.themes) this.initSettings();
-    };
+    componentDidUpdate (prevProps, prevState) {
+        if(this.props.settings && this.props.settings.font ){
+            if(!Object.values(this.props.settings.font)[0].family && this.props.themes){
+                this.initFont();
+            }
+        }
+    }
 
-    initSettings = () => {
+    initFont = () => {
         let initValue = this.props.defaultSettings;
 
         new Promise((resolve, reject) => {
@@ -53,7 +55,7 @@ class TextMarkdown extends Component {
             });
             resolve();
         }).then(() => {
-            this.props.initSettings(initValue);
+            this.props.initSettingsProperty('font', initValue.font);
         });
     }
 

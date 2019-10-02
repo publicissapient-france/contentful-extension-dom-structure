@@ -59,6 +59,8 @@ const dom = (state = [], action) => {
         case 'MOVE_SECTION_TO_TOP':
             const toTop = state[action.index];
             const toDown = state[action.index - 1];
+            console.log('to top', toTop);
+            console.log('to down', toDown);
             return update(state, {
                 [action.index]: {$set: toDown},
                 [action.index - 1]: {$set: toTop}
@@ -118,6 +120,7 @@ const dom = (state = [], action) => {
                 [action.indexParent]: {
                     components: {
                         [action.index]: {
+
                             active: {$set: action.active}
                         }
                     }

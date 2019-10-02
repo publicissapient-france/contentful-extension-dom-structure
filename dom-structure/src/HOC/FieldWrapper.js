@@ -29,7 +29,6 @@ const FieldWrapper = WrappedComponent => {
         }
 
         componentDidMount() {
-            console.log('PROPS FieldWrapper',this.props);
             const FieldOnStore = this.getFieldOnStore(this.props);
 
             if (!FieldOnStore) {
@@ -64,6 +63,8 @@ const FieldWrapper = WrappedComponent => {
             if (this.props.triggerOpening !== prevProps.triggerOpening) {
                 this.toggleWithTrigger(this.props.triggerOpening);
             }
+
+
         }
 
         getFieldOnStore = ({dom, indexSection, indexComponent, nameProperty }) => {
@@ -92,6 +93,17 @@ const FieldWrapper = WrappedComponent => {
             }, () => {
                 this.props.dispatch(updateFieldSettings(this.props.nameProperty, this.state.settings, this.props.indexComponent, this.props.indexSection));
             });
+        }
+
+        initSettingsProperty = (targetProperty, initialValue) => {
+            this.setState(prevState => ({
+                settings: {
+                    ...prevState.settings,
+                    [targetProperty]: initialValue
+                }
+            }, () => {
+                this.props.dispatch(updateFieldSettings(this.props.nameProperty, this.state.settings, this.props.indexComponent, this.props.indexSection));
+            }));
         }
 
         toggleContent = () => {
@@ -249,7 +261,7 @@ const FieldWrapper = WrappedComponent => {
                     updateField={this.updateField}
                     updateContentSubProperty={this.updateContentSubProperty}
                     updateTranlatedContentSubProperty={this.updateTranlatedContentSubProperty}
-
+                    initSettingsProperty={this.initSettingsProperty}
                     {...this.props}
                 />
             );

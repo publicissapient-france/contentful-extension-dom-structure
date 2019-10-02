@@ -40,6 +40,9 @@ class Template extends Component {
             <div>
                 <Banner>
                     <div>
+                        {
+                            this.props.currentResponsiveMode
+                        }
                         <ActiveCheckBox
                             active={this.props.active}
                             action={this.props.toggleActive}>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import isEmpty from 'lodash/isEmpty';
 import { getCurrentStyle } from '../../actions';
 
 import FieldWrapper from '../../HOC/FieldWrapper';
@@ -33,13 +32,15 @@ class Text extends Component {
         };
     }
 
-    componentDidMount () {
-        if (isEmpty(this.props.settings) && this.props.themes) this.initSettings();
-    };
+    componentDidUpdate (prevProps, prevState) {
+        if(this.props.settings && this.props.settings.font ){
+            if(!Object.values(this.props.settings.font)[0].family && this.props.themes){
+                this.initFont();
+            }
+        }
+    }
 
-    componentDidUpdate (prevProps, prevState) {}
-
-    initSettings = () => {
+    initFont = () => {
         let initValue = this.props.defaultSettings;
 
         new Promise((resolve, reject) => {
@@ -55,9 +56,11 @@ class Text extends Component {
             });
             resolve();
         }).then(() => {
-            this.props.initSettings(initValue);
+            this.props.initSettingsProperty('font', initValue.font);
         });
     }
+
+
 
     getThemeValue = (themes, selectedTheme) => {
         if (!themes || !selectedTheme) return;
