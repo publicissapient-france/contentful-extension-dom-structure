@@ -41,22 +41,22 @@ class Text extends Component {
     }
 
     initFont = () => {
-        let initValue = this.props.defaultSettings;
+        let initFont = this.props.defaultSettings.font;
 
         new Promise((resolve, reject) => {
             this.props.responsiveSettings.map(mode => {
-                let selectedTheme = this.getThemeValue(this.props.themes, initValue.font[mode].theme);
+                let selectedTheme = this.getThemeValue(this.props.themes, initFont[mode].theme);
                 if (selectedTheme) {
-                    initValue.font[mode].family = selectedTheme.family;
-                    initValue.font[mode].typeface = selectedTheme.typeface;
-                    initValue.font[mode].weight = selectedTheme.weight;
-                    initValue.font[mode].size = selectedTheme.fontsize[mode];
-                    initValue.font[mode].lineHeight = selectedTheme.lineheight[mode];
+                    initFont[mode].family = selectedTheme.family;
+                    initFont[mode].typeface = selectedTheme.typeface;
+                    initFont[mode].weight = selectedTheme.weight;
+                    initFont[mode].size = selectedTheme.fontsize[mode];
+                    initFont[mode].lineHeight = selectedTheme.lineheight[mode];
                 }
             });
             resolve();
         }).then(() => {
-            this.props.initSettingsProperty('font', initValue.font);
+            this.props.initSettingsProperty('font', initFont);
         });
     }
 

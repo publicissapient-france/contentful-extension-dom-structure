@@ -46,6 +46,46 @@ export default {
                 }
             }
 
+        },
+        {
+            name: 'Flex Container',
+            nameProperty: 'FlexContainer',
+            typeField: 'FlexContainer',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                }
+            },
+            settings: {
+                responsive : ['M', 'T', 'D'],
+                defaultValue: {
+                    flex : {
+                        M : {
+                            direction : 'row',
+                            wrap : 'wrap',
+                            justify : 'flex-start',
+                            alignItems : 'flex-start',
+                            alignContent : 'flex-start'
+                        },
+                        T : {
+                            direction : 'row',
+                            wrap : 'wrap',
+                            justify : 'flex-start',
+                            alignItems : 'flex-start',
+                            alignContent : 'flex-start'
+                        },
+                        D : {
+                            direction : 'row',
+                            wrap : 'wrap',
+                            justify : 'flex-start',
+                            alignItems : 'flex-start',
+                            alignContent : 'flex-start'
+                        }
+                    }
+                }
+            }
+
         }
     ]
 };

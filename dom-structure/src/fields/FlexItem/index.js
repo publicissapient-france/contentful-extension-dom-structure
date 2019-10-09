@@ -9,23 +9,29 @@ import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
 import ResponsiveToggle from '../../components/ResponsiveToggle';
 import ActiveCheckBox from '../../components/ActiveCheckBox';
+import Dot from '../../components/Dot/index';
+import IconActing from '../../components/IconActing/index';
+import SvgAlignCenter from '../../components/svg/SvgAlignCenter';
 
-import ColorPicker from '../../interfaces/ColorPicker';
+import FlexItemProperties from '../../interfaces/FlexItemProperties';
+
 
 import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsFields';
-import {ChoiceItemsConfirm, Settings, Choices} from './styled';
+import {Banner} from '../../style/styledComponentsFields';
+import {ChoiceItemsConfirm, Settings, Choices, Field, Column} from './styled';
+import isEqual from "lodash/isEqual";
 
-class Template extends Component {
+class FlexItem extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            openColorView: false
         };
     }
 
-    componentDidMount() {};
+    componentDidMount() {
+        console.log('flex container props', this.props);
+    };
 
     componentDidUpdate(prevProps) {
         if (this.props.responsiveSettings !== prevProps.responsiveSettings) {
@@ -33,7 +39,6 @@ class Template extends Component {
         }
     }
 
-    toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
 
     render() {
         const {name} = this.props;
@@ -65,17 +70,13 @@ class Template extends Component {
                 <Field>
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>
-                            <ColorPicker hidden={false}
-                                         color={this.props.getSettingsProperty('color')}
-                                         opacity={this.props.getSettingsProperty('opacity')}
-                                         storeValueColor={this.props.getStoreSettingsProperty('color')}
-                                         storeValueOpacity={this.props.getStoreSettingsProperty('opacity')}
-                                         defaultColor={this.props.getDefaultSettingsProperty('color')}
-                                         defaultOpacity={this.props.getDefaultSettingsProperty('opacity')}
-                                         openView={this.state.openColorView}
-                                         updateStateProps={this.props.updateSettings}
-                                         toggleOpenView={this.toggleOpenView}
-                            />
+                                <FlexItemProperties
+                                    flex={this.props.getSettingsProperty('flex')}
+                                    storeValue={this.props.getStoreSettingsProperty('flex')}
+                                    defaultValue={this.props.getDefaultSettingsProperty('flex')}
+                                    updateStateProps={this.props.updateSettings}
+                                />
+
                         </Choices>
                     </Settings>
                 </Field>
@@ -88,10 +89,10 @@ class Template extends Component {
     }
 }
 
-const WrappedComponent = FieldWrapper(Template);
+const WrappedComponent = FieldWrapper(FlexItem);
 export default WrappedComponent;
 
-export const TemplateForComponent = FieldWrapper(Template);
-export const TemplateForSection = FieldWrapperOfSection(Template);
+export const FlexItemForComponent = FieldWrapper(FlexItem);
+export const FlexItemForSection = FieldWrapperOfSection(FlexItem);
 
 

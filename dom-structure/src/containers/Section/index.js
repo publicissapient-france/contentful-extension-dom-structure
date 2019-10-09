@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SvgAdd from '../../components/svg/SvgAdd';
 import SvgSetting from '../../components/svg/SvgSetting';
+import SvgSpec from '../../components/svg/SvgSpec';
 import SvgRange from '../../components/svg/SvgRange';
 import SvgCheck from '../../components/svg/SvgCheck';
 import SvgTrash from '../../components/svg/SvgTrash';
@@ -129,9 +130,18 @@ class Section extends Component {
                         <Icon className={this.state.openAdd ? 'active' : ''} onClick={() => this.toggleOpenAdd()}>
                             <SvgAdd/>
                         </Icon>
-                        <Icon className={this.state.openSettings ? 'active' : ''}
+                        <Icon className={this.state.openSettings && !this.state.triggerOpening ? 'active' : ''}
                             onClick={() => this.toggleOpenSettings()}>
                             <SvgSetting/>
+                        </Icon>
+                        <Icon className={this.state.triggerOpening ? 'active' : ''}
+                              onClick={() =>{
+                                  this.triggerOpening();
+                                  if(!this.state.openSettings){
+                                      this.toggleOpenSettings();
+                                  }
+                              } }>
+                            <SvgSpec/>
                         </Icon>
                         <Range>
                             <Icon className={index === 0 ? 'disable' : ''} onClick={() => {
@@ -206,13 +216,7 @@ class Section extends Component {
                     <AddComponent index={index} open={this.state.openAdd} parent={this}/>
                 </AddChild>
                 <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>
-                    <Banner>
-                        <p> Content & Specifications </p>
-                        <Toggle>
-                            <Icon className={['toggleAll', !this.state.triggerOpening ? '' : 'rotate']}
-                                  onClick={() => this.triggerOpening()}><SvgArrowDouble/></Icon>
-                        </Toggle>
-                    </Banner>
+
                     <Fields>
                         <FieldsListOfSection triggerOpening={this.state.triggerOpening} fields={this.getSectionFields()} index={index}/>
                     </Fields>
@@ -234,3 +238,16 @@ Section.propTypes = {
 };
 
 export default connect()(Section);
+
+
+/*
+
+<Banner>
+                        <p> Content & Specifications </p>
+                        <Toggle>
+                            <Icon className={['toggleAll', !this.state.triggerOpening ? '' : 'rotate']}
+                                  onClick={() => this.triggerOpening()}><SvgArrowDouble/></Icon>
+                        </Toggle>
+                    </Banner>
+
+* */

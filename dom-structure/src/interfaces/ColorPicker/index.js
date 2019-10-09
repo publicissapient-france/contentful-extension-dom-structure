@@ -79,7 +79,7 @@ class ColorPicker extends Component {
                     <Field>
                         <Dot enabled={hasNotSamePropertyValue(defaultColor, color, 'hex')}/>
                         <SelectedColor
-                            className={['active', hasNotSamePropertyValue(storeValueColor, color, 'hex') ? 'updated' : '']}
+                            className={['active', hasNotSamePropertyValue(storeValueColor, color, 'hex') ? 'updated' : '', color.name === 'Transparent' ? 'transparent' : '']}
                             onClick={() => {
                                 this.props.toggleOpenView();
                             }}

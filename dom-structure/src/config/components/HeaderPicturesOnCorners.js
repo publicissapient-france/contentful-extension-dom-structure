@@ -37,13 +37,13 @@ export default {
                     },
                     opacity: {
                         M: {
-                            value: '0.8'
+                            value: '1'
                         },
                         T: {
-                            value: '0.9'
+                            value: '1'
                         },
                         D: {
-                            value: '0.95'
+                            value: '1'
                         }
                     }
                 }
@@ -87,13 +87,13 @@ export default {
                     },
                     opacity: {
                         M: {
-                            value: '0.8'
+                            value: '1'
                         },
                         T: {
-                            value: '0.9'
+                            value: '1'
                         },
                         D: {
-                            value: '0.95'
+                            value: '1'
                         }
                     },
                     seo: {
@@ -133,18 +133,18 @@ export default {
                     },
                     text: {
                         M: {
-                            align: 'left',
+                            align: 'center',
                             transform: null,
-                            decoration: 'underline'
+                            decoration: null
                         },
                         T: {
                             align: 'center',
-                            transform: 'uppercase',
+                            transform: null,
                             decoration: null
                         },
                         D: {
-                            align: 'justify',
-                            transform: 'capitalize',
+                            align: 'center',
+                            transform: null,
                             decoration: null
                         }
                     }
@@ -189,13 +189,13 @@ export default {
                     },
                     opacity: {
                         M: {
-                            value: '0.8'
+                            value: '1'
                         },
                         T: {
-                            value: '0.9'
+                            value: '1'
                         },
                         D: {
-                            value: '0.95'
+                            value: '1'
                         }
                     },
                     seo: {
@@ -235,18 +235,18 @@ export default {
                     },
                     text: {
                         M: {
-                            align: 'left',
+                            align: 'center',
                             transform: null,
-                            decoration: 'underline'
+                            decoration: null
                         },
                         T: {
                             align: 'center',
-                            transform: 'uppercase',
+                            transform: null,
                             decoration: null
                         },
                         D: {
-                            align: 'justify',
-                            transform: 'capitalize',
+                            align: 'center',
+                            transform: null,
                             decoration: null
                         }
                     }
@@ -279,20 +279,20 @@ export default {
                 defaultValue: {
                     size: {
                         M: {
-                            width: '200',
-                            height: '200',
+                            width: '100',
+                            height: '100',
                             maxWidth: '',
                             maxHeight: ''
                         },
                         T: {
-                            width: '500',
-                            height: '500',
+                            width: '150',
+                            height: '150',
                             maxWidth: '',
                             maxHeight: ''
                         },
                         D: {
-                            width: '500',
-                            height: '500',
+                            width: '200',
+                            height: '200',
                             maxWidth: '',
                             maxHeight: ''
                         }
@@ -381,9 +381,9 @@ export default {
                 defaultValue: {
                     size: {
                         A: {
-                            width: '200',
-                            height: '200',
-                            maxWidth: '',
+                            width: '20%',
+                            height: 'auto',
+                            maxWidth: '255',
                             maxHeight: ''
                         }
                     }

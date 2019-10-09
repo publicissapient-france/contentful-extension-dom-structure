@@ -141,7 +141,7 @@ class TextMarkdown extends Component {
                     </Settings>
                 </Field>
                 <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
-                    <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
+                    <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={ this.props.cancelStateValue}/>
                     <ButtonValidate label={'Update'} disabled={!this.props.updated} action={this.props.updateField}/>
                 </ChoiceItemsConfirm>
             </div>

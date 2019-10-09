@@ -4,6 +4,7 @@ import SvgSetting from '../../components/svg/SvgSetting';
 import SvgRange from '../../components/svg/SvgRange';
 import SvgCheck from '../../components/svg/SvgCheck';
 import SvgTrash from '../../components/svg/SvgTrash';
+import SvgSpec from '../../components/svg/SvgSpec';
 import SvgArrowDouble from '../../components/svg/SvgArrowDouble';
 import FieldsList from '../../components/FieldsList';
 
@@ -152,9 +153,18 @@ class ComponentDOM extends Component {
                         <h4>{component.model} </h4>
                     </Description>
                     <Actions>
-                        <Icon className={this.state.openSettings ? 'active' : ''}
+                        <Icon className={this.state.openSettings && !this.state.triggerOpening ? 'active' : ''}
                             onClick={() => this.toggleOpenSettings()}>
                             <SvgSetting/>
+                        </Icon>
+                        <Icon className={this.state.triggerOpening ? 'active' : ''}
+                              onClick={() =>{
+                                  this.triggerOpening();
+                                  if(!this.state.openSettings){
+                                      this.toggleOpenSettings();
+                                  }
+                              } }>
+                            <SvgSpec/>
                         </Icon>
                         <Range>
                             <Icon className={index === 0 ? 'disable' : ''} onClick={() => {

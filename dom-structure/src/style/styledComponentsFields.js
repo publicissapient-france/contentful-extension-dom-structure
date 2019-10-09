@@ -196,9 +196,9 @@ export const BoxColor = styled.div`
     position : relative;
     cursor : pointer;
 
-    &.null{
+     &.transparent{
         overflow : hidden;
-        background : white;
+        background : white !important;
         &:before {
             content: '';
             position: absolute;
@@ -385,9 +385,11 @@ export const IconContainer = styled.div`
   width:30px;
   height : 30px;
   cursor : pointer;
+  color :  ${ extensionTheme.grey40 };
   
   &.updated{
     background : ${ extensionTheme.blueM };
+    color : ${ extensionTheme.white };
      & svg{
         & g rect, & g path, & g polygon, & polygon{
             fill : ${ extensionTheme.white };
@@ -396,6 +398,7 @@ export const IconContainer = styled.div`
   }
   
   &.active{
+    color : ${ extensionTheme.blueM };
       & svg{
         & g rect, & g path, & g polygon, & polygon{
             fill : ${ extensionTheme.blueM };

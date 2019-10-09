@@ -116,21 +116,21 @@ export default {
                 defaultValue: {
                     color: {
                         M: {
-                            hex: '#FFFFFF',
-                            rgb: '255,255,255',
-                            name: 'white',
+                            hex: '#000000',
+                            rgb: '0,0,0',
+                            name: 'black',
                             shade: null
                         },
                         T: {
-                            hex: '#FFFFFF',
-                            rgb: '255,255,255',
-                            name: 'white',
+                            hex: '#000000',
+                            rgb: '0,0,0',
+                            name: 'black',
                             shade: null
                         },
                         D: {
-                            hex: '#FFFFFF',
-                            rgb: '255,255,255',
-                            name: 'white',
+                            hex: '#000000',
+                            rgb: '0,0,0',
+                            name: 'black',
                             shade: null
                         }
 
@@ -219,6 +219,7 @@ export default {
                     color: {
                         A: {
                             hex: '#000000',
+                            rgb: '0,0,0',
                             name: 'black',
                             shade: null
                         }

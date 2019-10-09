@@ -34,6 +34,7 @@ class InputMarkdown extends Component {
                 value: this.extractFromHTML(this.props.defaultValue)
             });
         }
+
     }
 
     handleTabChange = tab => {

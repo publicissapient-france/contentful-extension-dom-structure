@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FieldContainer } from './styled';
 import { TemplateForSection } from '../../fields/Template/index';
+import { FlexContainerForSection } from '../../fields/FlexContainer/index';
 
 class FieldsListOfSection extends Component {
     render () {
@@ -27,6 +28,9 @@ class FieldsListOfSection extends Component {
                         switch (field.typeField) {
                         case 'Template':
                             return <TemplateForSection {...params}/>;
+
+                        case 'FlexContainer':
+                            return <FlexContainerForSection {...params}/>;
 
                         default :
                             return <div className={'error'}><p>No field <strong>{field.typefield}</strong> matches</p>
