@@ -27,6 +27,8 @@ export const extensionTheme = {
     semiGreyBorder: '#B2B2B2',
     grey: '#8091A5',
     orange: '#FFB100',
+    blueXS : '#DCECFF',
+    blueS : '#ACC5EF',
     blueM: '#5b9fef',
     blueL: '#00C7D8'
 };

@@ -9,17 +9,13 @@ import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
 import ResponsiveToggle from '../../components/ResponsiveToggle';
 import ActiveCheckBox from '../../components/ActiveCheckBox';
-import Dot from '../../components/Dot/index';
-import IconActing from '../../components/IconActing/index';
-import SvgAlignCenter from '../../components/svg/SvgAlignCenter';
 
 import FlexContainerProperties from '../../interfaces/FlexContainerProperties';
 
 
 import {Icon} from '../../style/styledComponents';
 import {Banner} from '../../style/styledComponentsFields';
-import {ChoiceItemsConfirm, Settings, Choices, Field, Column} from './styled';
-import isEqual from "lodash/isEqual";
+import {ChoiceItemsConfirm, Settings, Choices, Field} from './styled';
 
 class FlexContainer extends Component {
     constructor(props) {

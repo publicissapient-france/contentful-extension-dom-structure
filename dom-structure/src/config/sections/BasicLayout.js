@@ -62,6 +62,9 @@ export default {
                 defaultValue: {
                     flex : {
                         M : {
+                            columns : '1',
+                            gutterHorizontal : '0',
+                            gutterVertical : '0',
                             direction : 'row',
                             wrap : 'wrap',
                             justify : 'flex-start',
@@ -69,6 +72,9 @@ export default {
                             alignContent : 'flex-start'
                         },
                         T : {
+                            columns : '1',
+                            gutterHorizontal : '0',
+                            gutterVertical : '0',
                             direction : 'row',
                             wrap : 'wrap',
                             justify : 'flex-start',
@@ -76,6 +82,9 @@ export default {
                             alignContent : 'flex-start'
                         },
                         D : {
+                            columns : '1',
+                            gutterHorizontal : '0',
+                            gutterVertical : '0',
                             direction : 'row',
                             wrap : 'wrap',
                             justify : 'flex-start',

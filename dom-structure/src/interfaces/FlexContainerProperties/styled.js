@@ -4,13 +4,13 @@ import {IconContainer} from "../../style/styledComponentsFields";
 
 export const Container = styled.div`
   padding : 10px 5px;
-  position : relative;
 `;
 
 export const Field = styled.div`
     display : flex; 
     flex-wrap : wrap;
 `;
+
 
 
 export const FlexProperty = styled.div`
@@ -26,13 +26,30 @@ export const FlexProperty = styled.div`
     }
 `;
 
+export const MainProperties = styled.div`
+    width : 100%;    
+    display : flex;
+    
+    &>div:nth-child(1){
+        width : calc(100% - 100px);
+        
+        & ${FlexProperty}{
+            &>label{
+                min-width : 100px;
+            }
+        }
+    }
+    
+   
+    
+`;
+
 
 export const ContainerProperty = styled.div`
    display : flex;
    flex-wrap : wrap;
    width : calc(100% - 100px);
-        
-        
+           
    &>div{
        border: 1px solid ${ extensionTheme.grey20} ;
        width : auto;
@@ -47,9 +64,67 @@ export const ContainerProperty = styled.div`
        margin-right: 20px;
    }
    
+   &>input[type=number]{
+     width : 60px;
+     padding-left : 10px;
+     border: 1px solid ${ extensionTheme.grey80} ;
+     
+     &.updated{
+        background :  ${ extensionTheme.blueM};
+        color :  ${ extensionTheme.white};
+     }
+   }
+   
 `;
 
+export const ContainerMainProperty = styled(ContainerProperty)`
+    display : flex;
+    flex-direction : column;
+    width : auto;
+    margin-right : 20px;
+
+`
+
+
+export const Grid = styled.ul`
+    position : absolute;
+    width : 100%;
+    height : 100%;
+    background : transparent;
+    display : flex;
+    margin: 0;
+    padding : 0;
+    border : 1px solid ${ extensionTheme.blueM};
+    
+    
+    &>div{
+        ${ props => `
+           width: calc(100% / ${ props.columns });     
+       `};
+        height : 100%;
+        
+        &:not(:first-child) {
+            &:after
+                {
+                   content: "";
+                    width: 1px;
+                    height: 100%;
+                    background-color: ${ extensionTheme.blueM};
+                    right: 0;
+                    position: relative;
+                    display: block;
+                    top: 0;
+                }
+        }
+    }
+
+`
+
 export const Preview = styled.div.attrs(props => ({
+    columns : props.flex.columns,
+    gutterH : props.flex.gutterHorizontal !== 0 && props.flex.gutterHorizontal !== '0' ,
+    gutterHorizontal : props.flex.gutterHorizontal,
+    gutterV : props.flex.gutterVertical  !== 0,
     direction: props.flex.direction,
     wrap: props.flex.wrap,
     justify: props.flex.justify,
@@ -63,30 +138,47 @@ ${ props => `
    flex-wrap: ${props.wrap };
    justify-content: ${ props.justify };
    align-items: ${ props.alignItems };
-   align-content: ${ props.alignContent };
-            
-            
-            
+   align-content: ${ props.alignContent };      
    `
     };
-
+   position : relative;
    display : flex;
-   position : absolute;
-   width : 200px;
+   min-width : 200px;
+   max-width : 250px;
    min-height : 100px;
    border: 1px solid ${ extensionTheme.grey20} ;
    background : ${ extensionTheme.white};
-   right : 10px;
-   top : 10px;
+   margin-right : 5px;
+   margin-top : 5px;
+   background : ${ extensionTheme.blueXS};
    
    &>div{
-    width : 20%;
-    margin : 5px;
-    min-height : 10px;
-    background : ${ extensionTheme.grey50};
+        ${ props => `
+           width: calc(100% / ${ props.columns } - ${   (( props.columns - 1 ) * props.gutterHorizontal ) / props.columns }px );
+           
+           
+       `};
+
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    min-height : 30px;
+    background : ${ extensionTheme.white};
+    color : ${ extensionTheme.grey80};
+    text-align : center;
+    font-size : 10px;
+    line-height : 14px;
+    border : 1px solid ${ extensionTheme.blueS};
     
     &:nth-child(2){ min-height : 18px;}
-    &:nth-child(3){ min-height : 22px;}
+    &:nth-child(3){ min-height : 34px;}
+    
+    &:nth-child(2n){
+        background : ${ extensionTheme.grey20};
+    }
+    
+    
+    
    
    }
     

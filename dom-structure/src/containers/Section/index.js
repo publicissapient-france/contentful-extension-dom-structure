@@ -92,6 +92,12 @@ class Section extends Component {
         openSettings: !this.state.openSettings,
         openAdd: false,
         openSafeDelete: false
+    }, () => {
+        if(!this.state.openSettings){
+            this.setState({
+                triggerOpening: false
+            })
+        }
     })
     triggerOpening = () => this.setState(prevState => ({
         triggerOpening: !prevState.triggerOpening
@@ -216,7 +222,6 @@ class Section extends Component {
                     <AddComponent index={index} open={this.state.openAdd} parent={this}/>
                 </AddChild>
                 <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>
-
                     <Fields>
                         <FieldsListOfSection triggerOpening={this.state.triggerOpening} fields={this.getSectionFields()} index={index}/>
                     </Fields>

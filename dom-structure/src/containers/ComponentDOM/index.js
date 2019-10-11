@@ -92,6 +92,12 @@ class ComponentDOM extends Component {
         openSettings: !this.state.openSettings,
         openContent: false,
         openSafeDelete: false
+    }, () => {
+        if(!this.state.openSettings){
+            this.setState({
+                triggerOpening: false
+            })
+        }
     })
     toggleOpenContent = () => this.setState({
         openContent: !this.state.openContent,
@@ -244,13 +250,6 @@ class ComponentDOM extends Component {
                     </FormComponent>
                 </div>
                 <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>
-                    <Banner>
-                        <p> Content & Specifications </p>
-                        <Toggle>
-                            <Icon className={['toggleAll', !this.state.triggerOpening ? '' : 'rotate']}
-                                onClick={() => this.triggerOpening()}><SvgArrowDouble/></Icon>
-                        </Toggle>
-                    </Banner>
                     <Fields>
                         <FieldsList triggerOpening={this.state.triggerOpening} fields={this.getComponentFields()} index={index} indexParent={indexParent}/>
                     </Fields>
