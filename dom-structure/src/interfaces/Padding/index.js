@@ -39,11 +39,11 @@ class Padding extends Component {
     }
 
     render () {
-        const { padding, storeValuePadding, defaultPadding } = this.props;
+        const { padding, storeValuePadding, defaultPadding, hidden } = this.props;
 
         if (!this.state.padding) return null;
         return (
-            <Container>
+            <Container className={hidden ? 'hidden' : ''}>
                 <Field>
                     <Dot enabled={!isEqual(defaultPadding, padding)}/>
                     <div>

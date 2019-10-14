@@ -26,11 +26,28 @@ export default {
                         A: {
                             value: '1'
                         }
-                    }
+                    },
+                    padding: {
+                        A: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        }
+                    },
+                    margin: {
+                        A: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        }
+                    },
                 }
             }
 
         },
+        /*
         {
             name: 'Flex Item',
             nameProperty: 'FlexItem',
@@ -54,7 +71,7 @@ export default {
                 }
             }
 
-        },
+        },*/
         {
             name: 'Title',
             nameProperty: 'Title',
@@ -152,6 +169,91 @@ export default {
                             align: 'left',
                             transform: null,
                             decoration: null
+                        }
+                    }
+                }
+            }
+
+        },
+        {
+            name: 'Image',
+            nameProperty: 'Image',
+            typeField: 'SingleImage',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                    images: [
+                        {
+                            alt: {},
+                            asset: {
+                                A: {}
+                            }
+                        }
+                    ]
+                }
+            },
+            settings: {
+                responsive: ['M', 'T', 'D'],
+                defaultValue: {
+                    size: {
+                        M: {
+                            width: '100',
+                            height: '100',
+                            maxWidth: '',
+                            maxHeight: ''
+                        },
+                        T: {
+                            width: '150',
+                            height: '150',
+                            maxWidth: '',
+                            maxHeight: ''
+                        },
+                        D: {
+                            width: '200',
+                            height: '200',
+                            maxWidth: '',
+                            maxHeight: ''
+                        }
+                    },
+                    padding: {
+                        M: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        T: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        D: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        }
+                    },
+                    margin: {
+                        M: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        T: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        D: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
                         }
                     }
                 }

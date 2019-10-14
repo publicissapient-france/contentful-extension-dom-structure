@@ -26,7 +26,23 @@ export default {
                         A: {
                             value: '1'
                         }
-                    }
+                    },
+                    padding: {
+                        A: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        }
+                    },
+                    margin: {
+                        A: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        }
+                    },
                 }
                 /* responsive : ['M','T','D'],
                 defaultValue: {

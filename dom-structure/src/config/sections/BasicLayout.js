@@ -42,6 +42,26 @@ export default {
                         D: {
                             value: '1'
                         }
+                    },
+                    padding: {
+                        M: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        T: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        },
+                        D: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        }
                     }
                 }
             }

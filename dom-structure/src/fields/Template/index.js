@@ -11,6 +11,8 @@ import ResponsiveToggle from '../../components/ResponsiveToggle';
 import ActiveCheckBox from '../../components/ActiveCheckBox';
 
 import ColorPicker from '../../interfaces/ColorPicker';
+import Padding from '../../interfaces/Padding'
+import Margin from '../../interfaces/Margin'
 
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
@@ -76,6 +78,27 @@ class Template extends Component {
                                          updateStateProps={this.props.updateSettings}
                                          toggleOpenView={this.toggleOpenView}
                             />
+                            {
+                                this.props.defaultSettings['padding'] ?
+                                    <Padding hidden={ this.state.openColorView}
+                                             padding={this.props.getSettingsProperty('padding')}
+                                             storeValuePadding={this.props.getStoreSettingsProperty('padding')}
+                                             defaultPadding={this.props.getDefaultSettingsProperty('padding')}
+                                             updateStateProps={this.props.updateSettings}
+                                    />
+                                : null
+                            }
+                            {
+                                this.props.defaultSettings['margin'] ?
+                                    <Margin margin={this.props.getSettingsProperty('margin')}
+                                            storeValueMargin={this.props.getStoreSettingsProperty('margin')}
+                                            defaultMargin={this.props.getDefaultSettingsProperty('margin')}
+                                            updateStateProps={this.props.updateSettings}
+                                    />
+                                    : null
+                            }
+
+
                         </Choices>
                     </Settings>
                 </Field>

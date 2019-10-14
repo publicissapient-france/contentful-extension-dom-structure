@@ -122,9 +122,8 @@ export const Grid = styled.ul`
 
 export const Preview = styled.div.attrs(props => ({
     columns : props.flex.columns,
-    gutterH : props.flex.gutterHorizontal !== 0 && props.flex.gutterHorizontal !== '0' ,
     gutterHorizontal : props.flex.gutterHorizontal,
-    gutterV : props.flex.gutterVertical  !== 0,
+    gutterVertical : props.flex.gutterVertical,
     direction: props.flex.direction,
     wrap: props.flex.wrap,
     justify: props.flex.justify,
@@ -155,7 +154,7 @@ ${ props => `
    &>div{
         ${ props => `
            width: calc(100% / ${ props.columns } - ${   (( props.columns - 1 ) * props.gutterHorizontal ) / props.columns }px );
-           
+           margin-bottom : ${ props.gutterVertical }px;
            
        `};
 

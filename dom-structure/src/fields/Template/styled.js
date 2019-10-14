@@ -14,4 +14,6 @@ export const Settings = styled.div`
 
 export const Choices = styled.div`
    display : flex;
+   flex-wrap : wrap;
+   padding-bottom : 10px;
 `;
