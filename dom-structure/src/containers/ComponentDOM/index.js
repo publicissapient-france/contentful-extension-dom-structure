@@ -229,7 +229,7 @@ class ComponentDOM extends Component {
                         if (!this.isUpdated()) {
                             return;
                         }
-                        dispatch(updateComponent(this.state.component.name, this.state.component.model, index, indexParent));
+                        dispatch(updateComponent(this.state.component.name, this.state.component.model, this.state.component.order, index, indexParent));
                     }}
                     >
                         <div>

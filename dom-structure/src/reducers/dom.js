@@ -97,7 +97,8 @@ const dom = (state = [], action) => {
                     components: {
                         [action.index]: {
                             name: {$set: action.name},
-                            model: {$set: action.model}
+                            model: {$set: action.model},
+                            order: {$set: action.order}
                         }
                     }
                 }
