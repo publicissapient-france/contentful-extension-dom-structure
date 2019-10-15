@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Container, Preview, Element, ButtonsMove, Button, PreviewContainer } from './styled';
+import { Container, Preview, Element, ButtonsMove, Button, PreviewContainer, Label, Wrapper } from './styled';
 import SvgArrowToTop from '../../components/svg/SvgArrowToTop';
 import SvgElementCTA from '../../components/svg/SvgElementCTA';
 import SvgElementImage from '../../components/svg/SvgElementImage';
@@ -80,6 +80,7 @@ class OrderFieldsContent extends Component {
         if(!order) return null;
         return (
             <Container>
+                <Wrapper>
                 <PreviewContainer>
                     {
                         order.map( (field, i) => {
@@ -93,12 +94,14 @@ class OrderFieldsContent extends Component {
                                     {
                                         this.getSvgElementByType(fieldConfig.typeField)
                                     }
+                                    <Label>{ fieldConfig.nameProperty }</Label>
                                 </Element>
-                                <p>{ fieldConfig.nameProperty }</p>
+
                             </Preview>
                         })
                     }
                 </PreviewContainer>
+                </Wrapper>
             </Container>
         );
     }

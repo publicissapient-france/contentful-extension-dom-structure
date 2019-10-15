@@ -10,9 +10,9 @@ export const Element = styled.div`
    display : flex;
    justify-content : center;
    align-items : center;
-   border-left : 1px solid ${ extensionTheme.grey30 };
-   border-right : 1px solid ${ extensionTheme.grey30 };
-   border-top : 1px solid ${ extensionTheme.grey30 };
+   border-left : 1px solid ${ extensionTheme.grey80 };
+   border-right : 1px solid ${ extensionTheme.grey80 };
+   border-top : 1px solid ${ extensionTheme.grey80 };
    
    &>svg{
         width : 100px;
@@ -25,15 +25,19 @@ export const Preview = styled.div`
     display : flex;
     width : auto;
     align-items : center;
-    
-    &>p{
-        padding-left : 10px;
-        color : ${ extensionTheme.grey30};
-        font-size : 12px;
-    }
-    
    
 `;
+
+
+export const Label = styled.p`
+    position : absolute;
+    color : ${ extensionTheme.grey30};
+    font-size : 12px;
+    top : 10px;
+    left : calc(100% + 40px);
+    
+`;
+
 
 export const PreviewContainer = styled.div`
     display : flex;
@@ -41,18 +45,14 @@ export const PreviewContainer = styled.div`
     width : auto;
     
     & ${Preview}:last-child ${Element}{
-        border-bottom : 1px solid ${ extensionTheme.grey30 };
+        border-bottom : 1px solid ${ extensionTheme.grey80 };
     }
     
 `;
 
 export const Container = styled.div`
-    padding : 20px 10px;
     display : flex;
     flex-direction : column;
-    align-items : flex-start;
-    
-    & ${ Preview }
 `;
 
 export const Button = styled.div`
@@ -98,3 +98,12 @@ export const ButtonsMove = styled.div`
     }
     
 `;
+
+
+export const Wrapper = styled.div`
+    padding : 20px;
+    border : 1px solid ${ extensionTheme.grey30};
+    width : fit-content;
+    
+`;
+

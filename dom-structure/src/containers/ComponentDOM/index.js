@@ -26,7 +26,9 @@ import {
     Toggle,
     TopBar,
     FieldsContainer,
-    Fields
+    Fields,
+    Column,
+    Buttons
 } from './styled';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
@@ -38,8 +40,7 @@ import {
     moveComponentToDown,
     removeComponent,
     updateComponent,
-    toggleComponentActive,
-    getFieldConfig
+    toggleComponentActive
 } from '../../actions/index';
 import update from 'react-addons-update';
 import PropTypes from 'prop-types';
@@ -232,36 +233,42 @@ class ComponentDOM extends Component {
                         dispatch(updateComponent(this.state.component.name, this.state.component.model, this.state.component.order, index, indexParent));
                     }}
                     >
-                        <div>
-                            <label>Component Name</label>
-                            <input ref={node => (inputName = node)} type={'text'}
-                                value={this.state.component.name || ''}
-                                onChange={e => {
-                                    this.updateName(e.target.value);
-                                }}/>
-                        </div>
-                        <div>
-                            <label>Model</label>
-                            <select ref={node => (selectModel = node)}
-                                value={this.state.component.model || null}
-                                onChange={e => {
-                                    this.updateModel(e.target.value);
-                                }}>
-                                {
-                                    Object.keys(componentConfig).map((key, i) => {
-                                        return <option value={key} key={i}>{key}</option>;
-                                    })
-                                }
+                        <Column>
+                            <div>
+                                <label>Component Name</label>
+                                <input ref={node => (inputName = node)} type={'text'}
+                                       value={this.state.component.name || ''}
+                                       onChange={e => {
+                                           this.updateName(e.target.value);
+                                       }}/>
+                            </div>
+                            <div>
+                                <label>Model</label>
+                                <select ref={node => (selectModel = node)}
+                                        value={this.state.component.model || null}
+                                        onChange={e => {
+                                            this.updateModel(e.target.value);
+                                        }}>
+                                    {
+                                        Object.keys(componentConfig).map((key, i) => {
+                                            return <option value={key} key={i}>{key}</option>;
+                                        })
+                                    }
 
-                            </select>
-                        </div>
-                        <div>
-                            <label>Order</label>
-                            <OrderFieldsContent fields={this.getComponentFields()} order={this.state.component.order}  updateOrder={this.updateOrder}/>
-                        </div>
+                                </select>
+                            </div>
+                        </Column>
+                        <Column>
+                            <div>
+                                <label>Order</label>
+                                <OrderFieldsContent fields={this.getComponentFields()} order={this.state.component.order}  updateOrder={this.updateOrder}/>
+                            </div>
+                        </Column>
 
 
-                        <div className={'buttons'}>
+
+
+                        <Buttons className={'buttons'}>
                             <ButtonBasic
                                 label={'Cancel'}
                                 disabled={!this.isUpdated()}
@@ -272,7 +279,7 @@ class ComponentDOM extends Component {
                                     selectModel.value = component.model;
                                 }}/>
                             <ButtonValidate label={'Update'} type={'submit'} disabled={!this.isUpdated()}/>
-                        </div>
+                        </Buttons>
                     </FormComponent>
                 </div>
                 <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>
