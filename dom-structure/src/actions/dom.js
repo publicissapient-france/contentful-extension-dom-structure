@@ -196,3 +196,19 @@ export const getField = (state, indexComponent, indexSection, nameProperty) => (
     type: 'GET_FIELD',
     field: state.dom[indexSection].components[indexComponent].fields[nameProperty]
 });
+
+export const getFieldConfig = (type, number, numberParent) => ({
+    type: 'GET_FIELD_CONFIG',
+    typeField: type,
+    indexComponent : number,
+    indexSection: numberParent,
+
+});
+
+export const updateOrder = (order, number, numberParent) => ({
+    type: 'UPDATE_ORDER',
+    order: order,
+    indexComponent : number,
+    indexSection: numberParent,
+
+});

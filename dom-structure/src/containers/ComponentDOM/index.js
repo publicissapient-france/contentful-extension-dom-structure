@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import isEqual from 'lodash/isEqual'
+
+import OrderFieldsContent from '../OrderFieldsContent';
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgRange from '../../components/svg/SvgRange';
 import SvgCheck from '../../components/svg/SvgCheck';
@@ -35,7 +38,8 @@ import {
     moveComponentToDown,
     removeComponent,
     updateComponent,
-    toggleComponentActive
+    toggleComponentActive,
+    getFieldConfig
 } from '../../actions/index';
 import update from 'react-addons-update';
 import PropTypes from 'prop-types';
@@ -57,7 +61,10 @@ class ComponentDOM extends Component {
     }
 
     componentDidMount = async () => {
-        this.setState({ component: this.props.component });
+        this.setState({ component: this.props.component }, () => {
+            console.log('COMPONENT ON MOUNT', this.state.component);
+        });
+
     }
 
     componentDidUpdate (prevProps) {
@@ -81,6 +88,16 @@ class ComponentDOM extends Component {
             })
         }));
     }
+
+    updateOrder = order => {
+        this.setState(prevState => ({
+            component: update(prevState.component, {
+                order: { $set: order }
+            })
+        }));
+    }
+
+
     toggleActive = () => this.props.dispatch(toggleComponentActive(!this.props.component.active, this.props.index, this.props.indexParent));
 
     toggleSafeSecure = () => this.setState({
@@ -132,7 +149,10 @@ class ComponentDOM extends Component {
     }
 
     isUpdated = () => (this.state.component && (this.state.component.name !== this.props.component.name ||
-        this.state.component.model !== this.props.component.model))
+        this.state.component.model !== this.props.component.model ||
+        !isEqual(this.state.component.order, this.props.component.order)
+        )
+    )
 
     getComponentFields = () => {
         return componentConfig[this.props.component.model].default.fields;
@@ -235,6 +255,12 @@ class ComponentDOM extends Component {
 
                             </select>
                         </div>
+                        <div>
+                            <label>Order</label>
+                            <OrderFieldsContent fields={this.getComponentFields()} order={this.state.component.order}  updateOrder={this.updateOrder}/>
+                        </div>
+
+
                         <div className={'buttons'}>
                             <ButtonBasic
                                 label={'Cancel'}

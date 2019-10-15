@@ -73,6 +73,7 @@ const dom = (state = [], action) => {
             });
 
         case 'ADD_COMPONENT':
+            console.log('action compoenent', action.component)
             return update(state, {
                 [action.index]: {
                     components: {
@@ -82,7 +83,8 @@ const dom = (state = [], action) => {
                                 name: action.component.name,
                                 model: action.component.model,
                                 active: false,
-                                fields: action.component.fields
+                                fields: action.component.fields,
+                                order: action.component.order
                             }
                         ]
                     }
@@ -323,8 +325,27 @@ const dom = (state = [], action) => {
                 }
             });
 
+        case 'UPDATE_ORDER':
+            /*return update(state, {
+                [action.indexSection]: {
+                    components: {
+                        [action.indexComponent]: {
+                            order: {$set: action.order}
+                        }
+                    }
+                }
+            });*/
+            return action.order
+
         case 'GET_FIELD':
             return action.field;
+
+        case 'GET_FIELD_CONFIG':
+            console.log('action GET FIELD CONFIG', action);
+            const result = state[action.indexSection].components[action.indexComponent].fields[action.typeField]
+            console.log('result', result)
+            return action.field;
+
 
         default:
             return state;

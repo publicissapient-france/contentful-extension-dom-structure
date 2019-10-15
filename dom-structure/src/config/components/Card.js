@@ -1,5 +1,6 @@
 export default {
     model: 'Card',
+    order : ['Title', 'Content', 'Image'],
     fields: [
         {
             name: 'Template',
@@ -8,8 +9,7 @@ export default {
             content: {
                 responsive: ['A'],
                 parameters: {},
-                defaultValue: {
-                }
+                defaultValue: {}
             },
             settings: {
                 responsive: ['A'],

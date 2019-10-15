@@ -76,6 +76,7 @@ export const Banner = styled.div`
 
 export const FormComponent = styled(Form)`
   padding : 15px;
+  flex-direction : column;
 `;
 
 export const Active = styled(CheckBox)`
@@ -111,3 +112,4 @@ export const FieldsContainer = styled.div`
 export const Fields = styled.div`
  
 `;
+

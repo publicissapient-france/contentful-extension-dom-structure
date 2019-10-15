@@ -8,8 +8,7 @@ export default {
             content: {
                 responsive: ['A'],
                 parameters: {},
-                defaultValue: {
-                }
+                defaultValue: {}
             },
             settings: {
                 responsive: ['A'],
