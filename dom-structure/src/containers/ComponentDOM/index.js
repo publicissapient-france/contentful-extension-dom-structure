@@ -261,7 +261,7 @@ class ComponentDOM extends Component {
                         <Column>
                             <div>
                                 <label>Order</label>
-                                <OrderFieldsContent fields={this.getComponentFields()} order={this.state.component.order}  updateOrder={this.updateOrder}/>
+                                <OrderFieldsContent componentModel={this.props.component.model} fields={this.getComponentFields()} order={this.state.component.order}  updateOrder={this.updateOrder}/>
                             </div>
                         </Column>
 

@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { extensionTheme} from "../../style/theme";
 
-
-
 export const Element = styled.div`
    width : 100px;
    position : relative;
@@ -25,9 +23,7 @@ export const Preview = styled.div`
     display : flex;
     width : auto;
     align-items : center;
-   
 `;
-
 
 export const Label = styled.p`
     position : absolute;
@@ -35,9 +31,8 @@ export const Label = styled.p`
     font-size : 12px;
     top : 10px;
     left : calc(100% + 40px);
-    
+    width : fit-content;  
 `;
-
 
 export const PreviewContainer = styled.div`
     display : flex;
@@ -46,8 +41,7 @@ export const PreviewContainer = styled.div`
     
     & ${Preview}:last-child ${Element}{
         border-bottom : 1px solid ${ extensionTheme.grey80 };
-    }
-    
+    }  
 `;
 
 export const Container = styled.div`
@@ -66,7 +60,6 @@ export const Button = styled.div`
    & svg{
     width : 8px;
    }
-    
 `;
 
 export const ButtonsMove = styled.div`
@@ -77,8 +70,6 @@ export const ButtonsMove = styled.div`
     
     &:hover{
         &>${Button}{
-        
-            
             opacity : 0.4;
             
             &:hover{
@@ -93,17 +84,14 @@ export const ButtonsMove = styled.div`
         
         &:nth-child(1){
             transform : rotate(180deg);
-            
         }
     }
     
 `;
 
-
 export const Wrapper = styled.div`
     padding : 20px;
     border : 1px solid ${ extensionTheme.grey30};
     width : fit-content;
-    
 `;
 

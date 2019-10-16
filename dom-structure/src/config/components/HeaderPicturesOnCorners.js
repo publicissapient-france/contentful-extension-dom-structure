@@ -1,5 +1,6 @@
 export default {
     model: 'HeaderPicturesOnCorners',
+    order : ['Logo', 'Title', 'Tagline'],
     fields: [
         {
             name: 'Template',
@@ -8,8 +9,7 @@ export default {
             content: {
                 responsive: ['A'],
                 parameters: {},
-                defaultValue: {
-                }
+                defaultValue: {}
             },
             settings: {
                 responsive: ['M', 'T', 'D'],
@@ -91,7 +91,7 @@ export default {
 
         },
         {
-            name: 'Title Header',
+            name: 'Title',
             nameProperty: 'Title',
             typeField: 'Text',
             content: {
@@ -193,7 +193,7 @@ export default {
 
         },
         {
-            name: 'Tagline Leading',
+            name: 'Tagline',
             nameProperty: 'Tagline',
             typeField: 'Text',
             content: {
