@@ -45,10 +45,10 @@ class Padding extends Component {
         return (
             <Container className={hidden ? 'hidden' : ''}>
                 <Field>
-                    <Dot enabled={!isEqual(defaultPadding, padding)}/>
                     <div>
                         <label>padding</label>
                         <Inputs>
+                            <Dot enabled={!isEqual(defaultPadding, padding)}/>
                             <input
                                 type={'number'}
                                 min={0}

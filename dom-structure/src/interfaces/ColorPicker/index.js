@@ -59,7 +59,7 @@ class ColorPicker extends Component {
     }
 
     render () {
-        const { storeValueColor, storeValueOpacity, colors, color, opacity, defaultColor, defaultOpacity, openView, hidden } = this.props;
+        const { storeValueColor, storeValueOpacity, colors, color, opacity, defaultColor, defaultOpacity, openView, hidden, customName } = this.props;
         if (!color) return <p>no color defined</p>;
         if (!colors) {
             return (
@@ -75,7 +75,7 @@ class ColorPicker extends Component {
         return (
             <ChoiceColor className={[openView ? 'full-width' : '', hidden ? 'hidden' : '']}>
                 <div>
-                    <Property>Color</Property>
+                    <Property>{ customName ? customName : 'Color'}</Property>
                     <Field>
                         <Dot enabled={hasNotSamePropertyValue(defaultColor, color, 'hex')}/>
                         <SelectedColor

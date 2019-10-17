@@ -52,9 +52,9 @@ class Size extends Component {
             <Container>
                 <ContainerFields>
                     <Field>
-                        <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'width')}/>
+                        <label>width</label>
                         <div>
-                            <label>width</label>
+                            <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'width')}/>
                             <input
                                 type={'text'}
                                 className={[hasNotSamePropertyValue(storeValueSize, size, 'width') ? 'updated' : '',
@@ -66,9 +66,9 @@ class Size extends Component {
                         </div>
                     </Field>
                     <Field>
-                        <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'height')}/>
+                        <label>height</label>
                         <div>
-                            <label>height</label>
+                            <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'height')}/>
                             <input
                                 type={'text'}
                                 className={hasNotSamePropertyValue(storeValueSize, size, 'height') ? 'updated' : ''}
@@ -79,9 +79,9 @@ class Size extends Component {
                         </div>
                     </Field>
                     <Field>
-                        <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'maxWidth')}/>
+                        <label>max-width</label>
                         <div>
-                            <label>max-width</label>
+                            <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'maxWidth')}/>
                             <input
                                 type={'text'}
                                 className={hasNotSamePropertyValue(storeValueSize, size, 'maxWidth') ? 'updated' : ''}
@@ -92,9 +92,9 @@ class Size extends Component {
                         </div>
                     </Field>
                     <Field>
-                        <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'maxHeight')}/>
+                        <label>max-height</label>
                         <div>
-                            <label>max-height</label>
+                            <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'maxHeight')}/>
                             <input
                                 type={'text'}
                                 className={hasNotSamePropertyValue(storeValueSize, size, 'maxHeight') ? 'updated' : ''}

@@ -77,6 +77,7 @@ export const Fields = styled.div`
     font-size : 12px;
     font-weight : 300;
     color :  ${ extensionTheme.grey80 };
+    line-height : 30px;
   }
   
   span {

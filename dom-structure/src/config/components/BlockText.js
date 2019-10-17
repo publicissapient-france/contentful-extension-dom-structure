@@ -1,5 +1,6 @@
 export default {
     model: 'BlockText',
+    order : ['Title', 'Content'],
     fields: [
         {
             name: 'Template',

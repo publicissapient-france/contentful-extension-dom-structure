@@ -7,6 +7,7 @@ import TextMarkdown from '../../fields/TextMarkdown/index';
 import SingleImage from '../../fields/SingleImage/index';
 import MultipleImages from '../../fields/MultipleImages/index';
 import FlexItem from '../../fields/FlexItem/index';
+import CTA from '../../fields/CTA/index';
 
 class FieldsList extends Component {
     render () {
@@ -47,6 +48,9 @@ class FieldsList extends Component {
 
                         case 'FlexItem':
                             return <FlexItem {...params} />;
+
+                        case 'CTA':
+                            return <CTA {...params} />;
 
                         default :
                             return <div className={'error'}><p>No field <strong>{field.typefield}</strong> matches</p>

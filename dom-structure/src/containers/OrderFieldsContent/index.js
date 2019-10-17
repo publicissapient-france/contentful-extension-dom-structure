@@ -14,6 +14,7 @@ import DefaultWrapper from '../../components/wrappers/DefaultWrapper'
 import HeaderPicturesOnCornersWrapper from '../../components/wrappers/HeaderPicturesOnCornersWrapper';
 
 const mapModelToWrappers = {
+    DefaultWrapper,
     HeaderPicturesOnCornersWrapper
 }
 
@@ -43,6 +44,10 @@ class OrderFieldsContent extends Component {
                 return <SvgElementImage/>;
             case 'MultiplesImage' :
                 return <SvgElementImage/>;
+            case 'CTA' :
+                return <SvgElementCTA/>;
+            default :
+                return <div>no preview</div>
         }
 
     }
@@ -97,6 +102,7 @@ class OrderFieldsContent extends Component {
             {
                 order.map( (field, i) => {
                     const fieldConfig = this.getFieldByName(field);
+                    if(!fieldConfig) return null
                     return <Preview>
                         <Element>
                             <ButtonsMove>
@@ -119,7 +125,7 @@ class OrderFieldsContent extends Component {
                 {
                     this.hasPredefinedOrder() ?
                         React.createElement( mapModelToWrappers[`${componentModel}Wrapper`], {}, PreviewContent)
-                        : React.createElement( DefaultWrapper, {}, PreviewContent)
+                        : React.createElement( mapModelToWrappers[`DefaultWrapper`], {}, PreviewContent)
                 }
             </Container>
         );

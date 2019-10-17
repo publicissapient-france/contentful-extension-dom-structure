@@ -28,6 +28,7 @@ export const FontProps = styled.div`
     padding-right : 30px;   
     padding-bottom : 10px;   
     padding-top:10px;
+    height : 190px;
     
     &>div{
         display : flex;

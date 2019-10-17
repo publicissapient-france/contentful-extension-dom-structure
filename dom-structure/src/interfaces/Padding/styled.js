@@ -2,11 +2,15 @@ import styled from 'styled-components';
 import { extensionTheme } from '../../style/theme';
 
 export const Container = styled.div`
-  padding : 10px 5px;
+  padding : 10px 0;
 `;
 
 export const Field = styled.div`
     display : flex;  
+    
+    &>div>label{
+        margin-left : 30px;
+    }
 `;
 
 export const Inputs = styled.div`

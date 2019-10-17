@@ -1,6 +1,6 @@
 export default {
     model: 'Card',
-    order : ['Title', 'Content', 'Image'],
+    order: ['Title', 'Content', 'Image', 'CTA'],
     fields: [
         {
             name: 'Template',
@@ -137,7 +137,7 @@ export default {
                 }
             },
             settings: {
-                 responsive : ['A'],
+                responsive: ['A'],
                 defaultValue: {
                     color: {
                         A: {
@@ -254,6 +254,136 @@ export default {
                             right: '0',
                             bottom: '0',
                             left: '0'
+                        }
+                    },
+                    border: {
+                        M: {
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value : '1'
+                            },
+                            width : {
+                                top : 'O',
+                                right : 'O',
+                                bottom : 'O',
+                                left : 'O'
+                            },
+                            radius : {
+                                topLeft : '0',
+                                topRight : '0',
+                                bottomLeft : '0',
+                                bottomRight : '0'
+                            }
+                        },
+                        T: {
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value : '1'
+                            },
+                            width : {
+                                top : 'O',
+                                right : 'O',
+                                bottom : 'O',
+                                left : 'O'
+                            },
+                            radius : {
+                                topLeft : '0',
+                                topRight : '0',
+                                bottomLeft : '0',
+                                bottomRight : '0'
+                            }
+                        },
+                        D: {
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value : '1'
+                            },
+                            width : {
+                                top : '0',
+                                right : '0',
+                                bottom : '0',
+                                left : '0'
+                            },
+                            radius : {
+                                topLeft : '0',
+                                topRight : '0',
+                                bottomLeft : '0',
+                                bottomRight : '0'
+                            }
+                        }
+                    }
+                }
+            }
+
+        },
+        {
+            name: 'CTA',
+            nameProperty: 'CTA',
+            typeField: 'CTA',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                    text: {},
+                    link : {}
+                }
+            },
+            settings: {
+                responsive: ['A'],
+                defaultValue: {
+                    target: {
+                        external: false
+                    },
+                    color: {
+                        A: {
+                            hex: '#000000',
+                            rgb: '0,0,0',
+                            name: 'black',
+                            shade: null
+                        }
+                    },
+                    opacity: {
+                        A: {
+                            value: '1'
+                        }
+                    },
+                    font: {
+                        A: {
+                            theme: 'Paragraph',
+                            family: null,
+                            typeface: null,
+                            weight: null,
+                            style: null,
+                            size: null,
+                            lineHeight: null,
+                            letterSpacing: '0'
+                        }
+                    },
+                    text: {
+                        A: {
+                            align: 'center',
+                            transform: null,
+                            decoration: null
+                        }
+                    },
+                    border : {
+                        A: {
+
                         }
                     }
                 }

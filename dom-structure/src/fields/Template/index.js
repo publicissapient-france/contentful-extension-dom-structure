@@ -16,7 +16,7 @@ import Margin from '../../interfaces/Margin'
 
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
-import {ChoiceItemsConfirm, Settings, Choices} from './styled';
+import {ChoiceItemsConfirm, Settings, Choices, Column, Row} from './styled';
 
 class Template extends Component {
     constructor(props) {
@@ -27,7 +27,8 @@ class Template extends Component {
         };
     }
 
-    componentDidMount() {};
+    componentDidMount() {
+    };
 
     componentDidUpdate(prevProps) {
         if (this.props.responsiveSettings !== prevProps.responsiveSettings) {
@@ -67,38 +68,41 @@ class Template extends Component {
                 <Field>
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>
-                            <ColorPicker hidden={false}
-                                         color={this.props.getSettingsProperty('color')}
-                                         opacity={this.props.getSettingsProperty('opacity')}
-                                         storeValueColor={this.props.getStoreSettingsProperty('color')}
-                                         storeValueOpacity={this.props.getStoreSettingsProperty('opacity')}
-                                         defaultColor={this.props.getDefaultSettingsProperty('color')}
-                                         defaultOpacity={this.props.getDefaultSettingsProperty('opacity')}
-                                         openView={this.state.openColorView}
-                                         updateStateProps={this.props.updateSettings}
-                                         toggleOpenView={this.toggleOpenView}
-                            />
-                            {
-                                this.props.defaultSettings['padding'] ?
-                                    <Padding hidden={ this.state.openColorView}
-                                             padding={this.props.getSettingsProperty('padding')}
-                                             storeValuePadding={this.props.getStoreSettingsProperty('padding')}
-                                             defaultPadding={this.props.getDefaultSettingsProperty('padding')}
+                            <Column className={this.state.openColorView ? 'full-width' : ''}>
+                                <ColorPicker hidden={false}
+                                             color={this.props.getSettingsProperty('color')}
+                                             opacity={this.props.getSettingsProperty('opacity')}
+                                             storeValueColor={this.props.getStoreSettingsProperty('color')}
+                                             storeValueOpacity={this.props.getStoreSettingsProperty('opacity')}
+                                             defaultColor={this.props.getDefaultSettingsProperty('color')}
+                                             defaultOpacity={this.props.getDefaultSettingsProperty('opacity')}
+                                             openView={this.state.openColorView}
                                              updateStateProps={this.props.updateSettings}
-                                    />
-                                : null
-                            }
-                            {
-                                this.props.defaultSettings['margin'] ?
-                                    <Margin margin={this.props.getSettingsProperty('margin')}
-                                            storeValueMargin={this.props.getStoreSettingsProperty('margin')}
-                                            defaultMargin={this.props.getDefaultSettingsProperty('margin')}
-                                            updateStateProps={this.props.updateSettings}
-                                    />
-                                    : null
-                            }
-
-
+                                             toggleOpenView={this.toggleOpenView}
+                                />
+                            </Column>
+                            <Column>
+                                {
+                                    this.props.defaultSettings['padding'] ?
+                                        <Padding hidden={this.state.openColorView}
+                                                 padding={this.props.getSettingsProperty('padding')}
+                                                 storeValuePadding={this.props.getStoreSettingsProperty('padding')}
+                                                 defaultPadding={this.props.getDefaultSettingsProperty('padding')}
+                                                 updateStateProps={this.props.updateSettings}
+                                        />
+                                        : null
+                                }
+                                {
+                                    this.props.defaultSettings['margin'] ?
+                                        <Margin hidden={this.state.openColorView}
+                                                margin={this.props.getSettingsProperty('margin')}
+                                                storeValueMargin={this.props.getStoreSettingsProperty('margin')}
+                                                defaultMargin={this.props.getDefaultSettingsProperty('margin')}
+                                                updateStateProps={this.props.updateSettings}
+                                        />
+                                        : null
+                                }
+                            </Column>
                         </Choices>
                     </Settings>
                 </Field>

@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {getCurrentStyle} from '../../actions';
 
 import FieldWrapper from '../../HOC/FieldWrapper';
 
@@ -11,18 +13,17 @@ import TextPreview from '../../components/TextPreview';
 import ResponsiveToggle from '../../components/ResponsiveToggle';
 import ActiveCheckBox from '../../components/ActiveCheckBox';
 
-import InputMarkdown from '../../interfaces/InputMarkdown';
+import InputText from '../../interfaces/InputText';
 import Typography from '../../interfaces/Typography';
 import ColorPicker from '../../interfaces/ColorPicker';
+import Seo from '../../interfaces/Seo';
 
-import { Icon } from '../../style/styledComponents';
-import { Banner, Field } from '../../style/styledComponentsFields';
-import { ChoiceItemsConfirm, Content, Settings, Choices, Column, Row } from './styled';
-import {getCurrentStyle} from "../../actions";
-import {connect} from "react-redux";
+import {Icon} from '../../style/styledComponents';
+import {Banner, Field} from '../../style/styledComponentsFields';
+import {ChoiceItemsConfirm, Content, Settings, Choices, Column, LinkSettings, Row} from './styled';
 
-class TextMarkdown extends Component {
-    constructor (props) {
+class CTA extends Component {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -31,46 +32,50 @@ class TextMarkdown extends Component {
         };
     }
 
-    componentDidUpdate (prevProps, prevState) {
-        if(this.props.settings && this.props.settings.font ){
-            if(!Object.values(this.props.settings.font)[0].family && this.props.themes){
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.settings && this.props.settings.font) {
+            if (!Object.values(this.props.settings.font)[0].family && this.props.themes) {
                 this.initFont();
             }
         }
     }
 
     initFont = () => {
-        let initValue = this.props.defaultSettings;
+        let initFont = this.props.defaultSettings.font;
 
         new Promise((resolve, reject) => {
             this.props.responsiveSettings.map(mode => {
-                let selectedTheme = this.getThemeValue(this.props.themes, initValue.font[mode].theme);
+                let selectedTheme = this.getThemeValue(this.props.themes, initFont[mode].theme);
                 if (selectedTheme) {
-                    initValue.font[mode].family = selectedTheme.family;
-                    initValue.font[mode].typeface = selectedTheme.typeface;
-                    initValue.font[mode].weight = selectedTheme.weight;
-                    initValue.font[mode].size = selectedTheme.fontsize[mode];
-                    initValue.font[mode].lineHeight = selectedTheme.lineheight[mode];
+                    initFont[mode].family = selectedTheme.family;
+                    initFont[mode].typeface = selectedTheme.typeface;
+                    initFont[mode].weight = selectedTheme.weight;
+                    initFont[mode].size = selectedTheme.fontsize[mode];
+                    initFont[mode].lineHeight = selectedTheme.lineheight[mode];
                 }
             });
             resolve();
         }).then(() => {
-            this.props.initSettingsProperty('font', initValue.font);
+            this.props.initSettingsProperty('font', initFont);
         });
     }
+
 
     getThemeValue = (themes, selectedTheme) => {
         if (!themes || !selectedTheme) return;
         return themes.find(theme => theme.name === selectedTheme);
     }
 
-    toggleOpenView = () => this.setState(prevState => ({ openColorView: !prevState.openColorView }));
-    toggleOpenPreview = () => this.setState(prevState => ({ openPreview: !prevState.openPreview }));
+    toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
+    toggleOpenPreview = () => this.setState(prevState => ({openPreview: !prevState.openPreview}));
 
-    getMarkdown = () => this.props.content.html && this.props.content.html[this.props.indexLanguage] ? this.props.content.html[this.props.indexLanguage] : '';
+    getText = () => this.props.content.text && this.props.content.text[this.props.indexLanguage] ? this.props.content.text[this.props.indexLanguage] : '';
+    getLink = () => this.props.content.link && this.props.content.link[this.props.indexLanguage] ? this.props.content.link[this.props.indexLanguage] : '';
+    getTarget = () => this.props.getSettingsPropertyNoResponsive('target').external;
 
-    render () {
-        const { indexLanguage, name } = this.props;
+    render() {
+        const {name} = this.props;
+
         if (!this.props.settings) return null;
         return (
             <div>
@@ -86,22 +91,42 @@ class TextMarkdown extends Component {
                         <LanguageToggle
                             hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
                         <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
-                            currentMode={this.props.currentResponsiveMode}
-                            action={this.props.setResponsiveMode}/>
+                                          currentMode={this.props.currentResponsiveMode}
+                                          action={this.props.setResponsiveMode}/>
                         <Icon className={this.props.openContent ? 'active' : ''}
-                            onClick={() => {
-                                this.props.toggleContent();
-                            }}><SvgContent/></Icon>
+                              onClick={() => {
+                                  this.props.toggleContent();
+                              }}><SvgContent/></Icon>
                         <Icon className={this.props.openSettings ? 'active' : ''}
-                            onClick={() => {
-                                this.props.toggleSettings();
-                            }}><SvgSetting/></Icon>
+                              onClick={() => {
+                                  this.props.toggleSettings();
+                              }}><SvgSetting/></Icon>
                     </div>
                 </Banner>
                 <Field>
                     <Content className={!this.props.openContent ? 'hidden' : ''}>
-                        <InputMarkdown currentLanguage={indexLanguage} action={this.props.updateTranlatedContent} targetProperty={'html'}
-                            defaultValue={this.getMarkdown()}/>
+                        <div>
+                            <Column>
+                                <label>Label</label>
+                                <InputText action={this.props.updateTranlatedContent} targetProperty={'text'}
+                                           defaultValue={this.getText()}/>
+                            </Column>
+                            <Column>
+                                <LinkSettings>
+                                    <label>Link</label>
+                                    <label>
+                                        <input type={'checkbox'} defaultChecked={this.getTarget()}
+                                               onChange={(e) => {
+                                                   console.log('click')
+                                                   console.log('e', e.target.value);
+                                                   this.props.updateSettingsNoResponsive('target', {external: !this.getTarget()})
+                                               }}/>
+                                        external</label>
+                                </LinkSettings>
+                                <InputText action={this.props.updateTranlatedContent} targetProperty={'link'}
+                                           defaultValue={this.getLink()}/>
+                            </Column>
+                        </div>
                     </Content>
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>
@@ -127,6 +152,12 @@ class TextMarkdown extends Component {
                                                  toggleOpenView={this.toggleOpenView}
                                     />
                                 </Row>
+                                <Seo hidden={this.state.openPreview || this.state.openColorView}
+                                     seo={this.props.getSettingsPropertyNoResponsive('seo')}
+                                     defaultSeo={this.props.getDefaultSettingsPropertyNoResponsive('seo')}
+                                     storeValueSeo={this.props.getStoreSettingsPropertyNoResponsive('seo')}
+                                     updateStateProps={this.props.updateSettingsNoResponsive}
+                                />
                             </Column>
                             <Column className={this.state.openPreview || this.state.openColorView ? 'hidden' : ''}>
                                 <Typography font={this.props.getSettingsProperty('font')}
@@ -142,8 +173,9 @@ class TextMarkdown extends Component {
                         </Choices>
                     </Settings>
                 </Field>
+
                 <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
-                    <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={ this.props.cancelStateValue}/>
+                    <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
                     <ButtonValidate label={'Update'} disabled={!this.props.updated} action={this.props.updateField}/>
                 </ChoiceItemsConfirm>
             </div>
@@ -154,5 +186,6 @@ class TextMarkdown extends Component {
 const mapStateToProps = state => ({
     themes: getCurrentStyle(state).style.themes
 });
-const WrappedComponent = FieldWrapper(connect(mapStateToProps)(TextMarkdown));
+
+const WrappedComponent = FieldWrapper(connect(mapStateToProps)(CTA));
 export default WrappedComponent;
