@@ -60,13 +60,11 @@ export const ChoiceColor = styled.div`
      width : 100%;
      
      &>div:nth-child(1){
-        width : 25%;
+        width : 25% !important;
         border-right:1px solid  ${ extensionTheme.grey20 };
-
      }
      &>div:nth-child(2){
         padding-bottom : 0;
-
      }
      
      & ${PaletteView}{

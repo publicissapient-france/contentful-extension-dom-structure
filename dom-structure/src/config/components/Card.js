@@ -265,19 +265,19 @@ export default {
                                 shade: null
                             },
                             opacity: {
-                                value : '1'
+                                value: '1'
                             },
-                            width : {
-                                top : 'O',
-                                right : 'O',
-                                bottom : 'O',
-                                left : 'O'
+                            width: {
+                                top: 'O',
+                                right: 'O',
+                                bottom: 'O',
+                                left: 'O'
                             },
-                            radius : {
-                                topLeft : '0',
-                                topRight : '0',
-                                bottomLeft : '0',
-                                bottomRight : '0'
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
                             }
                         },
                         T: {
@@ -288,19 +288,19 @@ export default {
                                 shade: null
                             },
                             opacity: {
-                                value : '1'
+                                value: '1'
                             },
-                            width : {
-                                top : 'O',
-                                right : 'O',
-                                bottom : 'O',
-                                left : 'O'
+                            width: {
+                                top: 'O',
+                                right: 'O',
+                                bottom: 'O',
+                                left: 'O'
                             },
-                            radius : {
-                                topLeft : '0',
-                                topRight : '0',
-                                bottomLeft : '0',
-                                bottomRight : '0'
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
                             }
                         },
                         D: {
@@ -311,19 +311,19 @@ export default {
                                 shade: null
                             },
                             opacity: {
-                                value : '1'
+                                value: '1'
                             },
-                            width : {
-                                top : '0',
-                                right : '0',
-                                bottom : '0',
-                                left : '0'
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             },
-                            radius : {
-                                topLeft : '0',
-                                topRight : '0',
-                                bottomLeft : '0',
-                                bottomRight : '0'
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
                             }
                         }
                     }
@@ -340,7 +340,7 @@ export default {
                 parameters: {},
                 defaultValue: {
                     text: {},
-                    link : {}
+                    link: {}
                 }
             },
             settings: {
@@ -349,17 +349,28 @@ export default {
                     target: {
                         external: false
                     },
-                    color: {
+                    size: {
                         A: {
-                            hex: '#000000',
-                            rgb: '0,0,0',
-                            name: 'black',
-                            shade: null
+                            width: '100',
+                            height: '100',
+                            maxWidth: '',
+                            maxHeight: ''
                         }
                     },
-                    opacity: {
+                    padding: {
                         A: {
-                            value: '1'
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
+                        }
+                    },
+                    margin: {
+                        A: {
+                            top: '0',
+                            right: '0',
+                            bottom: '0',
+                            left: '0'
                         }
                     },
                     font: {
@@ -381,9 +392,102 @@ export default {
                             decoration: null
                         }
                     },
-                    border : {
+                    border: {
                         A: {
-
+                            width: {
+                                top: 'O',
+                                right: 'O',
+                                bottom: 'O',
+                                left: 'O'
+                            },
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
+                            }
+                        }
+                    },
+                    basic: {
+                        background: {
+                            A: {
+                                color: {
+                                    hex: '#000000',
+                                    rgb: '0,0,0',
+                                    name: 'black',
+                                    shade: null
+                                },
+                                opacity: {
+                                    value: '1'
+                                }
+                            }
+                        },
+                        color: {
+                            A: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            }
+                        },
+                        opacity: {
+                            A: {
+                                value: '1'
+                            }
+                        },
+                        border: {
+                            A: {
+                                color: {
+                                    hex: '#000000',
+                                    rgb: '0,0,0',
+                                    name: 'black',
+                                    shade: null
+                                },
+                                opacity: {
+                                    value: '1'
+                                }
+                            }
+                        }
+                    },
+                    hover: {
+                        background: {
+                            A: {
+                                color: {
+                                    hex: '#000000',
+                                    rgb: '0,0,0',
+                                    name: 'black',
+                                    shade: null
+                                },
+                                opacity: {
+                                    value: '1'
+                                }
+                            }
+                        },
+                        color: {
+                            A: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            }
+                        },
+                        opacity: {
+                            A: {
+                                value: '1'
+                            }
+                        },
+                        border: {
+                            A: {
+                                color: {
+                                    hex: '#000000',
+                                    rgb: '0,0,0',
+                                    name: 'black',
+                                    shade: null
+                                },
+                                opacity: {
+                                    value: '1'
+                                }
+                            }
                         }
                     }
                 }

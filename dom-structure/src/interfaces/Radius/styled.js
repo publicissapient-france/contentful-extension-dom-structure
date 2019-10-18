@@ -1,62 +1,16 @@
 import styled from 'styled-components';
 import { extensionTheme } from '../../style/theme';
 
-
-export const Row = styled.div`
-   display : flex;
-   flex-direction : column;
-   border-bottom : 1px solid ${ extensionTheme.grey20 };
-
-   box-sizing : content-box;
-   
-   &>label{
-        margin-left : 30px;
-   }
-
-    
-`;
-
-export const Column = styled.div`
-   display : flex;
-    flex-direction : column;
-    width : 100%;
-    border-right : 1px solid ${ extensionTheme.grey20 };
-    
-    &.full-width{
-        width : 100%;
-        
-        ${Row}{
-            height : auto;
-        }
-    }
-`;
 export const Container = styled.div`
- 
-  display : flex;
-   flex-wrap : wrap;
-   width : 100%;
-   
-   &>${Column}{
-    &:nth-child(1){
-        width : 25%;
-        &.full-width{
-            width : 100%;
-        }  
-    }
-    &:nth-child(2){
-        width :75%;
-        flex-direction : row;
-        
-        &>${Row}{
-            margin-top : 8px;
-            padding-bottom : 5px;
-        }
-    }
-   }
+  padding : 10px 0;
 `;
 
 export const Field = styled.div`
-    display : flex;  
+    display : flex; 
+    
+    &>div>label{
+        margin-left : 30px;
+    } 
 `;
 
 export const Inputs = styled.div`
@@ -74,39 +28,12 @@ export const Inputs = styled.div`
 `;
 
 
-export const InputsBorder = styled(Inputs)`
-    
-    & input{
-       
-      
-        &:nth-child(1){
-            border-top : 3px solid ${ extensionTheme.blueM }
-        }
-        &:nth-child(2){
-            border-right : 3px solid ${ extensionTheme.blueM }
-        }
-        &:nth-child(3){
-            border-bottom : 3px solid ${ extensionTheme.blueM }
-        }
-        &:nth-child(4){
-            border-left : 3px solid ${ extensionTheme.blueM }
-        }
-    } 
-    
-`;
-
 export const InputsRadius = styled(Inputs)`
-   
     & input{
-        //width : 41px;
         border : none;
         position: relative;
         margin-right : 0px;
-        
-        
     } 
-    
-    
 `;
 
 
