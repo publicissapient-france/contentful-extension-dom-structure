@@ -53,7 +53,7 @@ class BorderWidth extends Component {
                                 type={'number'}
                                 min={0}
                                 className={hasNotSamePropertyValue(storeValueWidth, width, 'top') ? 'updated' : ''}
-                                value={parseInt(this.state.width.top) || 0}
+                                value={parseInt(this.state.width.top)}
                                 onChange={e => {
                                     this.updateWidth('top', e.target.value);
                                 }}/>
@@ -61,7 +61,7 @@ class BorderWidth extends Component {
                                 type={'number'}
                                 min={0}
                                 className={hasNotSamePropertyValue(storeValueWidth, width, 'right') ? 'updated' : ''}
-                                value={parseInt(this.state.width.right) || 0}
+                                value={parseInt(this.state.width.right)}
                                 onChange={e => {
                                     this.updateWidth('right', e.target.value);
                                 }}/>
@@ -69,7 +69,7 @@ class BorderWidth extends Component {
                                 type={'number'}
                                 min={0}
                                 className={hasNotSamePropertyValue(storeValueWidth, width, 'bottom') ? 'updated' : ''}
-                                value={parseInt(this.state.width.bottom) || 0}
+                                value={parseInt(this.state.width.bottom)}
                                 onChange={e => {
                                     this.updateWidth('bottom', e.target.value);
                                 }}/>
@@ -77,7 +77,7 @@ class BorderWidth extends Component {
                                 type={'number'}
                                 min={0}
                                 className={hasNotSamePropertyValue(storeValueWidth, width, 'left') ? 'updated' : ''}
-                                value={parseInt(this.state.width.left) || 0}
+                                value={parseInt(this.state.width.left)}
                                 onChange={e => {
                                     this.updateWidth('left', e.target.value);
                                 }}/>

@@ -16,7 +16,6 @@ import ActiveCheckBox from '../../components/ActiveCheckBox';
 import InputText from '../../interfaces/InputText';
 import Typography from '../../interfaces/Typography';
 import ColorPicker from '../../interfaces/ColorPicker';
-import Border from '../../interfaces/Border';
 import Margin from '../../interfaces/Margin';
 import Padding from '../../interfaces/Padding';
 import Size from '../../interfaces/Size';
@@ -249,7 +248,7 @@ class CTA extends Component {
                                             currentMode={this.props.currentResponsiveMode}
                                 />
                             </Column>
-                            <Column>
+                            <Column  className={this.state.openColorViewBorder ? 'full-width' : ''}>
                                 <ColorPicker hidden={false}
                                              color={this.getBorder('color', this.state.currentEvent)}
                                              opacity={this.getBorder('opacity', this.state.currentEvent)}
@@ -264,7 +263,7 @@ class CTA extends Component {
                                              event={this.state.currentEvent}
                                 />
                            </Column>
-                            <Column>
+                            <Column  className={this.state.openColorViewBorder ? 'hidden' : ''}>
                                 <Radius radius={this.getBorder('radius')}
                                         storeValueRadius={this.getBorderStore('radius')}
                                         defaultRadius={this.getBorderDefault('radius')}

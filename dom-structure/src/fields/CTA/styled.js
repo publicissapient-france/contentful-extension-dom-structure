@@ -85,6 +85,10 @@ export const ChoicesCustom = styled(Choices)`
     &:nth-child(3){
         width :25%;
         border-top : 1px solid ${extensionTheme.grey20};
+        
+        &.full-width{
+            width : 100%;
+        }
     }
     &:nth-child(4){
         border-top : 1px solid ${extensionTheme.grey20};
@@ -154,7 +158,7 @@ export const ButtonEvents = styled.div`
    background : ${extensionTheme.grey10};
    
    & button{
-    padding: 5px;
+    padding: 5px 10px;
     background : ${extensionTheme.grey10};
     transition:  background 0.2s ease,  color 0.2s ease;
     border-width : 0 1px 0 0;

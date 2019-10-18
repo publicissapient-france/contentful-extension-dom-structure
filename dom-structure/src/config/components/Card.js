@@ -268,10 +268,10 @@ export default {
                                 value: '1'
                             },
                             width: {
-                                top: 'O',
-                                right: 'O',
-                                bottom: 'O',
-                                left: 'O'
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             },
                             radius: {
                                 topLeft: '0',
@@ -291,10 +291,10 @@ export default {
                                 value: '1'
                             },
                             width: {
-                                top: 'O',
-                                right: 'O',
-                                bottom: 'O',
-                                left: 'O'
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             },
                             radius: {
                                 topLeft: '0',
@@ -395,10 +395,10 @@ export default {
                     border: {
                         A: {
                             width: {
-                                top: 'O',
-                                right: 'O',
-                                bottom: 'O',
-                                left: 'O'
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             },
                             radius: {
                                 topLeft: '0',

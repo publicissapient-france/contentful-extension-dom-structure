@@ -56,5 +56,19 @@ export const Choices = styled.div`
     &:nth-child(2){
         width :75%;
     }
+    &:nth-child(3){
+        width : 25%;
+        
+        &.full-width{
+            width : 100%;
+        }
+       
+    }
+    &:nth-child(4){
+        width :75%;
+        flex-direction : row;
+    }
+    
+    
    }
 `;
