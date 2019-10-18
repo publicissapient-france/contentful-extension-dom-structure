@@ -20,16 +20,16 @@ export const Inputs = styled.div`
         width : 40px;
         margin-right : 10px;
         
-        &:nth-child(1){
+        &:nth-child(2){
             border-top : 3px solid ${ extensionTheme.blueM }
         }
-        &:nth-child(2){
+        &:nth-child(3){
             border-right : 3px solid ${ extensionTheme.blueM }
         }
-        &:nth-child(3){
+        &:nth-child(4){
             border-bottom : 3px solid ${ extensionTheme.blueM }
         }
-        &:nth-child(4){
+        &:nth-child(5){
             border-left : 3px solid ${ extensionTheme.blueM }
         }
     } 
