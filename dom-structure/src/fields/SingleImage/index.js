@@ -20,6 +20,7 @@ import Margin from '../../interfaces/Margin';
 import BorderWidth from '../../interfaces/BorderWidth';
 import Radius from '../../interfaces/Radius';
 import ColorPicker from '../../interfaces/ColorPicker';
+import Alignment from '../../interfaces/Alignment';
 
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
@@ -134,6 +135,14 @@ class SingleImage extends Component {
                                 </Row>
                             </Column>
 
+                            <Column></Column>
+                            <Column  className={this.state.openColorViewBorder ? 'hidden' : ''}>
+                                <Alignment alignment={this.props.getSettingsProperty('alignment')}
+                                           storeValueAlignment={this.props.getStoreSettingsProperty('alignment')}
+                                           defaultAlignment={this.props.getDefaultSettingsProperty('alignment')}
+                                           updateStateProps={this.props.updateSettings}  />
+                            </Column>
+
                             <Column className={this.state.openColorViewBorder ? 'full-width' : ''}>
                                 <ColorPicker hidden={false}
                                              color={this.getBorder('color')}
@@ -159,6 +168,7 @@ class SingleImage extends Component {
                                              defaultWidth={this.getBorderDefault('width')}
                                              updateStateProps={this.updateBorderProperty}
                                 />
+
                             </Column>
                         </Choices>
                     </Settings>

@@ -216,10 +216,6 @@ const FieldWrapper = WrappedComponent => {
         }
 
         updateSettingsSubProperty = (property, value, subProperty, event) => {
-            console.log('this.setting on sub', this.state.settings);
-            console.log('property on sub', property);
-            console.log('value on sub', value);
-            console.log('event on sub', event);
             if (event) {
                 this.setState(prevState => ({
                     settings: update(prevState.settings, {

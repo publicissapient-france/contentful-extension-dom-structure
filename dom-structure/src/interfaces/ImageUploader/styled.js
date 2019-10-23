@@ -17,6 +17,6 @@ export const Field = styled.div`
    
    & input{
     padding-left : 0px;
-    width : 150px;
+    width : 120px;
    }
 `;

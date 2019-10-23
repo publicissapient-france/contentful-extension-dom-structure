@@ -397,73 +397,26 @@ export default {
                     alignment: {
                         A: {
                             horizontal: 'flex-start'
+
                         }
                     },
-                    background: {
+                    font: {
                         A: {
-                            color: {
-                                basic: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
-                                    shade: null
-                                },
-                                hover: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
-                                    shade: null
-                                }
-                            },
-                            opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                hover: {
-                                    value: '1'
-                                }
-                            }
+                            theme: 'Paragraph',
+                            family: null,
+                            typeface: null,
+                            weight: null,
+                            style: null,
+                            size: null,
+                            lineHeight: null,
+                            letterSpacing: '0'
                         }
                     },
-                    typography: {
+                    text: {
                         A: {
-                            font: {
-                                theme: 'Paragraph',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'center',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                basic: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
-                                    shade: null
-                                },
-                                hover: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
-                                    shade: null
-                                }
-                            },
-                            opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                hover: {
-                                    value: '1'
-                                }
-                            }
+                            align: 'center',
+                            transform: null,
+                            decoration: null
                         }
                     },
                     icon: {
@@ -480,30 +433,7 @@ export default {
                                 right: '0',
                                 bottom: '0',
                                 left: '0'
-                            },
-                            color: {
-                                basic: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
-                                    shade: null
-                                },
-                                hover: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
-                                    shade: null
-                                }
-                            },
-                            opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                hover: {
-                                    value: '1'
-                                }
                             }
-
                         }
                     },
                     border: {
@@ -519,26 +449,112 @@ export default {
                                 topRight: '0',
                                 bottomLeft: '0',
                                 bottomRight: '0'
-                            },
-                            color: {
-                                basic: {
+                            }
+                        }
+                    },
+                    basic: {
+                        background: {
+                            A: {
+                                color: {
                                     hex: '#000000',
                                     rgb: '0,0,0',
                                     name: 'black',
                                     shade: null
                                 },
-                                hover: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
-                                    shade: null
-                                }
-                            },
-                            opacity: {
-                                basic: {
+                                opacity: {
                                     value: '1'
+                                }
+                            }
+                        },
+                        color: {
+                            A: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            }
+                        },
+                        opacity: {
+                            A: {
+                                value: '1'
+                            }
+                        },
+                        icon: {
+                            A: {
+                                color: {
+                                    hex: '#000000',
+                                    rgb: '0,0,0',
+                                    name: 'black',
+                                    shade: null
                                 },
-                                hover: {
+                                opacity: {
+                                    value: '1'
+                                }
+                            }
+                        },
+                        border: {
+                            A: {
+                                color: {
+                                    hex: '#000000',
+                                    rgb: '0,0,0',
+                                    name: 'black',
+                                    shade: null
+                                },
+                                opacity: {
+                                    value: '1'
+                                }
+                            }
+                        }
+                    },
+                    hover: {
+                        background: {
+                            A: {
+                                color: {
+                                    hex: '#000000',
+                                    rgb: '0,0,0',
+                                    name: 'black',
+                                    shade: null
+                                },
+                                opacity: {
+                                    value: '1'
+                                }
+                            }
+                        },
+                        color: {
+                            A: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            }
+                        },
+                        opacity: {
+                            A: {
+                                value: '1'
+                            }
+                        },
+                        icon: {
+                            A: {
+                                color: {
+                                    hex: '#000000',
+                                    rgb: '0,0,0',
+                                    name: 'black',
+                                    shade: null
+                                },
+                                opacity: {
+                                    value: '1'
+                                }
+                            }
+                        },
+                        border: {
+                            A: {
+                                color: {
+                                    hex: '#000000',
+                                    rgb: '0,0,0',
+                                    name: 'black',
+                                    shade: null
+                                },
+                                opacity: {
                                     value: '1'
                                 }
                             }

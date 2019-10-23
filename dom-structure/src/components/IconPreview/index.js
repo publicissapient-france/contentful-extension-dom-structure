@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 import { PreviewContainer, Options, TextContainer } from './styled';
 
-class TextPreview extends Component {
+class IconPreview extends Component {
     constructor (props) {
         super(props);
 
@@ -25,11 +25,11 @@ class TextPreview extends Component {
     }
 
     render () {
-        const { font, text, color, opacity, open, hidden } = this.props;
+        const { font, color, opacity, open, hidden } = this.props;
         let lightIcon = this.state.light ? <SvgMoon/> : <SvgSun/>;
         let textIcon = this.state.alphabet ? <SvgP/> : <SvgA/>;
         let extendIcon = this.state.alphabet ? <SvgExtend/> : <SvgExtend/>;
-        if (!font || !text) return <p>preview impossible</p>;
+        if (!font) return <p>preview impossible</p>;
         return (
             <PreviewContainer className={hidden ? 'hidden' : ''}>
                 <TextContainer className={[!this.state.light ? 'on-dark' : '', open ? 'is-open' : '']}>
@@ -39,13 +39,8 @@ class TextPreview extends Component {
                             fontFamily: `"${ font.family }",${ font.typeface }`,
                             fontWeight: font.weight ? font.weight[1] : '',
                             lineHeight: `${ font.lineHeight }px`,
-                            letterSpacing: `${ font.letterSpacing }px`,
-                            fontStyle: font.style,
                             color: color.hex,
-                            opacity: opacity.value,
-                            textAlign: text.align,
-                            textTransform: text.transform,
-                            textDecoration: text.decoration
+                            opacity: opacity.value
                         }}
                     >{
                             this.state.alphabet ? this.state.text.alphabet : this.state.text.paragraph
@@ -79,8 +74,8 @@ class TextPreview extends Component {
     }
 };
 
-TextPreview.propTypes = {
+IconPreview.propTypes = {
     hidden: PropTypes.bool
 };
 
-export default TextPreview;
+export default IconPreview;

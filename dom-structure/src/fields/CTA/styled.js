@@ -67,6 +67,19 @@ export const Choices = styled.div`
    }
 `;
 
+
+export const ChoicesTypography = styled(Choices)`
+   display : flex;
+   flex-wrap : wrap;
+   width : 100%;
+   
+   &>${Column}{
+    &:nth-child(2){
+        border-bottom : 1px solid ${extensionTheme.grey20};
+    }
+   }
+`;
+
 export const ChoicesCustom = styled(Choices)`
    display : flex;
    flex-wrap : wrap;
@@ -75,12 +88,30 @@ export const ChoicesCustom = styled(Choices)`
    &>${Column}{
     &:nth-child(1){
         width : 25%;
+        
+        & ${Row}{
+            border-bottom-width : 0px;
+        }
+        
+        
     }
     &:nth-child(1).full-width{
             width : 100%;
+            
     }
     &:nth-child(2){
         width :75%;
+        
+        & ${Row}{
+            flex-direction : row;
+            
+            &:nth-child(3){
+                border-bottom-width : 0px;
+            }
+            
+        }
+        
+       
     }
     &:nth-child(3){
         width :25%;
@@ -96,11 +127,26 @@ export const ChoicesCustom = styled(Choices)`
         flex-direction : row;
     }
     
-    &:not(.full-width){
-        &>${Row}{
-            height : 190px;
+    &:nth-child(5){
+        width :25%;
+        border-top : 1px solid ${extensionTheme.grey20};
+        
+        &.full-width{
+            width : 100%;
         }
     }
+    &:nth-child(6){
+        border-top : 1px solid ${extensionTheme.grey20};
+        width :75%;
+        flex-direction : column;
+    }
+    
+    &:not(.full-width){
+        &>${Row}{
+           // height : 190px;
+        }
+    }
+    
    }
 `;
 
@@ -108,7 +154,8 @@ export const ChoicesCustom = styled(Choices)`
 export const Settings = styled.div`
    & ${Choices}{
    
-    & ${Column}:nth-child(2){
+    &${Column}:nth-child(2){
+        border-bottom : 1px solid ${extensionTheme.grey20};
         & ${Row}:nth-child(2){
            flex-direction : row; 
         }

@@ -16,7 +16,7 @@ export const Settings = styled.div`
 export const Row = styled.div`
    display : flex;
    flex-direction : column;
-   height : 190px;
+   //height : 190px;
    //background : blue;
    border-bottom : 1px solid ${ extensionTheme.grey20 };
 
@@ -55,8 +55,14 @@ export const Choices = styled.div`
     }
     &:nth-child(2){
         width :75%;
-        flex-direction : row;
-        padding-bottom : 10px;
+        //flex-direction : row;
+        //padding-bottom : 10px;
+        
+        & ${Row}{
+            &:nth-child(2){
+                flex-direction : row;
+            }
+        }
     }
    }
 `;
