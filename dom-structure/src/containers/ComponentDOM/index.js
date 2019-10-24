@@ -8,7 +8,6 @@ import SvgRange from '../../components/svg/SvgRange';
 import SvgCheck from '../../components/svg/SvgCheck';
 import SvgTrash from '../../components/svg/SvgTrash';
 import SvgSpec from '../../components/svg/SvgSpec';
-import SvgArrowDouble from '../../components/svg/SvgArrowDouble';
 import FieldsList from '../../components/FieldsList';
 
 import {
@@ -261,7 +260,7 @@ class ComponentDOM extends Component {
                         <Column>
                             <div>
                                 <label>Order</label>
-                                <OrderFieldsContent componentModel={this.props.component.model} fields={this.getComponentFields()} order={this.state.component.order}  updateOrder={this.updateOrder}/>
+                                { /*<OrderFieldsContent componentModel={this.props.component.model} fields={this.getComponentFields()} order={this.state.component.order}  updateOrder={this.updateOrder}/>*/}
                             </div>
                         </Column>
 

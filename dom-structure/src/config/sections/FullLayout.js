@@ -12,36 +12,43 @@ export default {
                 }
             },
             settings: {
-                responsive : ['M','T','D'],
+                responsive : ['M', 'T', 'D'],
                 defaultValue: {
-                    color: {
+                    basis: {
                         M: {
-                            hex: '#989898',
-                            name: 'Grey',
-                            shade: '50'
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         },
                         T: {
-                            hex: '#989898',
-                            name: 'Grey',
-                            shade: '50'
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         },
                         D: {
-                            hex: '#989898',
-                            name: 'Grey',
-                            shade: '50'
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         }
 
-                    },
-                    opacity: {
-                        M: {
-                            value: '1'
-                        },
-                        T: {
-                            value: '1'
-                        },
-                        D: {
-                            value: '1'
-                        }
                     }
                 }
             }

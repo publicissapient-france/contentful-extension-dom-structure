@@ -37,8 +37,10 @@ class Template extends Component {
         }
     }
 
-    toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
+    updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
 
+    toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
+    
     render() {
         const {name} = this.props;
 
@@ -71,50 +73,38 @@ class Template extends Component {
                         <Choices>
                             <Column className={this.state.openColorView ? 'full-width' : ''}>
                                 <ColorPicker hidden={false}
-                                             color={this.props.getSettingsProperty('color')}
-                                             opacity={this.props.getSettingsProperty('opacity')}
-                                             storeValueColor={this.props.getStoreSettingsProperty('color')}
-                                             storeValueOpacity={this.props.getStoreSettingsProperty('opacity')}
-                                             defaultColor={this.props.getDefaultSettingsProperty('color')}
-                                             defaultOpacity={this.props.getDefaultSettingsProperty('opacity')}
+                                             color={this.props.getSettingsByProperty('basis', 'color')}
+                                             opacity={this.props.getSettingsByProperty('basis', 'opacity')}
+                                             storeValueColor={this.props.getStoreSettingsByProperty('basis', 'color')}
+                                             storeValueOpacity={this.props.getStoreSettingsByProperty('basis', 'color')}
+                                             defaultColor={this.props.getDefaultSettingsByProperty('basis', 'color')}
+                                             defaultOpacity={this.props.getDefaultSettingsByProperty('basis', 'opacity')}
                                              openView={this.state.openColorView}
-                                             updateStateProps={this.props.updateSettings}
+                                             updateStateProps={this.updateBasis}
                                              toggleOpenView={this.toggleOpenView}
                                 />
                             </Column>
                             <Column className={this.state.openColorView ? 'hidden' : ''}>
                                 <Row>
-                                    {
-                                        this.props.defaultSettings['size'] ?
-                                            <Size size={this.props.getSettingsProperty('size')}
-                                                  storeValueSize={this.props.getStoreSettingsProperty('size')}
-                                                  defaultSize={this.props.getDefaultSettingsProperty('size')}
-                                                  updateStateProps={this.props.updateSettings}
-                                            />
-                                            : null
-                                    }
+                                    <Size size={this.props.getSettingsByProperty('basis', 'size')}
+                                          storeValueSize={this.props.getStoreSettingsByProperty('basis', 'size')}
+                                          defaultSize={this.props.getDefaultSettingsByProperty('basis', 'size')}
+                                          updateStateProps={this.updateBasis}
+                                    />
                                 </Row>
                                 <Row>
-                                    {
-                                        this.props.defaultSettings['padding'] ?
-                                            <Padding hidden={this.state.openColorView}
-                                                     padding={this.props.getSettingsProperty('padding')}
-                                                     storeValuePadding={this.props.getStoreSettingsProperty('padding')}
-                                                     defaultPadding={this.props.getDefaultSettingsProperty('padding')}
-                                                     updateStateProps={this.props.updateSettings}
-                                            />
-                                            : null
-                                    }
-                                    {
-                                        this.props.defaultSettings['margin'] ?
-                                            <Margin hidden={this.state.openColorView}
-                                                    margin={this.props.getSettingsProperty('margin')}
-                                                    storeValueMargin={this.props.getStoreSettingsProperty('margin')}
-                                                    defaultMargin={this.props.getDefaultSettingsProperty('margin')}
-                                                    updateStateProps={this.props.updateSettings}
-                                            />
-                                            : null
-                                    }
+                                    <Padding hidden={this.state.openColorView}
+                                             padding={this.props.getSettingsByProperty('basis', 'padding')}
+                                             storeValuePadding={this.props.getStoreSettingsByProperty('basis', 'padding')}
+                                             defaultPadding={this.props.getDefaultSettingsByProperty('basis', 'padding')}
+                                             updateStateProps={this.updateBasis}
+                                    />
+                                    <Margin hidden={this.state.openColorView}
+                                            margin={this.props.getSettingsByProperty('basis','margin')}
+                                            storeValueMargin={this.props.getStoreSettingsByProperty('basis','margin')}
+                                            defaultMargin={this.props.getDefaultSettingsByProperty('basis','margin')}
+                                            updateStateProps={this.updateBasis}
+                                    />
                                 </Row>
                             </Column>
                         </Choices>

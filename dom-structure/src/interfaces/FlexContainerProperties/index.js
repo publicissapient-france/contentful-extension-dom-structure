@@ -9,7 +9,6 @@ import {
     ContainerMainProperty, Grid
 } from './styled';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
 import {hasNotSamePropertyValue} from '../../utils/functions';
 import IconActing from '../../components/IconActing/index';
 import Dot from '../../components/Dot';
@@ -25,15 +24,15 @@ class FlexContainerProperties extends Component {
 
     componentDidMount = () => {
         this.setState({
-            flex: this.props.flex
+            properties: this.props.properties
         });
     };
 
     componentDidUpdate = prevProps => {
-        if (this.props.flex !== prevProps.flex) {
+        if (this.props.properties !== prevProps.properties) {
             this.setState(prevState => ({
                 ...prevState,
-                flex: this.props.flex
+                properties: this.props.properties
             }));
         }
     }
@@ -41,12 +40,12 @@ class FlexContainerProperties extends Component {
     updateFlex = (prop, value) => {
         this.setState(prevState => ({
             ...prevState,
-            flex: {
-                ...prevState.flex,
+            properties: {
+                ...prevState.properties,
                 [prop]: String(value),
             }
         }), () => {
-            this.props.updateStateProps('flex', this.state.flex);
+            this.props.updateStateProps('properties', this.state.properties);
         });
     }
 
@@ -66,23 +65,23 @@ class FlexContainerProperties extends Component {
     };
 
     render() {
-        const {flex, storeValue, defaultValue} = this.props;
+        const {properties, storeValue, defaultValue} = this.props;
 
 
 
-        if (!this.state.flex) return null;
+        if (!this.state.properties) return null;
         return (
             <Container>
                 <MainProperties>
                     <div>
                         <FlexProperty>
-                            <Dot enabled={hasNotSamePropertyValue(defaultValue, flex, 'columns')}/>
+                            <Dot enabled={hasNotSamePropertyValue(defaultValue, properties, 'columns')}/>
                             <label>Nbr. columns</label>
                             <ContainerMainProperty>
                                 <input type={'number'}
                                        min={1}
-                                       className={hasNotSamePropertyValue(storeValue, flex, 'columns') ? 'updated' : ''}
-                                       value={flex.columns || ''}
+                                       className={hasNotSamePropertyValue(storeValue, properties, 'columns') ? 'updated' : ''}
+                                       value={properties.columns || ''}
                                        onChange={e => {
                                            this.updateFlex('columns', e.target.value);
                                        }}/>
@@ -101,13 +100,13 @@ class FlexContainerProperties extends Component {
                             </ContainerMainProperty>
                         </FlexProperty>
                         <FlexProperty>
-                            <Dot enabled={hasNotSamePropertyValue(defaultValue, flex, 'gutterHorizontal')}/>
+                            <Dot enabled={hasNotSamePropertyValue(defaultValue, properties, 'gutterHorizontal')}/>
                             <label>Gutters</label>
                             <ContainerMainProperty>
                                 <input type={'number'}
                                        min={0}
-                                       className={hasNotSamePropertyValue(storeValue, flex, 'gutterHorizontal') ? 'updated' : ''}
-                                       value={flex.gutterHorizontal || ''}
+                                       className={hasNotSamePropertyValue(storeValue, properties, 'gutterHorizontal') ? 'updated' : ''}
+                                       value={properties.gutterHorizontal || ''}
                                        onChange={e => {
                                            this.updateFlex('gutterHorizontal', e.target.value);
                                        }}/>
@@ -116,8 +115,8 @@ class FlexContainerProperties extends Component {
                             <ContainerMainProperty>
                                 <input type={'number'}
                                        min={0}
-                                       className={hasNotSamePropertyValue(storeValue, flex, 'gutterVertical') ? 'updated' : ''}
-                                       value={flex.gutterVertical || ''}
+                                       className={hasNotSamePropertyValue(storeValue, properties, 'gutterVertical') ? 'updated' : ''}
+                                       value={properties.gutterVertical || ''}
                                        onChange={e => {
                                            this.updateFlex('gutterVertical', e.target.value);
                                        }}/>
@@ -125,132 +124,132 @@ class FlexContainerProperties extends Component {
                             </ContainerMainProperty>
                         </FlexProperty>
                     </div>
-                    <Preview flex={flex}>
+                    <Preview flex={properties}>
                         { this.createElements(this.state.nbrChildToPreview) }
-                        <Grid columns={flex.columns}>
-                            { this.createColumns(flex.columns) }
+                        <Grid columns={properties.columns}>
+                            { this.createColumns(properties.columns) }
                         </Grid>
                     </Preview>
                 </MainProperties>
 
                 <Field>
                     <FlexProperty>
-                        <Dot enabled={hasNotSamePropertyValue(defaultValue, flex, 'direction')}/>
+                        <Dot enabled={hasNotSamePropertyValue(defaultValue, properties, 'direction')}/>
                         <label>Direction</label>
                         <ContainerProperty>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'direction'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'direction'}
                                         value={'row'} action={this.updateFlex}>
                                 row
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'direction'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'direction'}
                                         value={'column'} action={this.updateFlex}>
                                 column
                             </IconActing>
                         </ContainerProperty>
                     </FlexProperty>
                     <FlexProperty>
-                        <Dot enabled={hasNotSamePropertyValue(defaultValue, flex, 'wrap')}/>
+                        <Dot enabled={hasNotSamePropertyValue(defaultValue, properties, 'wrap')}/>
                         <label>Wrap</label>
                         <ContainerProperty>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'wrap'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'wrap'}
                                         value={'wrap'} action={this.updateFlex}>
                                 wrap
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'wrap'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'wrap'}
                                         value={'nowrap'} action={this.updateFlex}>
                                 nowrap
                             </IconActing>
                         </ContainerProperty>
                     </FlexProperty>
                     <FlexProperty>
-                        <Dot enabled={hasNotSamePropertyValue(defaultValue, flex, 'justify')}/>
+                        <Dot enabled={hasNotSamePropertyValue(defaultValue, properties, 'justify')}/>
                         <label>Justify</label>
                         <ContainerProperty>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'justify'}
-                                        value={'flex-start'} action={this.updateFlex}>
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'justify'}
+                                        value={'properties-start'} action={this.updateFlex}>
                                 flex-start
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'justify'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'justify'}
                                         value={'flex-end'} action={this.updateFlex}>
                                 flex-end
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'justify'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'justify'}
                                         value={'center'} action={this.updateFlex}>
                                 center
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'justify'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'justify'}
                                         value={'space-between'} action={this.updateFlex}>
                                 space-between
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'justify'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'justify'}
                                         value={'space-around'} action={this.updateFlex}>
                                 space-around
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'justify'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'justify'}
                                         value={''} action={this.updateFlex}>
                                 none
                             </IconActing>
                         </ContainerProperty>
                     </FlexProperty>
                     <FlexProperty>
-                        <Dot enabled={hasNotSamePropertyValue(defaultValue, flex, 'alignItems')}/>
+                        <Dot enabled={hasNotSamePropertyValue(defaultValue, properties, 'alignItems')}/>
                         <label>Align items</label>
                         <ContainerProperty>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignItems'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignItems'}
                                         value={'flex-start'} action={this.updateFlex}>
                                 flex-start
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignItems'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignItems'}
                                         value={'flex-end'} action={this.updateFlex}>
                                 flex-end
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignItems'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignItems'}
                                         value={'center'} action={this.updateFlex}>
                                 center
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignItems'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignItems'}
                                         value={'stretch'} action={this.updateFlex}>
                                 stretch
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignItems'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignItems'}
                                         value={'baseline'} action={this.updateFlex}>
                                 baseline
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignItems'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignItems'}
                                         value={''} action={this.updateFlex}>
                                 none
                             </IconActing>
                         </ContainerProperty>
                     </FlexProperty>
                     <FlexProperty>
-                        <Dot enabled={hasNotSamePropertyValue(defaultValue, flex, 'alignContent')}/>
+                        <Dot enabled={hasNotSamePropertyValue(defaultValue, properties, 'alignContent')}/>
                         <label>Align content</label>
                         <ContainerProperty>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignContent'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignContent'}
                                         value={'flex-start'} action={this.updateFlex}>
                                 flex-start
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignContent'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignContent'}
                                         value={'flex-end'} action={this.updateFlex}>
                                 flex-end
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignContent'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignContent'}
                                         value={'center'} action={this.updateFlex}>
                                 center
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignContent'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignContent'}
                                         value={'stretch'} action={this.updateFlex}>
                                 stretch
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignContent'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignContent'}
                                         value={'space-between'} action={this.updateFlex}>
                                 space-between
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignContent'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignContent'}
                                         value={'space-around'} action={this.updateFlex}>
                                 space-around
                             </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignContent'}
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignContent'}
                                         value={''} action={this.updateFlex}>
                                 none
                             </IconActing>
@@ -264,10 +263,10 @@ class FlexContainerProperties extends Component {
 
 FlexContainerProperties.propTypes = {
     updateStateProps: PropTypes.func,
-    flex: PropTypes.shape({
-        columns: PropTypes.number,
-        gutterHorizontal: PropTypes.number,
-        gutterVertical: PropTypes.number,
+    properties: PropTypes.shape({
+        columns: PropTypes.string,
+        gutterHorizontal: PropTypes.string,
+        gutterVertical: PropTypes.string,
         direction: PropTypes.oneOf(['row', 'column']),
         wrap: PropTypes.oneOf(['wrap', 'nowrap']),
         justify: PropTypes.oneOf(['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly', '']),
@@ -275,9 +274,9 @@ FlexContainerProperties.propTypes = {
         alignContent: PropTypes.oneOf(['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'stretch', ''])
     }),
     storeValue: PropTypes.shape({
-        columns: PropTypes.number,
-        gutterHorizontal: PropTypes.number,
-        gutterVertical: PropTypes.number,
+        columns: PropTypes.string,
+        gutterHorizontal: PropTypes.string,
+        gutterVertical: PropTypes.string,
         direction: PropTypes.oneOf(['row', 'column', '']),
         wrap: PropTypes.oneOf(['wrap', 'nowrap', '']),
         justify: PropTypes.oneOf(['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly', '']),
@@ -285,9 +284,9 @@ FlexContainerProperties.propTypes = {
         alignContent: PropTypes.oneOf(['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'stretch', ''])
     }),
     defaultValue: PropTypes.shape({
-        columns: PropTypes.number,
-        gutterHorizontal: PropTypes.number,
-        gutterVertical: PropTypes.number,
+        columns: PropTypes.string,
+        gutterHorizontal: PropTypes.string,
+        gutterVertical: PropTypes.string,
         direction: PropTypes.oneOf(['row', 'column', '']),
         wrap: PropTypes.oneOf(['wrap', 'nowrap', '']),
         justify: PropTypes.oneOf(['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly', '']),

@@ -21,8 +21,7 @@ class FlexContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-        };
+        this.state = {};
     }
 
     componentDidMount() {
@@ -35,6 +34,7 @@ class FlexContainer extends Component {
         }
     }
 
+    updateFlexProperty = (property, value) => this.props.updateSettingsProperty('flex', property, value);
 
     render() {
         const {name} = this.props;
@@ -66,13 +66,12 @@ class FlexContainer extends Component {
                 <Field>
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>
-                                <FlexContainerProperties
-                                    flex={this.props.getSettingsProperty('flex')}
-                                    storeValue={this.props.getStoreSettingsProperty('flex')}
-                                    defaultValue={this.props.getDefaultSettingsProperty('flex')}
-                                    updateStateProps={this.props.updateSettings}
-                                />
-
+                            <FlexContainerProperties
+                                properties={this.props.getSettingsByProperty('flex', 'properties')}
+                                storeValue={this.props.getStoreSettingsByProperty('flex', 'properties')}
+                                defaultValue={this.props.getDefaultSettingsByProperty('flex', 'properties')}
+                                updateStateProps={this.updateFlexProperty}
+                            />
                         </Choices>
                     </Settings>
                 </Field>

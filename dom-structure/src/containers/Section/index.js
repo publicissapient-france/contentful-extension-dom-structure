@@ -6,7 +6,6 @@ import SvgSpec from '../../components/svg/SvgSpec';
 import SvgRange from '../../components/svg/SvgRange';
 import SvgCheck from '../../components/svg/SvgCheck';
 import SvgTrash from '../../components/svg/SvgTrash';
-import SvgArrowDouble from '../../components/svg/SvgArrowDouble';
 import ComponentDOM from '../ComponentDOM/index';
 
 import {

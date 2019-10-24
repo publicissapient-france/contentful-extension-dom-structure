@@ -17,7 +17,6 @@ class AddSection extends Component {
         this.state = {
             section: {
                 type: 'sections',
-                settings: [],
                 components: [],
                 fields : {}
             }
@@ -36,7 +35,7 @@ class AddSection extends Component {
         let fields = {};
         sectionConfig[model].default.fields.map(field => {
             fields[field.nameProperty] = {
-                active: true, content: {}, settings: {}, responsiveSettings: field.settings.responsive };
+                active: true, content: {}, settings: {}, responsiveSettings: field.settings.responsive, responsiveContent: field.content.responsive };
         });
         this.setState(
             {
@@ -51,7 +50,6 @@ class AddSection extends Component {
         this.setState({
             section: {
                 type: 'sections',
-                settings: [],
                 components: []
             }
         });

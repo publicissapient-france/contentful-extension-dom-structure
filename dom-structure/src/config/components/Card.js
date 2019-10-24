@@ -14,72 +14,45 @@ export default {
             settings: {
                 responsive: ['A'],
                 defaultValue: {
-                    color: {
+                    basis: {
                         A: {
-                            hex: '#000000',
-                            rgb: '0,0,0',
-                            name: 'black',
-                            shade: null
-                        }
-                    },
-                    opacity: {
-                        A: {
-                            value: '1'
-                        }
-                    },
-                    size: {
-                        A: {
-                            width: '',
-                            height: '',
-                            maxWidth: '',
-                            maxHeight: ''
-                        }
-                    },
-                    padding: {
-                        A: {
-                            top: '0',
-                            right: '0',
-                            bottom: '0',
-                            left: '0'
-                        }
-                    },
-                    margin: {
-                        A: {
-                            top: '0',
-                            right: '0',
-                            bottom: '0',
-                            left: '0'
-                        }
-                    },
-                }
-            }
+                            size: {
+                                width: '100',
+                                height: '100',
+                                maxWidth: '',
+                                maxHeight: ''
 
-        },
-        /*
-        {
-            name: 'Flex Item',
-            nameProperty: 'FlexItem',
-            typeField: 'FlexItem',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {
-                }
-            },
-            settings: {
-                responsive: ['A'],
-                defaultValue: {
-                    flex: {
-                        A: {
-                            order: '1',
-                            grow: '1',
-                            alignSelf: 'auto'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            margin: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            alignment: {
+                                horizontal: 'flex-start'
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         }
                     }
                 }
             }
 
-        },*/
+        }/*,
         {
             name: 'Title',
             nameProperty: 'Title',
@@ -94,45 +67,41 @@ export default {
             settings: {
                 responsive: ['A'],
                 defaultValue: {
-                    color: {
+                    typography: {
                         A: {
-                            hex: '#000000',
-                            rgb: '0,0,0',
-                            name: 'black',
-                            shade: null
-                        }
-                    },
-                    opacity: {
-                        A: {
-                            value: '1'
+                            font: {
+                                theme: 'TitleLight',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'center',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         }
                     },
                     seo: {
                         tag: 'h2'
-                    },
-                    font: {
-                        A: {
-                            theme: 'TitleLight',
-                            family: null,
-                            typeface: null,
-                            weight: null,
-                            style: null,
-                            size: null,
-                            lineHeight: null,
-                            letterSpacing: '0'
-                        }
-                    },
-                    text: {
-                        A: {
-                            align: 'center',
-                            transform: null,
-                            decoration: null
-                        }
                     }
                 }
             }
 
-        },
+        }*//*,
         {
             name: 'Content',
             nameProperty: 'Content',
@@ -147,42 +116,38 @@ export default {
             settings: {
                 responsive: ['A'],
                 defaultValue: {
-                    color: {
+                    typography: {
                         A: {
-                            hex: '#000000',
-                            rgb: '0,0,0',
-                            name: 'black',
-                            shade: null
-                        }
-                    },
-                    opacity: {
-                        A: {
-                            value: '1'
-                        }
-                    },
-                    font: {
-                        A: {
-                            theme: 'Paragraph',
-                            family: null,
-                            typeface: null,
-                            weight: null,
-                            style: null,
-                            size: null,
-                            lineHeight: null,
-                            letterSpacing: '0'
-                        }
-                    },
-                    text: {
-                        A: {
-                            align: 'left',
-                            transform: null,
-                            decoration: null
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'left',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         }
                     }
                 }
             }
 
-        },
+        }*//*,
         {
             name: 'Image',
             nameProperty: 'Image',
@@ -202,91 +167,45 @@ export default {
                 }
             },
             settings: {
-                responsive: ['M', 'T', 'D'],
+                responsive: ['A'],
                 defaultValue: {
-                    size: {
-                        M: {
-                            width: '100',
-                            height: '100',
-                            maxWidth: '',
-                            maxHeight: ''
-                        },
-                        T: {
-                            width: '150',
-                            height: '150',
-                            maxWidth: '',
-                            maxHeight: ''
-                        },
-                        D: {
-                            width: '200',
-                            height: '200',
-                            maxWidth: '',
-                            maxHeight: ''
-                        }
-                    },
-                    padding: {
-                        M: {
-                            top: '0',
-                            right: '0',
-                            bottom: '0',
-                            left: '0'
-                        },
-                        T: {
-                            top: '0',
-                            right: '0',
-                            bottom: '0',
-                            left: '0'
-                        },
-                        D: {
-                            top: '0',
-                            right: '0',
-                            bottom: '0',
-                            left: '0'
-                        }
-                    },
-                    margin: {
-                        M: {
-                            top: '0',
-                            right: '0',
-                            bottom: '0',
-                            left: '0'
-                        },
-                        T: {
-                            top: '0',
-                            right: '0',
-                            bottom: '0',
-                            left: '0'
-                        },
-                        D: {
-                            top: '0',
-                            right: '0',
-                            bottom: '0',
-                            left: '0'
-                        }
-                    },
-                    alignment: {
-                        M: {
-                            horizontal: 'flex-start'
+                    basis: {
+                        A: {
+                            size: {
+                                width: '100',
+                                height: '100',
+                                maxWidth: '',
+                                maxHeight: ''
 
-                        },
-                        T: {
-                            horizontal: 'flex-start'
-                        },
-                        D: {
-                            horizontal: 'flex-start'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            margin: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            alignment: {
+                                horizontal: 'flex-start'
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         }
                     },
                     border: {
-                        M: {
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
+                        A: {
                             width: {
                                 top: '0',
                                 right: '0',
@@ -298,9 +217,7 @@ export default {
                                 topRight: '0',
                                 bottomLeft: '0',
                                 bottomRight: '0'
-                            }
-                        },
-                        T: {
+                            },
                             color: {
                                 hex: '#000000',
                                 rgb: '0,0,0',
@@ -309,48 +226,13 @@ export default {
                             },
                             opacity: {
                                 value: '1'
-                            },
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            radius: {
-                                topLeft: '0',
-                                topRight: '0',
-                                bottomLeft: '0',
-                                bottomRight: '0'
-                            }
-                        },
-                        D: {
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            radius: {
-                                topLeft: '0',
-                                topRight: '0',
-                                bottomLeft: '0',
-                                bottomRight: '0'
                             }
                         }
                     }
                 }
             }
 
-        },
+        }*//*,
         {
             name: 'CTA',
             nameProperty: 'CTA',
@@ -370,37 +252,30 @@ export default {
                     target: {
                         external: false
                     },
-                    size: {
+                    basis: {
                         A: {
-                            width: '100',
-                            height: '100',
-                            maxWidth: '',
-                            maxHeight: ''
-                        }
-                    },
-                    padding: {
-                        A: {
-                            top: '0',
-                            right: '0',
-                            bottom: '0',
-                            left: '0'
-                        }
-                    },
-                    margin: {
-                        A: {
-                            top: '0',
-                            right: '0',
-                            bottom: '0',
-                            left: '0'
-                        }
-                    },
-                    alignment: {
-                        A: {
-                            horizontal: 'flex-start'
-                        }
-                    },
-                    background: {
-                        A: {
+                            size: {
+                                width: '100',
+                                height: '100',
+                                maxWidth: '',
+                                maxHeight: ''
+
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            margin: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            alignment: {
+                                horizontal: 'flex-start'
+                            },
                             color: {
                                 basic: {
                                     hex: '#000000',
@@ -547,6 +422,7 @@ export default {
                 }
             }
 
-        }
+        }*/
     ]
-};
+}
+;
