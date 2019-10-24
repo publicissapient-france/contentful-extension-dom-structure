@@ -199,7 +199,7 @@ export default {
                 }
             }
 
-        }/*,
+        },
         {
             name: 'Image',
             nameProperty: 'Image',
@@ -244,15 +244,6 @@ export default {
                             },
                             alignment: {
                                 horizontal: 'flex-start'
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
                             }
                         }
                     },
@@ -284,7 +275,7 @@ export default {
                 }
             }
 
-        }*//*,
+        },
         {
             name: 'CTA',
             nameProperty: 'CTA',
@@ -474,7 +465,7 @@ export default {
                 }
             }
 
-        }*/
+        }
     ]
 }
 ;

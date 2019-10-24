@@ -21,14 +21,18 @@ class TextPreview extends Component {
                 paragraph: 'Apparently we had reached a great height in the atmosphere, for the sky was a dead black, and the stars had ceased to twinkle. By the same illusion which lifts the horizon of the sea to the level of the spectator on a hillside, the sable cloud beneath was dished out, and the car seemed to float in the middle of an immense dark sphere, whose upper half was strewn with silver.'
             },
             font : null,
-            text : null
+            text : null,
+            opacity : null,
+            color : null,
         };
     }
 
     componentDidMount(){
         this.setState({
             font : this.props.font,
-            text : this.props.text
+            text : this.props.text,
+            opacity : this.props.opacity,
+            color : this.props.color
         })
     }
 
@@ -43,6 +47,16 @@ class TextPreview extends Component {
                 text : this.props.text
             })
         }
+        if (this.props.opacity !== prevProps.opacity) {
+            this.setState({
+                opacity : this.props.opacity
+            })
+        }
+        if (this.props.color !== prevProps.color) {
+            this.setState({
+                color : this.props.color
+            })
+        }
     }
 
     render () {
@@ -50,7 +64,7 @@ class TextPreview extends Component {
         let lightIcon = this.state.light ? <SvgMoon/> : <SvgSun/>;
         let textIcon = this.state.alphabet ? <SvgP/> : <SvgA/>;
         let extendIcon = this.state.alphabet ? <SvgExtend/> : <SvgExtend/>;
-        if (!this.state.font || !this.state.text) return <p>preview impossible</p>;
+        if (!this.state.font || !this.state.text || !this.state.color) return <p>preview impossible</p>;
         return (
             <PreviewContainer className={hidden ? 'hidden' : ''}>
                 <TextContainer className={[!this.state.light ? 'on-dark' : '', open ? 'is-open' : '']}>
@@ -62,8 +76,8 @@ class TextPreview extends Component {
                             lineHeight: `${ this.state.font.lineHeight }px`,
                             letterSpacing: `${ this.state.font.letterSpacing }px`,
                             fontStyle: this.state.font.style,
-                            color: color.hex,
-                            opacity: opacity.value,
+                            color: this.state.color.hex,
+                            opacity: this.state.opacity.value,
                             textAlign: this.state.text.align,
                             textTransform: this.state.text.transform,
                             textDecoration: this.state.text.decoration

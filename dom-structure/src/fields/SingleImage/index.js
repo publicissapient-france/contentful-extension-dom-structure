@@ -55,13 +55,16 @@ class SingleImage extends Component {
     }
     toggleOpenViewBorder = () => this.setState(prevState => ({openColorViewBorder: !prevState.openColorViewBorder}));
 
-    getBorder = (property, event) => this.props.getSettingsProperty('border', event) ? this.props.getSettingsProperty('border', event)[property] : null
-    getBorderStore = (property, event) => this.props.getStoreSettingsProperty('border', event) ? this.props.getStoreSettingsProperty('border', event)[property] : null
-    getBorderDefault = (property, event) => this.props.getDefaultSettingsProperty('border', event) ? this.props.getDefaultSettingsProperty('border', event)[property] : null
+    //getBorder = (property, event) => this.props.getSettingsProperty('border', event) ? this.props.getSettingsProperty('border', event)[property] : null
+   // getBorderStore = (property, event) => this.props.getStoreSettingsProperty('border', event) ? this.props.getStoreSettingsProperty('border', event)[property] : null
+    //getBorderDefault = (property, event) => this.props.getDefaultSettingsProperty('border', event) ? this.props.getDefaultSettingsProperty('border', event)[property] : null
 
-    updateBorderProperty = (property, value, event) => {
+    /*updateBorderProperty = (property, value, event) => {
         this.props.updateSettingsSubProperty('border', value , property, event);
-    }
+    }*/
+
+    updateBorder = (property, value) => this.props.updateSettingsProperty('border', property, value);
+    updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
 
     render() {
         const {name} = this.props;
@@ -114,22 +117,22 @@ class SingleImage extends Component {
                             </Column>
                             <Column>
                                 <Row>
-                                    <Size size={this.props.getSettingsProperty('size')}
-                                          storeValueSize={this.props.getStoreSettingsProperty('size')}
-                                          defaultSize={this.props.getDefaultSettingsProperty('size')}
-                                          updateStateProps={this.props.updateSettings}
+                                    <Size size={this.props.getSettingsByProperty('basis','size')}
+                                          storeValueSize={this.props.getStoreSettingsByProperty('basis','size')}
+                                          defaultSize={this.props.getDefaultSettingsByProperty('basis','size')}
+                                          updateStateProps={this.updateBasis}
                                     />
                                 </Row>
                                 <Row>
-                                    <Padding padding={this.props.getSettingsProperty('padding')}
-                                             storeValuePadding={this.props.getStoreSettingsProperty('padding')}
-                                             defaultPadding={this.props.getDefaultSettingsProperty('padding')}
-                                             updateStateProps={this.props.updateSettings}
+                                    <Padding padding={this.props.getSettingsByProperty('basis','padding')}
+                                             storeValuePadding={this.props.getStoreSettingsByProperty('basis','padding')}
+                                             defaultPadding={this.props.getDefaultSettingsByProperty('basis','padding')}
+                                             updateStateProps={this.updateBasis}
                                     />
-                                    <Margin margin={this.props.getSettingsProperty('margin')}
-                                            storeValueMargin={this.props.getStoreSettingsProperty('margin')}
-                                            defaultMargin={this.props.getDefaultSettingsProperty('margin')}
-                                            updateStateProps={this.props.updateSettings}
+                                    <Margin margin={this.props.getSettingsByProperty('basis','margin')}
+                                            storeValueMargin={this.props.getStoreSettingsByProperty('basis','margin')}
+                                            defaultMargin={this.props.getDefaultSettingsByProperty('basis','margin')}
+                                            updateStateProps={this.updateBasis}
                                     />
 
                                 </Row>
@@ -137,38 +140,37 @@ class SingleImage extends Component {
 
                             <Column></Column>
                             <Column  className={this.state.openColorViewBorder ? 'hidden' : ''}>
-                                <Alignment alignment={this.props.getSettingsProperty('alignment')}
-                                           storeValueAlignment={this.props.getStoreSettingsProperty('alignment')}
-                                           defaultAlignment={this.props.getDefaultSettingsProperty('alignment')}
-                                           updateStateProps={this.props.updateSettings}  />
+                                <Alignment alignment={this.props.getSettingsByProperty('basis','alignment')}
+                                           storeValueAlignment={this.props.getStoreSettingsByProperty('basis','alignment')}
+                                           defaultAlignment={this.props.getDefaultSettingsByProperty('basis','alignment')}
+                                           updateStateProps={this.updateBasis}  />
                             </Column>
 
                             <Column className={this.state.openColorViewBorder ? 'full-width' : ''}>
                                 <ColorPicker hidden={false}
-                                             color={this.getBorder('color')}
-                                             opacity={this.getBorder('opacity')}
-                                             storeValueColor={this.getBorderStore('color')}
-                                             storeValueOpacity={this.getBorderStore('opacity')}
-                                             defaultColor={this.getBorderDefault('color')}
-                                             defaultOpacity={this.getBorderDefault('opacity')}
+                                             color={this.props.getSettingsByProperty('border','color')}
+                                             opacity={this.props.getSettingsByProperty('border','opacity')}
+                                             storeValueColor={this.props.getStoreSettingsByProperty('border','color')}
+                                             storeValueOpacity={this.props.getStoreSettingsByProperty('border','opacity')}
+                                             defaultColor={this.props.getDefaultSettingsByProperty('border','color')}
+                                             defaultOpacity={this.props.getDefaultSettingsByProperty('border','opacity')}
                                              openView={this.state.openColorViewBorder}
-                                             updateStateProps={this.updateBorderProperty}
+                                             updateStateProps={this.updateBorder}
                                              toggleOpenView={this.toggleOpenViewBorder}
                                              customName={'Border'}
                                 />
                             </Column>
                             <Column  className={this.state.openColorViewBorder ? 'hidden' : ''}>
-                                <Radius radius={this.getBorder('radius')}
-                                        storeValueRadius={this.getBorderStore('radius')}
-                                        defaultRadius={this.getBorderDefault('radius')}
-                                        updateStateProps={this.updateBorderProperty}
+                                <Radius radius={this.props.getSettingsByProperty('border','radius')}
+                                        storeValueRadius={this.props.getStoreSettingsByProperty('border','radius')}
+                                        defaultRadius={this.props.getDefaultSettingsByProperty('border','radius')}
+                                        updateStateProps={this.updateBorder}
                                 />
-                                <BorderWidth width={this.getBorder('width')}
-                                             storeValueWidth={this.getBorderStore('width')}
-                                             defaultWidth={this.getBorderDefault('width')}
-                                             updateStateProps={this.updateBorderProperty}
+                                <BorderWidth width={this.props.getSettingsByProperty('border','width')}
+                                             storeValueWidth={this.props.getStoreSettingsByProperty('border','width')}
+                                             defaultWidth={this.props.getDefaultSettingsByProperty('border','width')}
+                                             updateStateProps={this.updateBorder}
                                 />
-
                             </Column>
                         </Choices>
                     </Settings>

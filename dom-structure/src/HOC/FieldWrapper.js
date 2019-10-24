@@ -63,8 +63,6 @@ const FieldWrapper = WrappedComponent => {
             if (this.props.triggerOpening !== prevProps.triggerOpening) {
                 this.toggleWithTrigger(this.props.triggerOpening);
             }
-
-
         }
 
         getFieldOnStore = ({dom, indexSection, indexComponent, nameProperty}) => {
@@ -104,8 +102,6 @@ const FieldWrapper = WrappedComponent => {
             }, () => {
                 this.props.dispatch(updateFieldSettings(this.props.nameProperty, this.state.settings, this.props.indexComponent, this.props.indexSection));
             }));
-
-
         }
 
         toggleContent = () => {
@@ -144,28 +140,66 @@ const FieldWrapper = WrappedComponent => {
 
         getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
 
-        getSettingsProperty = (property, event) => {
+       /* getSettingsProperty = (property, event) => {
             if (event) {
                 return this.state.settings[event] && this.state.settings[event][property] ? this.state.settings[event][property][this.state.currentResponsiveMode] : null
             } else {
                 return this.state.settings[property] ? this.state.settings[property][this.state.currentResponsiveMode] : null
             }
+        }*/
+
+
+        getSettingsByProperty = (property, subProperty, event) => {
+            if(event){
+                console.log('EVENT',event);
+               return this.state.settings[property] && this.state.settings[property][this.state.currentResponsiveMode] ? this.state.settings[property][this.state.currentResponsiveMode][subProperty][event] : null
+            }else{
+               return  this.state.settings[property] && this.state.settings[property][this.state.currentResponsiveMode] ? this.state.settings[property][this.state.currentResponsiveMode][subProperty] : null
+
+            }
         }
+        getDefaultSettingsByProperty = (property, subProperty, event) => {
+            if(event){
+                return this.props.defaultSettings[property] && this.props.defaultSettings[property][this.state.currentResponsiveMode] ? this.props.defaultSettings[property][this.state.currentResponsiveMode][subProperty][event] : null
 
+            }else{
+                return this.props.defaultSettings[property] && this.props.defaultSettings[property][this.state.currentResponsiveMode] ? this.props.defaultSettings[property][this.state.currentResponsiveMode][subProperty] : null
 
-        getSettingsByProperty = (property, subProperty) => this.state.settings[property] && this.state.settings[property][this.state.currentResponsiveMode] ? this.state.settings[property][this.state.currentResponsiveMode][subProperty] : null
-        getDefaultSettingsByProperty = (property, subProperty) => this.props.defaultSettings[property] && this.props.defaultSettings[property][this.state.currentResponsiveMode] ? this.props.defaultSettings[property][this.state.currentResponsiveMode][subProperty] : null
-        getStoreSettingsByProperty = (property, subProperty) => this.state.storeSettings[property] && this.state.storeSettings[property][this.state.currentResponsiveMode] ? this.state.storeSettings[property][this.state.currentResponsiveMode][subProperty] : null
-        updateSettingsProperty = (property, subProperty, value) => {
-            this.setState(prevState => ({
-                settings: update(prevState.settings, {
-                    [property]: {
-                        [this.state.currentResponsiveMode]: {
-                            [subProperty]: {$set: value}
+            }
+        }
+        getStoreSettingsByProperty = (property, subProperty, event) => {
+            if(event){
+                return this.state.storeSettings[property] && this.state.storeSettings[property][this.state.currentResponsiveMode] ? this.state.storeSettings[property][this.state.currentResponsiveMode][subProperty][event] : null
+            }else{
+                return this.state.storeSettings[property] && this.state.storeSettings[property][this.state.currentResponsiveMode] ? this.state.storeSettings[property][this.state.currentResponsiveMode][subProperty] : null
+            }
+        }
+        updateSettingsProperty = (property, subProperty, value, event) => {
+            if(event){
+                this.setState(prevState => ({
+                    settings: update(prevState.settings, {
+                        [property]: {
+                            [this.state.currentResponsiveMode]: {
+                                [subProperty]: {
+                                    [event] : {$set: value}
+                                }
+
+                            }
                         }
-                    }
-                })
-            }));
+                    })
+                }));
+            }else{
+                this.setState(prevState => ({
+                    settings: update(prevState.settings, {
+                        [property]: {
+                            [this.state.currentResponsiveMode]: {
+                                [subProperty]: {$set: value}
+                            }
+                        }
+                    })
+                }));
+            }
+
         }
 
 
