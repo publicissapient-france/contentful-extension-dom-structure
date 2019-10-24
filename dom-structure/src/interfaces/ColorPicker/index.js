@@ -60,7 +60,7 @@ class ColorPicker extends Component {
 
     render () {
         const { storeValueColor, storeValueOpacity, colors, color, opacity, defaultColor, defaultOpacity, openView, hidden, customName } = this.props;
-        if (!color) return <p>no color defined</p>;
+        if (!color) return null;
         if (!colors) {
             return (
                 <FieldsError>

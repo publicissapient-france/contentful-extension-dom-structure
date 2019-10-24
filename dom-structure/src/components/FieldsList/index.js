@@ -6,7 +6,6 @@ import Text from '../../fields/Text/index';
 import TextMarkdown from '../../fields/TextMarkdown/index';
 import SingleImage from '../../fields/SingleImage/index';
 import MultipleImages from '../../fields/MultipleImages/index';
-import FlexItem from '../../fields/FlexItem/index';
 import CTA from '../../fields/CTA/index';
 
 class FieldsList extends Component {
@@ -45,9 +44,6 @@ class FieldsList extends Component {
 
                         case 'MultipleImages':
                             return <MultipleImages {...params} />;
-
-                        case 'FlexItem':
-                            return <FlexItem {...params} />;
 
                         case 'CTA':
                             return <CTA {...params} />;

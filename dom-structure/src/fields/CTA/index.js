@@ -32,7 +32,6 @@ import {
     ChoiceItemsConfirm,
     Content,
     Settings,
-    Choices,
     ChoicesTypography,
     Column,
     LinkSettings,
@@ -64,7 +63,6 @@ class CTA extends Component {
                 this.initFont();
             }
         }
-
     }
 
     initFont = () => {
@@ -105,29 +103,6 @@ class CTA extends Component {
     getIcon = () => this.props.content.icon && this.props.content.icon[this.props.indexLanguage] ? this.props.content.icon[this.props.indexLanguage] : '';
     getLink = () => this.props.content.link && this.props.content.link[this.props.indexLanguage] ? this.props.content.link[this.props.indexLanguage] : '';
     getTarget = () => this.props.getSettingsPropertyNoResponsive('target') ? this.props.getSettingsPropertyNoResponsive('target').external : false;
-
-    /*getBorder = (property, event) => this.props.getSettingsProperty('border', event) ? this.props.getSettingsProperty('border', event)[property] : null
-    getBorderStore = (property, event) => this.props.getStoreSettingsProperty('border', event) ? this.props.getStoreSettingsProperty('border', event)[property] : null
-    getBorderDefault = (property, event) => this.props.getDefaultSettingsProperty('border', event) ? this.props.getDefaultSettingsProperty('border', event)[property] : null
-
-    getIconSettings = (property, event) => this.props.getSettingsProperty('icon', event) ? this.props.getSettingsProperty('icon', event)[property] : null
-    getIconStore = (property, event) => this.props.getStoreSettingsProperty('icon', event) ? this.props.getStoreSettingsProperty('icon', event)[property] : null
-    getIconDefault = (property, event) => this.props.getDefaultSettingsProperty('icon', event) ? this.props.getDefaultSettingsProperty('icon', event)[property] : null
-
-    updateBorderProperty = (property, value, event) => {
-        this.props.updateSettingsSubProperty('border', value, property, event);
-    }
-    updateIconProperty = (property, value, event) => {
-        this.props.updateSettingsSubProperty('icon', value, property, event);
-    }
-
-    getBackground = (property, event) => this.props.getSettingsProperty('background', event) ? this.props.getSettingsProperty('background', event)[property] : null
-    getBackgroundStore = (property, event) => this.props.getStoreSettingsProperty('background', event) ? this.props.getStoreSettingsProperty('background', event)[property] : null
-    getBackgroundDefault = (property, event) => this.props.getDefaultSettingsProperty('background', event) ? this.props.getDefaultSettingsProperty('background', event)[property] : null
-
-    updateBackgroundProperty = (property, value, event) => {
-        this.props.updateSettingsSubProperty('background', value, property, event);
-    }*/
 
     updateTypography = (property, value, event) => this.props.updateSettingsProperty('typography', property, value, event);
     updateBasis = (property, value, event) => this.props.updateSettingsProperty('basis', property, value, event);
@@ -244,7 +219,7 @@ class CTA extends Component {
                                             defaultText={this.props.getDefaultSettingsByProperty('typography', 'text')}
                                             storeValueFont={this.props.getStoreSettingsByProperty('typography', 'font')}
                                             storeValueText={this.props.getStoreSettingsByProperty('typography', 'text')}
-                                            updateStateProps={this.props.updateTypography}
+                                            updateStateProps={this.updateTypography}
                                             currentMode={this.props.currentResponsiveMode}
                                 />
                             </Column>

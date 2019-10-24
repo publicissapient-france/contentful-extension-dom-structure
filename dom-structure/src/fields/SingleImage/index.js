@@ -55,14 +55,6 @@ class SingleImage extends Component {
     }
     toggleOpenViewBorder = () => this.setState(prevState => ({openColorViewBorder: !prevState.openColorViewBorder}));
 
-    //getBorder = (property, event) => this.props.getSettingsProperty('border', event) ? this.props.getSettingsProperty('border', event)[property] : null
-   // getBorderStore = (property, event) => this.props.getStoreSettingsProperty('border', event) ? this.props.getStoreSettingsProperty('border', event)[property] : null
-    //getBorderDefault = (property, event) => this.props.getDefaultSettingsProperty('border', event) ? this.props.getDefaultSettingsProperty('border', event)[property] : null
-
-    /*updateBorderProperty = (property, value, event) => {
-        this.props.updateSettingsSubProperty('border', value , property, event);
-    }*/
-
     updateBorder = (property, value) => this.props.updateSettingsProperty('border', property, value);
     updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
 

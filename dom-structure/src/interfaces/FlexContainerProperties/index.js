@@ -166,7 +166,7 @@ class FlexContainerProperties extends Component {
                         <label>Justify</label>
                         <ContainerProperty>
                             <IconActing objectA={storeValue} objectB={properties} targetProperty={'justify'}
-                                        value={'properties-start'} action={this.updateFlex}>
+                                        value={'flex-start'} action={this.updateFlex}>
                                 flex-start
                             </IconActing>
                             <IconActing objectA={storeValue} objectB={properties} targetProperty={'justify'}

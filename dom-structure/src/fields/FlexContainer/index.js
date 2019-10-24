@@ -24,9 +24,6 @@ class FlexContainer extends Component {
         this.state = {};
     }
 
-    componentDidMount() {
-        console.log('flex container props', this.props);
-    };
 
     componentDidUpdate(prevProps) {
         if (this.props.responsiveSettings !== prevProps.responsiveSettings) {

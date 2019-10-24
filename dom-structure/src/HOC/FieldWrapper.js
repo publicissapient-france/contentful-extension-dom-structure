@@ -140,18 +140,8 @@ const FieldWrapper = WrappedComponent => {
 
         getResponsiveChoices = () => (this.state.openContent ? this.props.responsiveContent : (this.state.openSettings ? this.props.responsiveSettings : []))
 
-       /* getSettingsProperty = (property, event) => {
-            if (event) {
-                return this.state.settings[event] && this.state.settings[event][property] ? this.state.settings[event][property][this.state.currentResponsiveMode] : null
-            } else {
-                return this.state.settings[property] ? this.state.settings[property][this.state.currentResponsiveMode] : null
-            }
-        }*/
-
-
         getSettingsByProperty = (property, subProperty, event) => {
             if(event){
-                console.log('EVENT',event);
                return this.state.settings[property] && this.state.settings[property][this.state.currentResponsiveMode] ? this.state.settings[property][this.state.currentResponsiveMode][subProperty][event] : null
             }else{
                return  this.state.settings[property] && this.state.settings[property][this.state.currentResponsiveMode] ? this.state.settings[property][this.state.currentResponsiveMode][subProperty] : null
@@ -214,24 +204,6 @@ const FieldWrapper = WrappedComponent => {
             }));
         }
 
-        getDefaultSettingsProperty = (property, event) => {
-            if (event) {
-                return this.props.defaultSettings[event] && this.props.defaultSettings[event][property] ? this.props.defaultSettings[event][property][this.state.currentResponsiveMode] : null
-            } else {
-                return this.props.defaultSettings[property] ? this.props.defaultSettings[property][this.state.currentResponsiveMode] : null
-            }
-        }
-
-
-        getStoreSettingsProperty = (property, event) => {
-            if (event) {
-                return this.state.storeSettings[event] && this.state.storeSettings[event][property] ? this.state.storeSettings[event][property][this.state.currentResponsiveMode] : null
-            } else {
-                return this.state.storeSettings[property] ? this.state.storeSettings[property][this.state.currentResponsiveMode] : null
-            }
-        }
-
-
         isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings, this.state.storeSettings))
 
         updateTranlatedContent = (value, targetProperty) => {
@@ -288,7 +260,6 @@ const FieldWrapper = WrappedComponent => {
             }
         }
 
-
         updateTranlatedContentSubProperty = (property, subProperty, value, index) => {
             this.setState(prevState => ({
                 content: update(prevState.content, {
@@ -302,29 +273,6 @@ const FieldWrapper = WrappedComponent => {
                 })
             }));
         }
-
-        updateSettings = (targetProperty, value, event) => {
-            if (event) {
-                this.setState(prevState => ({
-                    settings: update(prevState.settings, {
-                        [event]: {
-                            [targetProperty]: {
-                                [this.state.currentResponsiveMode]: {$set: value}
-                            }
-                        }
-                    })
-                }));
-            } else {
-                this.setState(prevState => ({
-                    settings: update(prevState.settings, {
-                        [targetProperty]: {
-                            [this.state.currentResponsiveMode]: {$set: value}
-                        }
-                    })
-                }));
-            }
-        }
-
 
         updateField = () => {
             const {dispatch, nameProperty, indexComponent, indexSection} = this.props;
@@ -358,17 +306,13 @@ const FieldWrapper = WrappedComponent => {
                     updateTranlatedContent={this.updateTranlatedContent}
                     settings={this.state.settings}
                     initSettings={this.initSettings}
-                    updateSettings={this.updateSettings}
                     updateSettingsNoResponsive={this.updateSettingsNoResponsive}
                     updateSettingsSubProperty={this.updateSettingsSubProperty}
                     tryTest={this.tryTest}
                     active={this.state.active}
                     toggleActive={this.toggleActive}
-                    getSettingsProperty={this.getSettingsProperty}
                     getSettingsPropertyNoResponsive={this.getSettingsPropertyNoResponsive}
-                    getDefaultSettingsProperty={this.getDefaultSettingsProperty}
                     getDefaultSettingsPropertyNoResponsive={this.getDefaultSettingsPropertyNoResponsive}
-                    getStoreSettingsProperty={this.getStoreSettingsProperty}
                     getStoreSettingsPropertyNoResponsive={this.getStoreSettingsPropertyNoResponsive}
                     cancelStateValue={this.cancelStateValue}
                     updateField={this.updateField}
