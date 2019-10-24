@@ -95,29 +95,16 @@ const FieldWrapper = WrappedComponent => {
             });
         }
 
-        initSettingsProperty = (targetProperty, initialValue, event) => {
-            if (event) {
-                this.setState(prevState => ({
-                    settings: {
-                        ...prevState.settings,
-                        [event]: {
-                            ...prevState.settings[event],
-                            [targetProperty]: initialValue
-                        }
-                    }
-                }, () => {
-                    this.props.dispatch(updateFieldSettings(this.props.nameProperty, this.state.settings, this.props.indexComponent, this.props.indexSection));
-                }));
-            } else {
-                this.setState(prevState => ({
-                    settings: {
-                        ...prevState.settings,
-                        [targetProperty]: initialValue
-                    }
-                }, () => {
-                    this.props.dispatch(updateFieldSettings(this.props.nameProperty, this.state.settings, this.props.indexComponent, this.props.indexSection));
-                }));
-            }
+        initSettingsProperty = (targetProperty, initialValue) => {
+            this.setState(prevState => ({
+                settings: {
+                    ...prevState.settings,
+                    [targetProperty]: initialValue
+                }
+            }, () => {
+                this.props.dispatch(updateFieldSettings(this.props.nameProperty, this.state.settings, this.props.indexComponent, this.props.indexSection));
+            }));
+
 
         }
 
@@ -168,13 +155,13 @@ const FieldWrapper = WrappedComponent => {
 
         getSettingsByProperty = (property, subProperty) => this.state.settings[property] && this.state.settings[property][this.state.currentResponsiveMode] ? this.state.settings[property][this.state.currentResponsiveMode][subProperty] : null
         getDefaultSettingsByProperty = (property, subProperty) => this.props.defaultSettings[property] && this.props.defaultSettings[property][this.state.currentResponsiveMode] ? this.props.defaultSettings[property][this.state.currentResponsiveMode][subProperty] : null
-        getStoreSettingsByProperty = (property, subProperty ) => this.state.storeSettings[property] && this.state.storeSettings[property][this.state.currentResponsiveMode] ? this.state.storeSettings[property][this.state.currentResponsiveMode][subProperty] : null
+        getStoreSettingsByProperty = (property, subProperty) => this.state.storeSettings[property] && this.state.storeSettings[property][this.state.currentResponsiveMode] ? this.state.storeSettings[property][this.state.currentResponsiveMode][subProperty] : null
         updateSettingsProperty = (property, subProperty, value) => {
             this.setState(prevState => ({
                 settings: update(prevState.settings, {
                     [property]: {
                         [this.state.currentResponsiveMode]: {
-                            [subProperty]: { $set: value }
+                            [subProperty]: {$set: value}
                         }
                     }
                 })
@@ -182,8 +169,16 @@ const FieldWrapper = WrappedComponent => {
         }
 
 
-
         getSettingsPropertyNoResponsive = property => this.state.settings[property]
+        getDefaultSettingsPropertyNoResponsive = property => this.props.defaultSettings[property]
+        getStoreSettingsPropertyNoResponsive = property => this.state.storeSettings[property] ? this.state.storeSettings[property] : null
+        updateSettingsNoResponsive = (targetProperty, value) => {
+            this.setState(prevState => ({
+                settings: update(prevState.settings, {
+                    [targetProperty]: {$set: value}
+                })
+            }));
+        }
 
         getDefaultSettingsProperty = (property, event) => {
             if (event) {
@@ -193,7 +188,6 @@ const FieldWrapper = WrappedComponent => {
             }
         }
 
-        getDefaultSettingsPropertyNoResponsive = property => this.props.defaultSettings[property]
 
         getStoreSettingsProperty = (property, event) => {
             if (event) {
@@ -203,7 +197,6 @@ const FieldWrapper = WrappedComponent => {
             }
         }
 
-        getStoreSettingsPropertyNoResponsive = property => this.state.storeSettings[property] ? this.state.storeSettings[property] : null
 
         isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings, this.state.storeSettings))
 
@@ -298,14 +291,6 @@ const FieldWrapper = WrappedComponent => {
             }
         }
 
-
-        updateSettingsNoResponsive = (targetProperty, value) => {
-            this.setState(prevState => ({
-                settings: update(prevState.settings, {
-                    [targetProperty]: {$set: value}
-                })
-            }));
-        }
 
         updateField = () => {
             const {dispatch, nameProperty, indexComponent, indexSection} = this.props;

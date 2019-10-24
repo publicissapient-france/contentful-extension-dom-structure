@@ -33,30 +33,30 @@ class Text extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.settings && this.props.settings.font) {
-            if (!Object.values(this.props.settings.font)[0].family && this.props.themes) {
+        if (this.props.settings && this.props.getSettingsByProperty('typography','font')) {
+            if (!Object.values(this.props.settings.typography)[0].font.family && this.props.themes) {
                 this.initFont();
             }
         }
     }
 
     initFont = () => {
-        let initFont = this.props.defaultSettings.font;
+        let initFont = this.props.settings.typography;
 
         new Promise((resolve, reject) => {
             this.props.responsiveSettings.map(mode => {
-                let selectedTheme = this.getThemeValue(this.props.themes, initFont[mode].theme);
+                let selectedTheme = this.getThemeValue(this.props.themes, initFont[mode].font.theme);
                 if (selectedTheme) {
-                    initFont[mode].family = selectedTheme.family;
-                    initFont[mode].typeface = selectedTheme.typeface;
-                    initFont[mode].weight = selectedTheme.weight;
-                    initFont[mode].size = selectedTheme.fontsize[mode];
-                    initFont[mode].lineHeight = selectedTheme.lineheight[mode];
+                    initFont[mode].font.family = selectedTheme.family;
+                    initFont[mode].font.typeface = selectedTheme.typeface;
+                    initFont[mode].font.weight = selectedTheme.weight;
+                    initFont[mode].font.size = selectedTheme.fontsize[mode];
+                    initFont[mode].font.lineHeight = selectedTheme.lineheight[mode];
                 }
             });
             resolve();
         }).then(() => {
-            this.props.initSettingsProperty('font', initFont);
+            this.props.initSettingsProperty('typography', initFont);
         });
     }
 
@@ -70,6 +70,8 @@ class Text extends Component {
     toggleOpenPreview = () => this.setState(prevState => ({openPreview: !prevState.openPreview}));
 
     getText = () => this.props.content.text && this.props.content.text[this.props.indexLanguage] ? this.props.content.text[this.props.indexLanguage] : '';
+
+    updateTypography = (property, value) => this.props.updateSettingsProperty('typography', property, value);
 
     render() {
         const {name} = this.props;
@@ -111,22 +113,22 @@ class Text extends Component {
                             <Column className={this.state.openPreview || this.state.openColorView ? 'full-width' : ''}>
                                 <Row>
                                     <TextPreview hidden={this.state.openColorView}
-                                                 color={this.props.getSettingsProperty('color')}
-                                                 font={this.props.getSettingsProperty('font')}
-                                                 text={this.props.getSettingsProperty('text')}
-                                                 opacity={this.props.getSettingsProperty('opacity')}
+                                                 color={this.props.getSettingsByProperty('typography','color')}
+                                                 font={this.props.getSettingsByProperty('typography','font')}
+                                                 text={this.props.getSettingsByProperty('typography','text')}
+                                                 opacity={this.props.getSettingsByProperty('typography','opacity')}
                                                  open={this.state.openPreview}
                                                  toggleOpenPreview={this.toggleOpenPreview}
                                     />
                                     <ColorPicker hidden={this.state.openPreview}
-                                                 color={this.props.getSettingsProperty('color')}
-                                                 opacity={this.props.getSettingsProperty('opacity')}
-                                                 storeValueColor={this.props.getStoreSettingsProperty('color')}
-                                                 storeValueOpacity={this.props.getStoreSettingsProperty('opacity')}
-                                                 defaultColor={this.props.getDefaultSettingsProperty('color')}
-                                                 defaultOpacity={this.props.getDefaultSettingsProperty('opacity')}
+                                                 color={this.props.getSettingsByProperty('typography','color')}
+                                                 opacity={this.props.getSettingsByProperty('typography','opacity')}
+                                                 storeValueColor={this.props.getStoreSettingsByProperty('typography','color')}
+                                                 storeValueOpacity={this.props.getStoreSettingsByProperty('typography','opacity')}
+                                                 defaultColor={this.props.getDefaultSettingsByProperty('typography','color')}
+                                                 defaultOpacity={this.props.getDefaultSettingsByProperty('typography','opacity')}
                                                  openView={this.state.openColorView}
-                                                 updateStateProps={this.props.updateSettings}
+                                                 updateStateProps={this.updateTypography}
                                                  toggleOpenView={this.toggleOpenView}
                                     />
                                 </Row>
@@ -138,13 +140,13 @@ class Text extends Component {
                                 />
                             </Column>
                             <Column className={this.state.openPreview || this.state.openColorView ? 'hidden' : ''}>
-                                <Typography font={this.props.getSettingsProperty('font')}
-                                            text={this.props.getSettingsProperty('text')}
-                                            defaultFont={this.props.getDefaultSettingsProperty('font')}
-                                            defaultText={this.props.getDefaultSettingsProperty('text')}
-                                            storeValueFont={this.props.getStoreSettingsProperty('font')}
-                                            storeValueText={this.props.getStoreSettingsProperty('text')}
-                                            updateStateProps={this.props.updateSettings}
+                                <Typography font={this.props.getSettingsByProperty('typography','font')}
+                                            text={this.props.getSettingsByProperty('typography','text')}
+                                            defaultFont={this.props.getDefaultSettingsByProperty('typography','font')}
+                                            defaultText={this.props.getDefaultSettingsByProperty('typography','text')}
+                                            storeValueFont={this.props.getStoreSettingsByProperty('typography','font')}
+                                            storeValueText={this.props.getStoreSettingsByProperty('typography','text')}
+                                            updateStateProps={this.updateTypography}
                                             currentMode={this.props.currentResponsiveMode}
                                 />
                             </Column>

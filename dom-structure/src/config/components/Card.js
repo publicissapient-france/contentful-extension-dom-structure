@@ -52,7 +52,7 @@ export default {
                 }
             }
 
-        }/*,
+        },
         {
             name: 'Title',
             nameProperty: 'Title',
@@ -65,12 +65,64 @@ export default {
                 }
             },
             settings: {
-                responsive: ['A'],
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
                     typography: {
-                        A: {
+                        M: {
                             font: {
-                                theme: 'TitleLight',
+                                theme: 'Title1',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'center',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        T: {
+                            font: {
+                                theme: 'Title2',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'center',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        D: {
+                            font: {
+                                theme: 'Title3',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -101,7 +153,7 @@ export default {
                 }
             }
 
-        }*//*,
+        },
         {
             name: 'Content',
             nameProperty: 'Content',
@@ -147,7 +199,7 @@ export default {
                 }
             }
 
-        }*//*,
+        }/*,
         {
             name: 'Image',
             nameProperty: 'Image',
