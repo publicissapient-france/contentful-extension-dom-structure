@@ -10,6 +10,9 @@ export const TextContainer = styled.div`
     overflow : hidden;
     display : flex;
     border-bottom : 1px solid ${ extensionTheme.grey20 }
+    position : relative;
+    min-height : 115px;
+    width : 100%;
     
 
     &.is-open{
@@ -37,8 +40,11 @@ export const TextContainer = styled.div`
     
 `;
 export const Options = styled.div`
-    padding-top : 10px;
-    padding-right : 10px;    
+    //padding-top : 10px;
+    //padding-right : 10px;
+    position: absolute;
+    right : 10px;
+    top : 10px;    
     
     & ${ IconContainer }{
         background : white;

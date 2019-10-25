@@ -16,10 +16,8 @@ class IconPreview extends Component {
 
         this.state = {
             light: true,
-            alphabet: true,
             text: {
                 alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz ‘?’“!”(%)[#]{@}/&\\<-+÷×=>®©$€£¥¢:;,.*',
-                paragraph: 'Apparently we had reached a great height in the atmosphere, for the sky was a dead black, and the stars had ceased to twinkle. By the same illusion which lifts the horizon of the sea to the level of the spectator on a hillside, the sable cloud beneath was dished out, and the car seemed to float in the middle of an immense dark sphere, whose upper half was strewn with silver.'
             }
         };
     }
@@ -27,7 +25,6 @@ class IconPreview extends Component {
     render () {
         const { font, color, opacity, open, hidden } = this.props;
         let lightIcon = this.state.light ? <SvgMoon/> : <SvgSun/>;
-        let textIcon = this.state.alphabet ? <SvgP/> : <SvgA/>;
         let extendIcon = this.state.alphabet ? <SvgExtend/> : <SvgExtend/>;
         if (!font) return <p>preview impossible</p>;
         return (
@@ -36,14 +33,14 @@ class IconPreview extends Component {
                     <p
                         style={{
                             fontSize: `${ font.size }px`,
-                            fontFamily: `"${ font.family }",${ font.typeface }`,
+                            fontFamily:  `"${ font.family }", Blank ,${ font.typeface } `,
                             fontWeight: font.weight ? font.weight[1] : '',
                             lineHeight: `${ font.lineHeight }px`,
                             color: color.hex,
                             opacity: opacity.value
                         }}
                     >{
-                            this.state.alphabet ? this.state.text.alphabet : this.state.text.paragraph
+                            this.state.text.alphabet
                         }
                     </p>
                     <Options>
@@ -54,12 +51,6 @@ class IconPreview extends Component {
                                 });
                             }}>
                             {lightIcon}
-                        </IconContainer>
-                        <IconContainer
-                            onClick={e => {
-                                this.setState({ alphabet: !this.state.alphabet });
-                            }}>
-                            {textIcon}
                         </IconContainer>
                         <IconContainer
                             onClick={e => {
