@@ -165,7 +165,7 @@ class CTA extends Component {
                             </Column>
                             <Column>
                                 <label>Icon</label>
-                                <InputIcon font={this.props.getSettingsByProperty('icon','font')}
+                                <InputIcon font={this.props.getSettingsByProperty('icon', 'font')}
                                            action={this.props.updateTranlatedContent}
                                            targetProperty={'icon'}
                                            defaultValue={this.getIcon()}/>
@@ -265,59 +265,57 @@ class CTA extends Component {
                                     />
                                 </Row>
                                 <Row>
-                                    <Alignment alignment={this.props.getSettingsByProperty('basis','alignment')}
-                                               storeValueAlignment={this.props.getStoreSettingsByProperty('basis','alignment')}
-                                               defaultAlignment={this.props.getDefaultSettingsByProperty('basis','alignment')}
+                                    <Alignment alignment={this.props.getSettingsByProperty('basis', 'alignment')}
+                                               storeValueAlignment={this.props.getStoreSettingsByProperty('basis', 'alignment')}
+                                               defaultAlignment={this.props.getDefaultSettingsByProperty('basis', 'alignment')}
                                                updateStateProps={this.updateBasis}/>
 
                                 </Row>
                             </Column>
-
-
-
-                            <Column  className={this.state.openColorViewBorder ? 'full-width' : ''}>
+                            <Column className={this.state.openColorViewBorder ? 'full-width' : ''}>
                                 <ColorPicker hidden={false}
-                                             color={this.props.getSettingsByProperty('border','color', this.state.currentEvent)}
-                                             opacity={this.props.getSettingsByProperty('border','opacity', this.state.currentEvent)}
-                                             storeValueColor={this.props.getStoreSettingsByProperty('border','color', this.state.currentEvent)}
-                                             storeValueOpacity={this.props.getStoreSettingsByProperty('border','opacity', this.state.currentEvent)}
-                                             defaultColor={this.props.getDefaultSettingsByProperty('border','color', this.state.currentEvent)}
-                                             defaultOpacity={this.props.getDefaultSettingsByProperty('border','opacity', this.state.currentEvent)}
+                                             color={this.props.getSettingsByProperty('border', 'color', this.state.currentEvent)}
+                                             opacity={this.props.getSettingsByProperty('border', 'opacity', this.state.currentEvent)}
+                                             storeValueColor={this.props.getStoreSettingsByProperty('border', 'color', this.state.currentEvent)}
+                                             storeValueOpacity={this.props.getStoreSettingsByProperty('border', 'opacity', this.state.currentEvent)}
+                                             defaultColor={this.props.getDefaultSettingsByProperty('border', 'color', this.state.currentEvent)}
+                                             defaultOpacity={this.props.getDefaultSettingsByProperty('border', 'opacity', this.state.currentEvent)}
                                              openView={this.state.openColorViewBorder}
                                              updateStateProps={this.updateBorder}
                                              toggleOpenView={this.toggleOpenViewBorder}
                                              customName={'Border'}
                                              event={this.state.currentEvent}
                                 />
-                           </Column>
-                            <Column  className={this.state.openColorViewBorder ? 'hidden' : ''}>
-                                <Radius radius={this.props.getSettingsByProperty('border','radius')}
-                                        storeValueRadius={this.props.getStoreSettingsByProperty('border','radius')}
-                                        defaultRadius={this.props.getDefaultSettingsByProperty('border','radius')}
+                            </Column>
+                            <Column className={this.state.openColorViewBorder ? 'hidden' : ''}>
+                                <Radius radius={this.props.getSettingsByProperty('border', 'radius')}
+                                        storeValueRadius={this.props.getStoreSettingsByProperty('border', 'radius')}
+                                        defaultRadius={this.props.getDefaultSettingsByProperty('border', 'radius')}
                                         updateStateProps={this.updateBorder}
                                 />
-                                <BorderWidth width={this.props.getSettingsByProperty('border','width')}
-                                             storeValueWidth={this.props.getStoreSettingsByProperty('border','width')}
-                                             defaultWidth={this.props.getDefaultSettingsByProperty('border','width')}
+                                <BorderWidth width={this.props.getSettingsByProperty('border', 'width')}
+                                             storeValueWidth={this.props.getStoreSettingsByProperty('border', 'width')}
+                                             defaultWidth={this.props.getDefaultSettingsByProperty('border', 'width')}
                                              updateStateProps={this.updateBorder}
                                 />
                             </Column>
-                            <Column className={this.state.openPreviewIcon  || this.state.openColorViewIcon ? 'full-width' : ''}>
+                            <Column
+                                className={this.state.openPreviewIcon || this.state.openColorViewIcon ? 'full-width' : ''}>
                                 <IconPreview hidden={this.state.openColorViewIcon}
-                                             color={this.props.getSettingsByProperty('icon','color', this.state.currentEvent)}
-                                             font={this.props.getSettingsByProperty('icon','font')}
-                                             text={this.props.getSettingsByProperty('icon','text')}
-                                             opacity={this.props.getSettingsByProperty('icon','opacity', this.state.currentEvent)}
+                                             color={this.props.getSettingsByProperty('icon', 'color', this.state.currentEvent)}
+                                             font={this.props.getSettingsByProperty('icon', 'font')}
+                                             text={this.props.getSettingsByProperty('icon', 'text')}
+                                             opacity={this.props.getSettingsByProperty('icon', 'opacity', this.state.currentEvent)}
                                              open={this.state.openColorViewIcon}
                                              toggleOpenPreview={this.toggleOpenPreviewIcon}
                                 />
                                 <ColorPicker hidden={this.state.openPreviewIcon}
-                                             color={this.props.getSettingsByProperty('icon','color', this.state.currentEvent)}
-                                             opacity={this.props.getSettingsByProperty('icon','opacity', this.state.currentEvent)}
-                                             storeValueColor={this.props.getStoreSettingsByProperty('icon','color', this.state.currentEvent)}
-                                             storeValueOpacity={this.props.getStoreSettingsByProperty('icon','opacity', this.state.currentEvent)}
-                                             defaultColor={this.props.getDefaultSettingsByProperty('icon','color', this.state.currentEvent)}
-                                             defaultOpacity={this.props.getDefaultSettingsByProperty('icon','opacity', this.state.currentEvent)}
+                                             color={this.props.getSettingsByProperty('icon', 'color', this.state.currentEvent)}
+                                             opacity={this.props.getSettingsByProperty('icon', 'opacity', this.state.currentEvent)}
+                                             storeValueColor={this.props.getStoreSettingsByProperty('icon', 'color', this.state.currentEvent)}
+                                             storeValueOpacity={this.props.getStoreSettingsByProperty('icon', 'opacity', this.state.currentEvent)}
+                                             defaultColor={this.props.getDefaultSettingsByProperty('icon', 'color', this.state.currentEvent)}
+                                             defaultOpacity={this.props.getDefaultSettingsByProperty('icon', 'opacity', this.state.currentEvent)}
                                              openView={this.state.openColorViewIcon}
                                              updateStateProps={this.updateIcon}
                                              toggleOpenView={this.toggleOpenViewIcon}
@@ -326,19 +324,21 @@ class CTA extends Component {
                                 />
 
                             </Column>
-                            <Column className={this.state.openPreviewIcon || this.state.openColorViewIcon ? 'hidden' : ''} >
+                            <Column
+                                className={this.state.openPreviewIcon || this.state.openColorViewIcon ? 'hidden' : ''}>
                                 <Row>
-                                    <IconTypography font={this.props.getSettingsByProperty('icon','font')}
-                                                    defaultFont={this.props.getDefaultSettingsByProperty('icon','font')}
-                                                    storeValueFont={this.props.getStoreSettingsByProperty('icon','font')}
+                                    <IconTypography font={this.props.getSettingsByProperty('icon', 'font')}
+                                                    defaultFont={this.props.getDefaultSettingsByProperty('icon', 'font')}
+                                                    storeValueFont={this.props.getStoreSettingsByProperty('icon', 'font')}
                                                     updateStateProps={this.updateIcon}
                                                     currentMode={this.props.currentResponsiveMode}
                                     />
                                 </Row>
-                                <Row className={this.state.openPreviewIcon || this.state.openColorViewIcon ? 'hidden' : ''}>
-                                    <Padding padding={this.props.getSettingsByProperty('icon','padding')}
-                                             storeValuePadding={this.props.getStoreSettingsByProperty('icon','padding')}
-                                             defaultPadding={this.props.getDefaultSettingsByProperty('icon','padding')}
+                                <Row
+                                    className={this.state.openPreviewIcon || this.state.openColorViewIcon ? 'hidden' : ''}>
+                                    <Padding padding={this.props.getSettingsByProperty('icon', 'padding')}
+                                             storeValuePadding={this.props.getStoreSettingsByProperty('icon', 'padding')}
+                                             defaultPadding={this.props.getDefaultSettingsByProperty('icon', 'padding')}
                                              updateStateProps={this.updateIcon}
                                     />
                                 </Row>

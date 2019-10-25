@@ -225,19 +225,26 @@ const FieldWrapperOfSection = WrappedComponent => {
                     openSettings={this.state.openSettings}
                     toggleContent={this.toggleContent}
                     toggleSettings={this.toggleSettings}
+                    toggleWithTrigger={this.toggleWithTrigger}
+
+                    active={this.state.active}
+                    toggleActive={this.toggleActive}
+
                     currentResponsiveMode={this.state.currentResponsiveMode}
                     setResponsiveMode={this.setResponsiveMode}
                     getResponsiveChoices={this.getResponsiveChoices}
-                    toggleWithTrigger={this.toggleWithTrigger}
+
                     updated={this.isUpdated()}
+                    updateField={this.updateField}
+                    cancelStateValue={this.cancelStateValue}
                     content={this.state.content}
                     initContent={this.initContent}
-                    updateTranlatedContent={this.updateTranlatedContent}
                     settings={this.state.settings}
                     initSettings={this.initSettings}
-                    tryTest={this.tryTest}
-                    active={this.state.active}
-                    toggleActive={this.toggleActive}
+
+                    updateTranlatedContent={this.updateTranlatedContent}
+                    updateContentSubProperty={this.updateContentSubProperty}
+                    updateTranlatedContentSubProperty={this.updateTranlatedContentSubProperty}
 
                     getSettingsByProperty={this.getSettingsByProperty}
                     getStoreSettingsByProperty={this.getStoreSettingsByProperty}
@@ -249,10 +256,6 @@ const FieldWrapperOfSection = WrappedComponent => {
                     getStoreSettingsPropertyNoResponsive={this.getStoreSettingsPropertyNoResponsive}
                     updateSettingsNoResponsive={this.updateSettingsNoResponsive}
 
-                    cancelStateValue={this.cancelStateValue}
-                    updateField={this.updateField}
-                    updateContentSubProperty={this.updateContentSubProperty}
-                    updateTranlatedContentSubProperty={this.updateTranlatedContentSubProperty}
                     {...this.props}
                 />
             );

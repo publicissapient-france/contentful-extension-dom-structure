@@ -35,9 +35,6 @@ export default {
                                 bottom: '0',
                                 left: '0'
                             },
-                            alignment: {
-                                horizontal: 'flex-start'
-                            },
                             color: {
                                 hex: '#000000',
                                 rgb: '0,0,0',

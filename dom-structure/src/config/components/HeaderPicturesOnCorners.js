@@ -16,21 +16,6 @@ export default {
                 defaultValue: {
                     basis : {
                         M: {
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            margin: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'flex-start'
-                            },
                             color: {
                                 hex: '#000000',
                                 rgb: '0,0,0',
@@ -42,21 +27,6 @@ export default {
                             }
                         },
                         T: {
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            margin: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'flex-start'
-                            },
                             color: {
                                 hex: '#000000',
                                 rgb: '0,0,0',
@@ -68,21 +38,6 @@ export default {
                             }
                         },
                         D: {
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            margin: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'flex-start'
-                            },
                             color: {
                                 hex: '#000000',
                                 rgb: '0,0,0',
