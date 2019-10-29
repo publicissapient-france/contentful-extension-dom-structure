@@ -29,7 +29,6 @@ class TextMarkdown extends Component {
             openColorView: false,
             openPreview: false
         };
-
     }
 
     componentDidUpdate (prevProps, prevState) {
@@ -72,8 +71,6 @@ class TextMarkdown extends Component {
 
     updateTypography = (property, value) => this.props.updateSettingsProperty('typography', property, value);
 
-
-
     render () {
         const { indexLanguage, name } = this.props;
         if (!this.props.settings) return null;
@@ -109,10 +106,6 @@ class TextMarkdown extends Component {
                     <Content className={!this.props.openContent ? 'hidden' : ''}>
                         <InputMarkdown currentLanguage={indexLanguage} action={this.props.updateTranlatedContent} targetProperty={'html'}
                             defaultValue={this.getMarkdown()}/>
-
-
-
-
                     </Content>
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>

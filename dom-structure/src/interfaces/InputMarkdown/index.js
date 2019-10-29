@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-
 import {Container} from './styled';
 
 import 'jodit';
@@ -42,7 +41,6 @@ class InputMarkdown extends Component {
         this.setState({
             content: value
         }, () => {
-            console.log('update content state value', this.state.content)
             this.props.action(this.state.content, this.props.targetProperty)
         })
     }

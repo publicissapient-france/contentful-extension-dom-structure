@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 
 import { Container, Preview, Element, ButtonsMove, Button, PreviewContainer, Label } from './styled';
 import SvgArrowToTop from '../../components/svg/SvgArrowToTop';
 import SvgElementCTA from '../../components/svg/SvgElementCTA';
 import SvgElementImage from '../../components/svg/SvgElementImage';
-import SvgElementLink from '../../components/svg/SvgElementLink';
 import SvgElementText from '../../components/svg/SvgElementText';
 import SvgElementTextMarkdown from '../../components/svg/SvgElementTextMarkdown';
 
@@ -34,7 +32,6 @@ class OrderFieldsContent extends Component {
 
 
     getSvgElementByType = (type) => {
-        console.log('type', type);
         switch (type) {
             case 'Text' :
                 return <SvgElementText/>;
@@ -79,12 +76,7 @@ class OrderFieldsContent extends Component {
         let fieldWithContent = this.props.fields.filter( (field) => {
             return !isEmpty(field.content.defaultValue)
         })
-        console.log('hasPredefinedOrder name result', fieldWithContent);
-        if(this.props.order.length !== fieldWithContent.length ){
-            console.log('the component has predefined field order', this.props.componentModel);
-            return true
-        }
-        return false;
+        return (this.props.order.length !== fieldWithContent.length );
     }
 
 

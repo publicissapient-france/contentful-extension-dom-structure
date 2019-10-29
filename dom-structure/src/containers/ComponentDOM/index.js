@@ -62,7 +62,6 @@ class ComponentDOM extends Component {
 
     componentDidMount = async () => {
         this.setState({ component: this.props.component }, () => {
-            console.log('COMPONENT ON MOUNT', this.state.component);
         });
 
     }

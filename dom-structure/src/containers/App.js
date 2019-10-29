@@ -34,7 +34,6 @@ class App extends React.Component {
 
     componentDidMount = async () => {
         if (this.props.extension.field && this.props.extension.field.getValue()) {
-            console.log('TEST EXTENSION FIELD VALUE', this.props.extension.field.getValue());
             this.props.dispatch(initDOM(this.props.extension.field.getValue().dom));
             this.props.dispatch(initDOMbuild(this.props.extension.field.getValue().build));
             this.props.dispatch(initExtensionInformation(this.props.extension));
@@ -64,13 +63,11 @@ class App extends React.Component {
             console.log('DOM ', this.props.dom);
 
             if (!this.props.extension.field.getValue()) {
-                console.log('aucune valeur à init');
                 this.setFieldValue();
             }
 
             if (this.props.extension.field.getValue() && this.props.extension.field.getValue().dom && !isEqual(this.props.dom.sections, this.props.extension.field.getValue().dom)) {
                 this.setFieldValue();
-                console.log('SET FIELD VALUE CONTENTFUL');
             }
         }
     }
