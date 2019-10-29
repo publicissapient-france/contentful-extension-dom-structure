@@ -27,12 +27,13 @@ class TextMarkdown extends Component {
 
         this.state = {
             openColorView: false,
-            openPreview: false,
+            openPreview: false
         };
+
     }
 
     componentDidUpdate (prevProps, prevState) {
-        if (this.props.settings && this.props.getSettingsByProperty('typography','font')) {
+        if (this.props.settings && this.props.getSettingsByProperty('typography','font') && this.props.settings !== prevProps.settings) {
             if (!Object.values(this.props.settings.typography)[0].font.family && this.props.themes) {
                 this.initFont();
             }
@@ -71,9 +72,13 @@ class TextMarkdown extends Component {
 
     updateTypography = (property, value) => this.props.updateSettingsProperty('typography', property, value);
 
+
+
     render () {
         const { indexLanguage, name } = this.props;
         if (!this.props.settings) return null;
+
+
         return (
             <div>
                 <Banner>
@@ -104,6 +109,10 @@ class TextMarkdown extends Component {
                     <Content className={!this.props.openContent ? 'hidden' : ''}>
                         <InputMarkdown currentLanguage={indexLanguage} action={this.props.updateTranlatedContent} targetProperty={'html'}
                             defaultValue={this.getMarkdown()}/>
+
+
+
+
                     </Content>
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>

@@ -12,13 +12,12 @@ export const Content = styled.div`
    
 `;
 export const Settings = styled.div`
-   
 `;
 
 export const Row = styled.div`
    display : flex;
    flex-direction : column;
-   height : 190px;
+   height : 210px;
    //background : red;
    border-bottom : 1px solid ${ extensionTheme.grey20 };
     box-sizing : content-box;
@@ -28,7 +27,9 @@ export const Column = styled.div`
    display : flex;
     flex-direction : column;
     width : 100%;
-    border-right : 1px solid ${ extensionTheme.grey20 }
+    border-right : 1px solid ${ extensionTheme.grey20 };
+       box-sizing : border-box;
+
     
     &.full-width{
         width : 100%;

@@ -13,6 +13,7 @@ export const TextContainer = styled.div`
     position : relative;
     min-height : 115px;
     width : 100%;
+    box-sizing : border-box;
     
 
     &.is-open{

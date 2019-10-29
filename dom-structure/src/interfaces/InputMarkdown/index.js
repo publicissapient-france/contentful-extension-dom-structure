@@ -1,68 +1,68 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import ReactMde from 'react-mde';
-import * as Showdown from 'showdown';
-import 'react-mde/lib/styles/css/react-mde-all.css';
-import { Container } from './styled';
+
+import {Container} from './styled';
+
+import 'jodit';
+import 'jodit/build/jodit.min.css';
+import JoditEditor from "jodit-react";
+
 
 class InputMarkdown extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.state = {
-            value: ''
+            content: 'content'
         };
+    }
 
-        this.converter = new Showdown.Converter({
-            tables: true,
-            simplifiedAutoLink: true,
-            strikethrough: true,
-            tasklists: true
+    componentDidMount() {
+        this.setState({
+            content: this.props.defaultValue
         });
     }
 
-    componentDidMount () {
-        this.setState({
-            value: this.extractFromHTML(this.props.defaultValue)
-        });
+    componentDidUpdate(prevProps) {
+         if (this.props.currentLanguage !== prevProps.currentLanguage) {
+             this.setState({
+                 content: this.props.defaultValue
+             });
+         }
+
+         if(this.props.defaultValue !== prevProps.defaultValue && this.props.defaultValue !== this.state.content){
+             this.setState({
+                 content: this.props.defaultValue
+             });
+         }
     }
 
-    componentDidUpdate (prevProps) {
-        if (this.props.currentLanguage !== prevProps.currentLanguage) {
-            this.setState({
-                value: this.extractFromHTML(this.props.defaultValue)
-            });
-        }
-
-    }
-
-    handleTabChange = tab => {
-        this.setState({ tab: tab });
-    };
-
-    handleValueChange = value => {
+    updateContent = (value) => {
         this.setState({
-            value: value
+            content: value
         }, () => {
-            this.props.action(this.convertToHTML(this.state.value), this.props.targetProperty);
-        });
-    };
+            console.log('update content state value', this.state.content)
+            this.props.action(this.state.content, this.props.targetProperty)
+        })
+    }
+    /**
+     * @property Jodit jodit instance of native Jodit
+     */
+    jodit;
+    setRef = jodit => this.jodit = jodit;
 
-    extractFromHTML = value => (this.converter.makeMarkdown(value)).replace('<!-- -->', '');
+    config = {
+        readonly: false // all options from https://xdsoft.net/jodit/doc/
+    }
 
-    convertToHTML = value => this.converter.makeHtml(value);
-
-    render () {
+    render() {
         return (<Container>
-            <ReactMde
-                onChange={this.handleValueChange}
-                onTabChange={this.handleTabChange}
-                value={this.state.value}
-                generateMarkdownPreview={markdown =>
-                    Promise.resolve(this.converter.makeHtml(markdown))
-                }
-                selectedTab={this.state.tab}
+            <JoditEditor
+                editorRef={this.setRef}
+                value={this.state.content}
+                config={this.config}
+                onChange={this.updateContent}
             />
         </Container>);
     }

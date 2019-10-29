@@ -19,7 +19,7 @@ export const Settings = styled.div`
 export const Row = styled.div`
    display : flex;
    flex-direction : column;
-   height : 190px;
+   height : 210px;
    //background : blue;
    border-bottom : 1px solid ${ extensionTheme.grey20 };
 
@@ -34,7 +34,8 @@ export const Column = styled.div`
     flex-direction : column;
     width : 100%;
     border-right : 1px solid ${ extensionTheme.grey20 };
-    
+    box-sizing : border-box;
+
     &.full-width{
         width : 100%;
         

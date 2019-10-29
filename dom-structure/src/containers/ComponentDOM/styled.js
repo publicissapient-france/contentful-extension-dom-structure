@@ -83,6 +83,7 @@ export const Column = styled.div`
   width : calc(50% - 10px);
   padding : 15px;
   flex-direction : column;
+  box-sizing : border-box;
   
   &>div{
     padding-bottom : 10px;

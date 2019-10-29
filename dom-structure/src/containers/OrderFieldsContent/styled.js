@@ -38,6 +38,7 @@ export const PreviewContainer = styled.div`
     display : flex;
     flex-direction : column;
     width : auto;
+    box-sizing : border-box;
     
     & ${Preview}:last-child ${Element}{
         border-bottom : 1px solid ${ extensionTheme.grey80 };
