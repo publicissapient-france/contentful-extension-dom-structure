@@ -18,7 +18,7 @@ class FlexContainerProperties extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            nbrChildToPreview: 1
+            nbrChildToPreview: 2
         };
     }
 
@@ -52,22 +52,20 @@ class FlexContainerProperties extends Component {
     createElements = (n) => {
         var elements = [];
         for(let i =0; i < n; i++){
-            elements.push(<div><p>{i+1}</p></div>);
+            elements.push(<div key={i}><p>{i+1}</p></div>);
         }
         return elements;
     };
     createColumns = (n) => {
         var elements = [];
         for(let i =0; i < n; i++){
-            elements.push(<div/>);
+            elements.push(<div key={i}/>);
         }
         return elements;
     };
 
     render() {
         const {properties, storeValue, defaultValue} = this.props;
-
-
 
         if (!this.state.properties) return null;
         return (

@@ -90,20 +90,14 @@ class OrderFieldsContent extends Component {
 
     render () {
         const { fields, order, componentModel } = this.props;
-
-        console.log('FIELDS ON ORDER', fields);
-        console.log('order ON ORDER', order);
         if(!order) return null;
 
-
-
-        //this.hasPredefinedOrder();
         const PreviewContent = <PreviewContainer>
             {
                 order.map( (field, i) => {
                     const fieldConfig = this.getFieldByName(field);
                     if(!fieldConfig) return null
-                    return <Preview>
+                    return <Preview key={i}>
                         <Element>
                             <ButtonsMove>
                                 <Button onClick={ () => this.moveElementToBottom(i)}><SvgArrowToTop/></Button>

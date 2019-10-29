@@ -57,7 +57,7 @@ class CTA extends Component {
         };
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (this.props.settings && this.props.getSettingsByProperty('typography', 'font')) {
             if (!Object.values(this.props.settings.typography)[0].font.family && this.props.themes) {
                 this.initFont();
@@ -154,8 +154,6 @@ class CTA extends Component {
                                     <label>
                                         <input type={'checkbox'} defaultChecked={this.getTarget()}
                                                onChange={(e) => {
-                                                   console.log('click')
-                                                   console.log('e', e.target.value);
                                                    this.props.updateSettingsNoResponsive('target', {external: !this.getTarget()})
                                                }}/>
                                         external</label>
@@ -169,7 +167,6 @@ class CTA extends Component {
                                            action={this.props.updateTranlatedContent}
                                            targetProperty={'icon'}
                                            defaultValue={this.getIcon()}/>
-
                             </Column>
                         </ChoicesContent>
                     </Content>
@@ -180,8 +177,9 @@ class CTA extends Component {
                                     this.state.events && this.state.events.length !== 0 ?
                                         <ButtonEvents>
                                             {
-                                                this.state.events.map((event) => {
+                                                this.state.events.map((event, i) => {
                                                     return <button
+                                                        key={i}
                                                         className={event === this.state.currentEvent ? 'current' : ''}
                                                         onClick={() => {
                                                             this.toggleCurrentEvent(event)
