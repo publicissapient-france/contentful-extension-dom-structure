@@ -131,6 +131,9 @@ const dom = (state = [], action) => {
             const componentToTop = state[action.indexParent].components[action.index];
             const componentToDown = state[action.indexParent].components[action.index - 1];
 
+            console.log('componentToTop', componentToTop);
+            console.log('componentToDown', componentToDown);
+
             return update(state, {
                 [action.indexParent]: {
                     components: {

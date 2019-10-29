@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import isEqual from 'lodash/isEqual'
 
 import OrderFieldsContent from '../OrderFieldsContent';
@@ -45,7 +45,7 @@ import update from 'react-addons-update';
 import PropTypes from 'prop-types';
 
 class ComponentDOM extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -61,21 +61,23 @@ class ComponentDOM extends Component {
     }
 
     componentDidMount = async () => {
-        this.setState({ component: this.props.component }, () => {
+        this.setState({component: this.props.component}, () => {
         });
 
     }
 
-    componentDidUpdate (prevProps) {
+    componentDidUpdate(prevProps) {
         if (this.props.component !== prevProps.component) {
-            this.setState({ component: this.props.component });
+            this.setState({component: this.props.component});
         }
+
+
     }
 
     updateModel = model => {
         this.setState({
             component: update(this.state.component, {
-                model: { $set: model },
+                model: {$set: model},
             })
         });
     }
@@ -83,7 +85,7 @@ class ComponentDOM extends Component {
     updateName = name => {
         this.setState(prevState => ({
             component: update(prevState.component, {
-                name: { $set: name }
+                name: {$set: name}
             })
         }));
     }
@@ -91,7 +93,7 @@ class ComponentDOM extends Component {
     updateOrder = order => {
         this.setState(prevState => ({
             component: update(prevState.component, {
-                order: { $set: order }
+                order: {$set: order}
             })
         }));
     }
@@ -109,7 +111,7 @@ class ComponentDOM extends Component {
         openContent: false,
         openSafeDelete: false
     }, () => {
-        if(!this.state.openSettings){
+        if (!this.state.openSettings) {
             this.setState({
                 triggerOpening: false
             })
@@ -125,31 +127,31 @@ class ComponentDOM extends Component {
     }))
 
     toggleBoxes = () => {
-        this.setState({ openBoxes: !this.state.openBoxes }, () => {
+        this.setState({openBoxes: !this.state.openBoxes}, () => {
             if (!this.state.openBoxes) {
-                this.setState({ semiOpenBoxes: true });
+                this.setState({semiOpenBoxes: true});
             }
         });
     }
     toggleBoxesSettings = () => {
-        this.setState({ openBoxesSettings: !this.state.openBoxesSettings }, () => {
+        this.setState({openBoxesSettings: !this.state.openBoxesSettings}, () => {
             if (!this.state.openBoxesSettings) {
-                this.setState({ semiOpenBoxes: true });
+                this.setState({semiOpenBoxes: true});
             }
         });
     }
 
     toggleBoxesField = () => {
-        this.setState({ semiOpenBoxes: !this.state.semiOpenBoxes }, () => {
+        this.setState({semiOpenBoxes: !this.state.semiOpenBoxes}, () => {
             if (!this.state.semiOpenBoxes) {
-                this.setState({ openBoxes: true });
+                this.setState({openBoxes: true});
             }
         });
     }
 
     isUpdated = () => (this.state.component && (this.state.component.name !== this.props.component.name ||
-        this.state.component.model !== this.props.component.model ||
-        !isEqual(this.state.component.order, this.props.component.order)
+            this.state.component.model !== this.props.component.model ||
+            !isEqual(this.state.component.order, this.props.component.order)
         )
     )
 
@@ -157,8 +159,12 @@ class ComponentDOM extends Component {
         return componentConfig[this.props.component.model].default.fields;
     }
 
-    render () {
-        const { dispatch, component, index, indexParent, lengthParent } = this.props;
+    getComponentFieldsByState = () => {
+        return componentConfig[this.state.component.model].default.fields;
+    }
+
+    render() {
+        const {dispatch, component, index, indexParent, lengthParent} = this.props;
         let inputName, selectModel;
 
         if (!this.state.component) return null;
@@ -179,16 +185,16 @@ class ComponentDOM extends Component {
                     </Description>
                     <Actions>
                         <Icon className={this.state.openSettings && !this.state.triggerOpening ? 'active' : ''}
-                            onClick={() => this.toggleOpenSettings()}>
+                              onClick={() => this.toggleOpenSettings()}>
                             <SvgSetting/>
                         </Icon>
                         <Icon className={this.state.triggerOpening ? 'active' : ''}
-                              onClick={() =>{
+                              onClick={() => {
                                   this.triggerOpening();
-                                  if(!this.state.openSettings){
+                                  if (!this.state.openSettings) {
                                       this.toggleOpenSettings();
                                   }
-                              } }>
+                              }}>
                             <SvgSpec/>
                         </Icon>
                         <Range>
@@ -208,7 +214,8 @@ class ComponentDOM extends Component {
                             </Icon>
 
                         </Range>
-                        <Icon className={['trash', this.state.openSafeDelete ? 'active' : '']} onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
+                        <Icon className={['trash', this.state.openSafeDelete ? 'active' : '']}
+                              onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
                     </Actions>
 
                 </TopBar>
@@ -218,7 +225,7 @@ class ComponentDOM extends Component {
                         <ButtonBasic label={'Cancel'} action={this.toggleSafeSecure}/>
                         <ButtonDelete label={'Delete'} action={() => {
                             dispatch(removeComponent(index, indexParent));
-                            this.setState({ openSafeDelete: false });
+                            this.setState({openSafeDelete: false});
                         }}/>
                     </div>
                 </SafeDelete>
@@ -259,20 +266,18 @@ class ComponentDOM extends Component {
                         <Column>
                             <div>
                                 <label>Order</label>
-                                <OrderFieldsContent componentModel={this.props.component.model} fields={this.getComponentFields()} order={this.state.component.order}  updateOrder={this.updateOrder}/>
+                                <OrderFieldsContent componentModel={this.state.component.model}
+                                                    fields={this.getComponentFieldsByState()}
+                                                    order={this.state.component.order} updateOrder={this.updateOrder}/>
                             </div>
                         </Column>
-
-
-
-
                         <Buttons className={'buttons'}>
                             <ButtonBasic
                                 label={'Cancel'}
                                 disabled={!this.isUpdated()}
                                 action={e => {
                                     e.preventDefault();
-                                    this.setState({ component: this.props.component });
+                                    this.setState({component: this.props.component});
                                     inputName.value = component.name;
                                     selectModel.value = component.model;
                                 }}/>
@@ -282,7 +287,8 @@ class ComponentDOM extends Component {
                 </div>
                 <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>
                     <Fields>
-                        <FieldsList triggerOpening={this.state.triggerOpening} fields={this.getComponentFields()} index={index} indexParent={indexParent}/>
+                        <FieldsList triggerOpening={this.state.triggerOpening} fields={this.getComponentFields()}
+                                    index={index} indexParent={indexParent}/>
                     </Fields>
                 </FieldsContainer>
             </ContainerComponent>

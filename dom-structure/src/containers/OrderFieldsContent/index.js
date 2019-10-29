@@ -20,11 +20,16 @@ class OrderFieldsContent extends Component {
     constructor (props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+
+        };
     }
 
     componentDidMount(){
 
+    }
+
+    componentDidUpdate(prevProps) {
 
     }
 
@@ -56,7 +61,6 @@ class OrderFieldsContent extends Component {
         let newOrder = [...this.props.order];
         newOrder[index-1] = a;
         newOrder[index] = b;
-
         this.props.updateOrder(newOrder);
     }
 
@@ -68,7 +72,6 @@ class OrderFieldsContent extends Component {
         let newOrder = [...this.props.order];
         newOrder[index] = b;
         newOrder[index+1] = a;
-
         this.props.updateOrder(newOrder);
     }
 
@@ -82,7 +85,7 @@ class OrderFieldsContent extends Component {
 
     render () {
         const { fields, order, componentModel } = this.props;
-        if(!order) return null;
+        if(!order || !fields ) return null;
 
         const PreviewContent = <PreviewContainer>
             {
@@ -100,7 +103,6 @@ class OrderFieldsContent extends Component {
                             }
                             <Label>{ fieldConfig.name }</Label>
                         </Element>
-
                     </Preview>
                 })
             }
