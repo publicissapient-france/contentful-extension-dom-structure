@@ -26,6 +26,7 @@ class OrderFieldsContent extends Component {
     }
 
     componentDidMount(){
+        console.log('fields OrderfieldsContent',  this.props.fields);
 
     }
 
