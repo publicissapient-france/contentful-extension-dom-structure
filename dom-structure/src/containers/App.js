@@ -35,7 +35,7 @@ class App extends React.Component {
     componentDidMount = async () => {
         if (this.props.extension.field && this.props.extension.field.getValue()) {
             this.props.dispatch(initDOM(this.props.extension.field.getValue().dom));
-            this.props.dispatch(initDOMbuild(this.props.extension.field.getValue().build));
+            this.props.dispatch(initDOMbuild( this.props.extension.field.getValue().build ));
             this.props.dispatch(initExtensionInformation(this.props.extension));
             this.props.dispatch(initVisibility());
         }
@@ -84,7 +84,10 @@ class App extends React.Component {
                 build: JSON.stringify(extractActiveValue(this.props.store.getState().dom))
             });
         });
+
     }
+
+
 
     getElementById = id => {
         return this.props.extension.space.getEntries({
