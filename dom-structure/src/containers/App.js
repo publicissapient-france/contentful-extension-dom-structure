@@ -6,6 +6,8 @@ import ButtonAddSection from './AddingSection';
 import Section from './Section/index';
 import AddSection from './AddSection/index';
 import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
+import mapKeys from 'lodash/mapKeys';
 import GlobalStyle from '../style/globalStyle';
 import {
     initDOM,
@@ -17,7 +19,7 @@ import {
     getFontfaces,
     getCurrentStyle, getCurrentDOM
 } from '../actions';
-import { extractActiveValue, arrayToString, extractFontValueToCSS } from '../utils/functions';
+import { extractActiveValue, arrayToString, extractFontValueToCSS, extractAssetUrl, findProp } from '../utils/functions';
 
 class App extends React.Component {
     constructor (props) {
@@ -59,8 +61,6 @@ class App extends React.Component {
 
     componentDidUpdate = prevProps => {
         if (!isEqual(prevProps.dom, this.props.dom)) {
-            console.log('DOM IS UPDATED ON UPDATE');
-            console.log('DOM ', this.props.dom);
 
             if (!this.props.extension.field.getValue()) {
                 this.setFieldValue();
@@ -79,9 +79,12 @@ class App extends React.Component {
 
     setFieldValue = () => {
         this.props.extension.field.removeValue().then(() => {
+            const buildDom = extractActiveValue(this.props.store.getState().dom);
+
             this.props.extension.field.setValue({
                 dom: this.props.store.getState().dom,
-                build: JSON.stringify(extractActiveValue(this.props.store.getState().dom))
+                build: JSON.stringify(buildDom),
+                staticResources : extractAssetUrl(buildDom)
             });
         });
 

@@ -20,19 +20,22 @@ class ImageUploader extends Component {
     }
 
     componentDidMount () {
-        if (this.props.asset) {
-            this.setSelectedAsset(this.props.asset);
+        if (this.props.asset ) {
+            console.log('ASSET ON MOUNT', this.props.asset)
+           // this.setSelectedAsset(this.props.asset);
         }
     };
 
     componentDidUpdate (prevProps) {
         if (this.props.asset !== prevProps.asset) {
-            if (this.props.asset && this.props.asset.sys) {
+            console.log('ASSET ON MOUNT', this.props.asset)
+
+            if (this.props.asset && this.props.asset.id) {
                 this.setState({
                     ...this.state,
                     asset: this.props.asset
                 }, () => {
-                    this.publishAsset();
+                  //  this.publishAsset();
                 });
             } else {
                 this.setState({
@@ -79,9 +82,19 @@ class ImageUploader extends Component {
         if (!asset) {
             this.removeSelectedAsset();
         }
+        console.log('SELECTEDASSET', asset);
+        console.log('SELECTEDASSET URL', asset.fields.file[this.findProperLocale()].url);
+        const url = asset.fields.file[this.findProperLocale()].url;
+        console.log('SELECTEDASSET FILENAME',url.substring(url.lastIndexOf('/')+1));
+        //console.log('SELECTEDASSET URL', asset.fields.file[Object.keys(file)[0]].url);
+
         this.setState({
             ...this.state,
-            asset: asset
+            asset: {
+                url : url,
+                fileName : url.substring(url.lastIndexOf('/')+1),
+                id : asset.sys.id
+            }
         }, () => {
             this.assetIsValid();
             this.props.updateStateAsset('images', 'asset', this.state.asset, this.props.index);
@@ -112,7 +125,7 @@ class ImageUploader extends Component {
     }
 
     reloadAsset = async () => {
-        let assetId = this.state.asset.sys.id;
+        let assetId = this.state.asset.id;
         let asset;
 
         try {
@@ -130,8 +143,8 @@ class ImageUploader extends Component {
     }
 
     assetIsValid = async () => {
-        if (!this.state.asset || !this.state.asset.sys) return;
-        let assetId = this.state.asset.sys.id;
+        if (!this.state.asset || !this.state.asset.id) return;
+        let assetId = this.state.asset.id;
         try {
             let asset = await this.props.extensionInfo.extension.space.getAsset(assetId);
             this.setState({
@@ -147,7 +160,7 @@ class ImageUploader extends Component {
     }
 
     publishAsset = async () => {
-        if (!this.state.asset || !this.state.asset.sys) return;
+        if (!this.state.asset || !this.state.asset.id) return;
         try {
             if (this.state.asset.sys.version === (this.state.asset.sys.publishedVersion || 0) + 1) {
             } else {
@@ -160,21 +173,21 @@ class ImageUploader extends Component {
         const { alt, index } = this.props;
         let view;
 
-        if (!this.state.isDraggingOver && this.state.asset && this.state.asset.fields && !this.state.asset.fields.file) {
+        /*if (!this.state.isDraggingOver && this.state.asset && this.state.asset.url && this.state.asset.id) {
             view = <ReloadView
-                assetId={this.state.asset.sys.id}
+                assetId={this.state.asset.id}
                 onClickReload={this.reloadAsset}
             />;
-        } else if (!this.state.isDraggingOver && this.state.asset && this.state.asset.fields) {
+        } else */if (this.state.asset && this.state.asset.url) {
             view = <FileView
-                index={this.props.index}
-                file={this.state.asset.fields.file[this.findProperLocale()]}
-                title={this.state.asset.fields.title[this.findProperLocale()]}
-                alt={alt}
-                isPublished={
+                /*index={this.props.index}*/
+                url={this.state.asset.url}
+               /* title={this.state.asset.fields.title[this.findProperLocale()]}*/
+               /* alt={alt}*/
+               /* isPublished={
                     this.state.asset.sys.version ===
                     (this.state.asset.sys.publishedVersion || 0) + 1
-                }
+                }*/
                 onClickLinkExisting={this.onClickLinkExisting}
                 onClickNewAsset={this.onClickNewAsset}
                 onClickRemove={this.onClickRemove}

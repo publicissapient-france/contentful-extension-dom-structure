@@ -15,9 +15,9 @@ import SvgAddSmall from '../svg/SvgAddSmall';
 import SvgTrashSmall from '../svg/SvgTrashSmall';
 
 export default function FileView (props) {
-    const file = props.file;
-    const type = file.contentType.split('/')[0];
-    const bg = { backgroundImage: `url(${ file.url })` };
+    const url = props.url;
+    const type = 'image'; //file.contentType.split('/')[0];
+    const bg = { backgroundImage: `url(https://${ url })` };
 
     return (
         <Container
