@@ -26,6 +26,7 @@ import Radius from '../../interfaces/Radius';
 import BorderWidth from '../../interfaces/BorderWidth';
 import Alignment from '../../interfaces/Alignment';
 import IconTypography from '../../interfaces/IconTypography';
+import SpeakerSelector from '../../interfaces/SpeakerSelector';
 
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
@@ -33,6 +34,7 @@ import {
     ChoiceItemsConfirm,
     Content,
     Settings,
+    Choices,
     Column,
     LinkSettings,
     Row,
@@ -41,7 +43,8 @@ import {
     ChoicesImage,
     ChoicesTypography,
     ButtonEvents,
-    ElementName
+    ElementName,
+    ChoicesSpeakers
 } from './styled';
 
 class SelectSpeakers extends Component {
@@ -143,6 +146,8 @@ class SelectSpeakers extends Component {
     getIcon2 = () => this.props.content.icon2 && this.props.content.icon2[this.props.indexLanguage] ? this.props.content.icon2[this.props.indexLanguage] : '';
     getLink = () => this.props.content.link && this.props.content.link[this.props.indexLanguage] ? this.props.content.link[this.props.indexLanguage] : '';
     getTarget = () => this.props.getSettingsPropertyNoResponsive('target') ? this.props.getSettingsPropertyNoResponsive('target').external : false;
+    getIdSource = () => this.props.content.idSource ? this.props.content.idSource : null;
+    getSpeakers = () => this.props.content.speakers ? this.props.content.speakers : [];
 
     updateBasis = (property, value, event) => this.props.updateSettingsProperty('basis', property, value, event);
     updateFirstname = (property, value, event) => this.props.updateSettingsProperty('firstname', property, value, event);
@@ -187,6 +192,9 @@ class SelectSpeakers extends Component {
                 </Banner>
                 <Field>
                     <Content className={!this.props.openContent ? 'hidden' : ''}>
+                        <ChoicesSpeakers>
+                            <SpeakerSelector updateContent={this.props.updateContent} idSource={this.getIdSource()} speakers={this.getSpeakers() }/>
+                        </ChoicesSpeakers>
                         <ChoicesContent>
                             <Column>
                                 <label>Icon twitter</label>

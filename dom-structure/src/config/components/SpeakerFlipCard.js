@@ -60,7 +60,8 @@ export default {
                 defaultValue: {
                     icon1: {},
                     icon2: {},
-                    speakers: {},
+                    idSource : {},
+                    speakers: [],
                     views: [
                         {
                             firstname: true,

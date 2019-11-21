@@ -105,6 +105,13 @@ export const ChoicesImage = styled(Choices)`
    
 `;
 
+export const ChoicesSpeakers = styled(Choices)`
+   display : flex;
+   flex-wrap : wrap;
+   width : 100%;
+   
+`;
+
 export const ChoicesCustom = styled(Choices)`
    display : flex;
    flex-wrap : wrap;
