@@ -38,7 +38,7 @@ class Alignment extends Component {
                 [prop]: value,
             }
         }), () => {
-            this.props.updateStateProps('alignment', this.state.alignment);
+            this.props.updateStateProps('alignment', this.state.alignment, this.props.event);
         });
     }
 

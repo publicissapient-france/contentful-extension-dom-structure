@@ -34,7 +34,7 @@ class Margin extends Component {
                 [prop]: String(value),
             }
         }), () => {
-            this.props.updateStateProps('margin', this.state.margin);
+            this.props.updateStateProps('margin', this.state.margin, this.props.event);
         });
     }
 

@@ -13,6 +13,7 @@ import TextPreview from '../../components/TextPreview';
 import IconPreview from '../../components/IconPreview';
 import ResponsiveToggle from '../../components/ResponsiveToggle';
 import ActiveCheckBox from '../../components/ActiveCheckBox';
+import AssetPreview from '../../components/AssetPreview';
 
 import InputText from '../../interfaces/InputText';
 import InputIcon from '../../interfaces/InputIcon';
@@ -37,6 +38,7 @@ import {
     Row,
     ChoicesContent,
     ChoicesCustom,
+    ChoicesImage,
     ChoicesTypography,
     ButtonEvents,
     ElementName
@@ -47,22 +49,22 @@ class SelectSpeakers extends Component {
         super(props);
 
         this.state = {
-            openColorView : {
-                firstname : false,
-                lastname : false,
-                position : false,
-                company : false,
-                icon1 : false,
-                icon2 : false
+            openColorView: {
+                firstname: false,
+                lastname: false,
+                position: false,
+                company: false,
+                icon1: false,
+                icon2: false
 
             },
-            openPreview : {
-                firstname : false,
-                lastname : false,
-                position : false,
-                company : false,
-                icon1 : false,
-                icon2 : false
+            openPreview: {
+                firstname: false,
+                lastname: false,
+                position: false,
+                company: false,
+                icon1: false,
+                icon2: false
             },
             events: ['view1', 'view2'],
             currentEvent: 'view1'
@@ -136,7 +138,6 @@ class SelectSpeakers extends Component {
     toggleOpenPreviewIcon2 = () => this.toggleOpenPreviewByProperty('icon2');
 
 
-
     getText = () => this.props.content.text && this.props.content.text[this.props.indexLanguage] ? this.props.content.text[this.props.indexLanguage] : '';
     getIcon1 = () => this.props.content.icon1 && this.props.content.icon1[this.props.indexLanguage] ? this.props.content.icon1[this.props.indexLanguage] : '';
     getIcon2 = () => this.props.content.icon2 && this.props.content.icon2[this.props.indexLanguage] ? this.props.content.icon2[this.props.indexLanguage] : '';
@@ -148,6 +149,8 @@ class SelectSpeakers extends Component {
     updateLastname = (property, value, event) => this.props.updateSettingsProperty('lastname', property, value, event);
     updatePosition = (property, value, event) => this.props.updateSettingsProperty('position', property, value, event);
     updateCompany = (property, value, event) => this.props.updateSettingsProperty('company', property, value, event);
+    updateCompanyLogo = (property, value, event) => this.props.updateSettingsProperty('companyLogo', property, value, event);
+    updatePhoto = (property, value, event) => this.props.updateSettingsProperty('photo', property, value, event);
     updateIcon1 = (property, value, event) => this.props.updateSettingsProperty('icon1', property, value, event);
     updateIcon2 = (property, value, event) => this.props.updateSettingsProperty('icon2', property, value, event);
 
@@ -222,7 +225,8 @@ class SelectSpeakers extends Component {
                         }
                         <ChoicesTypography>
                             <ElementName><label>First Name</label></ElementName>
-                            <Column className={this.state.openPreview.firstname || this.state.openColorView.firstname ? 'full-width' : ''}>
+                            <Column
+                                className={this.state.openPreview.firstname || this.state.openColorView.firstname ? 'full-width' : ''}>
                                 <TextPreview hidden={this.state.openColorView.firstname}
                                              color={this.props.getSettingsByProperty('firstname', 'color', this.state.currentEvent)}
                                              font={this.props.getSettingsByProperty('firstname', 'font', this.state.currentEvent)}
@@ -244,22 +248,25 @@ class SelectSpeakers extends Component {
                                              event={this.state.currentEvent}
                                 />
                             </Column>
-                            <Column className={this.state.openPreview.firstname || this.state.openColorView.firstname ? 'hidden' : ''}>
-                                <Typography font={this.props.getSettingsByProperty('firstname', 'font', this.state.currentEvent)}
-                                            text={this.props.getSettingsByProperty('firstname', 'text', this.state.currentEvent)}
-                                            defaultFont={this.props.getDefaultSettingsByProperty('firstname', 'font', this.state.currentEvent)}
-                                            defaultText={this.props.getDefaultSettingsByProperty('firstname', 'text', this.state.currentEvent)}
-                                            storeValueFont={this.props.getStoreSettingsByProperty('firstname', 'font', this.state.currentEvent)}
-                                            storeValueText={this.props.getStoreSettingsByProperty('firstname', 'text', this.state.currentEvent)}
-                                            updateStateProps={this.updateFirstname}
-                                            currentMode={this.props.currentResponsiveMode}
-                                            event={this.state.currentEvent}
+                            <Column
+                                className={this.state.openPreview.firstname || this.state.openColorView.firstname ? 'hidden' : ''}>
+                                <Typography
+                                    font={this.props.getSettingsByProperty('firstname', 'font', this.state.currentEvent)}
+                                    text={this.props.getSettingsByProperty('firstname', 'text', this.state.currentEvent)}
+                                    defaultFont={this.props.getDefaultSettingsByProperty('firstname', 'font', this.state.currentEvent)}
+                                    defaultText={this.props.getDefaultSettingsByProperty('firstname', 'text', this.state.currentEvent)}
+                                    storeValueFont={this.props.getStoreSettingsByProperty('firstname', 'font', this.state.currentEvent)}
+                                    storeValueText={this.props.getStoreSettingsByProperty('firstname', 'text', this.state.currentEvent)}
+                                    updateStateProps={this.updateFirstname}
+                                    currentMode={this.props.currentResponsiveMode}
+                                    event={this.state.currentEvent}
                                 />
                             </Column>
                         </ChoicesTypography>
                         <ChoicesTypography>
                             <ElementName><label>Last Name</label></ElementName>
-                            <Column className={this.state.openPreview.lastname || this.state.openColorView.lastname ? 'full-width' : ''}>
+                            <Column
+                                className={this.state.openPreview.lastname || this.state.openColorView.lastname ? 'full-width' : ''}>
                                 <TextPreview hidden={this.state.openColorView.lastname}
                                              color={this.props.getSettingsByProperty('lastname', 'color', this.state.currentEvent)}
                                              font={this.props.getSettingsByProperty('lastname', 'font', this.state.currentEvent)}
@@ -281,22 +288,63 @@ class SelectSpeakers extends Component {
                                              event={this.state.currentEvent}
                                 />
                             </Column>
-                            <Column className={this.state.openPreview.lastname || this.state.openColorView.lastname ? 'hidden' : ''}>
-                                <Typography font={this.props.getSettingsByProperty('lastname', 'font', this.state.currentEvent)}
-                                            text={this.props.getSettingsByProperty('lastname', 'text', this.state.currentEvent)}
-                                            defaultFont={this.props.getDefaultSettingsByProperty('lastname', 'font', this.state.currentEvent)}
-                                            defaultText={this.props.getDefaultSettingsByProperty('lastname', 'text', this.state.currentEvent)}
-                                            storeValueFont={this.props.getStoreSettingsByProperty('lastname', 'font', this.state.currentEvent)}
-                                            storeValueText={this.props.getStoreSettingsByProperty('lastname', 'text', this.state.currentEvent)}
-                                            updateStateProps={this.updateLastname}
-                                            currentMode={this.props.currentResponsiveMode}
-                                            event={this.state.currentEvent}
+                            <Column
+                                className={this.state.openPreview.lastname || this.state.openColorView.lastname ? 'hidden' : ''}>
+                                <Typography
+                                    font={this.props.getSettingsByProperty('lastname', 'font', this.state.currentEvent)}
+                                    text={this.props.getSettingsByProperty('lastname', 'text', this.state.currentEvent)}
+                                    defaultFont={this.props.getDefaultSettingsByProperty('lastname', 'font', this.state.currentEvent)}
+                                    defaultText={this.props.getDefaultSettingsByProperty('lastname', 'text', this.state.currentEvent)}
+                                    storeValueFont={this.props.getStoreSettingsByProperty('lastname', 'font', this.state.currentEvent)}
+                                    storeValueText={this.props.getStoreSettingsByProperty('lastname', 'text', this.state.currentEvent)}
+                                    updateStateProps={this.updateLastname}
+                                    currentMode={this.props.currentResponsiveMode}
+                                    event={this.state.currentEvent}
                                 />
                             </Column>
                         </ChoicesTypography>
+                        <ChoicesImage>
+                            <ElementName><label>Photo</label></ElementName>
+                            <Column>
+                                <Row>
+                                    <AssetPreview
+                                        locale={null}
+                                        asset={null}
+                                    />
+                                </Row>
+                            </Column>
+                            <Column>
+                                <Row>
+                                    <Size
+                                        size={this.props.getSettingsByProperty('photo', 'size', this.state.currentEvent)}
+                                        storeValueSize={this.props.getStoreSettingsByProperty('photo', 'size', this.state.currentEvent)}
+                                        defaultSize={this.props.getDefaultSettingsByProperty('photo', 'size', this.state.currentEvent)}
+                                        updateStateProps={this.updatePhoto}
+                                        event={this.state.currentEvent}
+                                    />
+                                </Row>
+                                <Row>
+                                    <Padding
+                                        padding={this.props.getSettingsByProperty('photo', 'padding', this.state.currentEvent)}
+                                        storeValuePadding={this.props.getStoreSettingsByProperty('photo', 'padding', this.state.currentEvent)}
+                                        defaultPadding={this.props.getDefaultSettingsByProperty('photo', 'padding', this.state.currentEvent)}
+                                        updateStateProps={this.updatePhoto}
+                                        event={this.state.currentEvent}
+                                    />
+                                    <Alignment
+                                        alignment={this.props.getSettingsByProperty('photo', 'alignment', this.state.currentEvent)}
+                                        storeValueAlignment={this.props.getStoreSettingsByProperty('photo', 'alignment', this.state.currentEvent)}
+                                        defaultAlignment={this.props.getDefaultSettingsByProperty('photo', 'alignment', this.state.currentEvent)}
+                                        updateStateProps={this.updatePhoto}
+                                        event={this.state.currentEvent}
+                                    />
+                                </Row>
+                            </Column>
+                        </ChoicesImage>
                         <ChoicesTypography>
                             <ElementName><label>Position</label></ElementName>
-                            <Column className={this.state.openPreview.position || this.state.openColorView.position ? 'full-width' : ''}>
+                            <Column
+                                className={this.state.openPreview.position || this.state.openColorView.position ? 'full-width' : ''}>
                                 <TextPreview hidden={this.state.openColorView.position}
                                              color={this.props.getSettingsByProperty('position', 'color', this.state.currentEvent)}
                                              font={this.props.getSettingsByProperty('position', 'font', this.state.currentEvent)}
@@ -318,22 +366,25 @@ class SelectSpeakers extends Component {
                                              event={this.state.currentEvent}
                                 />
                             </Column>
-                            <Column className={this.state.openPreview.position || this.state.openColorView.position ? 'hidden' : ''}>
-                                <Typography font={this.props.getSettingsByProperty('position', 'font', this.state.currentEvent)}
-                                            text={this.props.getSettingsByProperty('position', 'text', this.state.currentEvent)}
-                                            defaultFont={this.props.getDefaultSettingsByProperty('position', 'font', this.state.currentEvent)}
-                                            defaultText={this.props.getDefaultSettingsByProperty('position', 'text', this.state.currentEvent)}
-                                            storeValueFont={this.props.getStoreSettingsByProperty('position', 'font', this.state.currentEvent)}
-                                            storeValueText={this.props.getStoreSettingsByProperty('position', 'text', this.state.currentEvent)}
-                                            updateStateProps={this.updatePosition}
-                                            currentMode={this.props.currentResponsiveMode}
-                                            event={this.state.currentEvent}
+                            <Column
+                                className={this.state.openPreview.position || this.state.openColorView.position ? 'hidden' : ''}>
+                                <Typography
+                                    font={this.props.getSettingsByProperty('position', 'font', this.state.currentEvent)}
+                                    text={this.props.getSettingsByProperty('position', 'text', this.state.currentEvent)}
+                                    defaultFont={this.props.getDefaultSettingsByProperty('position', 'font', this.state.currentEvent)}
+                                    defaultText={this.props.getDefaultSettingsByProperty('position', 'text', this.state.currentEvent)}
+                                    storeValueFont={this.props.getStoreSettingsByProperty('position', 'font', this.state.currentEvent)}
+                                    storeValueText={this.props.getStoreSettingsByProperty('position', 'text', this.state.currentEvent)}
+                                    updateStateProps={this.updatePosition}
+                                    currentMode={this.props.currentResponsiveMode}
+                                    event={this.state.currentEvent}
                                 />
                             </Column>
                         </ChoicesTypography>
                         <ChoicesTypography>
                             <ElementName><label>Company</label></ElementName>
-                            <Column className={this.state.openPreview.company || this.state.openColorView.company ? 'full-width' : ''}>
+                            <Column
+                                className={this.state.openPreview.company || this.state.openColorView.company ? 'full-width' : ''}>
                                 <TextPreview hidden={this.state.openColorView.company}
                                              color={this.props.getSettingsByProperty('company', 'color', this.state.currentEvent)}
                                              font={this.props.getSettingsByProperty('company', 'font', this.state.currentEvent)}
@@ -355,19 +406,59 @@ class SelectSpeakers extends Component {
                                              event={this.state.currentEvent}
                                 />
                             </Column>
-                            <Column className={this.state.openPreview.company || this.state.openColorView.company ? 'hidden' : ''}>
-                                <Typography font={this.props.getSettingsByProperty('company', 'font', this.state.currentEvent)}
-                                            text={this.props.getSettingsByProperty('company', 'text', this.state.currentEvent)}
-                                            defaultFont={this.props.getDefaultSettingsByProperty('company', 'font', this.state.currentEvent)}
-                                            defaultText={this.props.getDefaultSettingsByProperty('company', 'text', this.state.currentEvent)}
-                                            storeValueFont={this.props.getStoreSettingsByProperty('company', 'font', this.state.currentEvent)}
-                                            storeValueText={this.props.getStoreSettingsByProperty('company', 'text', this.state.currentEvent)}
-                                            updateStateProps={this.updateCompany}
-                                            currentMode={this.props.currentResponsiveMode}
-                                            event={this.state.currentEvent}
+                            <Column
+                                className={this.state.openPreview.company || this.state.openColorView.company ? 'hidden' : ''}>
+                                <Typography
+                                    font={this.props.getSettingsByProperty('company', 'font', this.state.currentEvent)}
+                                    text={this.props.getSettingsByProperty('company', 'text', this.state.currentEvent)}
+                                    defaultFont={this.props.getDefaultSettingsByProperty('company', 'font', this.state.currentEvent)}
+                                    defaultText={this.props.getDefaultSettingsByProperty('company', 'text', this.state.currentEvent)}
+                                    storeValueFont={this.props.getStoreSettingsByProperty('company', 'font', this.state.currentEvent)}
+                                    storeValueText={this.props.getStoreSettingsByProperty('company', 'text', this.state.currentEvent)}
+                                    updateStateProps={this.updateCompany}
+                                    currentMode={this.props.currentResponsiveMode}
+                                    event={this.state.currentEvent}
                                 />
                             </Column>
                         </ChoicesTypography>
+                        <ChoicesImage>
+                            <ElementName><label>Company Logo</label></ElementName>
+                            <Column>
+                                <Row>
+                                    <AssetPreview
+                                        locale={null}
+                                        asset={null}
+                                    />
+                                </Row>
+                            </Column>
+                            <Column>
+                                <Row>
+                                    <Size
+                                        size={this.props.getSettingsByProperty('companyLogo', 'size', this.state.currentEvent)}
+                                        storeValueSize={this.props.getStoreSettingsByProperty('companyLogo', 'size', this.state.currentEvent)}
+                                        defaultSize={this.props.getDefaultSettingsByProperty('companyLogo', 'size', this.state.currentEvent)}
+                                        updateStateProps={this.updateCompanyLogo}
+                                        event={this.state.currentEvent}
+                                    />
+                                </Row>
+                                <Row>
+                                    <Padding
+                                        padding={this.props.getSettingsByProperty('companyLogo', 'padding', this.state.currentEvent)}
+                                        storeValuePadding={this.props.getStoreSettingsByProperty('companyLogo', 'padding', this.state.currentEvent)}
+                                        defaultPadding={this.props.getDefaultSettingsByProperty('companyLogo', 'padding', this.state.currentEvent)}
+                                        updateStateProps={this.updateCompanyLogo}
+                                        event={this.state.currentEvent}
+                                    />
+                                    <Alignment
+                                        alignment={this.props.getSettingsByProperty('companyLogo', 'alignment', this.state.currentEvent)}
+                                        storeValueAlignment={this.props.getStoreSettingsByProperty('companyLogo', 'alignment', this.state.currentEvent)}
+                                        defaultAlignment={this.props.getDefaultSettingsByProperty('companyLogo', 'alignment', this.state.currentEvent)}
+                                        updateStateProps={this.updateCompanyLogo}
+                                        event={this.state.currentEvent}
+                                    />
+                                </Row>
+                            </Column>
+                        </ChoicesImage>
                         <ChoicesCustom>
                             <ElementName><label>Icon Twitter</label></ElementName>
                             <Column

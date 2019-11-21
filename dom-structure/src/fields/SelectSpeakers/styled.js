@@ -87,6 +87,24 @@ export const ChoicesTypography = styled(Choices)`
    
 `;
 
+export const ChoicesImage = styled(Choices)`
+   display : flex;
+   flex-wrap : wrap;
+   width : 100%;
+   &>${Column}{
+    &:nth-child(2){
+        width : 25%;
+    }
+   
+    &:nth-child(2).full-width{
+        width : 100%;     
+    }
+    &:nth-child(3){
+        width :75%;
+    }
+   
+`;
+
 export const ChoicesCustom = styled(Choices)`
    display : flex;
    flex-wrap : wrap;

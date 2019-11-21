@@ -34,7 +34,7 @@ class Padding extends Component {
                 [prop]: String(value),
             }
         }), () => {
-            this.props.updateStateProps('padding', this.state.padding);
+            this.props.updateStateProps('padding', this.state.padding, this.props.event);
         });
     }
 

@@ -34,7 +34,7 @@ class Size extends Component {
                 [prop]: String(value),
             }
         }), () => {
-            this.props.updateStateProps('size', this.state.size);
+            this.props.updateStateProps('size', this.state.size, this.props.event);
         });
     }
 
