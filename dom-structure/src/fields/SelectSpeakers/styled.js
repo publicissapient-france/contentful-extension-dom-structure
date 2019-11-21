@@ -69,7 +69,7 @@ export const Choices = styled.div`
 `;
 
 
-export const ChoicesIdentity = styled(Choices)`
+export const ChoicesTypography = styled(Choices)`
    display : flex;
    flex-wrap : wrap;
    width : 100%;

@@ -269,65 +269,66 @@ export default {
                                     value: '1'
                                 }
                             }
-                        },
-                        company: {
-                            A: {
-                                font: {
-                                    view1: {
-                                        theme: 'Paragraph',
-                                        family: null,
-                                        typeface: null,
-                                        weight: null,
-                                        style: null,
-                                        size: null,
-                                        lineHeight: null,
-                                        letterSpacing: '0'
-                                    },
-                                    view2: {
-                                        theme: 'Paragraph',
-                                        family: null,
-                                        typeface: null,
-                                        weight: null,
-                                        style: null,
-                                        size: null,
-                                        lineHeight: null,
-                                        letterSpacing: '0'
-                                    }
+                        }
 
+                    },
+                    company: {
+                        A: {
+                            font: {
+                                view1: {
+                                    theme: 'Paragraph',
+                                    family: null,
+                                    typeface: null,
+                                    weight: null,
+                                    style: null,
+                                    size: null,
+                                    lineHeight: null,
+                                    letterSpacing: '0'
                                 },
-                                text: {
-                                    view1: {
-                                        align: 'center',
-                                        transform: null,
-                                        decoration: null
-                                    },
-                                    view2: {
-                                        align: 'center',
-                                        transform: null,
-                                        decoration: null
-                                    }
+                                view2: {
+                                    theme: 'Paragraph',
+                                    family: null,
+                                    typeface: null,
+                                    weight: null,
+                                    style: null,
+                                    size: null,
+                                    lineHeight: null,
+                                    letterSpacing: '0'
+                                }
+
+                            },
+                            text: {
+                                view1: {
+                                    align: 'center',
+                                    transform: null,
+                                    decoration: null
                                 },
-                                color: {
-                                    view1: {
-                                        hex: '#000000',
-                                        rgb: '0,0,0',
-                                        name: 'black',
-                                        shade: null
-                                    },
-                                    view2: {
-                                        hex: '#000000',
-                                        rgb: '0,0,0',
-                                        name: 'black',
-                                        shade: null
-                                    }
+                                view2: {
+                                    align: 'center',
+                                    transform: null,
+                                    decoration: null
+                                }
+                            },
+                            color: {
+                                view1: {
+                                    hex: '#000000',
+                                    rgb: '0,0,0',
+                                    name: 'black',
+                                    shade: null
                                 },
-                                opacity: {
-                                    view1: {
-                                        value: '1'
-                                    },
-                                    view2: {
-                                        value: '1'
-                                    }
+                                view2: {
+                                    hex: '#000000',
+                                    rgb: '0,0,0',
+                                    name: 'black',
+                                    shade: null
+                                }
+                            },
+                            opacity: {
+                                view1: {
+                                    value: '1'
+                                },
+                                view2: {
+                                    value: '1'
                                 }
                             }
                         }
