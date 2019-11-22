@@ -80,8 +80,52 @@ class SelectSpeakers extends Component {
                 this.initFont();
             }
         }
+        if (this.props.settings && this.props.getSettingsByProperty('firstname', 'font', this.state.currentEvent)) {
+            if (!Object.values(this.props.settings.firstname)[0].font[this.state.currentEvent].family && this.props.themes) {
+                this.initFont('firstname');
+            }
+        }
+        if (this.props.settings && this.props.getSettingsByProperty('lastname', 'font', this.state.currentEvent)) {
+            if (!Object.values(this.props.settings.lastname)[0].font[this.state.currentEvent].family && this.props.themes) {
+                this.initFont('lastname');
+            }
+        }
+        if (this.props.settings && this.props.getSettingsByProperty('position', 'font', this.state.currentEvent)) {
+            if (!Object.values(this.props.settings.position)[0].font[this.state.currentEvent].family && this.props.themes) {
+                this.initFont('position');
+            }
+        }
+        if (this.props.settings && this.props.getSettingsByProperty('company', 'font', this.state.currentEvent)) {
+            if (!Object.values(this.props.settings.company)[0].font[this.state.currentEvent].family && this.props.themes) {
+                this.initFont('company');
+            }
+        }
     }
 
+    initFont = (property) => {
+        let initFont = this.props.settings[property];
+
+        new Promise((resolve, reject) => {
+            this.props.responsiveSettings.map(mode => {
+
+                this.state.events.map( event => {
+                    let selectedTheme = this.getThemeValue(this.props.themes, initFont[mode].font[event].theme);
+                    if (selectedTheme) {
+                        initFont[mode].font[event].family = selectedTheme.family;
+                        initFont[mode].font[event].typeface = selectedTheme.typeface;
+                        initFont[mode].font[event].weight = selectedTheme.weight;
+                        initFont[mode].font[event].size = selectedTheme.fontsize[mode];
+                        initFont[mode].font[event].lineHeight = selectedTheme.lineheight[mode];
+                    }
+                })
+
+            });
+            resolve();
+        }).then(() => {
+            this.props.initSettingsProperty(property, initFont);
+        });
+    }
+/*
     initFont = () => {
         let initFont = this.props.settings.typography;
 
@@ -100,7 +144,7 @@ class SelectSpeakers extends Component {
         }).then(() => {
             this.props.initSettingsProperty('typography', initFont);
         });
-    }
+    }*/
 
 
     getThemeValue = (themes, selectedTheme) => {
