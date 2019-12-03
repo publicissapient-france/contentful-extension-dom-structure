@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FieldContainer } from './styled';
 import { TemplateForSection } from '../../fields/Template/index';
 import { FlexContainerForSection } from '../../fields/FlexContainer/index';
+import { SelectSpeakersForSection } from '../../fields/SelectSpeakers/index';
 
 class FieldsListOfSection extends Component {
     render () {
@@ -31,6 +32,9 @@ class FieldsListOfSection extends Component {
 
                         case 'FlexContainer':
                             return <FlexContainerForSection {...params}/>;
+
+                        case 'SelectSpeakers':
+                            return <SelectSpeakersForSection {...params}/>;
 
                         default :
                             return <div className={'error'}><p>No field <strong>{field.typefield}</strong> matches</p>

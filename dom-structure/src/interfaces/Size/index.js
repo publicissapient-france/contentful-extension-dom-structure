@@ -104,6 +104,40 @@ class Size extends Component {
                                 }}/>
                         </div>
                     </Field>
+
+                    {
+                        defaultSize.minWidth ?
+                            <Field>
+                                <label>min-width</label>
+                                <div>
+                                    <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'minWidth')}/>
+                                    <input
+                                        type={'text'}
+                                        className={hasNotSamePropertyValue(storeValueSize, size, 'minWidth') ? 'updated' : ''}
+                                        value={this.state.size.minWidth}
+                                        onChange={e => {
+                                            this.updateSize('minWidth', e.target.value);
+                                        }}/>
+                                </div>
+                            </Field> : null
+                    }
+                    {
+                        defaultSize.minHeight ?
+                            <Field>
+                                <label>min-height</label>
+                                <div>
+                                    <Dot enabled={hasNotSamePropertyValue(defaultSize, size, 'minHeight')}/>
+                                    <input
+                                        type={'text'}
+                                        className={hasNotSamePropertyValue(storeValueSize, size, 'minHeight') ? 'updated' : ''}
+                                        value={this.state.size.minHeight}
+                                        onChange={e => {
+                                            this.updateSize('minHeight', e.target.value);
+                                        }}/>
+                                </div>
+                            </Field> : null
+                    }
+
                 </ContainerFields>
                 <ErrorMessage>{ error }</ErrorMessage>
             </Container>

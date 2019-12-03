@@ -9,6 +9,7 @@ export const Container = styled.div`
 
 export const ContainerFields = styled.div`
   display : flex;
+  flex-wrap : wrap;
   margin-bottom : 5px;
 `;
 

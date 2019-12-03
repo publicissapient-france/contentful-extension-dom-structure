@@ -39,6 +39,8 @@ class OrderFieldsContent extends Component {
 
     getSvgElementByType = (type) => {
         switch (type) {
+            case 'Template' :
+                return null;
             case 'Text' :
                 return <SvgElementText/>;
             case 'TextMarkdown' :
@@ -76,14 +78,6 @@ class OrderFieldsContent extends Component {
         this.props.updateOrder(newOrder);
     }
 
-    hasPredefinedOrder = () => {
-        let fieldWithContent = this.props.fields.filter( (field) => {
-            return !isEmpty(field.content.defaultValue)
-        })
-        return (this.props.order.length !== fieldWithContent.length );
-    }
-
-
     render () {
         const { fields, order, componentModel } = this.props;
         if(!order || !fields ) return null;
@@ -112,7 +106,7 @@ class OrderFieldsContent extends Component {
         return (
             <Container>
                 {
-                    this.hasPredefinedOrder() ?
+                    mapModelToWrappers[`${componentModel}Wrapper`] ?
                         React.createElement( mapModelToWrappers[`${componentModel}Wrapper`], {}, PreviewContent)
                         : React.createElement( mapModelToWrappers[`DefaultWrapper`], {}, PreviewContent)
                 }

@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {Container, Field, Selector, Choice} from './styled';
+import {Container, Field, Selector, Choice, Display, ButtonEvents} from './styled';
 import {getCurrentExtension} from '../../actions/index';
 import isEmpty from 'lodash/isEmpty'
+import isEqual from 'lodash/isEqual'
 import uniqBy from 'lodash/uniqBy'
 
 class SpeakerSelector extends Component {
@@ -32,10 +33,23 @@ class SpeakerSelector extends Component {
                 speakers: this.props.speakers
             })
         }
+        this.setState({
+            display: this.props.display,
+            currentEvent : this.props.event
+        })
     };
 
     componentDidUpdate(prevProps) {
-
+        if(this.props.display !== prevProps.display){
+            this.setState({
+                display: this.props.display
+            })
+        }
+        if(this.props.event !== prevProps.event){
+            this.setState({
+                currentEvent: this.props.event
+            })
+        }
     }
 
     onClickLinkExisting = async () => {
@@ -114,9 +128,58 @@ class SpeakerSelector extends Component {
             })
         }
     }
+    selectAll = (e) => {
+        if (e.target.checked) {
+            this.setState(prevState => ({
+                speakers: [...prevState.allSpeakers].map(speaker => speaker.identifier)
+            }), () => {
+                this.props.updateContent('speakers', this.state.speakers)
+            })
+        } else {
+            this.setState(prevState => ({
+                speakers: []
+            }), () => {
+                this.props.updateContent('speakers', this.state.speakers)
+
+            })
+        }
+
+    }
+
+    allSelected = () => isEqual(this.state.speakers, [...this.state.allSpeakers].map(speaker => speaker.identifier))
+
+    updateDisplay = (property, e, event) => {
+        if (e.target.checked) {
+            this.setState(prevState => ({
+                display: {
+                    ...prevState.display,
+                    [event]: {
+                        ...prevState.display[event],
+                        [property]: true
+                    }
+                }
+            }), () => {
+                this.props.updateContent('display', this.state.display)
+            });
+        }else{
+            this.setState(prevState => ({
+                display: {
+                    ...prevState.display,
+                    [event]: {
+                        ...prevState.display[event],
+                        [property]:false
+                    }
+                }
+            }), () => {
+                this.props.updateContent('display', this.state.display)
+            });
+        }
+
+    }
 
     render = () => {
         const {} = this.props;
+
 
         return (
             <Container>
@@ -135,13 +198,22 @@ class SpeakerSelector extends Component {
                     }
 
                 </Field>
+                {
+                    this.state.allSpeakers ?
+                        <Choice>
+                            <input checked={this.allSelected()} type={'checkbox'}
+                                   onChange={(e) => this.selectAll(e)}/>
+                            select all
+                        </Choice>
+                        : null
+                }
                 <Selector>
                     {
                         this.state.allSpeakers ?
                             this.state.allSpeakers.map((speaker, i) => {
                                 return <Choice key={i}>
-                                    <input defaultChecked={this.state.speakers.includes(speaker.id)} type={'checkbox'}
-                                           onChange={(e) => this.toggleChange(e, speaker.id)}/>
+                                    <input checked={this.state.speakers.includes(speaker.identifier)} type={'checkbox'}
+                                           onChange={(e) => this.toggleChange(e, speaker.identifier)}/>
                                     {speaker.firstname} {speaker.lastname}
                                 </Choice>
                             })
@@ -149,6 +221,37 @@ class SpeakerSelector extends Component {
                     }
 
                 </Selector>
+                <Display>
+                    {
+                        this.props.events && this.props.events.length !== 0 ?
+                            <ButtonEvents>
+                                {
+                                    this.props.events.map((event, i) => {
+                                        return <button
+                                            key={i}
+                                            className={event === this.props.event ? 'current' : ''}
+                                            onClick={() => {
+                                                this.props.toggleCurrentEvent(event)
+                                            }}>{event}</button>
+                                    })
+                                }
+                            </ButtonEvents> : null
+
+                    }
+                    {
+                        this.state.display && this.state.display[this.props.event] ?
+                            Object.keys(this.state.display[this.props.event]).map((key, i) =>  {
+                                return <Choice key={i}>
+                                    <input checked={this.state.display[this.props.event][key]} type={'checkbox'}
+                                           onChange={(e) => this.updateDisplay(key, e, this.state.currentEvent)}/>
+                                    {key}
+                                </Choice>
+                            })
+
+                            : null
+
+                    }
+                </Display>
             </Container>
         );
     }

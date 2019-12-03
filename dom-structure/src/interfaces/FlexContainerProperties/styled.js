@@ -151,6 +151,7 @@ ${ props => `
    margin-top : 5px;
    background : ${ extensionTheme.blueXS};
    
+   
    &>div{
         ${ props => `
            width: calc(100% / ${ props.columns } - ${   (( props.columns - 1 ) * props.gutterHorizontal ) / props.columns }px );
@@ -168,6 +169,7 @@ ${ props => `
     font-size : 10px;
     line-height : 14px;
     border : 1px solid ${ extensionTheme.blueS};
+    box-sizing : border-box;
     
     &:nth-child(2){ min-height : 18px;}
     &:nth-child(3){ min-height : 34px;}
@@ -175,6 +177,28 @@ ${ props => `
     &:nth-child(2n){
         background : ${ extensionTheme.grey20};
     }
+    
+    ${ props => props.justify === 'flex-start' ? `
+                    &:not(:nth-child(${ props.columns }n) ){
+                        margin-right : ${props.gutterHorizontal}px;
+                    }
+                    
+                    `  : ''
+                }
+     ${ props => props.justify === 'flex-end' ? `
+        &:not(:nth-child(${ props.columns }n + 1)){
+           margin-left : ${props.gutterHorizontal}px;
+        }
+        `  : ''
+     }
+    
+              
+     ${ props => props.justify === 'center' ? `
+        &:not(:nth-child(${ props.columns }n + 1)) {
+           margin-left : ${props.gutterHorizontal}px;
+        }
+        `  : ''
+     }
     
     
     

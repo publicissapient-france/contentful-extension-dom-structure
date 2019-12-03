@@ -48,18 +48,42 @@ export default {
                 }
             },
             settings: {
-                responsive : ['A'],
+                responsive : ['M', 'T', 'D'],
                 defaultValue: {
                     flex : {
-                        A : {
+                        M : {
                             properties : {
                                 columns : '1',
                                 gutterHorizontal : '0',
-                                gutterVertical : '0',
+                                gutterVertical : '20',
                                 direction : 'row',
                                 wrap : 'wrap',
                                 justify : 'flex-start',
                                 alignItems : 'flex-start',
+                                alignContent : 'flex-start'
+                            }
+                        },
+                        T : {
+                            properties : {
+                                columns : '2',
+                                gutterHorizontal : '20',
+                                gutterVertical : '20',
+                                direction : 'flex',
+                                wrap : 'wrap',
+                                justify : 'space-between',
+                                alignItems : 'stretch',
+                                alignContent : 'flex-start'
+                            }
+                        },
+                        D : {
+                            properties : {
+                                columns : '3',
+                                gutterHorizontal : '20',
+                                gutterVertical : '20',
+                                direction : 'flex',
+                                wrap : 'wrap',
+                                justify : 'space-between',
+                                alignItems : 'stretch',
                                 alignContent : 'flex-start'
                             }
                         }

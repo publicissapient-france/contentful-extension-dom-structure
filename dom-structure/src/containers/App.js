@@ -80,11 +80,13 @@ class App extends React.Component {
     setFieldValue = () => {
         this.props.extension.field.removeValue().then(() => {
             const buildDom = extractActiveValue(this.props.store.getState().dom);
+            const staticResources = extractAssetUrl(buildDom);
+            console.log('staticResources', staticResources)
 
             this.props.extension.field.setValue({
                 dom: this.props.store.getState().dom,
                 build: JSON.stringify(buildDom),
-                staticResources : extractAssetUrl(buildDom)
+                staticResources : staticResources.length !== 0 ? staticResources : ['no-static-resources']
             });
         });
 

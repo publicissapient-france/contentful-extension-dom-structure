@@ -150,7 +150,6 @@ const FieldWrapper = WrappedComponent => {
                 return this.state.settings[property] && this.state.settings[property][this.state.currentResponsiveMode] ? this.state.settings[property][this.state.currentResponsiveMode][subProperty][event] : null
             } else {
                 return this.state.settings[property] && this.state.settings[property][this.state.currentResponsiveMode] ? this.state.settings[property][this.state.currentResponsiveMode][subProperty] : null
-
             }
         }
         getDefaultSettingsByProperty = (property, subProperty, event) => {

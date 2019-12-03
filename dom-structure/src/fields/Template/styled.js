@@ -8,6 +8,10 @@ export const ChoiceItemsConfirm = styled(ChoiceConfirm)`
     border-top : 1px solid ${ extensionTheme.grey20 };
     box-sizing : border-box;
 `;
+export const Content = styled.div`
+   display: flex;
+   flex-wrap : wrap;
+`;
 export const Settings = styled.div`
    
 `;

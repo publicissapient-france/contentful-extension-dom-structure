@@ -1,6 +1,6 @@
 export default {
     model: 'Card',
-    order: ['Title', 'Content', 'Image', 'CTA'],
+    order: ['Title', 'Tagline', 'Content', 'Image', 'CTA'],
     fields: [
         {
             name: 'Template',
@@ -9,7 +9,16 @@ export default {
             content: {
                 responsive: ['A'],
                 parameters: {},
-                defaultValue: {}
+                defaultValue: {
+                    images: [
+                        {
+                            alt: {},
+                            asset: {
+                                A: {}
+                            }
+                        }
+                    ]
+                }
             },
             settings: {
                 responsive: ['A'],
@@ -17,10 +26,12 @@ export default {
                     basis: {
                         A: {
                             size: {
-                                width: '100',
-                                height: '100',
+                                width: '',
+                                height: 'auto',
                                 maxWidth: '',
-                                maxHeight: ''
+                                maxHeight: '',
+                                minWidth: '',
+                                minHeight: '400'
 
                             },
                             padding: {
@@ -67,7 +78,108 @@ export default {
                     typography: {
                         M: {
                             font: {
-                                theme: 'Title1',
+                                theme: 'Title3',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'center',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        T: {
+                            font: {
+                                theme: 'Title3',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'center',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        D: {
+                            font: {
+                                theme: 'Title3',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'center',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        }
+                    },
+                    seo: {
+                        tag: 'h2'
+                    }
+                }
+            }
+
+        },
+        {
+            name: 'Tagline',
+            nameProperty: 'Tagline',
+            typeField: 'Text',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                    text: {}
+                }
+            },
+            settings: {
+                responsive: ['M', 'T', 'D'],
+                defaultValue: {
+                    typography: {
+                        M: {
+                            font: {
+                                theme: 'Title2',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -119,7 +231,7 @@ export default {
                         },
                         D: {
                             font: {
-                                theme: 'Title3',
+                                theme: 'Title2',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -295,8 +407,8 @@ export default {
                     basis: {
                         A: {
                             size: {
-                                width: '100',
-                                height: '100',
+                                width: '130',
+                                height: '40',
                                 maxWidth: '',
                                 maxHeight: ''
 

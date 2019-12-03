@@ -46,6 +46,7 @@ import {
     ElementName,
     ChoicesSpeakers
 } from './styled';
+import FieldWrapperOfSection from "../../HOC/FieldWrapperOfSection";
 
 class SelectSpeakers extends Component {
     constructor(props) {
@@ -57,6 +58,7 @@ class SelectSpeakers extends Component {
                 lastname: false,
                 position: false,
                 company: false,
+                biography: false,
                 icon1: false,
                 icon2: false
 
@@ -66,6 +68,7 @@ class SelectSpeakers extends Component {
                 lastname: false,
                 position: false,
                 company: false,
+                biography: false,
                 icon1: false,
                 icon2: false
             },
@@ -98,6 +101,11 @@ class SelectSpeakers extends Component {
         if (this.props.settings && this.props.getSettingsByProperty('company', 'font', this.state.currentEvent)) {
             if (!Object.values(this.props.settings.company)[0].font[this.state.currentEvent].family && this.props.themes) {
                 this.initFont('company');
+            }
+        }
+        if (this.props.settings && this.props.getSettingsByProperty('biography', 'font', this.state.currentEvent)) {
+            if (!Object.values(this.props.settings.biography)[0].font[this.state.currentEvent].family && this.props.themes) {
+                this.initFont('biography');
             }
         }
     }
@@ -166,6 +174,7 @@ class SelectSpeakers extends Component {
     toggleOpenViewLastname = () => this.toggleOpenViewByProperty('lastname');
     toggleOpenViewPosition = () => this.toggleOpenViewByProperty('position');
     toggleOpenViewCompany = () => this.toggleOpenViewByProperty('company');
+    toggleOpenViewBiography = () => this.toggleOpenViewByProperty('biography');
     toggleOpenViewIcon1 = () => this.toggleOpenViewByProperty('icon1');
     toggleOpenViewIcon2 = () => this.toggleOpenViewByProperty('icon2');
 
@@ -181,6 +190,7 @@ class SelectSpeakers extends Component {
     toggleOpenPreviewLastname = () => this.toggleOpenPreviewByProperty('lastname');
     toggleOpenPreviewPosition = () => this.toggleOpenPreviewByProperty('position');
     toggleOpenPreviewCompany = () => this.toggleOpenPreviewByProperty('company');
+    toggleOpenPreviewBiography = () => this.toggleOpenPreviewByProperty('biography');
     toggleOpenPreviewIcon1 = () => this.toggleOpenPreviewByProperty('icon1');
     toggleOpenPreviewIcon2 = () => this.toggleOpenPreviewByProperty('icon2');
 
@@ -192,6 +202,8 @@ class SelectSpeakers extends Component {
     getTarget = () => this.props.getSettingsPropertyNoResponsive('target') ? this.props.getSettingsPropertyNoResponsive('target').external : false;
     getIdSource = () => this.props.content.idSource ? this.props.content.idSource : null;
     getSpeakers = () => this.props.content.speakers ? this.props.content.speakers : [];
+    getDisplay = () => this.props.content.display ? this.props.content.display : {};
+
 
     updateBasis = (property, value, event) => this.props.updateSettingsProperty('basis', property, value, event);
     updateFirstname = (property, value, event) => this.props.updateSettingsProperty('firstname', property, value, event);
@@ -199,6 +211,7 @@ class SelectSpeakers extends Component {
     updatePosition = (property, value, event) => this.props.updateSettingsProperty('position', property, value, event);
     updateCompany = (property, value, event) => this.props.updateSettingsProperty('company', property, value, event);
     updateCompanyLogo = (property, value, event) => this.props.updateSettingsProperty('companyLogo', property, value, event);
+    updateBiography = (property, value, event) => this.props.updateSettingsProperty('biography', property, value, event);
     updatePhoto = (property, value, event) => this.props.updateSettingsProperty('photo', property, value, event);
     updateIcon1 = (property, value, event) => this.props.updateSettingsProperty('icon1', property, value, event);
     updateIcon2 = (property, value, event) => this.props.updateSettingsProperty('icon2', property, value, event);
@@ -237,7 +250,14 @@ class SelectSpeakers extends Component {
                 <Field>
                     <Content className={!this.props.openContent ? 'hidden' : ''}>
                         <ChoicesSpeakers>
-                            <SpeakerSelector updateContent={this.props.updateContent} idSource={this.getIdSource()} speakers={this.getSpeakers() }/>
+                            <SpeakerSelector updateContent={this.props.updateContent}
+                                             idSource={this.getIdSource()}
+                                             speakers={this.getSpeakers() }
+                                             display={this.getDisplay(this.state.currentEvent)}
+                                             event={this.state.currentEvent}
+                                             events={this.state.events}
+                                             toggleCurrentEvent={this.toggleCurrentEvent}
+                            />
                         </ChoicesSpeakers>
                         <ChoicesContent>
                             <Column>
@@ -359,10 +379,7 @@ class SelectSpeakers extends Component {
                             <ElementName><label>Photo</label></ElementName>
                             <Column>
                                 <Row>
-                                    <AssetPreview
-                                        locale={null}
-                                        asset={null}
-                                    />
+                                    <p>No preview</p>
                                 </Row>
                             </Column>
                             <Column>
@@ -477,10 +494,7 @@ class SelectSpeakers extends Component {
                             <ElementName><label>Company Logo</label></ElementName>
                             <Column>
                                 <Row>
-                                    <AssetPreview
-                                        locale={null}
-                                        asset={null}
-                                    />
+                                    <p>No preview</p>
                                 </Row>
                             </Column>
                             <Column>
@@ -511,6 +525,46 @@ class SelectSpeakers extends Component {
                                 </Row>
                             </Column>
                         </ChoicesImage>
+                        <ChoicesTypography>
+                            <ElementName><label>Biography</label></ElementName>
+                            <Column
+                                className={this.state.openPreview.biography || this.state.openColorView.biography ? 'full-width' : ''}>
+                                <TextPreview hidden={this.state.openColorView.biography}
+                                             color={this.props.getSettingsByProperty('biography', 'color', this.state.currentEvent)}
+                                             font={this.props.getSettingsByProperty('biography', 'font', this.state.currentEvent)}
+                                             text={this.props.getSettingsByProperty('biography', 'text', this.state.currentEvent)}
+                                             opacity={this.props.getSettingsByProperty('biography', 'opacity', this.state.currentEvent)}
+                                             open={this.state.openPreview.biography}
+                                             toggleOpenPreview={this.toggleOpenPreviewBiography}
+                                />
+                                <ColorPicker hidden={this.state.openPreview.biography}
+                                             color={this.props.getSettingsByProperty('biography', 'color', this.state.currentEvent)}
+                                             opacity={this.props.getSettingsByProperty('biography', 'opacity', this.state.currentEvent)}
+                                             storeValueColor={this.props.getStoreSettingsByProperty('biography', 'color', this.state.currentEvent)}
+                                             storeValueOpacity={this.props.getStoreSettingsByProperty('biography', 'opacity', this.state.currentEvent)}
+                                             defaultColor={this.props.getDefaultSettingsByProperty('biography', 'color', this.state.currentEvent)}
+                                             defaultOpacity={this.props.getDefaultSettingsByProperty('biography', 'opacity', this.state.currentEvent)}
+                                             openView={this.state.openColorView.biography}
+                                             updateStateProps={this.updateBiography}
+                                             toggleOpenView={this.toggleOpenViewBiography}
+                                             event={this.state.currentEvent}
+                                />
+                            </Column>
+                            <Column
+                                className={this.state.openPreview.biography || this.state.openColorView.biography ? 'hidden' : ''}>
+                                <Typography
+                                    font={this.props.getSettingsByProperty('biography', 'font', this.state.currentEvent)}
+                                    text={this.props.getSettingsByProperty('biography', 'text', this.state.currentEvent)}
+                                    defaultFont={this.props.getDefaultSettingsByProperty('biography', 'font', this.state.currentEvent)}
+                                    defaultText={this.props.getDefaultSettingsByProperty('biography', 'text', this.state.currentEvent)}
+                                    storeValueFont={this.props.getStoreSettingsByProperty('biography', 'font', this.state.currentEvent)}
+                                    storeValueText={this.props.getStoreSettingsByProperty('biography', 'text', this.state.currentEvent)}
+                                    updateStateProps={this.updateBiography}
+                                    currentMode={this.props.currentResponsiveMode}
+                                    event={this.state.currentEvent}
+                                />
+                            </Column>
+                        </ChoicesTypography>
                         <ChoicesCustom>
                             <ElementName><label>Icon Twitter</label></ElementName>
                             <Column
@@ -592,213 +646,6 @@ class SelectSpeakers extends Component {
                             </Column>
                         </ChoicesCustom>
                     </Settings>
-
-
-                    {/*
-                    <Content className={!this.props.openContent ? 'hidden' : ''}>
-                        <ChoicesContent>
-                            <Column>
-                                <label>Label</label>
-                                <InputText action={this.props.updateTranlatedContent} targetProperty={'text'}
-                                           defaultValue={this.getText()}/>
-                            </Column>
-                            <Column>
-                                <LinkSettings>
-                                    <label>Link</label>
-                                    <label>
-                                        <input type={'checkbox'} defaultChecked={this.getTarget()}
-                                               onChange={(e) => {
-                                                   this.props.updateSettingsNoResponsive('target', {external: !this.getTarget()})
-                                               }}/>
-                                        external</label>
-                                </LinkSettings>
-                                <InputText action={this.props.updateTranlatedContent} targetProperty={'link'}
-                                           defaultValue={this.getLink()}/>
-                            </Column>
-                            <Column>
-                                <label>Icon</label>
-                                <InputIcon font={this.props.getSettingsByProperty('icon', 'font')}
-                                           action={this.props.updateTranlatedContent}
-                                           targetProperty={'icon'}
-                                           defaultValue={this.getIcon()}/>
-                            </Column>
-                        </ChoicesContent>
-                    </Content>
-                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                    <ChoicesTypography>
-                    <Column className={this.state.openPreview || this.state.openColorView ? 'full-width' : ''}>
-                {
-                    this.state.events && this.state.events.length !== 0 ?
-                    <ButtonEvents>
-                    {
-                        this.state.events.map((event, i) => {
-                            return <button
-                                key={i}
-                                className={event === this.state.currentEvent ? 'current' : ''}
-                                onClick={() => {
-                                    this.toggleCurrentEvent(event)
-                                }}>{event}</button>
-                        })
-                    }
-                    </ButtonEvents> : null
-
-                }
-                    <TextPreview hidden={this.state.openColorView}
-                    color={this.props.getSettingsByProperty('typography', 'color', this.state.currentEvent)}
-                    font={this.props.getSettingsByProperty('typography', 'font')}
-                    text={this.props.getSettingsByProperty('typography', 'text')}
-                    opacity={this.props.getSettingsByProperty('typography', 'opacity', this.state.currentEvent)}
-                    open={this.state.openPreview}
-                    toggleOpenPreview={this.toggleOpenPreview}
-                    />
-                    <ColorPicker hidden={this.state.openPreview}
-                    color={this.props.getSettingsByProperty('typography', 'color', this.state.currentEvent)}
-                    opacity={this.props.getSettingsByProperty('typography', 'opacity', this.state.currentEvent)}
-                    storeValueColor={this.props.getStoreSettingsByProperty('typography', 'color', this.state.currentEvent)}
-                    storeValueOpacity={this.props.getStoreSettingsByProperty('typography', 'opacity', this.state.currentEvent)}
-                    defaultColor={this.props.getDefaultSettingsByProperty('typography', 'color', this.state.currentEvent)}
-                    defaultOpacity={this.props.getDefaultSettingsByProperty('typography', 'opacity', this.state.currentEvent)}
-                    openView={this.state.openColorView}
-                    updateStateProps={this.updateTypography}
-                    toggleOpenView={this.toggleOpenView}
-                    event={this.state.currentEvent}
-                    />
-                    </Column>
-                    <Column className={this.state.openPreview || this.state.openColorView ? 'hidden' : ''}>
-                    <Typography font={this.props.getSettingsByProperty('typography', 'font')}
-                    text={this.props.getSettingsByProperty('typography', 'text')}
-                    defaultFont={this.props.getDefaultSettingsByProperty('typography', 'font')}
-                    defaultText={this.props.getDefaultSettingsByProperty('typography', 'text')}
-                    storeValueFont={this.props.getStoreSettingsByProperty('typography', 'font')}
-                    storeValueText={this.props.getStoreSettingsByProperty('typography', 'text')}
-                    updateStateProps={this.updateTypography}
-                    currentMode={this.props.currentResponsiveMode}
-                    />
-                    </Column>
-                    </ChoicesTypography>
-
-                    <ChoicesCustom>
-                    <Column className={this.state.openColorViewBackground ? 'full-width' : ''}>
-                    <Row>
-                    <ColorPicker hidden={false}
-                    color={this.props.getSettingsByProperty('basis', 'color', this.state.currentEvent)}
-                    opacity={this.props.getSettingsByProperty('basis', 'opacity', this.state.currentEvent)}
-                    storeValueColor={this.props.getStoreSettingsByProperty('basis', 'color', this.state.currentEvent)}
-                    storeValueOpacity={this.props.getStoreSettingsByProperty('basis', 'opacity', this.state.currentEvent)}
-                    defaultColor={this.props.getDefaultSettingsByProperty('basis', 'color', this.state.currentEvent)}
-                    defaultOpacity={this.props.getDefaultSettingsByProperty('basis', 'opacity', this.state.currentEvent)}
-                    openView={this.state.openColorViewBackground}
-                    updateStateProps={this.updateBasis}
-                    toggleOpenView={this.toggleOpenViewBackground}
-                    customName={'Backg.'}
-                    event={this.state.currentEvent}
-                    />
-
-                    </Row>
-                    </Column>
-                    <Column className={this.state.openColorViewBackground ? 'hidden' : ''}>
-                    <Row>
-                    <Size size={this.props.getSettingsByProperty('basis', 'size')}
-                    storeValueSize={this.props.getStoreSettingsByProperty('basis', 'size')}
-                    defaultSize={this.props.getDefaultSettingsByProperty('basis', 'size')}
-                    updateStateProps={this.updateBasis}
-                    />
-                    </Row>
-                    <Row>
-                    <Padding padding={this.props.getSettingsByProperty('basis', 'padding')}
-                    storeValuePadding={this.props.getStoreSettingsByProperty('basis', 'padding')}
-                    defaultPadding={this.props.getDefaultSettingsByProperty('basis', 'padding')}
-                    updateStateProps={this.updateBasis}
-                    />
-                    <Margin margin={this.props.getSettingsByProperty('basis', 'margin')}
-                    storeValueMargin={this.props.getStoreSettingsByProperty('basis', 'margin')}
-                    defaultMargin={this.props.getDefaultSettingsByProperty('basis', 'margin')}
-                    updateStateProps={this.updateBasis}
-                    />
-                    </Row>
-                    <Row>
-                    <Alignment alignment={this.props.getSettingsByProperty('basis', 'alignment')}
-                    storeValueAlignment={this.props.getStoreSettingsByProperty('basis', 'alignment')}
-                    defaultAlignment={this.props.getDefaultSettingsByProperty('basis', 'alignment')}
-                    updateStateProps={this.updateBasis}/>
-
-                    </Row>
-                    </Column>
-                    <Column className={this.state.openColorViewBorder ? 'full-width' : ''}>
-                    <ColorPicker hidden={false}
-                    color={this.props.getSettingsByProperty('border', 'color', this.state.currentEvent)}
-                    opacity={this.props.getSettingsByProperty('border', 'opacity', this.state.currentEvent)}
-                    storeValueColor={this.props.getStoreSettingsByProperty('border', 'color', this.state.currentEvent)}
-                    storeValueOpacity={this.props.getStoreSettingsByProperty('border', 'opacity', this.state.currentEvent)}
-                    defaultColor={this.props.getDefaultSettingsByProperty('border', 'color', this.state.currentEvent)}
-                    defaultOpacity={this.props.getDefaultSettingsByProperty('border', 'opacity', this.state.currentEvent)}
-                    openView={this.state.openColorViewBorder}
-                    updateStateProps={this.updateBorder}
-                    toggleOpenView={this.toggleOpenViewBorder}
-                    customName={'Border'}
-                    event={this.state.currentEvent}
-                    />
-                    </Column>
-                    <Column className={this.state.openColorViewBorder ? 'hidden' : ''}>
-                    <Radius radius={this.props.getSettingsByProperty('border', 'radius')}
-                    storeValueRadius={this.props.getStoreSettingsByProperty('border', 'radius')}
-                    defaultRadius={this.props.getDefaultSettingsByProperty('border', 'radius')}
-                    updateStateProps={this.updateBorder}
-                    />
-                    <BorderWidth width={this.props.getSettingsByProperty('border', 'width')}
-                    storeValueWidth={this.props.getStoreSettingsByProperty('border', 'width')}
-                    defaultWidth={this.props.getDefaultSettingsByProperty('border', 'width')}
-                    updateStateProps={this.updateBorder}
-                    />
-                    </Column>
-                    <Column
-                    className={this.state.openPreviewIcon || this.state.openColorViewIcon ? 'full-width' : ''}>
-                    <IconPreview hidden={this.state.openColorViewIcon}
-                    color={this.props.getSettingsByProperty('icon', 'color', this.state.currentEvent)}
-                    font={this.props.getSettingsByProperty('icon', 'font')}
-                    text={this.props.getSettingsByProperty('icon', 'text')}
-                    opacity={this.props.getSettingsByProperty('icon', 'opacity', this.state.currentEvent)}
-                    open={this.state.openColorViewIcon}
-                    toggleOpenPreview={this.toggleOpenPreviewIcon}
-                    />
-                    <ColorPicker hidden={this.state.openPreviewIcon}
-                    color={this.props.getSettingsByProperty('icon', 'color', this.state.currentEvent)}
-                    opacity={this.props.getSettingsByProperty('icon', 'opacity', this.state.currentEvent)}
-                    storeValueColor={this.props.getStoreSettingsByProperty('icon', 'color', this.state.currentEvent)}
-                    storeValueOpacity={this.props.getStoreSettingsByProperty('icon', 'opacity', this.state.currentEvent)}
-                    defaultColor={this.props.getDefaultSettingsByProperty('icon', 'color', this.state.currentEvent)}
-                    defaultOpacity={this.props.getDefaultSettingsByProperty('icon', 'opacity', this.state.currentEvent)}
-                    openView={this.state.openColorViewIcon}
-                    updateStateProps={this.updateIcon}
-                    toggleOpenView={this.toggleOpenViewIcon}
-                    customName={'Icon'}
-                    event={this.state.currentEvent}
-                    />
-
-                    </Column>
-                    <Column
-                    className={this.state.openPreviewIcon || this.state.openColorViewIcon ? 'hidden' : ''}>
-                    <Row>
-                    <IconTypography font={this.props.getSettingsByProperty('icon', 'font')}
-                    defaultFont={this.props.getDefaultSettingsByProperty('icon', 'font')}
-                    storeValueFont={this.props.getStoreSettingsByProperty('icon', 'font')}
-                    updateStateProps={this.updateIcon}
-                    currentMode={this.props.currentResponsiveMode}
-                    />
-                    </Row>
-                    <Row
-                    className={this.state.openPreviewIcon || this.state.openColorViewIcon ? 'hidden' : ''}>
-                    <Padding padding={this.props.getSettingsByProperty('icon', 'padding')}
-                    storeValuePadding={this.props.getStoreSettingsByProperty('icon', 'padding')}
-                    defaultPadding={this.props.getDefaultSettingsByProperty('icon', 'padding')}
-                    updateStateProps={this.updateIcon}
-                    />
-                    </Row>
-                    </Column>
-                    </ChoicesCustom>
-                    </Settings>
-                */}
-
                 </Field>
 
                 <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
@@ -816,3 +663,7 @@ const mapStateToProps = state => ({
 
 const WrappedComponent = FieldWrapper(connect(mapStateToProps)(SelectSpeakers));
 export default WrappedComponent;
+
+export const SelectSpeakersForComponent = FieldWrapper(connect(mapStateToProps)(SelectSpeakers));
+export const SelectSpeakersForSection = FieldWrapperOfSection(connect(mapStateToProps)(SelectSpeakers));
+
