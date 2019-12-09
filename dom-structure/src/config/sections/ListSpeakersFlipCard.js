@@ -145,7 +145,7 @@ export default {
                                 height: 'auto',
                                 maxWidth: '',
                                 maxHeight: '',
-                                minWidth: '100%',
+                                minWidth: '',
                                 minHeight: '400'
 
                             },
@@ -653,14 +653,14 @@ export default {
                         A: {
                             size: {
                                 view1: {
-                                    width: '100',
-                                    height: '100',
+                                    width: '',
+                                    height: '30',
                                     maxWidth: '',
                                     maxHeight: ''
                                 },
                                 view2: {
-                                    width: '100',
-                                    height: '100',
+                                    width: '0',
+                                    height: '30',
                                     maxWidth: '',
                                     maxHeight: ''
                                 }

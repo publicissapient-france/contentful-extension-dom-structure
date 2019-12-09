@@ -7,6 +7,8 @@ import TextMarkdown from '../../fields/TextMarkdown/index';
 import SingleImage from '../../fields/SingleImage/index';
 import MultipleImages from '../../fields/MultipleImages/index';
 import CTA from '../../fields/CTA/index';
+import NavigationLinks from '../../fields/NavigationLinks/index';
+import NavigationBar from '../../fields/NavigationBar/index';
 import SelectSpeakers from '../../fields/SelectSpeakers/index';
 
 class FieldsList extends Component {
@@ -48,6 +50,12 @@ class FieldsList extends Component {
 
                         case 'CTA':
                             return <CTA {...params} />;
+
+                        case 'NavigationLinks':
+                            return <NavigationLinks {...params} />;
+
+                        case 'NavigationBar':
+                            return <NavigationBar {...params} />;
 
                         case 'SelectSpeakers':
                             return <SelectSpeakers {...params} />;

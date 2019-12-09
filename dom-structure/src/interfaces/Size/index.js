@@ -106,7 +106,7 @@ class Size extends Component {
                     </Field>
 
                     {
-                        defaultSize.minWidth ?
+                        defaultSize && defaultSize.minWidth ?
                             <Field>
                                 <label>min-width</label>
                                 <div>
@@ -122,7 +122,7 @@ class Size extends Component {
                             </Field> : null
                     }
                     {
-                        defaultSize.minHeight ?
+                        defaultSize && defaultSize.minHeight ?
                             <Field>
                                 <label>min-height</label>
                                 <div>
