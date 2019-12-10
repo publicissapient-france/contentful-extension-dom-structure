@@ -14,6 +14,7 @@ import ActiveCheckBox from '../../components/ActiveCheckBox';
 import InputMarkdown from '../../interfaces/InputMarkdown';
 import Typography from '../../interfaces/Typography';
 import ColorPicker from '../../interfaces/ColorPicker';
+import Padding from '../../interfaces/Padding';
 
 import { Icon } from '../../style/styledComponents';
 import { Banner, Field } from '../../style/styledComponentsFields';
@@ -70,6 +71,7 @@ class TextMarkdown extends Component {
     getMarkdown = () => this.props.content.html && this.props.content.html[this.props.indexLanguage] ? this.props.content.html[this.props.indexLanguage] : '';
 
     updateTypography = (property, value) => this.props.updateSettingsProperty('typography', property, value);
+    updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
 
     render () {
         const { indexLanguage, name } = this.props;
@@ -141,6 +143,17 @@ class TextMarkdown extends Component {
                                             storeValueText={this.props.getStoreSettingsByProperty('typography','text')}
                                             updateStateProps={this.updateTypography}
                                             currentMode={this.props.currentResponsiveMode}
+                                />
+                            </Column>
+                        </Choices>
+                        <Choices>
+                            <Column/>
+                            <Column>
+                                <Padding hidden={false}
+                                         padding={this.props.getSettingsByProperty('basis', 'padding')}
+                                         storeValuePadding={this.props.getStoreSettingsByProperty('basis', 'padding')}
+                                         defaultPadding={this.props.getDefaultSettingsByProperty('basis', 'padding')}
+                                         updateStateProps={this.updateBasis}
                                 />
                             </Column>
                         </Choices>

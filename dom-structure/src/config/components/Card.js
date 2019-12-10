@@ -75,6 +75,32 @@ export default {
             settings: {
                 responsive: ['M', 'T', 'D'],
                 defaultValue: {
+                    basis: {
+                        M: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        },
+                        T: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        },
+                        D: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        }
+                    },
                     typography: {
                         M: {
                             font: {
@@ -176,10 +202,36 @@ export default {
             settings: {
                 responsive: ['M', 'T', 'D'],
                 defaultValue: {
+                    basis: {
+                        M: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        },
+                        T: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        },
+                        D: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        }
+                    },
                     typography: {
                         M: {
                             font: {
-                                theme: 'Title2',
+                                theme: 'Title4',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -205,7 +257,7 @@ export default {
                         },
                         T: {
                             font: {
-                                theme: 'Title2',
+                                theme: 'Title4',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -231,7 +283,7 @@ export default {
                         },
                         D: {
                             font: {
-                                theme: 'Title2',
+                                theme: 'Title4',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -275,10 +327,88 @@ export default {
                 }
             },
             settings: {
-                responsive: ['A'],
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
+                    basis: {
+                        M: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        },
+                        T: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        },
+                        D: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        }
+                    },
                     typography: {
-                        A: {
+                        M: {
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'left',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        T: {
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'left',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        D: {
                             font: {
                                 theme: 'Paragraph',
                                 family: null,

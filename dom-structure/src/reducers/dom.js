@@ -72,6 +72,12 @@ const dom = (state = [], action) => {
                 [action.index + 1]: {$set: moveDown}
             });
 
+        case 'DUPLICATE_COMPONENT':
+            const duplicated = state[action.index];
+            return [
+                ...state.splice(action.index, 0, duplicated)
+            ];
+
         case 'ADD_COMPONENT':
             console.log('action compoenent', action.component)
             return update(state, {

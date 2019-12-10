@@ -11,9 +11,6 @@ export const ChoiceItemsConfirm = styled(ChoiceConfirm)`
 export const Content = styled.div`
    
 `;
-export const Settings = styled.div`
-   
-`;
 
 
 export const Row = styled.div`
@@ -61,5 +58,12 @@ export const Choices = styled.div`
     &:nth-child(2){
         width :75%;
     }
+   }
+`;
+
+
+export const Settings = styled.div`
+   & ${Choices}:nth-child(2){
+    border-top : 1px solid ${ extensionTheme.grey20 };
    }
 `;
