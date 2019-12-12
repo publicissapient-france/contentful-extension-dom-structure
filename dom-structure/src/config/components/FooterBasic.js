@@ -1,242 +1,124 @@
 export default {
-    model: 'NavigationBasic',
+    model: 'FooterBasic',
     fields: [
         {
-            name: 'Navigation Bar',
-            nameProperty: 'Bar',
-            typeField: 'NavigationBar',
+            name: 'Template',
+            nameProperty: 'Template',
+            typeField: 'Template',
             content: {
                 responsive: ['A'],
                 parameters: {},
                 defaultValue: {
+                    images: [
+                        {
+                            alt: {},
+                            asset: {
+                                A: {}
+                            }
+                        }
+                    ]
                 }
             },
             settings: {
-                responsive : ['M', 'T', 'D'],
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
                     basis: {
                         M: {
                             size: {
-                                basic : {
-                                    width: '100%',
-                                    height: '50',
-                                    maxWidth: '',
-                                    maxHeight: '',
-                                    minWidth: '',
-                                    minHeight: ''
-                                },
-                                scroll : {
-                                    width: '100%',
-                                    height: '50',
-                                    maxWidth: '',
-                                    maxHeight: '',
-                                    minWidth: '',
-                                    minHeight: ''
-                                }
+                                width: '',
+                                height: 'auto',
+                                maxWidth: '',
+                                maxHeight: '',
+                                minWidth: '',
+                                minHeight: '400'
 
                             },
                             padding: {
-                                basic : {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                },
-                                scroll : {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                }
-
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             },
                             margin: {
-                                basic : {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                },
-                                scroll : {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                }
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             },
                             color: {
-                                basic : {
-                                    hex: '#303030',
-                                    rgb: '48,48,48',
-                                    name: 'Grey-90',
-                                    shade: null
-                                },
-                                scroll : {
-                                    hex: '#303030',
-                                    rgb: '48,48,48',
-                                    name: 'Grey-90',
-                                    shade: null
-                                }
-
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
                             },
                             opacity: {
-                                basic : {
-                                    value: '1'
-                                },
-                                scroll : {
-                                    value: '1'
-                                }
-
+                                value: '1'
                             }
                         },
                         T: {
                             size: {
-                                basic : {
-                                    width: '100%',
-                                    height: '60',
-                                    maxWidth: '',
-                                    maxHeight: '',
-                                    minWidth: '',
-                                    minHeight: ''
-                                },
-                                scroll : {
-                                    width: '100%',
-                                    height: '60',
-                                    maxWidth: '',
-                                    maxHeight: '',
-                                    minWidth: '',
-                                    minHeight: ''
-                                }
+                                width: '',
+                                height: 'auto',
+                                maxWidth: '',
+                                maxHeight: '',
+                                minWidth: '',
+                                minHeight: '400'
 
                             },
                             padding: {
-                                basic : {
-                                    top: '30',
-                                    right: '0',
-                                    bottom: '30',
-                                    left: '0'
-                                },
-                                scroll : {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                }
-
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             },
                             margin: {
-                                basic : {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                },
-                                scroll : {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                }
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             },
                             color: {
-                                basic : {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                },
-                                scroll : {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
-                                    shade: null
-                                }
-
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
                             },
                             opacity: {
-                                basic : {
-                                    value: '1'
-                                },
-                                scroll : {
-                                    value: '0.3'
-                                }
-
+                                value: '1'
                             }
                         },
                         D: {
                             size: {
-                                basic : {
-                                    width: '100%',
-                                    height: '60',
-                                    maxWidth: '',
-                                    maxHeight: '',
-                                    minWidth: '',
-                                    minHeight: ''
-                                },
-                                scroll : {
-                                    width: '100%',
-                                    height: '50',
-                                    maxWidth: '',
-                                    maxHeight: '',
-                                    minWidth: '',
-                                    minHeight: ''
-                                }
+                                width: '',
+                                height: 'auto',
+                                maxWidth: '',
+                                maxHeight: '',
+                                minWidth: '',
+                                minHeight: '400'
 
                             },
                             padding: {
-                                basic : {
-                                    top: '30',
-                                    right: '0',
-                                    bottom: '30',
-                                    left: '0'
-                                },
-                                scroll : {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                }
-
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             },
                             margin: {
-                                basic : {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                },
-                                scroll : {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                }
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             },
                             color: {
-                                basic : {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                },
-                                scroll : {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
-                                    shade: null
-                                }
-
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
                             },
                             opacity: {
-                                basic : {
-                                    value: '1'
-                                },
-                                scroll : {
-                                    value: '0.3'
-                                }
-
+                                value: '1'
                             }
-                        },
+                        }
                     }
                 }
             }

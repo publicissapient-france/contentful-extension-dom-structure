@@ -104,7 +104,7 @@ export default {
                                 gutterVertical : '20',
                                 direction : 'flex',
                                 wrap : 'wrap',
-                                justify : 'space-between',
+                                justify : 'center',
                                 alignItems : 'stretch',
                                 alignContent : 'flex-start'
                             }
@@ -116,7 +116,7 @@ export default {
                                 gutterVertical : '20',
                                 direction : 'flex',
                                 wrap : 'wrap',
-                                justify : 'space-between',
+                                justify : 'center',
                                 alignItems : 'stretch',
                                 alignContent : 'flex-start'
                             }

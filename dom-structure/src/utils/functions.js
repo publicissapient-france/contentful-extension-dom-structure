@@ -43,6 +43,11 @@ const filterActiveFields = dom => {
             });
             return component;
         });
+        _.mapKeys(section.fields, (value, key) => {
+            if (!value.active) {
+                _.unset(section.fields, key);
+            }
+        });
         return section;
     });
 };

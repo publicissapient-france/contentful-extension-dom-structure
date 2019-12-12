@@ -126,10 +126,7 @@ class NavigationLinks extends Component {
                         <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
                                           currentMode={this.props.currentResponsiveMode}
                                           action={this.props.setResponsiveMode}/>
-                        <Icon className={this.props.openContent ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleContent();
-                              }}><SvgContent/></Icon>
+
                         <Icon className={this.props.openSettings ? 'active' : ''}
                               onClick={() => {
                                   this.props.toggleSettings();

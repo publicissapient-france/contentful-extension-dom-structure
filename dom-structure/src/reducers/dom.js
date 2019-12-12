@@ -72,11 +72,6 @@ const dom = (state = [], action) => {
                 [action.index + 1]: {$set: moveDown}
             });
 
-        case 'DUPLICATE_COMPONENT':
-            const duplicated = state[action.index];
-            return [
-                ...state.splice(action.index, 0, duplicated)
-            ];
 
         case 'ADD_COMPONENT':
             console.log('action compoenent', action.component)
@@ -161,6 +156,24 @@ const dom = (state = [], action) => {
                 }
             });
 
+
+        case 'DUPLICATE_COMPONENT':
+            console.log('ACTION DUPLICATED', action)
+            console.log('ACTION DUPLICATED', state)
+            const duplicatedComponent = Object.assign({}, state[action.indexParent].components[action.index]) ;
+            console.log('DUPLICATED', duplicatedComponent)
+            return update(state, {
+                [action.indexParent]: {
+                    components: {
+                        $push: [
+
+                            duplicatedComponent
+                        ]
+                    }
+                }
+            });
+
+
         case 'UPDATE_CONTENT_VALUE':
             return update(state, {
                 [action.indexSection]: {
@@ -219,8 +232,8 @@ const dom = (state = [], action) => {
 
             const newFieldSection = {
                 active: false,
-                content: {},
-                settings: {}
+                content: action.content,
+                settings: action.settings
             };
             return update(state, {
                 [action.indexSection]: {

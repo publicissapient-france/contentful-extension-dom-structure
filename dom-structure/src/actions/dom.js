@@ -55,10 +55,6 @@ export const moveSectionToDown = number => ({
     index: number
 });
 
-export const duplicateComponent = number => ({
-    type: 'DUPLICATE_COMPONENT',
-    index: number
-});
 
 // COMPONENT
 
@@ -91,8 +87,16 @@ export const moveComponentToTop = (number, numberParent) => ({
     indexParent: numberParent
 });
 
+
 export const moveComponentToDown = (number, numberParent) => ({
     type: 'MOVE_COMPONENT_TO_DOWN',
+    index: number,
+    indexParent: numberParent
+});
+
+
+export const duplicateComponent = (number, numberParent) => ({
+    type: 'DUPLICATE_COMPONENT',
     index: number,
     indexParent: numberParent
 });
@@ -133,10 +137,12 @@ export const initField = (nameProperty, number, numberParent) => ({
     indexComponent: number,
     indexSection: numberParent
 });
-export const initFieldOfSection = (nameProperty, number) => ({
+export const initFieldOfSection = (nameProperty, number, content, settings) => ({
     type: 'INIT_FIELD_SECTION',
     nameProperty: nameProperty,
-    indexSection: number
+    indexSection: number,
+    content : content,
+    settings : settings
 });
 
 export const toggleFieldActive = (type, bool, number, numberParent) => ({

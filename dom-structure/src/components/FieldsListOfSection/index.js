@@ -6,13 +6,17 @@ import { FlexContainerForSection } from '../../fields/FlexContainer/index';
 import { SelectSpeakersForSection } from '../../fields/SelectSpeakers/index';
 
 class FieldsListOfSection extends Component {
+
     render () {
         const { fields, index, triggerOpening } = this.props;
+
         return (
             <FieldContainer>
 
                 {
                     fields.map((field, i) => {
+                        console.log('XXXX field.settings.defaultValue', field.settings.defaultValue)
+
                         const params = {
                             indexSection: index,
                             name: field.name,

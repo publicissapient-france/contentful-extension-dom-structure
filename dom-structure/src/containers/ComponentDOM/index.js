@@ -39,7 +39,10 @@ import {
     moveComponentToDown,
     removeComponent,
     updateComponent,
-    toggleComponentActive
+    toggleComponentActive,
+    duplicateComponent
+
+
 } from '../../actions/index';
 import update from 'react-addons-update';
 import PropTypes from 'prop-types';
@@ -216,6 +219,8 @@ class ComponentDOM extends Component {
                         </Range>
                         <Icon className={['trash', this.state.openSafeDelete ? 'active' : '']}
                               onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
+                        <Icon
+                              onClick={() => dispatch(duplicateComponent(index, indexParent))}>DUP</Icon>
                     </Actions>
 
                 </TopBar>

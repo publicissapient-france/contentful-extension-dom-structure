@@ -41,6 +41,9 @@ const FieldWrapperOfSection = WrappedComponent => {
                     storeContent: FieldOnStore.content,
                     storeSettings: FieldOnStore.settings,
                 }, () => {
+                    console.log('FIELDS WRAPPER SECTION NAME', this.props.name)
+                    console.log('FIELDS WRAPPER SECTION SETTINGS ', this.state.settings)
+                    console.log('FIELDS WRAPPER DEFAULT SETTINGS ', this.props.defaultContent)
                     this.initResponsiveMode();
                     if (isEmpty(this.state.settings)) this.initSettings(this.props.defaultSettings);
                     if (isEmpty(this.state.content)) this.initContent(this.props.defaultContent);
@@ -70,7 +73,8 @@ const FieldWrapperOfSection = WrappedComponent => {
         }
 
         initField = () => {
-            this.props.dispatch(initFieldOfSection(this.props.nameProperty, this.props.indexSection));
+            this.props.dispatch(initFieldOfSection(this.props.nameProperty, this.props.indexSection,this.props.defaultContent, this.props.defaultSettings));
+
         }
 
         initResponsiveMode = () => {
@@ -86,6 +90,8 @@ const FieldWrapperOfSection = WrappedComponent => {
             });
         }
         initSettings = initialValue => {
+            console.log('INITAL VALUE ON NAME', this.props.name)
+            console.log('INITAL VALUE ON INITSETTINGS', initialValue)
             this.setState({
                 settings: initialValue
             }, () => {

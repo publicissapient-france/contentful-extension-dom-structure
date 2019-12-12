@@ -19,10 +19,9 @@ class Size extends Component {
 
     componentDidUpdate = prevProps => {
         if (this.props.size !== prevProps.size) {
-            this.setState(prevState => ({
-                ...prevState,
+            this.setState({
                 size: this.props.size
-            }));
+            });
         }
     }
 
