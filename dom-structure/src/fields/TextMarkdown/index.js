@@ -33,7 +33,7 @@ class TextMarkdown extends Component {
     }
 
     componentDidUpdate (prevProps, prevState) {
-        if (this.props.settings && this.props.getSettingsByProperty('typography','font') && this.props.settings !== prevProps.settings) {
+        if (this.props.settings && this.props.getSettingsByProperty('typography','font')) {
             if (!Object.values(this.props.settings.typography)[0].font.family && this.props.themes) {
                 this.initFont();
             }

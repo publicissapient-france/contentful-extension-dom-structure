@@ -531,23 +531,26 @@ export default {
             settings: {
                 responsive: ['A'],
                 defaultValue: {
-                    target: {
-                        external: false
+                    state: {
+                        external: false,
+                        disabled : false
                     },
                     basis: {
                         A: {
                             size: {
-                                width: '130',
+                                width: '',
                                 height: '40',
                                 maxWidth: '',
-                                maxHeight: ''
+                                maxHeight: '',
+                                minWidth: '100',
+                                minHeight: ''
 
                             },
                             padding: {
                                 top: '0',
-                                right: '0',
+                                right: '20',
                                 bottom: '0',
-                                left: '0'
+                                left: '20'
                             },
                             margin: {
                                 top: '0',
@@ -556,19 +559,28 @@ export default {
                                 left: '0'
                             },
                             alignment: {
-                                horizontal: 'flex-start'
+                                horizontal: 'center'
+                            },
+                            shadow: {
+                                value: 'none'
                             },
                             color: {
                                 basic: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
+                                    hex: '#FFFFFF',
+                                    rgb: '255,255,255',
+                                    name: 'White',
                                     shade: null
                                 },
                                 hover: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
+                                    hex: '#FFFFFF',
+                                    rgb: '255,255,255',
+                                    name: 'White',
+                                    shade: null
+                                },
+                                disabled: {
+                                    hex: '#FFFFFF',
+                                    rgb: '255,255,255',
+                                    name: 'White',
                                     shade: null
                                 }
                             },
@@ -578,6 +590,9 @@ export default {
                                 },
                                 hover: {
                                     value: '1'
+                                },
+                                disabled: {
+                                    value: '0.7'
                                 }
                             }
                         }
@@ -601,15 +616,21 @@ export default {
                             },
                             color: {
                                 basic: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
-                                    shade: null
+                                    hex: '#4C4C4C',
+                                    rgb: '76,76,76',
+                                    name: 'Grey',
+                                    shade: '80'
                                 },
                                 hover: {
                                     hex: '#000000',
                                     rgb: '0,0,0',
                                     name: 'black',
+                                    shade: null
+                                },
+                                disabled: {
+                                    hex: '#FFFFFF',
+                                    rgb: '255,255,255',
+                                    name: 'White',
                                     shade: null
                                 }
                             },
@@ -619,6 +640,9 @@ export default {
                                 },
                                 hover: {
                                     value: '1'
+                                },
+                                disabled: {
+                                    value: '0.5'
                                 }
                             }
                         }
@@ -640,15 +664,21 @@ export default {
                             },
                             color: {
                                 basic: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
-                                    shade: null
+                                    hex: '#4C4C4C',
+                                    rgb: '76,76,76',
+                                    name: 'Grey',
+                                    shade: '80'
                                 },
                                 hover: {
                                     hex: '#000000',
                                     rgb: '0,0,0',
                                     name: 'black',
+                                    shade: null
+                                },
+                                disabled: {
+                                    hex: '#FFFFFF',
+                                    rgb: '255,255,255',
+                                    name: 'White',
                                     shade: null
                                 }
                             },
@@ -658,6 +688,9 @@ export default {
                                 },
                                 hover: {
                                     value: '1'
+                                },
+                                disabled: {
+                                    value: '0.5'
                                 }
                             }
 
@@ -666,28 +699,34 @@ export default {
                     border: {
                         A: {
                             width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
+                                top: '2',
+                                right: '2',
+                                bottom: '2',
+                                left: '2'
                             },
                             radius: {
-                                topLeft: '0',
-                                topRight: '0',
-                                bottomLeft: '0',
-                                bottomRight: '0'
+                                topLeft: '8',
+                                topRight: '8',
+                                bottomLeft: '8',
+                                bottomRight: '8'
                             },
                             color: {
                                 basic: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
+                                    hex: '#FFFFFF',
+                                    rgb: '255,255,255',
+                                    name: 'White',
                                     shade: null
                                 },
                                 hover: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
+                                    hex: '#FFFFFF',
+                                    rgb: '255,255,255',
+                                    name: 'White',
+                                    shade: null
+                                },
+                                disabled: {
+                                    hex: '#FFFFFF',
+                                    rgb: '255,255,255',
+                                    name: 'White',
                                     shade: null
                                 }
                             },
@@ -697,6 +736,9 @@ export default {
                                 },
                                 hover: {
                                     value: '1'
+                                },
+                                disabled: {
+                                    value: '0.3'
                                 }
                             }
                         }

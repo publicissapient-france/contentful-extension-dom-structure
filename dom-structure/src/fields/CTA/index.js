@@ -25,6 +25,7 @@ import Radius from '../../interfaces/Radius';
 import BorderWidth from '../../interfaces/BorderWidth';
 import Alignment from '../../interfaces/Alignment';
 import IconTypography from '../../interfaces/IconTypography';
+import Shadow from '../../interfaces/Shadow';
 
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
@@ -52,7 +53,7 @@ class CTA extends Component {
             openColorViewIcon: false,
             openPreview: false,
             openPreviewIcon: false,
-            events: ['basic', 'hover'],
+            events: ['basic', 'hover', 'disabled'],
             currentEvent: 'basic'
         };
     }
@@ -102,7 +103,8 @@ class CTA extends Component {
     getText = () => this.props.content.text && this.props.content.text[this.props.indexLanguage] ? this.props.content.text[this.props.indexLanguage] : '';
     getIcon = () => this.props.content.icon && this.props.content.icon[this.props.indexLanguage] ? this.props.content.icon[this.props.indexLanguage] : '';
     getLink = () => this.props.content.link && this.props.content.link[this.props.indexLanguage] ? this.props.content.link[this.props.indexLanguage] : '';
-    getTarget = () => this.props.getSettingsPropertyNoResponsive('target') ? this.props.getSettingsPropertyNoResponsive('target').external : false;
+    getExternal = () => this.props.getSettingsPropertyNoResponsive('state') ? this.props.getSettingsPropertyNoResponsive('state').external : false;
+    getDisabled = () => this.props.getSettingsPropertyNoResponsive('state') ? this.props.getSettingsPropertyNoResponsive('state').disabled : false;
 
     updateTypography = (property, value, event) => this.props.updateSettingsProperty('typography', property, value, event);
     updateBasis = (property, value, event) => this.props.updateSettingsProperty('basis', property, value, event);
@@ -151,13 +153,23 @@ class CTA extends Component {
                             <Column>
                                 <LinkSettings>
                                     <label>Link</label>
-                                    <label>
-                                        <input type={'checkbox'} defaultChecked={this.getTarget()}
-                                               onChange={(e) => {
-                                                   this.props.updateSettingsNoResponsive('target', {external: !this.getTarget()})
-                                               }}/>
-                                        external</label>
+                                    <div>
+                                        <label>
+                                            <input type={'checkbox'} defaultChecked={this.getExternal()}
+                                                   onChange={(e) => {
+                                                       this.props.updateSettingsNoResponsive('state', {external: !this.getExternal()})
+                                                   }}/>
+                                            external</label>
+                                        <label>
+                                            <input type={'checkbox'} defaultChecked={this.getDisabled()}
+                                                   onChange={(e) => {
+                                                       this.props.updateSettingsNoResponsive('state', {disabled: !this.getDisabled()})
+                                                   }}/>
+                                            disabled</label>
+                                    </div>
+
                                 </LinkSettings>
+
                                 <InputText action={this.props.updateTranlatedContent} targetProperty={'link'}
                                            defaultValue={this.getLink()}/>
                             </Column>
@@ -266,6 +278,13 @@ class CTA extends Component {
                                     <Alignment alignment={this.props.getSettingsByProperty('basis', 'alignment')}
                                                storeValueAlignment={this.props.getStoreSettingsByProperty('basis', 'alignment')}
                                                defaultAlignment={this.props.getDefaultSettingsByProperty('basis', 'alignment')}
+                                               updateStateProps={this.updateBasis}/>
+
+                                </Row>
+                                <Row>
+                                    <Shadow shadow={this.props.getSettingsByProperty('basis', 'shadow')}
+                                               storeValueAlignment={this.props.getStoreSettingsByProperty('basis', 'shadow')}
+                                               defaultAlignment={this.props.getDefaultSettingsByProperty('basis', 'shadow')}
                                                updateStateProps={this.updateBasis}/>
 
                                 </Row>

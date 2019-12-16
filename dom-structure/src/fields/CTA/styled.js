@@ -35,15 +35,18 @@ export const LinkSettings = styled.div`
    display : flex;
    justify-content : space-between;
    
-   &>label:nth-child(2){
+   &>div{
     display : flex;
-    width : auto;
-    &>input[type=checkbox]{
-        width : 20px;
-         height: 20px;
-        margin-right : 5px;
-        align-self : center;
-    }
+    flex-direction : column;
+    & label{
+       display : flex;
+        & input[type=checkbox]{
+            width : 20px;
+            height: 20px;
+            margin-right : 5px;
+            align-self : center;
+        }
+       }
    }
 `;
 
@@ -105,8 +108,8 @@ export const ChoicesCustom = styled(Choices)`
         
         & ${Row}{
             flex-direction : row;
-            
-            &:nth-child(3){
+           
+            &:nth-child(4){
                 border-bottom-width : 0px;
             }
             
@@ -168,6 +171,7 @@ export const Settings = styled.div`
            flex-direction : row; 
         }
     }
+    
    }
    
    & ${Choices}:nth-child(1){

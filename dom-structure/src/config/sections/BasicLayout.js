@@ -9,6 +9,14 @@ export default {
                 responsive: ['A'],
                 parameters: {},
                 defaultValue: {
+                    images: [
+                        {
+                            alt: {},
+                            asset: {
+                                A: {}
+                            }
+                        }
+                    ]
                 }
             },
             settings: {
@@ -18,9 +26,9 @@ export default {
                         M: {
                             padding: {
                                 top: '0',
-                                right: '0',
+                                right: '20',
                                 bottom: '0',
-                                left: '0'
+                                left: '20'
                             },
                             color: {
                                 hex: '#000000',
@@ -35,9 +43,9 @@ export default {
                         T: {
                             padding: {
                                 top: '0',
-                                right: '0',
+                                right: '20',
                                 bottom: '0',
-                                left: '0'
+                                left: '20'
                             },
                             color: {
                                 hex: '#000000',
@@ -52,9 +60,9 @@ export default {
                         D: {
                             padding: {
                                 top: '0',
-                                right: '0',
+                                right: '20',
                                 bottom: '0',
-                                left: '0'
+                                left: '20'
                             },
                             color: {
                                 hex: '#000000',
