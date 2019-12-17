@@ -21,14 +21,11 @@ class ImageUploader extends Component {
 
     componentDidMount () {
         if (this.props.asset ) {
-            console.log('ASSET ON MOUNT', this.props.asset)
-           // this.setSelectedAsset(this.props.asset);
         }
     };
 
     componentDidUpdate (prevProps) {
         if (this.props.asset !== prevProps.asset) {
-            console.log('ASSET ON MOUNT', this.props.asset)
 
             if (this.props.asset && this.props.asset.id) {
                 this.setState({
@@ -82,11 +79,7 @@ class ImageUploader extends Component {
         if (!asset) {
             this.removeSelectedAsset();
         }
-        console.log('SELECTEDASSET', asset);
-        console.log('SELECTEDASSET URL', asset.fields.file[this.findProperLocale()].url);
         const url = asset.fields.file[this.findProperLocale()].url;
-        console.log('SELECTEDASSET FILENAME',url.substring(url.lastIndexOf('/')+1));
-        //console.log('SELECTEDASSET URL', asset.fields.file[Object.keys(file)[0]].url);
 
         this.setState({
             ...this.state,

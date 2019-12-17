@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+
 import {getCurrentStyle} from '../../actions';
 
 import FieldWrapper from '../../HOC/FieldWrapper';
@@ -110,6 +111,7 @@ class Text extends Component {
                         <InputText action={this.props.updateTranlatedContent} targetProperty={'text'}
                                    defaultValue={this.getText()}/>
                     </Content>
+
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>
                             <Column className={this.state.openPreview || this.state.openColorView ? 'full-width' : ''}>

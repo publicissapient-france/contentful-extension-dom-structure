@@ -1,6 +1,31 @@
 import React from 'react';
 
 const SvgSpec = () => {
+    return  <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
+	 viewBox="0 0 40 40" enable-background="new 0 0 40 40" width="40" height="40">
+<g>
+	<g>
+		<g>
+			<rect x="16.7" y="21" fill="#C4CDD3" width="2" height="1"/>
+			<rect x="19.7" y="26" fill="#C4CDD3" width="2" height="1"/>
+			<rect x="19.7" y="21" fill="#C4CDD3" width="2" height="1"/>
+			<rect x="16.7" y="26" fill="#C4CDD3" width="2" height="1"/>
+			<rect x="13.7" y="21" fill="#C4CDD3" width="2" height="1"/>
+			<rect x="13.8" y="26" fill="#C4CDD3" width="2" height="1"/>
+			<path fill="#C4CDD3" d="M29.2,23.6l1-0.2c-0.2-0.8-0.6-1.5-1.3-1.9l-0.5,0.8C28.8,22.6,29.1,23.1,29.2,23.6z"/>
+			<path fill="#C4CDD3" d="M29.2,24.4c-0.1,0.5-0.4,1-0.9,1.3l0.5,0.8c0.7-0.4,1.1-1.1,1.3-1.9L29.2,24.4z"/>
+			<path fill="#C4CDD3" d="M27.2,26h-1.5v1h1.5c0.2,0,0.4,0,0.5,0l-0.2-1C27.5,26,27.4,26,27.2,26z"/>
+			<path fill="#C4CDD3" d="M27.6,22l0.2-1c-0.2,0-0.3,0-0.5,0h-1.6v1h1.6C27.4,22,27.5,22,27.6,22z"/>
+			<rect x="22.7" y="26" fill="#C4CDD3" width="2" height="1"/>
+			<rect x="22.7" y="21" fill="#C4CDD3" width="2" height="1"/>
+			<rect x="9.8" y="21" fill="#C4CDD3" width="3" height="6"/>
+		</g>
+		<path fill="#C4CDD3" d="M30.2,16c0-1.7-1.3-3-3-3H11.8h-2v6h2h15.5C28.9,19,30.2,17.7,30.2,16z M27.2,18H12.8v-4h14.5
+			c1.1,0,2,0.9,2,2S28.4,18,27.2,18z"/>
+	</g>
+</g>
+</svg>
+/*
     return <svg version="1.2" baseProfile="tiny" x="0px"
                 y="0px" viewBox="0 0 40 34" width="40px" height="34px">
 
@@ -16,7 +41,7 @@ const SvgSpec = () => {
 			c0.7-0.7,1.6-1,2.6-0.8c0.3-0.5,0.5-1,0.7-1.6h5.5c0.7,0,1.2,0.6,1.2,1.2S30.4,22,29.8,22z"/>
             </g>
         </g>
-    </svg>;
+    </svg>;*/
 };
 
 export default SvgSpec;

@@ -15,7 +15,6 @@ const dom = (state = [], action) => {
                     type: action.section.type,
                     name: action.section.name,
                     model: action.section.model,
-                    settings: action.section.settings,
                     components: action.section.components,
                     active: false,
                     fields: action.section.fields
@@ -27,7 +26,6 @@ const dom = (state = [], action) => {
                     type: action.section.type,
                     name: action.section.name,
                     model: action.section.model,
-                    settings: action.section.settings,
                     components: action.section.components,
                     active: false,
                     fields: action.section.fields
@@ -74,7 +72,6 @@ const dom = (state = [], action) => {
 
 
         case 'ADD_COMPONENT':
-            console.log('action compoenent', action.component)
             return update(state, {
                 [action.index]: {
                     components: {
@@ -132,9 +129,6 @@ const dom = (state = [], action) => {
             const componentToTop = state[action.indexParent].components[action.index];
             const componentToDown = state[action.indexParent].components[action.index - 1];
 
-            console.log('componentToTop', componentToTop);
-            console.log('componentToDown', componentToDown);
-
             return update(state, {
                 [action.indexParent]: {
                     components: {
@@ -158,10 +152,7 @@ const dom = (state = [], action) => {
 
 
         case 'DUPLICATE_COMPONENT':
-            console.log('ACTION DUPLICATED', action)
-            console.log('ACTION DUPLICATED', state)
             const duplicatedComponent = Object.assign({}, state[action.indexParent].components[action.index]) ;
-            console.log('DUPLICATED', duplicatedComponent)
             return update(state, {
                 [action.indexParent]: {
                     components: {
@@ -232,8 +223,8 @@ const dom = (state = [], action) => {
 
             const newFieldSection = {
                 active: false,
-                content: action.content,
-                settings: action.settings
+                content: {},
+                settings: {}
             };
             return update(state, {
                 [action.indexSection]: {
@@ -364,9 +355,7 @@ const dom = (state = [], action) => {
             return action.field;
 
         case 'GET_FIELD_CONFIG':
-            console.log('action GET FIELD CONFIG', action);
             const result = state[action.indexSection].components[action.indexComponent].fields[action.typeField]
-            console.log('result', result)
             return action.field;
 
 

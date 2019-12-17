@@ -15,7 +15,6 @@ class FieldsListOfSection extends Component {
 
                 {
                     fields.map((field, i) => {
-                        console.log('XXXX field.settings.defaultValue', field.settings.defaultValue)
 
                         const params = {
                             indexSection: index,

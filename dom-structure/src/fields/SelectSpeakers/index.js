@@ -133,27 +133,6 @@ class SelectSpeakers extends Component {
             this.props.initSettingsProperty(property, initFont);
         });
     }
-/*
-    initFont = () => {
-        let initFont = this.props.settings.typography;
-
-        new Promise((resolve, reject) => {
-            this.props.responsiveSettings.map(mode => {
-                let selectedTheme = this.getThemeValue(this.props.themes, initFont[mode].font.theme);
-                if (selectedTheme) {
-                    initFont[mode].font.family = selectedTheme.family;
-                    initFont[mode].font.typeface = selectedTheme.typeface;
-                    initFont[mode].font.weight = selectedTheme.weight;
-                    initFont[mode].font.size = selectedTheme.fontsize[mode];
-                    initFont[mode].font.lineHeight = selectedTheme.lineheight[mode];
-                }
-            });
-            resolve();
-        }).then(() => {
-            this.props.initSettingsProperty('typography', initFont);
-        });
-    }*/
-
 
     getThemeValue = (themes, selectedTheme) => {
         if (!themes || !selectedTheme) return;

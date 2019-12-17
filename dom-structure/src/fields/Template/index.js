@@ -35,7 +35,6 @@ class Template extends Component {
     }
 
     componentDidMount() {
-        console.log('PROPS ON TEMPLATE ', this.props);
 
     };
 

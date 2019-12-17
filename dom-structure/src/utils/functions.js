@@ -97,7 +97,6 @@ const getUrlFromContent = (content) => {
             })
         }
     }
-    console.log('on function',urls);
     return urls;
 }
 

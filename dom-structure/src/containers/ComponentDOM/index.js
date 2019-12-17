@@ -6,6 +6,7 @@ import OrderFieldsContent from '../OrderFieldsContent';
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgRange from '../../components/svg/SvgRange';
 import SvgCheck from '../../components/svg/SvgCheck';
+import SvgDuplicate from '../../components/svg/SvgDuplicate';
 import SvgTrash from '../../components/svg/SvgTrash';
 import SvgSpec from '../../components/svg/SvgSpec';
 import FieldsList from '../../components/FieldsList';
@@ -220,7 +221,7 @@ class ComponentDOM extends Component {
                         <Icon className={['trash', this.state.openSafeDelete ? 'active' : '']}
                               onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
                         <Icon
-                              onClick={() => dispatch(duplicateComponent(index, indexParent))}>DUP</Icon>
+                              onClick={() => dispatch(duplicateComponent(index, indexParent))}><SvgDuplicate/></Icon>
                     </Actions>
 
                 </TopBar>

@@ -106,7 +106,6 @@ class Section extends Component {
         this.state.section.model !== this.props.section.model))
 
     getSectionFields = () => {
-        console.log('SECTION FIELDS', sectionConfig[this.props.section.model].default.fields)
         return sectionConfig[this.props.section.model].default.fields;
     }
 

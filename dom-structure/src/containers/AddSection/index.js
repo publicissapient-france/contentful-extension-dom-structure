@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import update from 'react-addons-update';
 import { addSection, addSectionToTop, toggleFormAddSection, toggleFormAddSectionToTop } from '../../actions/index';
 import { Container } from '../../style/styledComponents';
-import { FormSection } from './styled';
+import { FormSection, Information } from './styled';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
 import sectionConfig from '../../config/sections/*.js';
@@ -35,7 +35,7 @@ class AddSection extends Component {
         let fields = {};
         sectionConfig[model].default.fields.map(field => {
             fields[field.nameProperty] = {
-                active: true, content: {}, settings: {}, responsiveSettings: field.settings.responsive, responsiveContent: field.content.responsive };
+                active: true, content: field.content.defaultValue, settings: field.settings.defaultValue, responsiveSettings: field.settings.responsive, responsiveContent: field.content.responsive };
         });
         this.setState(
             {
@@ -94,6 +94,8 @@ class AddSection extends Component {
                         <label>Section Name</label>
                         <input ref={node => (inputName = node)} type={'text'}
                             onChange={e => { this.updateName(e.target.value); }}/>
+                        <Information>
+                            this name will be used to generate the section id.<br/> It may be useful for creating anchors.</Information>
                     </div>
 
                     <div className={'buttons'}>

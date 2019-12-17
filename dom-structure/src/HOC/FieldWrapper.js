@@ -31,9 +31,6 @@ const FieldWrapper = WrappedComponent => {
         componentDidMount() {
             const FieldOnStore = this.getFieldOnStore(this.props);
 
-            console.log('field on store', FieldOnStore);
-            console.log('ALL PROPS', this.props)
-
             if (!FieldOnStore) {
                 this.initField();
             } else {
@@ -85,7 +82,6 @@ const FieldWrapper = WrappedComponent => {
             this.setState({
                 content: initialValue
             }, () => {
-                console.log('init value content', initialValue)
                 this.props.dispatch(updateFieldContent(this.props.nameProperty, this.state.content, this.props.indexComponent, this.props.indexSection));
             });
         }
@@ -93,7 +89,6 @@ const FieldWrapper = WrappedComponent => {
             this.setState({
                 settings: initialValue
             }, () => {
-                console.log('init value settings', initialValue)
                 this.props.dispatch(updateFieldSettings(this.props.nameProperty, this.state.settings, this.props.indexComponent, this.props.indexSection));
             });
         }
