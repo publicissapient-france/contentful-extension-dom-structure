@@ -36,8 +36,9 @@ class App extends React.Component {
 
     componentDidMount = async () => {
         if (this.props.extension.field && this.props.extension.field.getValue()) {
-            this.props.dispatch(initDOM(this.props.extension.field.getValue().dom));
-            this.props.dispatch(initDOMbuild( this.props.extension.field.getValue().build ));
+            console.log('DOM VALUE ON MOUNT', this.props.extension.field.getValue() )
+            this.props.dispatch(initDOM(JSON.parse(this.props.extension.field.getValue().dom)));
+           // this.props.dispatch(initDOMbuild( this.props.extension.field.getValue().build ));
             this.props.dispatch(initExtensionInformation(this.props.extension));
             this.props.dispatch(initVisibility());
         }
@@ -66,7 +67,7 @@ class App extends React.Component {
                 this.setFieldValue();
             }
 
-            if (this.props.extension.field.getValue() && this.props.extension.field.getValue().dom && !isEqual(this.props.dom.sections, this.props.extension.field.getValue().dom)) {
+            if (this.props.extension.field.getValue() && this.props.extension.field.getValue().dom && !isEqual(this.props.dom.sections, JSON.parse(this.props.extension.field.getValue().dom))) {
                 this.setFieldValue();
             }
         }
@@ -84,9 +85,11 @@ class App extends React.Component {
             console.log('staticResources', staticResources)
 
             this.props.extension.field.setValue({
-                dom: this.props.store.getState().dom,
-                build: JSON.stringify(buildDom),
+                dom: JSON.stringify(this.props.store.getState().dom),
+                //build: JSON.stringify(buildDom),
                 staticResources : staticResources.length !== 0 ? staticResources : ['no-static-resources']
+            }).then( () => {
+                console.log('NEW DOM VALUE', this.props.extension.field.getValue() )
             });
         });
 

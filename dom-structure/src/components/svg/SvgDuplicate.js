@@ -2,7 +2,7 @@ import React from 'react';
 
 const SvgDuplicate = () => {
 	return <svg version="1.1" id="Calque_1"  width="40" height="40"
-                viewBox="0 0 40 40" enable-background="new 0 0 40 40">
+                viewBox="0 0 40 40" enableBackground="new 0 0 40 40">
 <g>
 	<g>
 		<polygon fill="#C3CFD5" points="14.3,21.5 14.3,22.5 17.5,22.5 17.5,25.7 18.5,25.7 18.5,22.5 21.7,22.5 21.7,21.5 18.5,21.5

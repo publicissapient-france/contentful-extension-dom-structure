@@ -2,7 +2,7 @@ import React from 'react';
 
 const SvgSpec = () => {
     return  <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
-	 viewBox="0 0 40 40" enable-background="new 0 0 40 40" width="40" height="40">
+	 viewBox="0 0 40 40" enableBackground="new 0 0 40 40" width="40" height="40">
 <g>
 	<g>
 		<g>

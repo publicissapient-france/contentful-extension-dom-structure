@@ -51,7 +51,7 @@ class Shadow extends Component {
                             <Dot enabled={!isEqual(defaultShadow, shadow)}/>
                             <input type={'text'}
                                    value={shadow.value}
-                                   className={hasNotSamePropertyValue(storeValueShadow, shadow, 'value' ? 'updated' : '')}
+                                   className={hasNotSamePropertyValue(storeValueShadow, shadow, 'value') ? 'updated' : ''}
                                    onChange={e => { this.updateShadow('value', e.target.value)
 
                                    }}/>

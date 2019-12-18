@@ -36,7 +36,6 @@ class InputIcon extends Component {
 
             <input type={'text'}
                    value={defaultValue}
-                   disabled
                    onChange={e => {
                        action(e.target.value, targetProperty);
                    }}/>
