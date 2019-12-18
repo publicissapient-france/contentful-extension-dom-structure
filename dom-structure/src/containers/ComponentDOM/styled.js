@@ -75,7 +75,30 @@ export const Banner = styled.div`
 `;
 
 export const FormComponent = styled(Form)`
+    flex-wrap : wrap;
+    align-items : space-between;
+`;
+
+export const Column = styled.div`
+  width : calc(50% - 10px);
   padding : 15px;
+  flex-direction : column;
+  box-sizing : border-box;
+  
+  &>div{
+    padding-bottom : 10px;
+    display : flex;
+    flex-direction:column;
+    
+    
+  }
+`;
+
+export const Buttons = styled.div`
+  width : 100%;
+  display : flex;
+  justify-content : flex-end;
+  padding-right : 15px;
 `;
 
 export const Active = styled(CheckBox)`
@@ -111,3 +134,4 @@ export const FieldsContainer = styled.div`
 export const Fields = styled.div`
  
 `;
+

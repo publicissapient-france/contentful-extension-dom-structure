@@ -30,7 +30,7 @@ class ColorsList extends Component {
                                     this.props.action(item);
                                 }}>
                                 <BoxColor
-                                    className={item.name === 'None' ? 'null' : ''}
+                                    className={item.name === 'Transparent' ? 'transparent' : ''}
                                     style={{ background: item.hex }}/>
                                 <NameColor>{item.slug}</NameColor>
                                 <HexColor>{item.hex}</HexColor>

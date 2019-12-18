@@ -2,15 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FieldContainer } from './styled';
 import { TemplateForSection } from '../../fields/Template/index';
+import { FlexContainerForSection } from '../../fields/FlexContainer/index';
+import { SelectSpeakersForSection } from '../../fields/SelectSpeakers/index';
 
 class FieldsListOfSection extends Component {
+
     render () {
         const { fields, index, triggerOpening } = this.props;
+
         return (
             <FieldContainer>
 
                 {
                     fields.map((field, i) => {
+
                         const params = {
                             indexSection: index,
                             name: field.name,
@@ -27,6 +32,12 @@ class FieldsListOfSection extends Component {
                         switch (field.typeField) {
                         case 'Template':
                             return <TemplateForSection {...params}/>;
+
+                        case 'FlexContainer':
+                            return <FlexContainerForSection {...params}/>;
+
+                        case 'SelectSpeakers':
+                            return <SelectSpeakersForSection {...params}/>;
 
                         default :
                             return <div className={'error'}><p>No field <strong>{field.typefield}</strong> matches</p>

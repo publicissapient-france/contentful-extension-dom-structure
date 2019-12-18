@@ -36,8 +36,8 @@ export const View = styled.div`
 
 export const ViewPort = styled.div`
   border :2px dashed #ccc
-  width : 150px;
-  height : 150px;
+  width : 120px;
+  height : 120px;
   display : flex;
   flex-direction : column; 
   align-items : center;

@@ -55,6 +55,7 @@ export const moveSectionToDown = number => ({
     index: number
 });
 
+
 // COMPONENT
 
 export const addComponent = (object, number) => ({
@@ -64,10 +65,11 @@ export const addComponent = (object, number) => ({
 
 });
 
-export const updateComponent = (name, model, number, numberParent) => ({
+export const updateComponent = (name, model, order, number, numberParent) => ({
     type: 'UPDATE_COMPONENT',
     name: name,
     model: model,
+    order : order,
     index: number,
     indexParent: numberParent
 });
@@ -85,8 +87,16 @@ export const moveComponentToTop = (number, numberParent) => ({
     indexParent: numberParent
 });
 
+
 export const moveComponentToDown = (number, numberParent) => ({
     type: 'MOVE_COMPONENT_TO_DOWN',
+    index: number,
+    indexParent: numberParent
+});
+
+
+export const duplicateComponent = (number, numberParent) => ({
+    type: 'DUPLICATE_COMPONENT',
     index: number,
     indexParent: numberParent
 });
@@ -127,10 +137,12 @@ export const initField = (nameProperty, number, numberParent) => ({
     indexComponent: number,
     indexSection: numberParent
 });
-export const initFieldOfSection = (nameProperty, number) => ({
+export const initFieldOfSection = (nameProperty, number, content, settings) => ({
     type: 'INIT_FIELD_SECTION',
     nameProperty: nameProperty,
-    indexSection: number
+    indexSection: number,
+    content : content,
+    settings : settings
 });
 
 export const toggleFieldActive = (type, bool, number, numberParent) => ({
@@ -195,4 +207,20 @@ export const updateFieldSettingsOfSection = (type, settings, number) => ({
 export const getField = (state, indexComponent, indexSection, nameProperty) => ({
     type: 'GET_FIELD',
     field: state.dom[indexSection].components[indexComponent].fields[nameProperty]
+});
+
+export const getFieldConfig = (type, number, numberParent) => ({
+    type: 'GET_FIELD_CONFIG',
+    typeField: type,
+    indexComponent : number,
+    indexSection: numberParent,
+
+});
+
+export const updateOrder = (order, number, numberParent) => ({
+    type: 'UPDATE_ORDER',
+    order: order,
+    indexComponent : number,
+    indexSection: numberParent,
+
 });

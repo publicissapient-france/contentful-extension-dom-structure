@@ -15,7 +15,6 @@ const dom = (state = [], action) => {
                     type: action.section.type,
                     name: action.section.name,
                     model: action.section.model,
-                    settings: action.section.settings,
                     components: action.section.components,
                     active: false,
                     fields: action.section.fields
@@ -27,7 +26,6 @@ const dom = (state = [], action) => {
                     type: action.section.type,
                     name: action.section.name,
                     model: action.section.model,
-                    settings: action.section.settings,
                     components: action.section.components,
                     active: false,
                     fields: action.section.fields
@@ -72,6 +70,7 @@ const dom = (state = [], action) => {
                 [action.index + 1]: {$set: moveDown}
             });
 
+
         case 'ADD_COMPONENT':
             return update(state, {
                 [action.index]: {
@@ -82,7 +81,8 @@ const dom = (state = [], action) => {
                                 name: action.component.name,
                                 model: action.component.model,
                                 active: false,
-                                fields: action.component.fields
+                                fields: action.component.fields,
+                                order: action.component.order
                             }
                         ]
                     }
@@ -95,7 +95,8 @@ const dom = (state = [], action) => {
                     components: {
                         [action.index]: {
                             name: {$set: action.name},
-                            model: {$set: action.model}
+                            model: {$set: action.model},
+                            order: {$set: action.order}
                         }
                     }
                 }
@@ -118,6 +119,7 @@ const dom = (state = [], action) => {
                 [action.indexParent]: {
                     components: {
                         [action.index]: {
+
                             active: {$set: action.active}
                         }
                     }
@@ -147,6 +149,21 @@ const dom = (state = [], action) => {
                     }
                 }
             });
+
+
+        case 'DUPLICATE_COMPONENT':
+            const duplicatedComponent = Object.assign({}, state[action.indexParent].components[action.index]) ;
+            return update(state, {
+                [action.indexParent]: {
+                    components: {
+                        $push: [
+
+                            duplicatedComponent
+                        ]
+                    }
+                }
+            });
+
 
         case 'UPDATE_CONTENT_VALUE':
             return update(state, {
@@ -322,8 +339,25 @@ const dom = (state = [], action) => {
                 }
             });
 
+        case 'UPDATE_ORDER':
+            /*return update(state, {
+                [action.indexSection]: {
+                    components: {
+                        [action.indexComponent]: {
+                            order: {$set: action.order}
+                        }
+                    }
+                }
+            });*/
+            return action.order
+
         case 'GET_FIELD':
             return action.field;
+
+        case 'GET_FIELD_CONFIG':
+            const result = state[action.indexSection].components[action.indexComponent].fields[action.typeField]
+            return action.field;
+
 
         default:
             return state;
