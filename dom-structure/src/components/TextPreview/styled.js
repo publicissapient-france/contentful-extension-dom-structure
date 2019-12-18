@@ -11,6 +11,7 @@ export const TextContainer = styled.div`
     overflow : hidden;
     display : flex;
     border-bottom : 1px solid ${ extensionTheme.grey20 }
+    
 
     &.is-open{
         height : 240px;

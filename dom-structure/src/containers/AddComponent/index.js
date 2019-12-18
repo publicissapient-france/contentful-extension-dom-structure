@@ -15,8 +15,7 @@ class AddComponent extends Component {
 
         this.state = {
             component: {
-                type: 'components',
-                settings: [],
+                type: 'components'
             }
         };
     }
@@ -35,11 +34,13 @@ class AddComponent extends Component {
             fields[field.nameProperty] = {
                 active: true, content: {}, settings: {}, responsiveSettings: field.settings.responsive };
         });
+        let order = componentConfig[model].default.order;
         this.setState(
             {
                 component: update(this.state.component, {
                     model: { $set: model },
-                    fields: { $set: fields }
+                    fields: { $set: fields },
+                    order : { $set :  order }
                 })
             });
     }
@@ -49,8 +50,7 @@ class AddComponent extends Component {
             component: {
                 type: 'component',
                 name: null,
-                model: null,
-                settings: [],
+                model: null
             }
         });
     }

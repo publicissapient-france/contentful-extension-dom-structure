@@ -34,21 +34,21 @@ class Margin extends Component {
                 [prop]: String(value),
             }
         }), () => {
-            this.props.updateStateProps('margin', this.state.margin);
+            this.props.updateStateProps('margin', this.state.margin, this.props.event);
         });
     }
 
     render () {
-        const { margin, storeValueMargin, defaultMargin } = this.props;
+        const { margin, storeValueMargin, defaultMargin, hidden } = this.props;
 
         if (!this.state.margin) return null;
         return (
-            <Container>
+            <Container className={hidden ? 'hidden' : ''}>
                 <Field>
-                    <Dot enabled={!isEqual(defaultMargin, margin)}/>
                     <div>
                         <label>margin</label>
                         <Inputs>
+                            <Dot enabled={!isEqual(defaultMargin, margin)}/>
                             <input
                                 type={'number'}
                                 min={0}

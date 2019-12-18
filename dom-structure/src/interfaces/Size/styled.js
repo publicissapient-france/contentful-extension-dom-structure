@@ -9,17 +9,24 @@ export const Container = styled.div`
 
 export const ContainerFields = styled.div`
   display : flex;
+  flex-wrap : wrap;
   margin-bottom : 5px;
 `;
 
 export const Field = styled.div`
     display : flex;
+    flex-direction : column;
     width : fit-content;
     max-width : 100px;
+    
+    &>label{
+        margin-left : 30px;
+    }
  
     
     &>div{
         width : fit-content;
+        display : flex;
         &>input[type='text']{
             max-width : 70px;
             border-width : 1px;

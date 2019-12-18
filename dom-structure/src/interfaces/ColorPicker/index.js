@@ -48,19 +48,19 @@ class ColorPicker extends Component {
             shade: value.shade
         };
         this.setState({ currentAction: 'view' });
-        this.props.updateStateProps('color', selectedColor);
+        this.props.updateStateProps('color', selectedColor, this.props.event);
     }
 
     updateOpacity = value => {
         const opacity = {
             value: String(value / 100)
         };
-        this.props.updateStateProps('opacity', opacity);
+        this.props.updateStateProps('opacity', opacity, this.props.event);
     }
 
     render () {
-        const { storeValueColor, storeValueOpacity, colors, color, opacity, defaultColor, defaultOpacity, openView, hidden } = this.props;
-        if (!color) return <p>no color defined</p>;
+        const { storeValueColor, storeValueOpacity, colors, color, opacity, defaultColor, defaultOpacity, openView, hidden, customName } = this.props;
+        if (!color) return null;
         if (!colors) {
             return (
                 <FieldsError>
@@ -75,11 +75,11 @@ class ColorPicker extends Component {
         return (
             <ChoiceColor className={[openView ? 'full-width' : '', hidden ? 'hidden' : '']}>
                 <div>
-                    <Property>Color</Property>
+                    <Property>{ customName ? customName : 'Color'}</Property>
                     <Field>
                         <Dot enabled={hasNotSamePropertyValue(defaultColor, color, 'hex')}/>
                         <SelectedColor
-                            className={['active', hasNotSamePropertyValue(storeValueColor, color, 'hex') ? 'updated' : '']}
+                            className={['active', hasNotSamePropertyValue(storeValueColor, color, 'hex') ? 'updated' : '', color.name === 'Transparent' ? 'transparent' : '']}
                             onClick={() => {
                                 this.props.toggleOpenView();
                             }}

@@ -185,6 +185,7 @@ export const Form = styled.form`
   width : 100%;
   justify-content: space-between;
   padding : 15px 0;
+  box-sizing : border-box;
   
   button:not(:first-child){
     margin-left : 10px;

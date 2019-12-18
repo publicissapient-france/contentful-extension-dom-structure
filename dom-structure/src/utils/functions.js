@@ -43,6 +43,11 @@ const filterActiveFields = dom => {
             });
             return component;
         });
+        _.mapKeys(section.fields, (value, key) => {
+            if (!value.active) {
+                _.unset(section.fields, key);
+            }
+        });
         return section;
     });
 };
@@ -78,6 +83,35 @@ const hasNotSamePropertyValue = (defaultValue, currentValue, prop) => {
     return false;
 };
 
+
+const getUrlFromContent = (content) => {
+    let urls = [];
+    if (content && !_.isEmpty(content)) {
+        if(content.images && !_.isEmpty(content.images)){
+            content.images.map( img => {
+                if(img.asset && !_.isEmpty(img.asset)){
+                    _.mapKeys(img.asset, (value, key) => {
+                        urls.push(value.url)
+                    })
+                }
+            })
+        }
+    }
+    return urls;
+}
+
+const extractAssetUrl = ( dom ) => {
+    let urls = [];
+    dom.map(section => {
+            _.mapKeys(section.fields, (value, key) =>  urls = [...urls, ...getUrlFromContent(value.content)]);
+
+        section.components.map(component => {
+            _.mapKeys(component.fields, (value, key) =>  urls = [...urls, ...getUrlFromContent(value.content)]);
+        });
+    });
+    return urls.filter((item, index) => urls.indexOf(item) === index);
+}
+
 export {
     getShadePosition,
     extractActiveValue,
@@ -89,5 +123,6 @@ export {
     arrayToString,
     extractFontValueToCSS,
     sum,
-    hasNotSamePropertyValue
+    hasNotSamePropertyValue,
+    extractAssetUrl
 };

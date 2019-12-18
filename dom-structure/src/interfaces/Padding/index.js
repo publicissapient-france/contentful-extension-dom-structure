@@ -34,21 +34,21 @@ class Padding extends Component {
                 [prop]: String(value),
             }
         }), () => {
-            this.props.updateStateProps('padding', this.state.padding);
+            this.props.updateStateProps('padding', this.state.padding, this.props.event);
         });
     }
 
     render () {
-        const { padding, storeValuePadding, defaultPadding } = this.props;
+        const { padding, storeValuePadding, defaultPadding, hidden } = this.props;
 
         if (!this.state.padding) return null;
         return (
-            <Container>
+            <Container className={hidden ? 'hidden' : ''}>
                 <Field>
-                    <Dot enabled={!isEqual(defaultPadding, padding)}/>
                     <div>
                         <label>padding</label>
                         <Inputs>
+                            <Dot enabled={!isEqual(defaultPadding, padding)}/>
                             <input
                                 type={'number'}
                                 min={0}

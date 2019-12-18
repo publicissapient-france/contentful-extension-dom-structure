@@ -1,5 +1,6 @@
 export default {
     model: 'BlockText',
+    order : ['Title', 'Tagline', 'Content'],
     fields: [
         {
             name: 'Template',
@@ -8,58 +9,44 @@ export default {
             content: {
                 responsive: ['A'],
                 parameters: {},
-                defaultValue: {
-                }
+                defaultValue: {}
             },
             settings: {
                 responsive: ['A'],
                 defaultValue: {
-                    color: {
+                    basis: {
                         A: {
-                            hex: '#000000',
-                            rgb: '0,0,0',
-                            name: 'black',
-                            shade: null
-                        }
-                    },
-                    opacity: {
-                        A: {
-                            value: '1'
+                            size: {
+                                width: '100%',
+                                height: '',
+                                maxWidth: '',
+                                maxHeight: ''
+
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            margin: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         }
                     }
                 }
-                /* responsive : ['M','T','D'],
-                defaultValue: {
-                    color: {
-                        M: {
-                            hex: '#989898',
-                            name: 'Grey',
-                            shade: '50'
-                        },
-                        T: {
-                            hex: '#989898',
-                            name: 'Grey',
-                            shade: '50'
-                        },
-                        D: {
-                            hex: '#989898',
-                            name: 'Grey',
-                            shade: '50'
-                        }
-
-                    },
-                    opacity: {
-                        M: {
-                            value: '1'
-                        },
-                        T: {
-                            value: '1'
-                        },
-                        D: {
-                            value: '1'
-                        }
-                    }
-                } */
             }
 
         },
@@ -75,128 +62,243 @@ export default {
                 }
             },
             settings: {
-                /* responsive : ['A'],
-                defaultValue: {
-                    color: {
-                        A: {
-                            hex: '#FFFFFF',
-                            name: 'white',
-                            shade: null
-                        }
-                    },
-                    opacity: {
-                        A: {
-                            value: '1'
-                        }
-                    },
-                    seo: {
-                        tag: 'h2'
-                    },
-                    font: {
-                        A: {
-                            theme: 'TitleLight',
-                            family: null,
-                            typeface: null,
-                            weight: null,
-                            style: null,
-                            size: null,
-                            lineHeight: null,
-                            letterSpacing: '0'
-                        }
-                    },
-                    text: {
-                        A: {
-                            align: 'center',
-                            transform: null,
-                            decoration: null
-                        }
-                    }
-                } */
                 responsive: ['M', 'T', 'D'],
                 defaultValue: {
-                    color: {
+                    basis: {
                         M: {
-                            hex: '#FFFFFF',
-                            rgb: '255,255,255',
-                            name: 'white',
-                            shade: null
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
                         },
                         T: {
-                            hex: '#FFFFFF',
-                            rgb: '255,255,255',
-                            name: 'white',
-                            shade: null
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
                         },
                         D: {
-                            hex: '#FFFFFF',
-                            rgb: '255,255,255',
-                            name: 'white',
-                            shade: null
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
                         }
-
                     },
-                    opacity: {
+                    typography: {
                         M: {
-                            value: '1'
+                            font: {
+                                theme: 'Title3',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'center',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         },
                         T: {
-                            value: '1'
+                            font: {
+                                theme: 'Title3',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'center',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         },
                         D: {
-                            value: '1'
+                            font: {
+                                theme: 'Title3',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'center',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         }
                     },
                     seo: {
                         tag: 'h2'
-                    },
-                    font: {
+                    }
+                }
+            }
+
+        },
+        {
+            name: 'Tagline',
+            nameProperty: 'Tagline',
+            typeField: 'Text',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                    text: {}
+                }
+            },
+            settings: {
+                responsive: ['M', 'T', 'D'],
+                defaultValue: {
+                    basis: {
                         M: {
-                            theme: 'TitleLight',
-                            family: null,
-                            typeface: null,
-                            weight: null,
-                            style: null,
-                            size: null,
-                            lineHeight: null,
-                            letterSpacing: '0'
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
                         },
                         T: {
-                            theme: 'TitleLight',
-                            family: null,
-                            typeface: null,
-                            weight: null,
-                            style: null,
-                            size: null,
-                            lineHeight: null,
-                            letterSpacing: '0'
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
                         },
                         D: {
-                            theme: 'TitleLight',
-                            family: null,
-                            typeface: null,
-                            weight: null,
-                            style: null,
-                            size: null,
-                            lineHeight: null,
-                            letterSpacing: '0'
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
                         }
                     },
-                    text: {
+                    typography: {
                         M: {
-                            align: 'center',
-                            transform: null,
-                            decoration: null
+                            font: {
+                                theme: 'Title2',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'center',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         },
                         T: {
-                            align: 'center',
-                            transform: null,
-                            decoration: null
+                            font: {
+                                theme: 'Title2',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'center',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         },
                         D: {
-                            align: 'center',
-                            transform: null,
-                            decoration: null
+                            font: {
+                                theme: 'Title2',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'center',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         }
+                    },
+                    seo: {
+                        tag: 'h2'
                     }
                 }
             }
@@ -214,42 +316,117 @@ export default {
                 }
             },
             settings: {
-                 responsive : ['A'],
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
-                    color: {
-                        A: {
-                            hex: '#000000',
-                            name: 'black',
-                            shade: null
+                    basis: {
+                        M: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        },
+                        T: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        },
+                        D: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
                         }
                     },
-                    opacity: {
-                        A: {
-                            value: '1'
-                        }
-                    },
-                    font: {
-                        A: {
-                            theme: 'Paragraph',
-                            family: null,
-                            typeface: null,
-                            weight: null,
-                            style: null,
-                            size: null,
-                            lineHeight: null,
-                            letterSpacing: '0'
-                        }
-                    },
-                    text: {
-                        A: {
-                            align: 'left',
-                            transform: null,
-                            decoration: null
+                    typography: {
+                        M: {
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'left',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        T: {
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'left',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        D: {
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: null,
+                                lineHeight: null,
+                                letterSpacing: '0'
+                            },
+                            text: {
+                                align: 'left',
+                                transform: null,
+                                decoration: null
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         }
                     }
                 }
             }
 
-        }
+        },
     ]
 };

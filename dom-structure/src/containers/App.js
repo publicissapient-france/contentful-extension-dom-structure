@@ -6,6 +6,8 @@ import ButtonAddSection from './AddingSection';
 import Section from './Section/index';
 import AddSection from './AddSection/index';
 import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
+import mapKeys from 'lodash/mapKeys';
 import GlobalStyle from '../style/globalStyle';
 import {
     initDOM,
@@ -17,7 +19,7 @@ import {
     getFontfaces,
     getCurrentStyle, getCurrentDOM
 } from '../actions';
-import { extractActiveValue, arrayToString, extractFontValueToCSS } from '../utils/functions';
+import { extractActiveValue, arrayToString, extractFontValueToCSS, extractAssetUrl, findProp } from '../utils/functions';
 
 class App extends React.Component {
     constructor (props) {
@@ -34,9 +36,9 @@ class App extends React.Component {
 
     componentDidMount = async () => {
         if (this.props.extension.field && this.props.extension.field.getValue()) {
-            console.log('TEST EXTENSION FIELD VALUE', this.props.extension.field.getValue());
-            this.props.dispatch(initDOM(this.props.extension.field.getValue().dom));
-            this.props.dispatch(initDOMbuild(this.props.extension.field.getValue().build));
+            console.log('DOM VALUE ON MOUNT', this.props.extension.field.getValue() )
+            this.props.dispatch(initDOM(JSON.parse(this.props.extension.field.getValue().dom)));
+           // this.props.dispatch(initDOMbuild( this.props.extension.field.getValue().build ));
             this.props.dispatch(initExtensionInformation(this.props.extension));
             this.props.dispatch(initVisibility());
         }
@@ -60,17 +62,13 @@ class App extends React.Component {
 
     componentDidUpdate = prevProps => {
         if (!isEqual(prevProps.dom, this.props.dom)) {
-            console.log('DOM IS UPDATED ON UPDATE');
-            console.log('DOM ', this.props.dom);
 
             if (!this.props.extension.field.getValue()) {
-                console.log('aucune valeur à init');
                 this.setFieldValue();
             }
 
-            if (this.props.extension.field.getValue() && this.props.extension.field.getValue().dom && !isEqual(this.props.dom.sections, this.props.extension.field.getValue().dom)) {
+            if (this.props.extension.field.getValue() && this.props.extension.field.getValue().dom && !isEqual(this.props.dom.sections, JSON.parse(this.props.extension.field.getValue().dom))) {
                 this.setFieldValue();
-                console.log('SET FIELD VALUE CONTENTFUL');
             }
         }
     }
@@ -82,12 +80,22 @@ class App extends React.Component {
 
     setFieldValue = () => {
         this.props.extension.field.removeValue().then(() => {
+            const buildDom = extractActiveValue(this.props.store.getState().dom);
+            const staticResources = extractAssetUrl(buildDom);
+            console.log('staticResources', staticResources)
+
             this.props.extension.field.setValue({
-                dom: this.props.store.getState().dom,
-                build: JSON.stringify(extractActiveValue(this.props.store.getState().dom))
+                dom: JSON.stringify(this.props.store.getState().dom),
+                //build: JSON.stringify(buildDom),
+                staticResources : staticResources.length !== 0 ? staticResources : ['no-static-resources']
+            }).then( () => {
+                console.log('NEW DOM VALUE', this.props.extension.field.getValue() )
             });
         });
+
     }
+
+
 
     getElementById = id => {
         return this.props.extension.space.getEntries({

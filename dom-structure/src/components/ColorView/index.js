@@ -19,7 +19,7 @@ class ColorView extends Component {
         return (<Container className={!display ? 'hidden' : ''}>
             <Property>Color specification</Property>
             <Specification>
-                <BoxColor className={ color.name === 'None' ? 'null' : ''}
+                <BoxColor className={ color.name === 'Transparent' ? 'transparent' : ''}
                     style={{ background: color.hex }}/>
                 <ChoiceColor>
                     <label>Color element</label>

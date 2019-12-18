@@ -25,6 +25,7 @@ class MultipleImages extends Component {
     getAlt = i => this.props.content.images && this.props.content.images[i].alt && this.props.content.images[i].alt[this.props.indexLanguage] ? this.props.content.images[i].alt[this.props.indexLanguage] : '';
 
     getAsset = i => this.props.content.images[i] ? this.props.content.images[i].asset[this.props.currentResponsiveMode] : null;
+    updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
 
     render () {
         const { name } = this.props;
@@ -73,10 +74,10 @@ class MultipleImages extends Component {
                     </Content>
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>
-                            <Size size={this.props.getSettingsProperty('size')}
-                                storeValueSize={this.props.getStoreSettingsProperty('size')}
-                                defaultSize={this.props.getDefaultSettingsProperty('size')}
-                                updateStateProps={this.props.updateSettings}
+                            <Size size={this.props.getSettingsByProperty('basis','size')}
+                                  storeValueSize={this.props.getStoreSettingsByProperty('basis','size')}
+                                  defaultSize={this.props.getDefaultSettingsByProperty('basis','size')}
+                                  updateStateProps={this.updateBasis}
                             />
                         </Choices>
                     </Settings>

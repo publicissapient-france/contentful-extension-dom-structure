@@ -66,7 +66,8 @@ class Typography extends Component {
                 lineHeight: selectedTheme.lineheight[this.props.currentMode]
             }
         }, () => {
-            this.props.updateStateProps('font', this.state.font);
+            this.props.event ? this.props.updateStateProps('font', this.state.font, this.props.event)
+                : this.props.updateStateProps('font', this.state.font);
         });
     }
 
@@ -78,7 +79,8 @@ class Typography extends Component {
                 [prop]: value
             }
         }, () => {
-            this.props.updateStateProps('font', this.state.font);
+            this.props.event ? this.props.updateStateProps('font', this.state.font, this.props.event)
+            : this.props.updateStateProps('font', this.state.font);
         });
     }
     updateTextProp = (prop, value) => {
@@ -89,7 +91,8 @@ class Typography extends Component {
                 [prop]: value
             }
         }, () => {
-            this.props.updateStateProps('text', this.state.text);
+            this.props.event ? this.props.updateStateProps('text', this.state.text, this.props.event)
+            :this.props.updateStateProps('text', this.state.text);
         });
     }
     updateFontTheme = value => {
@@ -101,7 +104,8 @@ class Typography extends Component {
             }
         }, () => {
             this.updateWithTheme();
-            this.props.updateStateProps('font', this.state.font);
+            this.props.event ? this.props.updateStateProps('font', this.state.font, this.props.event)
+            : this.props.updateStateProps('font', this.state.font);
         });
     }
     updateFontFamily = value => {
@@ -113,7 +117,8 @@ class Typography extends Component {
                 typeface: this.state.familyFonts[value][0].typeface
             }
         }, () => {
-            this.props.updateStateProps('font', this.state.font);
+            this.props.event ? this.props.updateStateProps('font', this.state.font, this.props.event)
+            :this.props.updateStateProps('font', this.state.font);
         });
     }
 
@@ -136,7 +141,7 @@ class Typography extends Component {
     getTypeface = (array, key) => array[key].typeface;
 
     render () {
-        const { font, text, storeValueFont, storeValueText, defaultFont, defaultText } = this.props;
+        const { font, text, storeValueFont, storeValueText, defaultFont, defaultText, event } = this.props;
         if (!font || !text) return null;
         return (
             <ChoiceFont>
