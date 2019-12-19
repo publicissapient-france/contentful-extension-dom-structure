@@ -11,7 +11,6 @@ const style = (state = [], action) => {
             .map(font => {
                 return {
                     family: _.values(font.name)[0],
-                    generatedFontName: _.values(font.generatedFontName)[0],
                     style: _.values(font.style)[0],
                     typeface: _.values(font.typeface)[0],
                     weight: _.values(font.weight)[0]

@@ -11,7 +11,6 @@ import mapKeys from 'lodash/mapKeys';
 import GlobalStyle from '../style/globalStyle';
 import {
     initDOM,
-    initDOMbuild,
     initExtensionInformation,
     initVisibility,
     initStyleInformation,
@@ -38,7 +37,6 @@ class App extends React.Component {
         if (this.props.extension.field && this.props.extension.field.getValue()) {
             console.log('DOM VALUE ON MOUNT', this.props.extension.field.getValue() )
             this.props.dispatch(initDOM(JSON.parse(this.props.extension.field.getValue().dom)));
-           // this.props.dispatch(initDOMbuild( this.props.extension.field.getValue().build ));
             this.props.dispatch(initExtensionInformation(this.props.extension));
             this.props.dispatch(initVisibility());
         }
@@ -86,7 +84,6 @@ class App extends React.Component {
 
             this.props.extension.field.setValue({
                 dom: JSON.stringify(this.props.store.getState().dom),
-                //build: JSON.stringify(buildDom),
                 staticResources : staticResources.length !== 0 ? staticResources : ['no-static-resources']
             }).then( () => {
                 console.log('NEW DOM VALUE', this.props.extension.field.getValue() )

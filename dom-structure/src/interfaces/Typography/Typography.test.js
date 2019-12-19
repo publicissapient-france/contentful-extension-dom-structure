@@ -14,13 +14,11 @@ describe('TEST Category Text ', () => {
             fonts: [
                 {
                     family: 'oneFamily',
-                    generatedFontName: 'oneFamily-Regular',
                     typeface: 'sans-serif',
                     weight: [ 'Regular', '400']
                 },
                 {
                     family: 'twoFamily',
-                    generatedFontName: 'twoFamily-Bold',
                     typeface: 'serif',
                     weight: [ 'Bold', '700']
                 }
