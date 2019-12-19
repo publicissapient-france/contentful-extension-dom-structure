@@ -109,7 +109,7 @@ const extractAssetUrl = ( dom ) => {
             _.mapKeys(component.fields, (value, key) =>  urls = [...urls, ...getUrlFromContent(value.content)]);
         });
     });
-    return urls.filter((item, index) => urls.indexOf(item) === index);
+    return urls.filter((item, index) => urls.indexOf(item) === index).filter(( element ) => element !== undefined);
 }
 
 export {
