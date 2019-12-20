@@ -175,7 +175,7 @@ class CTA extends Component {
                             </Column>
                             <Column>
                                 <label>Icon</label>
-                                <InputIcon font={this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] /*this.props.getSettingsByProperty('icon', 'font')*/}
+                                <InputIcon font={ this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null /*this.props.getSettingsByProperty('icon', 'font')*/}
                                            action={this.props.updateTranlatedContent}
                                            targetProperty={'icon'}
                                            defaultValue={this.getIcon()}/>

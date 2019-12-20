@@ -155,7 +155,7 @@ class ComponentDOM extends Component {
 
     isUpdated = () => (this.state.component && (this.state.component.name !== this.props.component.name ||
             this.state.component.model !== this.props.component.model ||
-            !isEqual(this.state.component.order, this.props.component.order)
+            this.state.component.order !==  this.props.component.order
         )
     )
 
@@ -283,7 +283,13 @@ class ComponentDOM extends Component {
                                 disabled={!this.isUpdated()}
                                 action={e => {
                                     e.preventDefault();
-                                    this.setState({component: this.props.component});
+                                    this.setState(prevState => ({
+                                        component: update(prevState.component, {
+                                            name: {$set: this.props.component.name},
+                                            model: {$set: this.props.component.model},
+                                            order: {$set: this.props.component.order}
+                                        })
+                                    }));
                                     inputName.value = component.name;
                                     selectModel.value = component.model;
                                 }}/>

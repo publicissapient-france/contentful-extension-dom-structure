@@ -65,7 +65,6 @@ class IconTypography extends Component {
     }
 
     updateFontFamily = value => {
-        console.log('update family icon ', this.state.familyFonts[value])
         this.setState({
             ...this.state,
             font: {
@@ -186,7 +185,6 @@ IconTypography.protoTypes = {
     }),
     fonts: PropTypes.arrayOf(PropTypes.shape({
         family: PropTypes.string.isRequired,
-        generatedFontName: PropTypes.string.isRequired,
         typeface: PropTypes.string.isRequired,
         weight: PropTypes.arrayOf(PropTypes.string)
     }))

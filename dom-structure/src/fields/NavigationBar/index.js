@@ -37,7 +37,6 @@ class NavigationBar extends Component {
     }
 
     componentDidMount() {
-        console.log('PROPS ON NavigationBar ', this.props);
 
     };
 

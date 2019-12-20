@@ -1,9 +1,3 @@
-export const initDOMbuild = object => ({
-    type: 'INIT_DOM_BUILD',
-    dom: object
-
-});
-
 export const initDOM = object => ({
     type: 'INIT_DOM',
     dom: object

@@ -341,7 +341,6 @@ Typography.protoTypes = {
     }),
     fonts: PropTypes.arrayOf(PropTypes.shape({
         family: PropTypes.string.isRequired,
-        generatedFontName: PropTypes.string.isRequired,
         typeface: PropTypes.string.isRequired,
         weight: PropTypes.arrayOf(PropTypes.string)
     })),
