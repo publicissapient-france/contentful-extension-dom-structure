@@ -65,7 +65,6 @@ class IconTypography extends Component {
     }
 
     updateFontFamily = value => {
-        console.log('update family icon ', this.state.familyFonts[value])
         this.setState({
             ...this.state,
             font: {

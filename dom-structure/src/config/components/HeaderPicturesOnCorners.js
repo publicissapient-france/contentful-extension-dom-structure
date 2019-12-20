@@ -69,7 +69,7 @@ export default {
                     typography: {
                         M: {
                             font: {
-                                theme: 'Title1',
+                                theme: 'Title2',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -84,9 +84,9 @@ export default {
                                 decoration: null
                             },
                             color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
                                 shade: null
                             },
                             opacity: {
@@ -110,9 +110,9 @@ export default {
                                 decoration: null
                             },
                             color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
                                 shade: null
                             },
                             opacity: {
@@ -121,7 +121,7 @@ export default {
                         },
                         D: {
                             font: {
-                                theme: 'Title3',
+                                theme: 'Title2',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -136,9 +136,9 @@ export default {
                                 decoration: null
                             },
                             color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
                                 shade: null
                             },
                             opacity: {
@@ -170,7 +170,7 @@ export default {
                     typography: {
                         M: {
                             font: {
-                                theme: 'Title1',
+                                theme: 'TitleLight',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -185,9 +185,9 @@ export default {
                                 decoration: null
                             },
                             color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
                                 shade: null
                             },
                             opacity: {
@@ -196,7 +196,7 @@ export default {
                         },
                         T: {
                             font: {
-                                theme: 'Title2',
+                                theme: 'TitleLight',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -211,9 +211,9 @@ export default {
                                 decoration: null
                             },
                             color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
                                 shade: null
                             },
                             opacity: {
@@ -222,7 +222,7 @@ export default {
                         },
                         D: {
                             font: {
-                                theme: 'Title3',
+                                theme: 'TitleLight',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -237,9 +237,9 @@ export default {
                                 decoration: null
                             },
                             color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
                                 shade: null
                             },
                             opacity: {
@@ -248,7 +248,7 @@ export default {
                         }
                     },
                     seo: {
-                        tag: 'h2'
+                        tag: 'h3'
                     }
                 }
             }
@@ -273,10 +273,58 @@ export default {
                 }
             },
             settings: {
-                responsive: ['A'],
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
                     basis: {
-                        A: {
+                        M: {
+                            size: {
+                                width: '175',
+                                height: '175',
+                                maxWidth: '',
+                                maxHeight: ''
+
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            margin: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            alignment: {
+                                horizontal: 'center'
+                            }
+                        },
+                        T: {
+                            size: {
+                                width: '150',
+                                height: '150',
+                                maxWidth: '',
+                                maxHeight: ''
+
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            margin: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            alignment: {
+                                horizontal: 'center'
+                            }
+                        },
+                        D: {
                             size: {
                                 width: '100',
                                 height: '100',
@@ -297,7 +345,7 @@ export default {
                                 left: '0'
                             },
                             alignment: {
-                                horizontal: 'flex-start'
+                                horizontal: 'center'
                             }
                         }
                     }

@@ -19,8 +19,8 @@ class InputIcon extends Component {
     render() {
         const {font, action, targetProperty, defaultValue} = this.props;
 
-        if (!font) return null
-        if (!font.family) return <Message>Please choose a font on settings</Message>
+        //if (!font) return null
+        if (!font || !font.family) return <Message>Please choose a font on settings</Message>
         return (<Container>
             <SelectIcon>
                 {
