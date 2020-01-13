@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  aws-cli: circleci/aws-cli@0.1.19
 
 jobs:
   "Build - Dom Structure extension":
@@ -46,21 +48,54 @@ jobs:
           root: .
           paths:
             - dom-structure/build
-            - dom-structure/package-prod
-            - dom-structure/serverless.yml
 
-  "Deploy - Dom Structure extension":
-    docker:
-      # Image built from the Dockerfile in the current repository
-      - image: xebiafrance/contentful-extensions-build-container:v1
+  "Deploy - Dom Structure extension - Master":
+    executor: aws-cli/default
+
+    working_directory: /tmp
+
     steps:
       - attach_workspace:
           at: .
+
+      - aws-cli/setup:
+          aws-region: AWS_DEFAULT_REGION
+
       - run:
-          name: Deploy to AWS S3
-          command: |
-            cd dom-structure/
-            serverless deploy --force -p package-prod -s prod
+         name: Deploy to production bucket
+         command: |
+          aws s3 sync dom-structure/build s3://xebiafr-prod-contentful-extensions-bucket/dom-structure/master
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dom-structure/build
+
+  "Tagging version of Dom Structure extension":
+    executor: aws-cli/default
+
+    working_directory: /tmp
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - aws-cli/setup:
+          aws-region: AWS_DEFAULT_REGION
+
+      - run:
+         name: Deploy to production bucket
+         command: |
+          aws s3api list-objects-v2 --bucket xebiafr-prod-contentful-extensions-bucket --prefix dom-structure --query 'Contents[?contains(Key, `/`)].[Key]' --output text | sed -e 's/.*dom-structure\/\(.*\)\/.*/\1/'
+          aws s3api list-objects-v2 --bucket xebiafr-prod-contentful-extensions-bucket --prefix dom-structure --query 'Contents[?contains(Key, `/`)].[Key]' --output text | sed -e 's/.*dom-structure\/\(.*\)\/.*/\1/' | uniq
+          aws s3api list-objects-v2 --bucket xebiafr-prod-contentful-extensions-bucket --prefix dom-structure --query 'Contents[?contains(Key, `/`)].[Key]' --output text | sed -e 's/.*dom-structure\/\(.*\)\/.*/\1/' | uniq | sort
+          aws s3api list-objects-v2 --bucket xebiafr-prod-contentful-extensions-bucket --prefix dom-structure --query 'Contents[?contains(Key, `/`)].[Key]' --output text | sed -e 's/.*dom-structure\/\(.*\)\/.*/\1/' | uniq | sort | tail -n 2 | head -n 1
+          CURRENT_TAG=$(aws s3api list-objects-v2 --bucket xebiafr-prod-contentful-extensions-bucket --prefix dom-structure --query 'Contents[?contains(Key, `/`)].[Key]' --output text | sed -e 's/.*dom-structure\/\(.*\)\/.*/\1/' | uniq | sort | tail -n 2 | head -n 1)
+          echo $CURRENT_TAG
+          NEXT_TAG=$((CURRENT_TAG + 1))
+          echo $NEXT_TAG
+          aws s3 sync dom-structure/build s3://xebiafr-prod-contentful-extensions-bucket/dom-structure/$NEXT_TAG
+
 
 workflows:
   version: 2
@@ -70,7 +105,14 @@ workflows:
       - "Package Serverless - Dom Structure extension":
           requires:
             - "Build - Dom Structure extension"
-      - "Deploy - Dom Structure extension":
+      - "Deploy - Dom Structure extension - Master":
           context: "Contentful Extensions - AWS Deployment"
           requires:
             - "Package Serverless - Dom Structure extension"
+      - "Tagging approval":
+              type: approval
+              requires:
+               - "Deploy - Dom Structure extension - Master"
+      - "Tagging version of Dom Structure extension":
+              requires:
+               - "Tagging approval"
