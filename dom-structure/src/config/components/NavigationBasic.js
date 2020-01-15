@@ -111,9 +111,9 @@ export default {
                             },
                             padding: {
                                 basic : {
-                                    top: '30',
+                                    top: '0',
                                     right: '0',
-                                    bottom: '30',
+                                    bottom: '0',
                                     left: '0'
                                 },
                                 scroll : {
@@ -185,9 +185,9 @@ export default {
                             },
                             padding: {
                                 basic : {
-                                    top: '30',
+                                    top: '0',
                                     right: '0',
-                                    bottom: '30',
+                                    bottom: '0',
                                     left: '0'
                                 },
                                 scroll : {

@@ -11,11 +11,13 @@ import SvgElementTextMarkdown from '../../components/svg/SvgElementTextMarkdown'
 import DefaultWrapper from '../../components/wrappers/DefaultWrapper'
 import HeaderPicturesOnCornersWrapper from '../../components/wrappers/HeaderPicturesOnCornersWrapper';
 import CardDuoWrapper from '../../components/wrappers/CardDuoWrapper';
+import HeaderBasicWrapper from '../../components/wrappers/HeaderBasicWrapper';
 
 const mapModelToWrappers = {
     DefaultWrapper,
     HeaderPicturesOnCornersWrapper,
-    CardDuoWrapper
+    CardDuoWrapper,
+    HeaderBasicWrapper
 }
 
 class OrderFieldsContent extends Component {

@@ -1,10 +1,28 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { ToogleResponsive, Responsive } from './styled';
+import {ToogleResponsive, Responsive} from './styled';
+import SvgDeviceMobile from '../svg/SvgDeviceMobile';
+import SvgDeviceTablet from '../svg/SvgDeviceTablet';
+import SvgDeviceDesktop from '../svg/SvgDeviceDesktop';
+import {Icon} from './styled';
+
 
 class ResponsiveToggle extends Component {
-    render () {
-        const { responsive, currentMode, action } = this.props;
+
+    getSvgMode = (mode) => {
+        if(mode === 'M'){
+            return <SvgDeviceMobile/>
+        }else if(mode === 'T'){
+            return <SvgDeviceTablet/>
+        }else if(mode === 'D'){
+            return <SvgDeviceDesktop/>
+        }
+    }
+
+    render() {
+        const {responsive, currentMode, action} = this.props;
+
+
         return (
             <Responsive className={!responsive.length || responsive[0] === 'A' ? 'hidden' : ''}>
                 {
@@ -12,10 +30,15 @@ class ResponsiveToggle extends Component {
                         ? responsive.map((mode, i) => {
                             return <ToogleResponsive
                                 key={mode}
-                                className={currentMode === mode ? 'active' : ''}
                                 onClick={e => {
                                     action(mode);
-                                }}>{mode}</ToogleResponsive>;
+                                }}>
+                                <Icon className={currentMode === mode ? 'active' : ''}>
+                                    {
+                                        this.getSvgMode(mode)
+                                    }
+                                </Icon>
+                            </ToogleResponsive>;
                         }) : null
                 }
             </Responsive>
