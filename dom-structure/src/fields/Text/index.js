@@ -19,6 +19,8 @@ import Typography from '../../interfaces/Typography';
 import ColorPicker from '../../interfaces/ColorPicker';
 import Seo from '../../interfaces/Seo';
 import Padding from '../../interfaces/Padding';
+import Radius from '../../interfaces/Radius';
+import BorderWidth from '../../interfaces/BorderWidth';
 
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
@@ -31,6 +33,7 @@ class Text extends Component {
         this.state = {
             openColorView: false,
             openPreview: false,
+            openColorViewBorder: false
         };
     }
 
@@ -75,6 +78,7 @@ class Text extends Component {
 
     updateTypography = (property, value) => this.props.updateSettingsProperty('typography', property, value);
     updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
+    updateBorder = (property, value, event) => this.props.updateSettingsProperty('border', property, value, event);
 
     render() {
         const {name} = this.props;
@@ -164,6 +168,34 @@ class Text extends Component {
                                          defaultPadding={this.props.getDefaultSettingsByProperty('basis', 'padding')}
                                          updateStateProps={this.updateBasis}
                                 />
+                            </Column>
+                        </Choices>
+                        <Choices>
+                            <Column className={this.state.openColorViewBorder ? 'full-width' : ''}>
+                                <ColorPicker hidden={false}
+                                             color={this.props.getSettingsByProperty('border', 'color', this.state.currentEvent)}
+                                             opacity={this.props.getSettingsByProperty('border', 'opacity', this.state.currentEvent)}
+                                             storeValueColor={this.props.getStoreSettingsByProperty('border', 'color', this.state.currentEvent)}
+                                             storeValueOpacity={this.props.getStoreSettingsByProperty('border', 'opacity', this.state.currentEvent)}
+                                             defaultColor={this.props.getDefaultSettingsByProperty('border', 'color', this.state.currentEvent)}
+                                             defaultOpacity={this.props.getDefaultSettingsByProperty('border', 'opacity', this.state.currentEvent)}
+                                             openView={this.state.openColorViewBorder}
+                                             updateStateProps={this.updateBorder}
+                                             toggleOpenView={this.toggleOpenViewBorder}
+                                             customName={'Border'}
+                                />
+                            </Column>
+                            <Column className={this.state.openColorViewBorder ? 'hidden' : ''}>
+                                    <Radius radius={this.props.getSettingsByProperty('border', 'radius')}
+                                            storeValueRadius={this.props.getStoreSettingsByProperty('border', 'radius')}
+                                            defaultRadius={this.props.getDefaultSettingsByProperty('border', 'radius')}
+                                            updateStateProps={this.updateBorder}
+                                    />
+                                    <BorderWidth width={this.props.getSettingsByProperty('border', 'width')}
+                                                 storeValueWidth={this.props.getStoreSettingsByProperty('border', 'width')}
+                                                 defaultWidth={this.props.getDefaultSettingsByProperty('border', 'width')}
+                                                 updateStateProps={this.updateBorder}
+                                    />
                             </Column>
                         </Choices>
                     </Settings>

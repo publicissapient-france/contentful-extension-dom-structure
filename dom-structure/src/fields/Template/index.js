@@ -19,6 +19,8 @@ import Padding from '../../interfaces/Padding'
 import Margin from '../../interfaces/Margin'
 import Size from '../../interfaces/Size'
 import ImageUploader from '../../interfaces/ImageUploader';
+import Radius from '../../interfaces/Radius';
+import BorderWidth from '../../interfaces/BorderWidth';
 
 
 import {Icon} from '../../style/styledComponents';
@@ -30,7 +32,8 @@ class Template extends Component {
         super(props);
 
         this.state = {
-            openColorView: false
+            openColorView: false,
+            openColorViewBorder: false
         };
     }
 
@@ -49,8 +52,10 @@ class Template extends Component {
     getAsset = () => this.props.content.images && this.props.content.images[0] && this.props.content.images[0].asset ? this.props.content.images[0].asset[this.props.currentResponsiveMode] : null
 
     updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
+    updateBorder = (property, value, event) => this.props.updateSettingsProperty('border', property, value, event);
 
     toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
+    toggleOpenViewBorder = () => this.setState(prevState => ({openColorViewBorder: !prevState.openColorViewBorder}));
 
     render() {
         const {name} = this.props;
@@ -138,6 +143,32 @@ class Template extends Component {
                                             updateStateProps={this.updateBasis}
                                     />
                                 </Row>
+                            </Column>
+                            <Column className={this.state.openColorViewBorder ? 'full-width' : ''}>
+                                <ColorPicker hidden={false}
+                                             color={this.props.getSettingsByProperty('border', 'color', this.state.currentEvent)}
+                                             opacity={this.props.getSettingsByProperty('border', 'opacity', this.state.currentEvent)}
+                                             storeValueColor={this.props.getStoreSettingsByProperty('border', 'color', this.state.currentEvent)}
+                                             storeValueOpacity={this.props.getStoreSettingsByProperty('border', 'opacity', this.state.currentEvent)}
+                                             defaultColor={this.props.getDefaultSettingsByProperty('border', 'color', this.state.currentEvent)}
+                                             defaultOpacity={this.props.getDefaultSettingsByProperty('border', 'opacity', this.state.currentEvent)}
+                                             openView={this.state.openColorViewBorder}
+                                             updateStateProps={this.updateBorder}
+                                             toggleOpenView={this.toggleOpenViewBorder}
+                                             customName={'Border'}
+                                />
+                            </Column>
+                            <Column className={this.state.openColorViewBorder ? 'hidden' : ''}>
+                                <Radius radius={this.props.getSettingsByProperty('border', 'radius')}
+                                        storeValueRadius={this.props.getStoreSettingsByProperty('border', 'radius')}
+                                        defaultRadius={this.props.getDefaultSettingsByProperty('border', 'radius')}
+                                        updateStateProps={this.updateBorder}
+                                />
+                                <BorderWidth width={this.props.getSettingsByProperty('border', 'width')}
+                                             storeValueWidth={this.props.getStoreSettingsByProperty('border', 'width')}
+                                             defaultWidth={this.props.getDefaultSettingsByProperty('border', 'width')}
+                                             updateStateProps={this.updateBorder}
+                                />
                             </Column>
                         </Choices>
                     </Settings>

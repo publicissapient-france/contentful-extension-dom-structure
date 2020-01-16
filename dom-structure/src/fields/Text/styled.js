@@ -59,11 +59,21 @@ export const Choices = styled.div`
         width :75%;
     }
    }
+   
+   
 `;
 
 
 export const Settings = styled.div`
    & ${Choices}:nth-child(2){
     border-top : 1px solid ${ extensionTheme.grey20 };
+   }   
+   
+   & ${Choices}:nth-child(3){
+        & ${Column}{
+            &:nth-child(2){
+                flex-direction : row;
+            }
+        }
    }
 `;

@@ -146,6 +146,77 @@ export default {
                             }
                         }
                     },
+                    border: {
+                        M: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
+                            },
+                            color: {
+                                hex: 'transparent',
+                                rgb: '',
+                                name: 'Transparent',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        T: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
+                            },
+                            color: {
+                                hex: 'transparent',
+                                rgb: '',
+                                name: 'Transparent',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        D: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
+                            },
+                            color: {
+                                hex: 'transparent',
+                                rgb: '',
+                                name: 'Transparent',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        }
+                    },
                     seo: {
                         tag: 'h2'
                     }
@@ -240,6 +311,77 @@ export default {
                                 hex: '#FFFFFF',
                                 rgb: '255,255,255',
                                 name: 'White',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        }
+                    },
+                    border: {
+                        M: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
+                            },
+                            color: {
+                                hex: 'transparent',
+                                rgb: '',
+                                name: 'Transparent',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        T: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
+                            },
+                            color: {
+                                hex: 'transparent',
+                                rgb: '',
+                                name: 'Transparent',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        D: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
+                            },
+                            color: {
+                                hex: 'transparent',
+                                rgb: '',
+                                name: 'Transparent',
                                 shade: null
                             },
                             opacity: {
