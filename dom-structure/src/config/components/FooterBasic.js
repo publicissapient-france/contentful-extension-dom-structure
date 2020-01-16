@@ -30,7 +30,7 @@ export default {
                                 maxWidth: '',
                                 maxHeight: '',
                                 minWidth: '',
-                                minHeight: '400'
+                                minHeight: ''
 
                             },
                             padding: {
@@ -62,7 +62,7 @@ export default {
                                 maxWidth: '',
                                 maxHeight: '',
                                 minWidth: '',
-                                minHeight: '400'
+                                minHeight: ''
 
                             },
                             padding: {
@@ -94,7 +94,7 @@ export default {
                                 maxWidth: '',
                                 maxHeight: '',
                                 minWidth: '',
-                                minHeight: '400'
+                                minHeight: ''
 
                             },
                             padding: {
