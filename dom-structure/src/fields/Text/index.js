@@ -73,6 +73,7 @@ class Text extends Component {
 
     toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
     toggleOpenPreview = () => this.setState(prevState => ({openPreview: !prevState.openPreview}));
+    toggleOpenViewBorder = () => this.setState(prevState => ({openColorViewBorder: !prevState.openColorViewBorder}));
 
     getText = () => this.props.content.text && this.props.content.text[this.props.indexLanguage] ? this.props.content.text[this.props.indexLanguage] : '';
 
