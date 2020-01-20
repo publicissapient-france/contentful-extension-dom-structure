@@ -66,6 +66,32 @@ export default {
             settings: {
                 responsive: ['M', 'T', 'D'],
                 defaultValue: {
+                    basis: {
+                        M: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        },
+                        T: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        },
+                        D: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        }
+                    },
                     typography: {
                         M: {
                             font: {
@@ -238,6 +264,32 @@ export default {
             settings: {
                 responsive: ['M', 'T', 'D'],
                 defaultValue: {
+                    basis: {
+                        M: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        },
+                        T: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        },
+                        D: {
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            }
+                        }
+                    },
                     typography: {
                         M: {
                             font: {
