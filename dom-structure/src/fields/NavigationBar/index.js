@@ -60,8 +60,6 @@ class NavigationBar extends Component {
 
         if (!this.props.settings) return null;
 
-        let test = this.props.getDefaultSettingsByProperty('basis', 'color');
-        console.log('BASIS COLOR DEFAULT', test);
         return (
             <div>
                 <Banner>
