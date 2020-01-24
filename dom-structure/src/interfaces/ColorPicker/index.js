@@ -48,14 +48,22 @@ class ColorPicker extends Component {
             shade: value.shade
         };
         this.setState({ currentAction: 'view' });
-        this.props.updateStateProps('color', selectedColor, this.props.event);
+        if(this.props.customTargetColor){
+            this.props.updateStateProps(this.props.customTargetColor, selectedColor, this.props.event);
+        }else{
+            this.props.updateStateProps('color', selectedColor, this.props.event);
+        }
     }
 
     updateOpacity = value => {
         const opacity = {
             value: String(value / 100)
         };
-        this.props.updateStateProps('opacity', opacity, this.props.event);
+        if(this.props.customTargetOpacity){
+            this.props.updateStateProps(this.props.customTargetOpacity, opacity, this.props.event);
+        }else{
+            this.props.updateStateProps('opacity', opacity, this.props.event);
+        }
     }
 
     render () {

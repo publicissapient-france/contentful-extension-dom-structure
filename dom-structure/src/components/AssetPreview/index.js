@@ -9,18 +9,16 @@ import {
 class AssetPreview extends Component {
     render () {
         const { asset, locale } = this.props;
-        const file = asset && asset.fields && asset.fields.file ? asset.fields.file[locale] : null;
-        const type = file ? file.contentType.split('/')[0] : null;
-        const bg = file ? { backgroundImage: `url(${ file.url })` } : '';
+        const bg = asset && asset.url ? { backgroundImage: `url(${ asset.url })` } : '';
 
         return (
             <Container
                 className={`file-view  ${
-                    type === 'image' ? 'image-file' : 'non-image-file'
+                    asset.url ? 'image-file' : 'non-image-file'
                 }`}
             >
                 {
-                    !file ? <ViewPort>
+                    !asset.url ? <ViewPort>
                         <Icon
                             color={'muted'}
                             icon="Asset"

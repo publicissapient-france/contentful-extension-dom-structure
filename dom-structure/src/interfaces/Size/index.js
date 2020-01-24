@@ -42,7 +42,7 @@ class Size extends Component {
     }
 
     render () {
-        const { size, storeValueSize, defaultSize } = this.props;
+        const { size, storeValueSize, defaultSize, event } = this.props;
 
         const error = `Size available : number, number%, auto, fit-content, min-width, max-width`;
 
@@ -77,6 +77,8 @@ class Size extends Component {
                                 }}/>
                         </div>
                     </Field>
+                {
+                    defaultSize && defaultSize.hasOwnProperty('maxWidth')?
                     <Field>
                         <label>max-width</label>
                         <div>
@@ -89,7 +91,10 @@ class Size extends Component {
                                     this.updateSize('maxWidth', e.target.value);
                                 }}/>
                         </div>
-                    </Field>
+                    </Field> : null
+                }
+                    {
+                        defaultSize && defaultSize.hasOwnProperty('maxHeight') ?
                     <Field>
                         <label>max-height</label>
                         <div>
@@ -102,10 +107,10 @@ class Size extends Component {
                                     this.updateSize('maxHeight', e.target.value);
                                 }}/>
                         </div>
-                    </Field>
-
+                    </Field> : null
+                    }
                     {
-                        defaultSize && defaultSize.minWidth ?
+                        defaultSize && defaultSize.hasOwnProperty('minWidth') ?
                             <Field>
                                 <label>min-width</label>
                                 <div>
@@ -121,7 +126,7 @@ class Size extends Component {
                             </Field> : null
                     }
                     {
-                        defaultSize && defaultSize.minHeight ?
+                        defaultSize && defaultSize.hasOwnProperty('minHeight') ?
                             <Field>
                                 <label>min-height</label>
                                 <div>

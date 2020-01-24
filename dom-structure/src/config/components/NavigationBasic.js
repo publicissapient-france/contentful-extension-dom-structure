@@ -8,16 +8,15 @@ export default {
             content: {
                 responsive: ['A'],
                 parameters: {},
-                defaultValue: {
-                }
+                defaultValue: {}
             },
             settings: {
-                responsive : ['M', 'T', 'D'],
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
                     basis: {
                         M: {
                             size: {
-                                basic : {
+                                basic: {
                                     width: '100%',
                                     height: '50',
                                     maxWidth: '',
@@ -25,7 +24,7 @@ export default {
                                     minWidth: '',
                                     minHeight: ''
                                 },
-                                scroll : {
+                                scroll: {
                                     width: '100%',
                                     height: '50',
                                     maxWidth: '',
@@ -36,13 +35,13 @@ export default {
 
                             },
                             padding: {
-                                basic : {
+                                basic: {
                                     top: '0',
                                     right: '0',
                                     bottom: '0',
                                     left: '0'
                                 },
-                                scroll : {
+                                scroll: {
                                     top: '0',
                                     right: '0',
                                     bottom: '0',
@@ -51,13 +50,13 @@ export default {
 
                             },
                             margin: {
-                                basic : {
+                                basic: {
                                     top: '0',
                                     right: '0',
                                     bottom: '0',
                                     left: '0'
                                 },
-                                scroll : {
+                                scroll: {
                                     top: '0',
                                     right: '0',
                                     bottom: '0',
@@ -65,13 +64,13 @@ export default {
                                 }
                             },
                             color: {
-                                basic : {
+                                basic: {
                                     hex: '#303030',
                                     rgb: '48,48,48',
                                     name: 'Grey-90',
                                     shade: null
                                 },
-                                scroll : {
+                                scroll: {
                                     hex: '#303030',
                                     rgb: '48,48,48',
                                     name: 'Grey-90',
@@ -80,10 +79,10 @@ export default {
 
                             },
                             opacity: {
-                                basic : {
+                                basic: {
                                     value: '1'
                                 },
-                                scroll : {
+                                scroll: {
                                     value: '1'
                                 }
 
@@ -91,7 +90,7 @@ export default {
                         },
                         T: {
                             size: {
-                                basic : {
+                                basic: {
                                     width: '100%',
                                     height: '60',
                                     maxWidth: '',
@@ -99,7 +98,7 @@ export default {
                                     minWidth: '',
                                     minHeight: ''
                                 },
-                                scroll : {
+                                scroll: {
                                     width: '100%',
                                     height: '60',
                                     maxWidth: '',
@@ -110,13 +109,13 @@ export default {
 
                             },
                             padding: {
-                                basic : {
+                                basic: {
                                     top: '0',
                                     right: '0',
                                     bottom: '0',
                                     left: '0'
                                 },
-                                scroll : {
+                                scroll: {
                                     top: '0',
                                     right: '0',
                                     bottom: '0',
@@ -125,13 +124,13 @@ export default {
 
                             },
                             margin: {
-                                basic : {
+                                basic: {
                                     top: '0',
                                     right: '0',
                                     bottom: '0',
                                     left: '0'
                                 },
-                                scroll : {
+                                scroll: {
                                     top: '0',
                                     right: '0',
                                     bottom: '0',
@@ -139,13 +138,13 @@ export default {
                                 }
                             },
                             color: {
-                                basic : {
+                                basic: {
                                     hex: 'transparent',
                                     rgb: '',
                                     name: 'Transparent',
                                     shade: null
                                 },
-                                scroll : {
+                                scroll: {
                                     hex: '#FFFFFF',
                                     rgb: '255,255,255',
                                     name: 'White',
@@ -154,10 +153,10 @@ export default {
 
                             },
                             opacity: {
-                                basic : {
+                                basic: {
                                     value: '1'
                                 },
-                                scroll : {
+                                scroll: {
                                     value: '0.3'
                                 }
 
@@ -165,7 +164,7 @@ export default {
                         },
                         D: {
                             size: {
-                                basic : {
+                                basic: {
                                     width: '100%',
                                     height: '60',
                                     maxWidth: '',
@@ -173,7 +172,7 @@ export default {
                                     minWidth: '',
                                     minHeight: ''
                                 },
-                                scroll : {
+                                scroll: {
                                     width: '100%',
                                     height: '50',
                                     maxWidth: '',
@@ -184,13 +183,13 @@ export default {
 
                             },
                             padding: {
-                                basic : {
+                                basic: {
                                     top: '0',
                                     right: '0',
                                     bottom: '0',
                                     left: '0'
                                 },
-                                scroll : {
+                                scroll: {
                                     top: '0',
                                     right: '0',
                                     bottom: '0',
@@ -199,13 +198,13 @@ export default {
 
                             },
                             margin: {
-                                basic : {
+                                basic: {
                                     top: '0',
                                     right: '0',
                                     bottom: '0',
                                     left: '0'
                                 },
-                                scroll : {
+                                scroll: {
                                     top: '0',
                                     right: '0',
                                     bottom: '0',
@@ -213,13 +212,13 @@ export default {
                                 }
                             },
                             color: {
-                                basic : {
+                                basic: {
                                     hex: 'transparent',
                                     rgb: '',
                                     name: 'Transparent',
                                     shade: null
                                 },
-                                scroll : {
+                                scroll: {
                                     hex: '#FFFFFF',
                                     rgb: '255,255,255',
                                     name: 'White',
@@ -228,15 +227,136 @@ export default {
 
                             },
                             opacity: {
-                                basic : {
+                                basic: {
                                     value: '1'
                                 },
-                                scroll : {
+                                scroll: {
                                     value: '0.3'
                                 }
 
                             }
+                        }
+                    },
+                    svg: {
+                        M: {
+                            size: {
+                                width: '30',
+                                height: ''
+                            },
+                            fill: {
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
+                                shade: null
+                            },
+                            opacityFill: {
+                                value: '1'
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'Black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
                         },
+                        T: {
+                            size: {
+                                width: '30',
+                                height: ''
+                            },
+                            fill: {
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
+                                shade: null
+                            },
+                            opacityFill: {
+                                value: '1'
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'Black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        D: {
+                            size: {
+                                width: '30',
+                                height: ''
+                            },
+                            fill: {
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
+                                shade: null
+                            },
+                            opacityFill: {
+                                value: '1'
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'Black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        }
+                    },
+                    burger: {
+                        M: {
+                            size: {
+                                width: '50',
+                                height: '50'
+                            },
+                            fill: {
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
+                                shade: null
+                            },
+                            opacityFill: {
+                                value: '1'
+                            }
+                        },
+                        T: {
+                            size: {
+                                width: '50',
+                                height: '50'
+                            },
+                            fill: {
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
+                                shade: null
+                            },
+                            opacityFill: {
+                                value: '1'
+                            }
+                        },
+                        D: {
+                            size: {
+                                width: '50',
+                                height: '50'
+                            },
+                            fill: {
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
+                                shade: null
+                            },
+                            opacityFill: {
+                                value: '1'
+                            }
+                        }
                     }
                 }
             }

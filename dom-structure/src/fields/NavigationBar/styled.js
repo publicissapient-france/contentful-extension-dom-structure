@@ -52,7 +52,7 @@ export const Choices = styled.div`
    width : 100%;
    
    & ${Column}{
-    &:nth-child(1){
+    &:nth-child(1), &:nth-child(3){
         width : 25%;
         &.full-width{
             width : 100%;
@@ -66,11 +66,32 @@ export const Choices = styled.div`
         & ${Row}{
             &:nth-child(2){
                 flex-direction : row;
+                border-bottom : 0px solid transparent;
             }
         }
     }
    }
 `;
+
+export const AdditionalChoices = styled(Choices)`
+    position : relative;
+    
+    
+    
+`;
+
+export const Separator = styled.div`
+    padding: 10px;
+    background-color :  ${extensionTheme.grey10};
+    border-top : 1px solid ${extensionTheme.grey30};
+    border-bottom : 1px solid ${extensionTheme.grey30};
+    
+    & p{
+        font-size : 12px;
+        color : ${extensionTheme.grey80};
+    }
+`
+
 
 
 export const ButtonEvents = styled.div`
