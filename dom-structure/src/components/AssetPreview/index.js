@@ -14,11 +14,11 @@ class AssetPreview extends Component {
         return (
             <Container
                 className={`file-view  ${
-                    asset.url ? 'image-file' : 'non-image-file'
+                    asset && asset.url ? 'image-file' : 'non-image-file'
                 }`}
             >
                 {
-                    !asset.url ? <ViewPort>
+                    !asset || !asset.url ? <ViewPort>
                         <Icon
                             color={'muted'}
                             icon="Asset"
