@@ -800,10 +800,10 @@ export default {
                         M: {
                             size: {
                                 width: '',
-                                height: '40',
+                                height: '',
                                 maxWidth: '',
                                 maxHeight: '',
-                                minWidth: '100',
+                                minWidth: '',
                                 minHeight: ''
 
                             },
@@ -860,10 +860,10 @@ export default {
                         T: {
                             size: {
                                 width: '',
-                                height: '40',
+                                height: '',
                                 maxWidth: '',
                                 maxHeight: '',
-                                minWidth: '100',
+                                minWidth: '',
                                 minHeight: ''
 
                             },
@@ -920,10 +920,10 @@ export default {
                         D: {
                             size: {
                                 width: '',
-                                height: '40',
+                                height: '',
                                 maxWidth: '',
                                 maxHeight: '',
-                                minWidth: '100',
+                                minWidth: '',
                                 minHeight: ''
 
                             },
@@ -1432,10 +1432,10 @@ export default {
                         M: {
                             size: {
                                 width: '',
-                                height: '40',
+                                height: '',
                                 maxWidth: '',
                                 maxHeight: '',
-                                minWidth: '100',
+                                minWidth: '',
                                 minHeight: ''
 
                             },
@@ -1492,10 +1492,10 @@ export default {
                         T: {
                             size: {
                                 width: '',
-                                height: '40',
+                                height: '',
                                 maxWidth: '',
                                 maxHeight: '',
-                                minWidth: '100',
+                                minWidth: '',
                                 minHeight: ''
 
                             },
@@ -1552,10 +1552,10 @@ export default {
                         D: {
                             size: {
                                 width: '',
-                                height: '40',
+                                height: '',
                                 maxWidth: '',
                                 maxHeight: '',
-                                minWidth: '100',
+                                minWidth: '',
                                 minHeight: ''
 
                             },
@@ -2064,10 +2064,10 @@ export default {
                         M: {
                             size: {
                                 width: '',
-                                height: '40',
+                                height: '',
                                 maxWidth: '',
                                 maxHeight: '',
-                                minWidth: '100',
+                                minWidth: '',
                                 minHeight: ''
 
                             },
@@ -2124,10 +2124,10 @@ export default {
                         T: {
                             size: {
                                 width: '',
-                                height: '40',
+                                height: '',
                                 maxWidth: '',
                                 maxHeight: '',
-                                minWidth: '100',
+                                minWidth: '',
                                 minHeight: ''
 
                             },
@@ -2184,10 +2184,10 @@ export default {
                         D: {
                             size: {
                                 width: '',
-                                height: '40',
+                                height: '',
                                 maxWidth: '',
                                 maxHeight: '',
-                                minWidth: '100',
+                                minWidth: '',
                                 minHeight: ''
 
                             },
