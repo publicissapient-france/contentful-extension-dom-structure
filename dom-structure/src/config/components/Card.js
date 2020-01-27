@@ -625,10 +625,58 @@ export default {
                 }
             },
             settings: {
-                responsive: ['A'],
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
                     basis: {
-                        A: {
+                        M: {
+                            size: {
+                                width: '100',
+                                height: '100',
+                                maxWidth: '',
+                                maxHeight: ''
+
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            margin: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            alignment: {
+                                horizontal: 'flex-start'
+                            }
+                        },
+                        T: {
+                            size: {
+                                width: '100',
+                                height: '100',
+                                maxWidth: '',
+                                maxHeight: ''
+
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            margin: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            alignment: {
+                                horizontal: 'flex-start'
+                            }
+                        },
+                        D: {
                             size: {
                                 width: '100',
                                 height: '100',
@@ -654,7 +702,53 @@ export default {
                         }
                     },
                     border: {
-                        A: {
+                        M: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        T: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        D: {
                             width: {
                                 top: '0',
                                 right: '0',

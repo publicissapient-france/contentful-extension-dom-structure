@@ -107,9 +107,16 @@ class CTA extends Component {
     getDisabled = () => this.props.getSettingsPropertyNoResponsive('state') ? this.props.getSettingsPropertyNoResponsive('state').disabled : false;
 
     updateTypography = (property, value, event) => this.props.updateSettingsProperty('typography', property, value, event);
+    updateTypographyColor = (property, value, event) => this.props.updateSettingsEachResponsiveMode('typography', property, value, event);
+
     updateBasis = (property, value, event) => this.props.updateSettingsProperty('basis', property, value, event);
+    updateBasisColor = (property, value, event) => this.props.updateSettingsEachResponsiveMode('basis', property, value, event);
+
     updateBorder = (property, value, event) => this.props.updateSettingsProperty('border', property, value, event);
+    updateBorderColor = (property, value, event) => this.props.updateSettingsEachResponsiveMode('border', property, value, event);
+
     updateIcon = (property, value, event) => this.props.updateSettingsProperty('icon', property, value, event);
+    updateIconColor = (property, value, event) => this.props.updateSettingsEachResponsiveMode('icon', property, value, event);
 
 
     render() {
@@ -217,10 +224,11 @@ class CTA extends Component {
                                              defaultColor={this.props.getDefaultSettingsByProperty('typography', 'color', this.state.currentEvent)}
                                              defaultOpacity={this.props.getDefaultSettingsByProperty('typography', 'opacity', this.state.currentEvent)}
                                              openView={this.state.openColorView}
-                                             updateStateProps={this.updateTypography}
+                                             updateStateProps={this.updateTypographyColor}
                                              toggleOpenView={this.toggleOpenView}
                                              event={this.state.currentEvent}
                                 />
+                                <caption>Color for all devices</caption>
                             </Column>
                             <Column className={this.state.openPreview || this.state.openColorView ? 'hidden' : ''}>
                                 <Typography font={this.props.getSettingsByProperty('typography', 'font')}
@@ -246,12 +254,12 @@ class CTA extends Component {
                                                  defaultColor={this.props.getDefaultSettingsByProperty('basis', 'color', this.state.currentEvent)}
                                                  defaultOpacity={this.props.getDefaultSettingsByProperty('basis', 'opacity', this.state.currentEvent)}
                                                  openView={this.state.openColorViewBackground}
-                                                 updateStateProps={this.updateBasis}
+                                                 updateStateProps={this.updateBasisColor}
                                                  toggleOpenView={this.toggleOpenViewBackground}
                                                  customName={'Backg.'}
                                                  event={this.state.currentEvent}
                                     />
-
+                                    <caption>Color for all devices</caption>
                                 </Row>
                             </Column>
                             <Column className={this.state.openColorViewBackground ? 'hidden' : ''}>
@@ -298,11 +306,12 @@ class CTA extends Component {
                                              defaultColor={this.props.getDefaultSettingsByProperty('border', 'color', this.state.currentEvent)}
                                              defaultOpacity={this.props.getDefaultSettingsByProperty('border', 'opacity', this.state.currentEvent)}
                                              openView={this.state.openColorViewBorder}
-                                             updateStateProps={this.updateBorder}
+                                             updateStateProps={this.updateBorderColor}
                                              toggleOpenView={this.toggleOpenViewBorder}
                                              customName={'Border'}
                                              event={this.state.currentEvent}
                                 />
+                                <caption>Color for all devices</caption>
                             </Column>
                             <Column className={this.state.openColorViewBorder ? 'hidden' : ''}>
                                 <Radius radius={this.props.getSettingsByProperty('border', 'radius')}
@@ -334,12 +343,12 @@ class CTA extends Component {
                                              defaultColor={this.props.getDefaultSettingsByProperty('icon', 'color', this.state.currentEvent)}
                                              defaultOpacity={this.props.getDefaultSettingsByProperty('icon', 'opacity', this.state.currentEvent)}
                                              openView={this.state.openColorViewIcon}
-                                             updateStateProps={this.updateIcon}
+                                             updateStateProps={this.updateIconColor}
                                              toggleOpenView={this.toggleOpenViewIcon}
                                              customName={'Icon'}
                                              event={this.state.currentEvent}
                                 />
-
+                                <caption>Color for all devices</caption>
                             </Column>
                             <Column
                                 className={this.state.openPreviewIcon || this.state.openColorViewIcon ? 'hidden' : ''}>

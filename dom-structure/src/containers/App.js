@@ -20,6 +20,8 @@ import {
 } from '../actions';
 import { extractActiveValue, arrayToString, extractFontValueToCSS, extractAssetUrl, findProp } from '../utils/functions';
 
+let scrollPositions = null;
+
 class App extends React.Component {
     constructor (props) {
         super(props);
@@ -34,6 +36,8 @@ class App extends React.Component {
     }
 
     componentDidMount = async () => {
+        window.addEventListener("scroll", this.listener)
+
         if (this.props.extension.field && this.props.extension.field.getValue()) {
             console.log('DOM VALUE ON MOUNT', this.props.extension.field.getValue() )
             this.props.dispatch(initDOM(JSON.parse(this.props.extension.field.getValue().dom)));
@@ -56,6 +60,10 @@ class App extends React.Component {
         this.props.extension.window.startAutoResizer();
 
         await this.initStyleStore();
+
+
+
+
     }
 
     componentDidUpdate = prevProps => {
@@ -74,6 +82,18 @@ class App extends React.Component {
     componentWillUnmount = () => {
         this.detachFns.forEach(detach => detach());
         this.props.extension.window.stopAutoResizer();
+        window.removeEventListener("scroll", this.listener)
+
+    }
+
+    listener = () => {
+        scrollPositions = window.scrollY;
+        console.log( window.scrollY);
+        console.log('hey',  window.pageYOffset);
+
+        this.setState({
+            scrollY: window.scrollY
+        })
     }
 
     setFieldValue = () => {
@@ -168,7 +188,7 @@ class App extends React.Component {
     render = () => {
         return (
             <Extension>
-                <div className={'container'}>
+                <div className={'container'} ref={elem => this.nv = elem}>
                     <section>
                         <MainContainer className={'container'} >
                             <ButtonAddSection onTop={true}/>
@@ -179,7 +199,7 @@ class App extends React.Component {
                         </MainContainer>
                     </section>
                 </div>
-                <GlobalStyle globalFontFaces={arrayToString(this.props.fontfaces)}/>
+                <GlobalStyle globalFontFaces={arrayToString(this.props.fontfaces)} scrollYPosition={this.state.scrollY}/>
             </Extension>
         );
     }

@@ -188,7 +188,36 @@ const FieldWrapper = WrappedComponent => {
                     })
                 }));
             }
+        }
 
+        updateSettingsEachResponsiveMode = (property, subProperty, value, event)  => {
+            if (event) {
+                this.props.responsiveSettings.forEach( mode => {
+                    this.setState(prevState => ({
+                        settings: update(prevState.settings, {
+                            [property]: {
+                                [mode]: {
+                                    [subProperty]: {
+                                        [event]: {$set: value}
+                                    }
+                                }
+                            }
+                        })
+                    }));
+                })
+            } else {
+                this.props.responsiveSettings.forEach( mode => {
+                    this.setState(prevState => ({
+                        settings: update(prevState.settings, {
+                            [property]: {
+                                [mode]: {
+                                    [subProperty]: {$set: value}
+                                }
+                            }
+                        })
+                    }));
+                })
+            }
         }
 
 
@@ -302,6 +331,7 @@ const FieldWrapper = WrappedComponent => {
                     getStoreSettingsByProperty={this.getStoreSettingsByProperty}
                     getDefaultSettingsByProperty={this.getDefaultSettingsByProperty}
                     updateSettingsProperty={this.updateSettingsProperty}
+                    updateSettingsEachResponsiveMode={this.updateSettingsEachResponsiveMode}
 
                     getSettingsPropertyNoResponsive={this.getSettingsPropertyNoResponsive}
                     getDefaultSettingsPropertyNoResponsive={this.getDefaultSettingsPropertyNoResponsive}

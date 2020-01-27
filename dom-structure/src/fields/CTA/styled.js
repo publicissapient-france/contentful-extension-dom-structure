@@ -27,6 +27,12 @@ export const Column = styled.div`
     width : 100%;
     border-right : 1px solid ${ extensionTheme.grey20 };  
     box-sizing : border-box;
+    
+    & caption{
+        font-size : 12px;
+        color : ${ extensionTheme.grey40};
+        padding-bottom : 10px;
+    }
 `;
 
 

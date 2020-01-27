@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Container, Field } from './styled';
-import { getCurrentExtension } from '../../actions/index';
+import {Container, Field} from './styled';
+import {getCurrentExtension} from '../../actions/index';
 import UploadView from '../../components/UploadView/index';
 import FileView from '../../components/FileView/index';
 import ReloadView from '../../components/RealoadView/index';
 
 class ImageUploader extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -19,12 +19,12 @@ class ImageUploader extends Component {
         };
     }
 
-    componentDidMount () {
-        if (this.props.asset ) {
+    componentDidMount() {
+        if (this.props.asset) {
         }
     };
 
-    componentDidUpdate (prevProps) {
+    componentDidUpdate(prevProps) {
         if (this.props.asset !== prevProps.asset) {
 
             if (this.props.asset && this.props.asset.id) {
@@ -32,7 +32,7 @@ class ImageUploader extends Component {
                     ...this.state,
                     asset: this.props.asset
                 }, () => {
-                  //  this.publishAsset();
+                    //  this.publishAsset();
                 });
             } else {
                 this.setState({
@@ -44,7 +44,7 @@ class ImageUploader extends Component {
     }
 
     onClickNewAsset = async () => {
-        const result = await this.props.extensionInfo.extension.navigator.openNewAsset({ slideIn: true }).then(({ entity }) => {
+        const result = await this.props.extensionInfo.extension.navigator.openNewAsset({ slideIn: { waitForClose: true } }).then(({entity}) => {
             return entity;
         });
         this.reuseExistingAsset(result.sys.id);
@@ -71,7 +71,7 @@ class ImageUploader extends Component {
         }
     }
 
-    findProperLocale () {
+    findProperLocale() {
         return this.props.extensionInfo.extension.locales.default;
     }
 
@@ -84,9 +84,9 @@ class ImageUploader extends Component {
         this.setState({
             ...this.state,
             asset: {
-                url : url,
-                fileName : url.substring(url.lastIndexOf('/')+1),
-                id : asset.sys.id
+                url: url,
+                fileName: url.substring(url.lastIndexOf('/') + 1),
+                id: asset.sys.id
             }
         }, () => {
             this.assetIsValid();
@@ -159,28 +159,16 @@ class ImageUploader extends Component {
             } else {
                 this.props.extensionInfo.extension.space.publishAsset(this.state.asset);
             }
-        } catch (err) {}
+        } catch (err) {
+        }
     }
 
     render = () => {
-        const { alt, index } = this.props;
+        const {alt, index} = this.props;
         let view;
-
-        /*if (!this.state.isDraggingOver && this.state.asset && this.state.asset.url && this.state.asset.id) {
-            view = <ReloadView
-                assetId={this.state.asset.id}
-                onClickReload={this.reloadAsset}
-            />;
-        } else */if (this.state.asset && this.state.asset.url) {
+        if (this.state.asset && this.state.asset.url) {
             view = <FileView
-                /*index={this.props.index}*/
                 url={this.state.asset.url}
-               /* title={this.state.asset.fields.title[this.findProperLocale()]}*/
-               /* alt={alt}*/
-               /* isPublished={
-                    this.state.asset.sys.version ===
-                    (this.state.asset.sys.publishedVersion || 0) + 1
-                }*/
                 onClickLinkExisting={this.onClickLinkExisting}
                 onClickNewAsset={this.onClickNewAsset}
                 onClickRemove={this.onClickRemove}
@@ -200,10 +188,10 @@ class ImageUploader extends Component {
                 <Field>
                     <label>Alt (required)</label>
                     <input type={'text'}
-                        value={alt}
-                        onChange={e => {
-                            this.props.updateStateTranslatedProps('images', 'alt', e.target.value, index);
-                        }}/>
+                           value={alt}
+                           onChange={e => {
+                               this.props.updateStateTranslatedProps('images', 'alt', e.target.value, index);
+                           }}/>
                 </Field>
             </Container>
 

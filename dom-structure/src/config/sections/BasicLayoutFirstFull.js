@@ -6,14 +6,16 @@ export default {
             nameProperty: 'Template',
             typeField: 'Template',
             content: {
-                responsive: ['A'],
+                responsive: ['M', 'T', 'D'],
                 parameters: {},
                 defaultValue: {
                     images: [
                         {
                             alt: {},
                             asset: {
-                                A: {}
+                                M: {},
+                                T: {},
+                                D: {}
                             }
                         }
                     ]
