@@ -187,7 +187,7 @@ class NavigationBar extends Component {
                                              updateStateProps={this.updateSVG}
                                              toggleOpenView={this.toggleOpenViewSVG}
                                              customTargetColor={'fill'}
-                                             customTargetOpacity={'fillOpacity'}
+                                             customTargetOpacity={'opacityFill'}
                                              customName={'Backg.'}
                                 />
                             </Column>
@@ -231,7 +231,7 @@ class NavigationBar extends Component {
                                              updateStateProps={this.updateBurger}
                                              toggleOpenView={this.toggleOpenViewBurger}
                                              customTargetColor={'fill'}
-                                             customTargetOpacity={'fillOpacity'}
+                                             customTargetOpacity={'opacityFill'}
                                              customName={'Color'}
                                 />
                             </Column>

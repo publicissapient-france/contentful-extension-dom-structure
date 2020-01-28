@@ -59,6 +59,7 @@ class ColorPicker extends Component {
         const opacity = {
             value: String(value / 100)
         };
+        console.log('opacity : ', opacity);
         if(this.props.customTargetOpacity){
             this.props.updateStateProps(this.props.customTargetOpacity, opacity, this.props.event);
         }else{
