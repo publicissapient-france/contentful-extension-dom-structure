@@ -141,7 +141,6 @@ class Size extends Component {
                                 </div>
                             </Field> : null
                     }
-
                 </ContainerFields>
                 <ErrorMessage>{ error }</ErrorMessage>
             </Container>

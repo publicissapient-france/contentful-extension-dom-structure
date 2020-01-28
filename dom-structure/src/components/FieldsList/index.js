@@ -5,7 +5,7 @@ import { TemplateForComponent } from '../../fields/Template/index';
 import Text from '../../fields/Text/index';
 import TextMarkdown from '../../fields/TextMarkdown/index';
 import SingleImage from '../../fields/SingleImage/index';
-import MultipleImages from '../../fields/MultipleImages/index';
+import { MultipleImagesForComponent } from '../../fields/MultipleImages/index';
 import CTA from '../../fields/CTA/index';
 import Link from '../../fields/Link/index';
 import NavigationLinks from '../../fields/NavigationLinks/index';
@@ -47,7 +47,7 @@ class FieldsList extends Component {
                             return <SingleImage {...params} />;
 
                         case 'MultipleImages':
-                            return <MultipleImages {...params} />;
+                            return <MultipleImagesForComponent {...params} />;
 
                         case 'CTA':
                             return <CTA {...params} />;

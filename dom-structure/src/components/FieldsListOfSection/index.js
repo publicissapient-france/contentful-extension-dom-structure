@@ -4,6 +4,7 @@ import { FieldContainer } from './styled';
 import { TemplateForSection } from '../../fields/Template/index';
 import { FlexContainerForSection } from '../../fields/FlexContainer/index';
 import { SelectSpeakersForSection } from '../../fields/SelectSpeakers/index';
+import { MultipleImagesForSection } from '../../fields/MultipleImages/index';
 
 class FieldsListOfSection extends Component {
 
@@ -38,6 +39,9 @@ class FieldsListOfSection extends Component {
 
                         case 'SelectSpeakers':
                             return <SelectSpeakersForSection {...params}/>;
+
+                        case 'MultipleImages':
+                            return <MultipleImagesForSection {...params} />;
 
                         default :
                             return <div className={'error'}><p>No field <strong>{field.typefield}</strong> matches</p>

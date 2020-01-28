@@ -587,11 +587,30 @@ export default {
                     basis: {
                         A: {
                             size: {
-                                width: '20%',
-                                height: 'auto',
-                                maxWidth: '255',
-                                maxHeight: ''
-
+                                1 : {
+                                    width: '20%',
+                                    height: 'auto',
+                                    maxWidth: '255',
+                                    maxHeight: ''
+                                },
+                                2 : {
+                                    width: '20%',
+                                    height: 'auto',
+                                    maxWidth: '255',
+                                    maxHeight: ''
+                                },
+                                3 : {
+                                    width: '20%',
+                                    height: 'auto',
+                                    maxWidth: '255',
+                                    maxHeight: ''
+                                },
+                                4 : {
+                                    width: '20%',
+                                    height: 'auto',
+                                    maxWidth: '255',
+                                    maxHeight: ''
+                                }
                             }
                         }
                     }

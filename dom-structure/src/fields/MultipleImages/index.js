@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import FieldWrapper from '../../HOC/FieldWrapper';
+import FieldWrapperOfSection from '../../HOC/FieldWrapperOfSection';
 
 import LanguageToggle from '../../containers/LanguageToggle';
 import SvgSetting from '../../components/svg/SvgSetting';
@@ -9,13 +10,16 @@ import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
 import ResponsiveToggle from '../../components/ResponsiveToggle';
 import ActiveCheckBox from '../../components/ActiveCheckBox';
+import AssetPreview from '../../components/AssetPreview';
 
 import ImageUploader from '../../interfaces/ImageUploader';
 import Size from '../../interfaces/Size';
 
 import { Icon } from '../../style/styledComponents';
 import { Banner, Field } from '../../style/styledComponentsFields';
-import { ChoiceItemsConfirm, Content, Settings, Choices } from './styled';
+import { ChoiceItemsConfirm, Content, Settings, Choices, Row } from './styled';
+import {getCurrentExtension} from "../../actions";
+import {connect} from "react-redux";
 
 class MultipleImages extends Component {
     componentDidMount () {};
@@ -25,7 +29,13 @@ class MultipleImages extends Component {
     getAlt = i => this.props.content.images && this.props.content.images[i].alt && this.props.content.images[i].alt[this.props.indexLanguage] ? this.props.content.images[i].alt[this.props.indexLanguage] : '';
 
     getAsset = i => this.props.content.images[i] ? this.props.content.images[i].asset[this.props.currentResponsiveMode] : null;
-    updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
+    updateBasis = (property, value, i) => this.props.updateSettingsProperty('basis', property, value, i);
+
+    getAssetToPreview = (i) => {
+        const { responsiveContent, currentResponsiveMode, content } = this.props
+        if (!content.images || !content.images[i] || !content.images[i].asset) return null;
+        return responsiveContent.includes(currentResponsiveMode) ? content.images[i].asset[currentResponsiveMode] : content.images[i].asset[responsiveContent[i]];
+    }
 
     render () {
         const { name } = this.props;
@@ -74,11 +84,23 @@ class MultipleImages extends Component {
                     </Content>
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>
-                            <Size size={this.props.getSettingsByProperty('basis','size')}
-                                  storeValueSize={this.props.getStoreSettingsByProperty('basis','size')}
-                                  defaultSize={this.props.getDefaultSettingsByProperty('basis','size')}
-                                  updateStateProps={this.updateBasis}
-                            />
+                            {
+                                this.props.content.images
+                                    ? this.props.content.images.map((image, i) => {
+                                        return <Row key={i}>
+                                            <AssetPreview
+                                                locale={this.props.extensionInfo.extension.locales ? this.props.extensionInfo.extension.locales.default : null}
+                                                asset={this.getAssetToPreview(i)}
+                                            />
+                                            <Size size={this.props.getSettingsByProperty('basis','size', i+1)}
+                                                     storeValueSize={this.props.getStoreSettingsByProperty('basis','size', i+1)}
+                                                     defaultSize={this.props.getDefaultSettingsByProperty('basis','size', i+1)}
+                                                     updateStateProps={this.updateBasis}
+                                                     event={i+1}
+
+                                        /></Row>;
+                                    }) : null
+                            }
                         </Choices>
                     </Settings>
                 </Field>
@@ -90,6 +112,12 @@ class MultipleImages extends Component {
         );
     }
 }
+const mapStateToProps = state => ({
+    extensionInfo: getCurrentExtension(state),
+});
 
-const WrappedComponent = FieldWrapper(MultipleImages);
+const WrappedComponent = FieldWrapper(connect(mapStateToProps)(MultipleImages));
 export default WrappedComponent;
+
+export const MultipleImagesForComponent = FieldWrapper(connect(mapStateToProps)(MultipleImages));
+export const MultipleImagesForSection = FieldWrapperOfSection(connect(mapStateToProps)(MultipleImages));

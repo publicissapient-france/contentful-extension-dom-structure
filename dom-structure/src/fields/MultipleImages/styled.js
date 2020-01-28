@@ -20,6 +20,7 @@ export const Settings = styled.div`
 
 export const Choices = styled.div`
    display : flex;
+   flex-direction : column;
 `;
 
 export const Column = styled.div`
@@ -32,4 +33,9 @@ export const Column = styled.div`
     &.full-width{
         width : 100%;
     }
+`;
+
+export const Row = styled.div`
+   display : flex;
+   width : 100%;
 `;
