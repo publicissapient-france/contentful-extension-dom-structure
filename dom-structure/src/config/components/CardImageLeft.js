@@ -21,10 +21,74 @@ export default {
                 }
             },
             settings: {
-                responsive: ['A'],
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
                     basis: {
-                        A: {
+                        M: {
+                            size: {
+                                width: '',
+                                height: 'auto',
+                                maxWidth: '',
+                                maxHeight: '',
+                                minWidth: '',
+                                minHeight: '400'
+
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            margin: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        T: {
+                            size: {
+                                width: '',
+                                height: 'auto',
+                                maxWidth: '',
+                                maxHeight: '',
+                                minWidth: '',
+                                minHeight: '400'
+
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            margin: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        D: {
                             size: {
                                 width: '',
                                 height: 'auto',
@@ -58,7 +122,53 @@ export default {
                         }
                     },
                     border: {
-                        A: {
+                        M: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
+                            },
+                            color: {
+                                hex: 'transparent',
+                                rgb: '',
+                                name: 'Transparent',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        T: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
+                            },
+                            color: {
+                                hex: 'transparent',
+                                rgb: '',
+                                name: 'Transparent',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        D: {
                             width: {
                                 top: '0',
                                 right: '0',
