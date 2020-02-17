@@ -65,83 +65,9 @@ export default {
                             },
                             color: {
                                 basic: {
-                                    hex: '#303030',
-                                    rgb: '48,48,48',
-                                    name: 'Grey-90',
-                                    shade: null
-                                },
-                                scroll: {
-                                    hex: '#303030',
-                                    rgb: '48,48,48',
-                                    name: 'Grey-90',
-                                    shade: null
-                                }
-
-                            },
-                            opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                scroll: {
-                                    value: '1'
-                                }
-
-                            }
-                        },
-                        T: {
-                            size: {
-                                basic: {
-                                    width: '100%',
-                                    height: '60',
-                                    maxWidth: '',
-                                    maxHeight: '',
-                                    minWidth: '',
-                                    minHeight: ''
-                                },
-                                scroll: {
-                                    width: '100%',
-                                    height: '60',
-                                    maxWidth: '',
-                                    maxHeight: '',
-                                    minWidth: '',
-                                    minHeight: ''
-                                }
-
-                            },
-                            padding: {
-                                basic: {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                },
-                                scroll: {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                }
-
-                            },
-                            margin: {
-                                basic: {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                },
-                                scroll: {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                }
-                            },
-                            color: {
-                                basic: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
+                                    hex: '#FFFFFF',
+                                    rgb: '255,255,255',
+                                    name: 'White',
                                     shade: null
                                 },
                                 scroll: {
@@ -154,19 +80,19 @@ export default {
                             },
                             opacity: {
                                 basic: {
-                                    value: '1'
+                                    value: '0.8'
                                 },
                                 scroll: {
-                                    value: '0.3'
+                                    value: '0.8'
                                 }
 
                             }
                         },
-                        D: {
+                        T: {
                             size: {
                                 basic: {
                                     width: '100%',
-                                    height: '60',
+                                    height: '50',
                                     maxWidth: '',
                                     maxHeight: '',
                                     minWidth: '',
@@ -213,9 +139,9 @@ export default {
                             },
                             color: {
                                 basic: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
+                                    hex: '#FFFFFF',
+                                    rgb: '255,255,255',
+                                    name: 'White',
                                     shade: null
                                 },
                                 scroll: {
@@ -228,10 +154,84 @@ export default {
                             },
                             opacity: {
                                 basic: {
-                                    value: '1'
+                                    value: '0.8'
                                 },
                                 scroll: {
-                                    value: '0.3'
+                                    value: '0.8'
+                                }
+
+                            }
+                        },
+                        D: {
+                            size: {
+                                basic: {
+                                    width: '100%',
+                                    height: '60',
+                                    maxWidth: '',
+                                    maxHeight: '',
+                                    minWidth: '',
+                                    minHeight: ''
+                                },
+                                scroll: {
+                                    width: '100%',
+                                    height: '60',
+                                    maxWidth: '',
+                                    maxHeight: '',
+                                    minWidth: '',
+                                    minHeight: ''
+                                }
+
+                            },
+                            padding: {
+                                basic: {
+                                    top: '0',
+                                    right: '20',
+                                    bottom: '0',
+                                    left: '20'
+                                },
+                                scroll: {
+                                    top: '0',
+                                    right: '20',
+                                    bottom: '0',
+                                    left: '20'
+                                }
+
+                            },
+                            margin: {
+                                basic: {
+                                    top: '0',
+                                    right: '0',
+                                    bottom: '0',
+                                    left: '0'
+                                },
+                                scroll: {
+                                    top: '0',
+                                    right: '0',
+                                    bottom: '0',
+                                    left: '0'
+                                }
+                            },
+                            color: {
+                                basic: {
+                                    hex: '#FFFFFF',
+                                    rgb: '255,255,255',
+                                    name: 'White',
+                                    shade: null
+                                },
+                                scroll: {
+                                    hex: '#FFFFFF',
+                                    rgb: '255,255,255',
+                                    name: 'White',
+                                    shade: null
+                                }
+
+                            },
+                            opacity: {
+                                basic: {
+                                    value: '0.9'
+                                },
+                                scroll: {
+                                    value: '0.9'
                                 }
 
                             }
@@ -244,18 +244,18 @@ export default {
                                 height: ''
                             },
                             fill: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'Black',
                                 shade: null
                             },
                             opacityFill: {
                                 value: '1'
                             },
                             color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'Black',
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
                                 shade: null
                             },
                             opacity: {
@@ -268,18 +268,18 @@ export default {
                                 height: ''
                             },
                             fill: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'Black',
                                 shade: null
                             },
                             opacityFill: {
                                 value: '1'
                             },
                             color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'Black',
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
                                 shade: null
                             },
                             opacity: {
@@ -292,9 +292,9 @@ export default {
                                 height: ''
                             },
                             fill: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
+                                hex: 'transparent',
+                                rgb: '',
+                                name: 'Transparent',
                                 shade: null
                             },
                             opacityFill: {
@@ -318,10 +318,10 @@ export default {
                                 height: '50'
                             },
                             fill: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
-                                shade: null
+                                hex: '#666666',
+                                rgb: '102,102,102',
+                                name: 'Grey',
+                                shade: '70'
                             },
                             opacityFill: {
                                 value: '1'
@@ -333,10 +333,10 @@ export default {
                                 height: '50'
                             },
                             fill: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
-                                shade: null
+                                hex: '#666666',
+                                rgb: '102,102,102',
+                                name: 'Grey',
+                                shade: '70'
                             },
                             opacityFill: {
                                 value: '1'
@@ -348,10 +348,10 @@ export default {
                                 height: '50'
                             },
                             fill: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
-                                shade: null
+                                hex: '#666666',
+                                rgb: '102,102,102',
+                                name: 'Grey',
+                                shade: '70'
                             },
                             opacityFill: {
                                 value: '1'
@@ -433,7 +433,7 @@ export default {
                         T: {
                             size: {
                                 width: '',
-                                height: '100%',
+                                height: '50',
                                 maxWidth: '',
                                 maxHeight: ''
 
@@ -488,7 +488,7 @@ export default {
                         D: {
                             size: {
                                 width: '',
-                                height: '100%',
+                                height: '60',
                                 maxWidth: '',
                                 maxHeight: ''
 
@@ -560,22 +560,22 @@ export default {
                             },
                             color: {
                                 basic: {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
+                                    hex: '#000000',
+                                    rgb: '0,0,0',
+                                    name: 'Black',
                                     shade: null
                                 },
                                 hover: {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
-                                    shade: null
+                                    hex: '#666666',
+                                    rgb: '102,102,102',
+                                    name: 'Grey',
+                                    shade: '70'
                                 },
                                 active: {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
-                                    shade: null
+                                    hex: '#666666',
+                                    rgb: '102,102,102',
+                                    name: 'Grey',
+                                    shade: '70'
                                 }
                             },
                             opacity: {
@@ -583,10 +583,10 @@ export default {
                                     value: '1'
                                 },
                                 hover: {
-                                    value: '0.5'
+                                    value: '1'
                                 },
                                 active: {
-                                    value: '0.5'
+                                    value: '1'
                                 }
                             }
                         },
@@ -608,22 +608,22 @@ export default {
                             },
                             color: {
                                 basic: {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
+                                    hex: '#000000',
+                                    rgb: '0,0,0',
+                                    name: 'Black',
                                     shade: null
                                 },
                                 hover: {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
-                                    shade: null
+                                    hex: '#666666',
+                                    rgb: '102,102,102',
+                                    name: 'Grey',
+                                    shade: '70'
                                 },
                                 active: {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
-                                    shade: null
+                                    hex: '#666666',
+                                    rgb: '102,102,102',
+                                    name: 'Grey',
+                                    shade: '70'
                                 }
                             },
                             opacity: {
@@ -631,10 +631,10 @@ export default {
                                     value: '1'
                                 },
                                 hover: {
-                                    value: '0.5'
+                                    value: '1'
                                 },
                                 active: {
-                                    value: '0.5'
+                                    value: '1'
                                 }
                             }
                         },
@@ -656,22 +656,22 @@ export default {
                             },
                             color: {
                                 basic: {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
+                                    hex: '#000000',
+                                    rgb: '0,0,0',
+                                    name: 'Black',
                                     shade: null
                                 },
                                 hover: {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
-                                    shade: null
+                                    hex: '#666666',
+                                    rgb: '102,102,102',
+                                    name: 'Grey',
+                                    shade: '70'
                                 },
                                 active: {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
-                                    shade: null
+                                    hex: '#666666',
+                                    rgb: '102,102,102',
+                                    name: 'Grey',
+                                    shade: '70'
                                 }
                             },
                             opacity: {
@@ -679,10 +679,10 @@ export default {
                                     value: '1'
                                 },
                                 hover: {
-                                    value: '0.5'
+                                    value: '1'
                                 },
                                 active: {
-                                    value: '0.5'
+                                    value: '1'
                                 }
                             }
                         },
@@ -783,7 +783,7 @@ export default {
                             width: {
                                 top: '0',
                                 right: '0',
-                                bottom: '0',
+                                bottom: '1',
                                 left: '0'
                             },
                             radius: {
@@ -800,16 +800,16 @@ export default {
                                     shade: null
                                 },
                                 hover: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
+                                    hex: '#666666',
+                                    rgb: '102,102,102',
+                                    name: 'Grey',
+                                    shade: '70'
                                 },
                                 active: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
+                                    hex: '#666666',
+                                    rgb: '102,102,102',
+                                    name: 'Grey',
+                                    shade: '70'
                                 }
                             },
                             opacity: {
@@ -854,7 +854,7 @@ export default {
                         M: {
                             size: {
                                 width: '',
-                                height: '20',
+                                height: '30',
                                 maxWidth: '',
                                 maxHeight: ''
 
@@ -878,7 +878,7 @@ export default {
                         T: {
                             size: {
                                 width: '',
-                                height: '20',
+                                height: '30',
                                 maxWidth: '',
                                 maxHeight: ''
 
@@ -902,7 +902,7 @@ export default {
                         D: {
                             size: {
                                 width: '',
-                                height: '20',
+                                height: '30',
                                 maxWidth: '',
                                 maxHeight: ''
 
@@ -917,7 +917,7 @@ export default {
                                 top: '0',
                                 right: '0',
                                 bottom: '0',
-                                left: '20'
+                                left: '0'
                             },
                             alignment: {
                                 horizontal: 'flex-start'

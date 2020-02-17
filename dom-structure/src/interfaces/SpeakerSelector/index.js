@@ -16,12 +16,14 @@ class SpeakerSelector extends Component {
             isDraggingOver: false,
             eventId: null,
             speakers: [],
+            selectedSpeakers : [],
             allSpeakers: null
         };
     }
 
     componentDidMount() {
-        if (this.props.idSource && !isEmpty(this.props.idSource)) {
+        this.initSpeakersRessources();
+        /*if (this.props.idSource && !isEmpty(this.props.idSource)) {
             this.setState({
                 eventId: this.props.idSource
             }, () => {
@@ -36,7 +38,7 @@ class SpeakerSelector extends Component {
         this.setState({
             display: this.props.display,
             currentEvent : this.props.event
-        })
+        })*/
     };
 
     componentDidUpdate(prevProps) {
@@ -52,7 +54,36 @@ class SpeakerSelector extends Component {
         }
     }
 
+    initSpeakersRessources = async () => {
+         await this.props.extensionInfo.extension.space.getEntries({
+            'content_type': 'event',
+        }).then(selectedEntry => {
+            console.log('ENTRY', selectedEntry)
+            console.log('ENTRY', selectedEntry.items[0].fields.speakers[this.findProperLocale()])
+            this.setState({
+                speakers : selectedEntry.items[0].fields.speakers[this.findProperLocale()]
+            }, () => {
+                console.log('STATE SPEAKERS', this.state)
+            })
+            return selectedEntry.items[0].fields.speakers[this.findProperLocale()]
+        });
+    }
+/*
     onClickLinkExisting = async () => {
+        await this.props.extensionInfo.extension.space.getEntries({
+            'content_type': 'event',
+        }).then(selectedEntry => {
+            console.log('ENTRY', selectedEntry)
+            console.log('ENTRY', selectedEntry.items[0].fields.speakers[this.findProperLocale()])
+            /*if (selectedEntry) {
+                try {
+                    this.setSelectedEvent(selectedEntry);
+                } catch (err) {
+                    this.onError(err);
+                }
+            }
+        });
+
         await this.props.extensionInfo.extension.dialogs.selectSingleEntry({
             contentTypes: ["event"]
         }).then(selectedEntry => {
@@ -65,7 +96,7 @@ class SpeakerSelector extends Component {
             }
         });
 
-    }
+    }*/
 
 
     findProperLocale() {
@@ -80,7 +111,7 @@ class SpeakerSelector extends Component {
         });
     }
 
-    setEventOnState = async (id) => {
+    /*setEventOnState = async (id) => {
         if (!id) return
         let event = await this.getElementById(id);
 
@@ -100,7 +131,7 @@ class SpeakerSelector extends Component {
         }, () => {
             this.props.updateContent('idSource', this.state.eventId)
         });
-    }
+    }*/
 
     onError = error => {
         console.error(error);
@@ -112,7 +143,7 @@ class SpeakerSelector extends Component {
         this.props.extensionInfo.extension.notifier.error(message);
     }
 
-    toggleChange = (e, id) => {
+    /*toggleChange = (e, id) => {
         if (e.target.checked) {
             this.setState(prevState => ({
                 speakers: [...prevState.speakers, id]
@@ -124,11 +155,10 @@ class SpeakerSelector extends Component {
                 speakers: prevState.speakers.filter(item => item !== id)
             }), () => {
                 this.props.updateContent('speakers', this.state.speakers)
-
             })
         }
-    }
-    selectAll = (e) => {
+    }*/
+    /*selectAll = (e) => {
         if (e.target.checked) {
             this.setState(prevState => ({
                 speakers: [...prevState.allSpeakers].map(speaker => speaker.identifier)
@@ -144,11 +174,11 @@ class SpeakerSelector extends Component {
             })
         }
 
-    }
+    }*/
 
-    allSelected = () => isEqual(this.state.speakers, [...this.state.allSpeakers].map(speaker => speaker.identifier))
+    //allSelected = () => isEqual(this.state.speakers, [...this.state.allSpeakers].map(speaker => speaker.identifier))
 
-    updateDisplay = (property, e, event) => {
+  /*  updateDisplay = (property, e, event) => {
         if (e.target.checked) {
             this.setState(prevState => ({
                 display: {
@@ -175,7 +205,7 @@ class SpeakerSelector extends Component {
             });
         }
 
-    }
+    }*/
 
     render = () => {
         const {} = this.props;
@@ -183,7 +213,23 @@ class SpeakerSelector extends Component {
 
         return (
             <Container>
-                <Field>
+
+            </Container>
+        );
+    }
+}
+
+SpeakerSelector.protoTypes = {
+    asset: PropTypes.object,
+    alt: PropTypes.string,
+    index: PropTypes.number
+};
+
+const mapStateToProps = state => ({
+    extensionInfo: getCurrentExtension(state)
+});
+export default connect(mapStateToProps)(SpeakerSelector);
+/*<Field>
 
                     {
                         this.state.eventId && !isEmpty(this.state.eventId) ?
@@ -197,30 +243,30 @@ class SpeakerSelector extends Component {
                             </div>
                     }
 
-                </Field>
-                {
-                    this.state.allSpeakers ?
-                        <Choice>
-                            <input checked={this.allSelected()} type={'checkbox'}
-                                   onChange={(e) => this.selectAll(e)}/>
-                            select all
-                        </Choice>
-                        : null
-                }
-                <Selector>
-                    {
-                        this.state.allSpeakers ?
-                            this.state.allSpeakers.map((speaker, i) => {
-                                return <Choice key={i}>
-                                    <input checked={this.state.speakers.includes(speaker.identifier)} type={'checkbox'}
-                                           onChange={(e) => this.toggleChange(e, speaker.identifier)}/>
-                                    {speaker.firstname} {speaker.lastname}
-                                </Choice>
-                            })
-                            : null
-                    }
+                </Field>*/
+/*{
+    this.state.speakers ?
+        <Choice>
+            <input checked={this.allSelected()} type={'checkbox'}
+                   onChange={(e) => this.selectAll(e)}/>
+            select all
+        </Choice>
+        : null
+}
+/* <Selector>
+    {
+        this.state.allSpeakers ?
+            this.state.allSpeakers.map((speaker, i) => {
+                return <Choice key={i}>
+                    <input checked={this.state.speakers.includes(speaker.identifier)} type={'checkbox'}
+                           onChange={(e) => this.toggleChange(e, speaker.identifier)}/>
+                    {speaker.firstname} {speaker.lastname}
+                </Choice>
+            })
+            : null
+    }
 
-                </Selector>
+</Selector>*//*
                 <Display>
                     {
                         this.props.events && this.props.events.length !== 0 ?
@@ -251,19 +297,4 @@ class SpeakerSelector extends Component {
                             : null
 
                     }
-                </Display>
-            </Container>
-        );
-    }
-}
-
-SpeakerSelector.protoTypes = {
-    asset: PropTypes.object,
-    alt: PropTypes.string,
-    index: PropTypes.number
-};
-
-const mapStateToProps = state => ({
-    extensionInfo: getCurrentExtension(state)
-});
-export default connect(mapStateToProps)(SpeakerSelector);
+                </Display>*/
