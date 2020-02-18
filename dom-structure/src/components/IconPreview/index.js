@@ -8,7 +8,7 @@ import SvgP from '../svg/SvgP';
 import SvgExtend from '../svg/SvgExtend';
 import PropTypes from 'prop-types';
 
-import { PreviewContainer, Options, TextContainer } from './styled';
+import { PreviewContainer, Options, TextContainer, Error } from './styled';
 
 class IconPreview extends Component {
     constructor (props) {
@@ -26,7 +26,7 @@ class IconPreview extends Component {
         const { font, color, opacity, open, hidden } = this.props;
         let lightIcon = this.state.light ? <SvgMoon/> : <SvgSun/>;
         let extendIcon = this.state.alphabet ? <SvgExtend/> : <SvgExtend/>;
-        if (!font) return <p>preview impossible</p>;
+        if (!font) return <PreviewContainer><Error>Select you icon on Content tab</Error></PreviewContainer>;
         return (
             <PreviewContainer className={hidden ? 'hidden' : ''}>
                 <TextContainer className={[!this.state.light ? 'on-dark' : '', open ? 'is-open' : '']}>

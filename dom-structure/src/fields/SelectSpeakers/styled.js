@@ -30,24 +30,6 @@ export const Column = styled.div`
 `;
 
 
-
-export const LinkSettings = styled.div`
-   display : flex;
-   justify-content : space-between;
-   
-   &>label:nth-child(2){
-    display : flex;
-    width : auto;
-    &>input[type=checkbox]{
-        width : 20px;
-         height: 20px;
-        margin-right : 5px;
-        align-self : center;
-    }
-   }
-`;
-
-
 export const Choices = styled.div`
    display : flex;
    flex-wrap : wrap;
@@ -69,124 +51,13 @@ export const Choices = styled.div`
 `;
 
 
-export const ChoicesTypography = styled(Choices)`
-   display : flex;
-   flex-wrap : wrap;
-   width : 100%;
-   &>${Column}{
-    &:nth-child(2){
-        width : 25%;
-    }
-   
-    &:nth-child(2).full-width{
-        width : 100%;     
-    }
-    &:nth-child(3){
-        width :75%;
-    }
-   
-`;
-
-export const ChoicesImage = styled(Choices)`
-   display : flex;
-   flex-wrap : wrap;
-   width : 100%;
-   &>${Column}{
-    &:nth-child(2){
-        width : 25%;
-    }
-   
-    &:nth-child(2).full-width{
-        width : 100%;     
-    }
-    &:nth-child(3){
-        width :75%;
-    }
-   
-`;
 
 export const ChoicesSpeakers = styled(Choices)`
    display : flex;
    flex-wrap : wrap;
    width : 100%;
    
-`;
-
-export const ChoicesCustom = styled(Choices)`
-   display : flex;
-   flex-wrap : wrap;
-   width : 100%;
-   
-   &>${Column}{
-    &:nth-child(2){
-        width : 25%;
-        
-        & ${Row}{
-            border-bottom-width : 0px;
-        }
-        
-        
-    }
-    &:nth-child(2).full-width{
-            width : 100%;
-            
-    }
-    &:nth-child(3){
-        width :75%;
-        
-        & ${Row}{
-            flex-direction : row;
-            
-            &:nth-child(3){
-                border-bottom-width : 0px;
-            }
-            
-        }
-        
-       
-    }
-    /*&:nth-child(3){
-        width :25%;
-        border-top : 1px solid ${extensionTheme.grey20};
-        
-        &.full-width{
-            width : 100%;
-        }
-    }*/
-    &:nth-child(4){
-        border-top : 1px solid ${extensionTheme.grey20};
-        width :75%;
-        flex-direction : row;
-    }
-    
-    &:nth-child(5){
-        width :25%;
-        border-top : 1px solid ${extensionTheme.grey20};
-        
-        &.full-width{
-            width : 100%;
-        }
-    }
-    &:nth-child(6){
-        border-top : 1px solid ${extensionTheme.grey20};
-        width :75%;
-        flex-direction : column;
-        
-        & ${Row}{
-            &:nth-child(2){
-                border-bottom-width : 0px;
-            }
-            
-        }
-    }
-    
-    &:not(.full-width){
-        &>${Row}{
-           // height : 190px;
-        }
-    }
-    
-   }
+  
 `;
 
 
@@ -214,12 +85,11 @@ export const ChoicesContent = styled(Choices)`
    width : 100%;
    
    &>${Column}{
-       &:nth-child(1){
-            width : 50%;
+        border-right : 0px solid transparent;
+       &:nth-child(1), &:nth-child(2), &:nth-child(3){
+            width : calc(100%/3);
        }
-       &:nth-child(2){
-            width : 50%;
-       }
+       
    }
    
 `;
@@ -272,12 +142,4 @@ export const ButtonEvents = styled.div`
    }
 `;
 
-export const ElementName = styled.div`
-   display : flex; 
-   width  : 100%;
-   justify-content : flex-start;
-   padding-left : 10px;
-   //border-top : 1px solid ${extensionTheme.grey30};
-   background : ${extensionTheme.grey10};
-   }
-`;
+

@@ -194,7 +194,7 @@ const FieldWrapperOfSection = WrappedComponent => {
 
 
 
-        updateContent = (targetProperty, value) => {
+        updateContent = (value, targetProperty) => {
             this.setState(prevState => ({
                 content: {
                     ...prevState.content,

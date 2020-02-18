@@ -1,300 +1,245 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-
-import {Container, Field, Selector, Choice, Display, ButtonEvents} from './styled';
+import {
+    Container,
+    Speakers,
+    Select,
+    List,
+    Priority,
+    Display,
+    PriorityList,
+    Element,
+    Identity,
+    ButtonsMove,
+    Button
+} from './styled';
 import {getCurrentExtension} from '../../actions/index';
-import isEmpty from 'lodash/isEmpty'
-import isEqual from 'lodash/isEqual'
-import uniqBy from 'lodash/uniqBy'
+import SvgArrowToTop from '../../components/svg/SvgArrowToTop';
 
 class SpeakerSelector extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            isDraggingOver: false,
-            eventId: null,
             speakers: [],
-            selectedSpeakers : [],
-            allSpeakers: null
+            selectedSpeakers: [],
+            priority: []
         };
     }
 
-    componentDidMount() {
-        this.initSpeakersRessources();
-        /*if (this.props.idSource && !isEmpty(this.props.idSource)) {
-            this.setState({
-                eventId: this.props.idSource
-            }, () => {
-                this.setEventOnState(this.state.eventId)
-            })
-        }
-        if (this.props.speakers && !isEmpty(this.props.speakers)) {
-            this.setState({
-                speakers: this.props.speakers
-            })
-        }
+    componentDidMount = async () => {
+        await this.initSpeakersRessources();
         this.setState({
+            selectedSpeakers: this.props.speakers,
             display: this.props.display,
-            currentEvent : this.props.event
-        })*/
+            priority: this.props.priority
+        })
     };
 
     componentDidUpdate(prevProps) {
-        if(this.props.display !== prevProps.display){
+        if (this.props.display !== prevProps.display) {
             this.setState({
                 display: this.props.display
             })
         }
-        if(this.props.event !== prevProps.event){
+        if (this.props.speakers !== prevProps.speakers) {
             this.setState({
-                currentEvent: this.props.event
+                selectedSpeakers: this.props.speakers
+            })
+        }
+        if (this.props.priority !== prevProps.priority) {
+            this.setState({
+                priority: this.props.priority
             })
         }
     }
 
     initSpeakersRessources = async () => {
-         await this.props.extensionInfo.extension.space.getEntries({
+        await this.props.extensionInfo.extension.space.getEntries({
             'content_type': 'event',
         }).then(selectedEntry => {
-            console.log('ENTRY', selectedEntry)
-            console.log('ENTRY', selectedEntry.items[0].fields.speakers[this.findProperLocale()])
             this.setState({
-                speakers : selectedEntry.items[0].fields.speakers[this.findProperLocale()]
-            }, () => {
-                console.log('STATE SPEAKERS', this.state)
+                speakers: selectedEntry.items[0].fields.speakers[this.findProperLocale()]
             })
             return selectedEntry.items[0].fields.speakers[this.findProperLocale()]
         });
     }
-/*
-    onClickLinkExisting = async () => {
-        await this.props.extensionInfo.extension.space.getEntries({
-            'content_type': 'event',
-        }).then(selectedEntry => {
-            console.log('ENTRY', selectedEntry)
-            console.log('ENTRY', selectedEntry.items[0].fields.speakers[this.findProperLocale()])
-            /*if (selectedEntry) {
-                try {
-                    this.setSelectedEvent(selectedEntry);
-                } catch (err) {
-                    this.onError(err);
-                }
-            }
-        });
 
-        await this.props.extensionInfo.extension.dialogs.selectSingleEntry({
-            contentTypes: ["event"]
-        }).then(selectedEntry => {
-            if (selectedEntry) {
-                try {
-                    this.setSelectedEvent(selectedEntry);
-                } catch (err) {
-                    this.onError(err);
-                }
-            }
-        });
+    findProperLocale = () => this.props.extensionInfo.extension.locales.default;
 
-    }*/
+    alreadyOnPriority = (id) => this.state.priority.find(item => item === id)
+    alreadySelected = (id) => this.state.selectedSpeakers.find(item => item === id)
 
-
-    findProperLocale() {
-        return this.props.extensionInfo.extension.locales.default;
-    }
-
-    getElementById = id => {
-        return this.props.extensionInfo.extension.space.getEntries({
-            'sys.id': id
-        }).then(function (result) {
-            return result.items[0];
-        });
-    }
-
-    /*setEventOnState = async (id) => {
-        if (!id) return
-        let event = await this.getElementById(id);
-
-        this.setState({
-            eventId: event.sys.id,
-            eventName: event.fields['name'][this.findProperLocale()],
-            allSpeakers: uniqBy(event.fields['speakers'][this.findProperLocale()], (item) => item.firstname && item.lastname)
+    addPriority = (id) => {
+        this.setState(prevState => ({
+            priority: [...prevState.priority, id]
+        }), () => {
+            this.props.updateContent(this.state.priority, 'priority')
         })
     }
 
-    setSelectedEvent = async event => {
-        this.setState({
-            ...this.state,
-            eventId: event.sys.id,
-            eventName: event.fields['name'][this.findProperLocale()],
-            allSpeakers: uniqBy(event.fields['speakers'][this.findProperLocale()], (item) => item.firstname && item.lastname)
-        }, () => {
-            this.props.updateContent('idSource', this.state.eventId)
-        });
-    }*/
-
-    onError = error => {
-        console.error(error);
-        this.props.extensionInfo.extension.notifier.error(error.message);
+    removePriority = (id) => {
+        this.setState(prevState => ({
+            priority: prevState.priority.filter(item => item !== id)
+        }), () => {
+            this.props.updateContent(this.state.priority, 'priority')
+        })
     }
 
-    onCustomError = message => {
-        console.error(message);
-        this.props.extensionInfo.extension.notifier.error(message);
+    updatePriority = (id) => {
+        if (!this.alreadyOnPriority(id)) {
+            this.addPriority(id);
+
+            if (!this.alreadySelected(id)) {
+                this.addSelected(id);
+            }
+        } else {
+            this.removePriority(id);
+        }
     }
 
-    /*toggleChange = (e, id) => {
+    addSelected = (id) => {
+        this.setState(prevState => ({
+            selectedSpeakers: [...prevState.selectedSpeakers, id]
+        }), () => {
+            this.props.updateContent(this.state.selectedSpeakers, 'speakers')
+        })
+    }
+
+    removeSelected = (id) => {
+        this.setState(prevState => ({
+            selectedSpeakers: prevState.selectedSpeakers.filter(item => item !== id)
+        }), () => {
+            this.props.updateContent(this.state.selectedSpeakers, 'speakers')
+        })
+    }
+
+    updateSelected = (e, id) => {
         if (e.target.checked) {
-            this.setState(prevState => ({
-                speakers: [...prevState.speakers, id]
-            }), () => {
-                this.props.updateContent('speakers', this.state.speakers)
-            })
+            this.addSelected(id);
         } else {
-            this.setState(prevState => ({
-                speakers: prevState.speakers.filter(item => item !== id)
-            }), () => {
-                this.props.updateContent('speakers', this.state.speakers)
-            })
+            this.removeSelected(id);
+
+            if (this.alreadyOnPriority(id)) {
+                this.removePriority(id);
+            }
         }
-    }*/
-    /*selectAll = (e) => {
-        if (e.target.checked) {
-            this.setState(prevState => ({
-                speakers: [...prevState.allSpeakers].map(speaker => speaker.identifier)
-            }), () => {
-                this.props.updateContent('speakers', this.state.speakers)
-            })
-        } else {
-            this.setState(prevState => ({
-                speakers: []
-            }), () => {
-                this.props.updateContent('speakers', this.state.speakers)
+    }
 
-            })
-        }
-
-    }*/
-
-    //allSelected = () => isEqual(this.state.speakers, [...this.state.allSpeakers].map(speaker => speaker.identifier))
-
-  /*  updateDisplay = (property, e, event) => {
-        if (e.target.checked) {
-            this.setState(prevState => ({
-                display: {
-                    ...prevState.display,
-                    [event]: {
-                        ...prevState.display[event],
-                        [property]: true
-                    }
+    toggleDisplay = (prop, subProp, value) => {
+        this.setState(prevState => ({
+            display: {
+                ...prevState.display,
+                [prop]: {
+                    ...prevState.display[prop],
+                    [subProp]: value
                 }
-            }), () => {
-                this.props.updateContent('display', this.state.display)
-            });
-        }else{
-            this.setState(prevState => ({
-                display: {
-                    ...prevState.display,
-                    [event]: {
-                        ...prevState.display[event],
-                        [property]:false
-                    }
-                }
-            }), () => {
-                this.props.updateContent('display', this.state.display)
-            });
-        }
+            }
+        }), () => {
+            this.props.updateContent(this.state.display, 'display')
+        })
+    }
 
-    }*/
+    getById = (id) => this.state.speakers.find(element => element.id === id);
+
+    moveElementToTop = (index) => {
+        if (index === 0) return
+        const a = this.props.priority[index];
+        const b = this.props.priority[index - 1];
+        let newOrder = [...this.props.priority];
+        newOrder[index - 1] = a;
+        newOrder[index] = b;
+
+        this.setState({priority: newOrder}, () => {
+            this.props.updateContent(this.state.priority, 'priority')
+        })
+    }
+
+    moveElementToBottom = (index) => {
+        if (index === (this.props.priority.length - 1)) return
+        const a = this.props.priority[index];
+        const b = this.props.priority[index + 1];
+        let newOrder = [...this.props.priority];
+        newOrder[index] = b;
+        newOrder[index + 1] = a;
+
+        this.setState({priority: newOrder}, () => {
+            this.props.updateContent(this.state.priority, 'priority')
+        })
+    }
 
     render = () => {
-        const {} = this.props;
-
-
         return (
             <Container>
-
+                <Speakers>
+                    <label>Speakers</label>
+                    <List>
+                        {
+                            this.state.speakers ? this.state.speakers.map((speaker, i) => {
+                                return <Select key={i}>
+                                    <input checked={this.state.selectedSpeakers.includes(speaker.id)} type={'checkbox'}
+                                           onChange={(e) => this.updateSelected(e, speaker.id)}/>
+                                    <p className={this.state.priority.includes(speaker.id) ? 'active' : ''}
+                                       onClick={() => {
+                                           this.updatePriority(speaker.id)
+                                       }}>{speaker.FirstName} {speaker.LastName}</p>
+                                </Select>
+                            }) : null
+                        }
+                    </List>
+                </Speakers>
+                <Priority>
+                    <label>Priority List</label>
+                    <PriorityList>
+                        {
+                            this.state.priority ? this.state.priority.map((id, i) => {
+                                const speaker = this.getById(id);
+                                return <Element>
+                                    <ButtonsMove>
+                                        <Button onClick={() => this.moveElementToBottom(i)}><SvgArrowToTop/></Button>
+                                        <Button onClick={() => this.moveElementToTop(i)}><SvgArrowToTop/></Button>
+                                    </ButtonsMove>
+                                    <Identity>{speaker.FirstName} {speaker.LastName}</Identity>
+                                </Element>
+                            }) : null
+                        }
+                    </PriorityList>
+                    <Display>
+                        <div>
+                            <label>Tiny content</label>
+                            <Select>
+                                <input
+                                    checked={this.state.display && this.state.display.logo && this.state.display.logo.tiny ? this.state.display.logo.tiny : false}
+                                    type={'checkbox'}
+                                    onChange={(e) => this.toggleDisplay('logo', 'tiny', e.target.checked)}/>
+                                Logo
+                            </Select>
+                        </div>
+                        <div>
+                            <label>Large content</label>
+                            <Select>
+                                <input
+                                    checked={this.state.display && this.state.display.logo && this.state.display.logo.tiny ? this.state.display.logo.tiny : false}
+                                    type={'checkbox'}
+                                    onChange={(e) => this.toggleDisplay('logo', 'large', e.target.checked)}/>
+                                Logo
+                            </Select>
+                        </div>
+                    </Display>
+                </Priority>
             </Container>
         );
     }
 }
 
 SpeakerSelector.protoTypes = {
-    asset: PropTypes.object,
-    alt: PropTypes.string,
-    index: PropTypes.number
+    speakers: PropTypes.array,
+    display: PropTypes.object,
+    priority: PropTypes.array
 };
 
 const mapStateToProps = state => ({
     extensionInfo: getCurrentExtension(state)
 });
 export default connect(mapStateToProps)(SpeakerSelector);
-/*<Field>
-
-                    {
-                        this.state.eventId && !isEmpty(this.state.eventId) ?
-                            <div>
-                                <button onClick={() => this.onClickLinkExisting()}>Change source event</button>
-                                <p>selected event : {this.state.eventName ? this.state.eventName : ''}</p>
-                            </div>
-                            : <div>
-                                <p>Select source event :</p>
-                                <button onClick={() => this.onClickLinkExisting()}>Choose</button>
-                            </div>
-                    }
-
-                </Field>*/
-/*{
-    this.state.speakers ?
-        <Choice>
-            <input checked={this.allSelected()} type={'checkbox'}
-                   onChange={(e) => this.selectAll(e)}/>
-            select all
-        </Choice>
-        : null
-}
-/* <Selector>
-    {
-        this.state.allSpeakers ?
-            this.state.allSpeakers.map((speaker, i) => {
-                return <Choice key={i}>
-                    <input checked={this.state.speakers.includes(speaker.identifier)} type={'checkbox'}
-                           onChange={(e) => this.toggleChange(e, speaker.identifier)}/>
-                    {speaker.firstname} {speaker.lastname}
-                </Choice>
-            })
-            : null
-    }
-
-</Selector>*//*
-                <Display>
-                    {
-                        this.props.events && this.props.events.length !== 0 ?
-                            <ButtonEvents>
-                                {
-                                    this.props.events.map((event, i) => {
-                                        return <button
-                                            key={i}
-                                            className={event === this.props.event ? 'current' : ''}
-                                            onClick={() => {
-                                                this.props.toggleCurrentEvent(event)
-                                            }}>{event}</button>
-                                    })
-                                }
-                            </ButtonEvents> : null
-
-                    }
-                    {
-                        this.state.display && this.state.display[this.props.event] ?
-                            Object.keys(this.state.display[this.props.event]).map((key, i) =>  {
-                                return <Choice key={i}>
-                                    <input checked={this.state.display[this.props.event][key]} type={'checkbox'}
-                                           onChange={(e) => this.updateDisplay(key, e, this.state.currentEvent)}/>
-                                    {key}
-                                </Choice>
-                            })
-
-                            : null
-
-                    }
-                </Display>*/

@@ -1,24 +1,19 @@
 import styled from 'styled-components';
 import { extensionTheme } from '../../../style/theme';
 
-
-export const Row = styled.div`
-   display : flex;
-   flex-direction : column;
-   border-bottom : 1px solid ${ extensionTheme.grey20 };
-   box-sizing : content-box;
-`;
-
 export const Column = styled.div`
     display : flex;
     flex-direction : column;
     width : 100%;
     border-right : 1px solid ${ extensionTheme.grey20 };  
     box-sizing : border-box;
-    
-    & ${Row}:last-child{
-        border-bottom : 0px solid transparent;
-    }
+`;
+
+export const Row = styled.div`
+   display : flex;
+   flex-direction : column;
+   border-bottom : 1px solid ${ extensionTheme.grey20 };
+   box-sizing : content-box;
 `;
 
 export const Choices = styled.div`
@@ -38,7 +33,6 @@ export const Choices = styled.div`
    
     &:nth-child(3){
         width :75%;
-        
     }
    }
 `;

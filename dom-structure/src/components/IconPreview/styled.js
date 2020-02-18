@@ -41,8 +41,6 @@ export const TextContainer = styled.div`
     
 `;
 export const Options = styled.div`
-    //padding-top : 10px;
-    //padding-right : 10px;
     position: absolute;
     right : 10px;
     top : 10px;    
@@ -58,3 +56,18 @@ export const Options = styled.div`
         
     }
 `;
+
+export const Error = styled.p`
+    display : flex;
+    width : 100%;
+    height : 100%;
+    padding : 20px;
+    font-size : 12px;
+    align-items : center;
+    justify-content : center;
+    text-align : center;
+    color : ${ extensionTheme.grey40 };
+    
+`;
+
+

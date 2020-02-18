@@ -8,37 +8,34 @@ class InputIcon extends Component {
         super(props);
 
         this.state = {
-            light: true,
-            alphabet: true,
-            text: {
-                alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ‘?’“!”(%)[#]{@}/&\\<-+÷×=>®©$€£¥¢:;,.*',
-            }
+            alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ‘?’“!”(%)[#]{@}/&\\<-+÷×=>®©$€£¥¢:;,.*',
         };
     }
 
-    render() {
+    renderIcons = (letters) => {
         const {font, action, targetProperty, defaultValue} = this.props;
 
-        //if (!font) return null
+        return letters.split("").map((char, i) => {
+            return <Icon key={i}
+                         clickAction={() => {
+                             (defaultValue === char) ? action('', targetProperty) : action(char, targetProperty)
+                         }}
+                         font={font}
+                         char={char}
+                         currentValue={defaultValue}/>
+        })
+    }
+
+    render() {
+        const {font, letters} = this.props;
+
         if (!font || !font.family) return <Message>Please choose a font on settings</Message>
         return (<Container>
             <SelectIcon>
                 {
-                    this.state.text.alphabet.split("").map((char, i) => {
-                        return <Icon key={i}
-                                     clickAction={() => action(char, targetProperty)}
-                                     font={font}
-                                     char={char}
-                                     currentValue={defaultValue}/>
-                    })
+                    letters ? this.renderIcons(letters) : this.renderIcons(this.state.alphabet)
                 }
             </SelectIcon>
-
-            <input type={'text'}
-                   value={defaultValue}
-                   onChange={e => {
-                       action(e.target.value, targetProperty);
-                   }}/>
         </Container>);
     }
 }
@@ -46,7 +43,8 @@ class InputIcon extends Component {
 InputIcon.propTypes = {
     action: PropTypes.func,
     targetProperty: PropTypes.string.isRequired,
-    defaultValue: PropTypes.string
+    defaultValue: PropTypes.string,
+    letters: PropTypes.string
 };
 
 export default InputIcon;

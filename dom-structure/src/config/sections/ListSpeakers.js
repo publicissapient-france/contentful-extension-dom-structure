@@ -324,9 +324,11 @@ export default {
                 responsive: ['A'],
                 parameters: {},
                 defaultValue: {
-                    icon1: {},
-                    icon2: {},
+                    icon1: "",
+                    icon2: "",
+                    icon3: "",
                     speakers: [],
+                    priority: [],
                     display: {
                         logo: {
                             tiny: false,
