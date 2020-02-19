@@ -87,7 +87,6 @@ class SelectSpeakers extends Component {
 
     updateBasis = (property, value, event) => this.props.updateSettingsProperty('basis', property, value, event);
 
-
     render() {
         const {name} = this.props;
 

@@ -50,7 +50,10 @@ class SpeakerSelector extends Component {
         }
         if (this.props.priority !== prevProps.priority) {
             this.setState({
-                priority: this.props.priority
+                priority: this.props.priority,
+                selectedSpeakers : this.orderSelectedWithPriority()
+            }, () => {
+                this.props.updateContent(this.state.selectedSpeakers, 'speakers')
             })
         }
     }
@@ -126,6 +129,8 @@ class SpeakerSelector extends Component {
             }
         }
     }
+
+    orderSelectedWithPriority = () => [...this.state.priority, ...this.state.selectedSpeakers.filter(id => !this.alreadyOnPriority(id))];
 
     toggleDisplay = (prop, subProp, value) => {
         this.setState(prevState => ({
