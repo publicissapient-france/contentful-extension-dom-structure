@@ -151,7 +151,7 @@ class SelectSpeakers extends Component {
                                 <InputIcon
                                     font={this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null}
                                     action={this.props.updateContent}
-                                    letters={'st'}
+                                    letters={'qr'}
                                     targetProperty={'icon3'}
                                     defaultValue={this.getIcon3()}/>
                             </Column>

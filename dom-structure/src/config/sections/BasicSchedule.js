@@ -1,5 +1,5 @@
 export default {
-    model: 'BasicLayout',
+    model: 'BasicSchedule',
     fields: [
         {
             name: 'Template',

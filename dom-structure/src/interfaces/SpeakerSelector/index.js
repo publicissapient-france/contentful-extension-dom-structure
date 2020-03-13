@@ -35,6 +35,7 @@ class SpeakerSelector extends Component {
             display: this.props.display,
             priority: this.props.priority
         })
+        console.log('PROPS SPEAKERS ON SELECTOR : ', this.props.speakers)
     };
 
     componentDidUpdate(prevProps) {
@@ -67,6 +68,7 @@ class SpeakerSelector extends Component {
             })
             return selectedEntry.items[0].fields.speakers[this.findProperLocale()]
         });
+        console.log('STATE SPEAKERS', this.state.speakers)
     }
 
     findProperLocale = () => this.props.extensionInfo.extension.locales.default;
@@ -188,7 +190,7 @@ class SpeakerSelector extends Component {
                                     <p className={this.state.priority.includes(speaker.id) ? 'active' : ''}
                                        onClick={() => {
                                            this.updatePriority(speaker.id)
-                                       }}>{speaker.FirstName} {speaker.LastName}</p>
+                                       }}>{speaker.firstName} {speaker.lastName}</p>
                                 </Select>
                             }) : null
                         }
@@ -200,12 +202,13 @@ class SpeakerSelector extends Component {
                         {
                             this.state.priority ? this.state.priority.map((id, i) => {
                                 const speaker = this.getById(id);
+                                if(!speaker) return null
                                 return <Element>
                                     <ButtonsMove>
                                         <Button onClick={() => this.moveElementToBottom(i)}><SvgArrowToTop/></Button>
                                         <Button onClick={() => this.moveElementToTop(i)}><SvgArrowToTop/></Button>
                                     </ButtonsMove>
-                                    <Identity>{speaker.FirstName} {speaker.LastName}</Identity>
+                                    <Identity>{speaker.firstName} {speaker.lastName}</Identity>
                                 </Element>
                             }) : null
                         }

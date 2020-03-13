@@ -34,7 +34,7 @@ class Shadow extends Component {
                 [prop]: value,
             }
         }), () => {
-            this.props.updateStateProps('shadow', this.state.shadow, this.props.event);
+            this.props.updateStateProps( this.props.customTarget || 'shadow', this.state.shadow, this.props.event);
         });
     }
 

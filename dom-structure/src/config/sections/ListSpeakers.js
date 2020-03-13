@@ -28,15 +28,15 @@ export default {
                         M: {
                             padding: {
                                 top: '0',
-                                right: '15',
-                                bottom: '15',
-                                left: '0'
+                                right: '20',
+                                bottom: '0',
+                                left: '20'
                             },
                             color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
+                                hex: '#F0F0F0',
+                                rgb: '240,240,240',
+                                name: 'Grey',
+                                shade: '10'
                             },
                             opacity: {
                                 value: '1'
@@ -50,10 +50,10 @@ export default {
                                 left: '20'
                             },
                             color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
+                                hex: '#F0F0F0',
+                                rgb: '240,240,240',
+                                name: 'Grey',
+                                shade: '10'
                             },
                             opacity: {
                                 value: '1'
@@ -67,13 +67,191 @@ export default {
                                 left: '20'
                             },
                             color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
+                                hex: '#F0F0F0',
+                                rgb: '240,240,240',
+                                name: 'Grey',
+                                shade: '10'
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        }
+                    },
+                    border: {
+                        M: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            color: {
+                                hex: 'transparent',
+                                rgb: '',
+                                name: 'Transparent',
                                 shade: null
                             },
                             opacity: {
                                 value: '1'
+                            }
+                        },
+                        T: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            color: {
+                                hex: 'transparent',
+                                rgb: '',
+                                name: 'Transparent',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        D: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            color: {
+                                hex: 'transparent',
+                                rgb: '',
+                                name: 'Transparent',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        }
+                    }
+                }
+            }
+
+        },
+        {
+            name: 'Flex Container',
+            nameProperty: 'FlexContainer',
+            typeField: 'FlexContainer',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                }
+            },
+            settings: {
+                responsive : ['M', 'T', 'D'],
+                defaultValue: {
+                    flex : {
+                        M : {
+                            properties : {
+                                columns : '1',
+                                gutterHorizontal : '0',
+                                gutterVertical : '20',
+                                direction : 'row',
+                                wrap : 'wrap',
+                                justify : 'flex-start',
+                                alignItems : 'flex-start',
+                                alignContent : 'flex-start'
+                            }
+                        },
+                        T : {
+                            properties : {
+                                columns : '3',
+                                gutterHorizontal : '20',
+                                gutterVertical : '20',
+                                direction : 'row',
+                                wrap : 'wrap',
+                                justify : 'flex-start',
+                                alignItems : 'stretch',
+                                alignContent : 'flex-start'
+                            }
+                        },
+                        D : {
+                            properties : {
+                                columns : '4',
+                                gutterHorizontal : '20',
+                                gutterVertical : '20',
+                                direction : 'row',
+                                wrap : 'wrap',
+                                justify : 'flex-start',
+                                alignItems : 'stretch',
+                                alignContent : 'flex-start'
+                            }
+                        }
+                    }
+                }
+            }
+
+        },
+        {
+            name: 'Template Card',
+            nameProperty: 'TemplateCard',
+            typeField: 'Template',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: {
+                responsive: ['M', 'T', 'D'],
+                defaultValue: {
+                    basis: {
+                        M: {
+                            color: {
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            },
+                            shadow: {
+                                value: 'none'
+                            },
+                            shadow2: {
+                                value: '0px 20px 40px 0px rgba(45,69,112,0.4)'
+                            }
+
+                        },
+                        T: {
+                            color: {
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            },
+                            shadow: {
+                                value: 'none'
+                            },
+                            shadow2: {
+                                value: '0px 20px 40px 0px rgba(45,69,112,0.4)'
+                            }
+                        },
+                        D: {
+                            color: {
+                                hex: '#FFFFFF',
+                                rgb: '255,255,255',
+                                name: 'White',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            },
+                            shadow: {
+                                value: 'none'
+                            },
+                            shadow2: {
+                                value: '0px 20px 40px 0px rgba(45,69,112,0.4)'
                             }
                         }
                     },
@@ -150,171 +328,6 @@ export default {
                     }
                 }
             }
-
-        },
-        {
-            name: 'Flex Container',
-            nameProperty: 'FlexContainer',
-            typeField: 'FlexContainer',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {}
-            },
-            settings: {
-                responsive: ['M', 'T', 'D'],
-                defaultValue: {
-                    flex: {
-                        M: {
-                            properties: {
-                                columns: '1',
-                                gutterHorizontal: '0',
-                                gutterVertical: '20',
-                                direction: 'row',
-                                wrap: 'wrap',
-                                justify: 'flex-start',
-                                alignItems: 'flex-start',
-                                alignContent: 'flex-start'
-                            }
-                        },
-                        T: {
-                            properties: {
-                                columns: '2',
-                                gutterHorizontal: '20',
-                                gutterVertical: '20',
-                                direction: 'flex',
-                                wrap: 'wrap',
-                                justify: 'space-between',
-                                alignItems: 'stretch',
-                                alignContent: 'flex-start'
-                            }
-                        },
-                        D: {
-                            properties: {
-                                columns: '3',
-                                gutterHorizontal: '20',
-                                gutterVertical: '20',
-                                direction: 'flex',
-                                wrap: 'wrap',
-                                justify: 'space-between',
-                                alignItems: 'stretch',
-                                alignContent: 'flex-start'
-                            }
-                        }
-                    }
-                }
-            }
-
-        },
-        {
-            name: 'Template Card',
-            nameProperty: 'TemplateCard',
-            typeField: 'Template',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {}
-            },
-            settings: {
-                responsive: ['M', 'T', 'D'],
-                defaultValue: {
-                    basis: {
-                        M: {
-                            size: {
-                                width: '',
-                                height: 'auto',
-                                maxWidth: '',
-                                maxHeight: '',
-                                minWidth: '',
-                                minHeight: '400'
-                            },
-                            padding: {
-                                top: '10',
-                                right: '10',
-                                bottom: '10',
-                                left: '10'
-                            },
-                            margin: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        },
-                        T: {
-                            size: {
-                                width: '',
-                                height: 'auto',
-                                maxWidth: '',
-                                maxHeight: '',
-                                minWidth: '',
-                                minHeight: '400'
-                            },
-                            padding: {
-                                top: '10',
-                                right: '10',
-                                bottom: '10',
-                                left: '10'
-                            },
-                            margin: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        },
-                        D: {
-                            size: {
-                                width: '',
-                                height: 'auto',
-                                maxWidth: '',
-                                maxHeight: '',
-                                minWidth: '',
-                                minHeight: '400'
-                            },
-                            padding: {
-                                top: '10',
-                                right: '10',
-                                bottom: '10',
-                                left: '10'
-                            },
-                            margin: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        }
-                    }
-                }
-            }
         },
         {
             name: 'Speakers',
@@ -358,13 +371,19 @@ export default {
                                 decoration: null
                             },
                             color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'white',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
                                 shade: null
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '5',
+                                left: '0'
                             }
                         },
                         T: {
@@ -379,18 +398,24 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: {
-                                align: 'center',
+                                align: 'left',
                                 transform: null,
                                 decoration: null
                             },
                             color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'white',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
                                 shade: null
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '5',
+                                left: '0'
                             }
                         },
                         D: {
@@ -405,25 +430,31 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: {
-                                align: 'center',
+                                align: 'left',
                                 transform: null,
                                 decoration: null
                             },
                             color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'white',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
                                 shade: null
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '5',
+                                left: '0'
                             }
                         }
                     },
                     job: {
                         M: {
                             font: {
-                                theme: 'Title3',
+                                theme: 'Paragraph',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -438,18 +469,24 @@ export default {
                                 decoration: null
                             },
                             color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'white',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
                                 shade: null
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             }
                         },
                         T: {
                             font: {
-                                theme: 'Title3',
+                                theme: 'Paragraph',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -459,23 +496,29 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: {
-                                align: 'center',
+                                align: 'left',
                                 transform: null,
                                 decoration: null
                             },
                             color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'white',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
                                 shade: null
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             }
                         },
                         D: {
                             font: {
-                                theme: 'Title3',
+                                theme: 'Paragraph',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -485,31 +528,37 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: {
-                                align: 'center',
+                                align: 'left',
                                 transform: null,
                                 decoration: null
                             },
                             color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'white',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
                                 shade: null
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             }
                         }
                     },
                     company: {
                         M: {
                             font: {
-                                theme: 'Title3',
+                                theme: 'Paragraph',
                                 family: null,
                                 typeface: null,
-                                weight: null,
+                                weight: ['Bold', '700'],
                                 style: null,
-                                size: null,
-                                lineHeight: null,
+                                size: '16.8',
+                                lineHeight: '19.2',
                                 letterSpacing: '0'
                             },
                             text: {
@@ -518,72 +567,90 @@ export default {
                                 decoration: null
                             },
                             color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'white',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
                                 shade: null
                             },
                             opacity: {
-                                value: '1'
+                                value: '0.6'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             }
                         },
                         T: {
                             font: {
-                                theme: 'Title3',
+                                theme: 'Paragraph',
                                 family: null,
                                 typeface: null,
-                                weight: null,
+                                weight: ['Bold', '700'],
                                 style: null,
-                                size: null,
-                                lineHeight: null,
+                                size: '15.4',
+                                lineHeight: '17.6',
                                 letterSpacing: '0'
                             },
                             text: {
-                                align: 'center',
+                                align: 'left',
                                 transform: null,
                                 decoration: null
                             },
                             color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'white',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
                                 shade: null
                             },
                             opacity: {
-                                value: '1'
+                                value: '0.6'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             }
                         },
                         D: {
                             font: {
-                                theme: 'Title3',
+                                theme: 'Paragraph',
                                 family: null,
                                 typeface: null,
-                                weight: null,
+                                weight: ['Bold', '700'],
                                 style: null,
-                                size: null,
-                                lineHeight: null,
+                                size: '14',
+                                lineHeight: '16',
                                 letterSpacing: '0'
                             },
                             text: {
-                                align: 'center',
+                                align: 'left',
                                 transform: null,
                                 decoration: null
                             },
                             color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'white',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
                                 shade: null
                             },
                             opacity: {
-                                value: '1'
+                                value: '0.6'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
                             }
                         }
                     },
                     title: {
                         M: {
                             font: {
-                                theme: 'Title3',
+                                theme: 'Title4',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -593,23 +660,29 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: {
-                                align: 'center',
+                                align: 'left',
                                 transform: null,
                                 decoration: null
                             },
                             color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'white',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
                                 shade: null
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '10',
+                                left: '0'
                             }
                         },
                         T: {
                             font: {
-                                theme: 'Title3',
+                                theme: 'Title4',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -619,23 +692,29 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: {
-                                align: 'center',
+                                align: 'left',
                                 transform: null,
                                 decoration: null
                             },
                             color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'white',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
                                 shade: null
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '10',
+                                left: '0'
                             }
                         },
                         D: {
                             font: {
-                                theme: 'Title3',
+                                theme: 'Title4',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -645,25 +724,31 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: {
-                                align: 'center',
+                                align: 'left',
                                 transform: null,
                                 decoration: null
                             },
                             color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'white',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
                                 shade: null
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '10',
+                                left: '0'
                             }
                         }
                     },
                     text: {
                         M: {
                             font: {
-                                theme: 'Title3',
+                                theme: 'Paragraph',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -673,23 +758,29 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: {
-                                align: 'center',
+                                align: 'left',
                                 transform: null,
                                 decoration: null
                             },
                             color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'white',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
                                 shade: null
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '10',
+                                left: '0'
                             }
                         },
                         T: {
                             font: {
-                                theme: 'Title3',
+                                theme: 'Paragraph',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -699,23 +790,29 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: {
-                                align: 'center',
+                                align: 'left',
                                 transform: null,
                                 decoration: null
                             },
                             color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'white',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
                                 shade: null
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '10',
+                                left: '0'
                             }
                         },
                         D: {
                             font: {
-                                theme: 'Title3',
+                                theme: 'Paragraph',
                                 family: null,
                                 typeface: null,
                                 weight: null,
@@ -725,18 +822,24 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: {
-                                align: 'center',
+                                align: 'left',
                                 transform: null,
                                 decoration: null
                             },
                             color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'white',
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
                                 shade: null
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '10',
+                                left: '0'
                             }
                         }
                     },
@@ -746,15 +849,15 @@ export default {
                                 family: null,
                                 typeface: null,
                                 weight: null,
-                                size: null,
-                                lineHeight: null
+                                size: '42',
+                                lineHeight: '42',
                             },
                             color: {
                                 basic: {
-                                    hex: '#4C4C4C',
-                                    rgb: '76,76,76',
+                                    hex: '#B2B2B2',
+                                    rgb: '178, 178,178',
                                     name: 'Grey',
-                                    shade: '80'
+                                    shade: '40'
                                 },
                                 hover: {
                                     hex: '#000000',
@@ -770,6 +873,12 @@ export default {
                                 hover: {
                                     value: '1'
                                 }
+                            },
+                            margin: {
+                                top: '0',
+                                right: '20',
+                                bottom: '0',
+                                left: '0'
                             }
                         },
                         T: {
@@ -777,15 +886,15 @@ export default {
                                 family: null,
                                 typeface: null,
                                 weight: null,
-                                size: null,
-                                lineHeight: null
+                                size: '38.5',
+                                lineHeight: '38.5'
                             },
                             color: {
                                 basic: {
-                                    hex: '#4C4C4C',
-                                    rgb: '76,76,76',
+                                    hex: '#B2B2B2',
+                                    rgb: '178, 178,178',
                                     name: 'Grey',
-                                    shade: '80'
+                                    shade: '40'
                                 },
                                 hover: {
                                     hex: '#000000',
@@ -801,6 +910,12 @@ export default {
                                 hover: {
                                     value: '1'
                                 }
+                            },
+                            margin: {
+                                top: '0',
+                                right: '20',
+                                bottom: '0',
+                                left: '0'
                             }
                         },
                         D: {
@@ -808,15 +923,15 @@ export default {
                                 family: null,
                                 typeface: null,
                                 weight: null,
-                                size: null,
-                                lineHeight: null
+                                size: '35',
+                                lineHeight: '35'
                             },
                             color: {
                                 basic: {
-                                    hex: '#4C4C4C',
-                                    rgb: '76,76,76',
+                                    hex: '#B2B2B2',
+                                    rgb: '178, 178,178',
                                     name: 'Grey',
-                                    shade: '80'
+                                    shade: '40'
                                 },
                                 hover: {
                                     hex: '#000000',
@@ -832,59 +947,47 @@ export default {
                                 hover: {
                                     value: '1'
                                 }
+                            },
+                            margin: {
+                                top: '0',
+                                right: '20',
+                                bottom: '0',
+                                left: '0'
                             }
                         }
                     },
                     photo: {
                         M: {
-                            size: {
-                                width: '100%',
-                                height: 'auto',
-                                maxWidth: '',
-                                maxHeight: ''
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
                             },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'flex-start'
+                            opacity: {
+                                value: '0.5'
                             }
                         },
                         T: {
-                            size: {
-                                width: '100%',
-                                height: 'auto',
-                                maxWidth: '',
-                                maxHeight: ''
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
                             },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'flex-start'
+                            opacity: {
+                                value: '0.5'
                             }
                         },
                         D: {
-                            size: {
-                                width: '100%',
-                                height: 'auto',
-                                maxWidth: '',
-                                maxHeight: ''
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
                             },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'flex-start'
+                            opacity: {
+                                value: '0.5'
                             }
                         }
                     },

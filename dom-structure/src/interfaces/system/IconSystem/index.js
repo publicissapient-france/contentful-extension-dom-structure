@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import IconPreview from '../../../components/IconPreview';
 import ColorPicker from '../../ColorPicker';
 import IconTypography from '../../IconTypography';
+import Margin from '../../Margin';
 
 import {Choices, Column, Row, ElementName} from './styled'
 
@@ -70,6 +71,16 @@ class IconSystem extends Component {
                             currentMode={currentResponsiveMode}
                         />
                     </Row>
+                </Column>
+                <Column/>
+                <Column>
+                    <Margin hidden={this.state.openColorView}
+                            margin={this.props.getSettingsByProperty(propertyName, 'margin')}
+                            storeValueMargin={this.props.getStoreSettingsByProperty(propertyName, 'margin')}
+                            defaultMargin={this.props.getDefaultSettingsByProperty(propertyName, 'margin')}
+                             updateStateProps={this.updateSettings}
+                    />
+
                 </Column>
             </Choices>
         )

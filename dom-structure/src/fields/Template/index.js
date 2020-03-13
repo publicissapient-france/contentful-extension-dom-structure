@@ -17,6 +17,7 @@ import ActiveCheckBox from '../../components/ActiveCheckBox';
 import ColorPicker from '../../interfaces/ColorPicker';
 import Padding from '../../interfaces/Padding'
 import Margin from '../../interfaces/Margin'
+import Shadow from '../../interfaces/Shadow'
 import Size from '../../interfaces/Size'
 import ImageUploader from '../../interfaces/ImageUploader';
 import Radius from '../../interfaces/Radius';
@@ -142,7 +143,20 @@ class Template extends Component {
                                             defaultMargin={this.props.getDefaultSettingsByProperty('basis', 'margin')}
                                             updateStateProps={this.updateBasis}
                                     />
+                                    <Shadow shadow={this.props.getSettingsByProperty('basis', 'shadow')}
+                                            storeValueAlignment={this.props.getStoreSettingsByProperty('basis', 'shadow')}
+                                            defaultAlignment={this.props.getDefaultSettingsByProperty('basis', 'shadow')}
+                                            updateStateProps={this.updateBasis}/>
                                 </Row>
+                                <Row>
+                                    <Shadow shadow={this.props.getSettingsByProperty('basis', 'shadow2')}
+                                            storeValueAlignment={this.props.getStoreSettingsByProperty('basis', 'shadow2')}
+                                            defaultAlignment={this.props.getDefaultSettingsByProperty('basis', 'shadow2')}
+                                            updateStateProps={this.updateBasis}
+                                            customTarget={'shadow2'}
+                                    />
+                                </Row>
+
                             </Column>
                             <Column className={this.state.openColorViewBorder ? 'full-width' : ''}>
                                 <ColorPicker hidden={false}

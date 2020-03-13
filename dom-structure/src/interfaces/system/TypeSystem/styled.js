@@ -27,6 +27,12 @@ export const Choices = styled.div`
     &:nth-child(3){
         width :75%;
     }
+    &:nth-child(4){
+        width :25%;
+    }
+    &:nth-child(5){
+        width :75%;
+    }
    }
 `;
 

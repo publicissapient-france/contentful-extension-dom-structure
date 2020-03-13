@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import TextPreview from '../../../components/TextPreview';
 import ColorPicker from '../../ColorPicker';
 import Typography from '../../Typography';
+import Padding from '../../Padding';
 
 import {Choices, Column, ElementName} from './styled'
 class TypeSystem extends Component {
@@ -67,6 +68,15 @@ class TypeSystem extends Component {
                         storeValueText={this.props.getStoreSettingsByProperty(propertyName, 'text')}
                         updateStateProps={this.updateSettings}
                         currentMode={currentResponsiveMode}
+                    />
+                </Column>
+                <Column/>
+                <Column>
+                    <Padding hidden={this.state.openColorView}
+                             padding={this.props.getSettingsByProperty(propertyName, 'padding')}
+                             storeValuePadding={this.props.getStoreSettingsByProperty(propertyName, 'padding')}
+                             defaultPadding={this.props.getDefaultSettingsByProperty(propertyName, 'padding')}
+                             updateStateProps={this.updateSettings}
                     />
                 </Column>
             </Choices>

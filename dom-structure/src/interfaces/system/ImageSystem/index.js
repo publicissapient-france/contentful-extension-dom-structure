@@ -5,11 +5,28 @@ import AssetPreview from '../../../components/AssetPreview';
 import Size from '../../../interfaces/Size';
 import Padding from '../../../interfaces/Padding';
 import Alignment from '../../../interfaces/Alignment';
+import ColorPicker from '../../ColorPicker';
 
 class ImageSystem extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            openPreview: false,
+            openColor: false
+        };
     }
+
+    toggleOpenPreview = () => {
+        this.setState(prevState => ({
+            openPreview: !prevState.openPreview
+        }));
+    };
+
+    toggleOpenColor = () => {
+        this.setState(prevState => ({
+            openColor: !prevState.openColor
+        }));
+    };
 
     updateSettings = (property, value, event) => this.props.updateSettingsProperty(this.props.propertyName, property, value, event);
 
@@ -50,6 +67,22 @@ class ImageSystem extends Component {
                             updateStateProps={this.updateSettings}
                         />
                     </Row>
+                </Column>
+                <Column
+                    className={this.state.openPreview || this.state.openColor ? 'full-width' : ''}>
+                    <ColorPicker hidden={this.state.openPreview}
+                                 color={this.props.getSettingsByProperty(propertyName, 'color')}
+                                 opacity={this.props.getSettingsByProperty(propertyName, 'opacity')}
+                                 storeValueColor={this.props.getStoreSettingsByProperty(propertyName, 'color')}
+                                 storeValueOpacity={this.props.getStoreSettingsByProperty(propertyName, 'opacity')}
+                                 defaultColor={this.props.getDefaultSettingsByProperty(propertyName, 'color')}
+                                 defaultOpacity={this.props.getDefaultSettingsByProperty(propertyName, 'opacity')}
+                                 openView={this.state.openColor}
+                                 updateStateProps={this.updateSettings}
+                                 toggleOpenView={this.toggleOpenColor}
+                                 customName={'Backg.'}
+                    />
+
                 </Column>
             </Choices>
         )

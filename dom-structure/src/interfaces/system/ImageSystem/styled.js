@@ -40,6 +40,15 @@ export const Choices = styled.div`
         width :75%;
         
     }
+    &:nth-child(4){
+        width :25%;
+         &.full-width{
+            width : 100%;
+        }
+     }
+     &:nth-child(5){
+         width :75%;
+     }
    }
 `;
 
