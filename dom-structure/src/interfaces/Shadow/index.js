@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
-import { Container, Field, Inputs, Preview} from './styled';
+import React, {Component} from 'react';
+import {Container, Field, Inputs, Preview} from './styled';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
-import { hasNotSamePropertyValue } from '../../utils/functions';
+import {hasNotSamePropertyValue} from '../../utils/functions';
 import Dot from '../../components/Dot';
 
 class Shadow extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         this.state = {};
     }
 
     componentDidMount = () => {
+        console.log('this.props.shadow', this.props.shadow);
         this.setState({
             shadow: this.props.shadow
         });
@@ -34,14 +35,14 @@ class Shadow extends Component {
                 [prop]: value,
             }
         }), () => {
-            this.props.updateStateProps( this.props.customTarget || 'shadow', this.state.shadow, this.props.event);
+            this.props.updateStateProps(this.props.customTarget || 'shadow', this.state.shadow, this.props.event);
         });
     }
 
-    render () {
-        const { shadow, storeValueShadow, defaultShadow, hidden } = this.props;
+    render() {
+        const {shadow, storeValueShadow, defaultShadow, hidden} = this.props;
 
-        if (!this.state.shadow || !shadow) return null;
+        if (!shadow || !this.state.shadow ) return null;
         return (
             <Container className={hidden ? 'hidden' : ''}>
                 <Field>
@@ -52,7 +53,8 @@ class Shadow extends Component {
                             <input type={'text'}
                                    value={shadow.value}
                                    className={hasNotSamePropertyValue(storeValueShadow, shadow, 'value') ? 'updated' : ''}
-                                   onChange={e => { this.updateShadow('value', e.target.value)
+                                   onChange={e => {
+                                       this.updateShadow('value', e.target.value)
 
                                    }}/>
 

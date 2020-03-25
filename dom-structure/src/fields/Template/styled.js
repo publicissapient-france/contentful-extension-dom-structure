@@ -52,7 +52,7 @@ export const Choices = styled.div`
    width : 100%;
    
    & ${Column}{
-    &:nth-child(1), &:nth-child(3){
+    &:nth-child(1), &:nth-child(3), &:nth-child(5){
         width : 25%;
         &.full-width{
             width : 100%;
@@ -71,6 +71,11 @@ export const Choices = styled.div`
     &:nth-child(4){
         width :75%;
         flex-direction : row;
+        
+    }
+    &:nth-child(6){
+        width :75%;
+        flex-direction : column;
         
     }
    }

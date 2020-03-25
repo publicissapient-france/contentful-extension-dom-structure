@@ -291,9 +291,9 @@ class CTA extends Component {
                                 </Row>
                                 <Row>
                                     <Shadow shadow={this.props.getSettingsByProperty('basis', 'shadow')}
-                                               storeValueAlignment={this.props.getStoreSettingsByProperty('basis', 'shadow')}
-                                               defaultAlignment={this.props.getDefaultSettingsByProperty('basis', 'shadow')}
-                                               updateStateProps={this.updateBasis}/>
+                                            storeValueShadow={this.props.getStoreSettingsByProperty('basis', 'shadow')}
+                                            defaultShadow={this.props.getDefaultSettingsByProperty('basis', 'shadow')}
+                                            updateStateProps={this.updateBasis}/>
 
                                 </Row>
                             </Column>

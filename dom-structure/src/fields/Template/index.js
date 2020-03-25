@@ -46,6 +46,28 @@ class Template extends Component {
         if (this.props.responsiveSettings !== prevProps.responsiveSettings) {
             this.props.setResponsiveMode(this.props.responsiveSettings[0]);
         }
+
+        if (this.props.settings && this.props.settings.basis) {
+            if (!Object.values(this.props.settings.basis)[0].shadow) {
+                this.initShadow();
+            }
+        }
+
+
+
+    }
+
+    initShadow = () => {
+        let initBasis = this.props.settings.basis;
+        let initShadow = { value : 'none'};
+        new Promise((resolve, reject) => {
+            this.props.responsiveSettings.map(mode => {
+                    initBasis[mode].shadow = initShadow;
+            });
+            resolve();
+        }).then(() => {
+            this.props.initSettingsProperty('basis', initBasis);
+        });
     }
 
     getAlt = () => this.props.content.images && this.props.content.images[0] && this.props.content.images[0].alt && this.props.content.images[0].alt[this.props.indexLanguage] ? this.props.content.images[0].alt[this.props.indexLanguage] : '';
@@ -143,18 +165,10 @@ class Template extends Component {
                                             defaultMargin={this.props.getDefaultSettingsByProperty('basis', 'margin')}
                                             updateStateProps={this.updateBasis}
                                     />
-                                    <Shadow shadow={this.props.getSettingsByProperty('basis', 'shadow')}
-                                            storeValueAlignment={this.props.getStoreSettingsByProperty('basis', 'shadow')}
-                                            defaultAlignment={this.props.getDefaultSettingsByProperty('basis', 'shadow')}
-                                            updateStateProps={this.updateBasis}/>
+
                                 </Row>
                                 <Row>
-                                    <Shadow shadow={this.props.getSettingsByProperty('basis', 'shadow2')}
-                                            storeValueAlignment={this.props.getStoreSettingsByProperty('basis', 'shadow2')}
-                                            defaultAlignment={this.props.getDefaultSettingsByProperty('basis', 'shadow2')}
-                                            updateStateProps={this.updateBasis}
-                                            customTarget={'shadow2'}
-                                    />
+
                                 </Row>
 
                             </Column>
@@ -182,6 +196,20 @@ class Template extends Component {
                                              storeValueWidth={this.props.getStoreSettingsByProperty('border', 'width')}
                                              defaultWidth={this.props.getDefaultSettingsByProperty('border', 'width')}
                                              updateStateProps={this.updateBorder}
+                                />
+
+                            </Column>
+                            <Column/>
+                            <Column>
+                                <Shadow shadow={this.props.getSettingsByProperty('basis', 'shadow') }
+                                        storeValueShadow={this.props.getStoreSettingsByProperty('basis', 'shadow')}
+                                        defaultShadow={this.props.getDefaultSettingsByProperty('basis', 'shadow')}
+                                        updateStateProps={this.updateBasis}/>
+                                <Shadow shadow={this.props.getSettingsByProperty('basis', 'shadow2')}
+                                        storeValueShadow={this.props.getStoreSettingsByProperty('basis', 'shadow2')}
+                                        defaultShadow={this.props.getDefaultSettingsByProperty('basis', 'shadow2')}
+                                        updateStateProps={this.updateBasis}
+                                        customTarget={'shadow2'}
                                 />
                             </Column>
                         </Choices>

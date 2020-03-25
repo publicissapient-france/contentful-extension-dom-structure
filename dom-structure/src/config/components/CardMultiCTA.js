@@ -54,6 +54,9 @@ export default {
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            shadow: {
+                                value: 'none'
                             }
                         }
                     },
