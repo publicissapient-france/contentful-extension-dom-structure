@@ -34,6 +34,21 @@ class ColorPicker extends Component {
         };
     }
 
+    componentDidMount = () => {
+        console.log('this.props.color', this.props.color);
+        this.setState({
+            color: this.props.color
+        });
+    };
+    componentDidUpdate = prevProps => {
+        if (this.props.color !== prevProps.color) {
+            this.setState(prevState => ({
+                ...prevState,
+                color: this.props.color
+            }));
+        }
+    }
+
     toggleAction = () => this.state.currentAction === 'view' ? this.setState({ currentAction: 'add' }) : this.setState({ currentAction: 'view' });
     toggleOpenBasic = () => this.setState({ openBasic: !this.state.openBasic });
     toggleOpenCustom = () => this.setState({ openCustom: !this.state.openCustom });
@@ -41,7 +56,23 @@ class ColorPicker extends Component {
     isSelected = item => this.props.color && this.props.color.hex === item.hex && this.state.currentAction === 'view'
 
     updateColor = value => {
-        const selectedColor = {
+        this.setState(prevState => ({
+            ...prevState,
+            color: {
+                ...prevState.color,
+                hex: value.hex,
+                rgb: RGBtoString(hexToRgb(value.hex)),
+                name: value.name,
+                shade: value.shade
+            }
+        }), () => {
+            this.setState({ currentAction: 'view' });
+            console.log('state color ----- ', this.state.color)
+            this.props.updateStateProps(this.props.customTargetColor || 'color', this.state.color, this.props.event);
+        });
+
+
+        /*const selectedColor = {
             hex: value.hex,
             rgb: RGBtoString(hexToRgb(value.hex)),
             name: value.name,
@@ -52,7 +83,7 @@ class ColorPicker extends Component {
             this.props.updateStateProps(this.props.customTargetColor, selectedColor, this.props.event);
         }else{
             this.props.updateStateProps('color', selectedColor, this.props.event);
-        }
+        }*/
     }
 
     updateOpacity = value => {

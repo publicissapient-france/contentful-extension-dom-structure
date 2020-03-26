@@ -22,6 +22,7 @@ import Size from '../../interfaces/Size'
 import ImageUploader from '../../interfaces/ImageUploader';
 import Radius from '../../interfaces/Radius';
 import BorderWidth from '../../interfaces/BorderWidth';
+import Gradient from '../../interfaces/Gradient';
 
 
 import {Icon} from '../../style/styledComponents';
@@ -53,6 +54,15 @@ class Template extends Component {
             }
         }
 
+        if (this.props.settings && this.props.settings.basis) {
+            if(Object.values(this.props.settings.basis)[0].color && !Object.values(this.props.settings.basis)[0].color.gradient && Object.values(this.props.settings.basis)[0].color.gradient !== '' ){
+                if (!Object.values(this.props.settings.basis)[0].color.gradient) {
+                    this.initGradient();
+                }
+            }
+
+        }
+
 
 
     }
@@ -63,6 +73,20 @@ class Template extends Component {
         new Promise((resolve, reject) => {
             this.props.responsiveSettings.map(mode => {
                     initBasis[mode].shadow = initShadow;
+            });
+            resolve();
+        }).then(() => {
+            this.props.initSettingsProperty('basis', initBasis);
+        });
+    }
+
+    initGradient = () => {
+        console.log('init gradient')
+        let initBasis = this.props.settings.basis;
+        let initGradient = '';
+        new Promise((resolve, reject) => {
+            this.props.responsiveSettings.map(mode => {
+                    initBasis[mode].color.gradient = initGradient;
             });
             resolve();
         }).then(() => {
@@ -145,6 +169,12 @@ class Template extends Component {
                                 />
                             </Column>
                             <Column className={this.state.openColorView ? 'hidden' : ''}>
+                                <Row>
+                                    <Gradient color={this.props.getSettingsByProperty('basis', 'color') }
+                                            storeValue={this.props.getStoreSettingsByProperty('basis', 'color')}
+                                            defaultValue={this.props.getDefaultSettingsByProperty('basis', 'color')}
+                                            updateStateProps={this.updateBasis}/>
+                                </Row>
                                 <Row>
                                     <Size size={this.props.getSettingsByProperty('basis', 'size')}
                                           storeValueSize={this.props.getStoreSettingsByProperty('basis', 'size')}
