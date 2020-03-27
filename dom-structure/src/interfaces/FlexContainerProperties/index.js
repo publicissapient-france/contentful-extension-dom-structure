@@ -143,6 +143,14 @@ class FlexContainerProperties extends Component {
                                         value={'column'} action={this.updateFlex}>
                                 column
                             </IconActing>
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'direction'}
+                                        value={'row-reverse'} action={this.updateFlex}>
+                                row-reverse
+                            </IconActing>
+                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'direction'}
+                                        value={'column-reverse'} action={this.updateFlex}>
+                                column-reverse
+                            </IconActing>
                         </ContainerProperty>
                     </FlexProperty>
                     <FlexProperty>
