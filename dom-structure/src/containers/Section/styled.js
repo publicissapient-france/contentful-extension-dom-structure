@@ -33,6 +33,7 @@ export const Children = styled.div`
 
 export const AddChild = styled.div`
   display : flex;
+  flex-direction : column;
   width : 100%;
 `;
 

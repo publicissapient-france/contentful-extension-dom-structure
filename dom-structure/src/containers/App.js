@@ -54,6 +54,8 @@ class App extends React.Component {
 
         this.props.extension.window.startAutoResizer();
         await this.initStyleStore();
+
+
     }
 
     componentDidUpdate = prevProps => {

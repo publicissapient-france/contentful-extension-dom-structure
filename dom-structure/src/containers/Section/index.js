@@ -26,6 +26,7 @@ import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonDelete from '../../components/ui/ButtonDelete';
 import update from 'react-addons-update';
 import AddComponent from '../AddComponent/index';
+import AddChildren from '../AddChildren/index';
 import ButtonValidate from '../../components/ui/ButtonValidate';
 
 import PropTypes from 'prop-types';
@@ -221,6 +222,8 @@ class Section extends Component {
                 <AddChild>
                     <AddComponent index={index} open={this.state.openAdd} parent={this}/>
                 </AddChild>
+                <AddChildren  open={this.state.openAdd}/>
+
                 <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>
                     <Fields>
                         <FieldsListOfSection triggerOpening={this.state.triggerOpening} fields={this.getSectionFields()} index={index}/>
