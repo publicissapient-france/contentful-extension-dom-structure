@@ -57,6 +57,9 @@ export default {
                             },
                             shadow: {
                                 value: 'none'
+                            },
+                            background : {
+                                top : '0'
                             }
                         }
                     },

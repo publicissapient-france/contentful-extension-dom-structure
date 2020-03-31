@@ -56,6 +56,9 @@ export default {
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            background : {
+                                top : '0'
                             }
                         },
                         T: {
@@ -88,6 +91,9 @@ export default {
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            background : {
+                                top : '0'
                             }
                         },
                         D: {
@@ -120,6 +126,9 @@ export default {
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            background : {
+                                top : '0'
                             }
                         }
                     }

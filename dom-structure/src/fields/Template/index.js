@@ -23,6 +23,7 @@ import ImageUploader from '../../interfaces/ImageUploader';
 import Radius from '../../interfaces/Radius';
 import BorderWidth from '../../interfaces/BorderWidth';
 import Gradient from '../../interfaces/Gradient';
+import BackgroundProperties from '../../interfaces/BackgroundProperties';
 
 
 import {Icon} from '../../style/styledComponents';
@@ -173,6 +174,12 @@ class Template extends Component {
                                     <Gradient color={this.props.getSettingsByProperty('basis', 'color') }
                                             storeValue={this.props.getStoreSettingsByProperty('basis', 'color')}
                                             defaultValue={this.props.getDefaultSettingsByProperty('basis', 'color')}
+                                            updateStateProps={this.updateBasis}/>
+                                </Row>
+                                <Row>
+                                    <BackgroundProperties value={this.props.getSettingsByProperty('basis', 'background') }
+                                            storeValue={this.props.getStoreSettingsByProperty('basis', 'background')}
+                                            defaultValue={this.props.getDefaultSettingsByProperty('basis', 'background')}
                                             updateStateProps={this.updateBasis}/>
                                 </Row>
                                 <Row>

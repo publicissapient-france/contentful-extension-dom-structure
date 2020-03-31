@@ -59,6 +59,9 @@ export default {
                             },
                             shadow: {
                                 value: 'none'
+                            },
+                            background : {
+                                top : '0'
                             }
                         },
                         T: {
@@ -94,6 +97,9 @@ export default {
                             },
                             shadow: {
                                 value: 'none'
+                            },
+                            background : {
+                                top : '0'
                             }
                         },
                         D: {
@@ -129,6 +135,9 @@ export default {
                             },
                             shadow: {
                                 value: 'none'
+                            },
+                            background : {
+                                top : '0'
                             }
                         }
                     },

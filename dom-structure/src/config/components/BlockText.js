@@ -43,6 +43,9 @@ export default {
                             },
                             opacity: {
                                 value: '1'
+                            },
+                            background : {
+                                top : '0'
                             }
                         }
                     },
