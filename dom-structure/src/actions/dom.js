@@ -218,3 +218,14 @@ export const updateOrder = (order, number, numberParent) => ({
     indexSection: numberParent,
 
 });
+
+
+// REFONT : CHILDREN SYSTEM
+
+
+export const addChild = (object, array) => ({
+    type: 'ADD_CHILD',
+    child: object,
+    tree: array
+
+});

@@ -66,7 +66,7 @@ const FieldWrapper = WrappedComponent => {
         }
 
         getFieldOnStore = ({dom, indexSection, indexComponent, nameProperty}) => {
-            return dom.sections[indexSection].components[indexComponent].fields[nameProperty];
+            return dom.sections[indexSection].children[indexComponent].fields[nameProperty];
         }
 
         initField = () => {

@@ -16,7 +16,7 @@ import {
     getFontfaces,
     getCurrentStyle, getCurrentDOM
 } from '../actions';
-import { extractActiveValue, arrayToString, extractFontValueToCSS, extractAssetUrl, findProp } from '../utils/functions';
+import { extractActiveValue, arrayToString, extractFontValueToCSS, extractAssetUrl, findProp, migrateToChidren } from '../utils/functions';
 
 
 class App extends React.Component {
@@ -55,7 +55,7 @@ class App extends React.Component {
         this.props.extension.window.startAutoResizer();
         await this.initStyleStore();
 
-
+        migrateToChidren(this.props.store.getState().dom)
     }
 
     componentDidUpdate = prevProps => {
@@ -76,10 +76,11 @@ class App extends React.Component {
     }
 
     setFieldValue = () => {
-        this.props.extension.field.removeValue().then(() => {
+        this.props.extension.field.removeValue().then( async () => {
             const buildDom = extractActiveValue(this.props.store.getState().dom);
             const staticResources = extractAssetUrl(buildDom);
             console.log('staticResources', staticResources)
+
 
             this.props.extension.field.setValue({
                 dom: JSON.stringify(this.props.store.getState().dom),

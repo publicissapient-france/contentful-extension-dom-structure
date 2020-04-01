@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {addComponent} from '../../actions/index';
+import {addComponent, addChild} from '../../actions/index';
 import {ContainerForm, FormComponent, SelectTypeChild, Type, SelectType, FormChildren} from './styled';
 import update from 'react-addons-update';
 import componentConfig from '../../config/components/*.js';
@@ -67,7 +67,8 @@ class AddChildren extends Component {
     isComplete = () => (this.state.component && this.state.component.name && this.state.component.model)
 
     render() {
-        const {dispatch, index, open, parent} = this.props;
+        const {dispatch, index, open, parent, tree} = this.props;
+        console.log('TREE ON ADD CHILDREN', tree)
         let inputName, selectModel;
         return (
             <ContainerForm className={!open ? 'hidden' : ''}>
@@ -99,10 +100,10 @@ class AddChildren extends Component {
                             onSubmit={e => {
                                 e.preventDefault();
                                 if (!this.isComplete()) { return; }
-                                dispatch(addComponent(this.state.component, index));
+                                dispatch(addChild(this.state.component, tree));
                                 inputName.value = '';
                                 selectModel.value = '';
-                                parent.setState({ openAdd: !parent.state.openAdd });
+                                this.props.toggleOpeningForm();
                                 this.clearForm();
                             }}
                         >
@@ -147,7 +148,7 @@ class AddChildren extends Component {
 }
 
 AddChildren.propTypes = {
-    index: PropTypes.number.isRequired,
+    //index: PropTypes.number.isRequired,
     open: PropTypes.bool.isRequired
 };
 

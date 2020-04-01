@@ -19,6 +19,7 @@ export const extensionTheme = {
     greenM: '#14D292',
     greenL: '#0CAA75',
     greenXL: '#0baa75',
+    pinkM : '#FF98FF',
     redXS: '#fcf0f0',
     redM: '#ea3223',
     redL: '#960707',

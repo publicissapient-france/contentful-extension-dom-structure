@@ -92,7 +92,7 @@ const dom = (state = [], action) => {
         case 'UPDATE_COMPONENT':
             return update(state, {
                 [action.indexParent]: {
-                    components: {
+                    children: {
                         [action.index]: {
                             name: {$set: action.name},
                             model: {$set: action.model},
@@ -292,7 +292,7 @@ const dom = (state = [], action) => {
         case 'UPDATE_FIELD_CONTENT':
             return update(state, {
                 [action.indexSection]: {
-                    components: {
+                    children: {
                         [action.indexComponent]: {
                             fields: {
                                 [action.typeField]: {
@@ -358,6 +358,70 @@ const dom = (state = [], action) => {
             const result = state[action.indexSection].components[action.indexComponent].fields[action.typeField]
             return action.field;
 
+        case 'ADD_CHILD':
+            console.log('action child', action.child)
+            console.log('action tree', action.tree)
+
+            let tree = [3, 0];
+
+             const test = [...state].map((section, index) => {
+                 console.log('index :', index)
+                 console.log('tree[index] :', tree[index])
+                if(index == tree[index]){
+
+                }
+
+
+                /*if (index === action.index) {
+                    return Object.assign({}, section, {
+                        completed: !todo.completed
+                    })
+                }
+                return todo*/
+            })
+
+            /*return update(state, {
+                ['[3].children[0]'] : {
+                        $push: [
+                            {
+                                type: action.child.type,
+                                name: action.child.name,
+                                model: action.child.model,
+                                active: false,
+                                fields: action.child.fields,
+                                order: action.child.order
+                            }
+                        ]
+
+                }
+            });
+
+            /*
+
+            return update(state, {
+                [action.index]: {
+                    components: {
+                        $push: [
+                            {
+                                type: action.component.type,
+                                name: action.component.name,
+                                model: action.component.model,
+                                active: false,
+                                fields: action.component.fields,
+                                order: action.component.order
+                            }
+                        ]
+                    }
+                }
+            });
+
+
+
+             */
+
+
+
+
 
         default:
             return state;
@@ -365,3 +429,7 @@ const dom = (state = [], action) => {
 };
 
 export default dom;
+
+const recursivePrint = (state, position, depth) => {
+
+}

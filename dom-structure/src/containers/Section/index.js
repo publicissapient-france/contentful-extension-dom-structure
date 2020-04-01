@@ -103,6 +103,10 @@ class Section extends Component {
         triggerOpening: !prevState.triggerOpening
     }))
 
+    toggleOpeningForm = () => {
+        this.setState({ openAdd: !this.state.openAdd });
+    }
+
     isUpdated = () => (this.state.section && (this.state.section.name !== this.props.section.name ||
         this.state.section.model !== this.props.section.model))
 
@@ -114,9 +118,9 @@ class Section extends Component {
     render () {
         const { dispatch, domLength, section, index } = this.props;
         let inputName, selectModel;
-        let children = (section.components && section.components.length !== 0) ? section.components.map((component, i) =>
-            <ComponentDOM key={i} component={component} index={i} indexParent={index}
-                lengthParent={section.components.length}/>
+        let children = (section.children && section.children.length !== 0) ? section.children.map((child, i) =>
+            <ComponentDOM key={i} component={child} index={i} indexParent={index}
+                lengthParent={section.children.length}/>
         ) : null;
         if (!this.state.section) return null;
         return (
@@ -222,7 +226,7 @@ class Section extends Component {
                 <AddChild>
                     <AddComponent index={index} open={this.state.openAdd} parent={this}/>
                 </AddChild>
-                <AddChildren  open={this.state.openAdd}/>
+                <AddChildren  open={this.state.openAdd} tree={section.tree} toggleOpeningForm={this.toggleOpeningForm}/>
 
                 <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>
                     <Fields>

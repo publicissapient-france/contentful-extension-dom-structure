@@ -170,7 +170,7 @@ class ComponentDOM extends Component {
     render() {
         const {dispatch, component, index, indexParent, lengthParent} = this.props;
         let inputName, selectModel;
-
+        console.log('component -----------------------------', component)
         if (!this.state.component) return null;
 
         return (

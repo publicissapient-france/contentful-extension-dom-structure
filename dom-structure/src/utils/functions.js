@@ -28,14 +28,14 @@ const filterActiveSections = dom => dom.filter(section => section.active);
 
 const filterActiveComponents = dom => {
     return dom.map(section => {
-        section.components = section.components.filter(component => component.active);
+        section.children = section.children.filter(component => component.active);
         return section;
     });
 };
 
 const filterActiveFields = dom => {
     return dom.map(section => {
-        section.components.map(component => {
+        section.children.map(component => {
             _.mapKeys(component.fields, (value, key) => {
                 if (!value.active) {
                     _.unset(component.fields, key);
@@ -55,6 +55,57 @@ const filterActiveFields = dom => {
 const extractActiveValue = dom => {
     return filterActiveFields(filterActiveComponents(filterActiveSections(_.cloneDeep(dom))));
 };
+
+
+const migrateToChidren = (dom) => {
+    const newDom = dom;
+
+
+    console.log('------------------------------------------------------------')
+
+    newDom.forEach( (section, index) => {
+        console.log(section.name)
+        if(!section.children){
+            section.children = section.components;
+            delete section.components;
+        }
+
+        if(!section.tree){
+            let tree = [];
+            tree.push(index)
+            console.log('tree', tree)
+            section.tree = tree;
+        }
+
+        section.children.forEach( (child, index) => {
+            if(!child.tree){
+                let tree = [ ...section.tree, index ]
+                console.log('tree child', tree)
+                child.tree = tree;
+            }
+        })
+
+    } )
+
+    console.log('NEW DOM', newDom)
+
+    console.log('------------------------------------------------------------')
+
+}
+/*
+Object.prototype.renameProperty =  (oldName, newName) => {
+    // Do nothing if the names are the same
+    if (oldName === newName) {
+        return this;
+    }
+    // Check for the old property name to avoid a ReferenceError in strict mode.
+    if (this.hasOwnProperty(oldName)) {
+        this[newName] = this[oldName];
+        delete this[oldName];
+    }
+    return this;
+};*/
+
 
 const getLanguageISO = language => language.split('-')[0];
 const getCountryISO = language => language.split('-')[1];
@@ -105,7 +156,7 @@ const extractAssetUrl = ( dom ) => {
     dom.map(section => {
             _.mapKeys(section.fields, (value, key) =>  urls = [...urls, ...getUrlFromContent(value.content)]);
 
-        section.components.map(component => {
+        section.children.map(component => {
             _.mapKeys(component.fields, (value, key) =>  urls = [...urls, ...getUrlFromContent(value.content)]);
         });
     });
@@ -124,5 +175,6 @@ export {
     extractFontValueToCSS,
     sum,
     hasNotSamePropertyValue,
-    extractAssetUrl
+    extractAssetUrl,
+    migrateToChidren
 };
