@@ -131,6 +131,18 @@ export const initField = (nameProperty, number, numberParent) => ({
     indexComponent: number,
     indexSection: numberParent
 });
+
+
+export const duplicateField = (nameProperty, field, number, numberParent) => ({
+    type: 'DUPLICATE_FIELD_COMPONENT',
+    nameProperty: nameProperty,
+    field : field,
+    indexComponent: number,
+    indexSection: numberParent
+});
+
+
+
 export const initFieldOfSection = (nameProperty, number, content, settings) => ({
     type: 'INIT_FIELD_SECTION',
     nameProperty: nameProperty,

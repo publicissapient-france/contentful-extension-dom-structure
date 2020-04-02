@@ -1,32 +1,110 @@
 import { settingsCTA } from '../../utils/model.config'
 
 export default {
-    model: 'CardMultiCTA',
-    order: ['Title', 'Tagline', 'Content', 'Image', 'CTA', 'CTA2', 'CTA3', 'CTA4'],
+    model: 'CardDuplicableCTA',
+    order: ['Title', 'Tagline', 'Content', 'Image', 'CTA'],
     fields: [
         {
             name: 'Template',
             nameProperty: 'Template',
             typeField: 'Template',
             content: {
-                responsive: ['A'],
+                responsive: ['M', 'T', 'D'],
                 parameters: {},
                 defaultValue: {
                     images: [
                         {
                             alt: {},
                             asset: {
-                                A: {}
+                                M: {},
+                                T: {},
+                                D: {}
                             }
                         }
                     ]
                 }
             },
             settings: {
-                responsive: ['A'],
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
                     basis: {
-                        A: {
+                        M: {
+                            size: {
+                                width: '',
+                                height: 'auto',
+                                maxWidth: '',
+                                maxHeight: '',
+                                minWidth: '',
+                                minHeight: '400'
+
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            margin: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            },
+                            shadow: {
+                                value: 'none'
+                            },
+                            background : {
+                                top : '0'
+                            }
+                        },
+                        T: {
+                            size: {
+                                width: '',
+                                height: 'auto',
+                                maxWidth: '',
+                                maxHeight: '',
+                                minWidth: '',
+                                minHeight: '400'
+
+                            },
+                            padding: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            margin: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            color: {
+                                hex: '#000000',
+                                rgb: '0,0,0',
+                                name: 'black',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            },
+                            shadow: {
+                                value: 'none'
+                            },
+                            background : {
+                                top : '0'
+                            }
+                        },
+                        D: {
                             size: {
                                 width: '',
                                 height: 'auto',
@@ -66,7 +144,53 @@ export default {
                         }
                     },
                     border: {
-                        A: {
+                        M: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
+                            },
+                            color: {
+                                hex: 'transparent',
+                                rgb: '',
+                                name: 'Transparent',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        T: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            radius: {
+                                topLeft: '0',
+                                topRight: '0',
+                                bottomLeft: '0',
+                                bottomRight: '0'
+                            },
+                            color: {
+                                hex: 'transparent',
+                                rgb: '',
+                                name: 'Transparent',
+                                shade: null
+                            },
+                            opacity: {
+                                value: '1'
+                            }
+                        },
+                        D: {
                             width: {
                                 top: '0',
                                 right: '0',
@@ -787,55 +911,7 @@ export default {
         {
             name: 'CTA',
             nameProperty: 'CTA',
-            typeField: 'CTA',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {
-                    text: {},
-                    link: {},
-                    icon: {}
-                }
-            },
-            settings: settingsCTA
-
-        },
-        {
-            name: 'CTA 2',
-            nameProperty: 'CTA2',
-            typeField: 'CTA',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {
-                    text: {},
-                    link: {},
-                    icon: {}
-                }
-            },
-            settings: settingsCTA
-
-        },
-        {
-            name: 'CTA 3',
-            nameProperty: 'CTA3',
-            typeField: 'CTA',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {
-                    text: {},
-                    link: {},
-                    icon: {}
-                }
-            },
-            settings: settingsCTA
-
-        },
-        {
-            name: 'CTA 4',
-            nameProperty: 'CTA4',
-            typeField: 'CTA',
+            typeField: 'DuplicableCTA',
             content: {
                 responsive: ['A'],
                 parameters: {},

@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FieldContainer } from './styled';
 import { TemplateForSection } from '../../fields/Template/index';
+import { CTAForSection } from '../../fields/CTA/index';
 import { FlexContainerForSection } from '../../fields/FlexContainer/index';
 import { SelectSpeakersForSection } from '../../fields/SelectSpeakers/index';
+import { SelectFormationsForSection } from '../../fields/SelectFormations/index';
+import { SelectPartnersForSection } from '../../fields/SelectPartners/index';
 import { MultipleImagesForSection } from '../../fields/MultipleImages/index';
 
 class FieldsListOfSection extends Component {
@@ -37,8 +40,17 @@ class FieldsListOfSection extends Component {
                         case 'FlexContainer':
                             return <FlexContainerForSection {...params}/>;
 
+                        case 'CTA':
+                            return <CTAForSection {...params}/>;
+
                         case 'SelectSpeakers':
                             return <SelectSpeakersForSection {...params}/>;
+
+                        case 'SelectFormations':
+                            return <SelectFormationsForSection {...params}/>;
+
+                        case 'SelectPartners':
+                            return <SelectPartnersForSection {...params}/>;
 
                         case 'MultipleImages':
                             return <MultipleImagesForSection {...params} />;

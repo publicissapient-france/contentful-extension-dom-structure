@@ -222,7 +222,7 @@ class Section extends Component {
                 <AddChild>
                     <AddComponent index={index} open={this.state.openAdd} parent={this}/>
                 </AddChild>
-                <AddChildren  open={this.state.openAdd}/>
+
 
                 <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>
                     <Fields>
@@ -247,7 +247,11 @@ Section.propTypes = {
 
 export default connect()(Section);
 
+/*
 
+ <AddChildren  open={this.state.openAdd}/>
+
+ */
 /*
 
 <Banner>

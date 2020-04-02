@@ -4,10 +4,12 @@ import {getCurrentStyle} from '../../actions';
 
 import FieldWrapper from '../../HOC/FieldWrapper';
 import FieldWrapperOfSection from '../../HOC/FieldWrapperOfSection';
+import { duplicateField } from '../../actions/dom';
 
 import LanguageToggle from '../../containers/LanguageToggle';
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgContent from '../../components/svg/SvgContent';
+import SvgDuplicate from '../../components/svg/SvgDuplicate';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
 import TextPreview from '../../components/TextPreview';
@@ -43,7 +45,7 @@ import {
     ButtonEvents
 } from './styled';
 
-class CTA extends Component {
+class DuplicableCTA extends Component {
     constructor(props) {
         super(props);
 
@@ -119,6 +121,11 @@ class CTA extends Component {
     updateIcon = (property, value, event) => this.props.updateSettingsProperty('icon', property, value, event);
     updateIconColor = (property, value, event) => this.props.updateSettingsEachResponsiveMode('icon', property, value, event);
 
+    duplicateField = () => {
+        console.log('Duplicate !')
+        console.log('------ PROPS DUPLICABLE ------', this.props);
+        this.props.dispatch(duplicateField('CTA', {}, this.props.indexComponent, this.props.indexSection))
+    }
 
     render() {
         const {name} = this.props;
@@ -148,6 +155,11 @@ class CTA extends Component {
                               onClick={() => {
                                   this.props.toggleSettings();
                               }}><SvgSetting/></Icon>
+                        <Icon className={''}
+                              onClick={() => {
+                                  this.duplicateField();
+                              }}><SvgDuplicate/></Icon>
+
                     </div>
                 </Banner>
                 <Field>
@@ -387,7 +399,7 @@ const mapStateToProps = state => ({
     themes: getCurrentStyle(state).style.themes
 });
 
-const WrappedComponent = FieldWrapper(connect(mapStateToProps)(CTA));
+const WrappedComponent = FieldWrapper(connect(mapStateToProps)(DuplicableCTA));
 export default WrappedComponent;
-export const CTAForSection = FieldWrapperOfSection(CTA);
+export const DuplicableCTAForSection = FieldWrapperOfSection(DuplicableCTA);
 

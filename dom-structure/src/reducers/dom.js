@@ -219,6 +219,39 @@ const dom = (state = [], action) => {
                 }
             });
 
+        case 'DUPLICATE_FIELD_COMPONENT':
+            console.log('FIELD ACTION', action);
+const arrayF = Object.keys(state[action.indexSection].components[action.indexComponent].fields).map( field =>  {
+    console.log('field', field);
+    console.log('type of field', typeof field);
+    return field.includes(action.nameProperty);
+
+
+})
+            console.log('arrayF', arrayF);
+            const number = arrayF.filter(el => el).length;
+            console.log('number', number);
+
+            const duplicateField = Object.assign({}, state[action.indexSection].components[action.indexComponent].fields[action.nameProperty]) ;
+
+            console.log('duplicate field', duplicateField)
+            const nameOfField = action.nameProperty.concat(String(number))
+
+
+           return update(state, {
+                [action.indexSection]: {
+                    components: {
+                        [action.indexComponent]: {
+                            fields: {
+                                [nameOfField]: {$set: duplicateField}
+                            }
+                        }
+                    }
+                }
+            });
+
+
+
         case 'INIT_FIELD_SECTION':
 
             const newFieldSection = {
@@ -233,6 +266,8 @@ const dom = (state = [], action) => {
                     }
                 }
             });
+
+
 
 
         case 'TOGGLE_FIELD_ACTIVE':

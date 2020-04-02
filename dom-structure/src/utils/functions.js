@@ -112,6 +112,8 @@ const extractAssetUrl = ( dom ) => {
     return urls.filter((item, index) => urls.indexOf(item) === index).filter(( element ) => element !== undefined);
 }
 
+
+
 export {
     getShadePosition,
     extractActiveValue,

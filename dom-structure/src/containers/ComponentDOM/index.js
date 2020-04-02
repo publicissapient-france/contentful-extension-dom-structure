@@ -299,7 +299,7 @@ class ComponentDOM extends Component {
                 </div>
                 <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>
                     <Fields>
-                        <FieldsList triggerOpening={this.state.triggerOpening} fields={this.getComponentFields()}
+                        <FieldsList triggerOpening={this.state.triggerOpening} fields={this.getComponentFields()} fieldsComponent={component.fields}
                                     index={index} indexParent={indexParent}/>
                     </Fields>
                 </FieldsContainer>
