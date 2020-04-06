@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {getCurrentExtension} from '../../actions';
 
 import FieldWrapper from '../../HOC/FieldWrapper';
+import FieldWrapperOfSection from '../../HOC/FieldWrapperOfSection';
 
 import LanguageToggle from '../../containers/LanguageToggle';
 import SvgSetting from '../../components/svg/SvgSetting';
@@ -182,3 +183,4 @@ const mapStateToProps = state => ({
 
 const WrappedComponent = FieldWrapper(connect(mapStateToProps)(SingleImage));
 export default WrappedComponent;
+export const SingleImageForSection = FieldWrapperOfSection(connect(mapStateToProps)(SingleImage));

@@ -124,7 +124,7 @@ class DuplicableCTA extends Component {
     duplicateField = () => {
         console.log('Duplicate !')
         console.log('------ PROPS DUPLICABLE ------', this.props);
-        this.props.dispatch(duplicateField('CTA', {}, this.props.indexComponent, this.props.indexSection))
+        this.props.dispatch(duplicateField('DupCTA', {}, this.props.indexComponent, this.props.indexSection))
     }
 
     render() {

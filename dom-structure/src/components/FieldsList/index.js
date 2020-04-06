@@ -16,9 +16,6 @@ import SelectSpeakers from '../../fields/SelectSpeakers/index';
 class FieldsList extends Component {
     render() {
         const {fields, index, indexParent, triggerOpening, fieldsComponent} = this.props;
-        console.log('======= FIELDS COMPONENTS ====', fieldsComponent)
-        console.log('======= FIELDS CONFIG ====', fields)
-
         Object.keys(fieldsComponent).map( (key, i) => {
             console.log(key)
             console.log(fieldsComponent[key])
@@ -31,16 +28,16 @@ class FieldsList extends Component {
                         console.log(key)
                         console.log(fieldsComponent[key])
 
-                        const config = fields.find( el => key.includes(el.name) || el.name.includes(key))
-
-                        console.log('config', config);
-                        console.log('for', key);
+                        let config = fields.find( el => el.nameProperty.includes(key) )
+                        if(!config){
+                            config = fields.find( el => key.includes(el.nameProperty) )
+                        }
                         const params = {
                             indexComponent: index,
                             indexSection: indexParent,
                             name: config.name,
                             nameProperty: key,
-                             typeField: config.typeField,
+                            typeField: config.typeField,
                             responsiveContent: config.content.responsive,
                             responsiveSettings: config.settings.responsive,
                             defaultContent: config.content.defaultValue,
@@ -67,7 +64,7 @@ class FieldsList extends Component {
                                 return <MultipleImagesForComponent {...params} />;
 
                             case key === 'CTA':
-                                return <DuplicableCTA {...params} />;
+                                return <CTA {...params} />;
 
                             case key === 'Links':
                                 return <NavigationLinks {...params} />;
@@ -82,23 +79,25 @@ class FieldsList extends Component {
                                 return <Link {...params} />;
 
                             case key.includes('Template'):
-                                return <Template {...params} />;
+                                return <TemplateForComponent {...params} />;
 
                             case key.includes('Title'):
-                                return <Title {...params} />;
+                                return <Text {...params} />;
 
                             case key.includes('Tagline'):
-                                return <Tagline {...params} />;
+                                return <Text {...params} />;
 
                             case key.includes('Content'):
                                 return <TextMarkdown {...params} />;
 
                             case key.includes('Image'):
-                                return <Single {...params} />;
+                                return <SingleImage {...params} />;
+
+                            case key.includes('DupCTA'):
+                                return <DuplicableCTA {...params} />;
 
                             case key.includes('CTA'):
                                 return <CTA {...params} />;
-
                             default :
                                 return <div className={'error'}><p>No
                                     field <strong>{field.typefield}</strong> matches</p>

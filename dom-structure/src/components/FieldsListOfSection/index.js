@@ -5,6 +5,7 @@ import { TemplateForSection } from '../../fields/Template/index';
 import { CTAForSection } from '../../fields/CTA/index';
 import { FlexContainerForSection } from '../../fields/FlexContainer/index';
 import { SelectSpeakersForSection } from '../../fields/SelectSpeakers/index';
+import { SingleImageForSection } from '../../fields/SingleImage/index';
 import { SelectFormationsForSection } from '../../fields/SelectFormations/index';
 import { SelectPartnersForSection } from '../../fields/SelectPartners/index';
 import { MultipleImagesForSection } from '../../fields/MultipleImages/index';
@@ -51,6 +52,9 @@ class FieldsListOfSection extends Component {
 
                         case 'SelectPartners':
                             return <SelectPartnersForSection {...params}/>;
+
+                        case 'SingleImage':
+                            return <SingleImageForSection {...params} />;
 
                         case 'MultipleImages':
                             return <MultipleImagesForSection {...params} />;

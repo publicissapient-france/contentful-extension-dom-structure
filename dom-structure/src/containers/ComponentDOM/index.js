@@ -255,7 +255,7 @@ class ComponentDOM extends Component {
                             </div>
                             <div>
                                 <label>Model</label>
-                                <select ref={node => (selectModel = node)}
+                                <select disabled ref={node => (selectModel = node)}
                                         value={this.state.component.model || null}
                                         onChange={e => {
                                             this.updateModel(e.target.value);
