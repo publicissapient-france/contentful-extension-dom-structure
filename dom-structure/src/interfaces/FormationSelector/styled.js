@@ -4,7 +4,7 @@ import {extensionTheme} from "../../style/theme";
 export const Container = styled.div`
    width : 100%;
    display : flex;
-   padding-left : 20px;
+   flex-direction: column;
    padding-top : 20px;
    
 `;
@@ -77,8 +77,12 @@ export const ButtonEvents = styled.div`
 `;
 
 export const Formations = styled.div`
-   width : 60%;
+   width : 70%;
    padding-right : 10px;
+   
+   &>label{
+       padding-left : 20px;
+   }
    
 `;
 
@@ -88,32 +92,9 @@ export const List = styled.div`
    
 `;
 
-export const Select = styled.div`
-   display : flex;
-   align-items : flex-start;
-   width : 100%;
-   font-size : 13px;
-   margin-bottom : 10px;
-   
-   & input{
-        width : 20px;
-    
-   }
-   &>p{
-    border : none;
-    background : none;
-    cursor : pointer;
-   }
-   &>p.active{
-        color : ${extensionTheme.blueM};
-   }
-   
-  
-   
-`;
 
 export const Priority = styled.div`
-  width : 40%;
+  width : 30%;
   padding-right : 20px;
 `;
 
@@ -135,22 +116,6 @@ export const PriorityList = styled.div`
 
 `;
 
-export const Display = styled.div`
-  display : flex;
-  margin-top : 20px;
-  
-  &>div{
-    width : 100%;
-    display : flex;
-    flex-direction : column;
-    
-    & input{
-        margin-left : 0;
-    }
-    
-    
-  }
-`;
 
 
 export const Identity = styled.div`
@@ -159,7 +124,8 @@ export const Identity = styled.div`
   height : 100%;
   align-items : center;
   justify-content : center;
-    padding : 5px;
+  padding : 5px;
+  font-size : 12px;
 
 `;
 
@@ -200,5 +166,40 @@ export const ButtonsMove = styled.div`
             transform : rotate(180deg);
         }
     }
+    
+`;
+
+export const Drop = styled.div`
+   display : flex;
+   width : 100%;
+   margin-bottom : 30px;
+   padding-left : 20px;
+
+   
+   &>div{
+    display : flex;
+    flex-direction : column;
+    margin-right : 20px;
+    &>button{
+        margin-top : 22px;
+    }
+    
+    &:nth-child(1){
+        & select{
+            width : 180px;
+            padding-right : 20px;
+        }
+    }
+    &:nth-child(2){
+        & select{
+            width : 270px;
+            padding-right : 20px;
+        }
+    }
+   }
+    
+`;
+export const FormationsContainer = styled.div`
+   display : flex;
     
 `;

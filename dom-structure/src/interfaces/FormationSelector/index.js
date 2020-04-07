@@ -4,24 +4,27 @@ import PropTypes from 'prop-types';
 import {
     Container,
     Formations,
-    Select,
     List,
     Priority,
-    Display,
     PriorityList,
     Element,
     Identity,
     ButtonsMove,
-    Button
+    Button, Drop, FormationsContainer
 } from './styled';
+import ButtonValidate from '../../components/ui/ButtonValidate';
 import {getCurrentExtension} from '../../actions/index';
 import SvgArrowToTop from '../../components/svg/SvgArrowToTop';
+import ListItem from './ListItem';
 
 class FormationSelector extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            categoryFilter: '',
+            selectedFormation : '',
+            categories: [],
             formations: [],
             selectedFormations: [],
             priority: []
@@ -32,18 +35,14 @@ class FormationSelector extends Component {
         await this.initRessources();
         this.setState({
             selectedFormations: this.props.formations,
-            display: this.props.display,
             priority: this.props.priority
+        }, () => {
+            console.log('STATE AFTER MOUNT', this.state)
         })
-        console.log('PROPS SPEAKERS ON SELECTOR : ', this.props.formations)
     };
 
     componentDidUpdate(prevProps) {
-        if (this.props.display !== prevProps.display) {
-            this.setState({
-                display: this.props.display
-            })
-        }
+
         if (this.props.formations !== prevProps.formations) {
             this.setState({
                 selectedFormations: this.props.formations
@@ -52,36 +51,53 @@ class FormationSelector extends Component {
         if (this.props.priority !== prevProps.priority) {
             this.setState({
                 priority: this.props.priority,
-                selectedFormations : this.orderSelectedWithPriority()
+                selectedFormations: this.orderSelectedWithPriority()
             }, () => {
                 this.props.updateContent(this.state.selectedFormations, 'data')
             })
         }
     }
 
+    getCategoryNameByID = (ids) => {
+        return this.props.extensionInfo.extension.space.getEntries({
+            'sys.id[in]': ids.join(',')
+        }).then(result => {
+            console.log('RESULT CATEGORIES', result)
+            return result.items.map(item => item.fields.name[this.findProperLocale()])
+        })
+    }
+
     initRessources = async () => {
         await this.props.extensionInfo.extension.space.getEntries({
             'content_type': 'formation',
-        }).then(result => {
+        }).then(async result => {
+            await result.items.map(async item => {
 
-            console.log('--------------------------------------------')
-            console.log('GET RESULT', result)
-            console.log('--------------------------------------------')
-            this.setState({
-                formations: result.items.map( item => {
-                    let formation =  {
-                        id : item.sys.id,
-                        name : item.fields.name[this.findProperLocale()]
-                    }
-                    return formation
+                console.log('ITEM', item);
+                let categoriesID = item.fields.category[this.findProperLocale()].map(category => category.sys.id);
+
+                let formation = {
+                    id: item.sys.id,
+                    name: item.fields.name[this.findProperLocale()],
+                    categories: await this.getCategoryNameByID(categoriesID)
+                }
+
+                this.setState({
+                    formations: [...this.state.formations, formation]
                 })
-            },  () => {
-                console.log('--------------------------------------------')
-                console.log('GET FORMATION', this.state)
-                console.log('--------------------------------------------')
+
+                formation.categories.map(category => {
+                    if (!this.state.categories.includes(category)) {
+                        this.setState({
+                            categories: [...this.state.categories, category]
+                        })
+                    }
+                })
+
+
+                return formation
             })
         });
-
     }
 
     findProperLocale = () => this.props.extensionInfo.extension.locales.default;
@@ -105,61 +121,29 @@ class FormationSelector extends Component {
         })
     }
 
-    updatePriority = (id) => {
-        if (!this.alreadyOnPriority(id)) {
-            this.addPriority(id);
-
-            if (!this.alreadySelected(id)) {
-                this.addSelected(id);
-            }
-        } else {
-            this.removePriority(id);
-        }
-    }
+    updatePriority = (id) => !this.alreadyOnPriority(id) ? this.addPriority(id) : this.removePriority(id);
 
     addSelected = (id) => {
         this.setState(prevState => ({
             selectedFormations: [...prevState.selectedFormations, id]
         }), () => {
+            this.setState({
+                selectedFormation : ''
+            })
             this.props.updateContent(this.state.selectedFormations, 'data')
         })
     }
 
-    removeSelected = (id) => {
+    removeFromSelectedList = (id) => {
         this.setState(prevState => ({
             selectedFormations: prevState.selectedFormations.filter(item => item !== id)
         }), () => {
+            this.removePriority(id)
             this.props.updateContent(this.state.selectedFormations, 'data')
         })
     }
 
-    updateSelected = (e, id) => {
-        if (e.target.checked) {
-            this.addSelected(id);
-        } else {
-            this.removeSelected(id);
-
-            if (this.alreadyOnPriority(id)) {
-                this.removePriority(id);
-            }
-        }
-    }
-
     orderSelectedWithPriority = () => [...this.state.priority, ...this.state.selectedFormations.filter(id => !this.alreadyOnPriority(id))];
-
-    toggleDisplay = (prop, subProp, value) => {
-        this.setState(prevState => ({
-            display: {
-                ...prevState.display,
-                [prop]: {
-                    ...prevState.display[prop],
-                    [subProp]: value
-                }
-            }
-        }), () => {
-            this.props.updateContent(this.state.display, 'display')
-        })
-    }
 
     getById = (id) => this.state.formations.find(element => element.id === id);
 
@@ -189,44 +173,94 @@ class FormationSelector extends Component {
         })
     }
 
+    getFilteredFormation = () => {
+        return this.state.formations.map(formation => formation.categories.includes(this.state.categoryFilter) ? formation : null)
+            .filter(el => el)
+            .filter( formation => !this.state.selectedFormations.includes(formation.id)  )
+    }
+
+
     render = () => {
         return (
             <Container>
-                <Formations>
-                    <label>Formations</label>
-                    <List>
-                        {
-                            this.state.formations ? this.state.formations.map((formation, i) => {
-                                return <Select key={i}>
-                                    <input checked={this.state.selectedFormations.includes(formation.id)} type={'checkbox'}
-                                           onChange={(e) => this.updateSelected(e, formation.id)}/>
-                                    <p className={this.state.priority.includes(formation.id) ? 'active' : ''}
-                                       onClick={() => {
-                                           this.updatePriority(formation.id)
-                                       }}>{formation.name}</p>
-                                </Select>
-                            }) : null
-                        }
-                    </List>
-                </Formations>
-                <Priority>
-                    <label>Priority List</label>
-                    <PriorityList>
-                        {
-                            this.state.priority ? this.state.priority.map((id, i) => {
-                                const formation = this.getById(id);
-                                if(!formation) return null
-                                return <Element>
-                                    <ButtonsMove>
-                                        <Button onClick={() => this.moveElementToBottom(i)}><SvgArrowToTop/></Button>
-                                        <Button onClick={() => this.moveElementToTop(i)}><SvgArrowToTop/></Button>
-                                    </ButtonsMove>
-                                    <Identity>{formation.name}</Identity>
-                                </Element>
-                            }) : null
-                        }
-                    </PriorityList>
-                </Priority>
+                <Drop>
+                    <div>
+                        <label>Select Category</label>
+                        <select value={this.state.categoryFilter}
+                                onChange={(e) => this.setState({categoryFilter: e.target.value}, () => {
+                                    console.log('STATE AFTER UPDATE', this.state);
+
+
+                                })}
+                        >
+                            <option value={''}></option>
+                            {
+                                this.state.categories ?
+                                    this.state.categories.map(category => <option value={category}>{category}</option>)
+                                    : null
+                            }
+                        </select>
+                    </div>
+                    <div>
+                        <label>Select Formation</label>
+                        <select value={this.state.selectedFormation}
+                                onChange={(e) => this.setState({selectedFormation: e.target.value}, () => {
+                            console.log('STATE AFTER UPDATE selectedFormation', this.state);
+
+
+                        })}>
+                            <option value={''}></option>
+                            {
+                                this.getFilteredFormation() ?
+                                    this.getFilteredFormation().map(formation => <option
+                                        value={formation.id}>{formation.name}</option>)
+                                    : null
+                            }
+
+                        </select>
+                    </div>
+                    <div>
+                        <ButtonValidate label={'Add'} disabled={this.state.selectedFormation === ''} action={() => this.addSelected(this.state.selectedFormation)}/>
+                    </div>
+
+
+                </Drop>
+                <FormationsContainer>
+                    <Formations>
+                        <label>Formations</label>
+                        <List>
+                            {
+                                this.state.formations ? this.state.formations.filter( formation => this.state.selectedFormations.includes(formation.id))
+                                    .map((formation, i) => {
+                                    return <ListItem formation={formation}
+                                                  priority={this.state.priority} key={i}
+                                                  updatePriority={this.updatePriority}
+                                                  removeFromSelectedList={this.removeFromSelectedList}
+                                        />
+                                }) : null
+                            }
+                        </List>
+                    </Formations>
+                    <Priority>
+                        <label>Priority List</label>
+                        <PriorityList>
+                            {
+                                this.state.priority ? this.state.priority.map((id, i) => {
+                                    const formation = this.getById(id);
+                                    if (!formation) return null
+                                    return <Element>
+                                        <ButtonsMove>
+                                            <Button
+                                                onClick={() => this.moveElementToBottom(i)}><SvgArrowToTop/></Button>
+                                            <Button onClick={() => this.moveElementToTop(i)}><SvgArrowToTop/></Button>
+                                        </ButtonsMove>
+                                        <Identity>{formation.name}</Identity>
+                                    </Element>
+                                }) : null
+                            }
+                        </PriorityList>
+                    </Priority>
+                </FormationsContainer>
             </Container>
         );
     }
@@ -234,7 +268,6 @@ class FormationSelector extends Component {
 
 FormationSelector.protoTypes = {
     formations: PropTypes.array,
-    display: PropTypes.object,
     priority: PropTypes.array
 };
 

@@ -35,7 +35,6 @@ class PartnerSelector extends Component {
             display: this.props.display,
             priority: this.props.priority
         })
-        console.log('PROPS SPEAKERS ON SELECTOR : ', this.props.partners)
     };
 
     componentDidUpdate(prevProps) {
@@ -52,7 +51,7 @@ class PartnerSelector extends Component {
         if (this.props.priority !== prevProps.priority) {
             this.setState({
                 priority: this.props.priority,
-                selected : this.orderSelectedWithPriority()
+                selected: this.orderSelectedWithPriority()
             }, () => {
                 this.props.updateContent(this.state.selected, 'data')
             })
@@ -63,25 +62,15 @@ class PartnerSelector extends Component {
         await this.props.extensionInfo.extension.space.getEntries({
             'content_type': 'partner',
         }).then(result => {
-
-            console.log('--------------------------------------------')
-            console.log('GET RESULT', result)
-            console.log('--------------------------------------------')
             this.setState({
-                partners: result.items.map( item => {
-                    let formation =  {
-                        id : item.sys.id,
-                        name : item.fields.name[this.findProperLocale()]
+                partners: result.items.map(item => {
+                    let formation = {
+                        id: item.sys.id,
+                        name: item.fields.name[this.findProperLocale()]
                     }
                     return formation
                 })
-            },  () => {
-                console.log('--------------------------------------------')
-                console.log('GET FORMATION', this.state)
-                console.log('--------------------------------------------')
             })
-
-
         });
 
     }
@@ -217,7 +206,7 @@ class PartnerSelector extends Component {
                         {
                             this.state.priority ? this.state.priority.map((id, i) => {
                                 const formation = this.getById(id);
-                                if(!formation) return null
+                                if (!formation) return null
                                 return <Element>
                                     <ButtonsMove>
                                         <Button onClick={() => this.moveElementToBottom(i)}><SvgArrowToTop/></Button>

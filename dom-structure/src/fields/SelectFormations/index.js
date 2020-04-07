@@ -42,7 +42,7 @@ class SelectFormations extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        ['name', 'job', 'company', 'title', 'text'].map(prop => {
+        ['category', 'title', 'text'].map(prop => {
             if (this.props.settings && this.props.getSettingsByProperty(prop, 'font')) {
                 if (!Object.values(this.props.settings[prop])[0].font.family && this.props.themes) {
                     this.initFont(prop);
@@ -78,11 +78,7 @@ class SelectFormations extends Component {
 
     toggleCurrentEvent = (event) => this.setState({currentEvent: event});
 
-    getIcon1 = () => this.props.content.icon1 ? this.props.content.icon1 : '';
-    getIcon2 = () => this.props.content.icon2 ? this.props.content.icon2 : '';
-    getIcon3 = () => this.props.content.icon3 ? this.props.content.icon3 : '';
     getFormations = () => this.props.content.data ? this.props.content.data : [];
-    getDisplay = () => this.props.content.display ? this.props.content.display : {};
     getPriority = () => this.props.content.priority ? this.props.content.priority : [];
 
     updateBasis = (property, value, event) => this.props.updateSettingsProperty('basis', property, value, event);
@@ -122,7 +118,6 @@ class SelectFormations extends Component {
                         <ChoicesSpeakers>
                             <FormationSelector updateContent={this.props.updateContent}
                                              formations={this.getFormations()}
-                                             display={this.getDisplay()}
                                              priority={this.getPriority()}
                                              toggleCurrentEvent={this.toggleCurrentEvent}
                             />
