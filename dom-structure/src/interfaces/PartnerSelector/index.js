@@ -3,11 +3,10 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {
     Container,
-    Formations,
+    Partners,
     Select,
     List,
     Priority,
-    Display,
     PriorityList,
     Element,
     Identity,
@@ -32,17 +31,11 @@ class PartnerSelector extends Component {
         await this.initRessources();
         this.setState({
             selected: this.props.partners,
-            display: this.props.display,
             priority: this.props.priority
         })
     };
 
     componentDidUpdate(prevProps) {
-        if (this.props.display !== prevProps.display) {
-            this.setState({
-                display: this.props.display
-            })
-        }
         if (this.props.partners !== prevProps.partners) {
             this.setState({
                 selected: this.props.partners
@@ -58,26 +51,27 @@ class PartnerSelector extends Component {
         }
     }
 
+    findProperLocale = () => this.props.extensionInfo.extension.locales.default;
+    getById = (id) => this.state.partners.find(element => element.id === id);
+
+
     initRessources = async () => {
         await this.props.extensionInfo.extension.space.getEntries({
             'content_type': 'partner',
         }).then(result => {
             this.setState({
                 partners: result.items.map(item => {
-                    let formation = {
+                    let partner = {
                         id: item.sys.id,
                         name: item.fields.name[this.findProperLocale()]
                     }
-                    return formation
+                    return partner
                 })
             })
         });
 
     }
 
-    findProperLocale = () => this.props.extensionInfo.extension.locales.default;
-
-    alreadyOnPriority = (id) => this.state.priority.find(item => item === id)
     alreadySelected = (id) => this.state.selected.find(item => item === id)
 
     addPriority = (id) => {
@@ -85,14 +79,7 @@ class PartnerSelector extends Component {
             priority: [...prevState.priority, id]
         }), () => {
             this.props.updateContent(this.state.priority, 'priority')
-        })
-    }
-
-    removePriority = (id) => {
-        this.setState(prevState => ({
-            priority: prevState.priority.filter(item => item !== id)
-        }), () => {
-            this.props.updateContent(this.state.priority, 'priority')
+            this.refreshOrderWithPriority()
         })
     }
 
@@ -107,6 +94,25 @@ class PartnerSelector extends Component {
             this.removePriority(id);
         }
     }
+
+    removePriority = (id) => {
+        this.setState(prevState => ({
+            priority: prevState.priority.filter(item => item !== id)
+        }), () => {
+            this.props.updateContent(this.state.priority, 'priority')
+            this.refreshOrderWithPriority()
+        })
+    }
+
+    refreshOrderWithPriority = () => {
+        this.setState({
+            selected: this.orderSelectedWithPriority()
+        }, () => {
+            this.props.updateContent(this.state.selected, 'data')
+        })
+    }
+
+    alreadyOnPriority = (id) => this.state.priority.find(item => item === id)
 
     addSelected = (id) => {
         this.setState(prevState => ({
@@ -138,22 +144,6 @@ class PartnerSelector extends Component {
 
     orderSelectedWithPriority = () => [...this.state.priority, ...this.state.selected.filter(id => !this.alreadyOnPriority(id))];
 
-    toggleDisplay = (prop, subProp, value) => {
-        this.setState(prevState => ({
-            display: {
-                ...prevState.display,
-                [prop]: {
-                    ...prevState.display[prop],
-                    [subProp]: value
-                }
-            }
-        }), () => {
-            this.props.updateContent(this.state.display, 'display')
-        })
-    }
-
-    getById = (id) => this.state.partners.find(element => element.id === id);
-
     moveElementToTop = (index) => {
         if (index === 0) return
         const a = this.props.priority[index];
@@ -183,41 +173,40 @@ class PartnerSelector extends Component {
     render = () => {
         return (
             <Container>
-                <Formations>
+                <Partners>
                     <label>Partners</label>
                     <List>
                         {
-                            this.state.partners ? this.state.partners.map((formation, i) => {
+                            this.state.partners ? this.state.partners.map((partner, i) => {
                                 return <Select key={i}>
-                                    <input checked={this.state.selected.includes(formation.id)} type={'checkbox'}
-                                           onChange={(e) => this.updateSelected(e, formation.id)}/>
-                                    <p className={this.state.priority.includes(formation.id) ? 'active' : ''}
+                                    <input checked={this.state.selected.includes(partner.id)} type={'checkbox'}
+                                           onChange={(e) => this.updateSelected(e, partner.id)}/>
+                                    <p className={this.state.priority.includes(partner.id) ? 'active' : ''}
                                        onClick={() => {
-                                           this.updatePriority(formation.id)
-                                       }}>{formation.name}</p>
+                                           this.updatePriority(partner.id)
+                                       }}>{partner.name}</p>
                                 </Select>
                             }) : null
                         }
                     </List>
-                </Formations>
+                </Partners>
                 <Priority>
                     <label>Priority List</label>
                     <PriorityList>
                         {
                             this.state.priority ? this.state.priority.map((id, i) => {
-                                const formation = this.getById(id);
-                                if (!formation) return null
+                                const partner = this.getById(id);
+                                if (!partner) return null
                                 return <Element>
                                     <ButtonsMove>
                                         <Button onClick={() => this.moveElementToBottom(i)}><SvgArrowToTop/></Button>
                                         <Button onClick={() => this.moveElementToTop(i)}><SvgArrowToTop/></Button>
                                     </ButtonsMove>
-                                    <Identity>{formation.name}</Identity>
+                                    <Identity>{partner.name}</Identity>
                                 </Element>
                             }) : null
                         }
                     </PriorityList>
-
                 </Priority>
             </Container>
         );
@@ -226,7 +215,6 @@ class PartnerSelector extends Component {
 
 PartnerSelector.protoTypes = {
     partners: PropTypes.array,
-    display: PropTypes.object,
     priority: PropTypes.array
 };
 

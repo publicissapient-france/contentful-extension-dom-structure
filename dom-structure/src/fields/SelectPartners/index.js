@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {getCurrentStyle} from '../../actions';
-
 import FieldWrapper from '../../HOC/FieldWrapper';
 
 import LanguageToggle from '../../containers/LanguageToggle';
@@ -11,78 +8,17 @@ import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
 import ResponsiveToggle from '../../components/ResponsiveToggle';
 import ActiveCheckBox from '../../components/ActiveCheckBox';
-
-import InputIcon from '../../interfaces/InputIcon';
 import PartnerSelector from '../../interfaces/PartnerSelector';
-import TypeSystem from '../../interfaces/system/TypeSystem'
 import ImageSystem from '../../interfaces/system/ImageSystem'
-import IconSystem from '../../interfaces/system/IconSystem'
 
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
-import {
-    ChoiceItemsConfirm,
-    Content,
-    Settings,
-    Column,
-    ChoicesContent,
-    ButtonEvents,
-    ChoicesSpeakers
-} from './styled';
+import {ChoiceItemsConfirm, Content, Settings, Choices } from './styled';
 import FieldWrapperOfSection from "../../HOC/FieldWrapperOfSection";
 
 class SelectPartners extends Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            events: ['basic', 'hover'],
-            currentEvent: 'basic'
-        };
-    }
-
-    componentDidUpdate(prevProps) {
-        ['name', 'job', 'company', 'title', 'text'].map(prop => {
-            if (this.props.settings && this.props.getSettingsByProperty(prop, 'font')) {
-                if (!Object.values(this.props.settings[prop])[0].font.family && this.props.themes) {
-                    this.initFont(prop);
-                }
-            }
-        })
-    }
-
-    initFont = (property) => {
-        let initFont = this.props.settings[property];
-
-        new Promise((resolve, reject) => {
-            this.props.responsiveSettings.map(mode => {
-                let selectedTheme = this.getThemeValue(this.props.themes, initFont[mode].font.theme);
-                if (selectedTheme) {
-                    initFont[mode].font.family = selectedTheme.family;
-                    initFont[mode].font.typeface = selectedTheme.typeface;
-                    initFont[mode].font.weight = selectedTheme.weight;
-                    initFont[mode].font.size = selectedTheme.fontsize[mode];
-                    initFont[mode].font.lineHeight = selectedTheme.lineheight[mode];
-                }
-            });
-            resolve();
-        }).then(() => {
-            this.props.initSettingsProperty(property, initFont);
-        });
-    }
-
-    getThemeValue = (themes, selectedTheme) => {
-        if (!themes || !selectedTheme) return;
-        return themes.find(theme => theme.name === selectedTheme);
-    }
-
-    toggleCurrentEvent = (event) => this.setState({currentEvent: event});
-
-    getIcon1 = () => this.props.content.icon1 ? this.props.content.icon1 : '';
-    getIcon2 = () => this.props.content.icon2 ? this.props.content.icon2 : '';
-    getIcon3 = () => this.props.content.icon3 ? this.props.content.icon3 : '';
     getData = () => this.props.content.data ? this.props.content.data : [];
-    getDisplay = () => this.props.content.display ? this.props.content.display : {};
     getPriority = () => this.props.content.priority ? this.props.content.priority : [];
 
     updateBasis = (property, value, event) => this.props.updateSettingsProperty('basis', property, value, event);
@@ -119,14 +55,13 @@ class SelectPartners extends Component {
                 </Banner>
                 <Field>
                     <Content className={!this.props.openContent ? 'hidden' : ''}>
-                        <ChoicesSpeakers>
+                        <Choices>
                             <PartnerSelector updateContent={this.props.updateContent}
                                              partners={this.getData()}
-                                             display={this.getDisplay()}
                                              priority={this.getPriority()}
                                              toggleCurrentEvent={this.toggleCurrentEvent}
                             />
-                        </ChoicesSpeakers>
+                        </Choices>
                     </Content>
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         {
@@ -141,24 +76,7 @@ class SelectPartners extends Component {
                                 />
                             })
                         }
-                        {
-                            this.state.events && this.state.events.length !== 0 ?
-                                <ButtonEvents>
-                                    {
-                                        this.state.events.map((event, i) => {
-                                            return <button
-                                                key={i}
-                                                className={event === this.state.currentEvent ? 'current' : ''}
-                                                onClick={() => {
-                                                    this.toggleCurrentEvent(event)
-                                                }}>{event}</button>
-                                        })
-                                    }
-                                </ButtonEvents> : null
-
-                        }
                     </Settings>
-
                 </Field>
                 <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
                     <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
@@ -169,13 +87,8 @@ class SelectPartners extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    themes: getCurrentStyle(state).style.themes
-});
-
-const WrappedComponent = FieldWrapper(connect(mapStateToProps)(SelectPartners));
+const WrappedComponent = FieldWrapper((SelectPartners));
 export default WrappedComponent;
-
-export const SelectPartnersForComponent = FieldWrapper(connect(mapStateToProps)(SelectPartners));
-export const SelectPartnersForSection = FieldWrapperOfSection(connect(mapStateToProps)(SelectPartners));
+export const SelectPartnersForComponent = WrappedComponent;
+export const SelectPartnersForSection = FieldWrapperOfSection((SelectPartners));
 

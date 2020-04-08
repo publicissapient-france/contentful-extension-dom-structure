@@ -159,27 +159,40 @@ class CTA extends Component {
                                            defaultValue={this.getText()}/>
                             </Column>
                             <Column>
-                                <LinkSettings>
-                                    <label>Link</label>
-                                    <div>
-                                        <label>
-                                            <input type={'checkbox'} defaultChecked={this.getExternal()}
-                                                   onChange={(e) => {
-                                                       this.props.updateSettingsNoResponsive('state', {external: !this.getExternal()})
-                                                   }}/>
-                                            external</label>
-                                        <label>
-                                            <input type={'checkbox'} defaultChecked={this.getDisabled()}
-                                                   onChange={(e) => {
-                                                       this.props.updateSettingsNoResponsive('state', {disabled: !this.getDisabled()})
-                                                   }}/>
-                                            disabled</label>
-                                    </div>
+                                {
+                                    this.props.content.state ?
+                                        <LinkSettings>
+                                            <label>Link</label>
+                                            <div>
+                                                <label>
+                                                    <input type={'checkbox'} defaultChecked={this.getExternal()}
+                                                           onChange={(e) => {
+                                                               this.props.updateSettingsNoResponsive('state', {external: !this.getExternal()})
+                                                           }}/>
+                                                    external</label>
+                                                <label>
+                                                    <input type={'checkbox'} defaultChecked={this.getDisabled()}
+                                                           onChange={(e) => {
+                                                               this.props.updateSettingsNoResponsive('state', {disabled: !this.getDisabled()})
+                                                           }}/>
+                                                    disabled</label>
+                                            </div>
 
-                                </LinkSettings>
+                                        </LinkSettings>
 
-                                <InputText action={this.props.updateTranlatedContent} targetProperty={'link'}
-                                           defaultValue={this.getLink()}/>
+                                    : null
+                                }
+                                {
+                                    this.props.content.link ?
+                                        <InputText action={this.props.updateTranlatedContent} targetProperty={'link'}
+                                                   defaultValue={this.getLink()}/>
+
+                                    : null
+
+                                }
+
+
+
                             </Column>
                             <Column>
                                 <label>Icon</label>

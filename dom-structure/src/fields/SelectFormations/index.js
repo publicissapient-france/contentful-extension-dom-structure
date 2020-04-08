@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {getCurrentStyle} from '../../actions';
 
 import FieldWrapper from '../../HOC/FieldWrapper';
-
 import LanguageToggle from '../../containers/LanguageToggle';
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgContent from '../../components/svg/SvgContent';
@@ -11,34 +10,18 @@ import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
 import ResponsiveToggle from '../../components/ResponsiveToggle';
 import ActiveCheckBox from '../../components/ActiveCheckBox';
-
-import InputIcon from '../../interfaces/InputIcon';
 import FormationSelector from '../../interfaces/FormationSelector';
 import TypeSystem from '../../interfaces/system/TypeSystem'
 import ImageSystem from '../../interfaces/system/ImageSystem'
-import IconSystem from '../../interfaces/system/IconSystem'
 
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
-import {
-    ChoiceItemsConfirm,
-    Content,
-    Settings,
-    Column,
-    ChoicesContent,
-    ButtonEvents,
-    ChoicesSpeakers
-} from './styled';
+import {ChoiceItemsConfirm, Content, Settings, Choices} from './styled';
 import FieldWrapperOfSection from "../../HOC/FieldWrapperOfSection";
 
 class SelectFormations extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            events: ['basic', 'hover'],
-            currentEvent: 'basic'
-        };
     }
 
     componentDidUpdate(prevProps) {
@@ -75,8 +58,6 @@ class SelectFormations extends Component {
         if (!themes || !selectedTheme) return;
         return themes.find(theme => theme.name === selectedTheme);
     }
-
-    toggleCurrentEvent = (event) => this.setState({currentEvent: event});
 
     getFormations = () => this.props.content.data ? this.props.content.data : [];
     getPriority = () => this.props.content.priority ? this.props.content.priority : [];
@@ -115,13 +96,13 @@ class SelectFormations extends Component {
                 </Banner>
                 <Field>
                     <Content className={!this.props.openContent ? 'hidden' : ''}>
-                        <ChoicesSpeakers>
+                        <Choices>
                             <FormationSelector updateContent={this.props.updateContent}
                                              formations={this.getFormations()}
                                              priority={this.getPriority()}
                                              toggleCurrentEvent={this.toggleCurrentEvent}
                             />
-                        </ChoicesSpeakers>
+                        </Choices>
                     </Content>
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         {
@@ -166,7 +147,6 @@ const mapStateToProps = state => ({
 
 const WrappedComponent = FieldWrapper(connect(mapStateToProps)(SelectFormations));
 export default WrappedComponent;
-
-export const SelectFormationsForComponent = FieldWrapper(connect(mapStateToProps)(SelectFormations));
+export const SelectFormationsForComponent = WrappedComponent;
 export const SelectFormationsForSection = FieldWrapperOfSection(connect(mapStateToProps)(SelectFormations));
 

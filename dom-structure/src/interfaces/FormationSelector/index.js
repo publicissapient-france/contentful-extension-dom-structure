@@ -1,14 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-    Container,
-    Formations,
-    List,
-    Priority,
-    PriorityList,
-    Drop, FormationsContainer
-} from './styled';
+import {Container, Formations, List, Priority, PriorityList, Drop, FormationsContainer} from './styled';
 import ButtonValidate from '../../components/ui/ButtonValidate';
 import {getCurrentExtension} from '../../actions/index';
 import ItemFormation from './ItemFormation';
@@ -37,11 +30,8 @@ class FormationSelector extends Component {
     };
 
     componentDidUpdate(prevProps) {
-
         if (this.props.formations !== prevProps.formations) {
-            this.setState({
-                selectedFormations: this.props.formations
-            })
+            this.setState({selectedFormations: this.props.formations})
         }
         if (this.props.priority !== prevProps.priority) {
             this.setState({
@@ -96,6 +86,7 @@ class FormationSelector extends Component {
             priority: [...prevState.priority, id]
         }), () => {
             this.props.updateContent(this.state.priority, 'priority')
+            this.refreshOrderWithPriority()
         })
     }
 
@@ -106,6 +97,15 @@ class FormationSelector extends Component {
             priority: prevState.priority.filter(item => item !== id)
         }), () => {
             this.props.updateContent(this.state.priority, 'priority')
+            this.refreshOrderWithPriority()
+        })
+    }
+
+    refreshOrderWithPriority = () => {
+        this.setState({
+            selectedFormations: this.orderSelectedWithPriority()
+        }, () => {
+            this.props.updateContent(this.state.selectedFormations, 'data')
         })
     }
 
@@ -115,9 +115,7 @@ class FormationSelector extends Component {
         this.setState(prevState => ({
             selectedFormations: [...prevState.selectedFormations, id]
         }), () => {
-            this.setState({
-                selectedFormation: ''
-            })
+            this.setState({selectedFormation: ''})
             this.props.updateContent(this.state.selectedFormations, 'data')
         })
     }
@@ -134,7 +132,6 @@ class FormationSelector extends Component {
     alreadySelected = (id) => this.state.selectedFormations.find(item => item === id)
 
     orderSelectedWithPriority = () => [...this.state.priority, ...this.state.selectedFormations.filter(id => !this.alreadyOnPriority(id))];
-
 
     moveElementToTop = (index) => {
         if (index === 0) return
@@ -227,10 +224,10 @@ class FormationSelector extends Component {
                                 this.state.priority ? this.state.priority.map((id, i) => {
                                     const formation = this.getById(id);
                                     return <ItemPriority formation={formation}
-                                                      index={i}
-                                                      moveElementToBottom={this.moveElementToBottom}
-                                                      moveElementToTop={this.moveElementToTop}
-                                        />
+                                                         index={i}
+                                                         moveElementToBottom={this.moveElementToBottom}
+                                                         moveElementToTop={this.moveElementToTop}
+                                    />
 
                                 }) : null
                             }

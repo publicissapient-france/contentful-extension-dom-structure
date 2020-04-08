@@ -401,16 +401,8 @@ export default {
                 parameters: {},
                 defaultValue: {
                     icon1: "",
-                    icon2: "",
-                    icon3: "",
                     data: [],
-                    priority: [],
-                    display: {
-                        logo: {
-                            tiny: false,
-                            large: false
-                        }
-                    }
+                    priority: []
                 }
             },
             settings: {
@@ -780,20 +772,14 @@ export default {
             typeField: 'CTA',
             content: {
                 responsive: ['A'],
-                parameters: {},
                 defaultValue: {
                     text: {},
-                    link: {},
                     icon: {}
                 }
             },
             settings: {
                 responsive: ['M', 'T', 'D'],
                 defaultValue: {
-                    state: {
-                        external: false,
-                        disabled : false
-                    },
                     basis: {
                         M: {
                             size: {

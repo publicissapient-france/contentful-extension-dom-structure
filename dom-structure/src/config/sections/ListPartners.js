@@ -398,19 +398,9 @@ export default {
             typeField: 'SelectPartners',
             content: {
                 responsive: ['A'],
-                parameters: {},
                 defaultValue: {
-                    icon1: "",
-                    icon2: "",
-                    icon3: "",
                     data: [],
-                    priority: [],
-                    display: {
-                        logo: {
-                            tiny: false,
-                            large: false
-                        }
-                    }
+                    priority: []
                 }
             },
             settings: {
