@@ -40,6 +40,11 @@ export const AddChild = styled.div`
 export const FormSection = styled(Form)`
     padding-left : 15px;
     box-sizing: border-box;
+    
+    &>div:nth-child(1) select{
+        max-width : 205px; 
+    }
+    
 `;
 
 export const Active = styled(CheckBox)`

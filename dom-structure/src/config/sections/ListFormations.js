@@ -422,7 +422,9 @@ export default {
                                 width: '100%',
                                 height: 'auto',
                                 maxWidth: '',
-                                maxHeight: ''
+                                maxHeight: '',
+                                minWidth: '',
+                                minHeight: ''
                             },
                             padding: {
                                 top: '0',
@@ -439,7 +441,9 @@ export default {
                                 width: '100%',
                                 height: 'auto',
                                 maxWidth: '',
-                                maxHeight: ''
+                                maxHeight: '',
+                                minWidth: '',
+                                minHeight: ''
                             },
                             padding: {
                                 top: '0',
@@ -456,7 +460,9 @@ export default {
                                 width: '100%',
                                 height: 'auto',
                                 maxWidth: '',
-                                maxHeight: ''
+                                maxHeight: '',
+                                minWidth: '',
+                                minHeight: ''
                             },
                             padding: {
                                 top: '0',

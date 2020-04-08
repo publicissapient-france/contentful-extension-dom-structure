@@ -187,8 +187,8 @@ export const Form = styled.form`
   padding : 15px 0;
   box-sizing : border-box;
   
-  button:not(:first-child){
-    margin-left : 10px;
+  button{
+    margin-right : 15px;
   }
   
   &>div{
@@ -201,6 +201,10 @@ export const Form = styled.form`
     }
     
   }
+  
+   &>div:nth-child(1),   &>div:nth-child(2){
+        padding-right : 15px;
+    }
 `;
 
 export const OptionsBlock = styled.div`
@@ -294,10 +298,20 @@ export const SafeDelete = styled.div`
   padding-top : 15px;
   padding-bottom : 15px;
   align-items : center;
+  box-sizing : border-box;
+  
+  &>p{
+    padding-right : 10px;
+  }
   
   & div.buttons{
-    margin-left : 10px;
-    min-width : 150px;
+    min-width : 160px;
+    
+    &>button{
+        margin-right : 15px;
+        margin-left : 0;
+
+    }
   }
 `;
 

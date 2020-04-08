@@ -8,12 +8,11 @@ import { Item, Contain, Icon } from './styled';
 import { SafeDelete} from "../../../style/styledComponents";
 
 
-class ListItem extends Component{
+class ItemFormation extends Component{
     constructor(props){
         super(props);
         this.state = {
             openSafeDelete : false
-
         }
     }
 
@@ -48,8 +47,9 @@ class ListItem extends Component{
     }
 }
 
-ListItem.propTypes = {
-
+ItemFormation.propTypes = {
+    formation : PropTypes.object,
+    priority :  PropTypes.array
 }
 
-export default ListItem;
+export default ItemFormation;

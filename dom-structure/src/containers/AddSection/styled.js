@@ -3,7 +3,12 @@ import { Form } from '../../style/styledComponents';
 import {extensionTheme} from "../../style/theme";
 
 export const FormSection = styled(Form)`
-    padding-left : 8px;
+    padding-left : 15px;
+    
+    &>div:nth-child(1) select{
+        max-width : 205px; 
+    }
+   
 `;
 
 export const Information = styled.p`

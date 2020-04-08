@@ -16,10 +16,6 @@ export const Item = styled.div`
     font-size : 12px;
     margin-left : 5px;
    }
-   
-   
-  
-   
 `;
 
 
