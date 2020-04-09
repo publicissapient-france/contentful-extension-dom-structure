@@ -12,6 +12,8 @@ import Link from '../../fields/Link/index';
 import NavigationLinks from '../../fields/NavigationLinks/index';
 import NavigationBar from '../../fields/NavigationBar/index';
 import SelectSpeakers from '../../fields/SelectSpeakers/index';
+import SelectCategory from '../../fields/SelectCategory/index';
+import Iframe from '../../fields/Iframe';
 
 class FieldsList extends Component {
     render() {
@@ -78,6 +80,12 @@ class FieldsList extends Component {
                             case key === 'Link':
                                 return <Link {...params} />;
 
+                            case key === 'Category':
+                                return <SelectCategory {...params} />;
+
+                            case key === 'Iframe':
+                                return <Iframe {...params} />;
+
                             case key.includes('Template'):
                                 return <TemplateForComponent {...params} />;
 
@@ -100,7 +108,7 @@ class FieldsList extends Component {
                                 return <CTA {...params} />;
                             default :
                                 return <div className={'error'}><p>No
-                                    field <strong>{field.typefield}</strong> matches</p>
+                                    field matches</p>
                                 </div>
                         }
 

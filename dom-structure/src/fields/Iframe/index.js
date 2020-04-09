@@ -11,7 +11,7 @@ import TextPreview from '../../components/TextPreview';
 import ResponsiveToggle from '../../components/ResponsiveToggle';
 import ActiveCheckBox from '../../components/ActiveCheckBox';
 
-import InputMarkdown from '../../interfaces/InputMarkdown';
+import InputIframe from '../../interfaces/InputIframe';
 import Typography from '../../interfaces/Typography';
 import ColorPicker from '../../interfaces/ColorPicker';
 import Padding from '../../interfaces/Padding';
@@ -23,7 +23,7 @@ import {getCurrentStyle} from "../../actions";
 import {connect} from "react-redux";
 import isEmpty from "lodash/isEmpty";
 
-class TextMarkdown extends Component {
+class Iframe extends Component {
     constructor(props) {
         super(props);
 
@@ -69,7 +69,7 @@ class TextMarkdown extends Component {
     toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
     toggleOpenPreview = () => this.setState(prevState => ({openPreview: !prevState.openPreview}));
 
-    getMarkdown = () => this.props.content.html && this.props.content.html[this.props.indexLanguage] ? this.props.content.html[this.props.indexLanguage] : '';
+    getHtml = () => this.props.content.html &&  this.props.content.html[this.props.indexLanguage]  ? this.props.content.html[this.props.indexLanguage] : '';
 
     updateTypography = (property, value) => this.props.updateSettingsProperty('typography', property, value);
     updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
@@ -103,73 +103,18 @@ class TextMarkdown extends Component {
                                       }}><SvgContent/></Icon>
                                 : null
                         }
-
-                        <Icon className={this.props.openSettings ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleSettings();
-                              }}><SvgSetting/></Icon>
                     </div>
                 </Banner>
                 <Field>
                     {
                         !isEmpty(this.props.content) ?
                             <Content className={!this.props.openContent ? 'hidden' : ''}>
-                                <InputMarkdown currentLanguage={indexLanguage}
+                                <InputIframe currentLanguage={indexLanguage}
                                                action={this.props.updateTranlatedContent} targetProperty={'html'}
-                                               defaultValue={this.getMarkdown()}/>
+                                               defaultValue={this.getHtml()}/>
                             </Content>
                             : null
                     }
-
-                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                        <Choices>
-                            <Column className={this.state.openPreview || this.state.openColorView ? 'full-width' : ''}>
-                                <Row>
-                                    <TextPreview hidden={this.state.openColorView}
-                                                 color={this.props.getSettingsByProperty('typography', 'color')}
-                                                 font={this.props.getSettingsByProperty('typography', 'font')}
-                                                 text={this.props.getSettingsByProperty('typography', 'text')}
-                                                 opacity={this.props.getSettingsByProperty('typography', 'opacity')}
-                                                 open={this.state.openPreview}
-                                                 toggleOpenPreview={this.toggleOpenPreview}
-                                    />
-                                    <ColorPicker hidden={this.state.openPreview}
-                                                 color={this.props.getSettingsByProperty('typography', 'color')}
-                                                 opacity={this.props.getSettingsByProperty('typography', 'opacity')}
-                                                 storeValueColor={this.props.getStoreSettingsByProperty('typography', 'color')}
-                                                 storeValueOpacity={this.props.getStoreSettingsByProperty('typography', 'opacity')}
-                                                 defaultColor={this.props.getDefaultSettingsByProperty('typography', 'color')}
-                                                 defaultOpacity={this.props.getDefaultSettingsByProperty('typography', 'opacity')}
-                                                 openView={this.state.openColorView}
-                                                 updateStateProps={this.updateTypography}
-                                                 toggleOpenView={this.toggleOpenView}
-                                    />
-                                </Row>
-                            </Column>
-                            <Column className={this.state.openPreview || this.state.openColorView ? 'hidden' : ''}>
-                                <Typography font={this.props.getSettingsByProperty('typography', 'font')}
-                                            text={this.props.getSettingsByProperty('typography', 'text')}
-                                            defaultFont={this.props.getDefaultSettingsByProperty('typography', 'font')}
-                                            defaultText={this.props.getDefaultSettingsByProperty('typography', 'text')}
-                                            storeValueFont={this.props.getStoreSettingsByProperty('typography', 'font')}
-                                            storeValueText={this.props.getStoreSettingsByProperty('typography', 'text')}
-                                            updateStateProps={this.updateTypography}
-                                            currentMode={this.props.currentResponsiveMode}
-                                />
-                            </Column>
-                        </Choices>
-                        <Choices>
-                            <Column/>
-                            <Column>
-                                <Padding hidden={false}
-                                         padding={this.props.getSettingsByProperty('basis', 'padding')}
-                                         storeValuePadding={this.props.getStoreSettingsByProperty('basis', 'padding')}
-                                         defaultPadding={this.props.getDefaultSettingsByProperty('basis', 'padding')}
-                                         updateStateProps={this.updateBasis}
-                                />
-                            </Column>
-                        </Choices>
-                    </Settings>
                 </Field>
                 <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
                     <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
@@ -183,5 +128,5 @@ class TextMarkdown extends Component {
 const mapStateToProps = state => ({
     themes: getCurrentStyle(state).style.themes
 });
-const WrappedComponent = FieldWrapper(connect(mapStateToProps)(TextMarkdown));
+const WrappedComponent = FieldWrapper(connect(mapStateToProps)(Iframe));
 export default WrappedComponent;

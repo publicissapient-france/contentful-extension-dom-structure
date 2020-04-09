@@ -9,6 +9,7 @@ import { SingleImageForSection } from '../../fields/SingleImage/index';
 import { SelectFormationsForSection } from '../../fields/SelectFormations/index';
 import { SelectPartnersForSection } from '../../fields/SelectPartners/index';
 import { MultipleImagesForSection } from '../../fields/MultipleImages/index';
+import { SelectCategoryForSection } from '../../fields/SelectCategory/index';
 
 class FieldsListOfSection extends Component {
 
@@ -52,6 +53,9 @@ class FieldsListOfSection extends Component {
 
                         case 'SelectPartners':
                             return <SelectPartnersForSection {...params}/>;
+
+                        case 'SelectCategory':
+                            return <SelectCategoryForSection {...params}/>;
 
                         case 'SingleImage':
                             return <SingleImageForSection {...params} />;

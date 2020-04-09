@@ -26,6 +26,7 @@ import Alignment from '../../interfaces/Alignment';
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
 import {ChoiceItemsConfirm, Content, Settings, Choices, Column, Row} from './styled';
+import isEmpty from "lodash/isEmpty";
 
 class SingleImage extends Component {
     constructor(props) {
@@ -79,10 +80,15 @@ class SingleImage extends Component {
                         <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
                                           currentMode={this.props.currentResponsiveMode}
                                           action={this.props.setResponsiveMode}/>
-                        <Icon className={this.props.openContent ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleContent();
-                              }}><SvgContent/></Icon>
+                        {
+                            !isEmpty(this.props.content) ?
+                                <Icon className={this.props.openContent ? 'active' : ''}
+                                      onClick={() => {
+                                          this.props.toggleContent();
+                                      }}><SvgContent/></Icon>
+                                : null
+                        }
+
                         <Icon className={this.props.openSettings ? 'active' : ''}
                               onClick={() => {
                                   this.props.toggleSettings();
@@ -90,14 +96,19 @@ class SingleImage extends Component {
                     </div>
                 </Banner>
                 <Field>
-                    <Content className={!this.props.openContent ? 'hidden' : ''}>
-                        <ImageUploader asset={this.getAsset()}
-                                       alt={this.getAlt()}
-                                       index={0}
-                                       updateStateAsset={this.props.updateContentSubProperty}
-                                       updateStateTranslatedProps={this.props.updateTranlatedContentSubProperty}
-                        />
-                    </Content>
+                    {
+                        !isEmpty(this.props.content) ?
+                            <Content className={!this.props.openContent ? 'hidden' : ''}>
+                                <ImageUploader asset={this.getAsset()}
+                                               alt={this.getAlt()}
+                                               index={0}
+                                               updateStateAsset={this.props.updateContentSubProperty}
+                                               updateStateTranslatedProps={this.props.updateTranlatedContentSubProperty}
+                                />
+                            </Content>
+                            : null
+                    }
+
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>
                             <Column>

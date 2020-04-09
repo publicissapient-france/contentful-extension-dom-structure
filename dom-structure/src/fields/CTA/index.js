@@ -160,7 +160,7 @@ class CTA extends Component {
                             </Column>
                             <Column>
                                 {
-                                    this.props.content.state ?
+                                    this.props.settings.state ?
                                         <LinkSettings>
                                             <label>Link</label>
                                             <div>

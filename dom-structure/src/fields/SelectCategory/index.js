@@ -2,31 +2,25 @@ import React, {Component} from 'react';
 import FieldWrapper from '../../HOC/FieldWrapper';
 
 import LanguageToggle from '../../containers/LanguageToggle';
-import SvgSetting from '../../components/svg/SvgSetting';
 import SvgContent from '../../components/svg/SvgContent';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
 import ResponsiveToggle from '../../components/ResponsiveToggle';
 import ActiveCheckBox from '../../components/ActiveCheckBox';
-import PartnerSelector from '../../interfaces/PartnerSelector';
-import ImageSystem from '../../interfaces/system/ImageSystem'
+import CategorySelector from '../../interfaces/CategorySelector';
 
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
 import {ChoiceItemsConfirm, Content, Settings, Choices } from './styled';
 import FieldWrapperOfSection from "../../HOC/FieldWrapperOfSection";
 
-class SelectPartners extends Component {
+class SelectCategory extends Component {
 
-    getData = () => this.props.content.data ? this.props.content.data : [];
-    getPriority = () => this.props.content.priority ? this.props.content.priority : [];
-
+    getData = () => this.props.content && this.props.content.data ? this.props.content.data : '';
     updateBasis = (property, value, event) => this.props.updateSettingsProperty('basis', property, value, event);
 
     render() {
         const {name} = this.props;
-
-        if (!this.props.settings) return null;
         return (
             <div>
                 <Banner>
@@ -47,35 +41,15 @@ class SelectPartners extends Component {
                               onClick={() => {
                                   this.props.toggleContent();
                               }}><SvgContent/></Icon>
-                        <Icon className={this.props.openSettings ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleSettings();
-                              }}><SvgSetting/></Icon>
                     </div>
                 </Banner>
                 <Field>
                     <Content className={!this.props.openContent ? 'hidden' : ''}>
                         <Choices>
-                            <PartnerSelector updateContent={this.props.updateContent}
-                                             partners={this.getData()}
-                                             priority={this.getPriority()}
-                            />
+                            <CategorySelector  updateContent={this.props.updateContent}
+                                               category={this.getData()}/>
                         </Choices>
                     </Content>
-                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                        {
-                            ['logo'].map(prop => {
-                                return <ImageSystem key={prop}
-                                                    label={prop}
-                                                    propertyName={prop}
-                                                    getSettingsByProperty={this.props.getSettingsByProperty}
-                                                    getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
-                                                    getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
-                                                    updateSettingsProperty={this.props.updateSettingsProperty}
-                                />
-                            })
-                        }
-                    </Settings>
                 </Field>
                 <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
                     <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
@@ -86,8 +60,7 @@ class SelectPartners extends Component {
     }
 }
 
-const WrappedComponent = FieldWrapper((SelectPartners));
+const WrappedComponent = FieldWrapper((SelectCategory));
 export default WrappedComponent;
-export const SelectPartnersForComponent = WrappedComponent;
-export const SelectPartnersForSection = FieldWrapperOfSection((SelectPartners));
+export const SelectCategoryForSection = FieldWrapperOfSection((SelectCategory));
 

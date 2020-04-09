@@ -177,7 +177,7 @@ class PartnerSelector extends Component {
                     <label>Partners</label>
                     <List>
                         {
-                            this.state.partners ? this.state.partners.map((partner, i) => {
+                            this.state.partners ? this.state.partners.sort((a, b) => a.name.localeCompare(b.name)).map((partner, i) => {
                                 return <Select key={i}>
                                     <input checked={this.state.selected.includes(partner.id)} type={'checkbox'}
                                            onChange={(e) => this.updateSelected(e, partner.id)}/>
