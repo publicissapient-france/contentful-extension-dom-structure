@@ -106,6 +106,7 @@ class FieldsList extends Component {
 
                             case key.includes('CTA'):
                                 return <CTA {...params} />;
+
                             default :
                                 return <div className={'error'}><p>No
                                     field matches</p>
@@ -116,64 +117,6 @@ class FieldsList extends Component {
 
 
 
-                }
-                {
-                   /* fields.map((field, i) => {
-                        const params = {
-                            indexComponent: index,
-                            indexSection: indexParent,
-                            name: field.name,
-                            nameProperty: field.nameProperty,
-                            typeField: field.typeField,
-                            responsiveContent: field.content.responsive,
-                            responsiveSettings: field.settings.responsive,
-                            defaultContent: field.content.defaultValue,
-                            defaultSettings: field.settings.defaultValue,
-                            parametersContent: field.content.parameters,
-                            key: i,
-                            triggerOpening: triggerOpening
-                        };
-
-                        switch (field.typeField) {
-                            case 'Template':
-                                return <TemplateForComponent {...params}/>;
-
-                            case 'Text':
-                                return <Text {...params} />;
-
-                            case 'TextMarkdown':
-                                return <TextMarkdown {...params} />;
-
-                            case 'SingleImage':
-                                return <SingleImage {...params} />;
-
-                            case 'MultipleImages':
-                                return <MultipleImagesForComponent {...params} />;
-
-                            case 'CTA':
-                                return <CTA {...params} />;
-
-                            case 'DuplicableCTA':
-                                return <DuplicableCTA {...params} />;
-
-                            case 'NavigationLinks':
-                                return <NavigationLinks {...params} />;
-
-                            case 'NavigationBar':
-                                return <NavigationBar {...params} />;
-
-                            case 'SelectSpeakers':
-                                return <SelectSpeakers {...params} />;
-
-                            case 'Link':
-                                return <Link {...params} />;
-
-                            default :
-                                return <div className={'error'}><p>No
-                                    field <strong>{field.typefield}</strong> matches</p>
-                                </div>
-                        }
-                    })*/
                 }
             </FieldContainer>
         );

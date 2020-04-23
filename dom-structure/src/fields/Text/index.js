@@ -39,7 +39,7 @@ class Text extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.settings && this.props.getSettingsByProperty('typography','font')) {
+        if (this.props.settings && this.props.getSettingsByProperty('typography', 'font')) {
             if (!Object.values(this.props.settings.typography)[0].font.family && this.props.themes) {
                 this.initFont();
             }
@@ -85,7 +85,7 @@ class Text extends Component {
     render() {
         const {name} = this.props;
 
-        if (!this.props.settings) return null;
+        //if (!this.props.settings) return null;
         return (
             <div>
                 <Banner>
@@ -111,10 +111,14 @@ class Text extends Component {
                                 : null
                         }
 
-                        <Icon className={this.props.openSettings ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleSettings();
-                              }}><SvgSetting/></Icon>
+                        {
+                            !isEmpty(this.props.settings) ?
+                                <Icon className={this.props.openSettings ? 'active' : ''}
+                                      onClick={() => {
+                                          this.props.toggleSettings();
+                                      }}><SvgSetting/></Icon>
+                                : null
+                        }
                     </div>
                 </Banner>
                 <Field>
@@ -124,94 +128,99 @@ class Text extends Component {
                                 <InputText action={this.props.updateTranlatedContent} targetProperty={'text'}
                                            defaultValue={this.getText()}/>
                             </Content>
-                        : null
+                            : null
                     }
 
+                    {
+                        !isEmpty(this.props.settings) ?
 
-
-                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                        <Choices>
-                            <Column className={this.state.openPreview || this.state.openColorView ? 'full-width' : ''}>
-                                <Row>
-                                    <TextPreview hidden={this.state.openColorView}
-                                                 color={this.props.getSettingsByProperty('typography','color')}
-                                                 font={this.props.getSettingsByProperty('typography','font')}
-                                                 text={this.props.getSettingsByProperty('typography','text')}
-                                                 opacity={this.props.getSettingsByProperty('typography','opacity')}
-                                                 open={this.state.openPreview}
-                                                 toggleOpenPreview={this.toggleOpenPreview}
-                                    />
-                                    <ColorPicker hidden={this.state.openPreview}
-                                                 color={this.props.getSettingsByProperty('typography','color')}
-                                                 opacity={this.props.getSettingsByProperty('typography','opacity')}
-                                                 storeValueColor={this.props.getStoreSettingsByProperty('typography','color')}
-                                                 storeValueOpacity={this.props.getStoreSettingsByProperty('typography','opacity')}
-                                                 defaultColor={this.props.getDefaultSettingsByProperty('typography','color')}
-                                                 defaultOpacity={this.props.getDefaultSettingsByProperty('typography','opacity')}
-                                                 openView={this.state.openColorView}
-                                                 updateStateProps={this.updateTypography}
-                                                 toggleOpenView={this.toggleOpenView}
-                                    />
-                                </Row>
-                                <Seo hidden={this.state.openPreview || this.state.openColorView}
-                                     seo={this.props.getSettingsPropertyNoResponsive('seo')}
-                                     defaultSeo={this.props.getDefaultSettingsPropertyNoResponsive('seo')}
-                                     storeValueSeo={this.props.getStoreSettingsPropertyNoResponsive('seo')}
-                                     updateStateProps={this.props.updateSettingsNoResponsive}
-                                />
-                            </Column>
-                            <Column className={this.state.openPreview || this.state.openColorView ? 'hidden' : ''}>
-                                <Typography font={this.props.getSettingsByProperty('typography','font')}
-                                            text={this.props.getSettingsByProperty('typography','text')}
-                                            defaultFont={this.props.getDefaultSettingsByProperty('typography','font')}
-                                            defaultText={this.props.getDefaultSettingsByProperty('typography','text')}
-                                            storeValueFont={this.props.getStoreSettingsByProperty('typography','font')}
-                                            storeValueText={this.props.getStoreSettingsByProperty('typography','text')}
-                                            updateStateProps={this.updateTypography}
-                                            currentMode={this.props.currentResponsiveMode}
-                                />
-                            </Column>
-                        </Choices>
-                        <Choices>
-                            <Column/>
-                            <Column>
-                                <Padding hidden={false}
-                                         padding={this.props.getSettingsByProperty('basis', 'padding')}
-                                         storeValuePadding={this.props.getStoreSettingsByProperty('basis', 'padding')}
-                                         defaultPadding={this.props.getDefaultSettingsByProperty('basis', 'padding')}
-                                         updateStateProps={this.updateBasis}
-                                />
-                            </Column>
-                        </Choices>
-                        <Choices>
-                            <Column className={this.state.openColorViewBorder ? 'full-width' : ''}>
-                                <ColorPicker hidden={false}
-                                             color={this.props.getSettingsByProperty('border', 'color', this.state.currentEvent)}
-                                             opacity={this.props.getSettingsByProperty('border', 'opacity', this.state.currentEvent)}
-                                             storeValueColor={this.props.getStoreSettingsByProperty('border', 'color', this.state.currentEvent)}
-                                             storeValueOpacity={this.props.getStoreSettingsByProperty('border', 'opacity', this.state.currentEvent)}
-                                             defaultColor={this.props.getDefaultSettingsByProperty('border', 'color', this.state.currentEvent)}
-                                             defaultOpacity={this.props.getDefaultSettingsByProperty('border', 'opacity', this.state.currentEvent)}
-                                             openView={this.state.openColorViewBorder}
-                                             updateStateProps={this.updateBorder}
-                                             toggleOpenView={this.toggleOpenViewBorder}
-                                             customName={'Border'}
-                                />
-                            </Column>
-                            <Column className={this.state.openColorViewBorder ? 'hidden' : ''}>
-                                    <Radius radius={this.props.getSettingsByProperty('border', 'radius')}
-                                            storeValueRadius={this.props.getStoreSettingsByProperty('border', 'radius')}
-                                            defaultRadius={this.props.getDefaultSettingsByProperty('border', 'radius')}
-                                            updateStateProps={this.updateBorder}
-                                    />
-                                    <BorderWidth width={this.props.getSettingsByProperty('border', 'width')}
-                                                 storeValueWidth={this.props.getStoreSettingsByProperty('border', 'width')}
-                                                 defaultWidth={this.props.getDefaultSettingsByProperty('border', 'width')}
-                                                 updateStateProps={this.updateBorder}
-                                    />
-                            </Column>
-                        </Choices>
-                    </Settings>
+                            <Settings className={!this.props.openSettings ? 'hidden' : ''}>
+                                <Choices>
+                                    <Column
+                                        className={this.state.openPreview || this.state.openColorView ? 'full-width' : ''}>
+                                        <Row>
+                                            <TextPreview hidden={this.state.openColorView}
+                                                         color={this.props.getSettingsByProperty('typography', 'color')}
+                                                         font={this.props.getSettingsByProperty('typography', 'font')}
+                                                         text={this.props.getSettingsByProperty('typography', 'text')}
+                                                         opacity={this.props.getSettingsByProperty('typography', 'opacity')}
+                                                         open={this.state.openPreview}
+                                                         toggleOpenPreview={this.toggleOpenPreview}
+                                            />
+                                            <ColorPicker hidden={this.state.openPreview}
+                                                         color={this.props.getSettingsByProperty('typography', 'color')}
+                                                         opacity={this.props.getSettingsByProperty('typography', 'opacity')}
+                                                         storeValueColor={this.props.getStoreSettingsByProperty('typography', 'color')}
+                                                         storeValueOpacity={this.props.getStoreSettingsByProperty('typography', 'opacity')}
+                                                         defaultColor={this.props.getDefaultSettingsByProperty('typography', 'color')}
+                                                         defaultOpacity={this.props.getDefaultSettingsByProperty('typography', 'opacity')}
+                                                         openView={this.state.openColorView}
+                                                         updateStateProps={this.updateTypography}
+                                                         toggleOpenView={this.toggleOpenView}
+                                            />
+                                        </Row>
+                                        <Seo hidden={this.state.openPreview || this.state.openColorView}
+                                             seo={this.props.getSettingsPropertyNoResponsive('seo')}
+                                             defaultSeo={this.props.getDefaultSettingsPropertyNoResponsive('seo')}
+                                             storeValueSeo={this.props.getStoreSettingsPropertyNoResponsive('seo')}
+                                             updateStateProps={this.props.updateSettingsNoResponsive}
+                                        />
+                                    </Column>
+                                    <Column
+                                        className={this.state.openPreview || this.state.openColorView ? 'hidden' : ''}>
+                                        <Typography font={this.props.getSettingsByProperty('typography', 'font')}
+                                                    text={this.props.getSettingsByProperty('typography', 'text')}
+                                                    defaultFont={this.props.getDefaultSettingsByProperty('typography', 'font')}
+                                                    defaultText={this.props.getDefaultSettingsByProperty('typography', 'text')}
+                                                    storeValueFont={this.props.getStoreSettingsByProperty('typography', 'font')}
+                                                    storeValueText={this.props.getStoreSettingsByProperty('typography', 'text')}
+                                                    updateStateProps={this.updateTypography}
+                                                    currentMode={this.props.currentResponsiveMode}
+                                        />
+                                    </Column>
+                                </Choices>
+                                <Choices>
+                                    <Column/>
+                                    <Column>
+                                        <Padding hidden={false}
+                                                 padding={this.props.getSettingsByProperty('basis', 'padding')}
+                                                 storeValuePadding={this.props.getStoreSettingsByProperty('basis', 'padding')}
+                                                 defaultPadding={this.props.getDefaultSettingsByProperty('basis', 'padding')}
+                                                 updateStateProps={this.updateBasis}
+                                        />
+                                    </Column>
+                                </Choices>
+                                <Choices>
+                                    <Column className={this.state.openColorViewBorder ? 'full-width' : ''}>
+                                        <ColorPicker hidden={false}
+                                                     color={this.props.getSettingsByProperty('border', 'color', this.state.currentEvent)}
+                                                     opacity={this.props.getSettingsByProperty('border', 'opacity', this.state.currentEvent)}
+                                                     storeValueColor={this.props.getStoreSettingsByProperty('border', 'color', this.state.currentEvent)}
+                                                     storeValueOpacity={this.props.getStoreSettingsByProperty('border', 'opacity', this.state.currentEvent)}
+                                                     defaultColor={this.props.getDefaultSettingsByProperty('border', 'color', this.state.currentEvent)}
+                                                     defaultOpacity={this.props.getDefaultSettingsByProperty('border', 'opacity', this.state.currentEvent)}
+                                                     openView={this.state.openColorViewBorder}
+                                                     updateStateProps={this.updateBorder}
+                                                     toggleOpenView={this.toggleOpenViewBorder}
+                                                     customName={'Border'}
+                                        />
+                                    </Column>
+                                    <Column className={this.state.openColorViewBorder ? 'hidden' : ''}>
+                                        <Radius radius={this.props.getSettingsByProperty('border', 'radius')}
+                                                storeValueRadius={this.props.getStoreSettingsByProperty('border', 'radius')}
+                                                defaultRadius={this.props.getDefaultSettingsByProperty('border', 'radius')}
+                                                updateStateProps={this.updateBorder}
+                                        />
+                                        <BorderWidth width={this.props.getSettingsByProperty('border', 'width')}
+                                                     storeValueWidth={this.props.getStoreSettingsByProperty('border', 'width')}
+                                                     defaultWidth={this.props.getDefaultSettingsByProperty('border', 'width')}
+                                                     updateStateProps={this.updateBorder}
+                                        />
+                                    </Column>
+                                </Choices>
+                            </Settings>
+                            : null
+                    }
                 </Field>
 
                 <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>

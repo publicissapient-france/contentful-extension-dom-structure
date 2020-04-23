@@ -1,3 +1,5 @@
+import { size } from './sample.model'
+
 export const settingsCTA = {
     responsive: ['M', 'T', 'D'],
     defaultValue: {
@@ -7,15 +9,7 @@ export const settingsCTA = {
         },
         basis: {
             M: {
-                size: {
-                    width: '',
-                    height: '',
-                    maxWidth: '',
-                    maxHeight: '',
-                    minWidth: '',
-                    minHeight: ''
-
-                },
+                size: size,
                 padding: {
                     top: '0',
                     right: '20',
@@ -67,15 +61,7 @@ export const settingsCTA = {
                 }
             },
             T: {
-                size: {
-                    width: '',
-                    height: '',
-                    maxWidth: '',
-                    maxHeight: '',
-                    minWidth: '',
-                    minHeight: ''
-
-                },
+                size: size,
                 padding: {
                     top: '0',
                     right: '20',
@@ -127,15 +113,7 @@ export const settingsCTA = {
                 }
             },
             D: {
-                size: {
-                    width: '',
-                    height: '',
-                    maxWidth: '',
-                    maxHeight: '',
-                    minWidth: '',
-                    minHeight: ''
-
-                },
+                size: size,
                 padding: {
                     top: '0',
                     right: '20',
@@ -616,20 +594,12 @@ export const settingsCTA = {
     }
 }
 
-export const SettingsTemplate = {
+export const settingsTemplate = {
     responsive: ['M', 'T', 'D'],
     defaultValue: {
         basis: {
             M: {
-                size: {
-                    width: '',
-                    height: '',
-                    maxWidth: '',
-                    maxHeight: '',
-                    minWidth: '',
-                    minHeight: ''
-
-                },
+                size: size,
                 padding: {
                     top: '0',
                     right: '0',
@@ -661,15 +631,7 @@ export const SettingsTemplate = {
 
             },
             T: {
-                size: {
-                    width: '',
-                    height: 'auto',
-                    maxWidth: '',
-                    maxHeight: '',
-                    minWidth: '',
-                    minHeight: ''
-
-                },
+                size: size,
                 padding: {
                     top: '0',
                     right: '0',
@@ -700,15 +662,7 @@ export const SettingsTemplate = {
                 }
             },
             D: {
-                size: {
-                    width: '',
-                    height: 'auto',
-                    maxWidth: '',
-                    maxHeight: '',
-                    minWidth: '',
-                    minHeight: ''
-
-                },
+                size: size,
                 padding: {
                     top: '0',
                     right: '0',
@@ -998,3 +952,435 @@ export const settingsFlexContainer = {
         }
     }
 }
+
+export const settingsTitle = {
+    responsive: ['M', 'T', 'D'],
+    defaultValue: {
+        basis: {
+            M: {
+                padding: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                }
+            },
+            T: {
+                padding: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                }
+            },
+            D: {
+                padding: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                }
+            }
+        },
+        typography: {
+            M: {
+                font: {
+                    theme: 'Title3',
+                    family: null,
+                    typeface: null,
+                    weight: null,
+                    style: null,
+                    size: null,
+                    lineHeight: null,
+                    letterSpacing: '0'
+                },
+                text: {
+                    align: 'center',
+                    transform: null,
+                    decoration: null
+                },
+                color: {
+                    hex: '#000000',
+                    rgb: '0,0,0',
+                    name: 'black',
+                    shade: null
+                },
+                opacity: {
+                    value: '1'
+                }
+            },
+            T: {
+                font: {
+                    theme: 'Title3',
+                    family: null,
+                    typeface: null,
+                    weight: null,
+                    style: null,
+                    size: null,
+                    lineHeight: null,
+                    letterSpacing: '0'
+                },
+                text: {
+                    align: 'center',
+                    transform: null,
+                    decoration: null
+                },
+                color: {
+                    hex: '#000000',
+                    rgb: '0,0,0',
+                    name: 'black',
+                    shade: null
+                },
+                opacity: {
+                    value: '1'
+                }
+            },
+            D: {
+                font: {
+                    theme: 'Title3',
+                    family: null,
+                    typeface: null,
+                    weight: null,
+                    style: null,
+                    size: null,
+                    lineHeight: null,
+                    letterSpacing: '0'
+                },
+                text: {
+                    align: 'center',
+                    transform: null,
+                    decoration: null
+                },
+                color: {
+                    hex: '#000000',
+                    rgb: '0,0,0',
+                    name: 'black',
+                    shade: null
+                },
+                opacity: {
+                    value: '1'
+                }
+            }
+        },
+        border: {
+            M: {
+                width: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                },
+                radius: {
+                    topLeft: '0',
+                    topRight: '0',
+                    bottomLeft: '0',
+                    bottomRight: '0'
+                },
+                color: {
+                    hex: 'transparent',
+                    rgb: '',
+                    name: 'Transparent',
+                    shade: null
+                },
+                opacity: {
+                    value: '1'
+                }
+            },
+            T: {
+                width: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                },
+                radius: {
+                    topLeft: '0',
+                    topRight: '0',
+                    bottomLeft: '0',
+                    bottomRight: '0'
+                },
+                color: {
+                    hex: 'transparent',
+                    rgb: '',
+                    name: 'Transparent',
+                    shade: null
+                },
+                opacity: {
+                    value: '1'
+                }
+            },
+            D: {
+                width: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                },
+                radius: {
+                    topLeft: '0',
+                    topRight: '0',
+                    bottomLeft: '0',
+                    bottomRight: '0'
+                },
+                color: {
+                    hex: 'transparent',
+                    rgb: '',
+                    name: 'Transparent',
+                    shade: null
+                },
+                opacity: {
+                    value: '1'
+                }
+            }
+        },
+        seo: {
+            tag: 'h2'
+        }
+    }
+}
+
+export const settingsText = {
+    responsive: ['M', 'T', 'D'],
+    defaultValue: {
+        basis: {
+            M: {
+                padding: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                }
+            },
+            T: {
+                padding: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                }
+            },
+            D: {
+                padding: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                }
+            }
+        },
+        typography: {
+            M: {
+                font: {
+                    theme: 'Paragraph',
+                    family: null,
+                    typeface: null,
+                    weight: null,
+                    style: null,
+                    size: null,
+                    lineHeight: null,
+                    letterSpacing: '0'
+                },
+                text: {
+                    align: 'left',
+                    transform: null,
+                    decoration: null
+                },
+                color: {
+                    hex: '#000000',
+                    rgb: '0,0,0',
+                    name: 'black',
+                    shade: null
+                },
+                opacity: {
+                    value: '1'
+                }
+            },
+            T: {
+                font: {
+                    theme: 'Paragraph',
+                    family: null,
+                    typeface: null,
+                    weight: null,
+                    style: null,
+                    size: null,
+                    lineHeight: null,
+                    letterSpacing: '0'
+                },
+                text: {
+                    align: 'left',
+                    transform: null,
+                    decoration: null
+                },
+                color: {
+                    hex: '#000000',
+                    rgb: '0,0,0',
+                    name: 'black',
+                    shade: null
+                },
+                opacity: {
+                    value: '1'
+                }
+            },
+            D: {
+                font: {
+                    theme: 'Paragraph',
+                    family: null,
+                    typeface: null,
+                    weight: null,
+                    style: null,
+                    size: null,
+                    lineHeight: null,
+                    letterSpacing: '0'
+                },
+                text: {
+                    align: 'left',
+                    transform: null,
+                    decoration: null
+                },
+                color: {
+                    hex: '#000000',
+                    rgb: '0,0,0',
+                    name: 'black',
+                    shade: null
+                },
+                opacity: {
+                    value: '1'
+                }
+            }
+        }
+    }
+}
+
+export const settingsSingleImage = {
+    responsive: ['M', 'T', 'D'],
+    defaultValue: {
+        basis: {
+            M: {
+                size: size,
+                padding: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                },
+                margin: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                },
+                alignment: {
+                    horizontal: 'flex-start'
+                }
+            },
+            T: {
+                size: size,
+                padding: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                },
+                margin: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                },
+                alignment: {
+                    horizontal: 'flex-start'
+                }
+            },
+            D: {
+                size: size,
+                padding: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                },
+                margin: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                },
+                alignment: {
+                    horizontal: 'flex-start'
+                }
+            }
+        },
+        border: {
+            M: {
+                width: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                },
+                radius: {
+                    topLeft: '0',
+                    topRight: '0',
+                    bottomLeft: '0',
+                    bottomRight: '0'
+                },
+                color: {
+                    hex: '#000000',
+                    rgb: '0,0,0',
+                    name: 'black',
+                    shade: null
+                },
+                opacity: {
+                    value: '1'
+                }
+            },
+            T: {
+                width: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                },
+                radius: {
+                    topLeft: '0',
+                    topRight: '0',
+                    bottomLeft: '0',
+                    bottomRight: '0'
+                },
+                color: {
+                    hex: '#000000',
+                    rgb: '0,0,0',
+                    name: 'black',
+                    shade: null
+                },
+                opacity: {
+                    value: '1'
+                }
+            },
+            D: {
+                width: {
+                    top: '0',
+                    right: '0',
+                    bottom: '0',
+                    left: '0'
+                },
+                radius: {
+                    topLeft: '0',
+                    topRight: '0',
+                    bottomLeft: '0',
+                    bottomRight: '0'
+                },
+                color: {
+                    hex: '#000000',
+                    rgb: '0,0,0',
+                    name: 'black',
+                    shade: null
+                },
+                opacity: {
+                    value: '1'
+                }
+            }
+        }
+    }
+}
+
