@@ -3,14 +3,9 @@ import {connect} from 'react-redux';
 import {getCurrentStyle} from '../../actions';
 
 import FieldWrapper from '../../HOC/FieldWrapper';
-
-import LanguageToggle from '../../containers/LanguageToggle';
-import SvgSetting from '../../components/svg/SvgSetting';
-import SvgContent from '../../components/svg/SvgContent';
-import ButtonBasic from '../../components/ui/ButtonBasic';
-import ButtonValidate from '../../components/ui/ButtonValidate';
-import ResponsiveToggle from '../../components/ResponsiveToggle';
-import ActiveCheckBox from '../../components/ActiveCheckBox';
+import FieldWrapperOfSection from "../../HOC/FieldWrapperOfSection";
+import FieldBanner from "../../components/FieldBanner";
+import FieldUpdateForm from "../../components/FieldUpdateForm";
 
 import InputIcon from '../../interfaces/InputIcon';
 import SpeakerSelector from '../../interfaces/SpeakerSelector';
@@ -18,10 +13,8 @@ import TypeSystem from '../../interfaces/system/TypeSystem'
 import ImageSystem from '../../interfaces/system/ImageSystem'
 import IconSystem from '../../interfaces/system/IconSystem'
 
-import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsFields';
+import {Field} from '../../style/styledComponentsFields';
 import {
-    ChoiceItemsConfirm,
     Content,
     Settings,
     Column,
@@ -29,7 +22,6 @@ import {
     ButtonEvents,
     ChoicesSpeakers
 } from './styled';
-import FieldWrapperOfSection from "../../HOC/FieldWrapperOfSection";
 
 class SelectSpeakers extends Component {
     constructor(props) {
@@ -88,35 +80,12 @@ class SelectSpeakers extends Component {
     updateBasis = (property, value, event) => this.props.updateSettingsProperty('basis', property, value, event);
 
     render() {
-        const {name} = this.props;
+        const {updated} = this.props;
 
         if (!this.props.settings) return null;
         return (
             <div>
-                <Banner>
-                    <div>
-                        <ActiveCheckBox
-                            active={this.props.active}
-                            action={this.props.toggleActive}>
-                        </ActiveCheckBox>
-                        <p>{name}</p>
-                    </div>
-                    <div>
-                        <LanguageToggle
-                            hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
-                        <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
-                                          currentMode={this.props.currentResponsiveMode}
-                                          action={this.props.setResponsiveMode}/>
-                        <Icon className={this.props.openContent ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleContent();
-                              }}><SvgContent/></Icon>
-                        <Icon className={this.props.openSettings ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleSettings();
-                              }}><SvgSetting/></Icon>
-                    </div>
-                </Banner>
+                <FieldBanner {...this.props}/>
                 <Field>
                     <Content className={!this.props.openContent ? 'hidden' : ''}>
                         <ChoicesSpeakers>
@@ -210,10 +179,7 @@ class SelectSpeakers extends Component {
                         />
                     </Settings>
                 </Field>
-                <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
-                    <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
-                    <ButtonValidate label={'Update'} disabled={!this.props.updated} action={this.props.updateField}/>
-                </ChoiceItemsConfirm>
+                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>
         );
     }

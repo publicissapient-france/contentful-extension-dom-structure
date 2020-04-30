@@ -3,19 +3,7 @@ import {connect} from 'react-redux';
 import {getCurrentStyle} from '../../actions';
 
 import FieldWrapper from '../../HOC/FieldWrapper';
-
-import LanguageToggle from '../../containers/LanguageToggle';
-import SvgSetting from '../../components/svg/SvgSetting';
-import SvgContent from '../../components/svg/SvgContent';
-import ButtonBasic from '../../components/ui/ButtonBasic';
-import ButtonValidate from '../../components/ui/ButtonValidate';
 import TextPreview from '../../components/TextPreview';
-import IconPreview from '../../components/IconPreview';
-import ResponsiveToggle from '../../components/ResponsiveToggle';
-import ActiveCheckBox from '../../components/ActiveCheckBox';
-
-import InputText from '../../interfaces/InputText';
-import InputIcon from '../../interfaces/InputIcon';
 import Typography from '../../interfaces/Typography';
 import ColorPicker from '../../interfaces/ColorPicker';
 import Margin from '../../interfaces/Margin';
@@ -24,22 +12,18 @@ import Size from '../../interfaces/Size';
 import Radius from '../../interfaces/Radius';
 import BorderWidth from '../../interfaces/BorderWidth';
 import Alignment from '../../interfaces/Alignment';
-import IconTypography from '../../interfaces/IconTypography';
-
-import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsFields';
+import {Field} from '../../style/styledComponentsFields';
 import {
-    ChoiceItemsConfirm,
     Content,
     Settings,
     ChoicesTypography,
     Column,
-    LinkSettings,
     Row,
-    ChoicesContent,
     ChoicesCustom,
     ButtonEvents
 } from './styled';
+import FieldBanner from "../../components/FieldBanner";
+import FieldUpdateForm from "../../components/FieldUpdateForm";
 
 class NavigationLinks extends Component {
     constructor(props) {
@@ -85,7 +69,6 @@ class NavigationLinks extends Component {
         });
     }
 
-
     getThemeValue = (themes, selectedTheme) => {
         if (!themes || !selectedTheme) return;
         return themes.find(theme => theme.name === selectedTheme);
@@ -97,45 +80,18 @@ class NavigationLinks extends Component {
     toggleOpenPreview = () => this.setState(prevState => ({openPreview: !prevState.openPreview}));
     toggleCurrentEvent = (event) => this.setState({currentEvent: event});
 
-    getText = () => this.props.content.text && this.props.content.text[this.props.indexLanguage] ? this.props.content.text[this.props.indexLanguage] : '';
-    getLink = () => this.props.content.link && this.props.content.link[this.props.indexLanguage] ? this.props.content.link[this.props.indexLanguage] : '';
-    getTarget = () => this.props.getSettingsPropertyNoResponsive('target') ? this.props.getSettingsPropertyNoResponsive('target').external : false;
-
     updateTypography = (property, value, event) => this.props.updateSettingsProperty('typography', property, value, event);
     updateBasis = (property, value, event) => this.props.updateSettingsProperty('basis', property, value, event);
     updateBorder = (property, value, event) => this.props.updateSettingsProperty('border', property, value, event);
 
-
     render() {
-        const {name} = this.props;
+        const {updated} = this.props;
 
         if (!this.props.settings) return null;
         return (
             <div>
-                <Banner>
-                    <div>
-                        <ActiveCheckBox
-                            active={this.props.active}
-                            action={this.props.toggleActive}>
-                        </ActiveCheckBox>
-                        <p>{name}</p>
-                    </div>
-                    <div>
-                        <LanguageToggle
-                            hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
-                        <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
-                                          currentMode={this.props.currentResponsiveMode}
-                                          action={this.props.setResponsiveMode}/>
-
-                        <Icon className={this.props.openSettings ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleSettings();
-                              }}><SvgSetting/></Icon>
-                    </div>
-                </Banner>
+                <FieldBanner {...this.props}/>
                 <Field>
-                    <Content className={!this.props.openContent ? 'hidden' : ''}>
-                    </Content>
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <ChoicesTypography>
                             <Column className={this.state.openPreview || this.state.openColorView ? 'full-width' : ''}>
@@ -263,16 +219,10 @@ class NavigationLinks extends Component {
                                              updateStateProps={this.updateBorder}
                                 />
                             </Column>
-
-
                         </ChoicesCustom>
                     </Settings>
                 </Field>
-
-                <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
-                    <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
-                    <ButtonValidate label={'Update'} disabled={!this.props.updated} action={this.props.updateField}/>
-                </ChoiceItemsConfirm>
+                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>
         );
     }

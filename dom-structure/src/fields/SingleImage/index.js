@@ -1,18 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getCurrentExtension} from '../../actions';
+import { getAlt, getAsset, getAssetToPreview} from "../../utils/Fields/getters";
+import isEmpty from "lodash/isEmpty";
 
 import FieldWrapper from '../../HOC/FieldWrapper';
 import FieldWrapperOfSection from '../../HOC/FieldWrapperOfSection';
-
-import LanguageToggle from '../../containers/LanguageToggle';
-import SvgSetting from '../../components/svg/SvgSetting';
-import SvgContent from '../../components/svg/SvgContent';
-import ButtonBasic from '../../components/ui/ButtonBasic';
-import ButtonValidate from '../../components/ui/ButtonValidate';
-import ResponsiveToggle from '../../components/ResponsiveToggle';
-import ActiveCheckBox from '../../components/ActiveCheckBox';
 import AssetPreview from '../../components/AssetPreview';
+import FieldBanner from "../../components/FieldBanner";
+import FieldUpdateForm from "../../components/FieldUpdateForm";
 
 import ImageUploader from '../../interfaces/ImageUploader';
 import Padding from '../../interfaces/Padding';
@@ -23,10 +19,8 @@ import Radius from '../../interfaces/Radius';
 import ColorPicker from '../../interfaces/ColorPicker';
 import Alignment from '../../interfaces/Alignment';
 
-import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsFields';
-import {ChoiceItemsConfirm, Content, Settings, Choices, Column, Row} from './styled';
-import isEmpty from "lodash/isEmpty";
+import {Field} from '../../style/styledComponentsFields';
+import {Content, Settings, Choices, Column, Row} from './styled';
 
 class SingleImage extends Component {
     constructor(props) {
@@ -37,70 +31,24 @@ class SingleImage extends Component {
         };
     }
 
-    componentDidMount() {
-    };
-
-    componentDidUpdate(prevProps) {
-    }
-
-    getAlt = () => this.props.content.images && this.props.content.images[0] && this.props.content.images[0].alt && this.props.content.images[0].alt[this.props.indexLanguage] ? this.props.content.images[0].alt[this.props.indexLanguage] : '';
-
-    getAsset = () => this.props.content.images && this.props.content.images[0] && this.props.content.images[0].asset ? this.props.content.images[0].asset[this.props.currentResponsiveMode] : null
-
-    getAssetToPreview = () => {
-        if (!this.props.content.images || !this.props.content.images[0] || !this.props.content.images[0].asset) return null;
-        if (this.props.responsiveContent.includes(this.props.currentResponsiveMode)) {
-            return this.props.content.images[0].asset[this.props.currentResponsiveMode];
-        } else {
-            return this.props.content.images[0].asset[this.props.responsiveContent[0]];
-        }
-    }
     toggleOpenViewBorder = () => this.setState(prevState => ({openColorViewBorder: !prevState.openColorViewBorder}));
 
     updateBorder = (property, value) => this.props.updateSettingsProperty('border', property, value);
     updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
 
     render() {
-        const {name} = this.props;
+        const {updated, content, indexLanguage, currentResponsiveMode, responsiveContent} = this.props;
 
         if (!this.props.settings) return null;
         return (
             <div>
-                <Banner>
-                    <div>
-                        <ActiveCheckBox
-                            active={this.props.active}
-                            action={this.props.toggleActive}>
-                        </ActiveCheckBox>
-                        <p>{name}</p>
-                    </div>
-                    <div>
-                        <LanguageToggle
-                            hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
-                        <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
-                                          currentMode={this.props.currentResponsiveMode}
-                                          action={this.props.setResponsiveMode}/>
-                        {
-                            !isEmpty(this.props.content) ?
-                                <Icon className={this.props.openContent ? 'active' : ''}
-                                      onClick={() => {
-                                          this.props.toggleContent();
-                                      }}><SvgContent/></Icon>
-                                : null
-                        }
-
-                        <Icon className={this.props.openSettings ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleSettings();
-                              }}><SvgSetting/></Icon>
-                    </div>
-                </Banner>
+                <FieldBanner {...this.props}/>
                 <Field>
                     {
                         !isEmpty(this.props.content) ?
                             <Content className={!this.props.openContent ? 'hidden' : ''}>
-                                <ImageUploader asset={this.getAsset()}
-                                               alt={this.getAlt()}
+                                <ImageUploader asset={getAsset(content, currentResponsiveMode)}
+                                               alt={getAlt(content, indexLanguage)}
                                                index={0}
                                                updateStateAsset={this.props.updateContentSubProperty}
                                                updateStateTranslatedProps={this.props.updateTranlatedContentSubProperty}
@@ -108,14 +56,13 @@ class SingleImage extends Component {
                             </Content>
                             : null
                     }
-
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>
                             <Column>
                                 <Row>
                                     <AssetPreview
                                         locale={this.props.extensionInfo.extension.locales ? this.props.extensionInfo.extension.locales.default : null}
-                                        asset={this.getAssetToPreview()}
+                                        asset={getAssetToPreview(content, currentResponsiveMode, responsiveContent)}
                                     />
                                 </Row>
                             </Column>
@@ -138,10 +85,8 @@ class SingleImage extends Component {
                                             defaultMargin={this.props.getDefaultSettingsByProperty('basis','margin')}
                                             updateStateProps={this.updateBasis}
                                     />
-
                                 </Row>
                             </Column>
-
                             <Column></Column>
                             <Column  className={this.state.openColorViewBorder ? 'hidden' : ''}>
                                 <Alignment alignment={this.props.getSettingsByProperty('basis','alignment')}
@@ -179,10 +124,7 @@ class SingleImage extends Component {
                         </Choices>
                     </Settings>
                 </Field>
-                <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
-                    <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
-                    <ButtonValidate label={'Update'} disabled={!this.props.updated} action={this.props.updateField}/>
-                </ChoiceItemsConfirm>
+                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>
         );
     }

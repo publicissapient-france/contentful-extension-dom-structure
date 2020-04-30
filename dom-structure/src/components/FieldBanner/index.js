@@ -12,7 +12,7 @@ import SvgSetting from '../svg/SvgSetting';
 class FieldBanner extends Component {
 
     render() {
-        const {name, active, openContent, openSettings, currentResponsiveMode} = this.props
+        const {name, active, openContent, openSettings, currentResponsiveMode, children} = this.props
         return (<Banner>
             <div>
                 <ActiveCheckBox active={active} action={this.props.toggleActive}/>
@@ -24,23 +24,24 @@ class FieldBanner extends Component {
                                   currentMode={currentResponsiveMode}
                                   action={this.props.setResponsiveMode}/>
                 {
-                    !isEmpty(this.props.defaultContent) ?
+                    isEmpty(this.props.defaultContent) ? null :
                         <Icon className={openContent ? 'active' : ''}
                               onClick={() => {
                                   this.props.toggleContent();
                               }}>
                             <SvgContent/>
                         </Icon>
-                        : null
                 }
-                {this.props.editorOnly ? null :
-                    <Icon className={openSettings ? 'active' : ''}
-                          onClick={() => {
-                              this.props.toggleSettings();
-                          }}>
-                        <SvgSetting/>
-                    </Icon>
+                {
+                    this.props.editorOnly ||  isEmpty(this.props.defaultSettings) ? null :
+                        <Icon className={openSettings ? 'active' : ''}
+                              onClick={() => {
+                                  this.props.toggleSettings();
+                              }}>
+                            <SvgSetting/>
+                        </Icon>
                 }
+                { children }
             </div>
         </Banner>);
     }

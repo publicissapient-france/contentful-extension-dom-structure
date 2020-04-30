@@ -2,18 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getCurrentStyle} from '../../actions';
 
+import {getText, getIcon, getLink} from "../../utils/Fields/getters";
+
 import FieldWrapper from '../../HOC/FieldWrapper';
 import FieldWrapperOfSection from '../../HOC/FieldWrapperOfSection';
-
-import LanguageToggle from '../../containers/LanguageToggle';
-import SvgSetting from '../../components/svg/SvgSetting';
-import SvgContent from '../../components/svg/SvgContent';
-import ButtonBasic from '../../components/ui/ButtonBasic';
-import ButtonValidate from '../../components/ui/ButtonValidate';
 import TextPreview from '../../components/TextPreview';
 import IconPreview from '../../components/IconPreview';
-import ResponsiveToggle from '../../components/ResponsiveToggle';
-import ActiveCheckBox from '../../components/ActiveCheckBox';
 
 import InputText from '../../interfaces/InputText';
 import InputIcon from '../../interfaces/InputIcon';
@@ -28,10 +22,8 @@ import Alignment from '../../interfaces/Alignment';
 import IconTypography from '../../interfaces/IconTypography';
 import Shadow from '../../interfaces/Shadow';
 
-import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsFields';
+import {Field} from '../../style/styledComponentsFields';
 import {
-    ChoiceItemsConfirm,
     Content,
     Settings,
     ChoicesTypography,
@@ -42,6 +34,8 @@ import {
     ChoicesCustom,
     ButtonEvents
 } from './styled';
+import FieldBanner from "../../components/FieldBanner";
+import FieldUpdateForm from "../../components/FieldUpdateForm";
 
 class CTA extends Component {
     constructor(props) {
@@ -101,9 +95,6 @@ class CTA extends Component {
     toggleOpenPreviewIcon = () => this.setState(prevState => ({openPreviewIcon: !prevState.openPreviewIcon}));
     toggleCurrentEvent = (event) => this.setState({currentEvent: event});
 
-    getText = () => this.props.content.text && this.props.content.text[this.props.indexLanguage] ? this.props.content.text[this.props.indexLanguage] : '';
-    getIcon = () => this.props.content.icon && this.props.content.icon[this.props.indexLanguage] ? this.props.content.icon[this.props.indexLanguage] : '';
-    getLink = () => this.props.content.link && this.props.content.link[this.props.indexLanguage] ? this.props.content.link[this.props.indexLanguage] : '';
     getExternal = () => this.props.getSettingsPropertyNoResponsive('state') ? this.props.getSettingsPropertyNoResponsive('state').external : false;
     getDisabled = () => this.props.getSettingsPropertyNoResponsive('state') ? this.props.getSettingsPropertyNoResponsive('state').disabled : false;
 
@@ -121,42 +112,19 @@ class CTA extends Component {
 
 
     render() {
-        const {name} = this.props;
+        const {content, indexLanguage, updated} = this.props;
 
         if (!this.props.settings) return null;
         return (
             <div>
-                <Banner>
-                    <div>
-                        <ActiveCheckBox
-                            active={this.props.active}
-                            action={this.props.toggleActive}>
-                        </ActiveCheckBox>
-                        <p>{name}</p>
-                    </div>
-                    <div>
-                        <LanguageToggle
-                            hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
-                        <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
-                                          currentMode={this.props.currentResponsiveMode}
-                                          action={this.props.setResponsiveMode}/>
-                        <Icon className={this.props.openContent ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleContent();
-                              }}><SvgContent/></Icon>
-                        <Icon className={this.props.openSettings ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleSettings();
-                              }}><SvgSetting/></Icon>
-                    </div>
-                </Banner>
+                <FieldBanner {...this.props}/>
                 <Field>
                     <Content className={!this.props.openContent ? 'hidden' : ''}>
                         <ChoicesContent>
                             <Column>
                                 <label>Label</label>
                                 <InputText action={this.props.updateTranlatedContent} targetProperty={'text'}
-                                           defaultValue={this.getText()}/>
+                                           defaultValue={getText(content, indexLanguage)}/>
                             </Column>
                             <Column>
                                 {
@@ -185,7 +153,7 @@ class CTA extends Component {
                                 {
                                     this.props.content.link ?
                                         <InputText action={this.props.updateTranlatedContent} targetProperty={'link'}
-                                                   defaultValue={this.getLink()}/>
+                                                   defaultValue={getLink(content, indexLanguage)}/>
 
                                     : null
 
@@ -199,7 +167,7 @@ class CTA extends Component {
                                 <InputIcon font={ this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null /*this.props.getSettingsByProperty('icon', 'font')*/}
                                            action={this.props.updateTranlatedContent}
                                            targetProperty={'icon'}
-                                           defaultValue={this.getIcon()}/>
+                                           defaultValue={getIcon(content, indexLanguage)}/>
                             </Column>
                         </ChoicesContent>
                     </Content>
@@ -386,11 +354,7 @@ class CTA extends Component {
                         </ChoicesCustom>
                     </Settings>
                 </Field>
-
-                <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
-                    <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
-                    <ButtonValidate label={'Update'} disabled={!this.props.updated} action={this.props.updateField}/>
-                </ChoiceItemsConfirm>
+                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>
         );
     }

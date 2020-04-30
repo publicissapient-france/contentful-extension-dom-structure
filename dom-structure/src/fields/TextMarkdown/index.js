@@ -1,27 +1,21 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
+import isEmpty from "lodash/isEmpty";
+import {getCurrentStyle} from "../../actions";
+import { getHtml} from "../../utils/Fields/getters";
 
 import FieldWrapper from '../../HOC/FieldWrapper';
-
-import LanguageToggle from '../../containers/LanguageToggle';
-import SvgSetting from '../../components/svg/SvgSetting';
-import SvgContent from '../../components/svg/SvgContent';
-import ButtonBasic from '../../components/ui/ButtonBasic';
-import ButtonValidate from '../../components/ui/ButtonValidate';
 import TextPreview from '../../components/TextPreview';
-import ResponsiveToggle from '../../components/ResponsiveToggle';
-import ActiveCheckBox from '../../components/ActiveCheckBox';
+import FieldBanner from "../../components/FieldBanner";
+import FieldUpdateForm from "../../components/FieldUpdateForm";
 
 import InputMarkdown from '../../interfaces/InputMarkdown';
 import Typography from '../../interfaces/Typography';
 import ColorPicker from '../../interfaces/ColorPicker';
 import Padding from '../../interfaces/Padding';
 
-import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsFields';
-import {ChoiceItemsConfirm, Content, Settings, Choices, Column, Row} from './styled';
-import {getCurrentStyle} from "../../actions";
-import {connect} from "react-redux";
-import isEmpty from "lodash/isEmpty";
+import {Field} from '../../style/styledComponentsFields';
+import {Content, Settings, Choices, Column, Row} from './styled';
 
 class TextMarkdown extends Component {
     constructor(props) {
@@ -69,54 +63,23 @@ class TextMarkdown extends Component {
     toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
     toggleOpenPreview = () => this.setState(prevState => ({openPreview: !prevState.openPreview}));
 
-    getMarkdown = () => this.props.content.html && this.props.content.html[this.props.indexLanguage] ? this.props.content.html[this.props.indexLanguage] : '';
-
     updateTypography = (property, value) => this.props.updateSettingsProperty('typography', property, value);
     updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
 
     render() {
-        const {indexLanguage, name} = this.props;
+        const {updated, indexLanguage, content} = this.props;
         if (!this.props.settings) return null;
-
 
         return (
             <div>
-                <Banner>
-                    <div>
-                        <ActiveCheckBox
-                            active={this.props.active}
-                            action={this.props.toggleActive}>
-                        </ActiveCheckBox>
-                        <p>{name}</p>
-                    </div>
-                    <div>
-                        <LanguageToggle
-                            hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
-                        <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
-                                          currentMode={this.props.currentResponsiveMode}
-                                          action={this.props.setResponsiveMode}/>
-                        {
-                            !isEmpty(this.props.content) ?
-                                <Icon className={this.props.openContent ? 'active' : ''}
-                                      onClick={() => {
-                                          this.props.toggleContent();
-                                      }}><SvgContent/></Icon>
-                                : null
-                        }
-
-                        <Icon className={this.props.openSettings ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleSettings();
-                              }}><SvgSetting/></Icon>
-                    </div>
-                </Banner>
+                <FieldBanner {...this.props}/>
                 <Field>
                     {
                         !isEmpty(this.props.content) ?
                             <Content className={!this.props.openContent ? 'hidden' : ''}>
                                 <InputMarkdown currentLanguage={indexLanguage}
                                                action={this.props.updateTranlatedContent} targetProperty={'html'}
-                                               defaultValue={this.getMarkdown()}/>
+                                               defaultValue={getHtml(content, indexLanguage)}/>
                             </Content>
                             : null
                     }
@@ -171,10 +134,7 @@ class TextMarkdown extends Component {
                         </Choices>
                     </Settings>
                 </Field>
-                <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
-                    <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
-                    <ButtonValidate label={'Update'} disabled={!this.props.updated} action={this.props.updateField}/>
-                </ChoiceItemsConfirm>
+                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>
         );
     }

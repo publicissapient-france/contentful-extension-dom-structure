@@ -1,30 +1,15 @@
 import { extensionTheme } from '../../style/theme';
 import styled from 'styled-components';
-import { ChoiceConfirm } from '../../style/styledComponentsFields';
 
-export const ChoiceItemsConfirm = styled(ChoiceConfirm)`
-    padding : 10px 15px 10px 20px;
-    width : 100%;
-    border-top : 1px solid ${ extensionTheme.grey20 };
-    box-sizing : border-box;
-`;
-export const Content = styled.div`
-   
-`;
-
+export const Content = styled.div``;
 
 export const Row = styled.div`
    display : flex;
    flex-direction : column;
    height : 210px;
-   //background : blue;
    border-bottom : 1px solid ${ extensionTheme.grey20 };
-
    box-sizing : content-box;
-
-    
 `;
-
 
 export const Column = styled.div`
    display : flex;
@@ -59,10 +44,7 @@ export const Choices = styled.div`
         width :75%;
     }
    }
-   
-   
 `;
-
 
 export const Settings = styled.div`
    & ${Choices}:nth-child(2){

@@ -1,19 +1,11 @@
 import React, {Component} from 'react';
-
 import isEmpty from 'lodash/isEmpty'
+import {getAlt, getAsset} from "../../utils/Fields/getters";
 
 import FieldWrapper from '../../HOC/FieldWrapper';
 import FieldWrapperOfSection from '../../HOC/FieldWrapperOfSection';
-
-import LanguageToggle from '../../containers/LanguageToggle';
-import SvgSetting from '../../components/svg/SvgSetting';
-import SvgContent from '../../components/svg/SvgContent';
-
-import ButtonBasic from '../../components/ui/ButtonBasic';
-import ButtonValidate from '../../components/ui/ButtonValidate';
-import ResponsiveToggle from '../../components/ResponsiveToggle';
-import ActiveCheckBox from '../../components/ActiveCheckBox';
-
+import FieldBanner from "../../components/FieldBanner";
+import FieldUpdateForm from "../../components/FieldUpdateForm";
 import ColorPicker from '../../interfaces/ColorPicker';
 import Padding from '../../interfaces/Padding'
 import Margin from '../../interfaces/Margin'
@@ -25,11 +17,8 @@ import BorderWidth from '../../interfaces/BorderWidth';
 import Gradient from '../../interfaces/Gradient';
 import BackgroundProperties from '../../interfaces/BackgroundProperties';
 
-
-import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsFields';
-import {ChoiceItemsConfirm, Content, Settings, Choices, Column, Row} from './styled';
-import FieldBanner from "../../components/FieldBanner";
+import {Field} from '../../style/styledComponentsFields';
+import {Content, Settings, Choices, Column, Row} from './styled';
 
 class Template extends Component {
     constructor(props) {
@@ -93,10 +82,6 @@ class Template extends Component {
         });
     }*/
 
-    getAlt = () => this.props.content.images && this.props.content.images[0] && this.props.content.images[0].alt && this.props.content.images[0].alt[this.props.indexLanguage] ? this.props.content.images[0].alt[this.props.indexLanguage] : '';
-
-    getAsset = () => this.props.content.images && this.props.content.images[0] && this.props.content.images[0].asset ? this.props.content.images[0].asset[this.props.currentResponsiveMode] : null
-
     updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
     updateBorder = (property, value, event) => this.props.updateSettingsProperty('border', property, value, event);
 
@@ -104,26 +89,25 @@ class Template extends Component {
     toggleOpenViewBorder = () => this.setState(prevState => ({openColorViewBorder: !prevState.openColorViewBorder}));
 
     render() {
-        const {name} = this.props;
+        const {updated, content, indexLanguage, currentResponsiveMode} = this.props;
 
         if (!this.props.settings) return null;
 
         return (
             <div className={this.props.editorOnly && isEmpty(this.props.defaultContent) ? 'hidden' : ''}>
-                <FieldBanner name={name} {...this.props}/>
+                <FieldBanner {...this.props}/>
                 <Field>
                     {
                         !isEmpty(this.props.defaultContent) ?
                             <Content className={!this.props.openContent ? 'hidden' : ''}>
-                                <ImageUploader asset={this.getAsset()}
-                                               alt={this.getAlt()}
+                                <ImageUploader asset={getAsset(content, currentResponsiveMode)}
+                                               alt={getAlt(content, indexLanguage)}
                                                index={0}
                                                updateStateAsset={this.props.updateContentSubProperty}
                                                updateStateTranslatedProps={this.props.updateTranlatedContentSubProperty}
                                 />
                             </Content> : null
                     }
-
 
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <Choices>
@@ -142,16 +126,17 @@ class Template extends Component {
                             </Column>
                             <Column className={this.state.openColorView ? 'hidden' : ''}>
                                 <Row>
-                                    <Gradient color={this.props.getSettingsByProperty('basis', 'color') }
-                                            storeValue={this.props.getStoreSettingsByProperty('basis', 'color')}
-                                            defaultValue={this.props.getDefaultSettingsByProperty('basis', 'color')}
-                                            updateStateProps={this.updateBasis}/>
+                                    <Gradient color={this.props.getSettingsByProperty('basis', 'color')}
+                                              storeValue={this.props.getStoreSettingsByProperty('basis', 'color')}
+                                              defaultValue={this.props.getDefaultSettingsByProperty('basis', 'color')}
+                                              updateStateProps={this.updateBasis}/>
                                 </Row>
                                 <Row>
-                                    <BackgroundProperties value={this.props.getSettingsByProperty('basis', 'background') }
-                                            storeValue={this.props.getStoreSettingsByProperty('basis', 'background')}
-                                            defaultValue={this.props.getDefaultSettingsByProperty('basis', 'background')}
-                                            updateStateProps={this.updateBasis}/>
+                                    <BackgroundProperties
+                                        value={this.props.getSettingsByProperty('basis', 'background')}
+                                        storeValue={this.props.getStoreSettingsByProperty('basis', 'background')}
+                                        defaultValue={this.props.getDefaultSettingsByProperty('basis', 'background')}
+                                        updateStateProps={this.updateBasis}/>
                                 </Row>
                                 <Row>
                                     <Size size={this.props.getSettingsByProperty('basis', 'size')}
@@ -175,10 +160,7 @@ class Template extends Component {
                                     />
 
                                 </Row>
-                                <Row>
-
-                                </Row>
-
+                                <Row></Row>
                             </Column>
                             <Column className={this.state.openColorViewBorder ? 'full-width' : ''}>
                                 <ColorPicker hidden={false}
@@ -205,11 +187,10 @@ class Template extends Component {
                                              defaultWidth={this.props.getDefaultSettingsByProperty('border', 'width')}
                                              updateStateProps={this.updateBorder}
                                 />
-
                             </Column>
                             <Column/>
                             <Column>
-                                <Shadow shadow={this.props.getSettingsByProperty('basis', 'shadow') }
+                                <Shadow shadow={this.props.getSettingsByProperty('basis', 'shadow')}
                                         storeValueShadow={this.props.getStoreSettingsByProperty('basis', 'shadow')}
                                         defaultShadow={this.props.getDefaultSettingsByProperty('basis', 'shadow')}
                                         updateStateProps={this.updateBasis}/>
@@ -223,30 +204,16 @@ class Template extends Component {
                         </Choices>
                     </Settings>
                 </Field>
-                < ChoiceItemsConfirm
-                    className={
-                        !this.props.updated ? 'hidden' : ''
-                    }>
-                    <
-                        ButtonBasic
-                        label={'Cancel'}
-                        disabled={
-                            !this.props.updated
-                        }
-                        action={this.props.cancelStateValue
-                        }
-                    />
-                    <ButtonValidate label={'Update'} disabled={!this.props.updated} action={this.props.updateField}/>
-                    </ChoiceItemsConfirm>
+                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>
-    );
+        );
     }
-    }
+}
 
-    const WrappedComponent = FieldWrapper(Template);
-    export default WrappedComponent;
+const WrappedComponent = FieldWrapper(Template);
+export default WrappedComponent;
 
-    export const TemplateForComponent = FieldWrapper(Template);
-    export const TemplateForSection = FieldWrapperOfSection(Template);
+export const TemplateForComponent = FieldWrapper(Template);
+export const TemplateForSection = FieldWrapperOfSection(Template);
 
 

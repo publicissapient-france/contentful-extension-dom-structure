@@ -1,18 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-
+import isEmpty from 'lodash/isEmpty';
+import { getText} from "../../utils/Fields/getters";
 import {getCurrentStyle} from '../../actions';
 
 import FieldWrapper from '../../HOC/FieldWrapper';
-
-import LanguageToggle from '../../containers/LanguageToggle';
-import SvgSetting from '../../components/svg/SvgSetting';
-import SvgContent from '../../components/svg/SvgContent';
-import ButtonBasic from '../../components/ui/ButtonBasic';
-import ButtonValidate from '../../components/ui/ButtonValidate';
 import TextPreview from '../../components/TextPreview';
-import ResponsiveToggle from '../../components/ResponsiveToggle';
-import ActiveCheckBox from '../../components/ActiveCheckBox';
+import FieldBanner from "../../components/FieldBanner";
+import FieldUpdateForm from "../../components/FieldUpdateForm";
 
 import InputText from '../../interfaces/InputText';
 import Typography from '../../interfaces/Typography';
@@ -22,10 +17,8 @@ import Padding from '../../interfaces/Padding';
 import Radius from '../../interfaces/Radius';
 import BorderWidth from '../../interfaces/BorderWidth';
 
-import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsFields';
-import {ChoiceItemsConfirm, Content, Settings, Choices, Column, Row} from './styled';
-import isEmpty from 'lodash/isEmpty';
+import {Field} from '../../style/styledComponentsFields';
+import {Content, Settings, Choices, Column, Row} from './styled';
 
 class Text extends Component {
     constructor(props) {
@@ -66,7 +59,6 @@ class Text extends Component {
         });
     }
 
-
     getThemeValue = (themes, selectedTheme) => {
         if (!themes || !selectedTheme) return;
         return themes.find(theme => theme.name === selectedTheme);
@@ -76,62 +68,24 @@ class Text extends Component {
     toggleOpenPreview = () => this.setState(prevState => ({openPreview: !prevState.openPreview}));
     toggleOpenViewBorder = () => this.setState(prevState => ({openColorViewBorder: !prevState.openColorViewBorder}));
 
-    getText = () => this.props.content.text && this.props.content.text[this.props.indexLanguage] ? this.props.content.text[this.props.indexLanguage] : '';
-
     updateTypography = (property, value) => this.props.updateSettingsProperty('typography', property, value);
     updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
     updateBorder = (property, value, event) => this.props.updateSettingsProperty('border', property, value, event);
 
     render() {
-        const {name} = this.props;
-
-        //if (!this.props.settings) return null;
+        const {updated, content, indexLanguage} = this.props;
         return (
             <div>
-                editor interface { this.props.editorOnly ? 'editor' :  ' integrateur'}
-                <Banner>
-                    <div>
-                        <ActiveCheckBox
-                            active={this.props.active}
-                            action={this.props.toggleActive}>
-                        </ActiveCheckBox>
-                        <p>{name}</p>
-                    </div>
-                    <div>
-                        <LanguageToggle
-                            hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
-                        <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
-                                          currentMode={this.props.currentResponsiveMode}
-                                          action={this.props.setResponsiveMode}/>
-                        {
-                            !isEmpty(this.props.content) ?
-                                <Icon className={this.props.openContent ? 'active' : ''}
-                                      onClick={() => {
-                                          this.props.toggleContent();
-                                      }}><SvgContent/></Icon>
-                                : null
-                        }
-
-                        {
-                            !isEmpty(this.props.settings) ?
-                                <Icon className={this.props.openSettings ? 'active' : ''}
-                                      onClick={() => {
-                                          this.props.toggleSettings();
-                                      }}><SvgSetting/></Icon>
-                                : null
-                        }
-                    </div>
-                </Banner>
+                <FieldBanner {...this.props}/>
                 <Field>
                     {
                         !isEmpty(this.props.content) ?
                             <Content className={!this.props.openContent ? 'hidden' : ''}>
                                 <InputText action={this.props.updateTranlatedContent} targetProperty={'text'}
-                                           defaultValue={this.getText()}/>
+                                           defaultValue={getText(content, indexLanguage)}/>
                             </Content>
                             : null
                     }
-
                     {
                         !isEmpty(this.props.settings) ?
 
@@ -223,11 +177,7 @@ class Text extends Component {
                             : null
                     }
                 </Field>
-
-                <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
-                    <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
-                    <ButtonValidate label={'Update'} disabled={!this.props.updated} action={this.props.updateField}/>
-                </ChoiceItemsConfirm>
+                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>
         );
     }

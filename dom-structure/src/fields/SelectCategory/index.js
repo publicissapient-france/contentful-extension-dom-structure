@@ -1,60 +1,33 @@
 import React, {Component} from 'react';
-import FieldWrapper from '../../HOC/FieldWrapper';
+import { getData} from "../../utils/Fields/getters";
 
-import LanguageToggle from '../../containers/LanguageToggle';
-import SvgContent from '../../components/svg/SvgContent';
-import ButtonBasic from '../../components/ui/ButtonBasic';
-import ButtonValidate from '../../components/ui/ButtonValidate';
-import ResponsiveToggle from '../../components/ResponsiveToggle';
-import ActiveCheckBox from '../../components/ActiveCheckBox';
+import FieldWrapper from '../../HOC/FieldWrapper';
+import FieldWrapperOfSection from "../../HOC/FieldWrapperOfSection";
+import FieldBanner from "../../components/FieldBanner";
+import FieldUpdateForm from "../../components/FieldUpdateForm";
 import CategorySelector from '../../interfaces/CategorySelector';
 
-import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsFields';
-import {ChoiceItemsConfirm, Content, Settings, Choices } from './styled';
-import FieldWrapperOfSection from "../../HOC/FieldWrapperOfSection";
+import {Field} from '../../style/styledComponentsFields';
+import {Content, Choices } from './styled';
 
 class SelectCategory extends Component {
 
-    getData = () => this.props.content && this.props.content.data ? this.props.content.data : '';
     updateBasis = (property, value, event) => this.props.updateSettingsProperty('basis', property, value, event);
 
     render() {
-        const {name} = this.props;
+        const {updated, content} = this.props;
         return (
             <div>
-                <Banner>
-                    <div>
-                        <ActiveCheckBox
-                            active={this.props.active}
-                            action={this.props.toggleActive}>
-                        </ActiveCheckBox>
-                        <p>{name}</p>
-                    </div>
-                    <div>
-                        <LanguageToggle
-                            hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
-                        <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
-                                          currentMode={this.props.currentResponsiveMode}
-                                          action={this.props.setResponsiveMode}/>
-                        <Icon className={this.props.openContent ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleContent();
-                              }}><SvgContent/></Icon>
-                    </div>
-                </Banner>
+                <FieldBanner {...this.props}/>
                 <Field>
                     <Content className={!this.props.openContent ? 'hidden' : ''}>
                         <Choices>
                             <CategorySelector  updateContent={this.props.updateContent}
-                                               category={this.getData()}/>
+                                               category={getData(content)}/>
                         </Choices>
                     </Content>
                 </Field>
-                <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
-                    <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
-                    <ButtonValidate label={'Update'} disabled={!this.props.updated} action={this.props.updateField}/>
-                </ChoiceItemsConfirm>
+                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>
         );
     }

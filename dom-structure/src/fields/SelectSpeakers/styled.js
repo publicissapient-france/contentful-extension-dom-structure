@@ -1,25 +1,5 @@
 import { extensionTheme } from '../../style/theme';
 import styled from 'styled-components';
-import { ChoiceConfirm } from '../../style/styledComponentsFields';
-
-export const ChoiceItemsConfirm = styled(ChoiceConfirm)`
-    padding : 10px 15px 10px 20px;
-    width : 100%;
-    border-top : 1px solid ${ extensionTheme.grey20 };
-    box-sizing : border-box;
-`;
-
-
-export const Row = styled.div`
-   display : flex;
-   flex-direction : column;
-   //background : blue;
-   border-bottom : 1px solid ${ extensionTheme.grey20 };
-
-   box-sizing : content-box;
-
-    
-`;
 
 export const Column = styled.div`
    display : flex;
@@ -28,7 +8,6 @@ export const Column = styled.div`
     border-right : 1px solid ${ extensionTheme.grey20 };  
     box-sizing : border-box;
 `;
-
 
 export const Choices = styled.div`
    display : flex;
@@ -50,25 +29,12 @@ export const Choices = styled.div`
    }
 `;
 
-
-
-export const ChoicesSpeakers = styled(Choices)`
-   display : flex;
-   flex-wrap : wrap;
-   width : 100%;
-   
-  
-`;
-
+export const ChoicesSpeakers = styled(Choices)``;
 
 export const Settings = styled.div`
    & ${Choices}{
-   
     &${Column}:nth-child(2){
         border-bottom : 1px solid ${extensionTheme.grey20};
-        & ${Row}:nth-child(2){
-           flex-direction : row; 
-        }
     }
    }
    
@@ -80,18 +46,12 @@ export const Settings = styled.div`
 `;
 
 export const ChoicesContent = styled(Choices)`
-   display : flex;
-   flex-wrap : wrap;
-   width : 100%;
-   
    &>${Column}{
         border-right : 0px solid transparent;
        &:nth-child(1), &:nth-child(2), &:nth-child(3){
             width : calc(100%/3);
        }
-       
    }
-   
 `;
 
 

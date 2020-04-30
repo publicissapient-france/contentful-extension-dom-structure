@@ -7,7 +7,7 @@ const visibility = (state = [], action) => {
             openFormAddSection: false,
             openFormAddSectionToTop: false,
             selectedLanguage: 0,
-            editorOnly : true,
+            editorOnly : false,
             view: {}
         };
 

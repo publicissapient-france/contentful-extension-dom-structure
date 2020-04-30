@@ -11,6 +11,12 @@ const getAssetsUrlById = (This, id, locale) => {
         .then(result => result.fields.file[locale].url);
 };
 
+
+
+
+
+
+
 export {
     getElementById,
     getAssetsUrlById

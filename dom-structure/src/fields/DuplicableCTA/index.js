@@ -6,16 +6,9 @@ import FieldWrapper from '../../HOC/FieldWrapper';
 import FieldWrapperOfSection from '../../HOC/FieldWrapperOfSection';
 import { duplicateField } from '../../actions/dom';
 
-import LanguageToggle from '../../containers/LanguageToggle';
-import SvgSetting from '../../components/svg/SvgSetting';
-import SvgContent from '../../components/svg/SvgContent';
 import SvgDuplicate from '../../components/svg/SvgDuplicate';
-import ButtonBasic from '../../components/ui/ButtonBasic';
-import ButtonValidate from '../../components/ui/ButtonValidate';
 import TextPreview from '../../components/TextPreview';
 import IconPreview from '../../components/IconPreview';
-import ResponsiveToggle from '../../components/ResponsiveToggle';
-import ActiveCheckBox from '../../components/ActiveCheckBox';
 
 import InputText from '../../interfaces/InputText';
 import InputIcon from '../../interfaces/InputIcon';
@@ -31,9 +24,8 @@ import IconTypography from '../../interfaces/IconTypography';
 import Shadow from '../../interfaces/Shadow';
 
 import {Icon} from '../../style/styledComponents';
-import {Banner, Field} from '../../style/styledComponentsFields';
+import {Field} from '../../style/styledComponentsFields';
 import {
-    ChoiceItemsConfirm,
     Content,
     Settings,
     ChoicesTypography,
@@ -44,6 +36,10 @@ import {
     ChoicesCustom,
     ButtonEvents, CheckboxAnimation
 } from './styled';
+import FieldBanner from "../../components/FieldBanner";
+
+import { getText, getLink, getIcon } from "../../utils/Fields/getters";
+import FieldUpdateForm from "../../components/FieldUpdateForm";
 
 class DuplicableCTA extends Component {
     constructor(props) {
@@ -103,9 +99,6 @@ class DuplicableCTA extends Component {
     toggleOpenPreviewIcon = () => this.setState(prevState => ({openPreviewIcon: !prevState.openPreviewIcon}));
     toggleCurrentEvent = (event) => this.setState({currentEvent: event});
 
-    getText = () => this.props.content.text && this.props.content.text[this.props.indexLanguage] ? this.props.content.text[this.props.indexLanguage] : '';
-    getIcon = () => this.props.content.icon && this.props.content.icon[this.props.indexLanguage] ? this.props.content.icon[this.props.indexLanguage] : '';
-    getLink = () => this.props.content.link && this.props.content.link[this.props.indexLanguage] ? this.props.content.link[this.props.indexLanguage] : '';
     getExternal = () => this.props.getSettingsPropertyNoResponsive('state') ? this.props.getSettingsPropertyNoResponsive('state').external : false;
     getDisabled = () => this.props.getSettingsPropertyNoResponsive('state') ? this.props.getSettingsPropertyNoResponsive('state').disabled : false;
     getAnimation = () => this.props.getSettingsPropertyNoResponsive('state') ? this.props.getSettingsPropertyNoResponsive('state').animation : '';
@@ -123,53 +116,25 @@ class DuplicableCTA extends Component {
     updateIconColor = (property, value, event) => this.props.updateSettingsEachResponsiveMode('icon', property, value, event);
 
     duplicateField = () => {
-        console.log('Duplicate !')
-        console.log('------ PROPS DUPLICABLE ------', this.props);
         this.props.dispatch(duplicateField('DupCTA', {}, this.props.indexComponent, this.props.indexSection))
     }
 
     render() {
-        const {name} = this.props;
+        const {content, indexLanguage, updated} = this.props;
 
         if (!this.props.settings) return null;
         return (
             <div>
-                <Banner>
-                    <div>
-                        <ActiveCheckBox
-                            active={this.props.active}
-                            action={this.props.toggleActive}>
-                        </ActiveCheckBox>
-                        <p>{name}</p>
-                    </div>
-                    <div>
-                        <LanguageToggle
-                            hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
-                        <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
-                                          currentMode={this.props.currentResponsiveMode}
-                                          action={this.props.setResponsiveMode}/>
-                        <Icon className={this.props.openContent ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleContent();
-                              }}><SvgContent/></Icon>
-                        <Icon className={this.props.openSettings ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleSettings();
-                              }}><SvgSetting/></Icon>
-                        <Icon className={''}
-                              onClick={() => {
-                                  this.duplicateField();
-                              }}><SvgDuplicate/></Icon>
-
-                    </div>
-                </Banner>
+                <FieldBanner {...this.props}>
+                    <Icon className={''} onClick={() => {this.duplicateField();}}><SvgDuplicate/></Icon>
+                </FieldBanner>
                 <Field>
                     <Content className={!this.props.openContent ? 'hidden' : ''}>
                         <ChoicesContent>
                             <Column>
                                 <label>Label</label>
                                 <InputText action={this.props.updateTranlatedContent} targetProperty={'text'}
-                                           defaultValue={this.getText()}/>
+                                           defaultValue={getText(content, indexLanguage)}/>
                             </Column>
                             <Column>
                                 <LinkSettings>
@@ -192,14 +157,14 @@ class DuplicableCTA extends Component {
                                 </LinkSettings>
 
                                 <InputText action={this.props.updateTranlatedContent} targetProperty={'link'}
-                                           defaultValue={this.getLink()}/>
+                                           defaultValue={getLink(content, indexLanguage)}/>
                             </Column>
                             <Column>
                                 <label>Icon</label>
                                 <InputIcon font={ this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null /*this.props.getSettingsByProperty('icon', 'font')*/}
                                            action={this.props.updateTranlatedContent}
                                            targetProperty={'icon'}
-                                           defaultValue={this.getIcon()}/>
+                                           defaultValue={getIcon(content, indexLanguage)}/>
                             </Column>
                         </ChoicesContent>
                     </Content>
@@ -397,11 +362,7 @@ class DuplicableCTA extends Component {
                         </ChoicesCustom>
                     </Settings>
                 </Field>
-
-                <ChoiceItemsConfirm className={!this.props.updated ? 'hidden' : ''}>
-                    <ButtonBasic label={'Cancel'} disabled={!this.props.updated} action={this.props.cancelStateValue}/>
-                    <ButtonValidate label={'Update'} disabled={!this.props.updated} action={this.props.updateField}/>
-                </ChoiceItemsConfirm>
+                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>
         );
     }
