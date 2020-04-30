@@ -5,16 +5,9 @@ import {
     Container,
     Partners,
     Select,
-    List,
-    Priority,
-    PriorityList,
-    Element,
-    Identity,
-    ButtonsMove,
-    Button
+    List
 } from './styled';
 import {getCurrentExtension} from '../../actions/index';
-import SvgArrowToTop from '../../components/svg/SvgArrowToTop';
 
 class CategorySelector extends Component {
     constructor(props) {

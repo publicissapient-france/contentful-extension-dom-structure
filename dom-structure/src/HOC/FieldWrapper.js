@@ -11,7 +11,7 @@ import {
     updateField,
     toggleFieldActive,
     updateFieldContent,
-    updateFieldSettings, getInterfaceMode
+    updateFieldSettings, getInterfaceMode, getCurrentStyle
 } from '../actions';
 import update from 'react-addons-update';
 import PropTypes from 'prop-types';
@@ -92,6 +92,32 @@ const FieldWrapper = WrappedComponent => {
                 this.props.dispatch(updateFieldSettings(this.props.nameProperty, this.state.settings, this.props.indexComponent, this.props.indexSection));
             });
         }
+
+        initFont = (property) => {
+            let initFont = this.state.settings[property];
+
+            new Promise((resolve, reject) => {
+                this.props.responsiveSettings.map(mode => {
+                    let selectedTheme = this.getThemeValue(this.props.themes, initFont[mode].font.theme);
+                    if (selectedTheme) {
+                        initFont[mode].font.family = selectedTheme.family;
+                        initFont[mode].font.typeface = selectedTheme.typeface;
+                        initFont[mode].font.weight = selectedTheme.weight;
+                        initFont[mode].font.size = selectedTheme.fontsize[mode];
+                        initFont[mode].font.lineHeight = selectedTheme.lineheight[mode];
+                    }
+                });
+                resolve();
+            }).then(() => {
+                this.initSettingsProperty(property, initFont);
+            });
+        }
+
+        getThemeValue = (themes, selectedTheme) => {
+            if (!themes || !selectedTheme) return;
+            return themes.find(theme => theme.name === selectedTheme);
+        }
+
 
         initSettingsProperty = (targetProperty, initialValue) => {
             this.setState(prevState => ({
@@ -330,6 +356,7 @@ const FieldWrapper = WrappedComponent => {
                     cancelStateValue={this.cancelStateValue}
                     content={this.state.content}
                     initContent={this.initContent}
+                    initFont={this.initFont}
                     settings={this.state.settings}
                     initSettings={this.initSettings}
                     initSettingsProperty={this.initSettingsProperty}
@@ -374,7 +401,8 @@ FieldWrapper.propTypes = {
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state),
     indexLanguage: getCurrentLanguage(state).language,
-    editorOnly : getInterfaceMode(state).editorOnly
+    editorOnly : getInterfaceMode(state).editorOnly,
+    themes: getCurrentStyle(state).style.themes
 });
 
 const composedFieldWrapper = compose(

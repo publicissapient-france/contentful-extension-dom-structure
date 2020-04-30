@@ -1,18 +1,7 @@
 import { extensionTheme } from '../../style/theme';
 import styled from 'styled-components';
 
-export const Content = styled.div`
-   
-`;
-
-export const Row = styled.div`
-   display : flex;
-   flex-direction : column;
-   height : 210px;
-   //background : red;
-   border-bottom : 1px solid ${ extensionTheme.grey20 };
-    box-sizing : content-box;
-`;
+export const Content = styled.div``;
 
 export const Column = styled.div`
    display : flex;
@@ -24,9 +13,6 @@ export const Column = styled.div`
     
     &.full-width{
         width : 100%;
-        ${Row}{
-            height : auto;
-        }
     }
 `;
 

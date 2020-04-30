@@ -9,6 +9,12 @@ export const Column = styled.div`
     box-sizing : border-box;
 `;
 
+export const Row = styled.div`
+   display : flex;
+  // border-bottom : 1px solid ${ extensionTheme.grey20 };
+   box-sizing : content-box;
+`;
+
 export const Choices = styled.div`
    display : flex;
    flex-wrap : wrap;
@@ -27,12 +33,14 @@ export const Choices = styled.div`
     &:nth-child(3){
         width :75%;
     }
-    &:nth-child(4){
+    
+     &:nth-child(4){
         width :25%;
-    }
-    &:nth-child(5){
-        width :75%;
-    }
+       
+     }
+     &:nth-child(5){
+         width :75%;
+     }
    }
 `;
 
@@ -47,10 +55,4 @@ export const ElementName = styled.div`
    &>label{
     text-transform: capitalize;
    }
-`;
-
-export const NoName = styled.div`
-   display : flex; 
-   width  : 100%;
-   height : 0;
 `;

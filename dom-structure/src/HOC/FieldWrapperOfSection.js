@@ -86,6 +86,32 @@ const FieldWrapperOfSection = WrappedComponent => {
                 this.props.dispatch(updateFieldContentOfSection(this.props.nameProperty, this.state.content, this.props.indexSection));
             });
         }
+
+        initFont = (property) => {
+            let initFont = this.state.settings[property];
+
+            new Promise((resolve, reject) => {
+                this.props.responsiveSettings.map(mode => {
+                    let selectedTheme = this.getThemeValue(this.props.themes, initFont[mode].font.theme);
+                    if (selectedTheme) {
+                        initFont[mode].font.family = selectedTheme.family;
+                        initFont[mode].font.typeface = selectedTheme.typeface;
+                        initFont[mode].font.weight = selectedTheme.weight;
+                        initFont[mode].font.size = selectedTheme.fontsize[mode];
+                        initFont[mode].font.lineHeight = selectedTheme.lineheight[mode];
+                    }
+                });
+                resolve();
+            }).then(() => {
+                this.initSettingsProperty(property, initFont);
+            });
+        }
+
+        getThemeValue = (themes, selectedTheme) => {
+            if (!themes || !selectedTheme) return;
+            return themes.find(theme => theme.name === selectedTheme);
+        }
+
         initSettings = initialValue => {
             this.setState({
                 settings: initialValue
@@ -176,23 +202,7 @@ const FieldWrapperOfSection = WrappedComponent => {
             }));
         }
 
-
-        //getSettingsByProperty = ( property, subProperty ) => this.state.settings[property] && this.state.settings[property][this.state.currentResponsiveMode] ? this.state.settings[property][this.state.currentResponsiveMode][subProperty] : null
-
-        //getSettingsPropertyNoResponsive = property => this.state.settings[property]
-
-        //getDefaultSettingsByProperty = (property, subProperty) => this.props.defaultSettings[property] && this.props.defaultSettings[property][this.state.currentResponsiveMode] ? this.props.defaultSettings[property][this.state.currentResponsiveMode][subProperty] : null
-
-        //getDefaultSettingsPropertyNoResponsive = property => this.props.defaultSettings[property]
-
-        //getStoreSettingsByProperty = (property, subProperty ) => this.state.storeSettings[property] && this.state.storeSettings[property][this.state.currentResponsiveMode] ? this.state.storeSettings[property][this.state.currentResponsiveMode][subProperty] : null
-
-        //getStoreSettingsPropertyNoResponsive = property => this.state.storeSettings[property] ? this.state.storeSettings[property] : null
-
         isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings, this.state.storeSettings))
-
-
-
 
         updateContent = (value, targetProperty) => {
             this.setState(prevState => ({
@@ -361,6 +371,7 @@ const FieldWrapperOfSection = WrappedComponent => {
                     cancelStateValue={this.cancelStateValue}
                     content={this.state.content}
                     initContent={this.initContent}
+                    initFont={this.initFont}
                     settings={this.state.settings}
                     initSettings={this.initSettings}
                     initSettingsProperty={this.initSettingsProperty}

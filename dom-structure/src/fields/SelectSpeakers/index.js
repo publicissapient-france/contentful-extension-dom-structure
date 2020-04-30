@@ -37,35 +37,10 @@ class SelectSpeakers extends Component {
         ['name', 'job', 'company', 'title', 'text'].map(prop => {
             if (this.props.settings && this.props.getSettingsByProperty(prop, 'font')) {
                 if (!Object.values(this.props.settings[prop])[0].font.family && this.props.themes) {
-                    this.initFont(prop);
+                    this.props.initFont(prop);
                 }
             }
         })
-    }
-
-    initFont = (property) => {
-        let initFont = this.props.settings[property];
-
-        new Promise((resolve, reject) => {
-            this.props.responsiveSettings.map(mode => {
-                let selectedTheme = this.getThemeValue(this.props.themes, initFont[mode].font.theme);
-                if (selectedTheme) {
-                    initFont[mode].font.family = selectedTheme.family;
-                    initFont[mode].font.typeface = selectedTheme.typeface;
-                    initFont[mode].font.weight = selectedTheme.weight;
-                    initFont[mode].font.size = selectedTheme.fontsize[mode];
-                    initFont[mode].font.lineHeight = selectedTheme.lineheight[mode];
-                }
-            });
-            resolve();
-        }).then(() => {
-            this.props.initSettingsProperty(property, initFont);
-        });
-    }
-
-    getThemeValue = (themes, selectedTheme) => {
-        if (!themes || !selectedTheme) return;
-        return themes.find(theme => theme.name === selectedTheme);
     }
 
     toggleCurrentEvent = (event) => this.setState({currentEvent: event});
@@ -132,6 +107,7 @@ class SelectSpeakers extends Component {
                                 return <TypeSystem key={prop}
                                                    label={prop}
                                                    propertyName={prop}
+                                                   usePadding
                                                    getSettingsByProperty={this.props.getSettingsByProperty}
                                                    getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
                                                    getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}

@@ -11,7 +11,6 @@ class Gradient extends Component {
     }
 
     componentDidMount = () => {
-        console.log('this.props.color', this.props.color);
         this.setState({
             color: this.props.color
         });
@@ -27,7 +26,6 @@ class Gradient extends Component {
     }
 
     updateGradient = (value) => {
-        console.log('update gradient value', value);
         this.setState(prevState => ({
             ...prevState,
             color: {
@@ -35,7 +33,6 @@ class Gradient extends Component {
                 gradient: value,
             }
         }), () => {
-            console.log('state color ----- ', this.state.color)
             this.props.updateStateProps(this.props.customTargetColor || 'color', this.state.color, this.props.event);
         });
     }
@@ -43,7 +40,7 @@ class Gradient extends Component {
     render() {
         const {color, storeValue, defaultValue, hidden} = this.props;
 
-        if (!color  || !this.state.color) return null;
+        if (!color || !this.state.color) return null;
         return (
             <Container className={hidden ? 'hidden' : ''}>
                 <Field>

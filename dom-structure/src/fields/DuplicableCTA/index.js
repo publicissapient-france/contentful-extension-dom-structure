@@ -60,31 +60,10 @@ class DuplicableCTA extends Component {
     componentDidUpdate(prevProps) {
         if (this.props.settings && this.props.getSettingsByProperty('typography', 'font')) {
             if (!Object.values(this.props.settings.typography)[0].font.family && this.props.themes) {
-                this.initFont();
+                this.props.initFont('typography');
             }
         }
     }
-
-    initFont = () => {
-        let initFont = this.props.settings.typography;
-
-        new Promise((resolve, reject) => {
-            this.props.responsiveSettings.map(mode => {
-                let selectedTheme = this.getThemeValue(this.props.themes, initFont[mode].font.theme);
-                if (selectedTheme) {
-                    initFont[mode].font.family = selectedTheme.family;
-                    initFont[mode].font.typeface = selectedTheme.typeface;
-                    initFont[mode].font.weight = selectedTheme.weight;
-                    initFont[mode].font.size = selectedTheme.fontsize[mode];
-                    initFont[mode].font.lineHeight = selectedTheme.lineheight[mode];
-                }
-            });
-            resolve();
-        }).then(() => {
-            this.props.initSettingsProperty('typography', initFont);
-        });
-    }
-
 
     getThemeValue = (themes, selectedTheme) => {
         if (!themes || !selectedTheme) return;
@@ -170,23 +149,24 @@ class DuplicableCTA extends Component {
                     </Content>
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         <ChoicesTypography>
-                            <Column className={this.state.openPreview || this.state.openColorView ? 'full-width' : ''}>
-                                {
-                                    this.state.events && this.state.events.length !== 0 ?
-                                        <ButtonEvents>
-                                            {
-                                                this.state.events.map((event, i) => {
-                                                    return <button
-                                                        key={i}
-                                                        className={event === this.state.currentEvent ? 'current' : ''}
-                                                        onClick={() => {
-                                                            this.toggleCurrentEvent(event)
-                                                        }}>{event}</button>
-                                                })
-                                            }
-                                        </ButtonEvents> : null
+                            {
+                                this.state.events && this.state.events.length !== 0 ?
+                                    <ButtonEvents>
+                                        {
+                                            this.state.events.map((event, i) => {
+                                                return <button
+                                                    key={i}
+                                                    className={event === this.state.currentEvent ? 'current' : ''}
+                                                    onClick={() => {
+                                                        this.toggleCurrentEvent(event)
+                                                    }}>{event}</button>
+                                            })
+                                        }
+                                    </ButtonEvents> : null
 
-                                }
+                            }
+                            <Column className={this.state.openPreview || this.state.openColorView ? 'full-width' : ''}>
+
                                 <TextPreview hidden={this.state.openColorView}
                                              color={this.props.getSettingsByProperty('typography', 'color', this.state.currentEvent)}
                                              font={this.props.getSettingsByProperty('typography', 'font')}

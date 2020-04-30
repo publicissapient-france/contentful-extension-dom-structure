@@ -49,38 +49,17 @@ class Padding extends Component {
                         <label>padding</label>
                         <Inputs>
                             <Dot enabled={!isEqual(defaultPadding, padding)}/>
-                            <input
-                                type={'number'}
-                                min={0}
-                                className={hasNotSamePropertyValue(storeValuePadding, padding, 'top') ? 'updated' : ''}
-                                value={this.state.padding.top}
-                                onChange={e => {
-                                    this.updatePadding('top', e.target.value);
-                                }}/>
-                            <input
-                                type={'number'}
-                                min={0}
-                                className={hasNotSamePropertyValue(storeValuePadding, padding, 'right') ? 'updated' : ''}
-                                value={this.state.padding.right}
-                                onChange={e => {
-                                    this.updatePadding('right', e.target.value);
-                                }}/>
-                            <input
-                                type={'number'}
-                                min={0}
-                                className={hasNotSamePropertyValue(storeValuePadding, padding, 'bottom') ? 'updated' : ''}
-                                value={this.state.padding.bottom}
-                                onChange={e => {
-                                    this.updatePadding('bottom', e.target.value);
-                                }}/>
-                            <input
-                                type={'number'}
-                                min={0}
-                                className={hasNotSamePropertyValue(storeValuePadding, padding, 'left') ? 'updated' : ''}
-                                value={this.state.padding.left}
-                                onChange={e => {
-                                    this.updatePadding('left', e.target.value);
-                                }}/>
+                            {
+                                ['top', 'right', 'bottom', 'left'].map((edge, i) => {
+                                    return (
+                                        <input key={i} type={'number'} min={0}
+                                            className={hasNotSamePropertyValue(storeValuePadding, padding, edge) ? 'updated' : ''}
+                                            value={this.state.padding[edge]}
+                                            onChange={e => {
+                                                this.updatePadding(edge, e.target.value);
+                                            }}/>)
+                                })
+                            }
                         </Inputs>
                     </div>
 

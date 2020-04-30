@@ -14,26 +14,14 @@ import ImageUploader from '../../interfaces/ImageUploader';
 import Padding from '../../interfaces/Padding';
 import Size from '../../interfaces/Size';
 import Margin from '../../interfaces/Margin';
-import BorderWidth from '../../interfaces/BorderWidth';
-import Radius from '../../interfaces/Radius';
-import ColorPicker from '../../interfaces/ColorPicker';
 import Alignment from '../../interfaces/Alignment';
+import BorderSystem from "../../interfaces/system/BorderSystem";
 
 import {Field} from '../../style/styledComponentsFields';
 import {Content, Settings, Choices, Column, Row} from './styled';
 
 class SingleImage extends Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            openColorViewBorder: false
-        };
-    }
-
-    toggleOpenViewBorder = () => this.setState(prevState => ({openColorViewBorder: !prevState.openColorViewBorder}));
-
-    updateBorder = (property, value) => this.props.updateSettingsProperty('border', property, value);
     updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
 
     render() {
@@ -88,39 +76,18 @@ class SingleImage extends Component {
                                 </Row>
                             </Column>
                             <Column></Column>
-                            <Column  className={this.state.openColorViewBorder ? 'hidden' : ''}>
+                            <Column>
                                 <Alignment alignment={this.props.getSettingsByProperty('basis','alignment')}
                                            storeValueAlignment={this.props.getStoreSettingsByProperty('basis','alignment')}
                                            defaultAlignment={this.props.getDefaultSettingsByProperty('basis','alignment')}
                                            updateStateProps={this.updateBasis}  />
                             </Column>
-
-                            <Column className={this.state.openColorViewBorder ? 'full-width' : ''}>
-                                <ColorPicker hidden={false}
-                                             color={this.props.getSettingsByProperty('border','color')}
-                                             opacity={this.props.getSettingsByProperty('border','opacity')}
-                                             storeValueColor={this.props.getStoreSettingsByProperty('border','color')}
-                                             storeValueOpacity={this.props.getStoreSettingsByProperty('border','opacity')}
-                                             defaultColor={this.props.getDefaultSettingsByProperty('border','color')}
-                                             defaultOpacity={this.props.getDefaultSettingsByProperty('border','opacity')}
-                                             openView={this.state.openColorViewBorder}
-                                             updateStateProps={this.updateBorder}
-                                             toggleOpenView={this.toggleOpenViewBorder}
-                                             customName={'Border'}
-                                />
-                            </Column>
-                            <Column  className={this.state.openColorViewBorder ? 'hidden' : ''}>
-                                <Radius radius={this.props.getSettingsByProperty('border','radius')}
-                                        storeValueRadius={this.props.getStoreSettingsByProperty('border','radius')}
-                                        defaultRadius={this.props.getDefaultSettingsByProperty('border','radius')}
-                                        updateStateProps={this.updateBorder}
-                                />
-                                <BorderWidth width={this.props.getSettingsByProperty('border','width')}
-                                             storeValueWidth={this.props.getStoreSettingsByProperty('border','width')}
-                                             defaultWidth={this.props.getDefaultSettingsByProperty('border','width')}
-                                             updateStateProps={this.updateBorder}
-                                />
-                            </Column>
+                            <BorderSystem label={null}
+                                          propertyName={'border'}
+                                          getSettingsByProperty={this.props.getSettingsByProperty}
+                                          getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
+                                          getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
+                                          updateSettingsProperty={this.props.updateSettingsProperty}/>
                         </Choices>
                     </Settings>
                 </Field>

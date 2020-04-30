@@ -7,19 +7,9 @@ import { getCurrentStyle } from '../../actions/index';
 import { hasNotSamePropertyValue } from '../../utils/functions';
 
 import { Property, IconContainer } from '../../style/styledComponentsFields';
-import { ChoiceFont, ContainerProps, FontProps, AlignProps, Field, TransformProps, TypoProps } from './styled';
+import { ChoiceFont, ContainerProps, FontProps, Field, TypoProps } from './styled';
 import SvgFontSize from '../../components/svg/SvgFontSize';
 import SvgLineHeight from '../../components/svg/SvgLineHeight';
-import SvgLetterSpacing from '../../components/svg/SvgLetterSpacing';
-import SvgCapitalize from '../../components/svg/SvgCapitalize';
-import SvgItalic from '../../components/svg/SvgItalic';
-import SvgDropCap from '../../components/svg/SvgDropCap';
-import SvgUnderline from '../../components/svg/SvgUnderline';
-import SvgAlignLeft from '../../components/svg/SvgAlignLeft';
-import SvgAlignCenter from '../../components/svg/SvgAlignCenter';
-import SvgAlignJustify from '../../components/svg/SvgAlignJustify';
-import SvgAlignRight from '../../components/svg/SvgAlignRight';
-import IconActing from '../../components/IconActing/index';
 import Dot from '../../components/Dot/index';
 
 class IconTypography extends Component {

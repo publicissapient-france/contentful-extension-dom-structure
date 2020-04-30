@@ -51,14 +51,14 @@ class FlexContainerProperties extends Component {
 
     createElements = (n) => {
         var elements = [];
-        for(let i =0; i < n; i++){
-            elements.push(<div key={i}><p>{i+1}</p></div>);
+        for (let i = 0; i < n; i++) {
+            elements.push(<div key={i}><p>{i + 1}</p></div>);
         }
         return elements;
     };
     createColumns = (n) => {
         var elements = [];
-        for(let i =0; i < n; i++){
+        for (let i = 0; i < n; i++) {
             elements.push(<div key={i}/>);
         }
         return elements;
@@ -123,9 +123,9 @@ class FlexContainerProperties extends Component {
                         </FlexProperty>
                     </div>
                     <Preview flex={properties}>
-                        { this.createElements(this.state.nbrChildToPreview) }
+                        {this.createElements(this.state.nbrChildToPreview)}
                         <Grid columns={properties.columns}>
-                            { this.createColumns(properties.columns) }
+                            {this.createColumns(properties.columns)}
                         </Grid>
                     </Preview>
                 </MainProperties>
@@ -135,130 +135,83 @@ class FlexContainerProperties extends Component {
                         <Dot enabled={hasNotSamePropertyValue(defaultValue, properties, 'direction')}/>
                         <label>Direction</label>
                         <ContainerProperty>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'direction'}
-                                        value={'row'} action={this.updateFlex}>
-                                row
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'direction'}
-                                        value={'column'} action={this.updateFlex}>
-                                column
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'direction'}
-                                        value={'row-reverse'} action={this.updateFlex}>
-                                row-reverse
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'direction'}
-                                        value={'column-reverse'} action={this.updateFlex}>
-                                column-reverse
-                            </IconActing>
+                            {
+                                ['row', 'column', 'row-reverse', 'column-reverse'].map((choice, i) => {
+                                    return (
+                                        <IconActing key={i} objectA={storeValue} objectB={properties} targetProperty={'direction'}
+                                                    value={choice} action={this.updateFlex}>
+                                            {choice}
+                                        </IconActing>
+                                    )
+                                })
+                            }
                         </ContainerProperty>
                     </FlexProperty>
                     <FlexProperty>
                         <Dot enabled={hasNotSamePropertyValue(defaultValue, properties, 'wrap')}/>
                         <label>Wrap</label>
                         <ContainerProperty>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'wrap'}
-                                        value={'wrap'} action={this.updateFlex}>
-                                wrap
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'wrap'}
-                                        value={'nowrap'} action={this.updateFlex}>
-                                nowrap
-                            </IconActing>
+                            {
+                                ['wrap', 'nowrap'].map((choice, i) => {
+                                    return (
+                                        <IconActing key={i} objectA={storeValue} objectB={properties} targetProperty={'wrap'}
+                                                    value={choice} action={this.updateFlex}>
+                                            {choice}
+                                        </IconActing>
+                                    )
+                                })
+                            }
                         </ContainerProperty>
                     </FlexProperty>
                     <FlexProperty>
                         <Dot enabled={hasNotSamePropertyValue(defaultValue, properties, 'justify')}/>
                         <label>Justify</label>
                         <ContainerProperty>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'justify'}
-                                        value={'flex-start'} action={this.updateFlex}>
-                                flex-start
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'justify'}
-                                        value={'flex-end'} action={this.updateFlex}>
-                                flex-end
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'justify'}
-                                        value={'center'} action={this.updateFlex}>
-                                center
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'justify'}
-                                        value={'space-between'} action={this.updateFlex}>
-                                space-between
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'justify'}
-                                        value={'space-around'} action={this.updateFlex}>
-                                space-around
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'justify'}
-                                        value={''} action={this.updateFlex}>
-                                none
-                            </IconActing>
+                            {
+                                ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', ''].map((choice, i) => {
+                                    return (
+                                        <IconActing key={i} objectA={storeValue} objectB={properties} targetProperty={'justify'}
+                                                    value={choice} action={this.updateFlex}>
+                                            {choice !== '' ? choice : 'none'}
+                                        </IconActing>
+                                    )
+                                })
+                            }
                         </ContainerProperty>
                     </FlexProperty>
                     <FlexProperty>
                         <Dot enabled={hasNotSamePropertyValue(defaultValue, properties, 'alignItems')}/>
                         <label>Align items</label>
                         <ContainerProperty>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignItems'}
-                                        value={'flex-start'} action={this.updateFlex}>
-                                flex-start
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignItems'}
-                                        value={'flex-end'} action={this.updateFlex}>
-                                flex-end
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignItems'}
-                                        value={'center'} action={this.updateFlex}>
-                                center
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignItems'}
-                                        value={'stretch'} action={this.updateFlex}>
-                                stretch
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignItems'}
-                                        value={'baseline'} action={this.updateFlex}>
-                                baseline
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignItems'}
-                                        value={''} action={this.updateFlex}>
-                                none
-                            </IconActing>
+                            {
+                                ['flex-start', 'flex-end', 'center', 'stretch', 'baseline', ''].map((choice, i) => {
+                                    return (
+                                        <IconActing key={i} objectA={storeValue} objectB={properties}
+                                                    targetProperty={'alignItems'}
+                                                    value={choice} action={this.updateFlex}>
+                                            {choice !== '' ? choice : 'none'}
+                                        </IconActing>
+                                    )
+                                })
+                            }
                         </ContainerProperty>
                     </FlexProperty>
                     <FlexProperty>
                         <Dot enabled={hasNotSamePropertyValue(defaultValue, properties, 'alignContent')}/>
                         <label>Align content</label>
                         <ContainerProperty>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignContent'}
-                                        value={'flex-start'} action={this.updateFlex}>
-                                flex-start
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignContent'}
-                                        value={'flex-end'} action={this.updateFlex}>
-                                flex-end
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignContent'}
-                                        value={'center'} action={this.updateFlex}>
-                                center
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignContent'}
-                                        value={'stretch'} action={this.updateFlex}>
-                                stretch
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignContent'}
-                                        value={'space-between'} action={this.updateFlex}>
-                                space-between
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignContent'}
-                                        value={'space-around'} action={this.updateFlex}>
-                                space-around
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={properties} targetProperty={'alignContent'}
-                                        value={''} action={this.updateFlex}>
-                                none
-                            </IconActing>
+                            {
+                                ['flex-start', 'flex-end', 'center', 'stretch', 'space-between', 'space-around', '']
+                                    .map((choice, i) => {
+                                        return (
+                                            <IconActing key={i} objectA={storeValue} objectB={properties}
+                                                        targetProperty={'alignContent'}
+                                                        value={choice} action={this.updateFlex}>
+                                                {choice !== '' ? choice : 'none'}
+                                            </IconActing>)
+
+                                    })
+                            }
                         </ContainerProperty>
                     </FlexProperty>
                 </Field>

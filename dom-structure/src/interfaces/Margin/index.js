@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Container, Field, Inputs } from './styled';
+import React, {Component} from 'react';
+import {Container, Field, Inputs} from './styled';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
-import { hasNotSamePropertyValue } from '../../utils/functions';
+import {hasNotSamePropertyValue} from '../../utils/functions';
 import Dot from '../../components/Dot';
 
 class Margin extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         this.state = {};
     }
@@ -38,8 +38,8 @@ class Margin extends Component {
         });
     }
 
-    render () {
-        const { margin, storeValueMargin, defaultMargin, hidden } = this.props;
+    render() {
+        const {margin, storeValueMargin, defaultMargin, hidden} = this.props;
 
         if (!this.state.margin) return null;
         return (
@@ -49,38 +49,17 @@ class Margin extends Component {
                         <label>margin</label>
                         <Inputs>
                             <Dot enabled={!isEqual(defaultMargin, margin)}/>
-                            <input
-                                type={'number'}
-                                min={0}
-                                className={hasNotSamePropertyValue(storeValueMargin, margin, 'top') ? 'updated' : ''}
-                                value={this.state.margin.top}
-                                onChange={e => {
-                                    this.updatePadding('top', e.target.value);
-                                }}/>
-                            <input
-                                type={'number'}
-                                min={0}
-                                className={hasNotSamePropertyValue(storeValueMargin, margin, 'right') ? 'updated' : ''}
-                                value={this.state.margin.right}
-                                onChange={e => {
-                                    this.updatePadding('right', e.target.value);
-                                }}/>
-                            <input
-                                type={'number'}
-                                min={0}
-                                className={hasNotSamePropertyValue(storeValueMargin, margin, 'bottom') ? 'updated' : ''}
-                                value={this.state.margin.bottom}
-                                onChange={e => {
-                                    this.updatePadding('bottom', e.target.value);
-                                }}/>
-                            <input
-                                type={'number'}
-                                min={0}
-                                className={hasNotSamePropertyValue(storeValueMargin, margin, 'left') ? 'updated' : ''}
-                                value={this.state.margin.left}
-                                onChange={e => {
-                                    this.updatePadding('left', e.target.value);
-                                }}/>
+                            {
+                                ['top', 'right', 'bottom', 'left'].map((edge, i) => {
+                                    return (
+                                        <input key={i} type={'number'} min={0}
+                                               className={hasNotSamePropertyValue(storeValueMargin, margin, edge) ? 'updated' : ''}
+                                               value={this.state.margin[edge]}
+                                               onChange={e => {
+                                                   this.updatePadding(edge, e.target.value);
+                                               }}/>)
+                                })
+                            }
                         </Inputs>
                     </div>
 

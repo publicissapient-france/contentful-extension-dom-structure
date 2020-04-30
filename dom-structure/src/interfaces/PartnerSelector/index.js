@@ -197,7 +197,7 @@ class PartnerSelector extends Component {
                             this.state.priority ? this.state.priority.map((id, i) => {
                                 const partner = this.getById(id);
                                 if (!partner) return null
-                                return <Element>
+                                return <Element key={i}>
                                     <ButtonsMove>
                                         <Button onClick={() => this.moveElementToBottom(i)}><SvgArrowToTop/></Button>
                                         <Button onClick={() => this.moveElementToTop(i)}><SvgArrowToTop/></Button>

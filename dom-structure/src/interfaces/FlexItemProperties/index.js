@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Field, FlexProperty, ContainerProperty, Preview, FlexElement } from './styled';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
 import { hasNotSamePropertyValue } from '../../utils/functions';
 import IconActing from '../../components/IconActing/index';
 import Dot from '../../components/Dot';
-
 
 class FlexItemProperties extends Component {
     constructor (props) {
@@ -88,30 +86,15 @@ class FlexItemProperties extends Component {
                         <Dot enabled={hasNotSamePropertyValue(defaultValue, flex, 'alignSelf')}/>
                         <label>Justify</label>
                         <ContainerProperty>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignSelf'}
-                                        value={'auto'} action={this.updateFlex}>
-                                auto
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignSelf'}
-                                        value={'flex-start'} action={this.updateFlex}>
-                                flex-start
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignSelf'}
-                                        value={'flex-end'} action={this.updateFlex}>
-                                flex-end
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignSelf'}
-                                        value={'center'} action={this.updateFlex}>
-                               center
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignSelf'}
-                                        value={'baseline'} action={this.updateFlex}>
-                               baseline
-                            </IconActing>
-                            <IconActing objectA={storeValue} objectB={flex} targetProperty={'alignSelf'}
-                                        value={'stretch'} action={this.updateFlex}>
-                               stretch
-                            </IconActing>
+                            {
+                                ['auto', 'flex-start','flex-end', 'center', 'baseline','stretch' ].map((choice, i) => {
+                                    return (
+                                        <IconActing key={i} objectA={storeValue} objectB={flex} targetProperty={'alignSelf'}
+                                                         value={choice} action={this.updateFlex}>
+                                            { choice }
+                                    </IconActing>)
+                                })
+                            }
                         </ContainerProperty>
                     </FlexProperty>
                 </Field>

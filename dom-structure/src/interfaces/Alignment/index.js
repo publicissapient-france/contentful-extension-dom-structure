@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Field, Inputs, CornerBottomLeft, CornerBottomRight, CornerTopRight, CornerTofLeft, InputsRadius } from './styled';
+import { Container, Field} from './styled';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
 import { hasNotSamePropertyValue } from '../../utils/functions';
 import Dot from '../../components/Dot';
 import IconActing from '../../components/IconActing';

@@ -41,18 +41,6 @@ export const Choices = styled.div`
 `;
 
 
-export const ChoicesTypography = styled(Choices)`
-   display : flex;
-   flex-wrap : wrap;
-   width : 100%;
-   
-   &>${Column}{
-    &:nth-child(2){
-        border-bottom : 1px solid ${extensionTheme.grey20};
-    }
-   }
-`;
-
 export const ChoicesCustom = styled(Choices)`
    display : flex;
    flex-wrap : wrap;
@@ -145,17 +133,6 @@ export const Settings = styled.div`
    & ${Choices}:nth-child(1){
         & ${Column}:nth-child(1){
             border-bottom : 1px solid ${extensionTheme.grey20};
-        }
-   }
-`;
-
-export const Content = styled.div`
-   & ${Choices}{
-        & ${Column}{
-            padding : 10px;
-            & label{
-                padding-left : 5px;
-            }
         }
    }
 `;

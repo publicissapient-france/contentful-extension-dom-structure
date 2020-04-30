@@ -177,7 +177,7 @@ class FormationSelector extends Component {
                             <option value={''}></option>
                             {
                                 this.state.categories ?
-                                    this.state.categories.map(category => <option value={category}>{category}</option>)
+                                    this.state.categories.map(category => <option key={category} value={category}>{category}</option>)
                                     : null
                             }
                         </select>
@@ -190,8 +190,7 @@ class FormationSelector extends Component {
                             <option value={''}></option>
                             {
                                 this.getFilteredFormation() ?
-                                    this.getFilteredFormation().map(formation => <option
-                                        value={formation.id}>{formation.name}</option>)
+                                    this.getFilteredFormation().map(formation => <option key={formation.name} value={formation.id}>{formation.name}</option>)
                                     : null
                             }
                         </select>
@@ -225,6 +224,7 @@ class FormationSelector extends Component {
                                     const formation = this.getById(id);
                                     return <ItemPriority formation={formation}
                                                          index={i}
+                                                         key={i}
                                                          moveElementToBottom={this.moveElementToBottom}
                                                          moveElementToTop={this.moveElementToTop}
                                     />

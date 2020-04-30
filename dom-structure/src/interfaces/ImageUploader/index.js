@@ -6,7 +6,6 @@ import {Container, Field} from './styled';
 import {getCurrentExtension} from '../../actions/index';
 import UploadView from '../../components/UploadView/index';
 import FileView from '../../components/FileView/index';
-import ReloadView from '../../components/RealoadView/index';
 
 class ImageUploader extends Component {
     constructor(props) {
@@ -31,8 +30,6 @@ class ImageUploader extends Component {
                 this.setState({
                     ...this.state,
                     asset: this.props.asset
-                }, () => {
-                    //  this.publishAsset();
                 });
             } else {
                 this.setState({
