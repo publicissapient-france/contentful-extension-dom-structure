@@ -27,6 +27,7 @@ class FieldsList extends Component {
             <FieldContainer>
                 {
                     Object.keys(fieldsComponent).map( (key, i) => {
+
                         console.log(key)
                         console.log(fieldsComponent[key])
 
@@ -53,7 +54,7 @@ class FieldsList extends Component {
                             case key === 'Template' || key === 'Separator':
                                 return <TemplateForComponent {...params}/>;
 
-                            case key === 'Title' || key === 'Tagline':
+                            case key === 'Title' || key === 'Tagline' || key === 'Heading':
                                 return <Text {...params} />;
 
                             case  key === 'Content':
@@ -89,10 +90,7 @@ class FieldsList extends Component {
                             case key.includes('Template'):
                                 return <TemplateForComponent {...params} />;
 
-                            case key.includes('Title'):
-                                return <Text {...params} />;
-
-                            case key.includes('Tagline'):
+                            case key.includes('Title') || key.includes('Tagline') || key.includes('Heading') :
                                 return <Text {...params} />;
 
                             case key.includes('Content'):

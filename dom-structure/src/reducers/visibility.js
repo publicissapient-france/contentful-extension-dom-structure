@@ -7,6 +7,7 @@ const visibility = (state = [], action) => {
             openFormAddSection: false,
             openFormAddSectionToTop: false,
             selectedLanguage: 0,
+            editorOnly : true,
             view: {}
         };
 
@@ -18,6 +19,11 @@ const visibility = (state = [], action) => {
     case 'TOGGLE_FORM_ADD_SECTION_TO_TOP':
         return update(state, {
             openFormAddSectionToTop: { $set: !state.openFormAddSectionToTop }
+        });
+
+    case 'TOGGLE_EDITOR_ONLY':
+        return update(state, {
+            editorOnly: { $set: action.active }
         });
 
     case 'TOGGLE_SELECTED_LANGUAGE':

@@ -23,6 +23,7 @@ class ResponsiveToggle extends Component {
         const {responsive, currentMode, action} = this.props;
 
 
+        if(!responsive) return null
         return (
             <Responsive className={!responsive.length || responsive[0] === 'A' ? 'hidden' : ''}>
                 {

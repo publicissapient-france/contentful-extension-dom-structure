@@ -29,6 +29,7 @@ import BackgroundProperties from '../../interfaces/BackgroundProperties';
 import {Icon} from '../../style/styledComponents';
 import {Banner, Field} from '../../style/styledComponentsFields';
 import {ChoiceItemsConfirm, Content, Settings, Choices, Column, Row} from './styled';
+import FieldBanner from "../../components/FieldBanner";
 
 class Template extends Component {
     constructor(props) {
@@ -49,7 +50,7 @@ class Template extends Component {
             this.props.setResponsiveMode(this.props.responsiveSettings[0]);
         }
 
-        if (this.props.settings && this.props.settings.basis) {
+        /*if (this.props.settings && this.props.settings.basis) {
             if (!Object.values(this.props.settings.basis)[0].shadow) {
                 this.initShadow();
             }
@@ -62,13 +63,10 @@ class Template extends Component {
                 }
             }
 
-        }
-
-
-
+        }*/
     }
 
-    initShadow = () => {
+    /*initShadow = () => {
         let initBasis = this.props.settings.basis;
         let initShadow = { value : 'none'};
         new Promise((resolve, reject) => {
@@ -93,7 +91,7 @@ class Template extends Component {
         }).then(() => {
             this.props.initSettingsProperty('basis', initBasis);
         });
-    }
+    }*/
 
     getAlt = () => this.props.content.images && this.props.content.images[0] && this.props.content.images[0].alt && this.props.content.images[0].alt[this.props.indexLanguage] ? this.props.content.images[0].alt[this.props.indexLanguage] : '';
 
@@ -111,35 +109,8 @@ class Template extends Component {
         if (!this.props.settings) return null;
 
         return (
-            <div>
-                <Banner>
-                    <div>
-                        <ActiveCheckBox
-                            active={this.props.active}
-                            action={this.props.toggleActive}>
-                        </ActiveCheckBox>
-                        <p>{name}</p>
-                    </div>
-                    <div>
-                        <LanguageToggle
-                            hidden={(!this.props.openContent && !this.props.openSettings) || this.props.openSettings}/>
-                        <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
-                                          currentMode={this.props.currentResponsiveMode}
-                                          action={this.props.setResponsiveMode}/>
-                        {!isEmpty(this.props.defaultContent) ?
-                            <Icon className={this.props.openContent ? 'active' : ''}
-                                  onClick={() => {
-                                      this.props.toggleContent();
-                                  }}><SvgContent/></Icon>
-                            : null
-                        }
-
-                        <Icon className={this.props.openSettings ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleSettings();
-                              }}><SvgSetting/></Icon>
-                    </div>
-                </Banner>
+            <div className={this.props.editorOnly && isEmpty(this.props.defaultContent) ? 'hidden' : ''}>
+                <FieldBanner name={name} {...this.props}/>
                 <Field>
                     {
                         !isEmpty(this.props.defaultContent) ?

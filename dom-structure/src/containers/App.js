@@ -1,7 +1,7 @@
 import debounce from 'debounce-fn';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Extension, MainContainer } from '../style/styledComponents';
+import { Extension, MainContainer, ChoiceInterface } from '../style/styledComponents';
 import ButtonAddSection from './AddingSection';
 import Section from './Section/index';
 import AddSection from './AddSection/index';
@@ -14,9 +14,10 @@ import {
     initStyleInformation,
     addFontFaces,
     getFontfaces,
-    getCurrentStyle, getCurrentDOM
+    getCurrentStyle, getCurrentDOM, toggleEditorOnly
 } from '../actions';
 import { extractActiveValue, arrayToString, extractFontValueToCSS, extractAssetUrl, findProp } from '../utils/functions';
+import ButtonAction from "../components/ui/ButtonAction";
 
 
 class App extends React.Component {
@@ -169,6 +170,16 @@ class App extends React.Component {
                 <div className={'container'} ref={elem => this.nv = elem}>
                     <section>
                         <MainContainer className={'container'} >
+                            <ChoiceInterface>
+                                <ButtonAction type={''} label={'Editeur'} active={this.props.store.getState().visibility.editorOnly} action={() => {
+                                    this.props.dispatch(toggleEditorOnly(true))
+                                }}
+                                />
+                                <ButtonAction type={''} disabled={false} label={'Integrateur'} active={!this.props.store.getState().visibility.editorOnly} action={() => {
+                                    this.props.dispatch(toggleEditorOnly(false))
+                                }}
+                                />
+                            </ChoiceInterface>
                             <ButtonAddSection onTop={true}/>
                             <AddSection open={this.props.store.getState().visibility.openFormAddSectionToTop} onTop={true}/>
                             { this.renderDomStructure() }

@@ -1,3 +1,15 @@
+import {
+    alignmentStart,
+    black, borderRadius, borderWidth,
+    grey70,
+    margin,
+    opacity,
+    padding, paragraph, textPropsCenter,
+    transparent,
+    white
+} from "../../utils/atom.model.config";
+import {settingsSingleImage} from "../../utils/organism.model.config";
+
 export default {
     model: 'NavigationBasic',
     fields: [
@@ -35,47 +47,17 @@ export default {
 
                             },
                             padding: {
-                                basic: {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                },
-                                scroll: {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                }
+                                basic: padding,
+                                scroll: padding
 
                             },
                             margin: {
-                                basic: {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                },
-                                scroll: {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                }
+                                basic: margin,
+                                scroll: margin
                             },
                             color: {
-                                basic: {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
-                                    shade: null
-                                },
-                                scroll: {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
-                                    shade: null
-                                }
+                                basic: white,
+                                scroll: white
 
                             },
                             opacity: {
@@ -109,47 +91,17 @@ export default {
 
                             },
                             padding: {
-                                basic: {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                },
-                                scroll: {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                }
+                                basic: padding,
+                                scroll: padding
 
                             },
                             margin: {
-                                basic: {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                },
-                                scroll: {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                }
+                                basic: margin,
+                                scroll: margin
                             },
                             color: {
-                                basic: {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
-                                    shade: null
-                                },
-                                scroll: {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
-                                    shade: null
-                                }
+                                basic: white,
+                                scroll: white
 
                             },
                             opacity: {
@@ -183,47 +135,17 @@ export default {
 
                             },
                             padding: {
-                                basic: {
-                                    top: '0',
-                                    right: '20',
-                                    bottom: '0',
-                                    left: '20'
-                                },
-                                scroll: {
-                                    top: '0',
-                                    right: '20',
-                                    bottom: '0',
-                                    left: '20'
-                                }
+                                basic: padding,
+                                scroll: padding
 
                             },
                             margin: {
-                                basic: {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                },
-                                scroll: {
-                                    top: '0',
-                                    right: '0',
-                                    bottom: '0',
-                                    left: '0'
-                                }
+                                basic: margin,
+                                scroll: margin
                             },
                             color: {
-                                basic: {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
-                                    shade: null
-                                },
-                                scroll: {
-                                    hex: '#FFFFFF',
-                                    rgb: '255,255,255',
-                                    name: 'White',
-                                    shade: null
-                                }
+                                basic: white,
+                                scroll: white
 
                             },
                             opacity: {
@@ -243,72 +165,30 @@ export default {
                                 width: '30',
                                 height: ''
                             },
-                            fill: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'Black',
-                                shade: null
-                            },
-                            opacityFill: {
-                                value: '1'
-                            },
-                            color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
+                            fill: black,
+                            opacityFill: opacity,
+                            color: white,
+                            opacity: opacity
                         },
                         T: {
                             size: {
                                 width: '30',
                                 height: ''
                             },
-                            fill: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'Black',
-                                shade: null
-                            },
-                            opacityFill: {
-                                value: '1'
-                            },
-                            color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
+                            ill: black,
+                            opacityFill: opacity,
+                            color: white,
+                            opacity: opacity
                         },
                         D: {
                             size: {
                                 width: '30',
                                 height: ''
                             },
-                            fill: {
-                                hex: 'transparent',
-                                rgb: '',
-                                name: 'Transparent',
-                                shade: null
-                            },
-                            opacityFill: {
-                                value: '1'
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'Black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
+                            fill: transparent,
+                            opacityFill: opacity,
+                            color: black,
+                            opacity: opacity
                         }
                     },
                     burger: {
@@ -317,45 +197,24 @@ export default {
                                 width: '50',
                                 height: '50'
                             },
-                            fill: {
-                                hex: '#666666',
-                                rgb: '102,102,102',
-                                name: 'Grey',
-                                shade: '70'
-                            },
-                            opacityFill: {
-                                value: '1'
-                            }
+                            fill: grey70,
+                            opacityFill: opacity
                         },
                         T: {
                             size: {
                                 width: '50',
                                 height: '50'
                             },
-                            fill: {
-                                hex: '#666666',
-                                rgb: '102,102,102',
-                                name: 'Grey',
-                                shade: '70'
-                            },
-                            opacityFill: {
-                                value: '1'
-                            }
+                            fill: grey70,
+                            opacityFill: opacity
                         },
                         D: {
                             size: {
                                 width: '50',
                                 height: '50'
                             },
-                            fill: {
-                                hex: '#666666',
-                                rgb: '102,102,102',
-                                name: 'Grey',
-                                shade: '70'
-                            },
-                            opacityFill: {
-                                value: '1'
-                            }
+                            fill: grey70,
+                            opacityFill: opacity
                         }
                     }
                 }
@@ -389,45 +248,17 @@ export default {
                                 bottom: '10',
                                 left: '20'
                             },
-                            margin: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'flex-start'
-                            },
+                            margin: margin,
+                            alignment: alignmentStart,
                             color: {
-                                basic: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                },
-                                hover: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                },
-                                active: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                }
+                                basic: transparent,
+                                hover: transparent,
+                                active: transparent
                             },
                             opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                hover: {
-                                    value: '1'
-                                },
-                                active: {
-                                    value: '1'
-                                }
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
                             }
                         },
                         T: {
@@ -444,45 +275,17 @@ export default {
                                 bottom: '10',
                                 left: '15'
                             },
-                            margin: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'flex-start'
-                            },
+                            margin: margin,
+                            alignment: alignmentStart,
                             color: {
-                                basic: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                },
-                                hover: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                },
-                                active: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                }
+                                basic: transparent,
+                                hover: transparent,
+                                active: transparent
                             },
                             opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                hover: {
-                                    value: '1'
-                                },
-                                active: {
-                                    value: '1'
-                                }
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
                             }
                         },
                         D: {
@@ -499,284 +302,92 @@ export default {
                                 bottom: '10',
                                 left: '15'
                             },
-                            margin: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'flex-start'
-                            },
+                            margin: margin,
+                            alignment: alignmentStart,
                             color: {
-                                basic: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                },
-                                hover: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                },
-                                active: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                }
+                                basic: transparent,
+                                hover: transparent,
+                                active: transparent
                             },
                             opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                hover: {
-                                    value: '1'
-                                },
-                                active: {
-                                    value: '1'
-                                }
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
                             }
                         }
                     },
                     typography: {
                         M: {
-                            font: {
-                                theme: 'Paragraph',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'center',
-                                transform: null,
-                                decoration: null
-                            },
+                            font: paragraph,
+                            text: textPropsCenter,
                             color: {
-                                basic: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'Black',
-                                    shade: null
-                                },
-                                hover: {
-                                    hex: '#666666',
-                                    rgb: '102,102,102',
-                                    name: 'Grey',
-                                    shade: '70'
-                                },
-                                active: {
-                                    hex: '#666666',
-                                    rgb: '102,102,102',
-                                    name: 'Grey',
-                                    shade: '70'
-                                }
+                                basic: black,
+                                hover: grey70,
+                                active: grey70
                             },
                             opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                hover: {
-                                    value: '1'
-                                },
-                                active: {
-                                    value: '1'
-                                }
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
                             }
                         },
                         T: {
-                            font: {
-                                theme: 'Paragraph',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'center',
-                                transform: null,
-                                decoration: null
-                            },
+                            font: paragraph,
+                            text: textPropsCenter,
                             color: {
-                                basic: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'Black',
-                                    shade: null
-                                },
-                                hover: {
-                                    hex: '#666666',
-                                    rgb: '102,102,102',
-                                    name: 'Grey',
-                                    shade: '70'
-                                },
-                                active: {
-                                    hex: '#666666',
-                                    rgb: '102,102,102',
-                                    name: 'Grey',
-                                    shade: '70'
-                                }
+                                basic: black,
+                                hover: grey70,
+                                active: grey70
                             },
                             opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                hover: {
-                                    value: '1'
-                                },
-                                active: {
-                                    value: '1'
-                                }
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
                             }
                         },
                         D: {
-                            font: {
-                                theme: 'Paragraph',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'center',
-                                transform: null,
-                                decoration: null
-                            },
+                            font: paragraph,
+                            text: textPropsCenter,
                             color: {
-                                basic: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'Black',
-                                    shade: null
-                                },
-                                hover: {
-                                    hex: '#666666',
-                                    rgb: '102,102,102',
-                                    name: 'Grey',
-                                    shade: '70'
-                                },
-                                active: {
-                                    hex: '#666666',
-                                    rgb: '102,102,102',
-                                    name: 'Grey',
-                                    shade: '70'
-                                }
+                                basic: black,
+                                hover: grey70,
+                                active: grey70
                             },
                             opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                hover: {
-                                    value: '1'
-                                },
-                                active: {
-                                    value: '1'
-                                }
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
                             }
                         },
 
                     },
                     border: {
                         M: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            radius: {
-                                topLeft: '0',
-                                topRight: '0',
-                                bottomLeft: '0',
-                                bottomRight: '0'
-                            },
+                            width: borderWidth,
+                            radius: borderRadius,
                             color: {
-                                basic: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                },
-                                hover: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                },
-                                active: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                }
+                                basic: transparent,
+                                hover: transparent,
+                                active: transparent
                             },
                             opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                hover: {
-                                    value: '1'
-                                },
-                                active: {
-                                    value: '1'
-                                }
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
                             }
                         },
                         T: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            radius: {
-                                topLeft: '0',
-                                topRight: '0',
-                                bottomLeft: '0',
-                                bottomRight: '0'
-                            },
+                            width: borderWidth,
+                            radius: borderRadius,
                             color: {
-                                basic: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                },
-                                hover: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                },
-                                active: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                }
+                                basic: transparent,
+                                hover: transparent,
+                                active: transparent
                             },
                             opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                hover: {
-                                    value: '1'
-                                },
-                                active: {
-                                    value: '1'
-                                }
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
                             }
                         },
                         D: {
@@ -786,42 +397,16 @@ export default {
                                 bottom: '1',
                                 left: '0'
                             },
-                            radius: {
-                                topLeft: '0',
-                                topRight: '0',
-                                bottomLeft: '0',
-                                bottomRight: '0'
-                            },
+                            radius: borderRadius,
                             color: {
-                                basic: {
-                                    hex: 'transparent',
-                                    rgb: '',
-                                    name: 'Transparent',
-                                    shade: null
-                                },
-                                hover: {
-                                    hex: '#666666',
-                                    rgb: '102,102,102',
-                                    name: 'Grey',
-                                    shade: '70'
-                                },
-                                active: {
-                                    hex: '#666666',
-                                    rgb: '102,102,102',
-                                    name: 'Grey',
-                                    shade: '70'
-                                }
+                                basic: transparent,
+                                hover: transparent,
+                                active: transparent
                             },
                             opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                hover: {
-                                    value: '1'
-                                },
-                                active: {
-                                    value: '1'
-                                }
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
                             }
                         }
                     }
@@ -847,86 +432,7 @@ export default {
                     ]
                 }
             },
-            settings: {
-                responsive: ['M', 'T', 'D'],
-                defaultValue: {
-                    basis: {
-                        M: {
-                            size: {
-                                width: '',
-                                height: '30',
-                                maxWidth: '',
-                                maxHeight: ''
-
-                            },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            margin: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '20'
-                            },
-                            alignment: {
-                                horizontal: 'flex-start'
-                            }
-                        },
-                        T: {
-                            size: {
-                                width: '',
-                                height: '30',
-                                maxWidth: '',
-                                maxHeight: ''
-
-                            },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            margin: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '20'
-                            },
-                            alignment: {
-                                horizontal: 'flex-start'
-                            }
-                        },
-                        D: {
-                            size: {
-                                width: '',
-                                height: '30',
-                                maxWidth: '',
-                                maxHeight: ''
-
-                            },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            margin: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'flex-start'
-                            }
-                        }
-                    }
-                }
-            }
-
+            settings: settingsSingleImage
         }
     ]
 };

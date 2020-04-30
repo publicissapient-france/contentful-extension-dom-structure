@@ -214,6 +214,15 @@ export const Content = styled.div`
         }
    }
 `;
+export const CheckboxAnimation = styled.div`
+   display : flex;
+   padding-top : 20px;
+   paddint-bottom : 20px;
+   &>input{
+        width : 20px;
+        height : 20px;
+   }
+`;
 
 export const ButtonEvents = styled.div`
    display : flex; 

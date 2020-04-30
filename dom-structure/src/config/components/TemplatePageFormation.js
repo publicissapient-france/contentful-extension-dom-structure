@@ -1,17 +1,17 @@
 import {
-    settingsCTA,
+    settingsCTA, settingsCTAnoState,
     settingsSingleImage,
     settingsTemplate,
     settingsText,
     settingsTitle
-} from "../../utils/model.config";
+} from "../../utils/organism.model.config";
 
 export default {
     model: 'TemplatePageFormation',
     fields: [
         {
             name: 'Header Template',
-            nameProperty: 'TemplateHeader',
+            nameProperty: 'HeaderTemplate',
             typeField: 'Template',
             content: {
                 responsive: ['M', 'T', 'D'],
@@ -23,7 +23,7 @@ export default {
         },
         {
             name: 'Header Title',
-            nameProperty: 'TitleHeader',
+            nameProperty: 'HeaderTitle',
             typeField: 'Text',
             content: {
                 responsive: ['A'],
@@ -34,7 +34,7 @@ export default {
         },
         {
             name: 'Header Tagline',
-            nameProperty: 'TaglineHeader',
+            nameProperty: 'HeaderTagline',
             typeField: 'Text',
             content: {
                 responsive: ['A'],
@@ -44,8 +44,41 @@ export default {
             settings: settingsTitle
         },
         {
-            name: 'Main Title',
-            nameProperty: 'TitleMain',
+            name: 'Main Template',
+            nameProperty: 'MainTemplate',
+            typeField: 'Template',
+            content: {
+                responsive: ['M', 'T', 'D'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsTemplate
+        },
+        {
+            name: 'Main Heading 1',
+            nameProperty: 'MainHeading1',
+            typeField: 'Text',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsTitle
+        },
+        {
+            name: 'Main Heading 2',
+            nameProperty: 'MainHeading2',
+            typeField: 'Text',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsTitle
+        },
+        {
+            name: 'Main Heading 3',
+            nameProperty: 'MainHeading3',
             typeField: 'Text',
             content: {
                 responsive: ['A'],
@@ -56,7 +89,7 @@ export default {
         },
         {
             name: 'Main Content',
-            nameProperty: 'ContentMain',
+            nameProperty: 'MainContent',
             typeField: 'TextMarkdown',
             content: {
                 responsive: ['A'],
@@ -89,7 +122,7 @@ export default {
         },
         {
             name: 'Program Title',
-            nameProperty: 'TitleProgram',
+            nameProperty: 'ProgramTitle',
             typeField: 'Text',
             content: {
                 responsive: ['A'],
@@ -102,7 +135,7 @@ export default {
         },
         {
             name: 'Method Title',
-            nameProperty: 'TitleMethod',
+            nameProperty: 'MethodTitle',
             typeField: 'Text',
             content: {
                 responsive: ['A'],
@@ -114,8 +147,8 @@ export default {
             settings: {}
         },
         {
-            name: 'Public Template',
-            nameProperty: 'TemplatePublic',
+            name: 'Badge Template',
+            nameProperty: 'BadgeTemplate',
             typeField: 'Template',
             content: {
                 responsive: ['M', 'T', 'D'],
@@ -125,32 +158,19 @@ export default {
             settings: settingsTemplate
         },
         {
-            name: 'Public Title',
-            nameProperty: 'TitlePublic',
-            typeField: 'Text',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {
-                    text: {}
-                }
-            },
-            settings: settingsTitle
-        },
-        {
-            name: 'Public Content',
-            nameProperty: 'ContentPublic',
-            typeField: 'TextMarkdown',
+            name: 'Badge Image',
+            nameProperty: 'BadgeImage',
+            typeField: 'SingleImage',
             content: {
                 responsive: ['A'],
                 parameters: {},
                 defaultValue: {}
             },
-            settings: settingsText
+            settings: settingsSingleImage
         },
         {
-            name: 'Prerequisite Template',
-            nameProperty: 'TemplatePrerequisite',
+            name: 'Session Insert Template',
+            nameProperty: 'SessionTemplate',
             typeField: 'Template',
             content: {
                 responsive: ['M', 'T', 'D'],
@@ -160,32 +180,19 @@ export default {
             settings: settingsTemplate
         },
         {
-            name: 'Prerequisite Title',
-            nameProperty: 'TitlePrerequisite',
+            name: 'Session Insert Title',
+            nameProperty: 'SessionTitle',
             typeField: 'Text',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {
-                    text: {}
-                }
-            },
-            settings: settingsTitle
-        },
-        {
-            name: 'Prerequisite Content',
-            nameProperty: 'ContentPrerequisite',
-            typeField: 'TextMarkdown',
             content: {
                 responsive: ['A'],
                 parameters: {},
                 defaultValue: {}
             },
-            settings: settingsText
+            settings: settingsTitle
         },
         {
-            name: 'Goal Template',
-            nameProperty: 'TemplateGoal',
+            name: 'Promo Template',
+            nameProperty: 'PromoTemplate',
             typeField: 'Template',
             content: {
                 responsive: ['M', 'T', 'D'],
@@ -195,22 +202,20 @@ export default {
             settings: settingsTemplate
         },
         {
-            name: 'Goal Title',
-            nameProperty: 'TitleGoal',
+            name: 'Promo Title',
+            nameProperty: 'PromoTitle',
             typeField: 'Text',
             content: {
                 responsive: ['A'],
                 parameters: {},
-                defaultValue: {
-                    text: {}
-                }
+                defaultValue: {}
             },
             settings: settingsTitle
         },
         {
-            name: 'Goal Content',
-            nameProperty: 'ContentGoal',
-            typeField: 'TextMarkdown',
+            name: 'Promo Tagline',
+            nameProperty: 'PromoTagline',
+            typeField: 'Text',
             content: {
                 responsive: ['A'],
                 parameters: {},
@@ -219,78 +224,22 @@ export default {
             settings: settingsText
         },
         {
-            name: 'Certification Template',
-            nameProperty: 'TemplateCertification',
-            typeField: 'Template',
-            content: {
-                responsive: ['M', 'T', 'D'],
-                parameters: {},
-                defaultValue: {}
-            },
-            settings: settingsTemplate
-        },
-        {
-            name: 'Certification Title',
-            nameProperty: 'TitleCertification',
-            typeField: 'Text',
+            name: 'Inscription CTA',
+            nameProperty: 'InscriptionCTA',
+            typeField: 'CTA',
             content: {
                 responsive: ['A'],
-                parameters: {},
                 defaultValue: {
-                    text: {}
+                    text: {},
+                    icon: {}
                 }
             },
-            settings: settingsTitle
-        },
-        {
-            name: 'Certification Content',
-            nameProperty: 'ContentCertification',
-            typeField: 'TextMarkdown',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {}
-            },
-            settings: settingsText
-        },
-        {
-            name: 'Validation Template',
-            nameProperty: 'TemplateValidation',
-            typeField: 'Template',
-            content: {
-                responsive: ['M', 'T', 'D'],
-                parameters: {},
-                defaultValue: {}
-            },
-            settings: settingsTemplate
-        },
-        {
-            name: 'Validation Title',
-            nameProperty: 'TitleValidation',
-            typeField: 'Text',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {
-                    text: {}
-                }
-            },
-            settings: settingsTitle
-        },
-        {
-            name: 'Validation Content',
-            nameProperty: 'ContentValidation',
-            typeField: 'TextMarkdown',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {}
-            },
-            settings: settingsText
+            settings: settingsCTAnoState
+
         },
         {
             name: 'Contact Template',
-            nameProperty: 'TemplateContact',
+            nameProperty: 'ContactTemplate',
             typeField: 'Template',
             content: {
                 responsive: ['M', 'T', 'D'],
@@ -301,7 +250,7 @@ export default {
         },
         {
             name: 'Contact Title',
-            nameProperty: 'TitleContact',
+            nameProperty: 'ContactTitle',
             typeField: 'Text',
             content: {
                 responsive: ['A'],
@@ -314,7 +263,7 @@ export default {
         },
         {
             name: 'CTA Contact',
-            nameProperty: 'CTAContact',
+            nameProperty: 'ContactCTA',
             typeField: 'CTA',
             content: {
                 responsive: ['A'],
@@ -329,24 +278,8 @@ export default {
 
         },
         {
-            name: 'CTA Inscription',
-            nameProperty: 'CTAInscription',
-            typeField: 'CTA',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {
-                    text: {},
-                    link: {},
-                    icon: {}
-                }
-            },
-            settings: settingsCTA
-
-        },
-        {
-            name: 'Session Template',
-            nameProperty: 'TemplateSession',
+            name: 'Partner Template',
+            nameProperty: 'PartnerTemplate',
             typeField: 'Template',
             content: {
                 responsive: ['M', 'T', 'D'],
@@ -356,8 +289,8 @@ export default {
             settings: settingsTemplate
         },
         {
-            name: 'Session Title',
-            nameProperty: 'TitleSession',
+            name: 'Partner Title',
+            nameProperty: 'PartnerTitle',
             typeField: 'Text',
             content: {
                 responsive: ['A'],
@@ -369,65 +302,8 @@ export default {
             settings: settingsTitle
         },
         {
-            name: 'Session Content',
-            nameProperty: 'ContentSession',
-            typeField: 'TextMarkdown',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {}
-            },
-            settings: settingsText
-        },
-        {
-            name: 'Session Content Bold',
-            nameProperty: 'ContentSessionBold',
-            typeField: 'TextMarkdown',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {}
-            },
-            settings: settingsText
-        },
-        {
-            name: 'Promo Template',
-            nameProperty: 'TemplatePromo',
-            typeField: 'Template',
-            content: {
-                responsive: ['M', 'T', 'D'],
-                parameters: {},
-                defaultValue: {}
-            },
-            settings: settingsTemplate
-        },
-        {
-            name: 'Promo Title',
-            nameProperty: 'TitlePromo',
-            typeField: 'Text',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {
-                    text: {}
-                }
-            },
-            settings: settingsTitle
-        },
-        {
-            name: 'Promo Tagline',
-            nameProperty: 'TaglinePromo',
-            typeField: 'Text',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {}
-            },
-            settings: settingsText
-        },
-        {
-            name: 'Image Certification',
-            nameProperty: 'ImageCertification',
+            name: 'Partner Image',
+            nameProperty: 'PartnerImage',
             typeField: 'SingleImage',
             content: {
                 responsive: ['A'],
@@ -435,10 +311,184 @@ export default {
                 defaultValue: {}
             },
             settings: settingsSingleImage
+        },{
+            name: 'Public Template',
+            nameProperty: 'TemplatePublic',
+            typeField: 'Template',
+            content: {
+                responsive: ['M', 'T', 'D'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsTemplate
         },
         {
-            name: 'Formation Title',
-            nameProperty: 'TitleFormation',
+            name: 'Public Title',
+            nameProperty: 'PublicTitle',
+            typeField: 'Text',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                    text: {}
+                }
+            },
+            settings: settingsTitle
+        },
+        {
+            name: 'Public Content',
+            nameProperty: 'PublicContent',
+            typeField: 'TextMarkdown',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsText
+        },
+        {
+            name: 'Prerequisite Template',
+            nameProperty: 'PrerequisiteTemplate',
+            typeField: 'Template',
+            content: {
+                responsive: ['M', 'T', 'D'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsTemplate
+        },
+        {
+            name: 'Prerequisite Title',
+            nameProperty: 'PrerequisiteTitle',
+            typeField: 'Text',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                    text: {}
+                }
+            },
+            settings: settingsTitle
+        },
+        {
+            name: 'Prerequisite Content',
+            nameProperty: 'PrerequisiteContent',
+            typeField: 'TextMarkdown',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsText
+        },
+        {
+            name: 'Goal Template',
+            nameProperty: 'GoalTemplate',
+            typeField: 'Template',
+            content: {
+                responsive: ['M', 'T', 'D'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsTemplate
+        },
+        {
+            name: 'Goal Title',
+            nameProperty: 'GoalTitle',
+            typeField: 'Text',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                    text: {}
+                }
+            },
+            settings: settingsTitle
+        },
+        {
+            name: 'Goal Content',
+            nameProperty: 'GoalContent',
+            typeField: 'TextMarkdown',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsText
+        },
+        {
+            name: 'Certification Template',
+            nameProperty: 'CertificationTemplate',
+            typeField: 'Template',
+            content: {
+                responsive: ['M', 'T', 'D'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsTemplate
+        },
+        {
+            name: 'Certification Title',
+            nameProperty: 'CertificationTitle',
+            typeField: 'Text',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                    text: {}
+                }
+            },
+            settings: settingsTitle
+        },
+        {
+            name: 'Certification Content',
+            nameProperty: 'CertificationContent',
+            typeField: 'TextMarkdown',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsText
+        },
+        {
+            name: 'Validation Template',
+            nameProperty: 'ValidationTemplate',
+            typeField: 'Template',
+            content: {
+                responsive: ['M', 'T', 'D'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsTemplate
+        },
+        {
+            name: 'Validation Title',
+            nameProperty: 'ValidationTitle',
+            typeField: 'Text',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                    text: {}
+                }
+            },
+            settings: settingsTitle
+        },
+        {
+            name: 'Validation Content',
+            nameProperty: 'ValidationContent',
+            typeField: 'TextMarkdown',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsText
+        },
+        {
+            name: 'Trainers Title',
+            nameProperty: 'TrainersTitle',
             typeField: 'Text',
             content: {
                 responsive: ['A'],
@@ -450,8 +500,8 @@ export default {
             settings: {}
         },
         {
-            name: 'Former Image',
-            nameProperty: 'ImageFormer',
+            name: 'Trainer Image',
+            nameProperty: 'TrainerImage',
             typeField: 'SingleImage',
             content: {
                 responsive: ['A'],
@@ -461,8 +511,8 @@ export default {
             settings: settingsSingleImage
         },
         {
-            name: 'Former Title',
-            nameProperty: 'Title Former',
+            name: 'Trainer Title',
+            nameProperty: 'TrainerTitle',
             typeField: 'Text',
             content: {
                 responsive: ['A'],
@@ -471,6 +521,5 @@ export default {
             },
             settings: settingsTitle
         }
-
     ]
 };

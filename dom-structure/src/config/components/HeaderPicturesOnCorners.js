@@ -1,3 +1,6 @@
+import {black, opacity, backgroundPosition, padding, margin, alignmentCenter} from "../../utils/atom.model.config";
+import {settingsTagline, settingsTitle} from "../../utils/organism.model.config";
+
 export default {
     model: 'HeaderPicturesOnCorners',
     order : ['Image', 'Title', 'Tagline'],
@@ -16,46 +19,19 @@ export default {
                 defaultValue: {
                     basis : {
                         M: {
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
-                            background : {
-                                top : '0'
-                            }
+                            color: black,
+                            opacity: opacity,
+                            background : backgroundPosition
                         },
                         T: {
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
-                            background : {
-                                top : '0'
-                            }
+                            color: black,
+                            opacity: opacity,
+                            background : backgroundPosition
                         },
                         D: {
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
-                            background : {
-                                top : '0'
-                            }
+                            color: black,
+                            opacity: opacity,
+                            background : backgroundPosition
                         }
                     }
                 }
@@ -72,191 +48,7 @@ export default {
                     text: {}
                 }
             },
-            settings: {
-                responsive: ['M', 'T', 'D'],
-                defaultValue: {
-                    basis: {
-                        M: {
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            }
-                        },
-                        T: {
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            }
-                        },
-                        D: {
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            }
-                        }
-                    },
-                    typography: {
-                        M: {
-                            font: {
-                                theme: 'Title2',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'center',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        },
-                        T: {
-                            font: {
-                                theme: 'Title2',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'center',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        },
-                        D: {
-                            font: {
-                                theme: 'Title2',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'center',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        }
-                    },
-                    border: {
-                        M: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            radius: {
-                                topLeft: '0',
-                                topRight: '0',
-                                bottomLeft: '0',
-                                bottomRight: '0'
-                            },
-                            color: {
-                                hex: 'transparent',
-                                rgb: '',
-                                name: 'Transparent',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        },
-                        T: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            radius: {
-                                topLeft: '0',
-                                topRight: '0',
-                                bottomLeft: '0',
-                                bottomRight: '0'
-                            },
-                            color: {
-                                hex: 'transparent',
-                                rgb: '',
-                                name: 'Transparent',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        },
-                        D: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            radius: {
-                                topLeft: '0',
-                                topRight: '0',
-                                bottomLeft: '0',
-                                bottomRight: '0'
-                            },
-                            color: {
-                                hex: 'transparent',
-                                rgb: '',
-                                name: 'Transparent',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        }
-                    },
-                    seo: {
-                        tag: 'h2'
-                    }
-                }
-            }
+            settings: settingsTitle
 
         },
         {
@@ -270,191 +62,7 @@ export default {
                     text: {}
                 }
             },
-            settings: {
-                responsive: ['M', 'T', 'D'],
-                defaultValue: {
-                    basis: {
-                        M: {
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            }
-                        },
-                        T: {
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            }
-                        },
-                        D: {
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            }
-                        }
-                    },
-                    typography: {
-                        M: {
-                            font: {
-                                theme: 'TitleLight',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'center',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        },
-                        T: {
-                            font: {
-                                theme: 'TitleLight',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'center',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        },
-                        D: {
-                            font: {
-                                theme: 'TitleLight',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'center',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        }
-                    },
-                    border: {
-                        M: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            radius: {
-                                topLeft: '0',
-                                topRight: '0',
-                                bottomLeft: '0',
-                                bottomRight: '0'
-                            },
-                            color: {
-                                hex: 'transparent',
-                                rgb: '',
-                                name: 'Transparent',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        },
-                        T: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            radius: {
-                                topLeft: '0',
-                                topRight: '0',
-                                bottomLeft: '0',
-                                bottomRight: '0'
-                            },
-                            color: {
-                                hex: 'transparent',
-                                rgb: '',
-                                name: 'Transparent',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        },
-                        D: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            radius: {
-                                topLeft: '0',
-                                topRight: '0',
-                                bottomLeft: '0',
-                                bottomRight: '0'
-                            },
-                            color: {
-                                hex: 'transparent',
-                                rgb: '',
-                                name: 'Transparent',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        }
-                    },
-                    seo: {
-                        tag: 'h3'
-                    }
-                }
-            }
+            settings: settingsTagline
 
         },
         {
@@ -487,21 +95,9 @@ export default {
                                 maxHeight: ''
 
                             },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            margin: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'center'
-                            }
+                            padding: padding,
+                            margin: margin,
+                            alignment: alignmentCenter
                         },
                         T: {
                             size: {
@@ -511,21 +107,9 @@ export default {
                                 maxHeight: ''
 
                             },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            margin: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'center'
-                            }
+                            padding: padding,
+                            margin: margin,
+                            alignment: alignmentCenter
                         },
                         D: {
                             size: {
@@ -535,21 +119,9 @@ export default {
                                 maxHeight: ''
 
                             },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            margin: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'center'
-                            }
+                            padding: padding,
+                            margin: margin,
+                            alignment: alignmentCenter
                         }
                     }
                 }
@@ -625,7 +197,6 @@ export default {
                     }
                 }
             }
-
         }
     ]
 };

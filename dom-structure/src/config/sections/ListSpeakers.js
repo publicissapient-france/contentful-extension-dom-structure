@@ -1,3 +1,17 @@
+import {settingsFlexContainer, settingsSectionTemplate} from "../../utils/organism.model.config";
+import {
+    alignmentStart,
+    black,
+    opacity,
+    padding,
+    paragraph,
+    shadow, textProps,
+    textPropsCenter,
+    title3, title4,
+    white
+} from "../../utils/atom.model.config";
+import {borderMTD} from "../../utils/molecules.model.config";
+
 export default {
     model: 'ListSpeakers',
     fields: [
@@ -21,126 +35,7 @@ export default {
                     ]
                 }
             },
-            settings: {
-                responsive: ['M', 'T', 'D'],
-                defaultValue: {
-                    basis: {
-                        M: {
-                            padding: {
-                                top: '0',
-                                right: '20',
-                                bottom: '0',
-                                left: '20'
-                            },
-                            color: {
-                                hex: '#F0F0F0',
-                                rgb: '240,240,240',
-                                name: 'Grey',
-                                shade: '10'
-                            },
-                            opacity: {
-                                value: '1'
-                            },
-                            background : {
-                                top : '0'
-                            }
-                        },
-                        T: {
-                            padding: {
-                                top: '0',
-                                right: '20',
-                                bottom: '0',
-                                left: '20'
-                            },
-                            color: {
-                                hex: '#F0F0F0',
-                                rgb: '240,240,240',
-                                name: 'Grey',
-                                shade: '10'
-                            },
-                            opacity: {
-                                value: '1'
-                            },
-                            background : {
-                                top : '0'
-                            }
-                        },
-                        D: {
-                            padding: {
-                                top: '0',
-                                right: '20',
-                                bottom: '0',
-                                left: '20'
-                            },
-                            color: {
-                                hex: '#F0F0F0',
-                                rgb: '240,240,240',
-                                name: 'Grey',
-                                shade: '10'
-                            },
-                            opacity: {
-                                value: '1'
-                            },
-                            background : {
-                                top : '0'
-                            }
-                        }
-                    },
-                    border: {
-                        M: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            color: {
-                                hex: 'transparent',
-                                rgb: '',
-                                name: 'Transparent',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        },
-                        T: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            color: {
-                                hex: 'transparent',
-                                rgb: '',
-                                name: 'Transparent',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        },
-                        D: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            color: {
-                                hex: 'transparent',
-                                rgb: '',
-                                name: 'Transparent',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        }
-                    }
-                }
-            }
+            settings: settingsSectionTemplate
 
         },
         {
@@ -153,49 +48,7 @@ export default {
                 defaultValue: {
                 }
             },
-            settings: {
-                responsive : ['M', 'T', 'D'],
-                defaultValue: {
-                    flex : {
-                        M : {
-                            properties : {
-                                columns : '1',
-                                gutterHorizontal : '0',
-                                gutterVertical : '20',
-                                direction : 'row',
-                                wrap : 'wrap',
-                                justify : 'flex-start',
-                                alignItems : 'flex-start',
-                                alignContent : 'flex-start'
-                            }
-                        },
-                        T : {
-                            properties : {
-                                columns : '3',
-                                gutterHorizontal : '20',
-                                gutterVertical : '20',
-                                direction : 'row',
-                                wrap : 'wrap',
-                                justify : 'flex-start',
-                                alignItems : 'stretch',
-                                alignContent : 'flex-start'
-                            }
-                        },
-                        D : {
-                            properties : {
-                                columns : '4',
-                                gutterHorizontal : '20',
-                                gutterVertical : '20',
-                                direction : 'row',
-                                wrap : 'wrap',
-                                justify : 'flex-start',
-                                alignItems : 'stretch',
-                                alignContent : 'flex-start'
-                            }
-                        }
-                    }
-                }
-            }
+            settings: settingsFlexContainer
 
         },
         {
@@ -212,129 +65,32 @@ export default {
                 defaultValue: {
                     basis: {
                         M: {
-                            color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
-                            shadow: {
-                                value: 'none'
-                            },
+                            color: white,
+                            opacity: opacity,
+                            shadow: shadow,
                             shadow2: {
                                 value: '0px 20px 40px 0px rgba(45,69,112,0.4)'
                             }
 
                         },
                         T: {
-                            color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
-                            shadow: {
-                                value: 'none'
-                            },
+                            color: white,
+                            opacity: opacity,
+                            shadow: shadow,
                             shadow2: {
                                 value: '0px 20px 40px 0px rgba(45,69,112,0.4)'
                             }
                         },
                         D: {
-                            color: {
-                                hex: '#FFFFFF',
-                                rgb: '255,255,255',
-                                name: 'White',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
-                            shadow: {
-                                value: 'none'
-                            },
+                            color: white,
+                            opacity: opacity,
+                            shadow: shadow,
                             shadow2: {
                                 value: '0px 20px 40px 0px rgba(45,69,112,0.4)'
                             }
                         }
                     },
-                    border: {
-                        M: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            radius: {
-                                topLeft: '0',
-                                topRight: '0',
-                                bottomLeft: '0',
-                                bottomRight: '0'
-                            },
-                            color: {
-                                hex: 'transparent',
-                                rgb: '',
-                                name: 'Transparent',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        },
-                        T: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            radius: {
-                                topLeft: '0',
-                                topRight: '0',
-                                bottomLeft: '0',
-                                bottomRight: '0'
-                            },
-                            color: {
-                                hex: 'transparent',
-                                rgb: '',
-                                name: 'Transparent',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        },
-                        D: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            radius: {
-                                topLeft: '0',
-                                topRight: '0',
-                                bottomLeft: '0',
-                                bottomRight: '0'
-                            },
-                            color: {
-                                hex: 'transparent',
-                                rgb: '',
-                                name: 'Transparent',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            }
-                        }
-                    }
+                    border: borderMTD
                 }
             }
         },
@@ -364,30 +120,10 @@ export default {
                 defaultValue: {
                     name: {
                         M: {
-                            font: {
-                                theme: 'Title3',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'center',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
+                            font: title3,
+                            text: textPropsCenter,
+                            color: black,
+                            opacity: opacity,
                             padding: {
                                 top: '0',
                                 right: '0',
@@ -396,30 +132,10 @@ export default {
                             }
                         },
                         T: {
-                            font: {
-                                theme: 'Title3',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'left',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
+                            font: title3,
+                            text: textPropsCenter,
+                            color: black,
+                            opacity: opacity,
                             padding: {
                                 top: '0',
                                 right: '0',
@@ -428,30 +144,10 @@ export default {
                             }
                         },
                         D: {
-                            font: {
-                                theme: 'Title3',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'left',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
+                            font: title3,
+                            text: textPropsCenter,
+                            color: black,
+                            opacity: opacity,
                             padding: {
                                 top: '0',
                                 right: '0',
@@ -462,226 +158,56 @@ export default {
                     },
                     job: {
                         M: {
-                            font: {
-                                theme: 'Paragraph',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'center',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            }
+                            font: paragraph,
+                            text: textPropsCenter,
+                            color: black,
+                            opacity: opacity,
+                            padding: padding
                         },
                         T: {
-                            font: {
-                                theme: 'Paragraph',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'left',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            }
+                            font: paragraph,
+                            text: textPropsCenter,
+                            color: black,
+                            opacity: opacity,
+                            padding: padding
                         },
                         D: {
-                            font: {
-                                theme: 'Paragraph',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'left',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            }
+                            font: paragraph,
+                            text: textPropsCenter,
+                            color: black,
+                            opacity: opacity,
+                            padding: padding
                         }
                     },
                     company: {
                         M: {
-                            font: {
-                                theme: 'Paragraph',
-                                family: null,
-                                typeface: null,
-                                weight: ['Bold', '700'],
-                                style: null,
-                                size: '16.8',
-                                lineHeight: '19.2',
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'center',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '0.6'
-                            },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            }
+                            font: paragraph,
+                            text: textPropsCenter,
+                            color: black,
+                            opacity: opacity,
+                            padding: padding
                         },
                         T: {
-                            font: {
-                                theme: 'Paragraph',
-                                family: null,
-                                typeface: null,
-                                weight: ['Bold', '700'],
-                                style: null,
-                                size: '15.4',
-                                lineHeight: '17.6',
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'left',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '0.6'
-                            },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            }
+                            font: paragraph,
+                            text: textPropsCenter,
+                            color: black,
+                            opacity: opacity,
+                            padding: padding
                         },
                         D: {
-                            font: {
-                                theme: 'Paragraph',
-                                family: null,
-                                typeface: null,
-                                weight: ['Bold', '700'],
-                                style: null,
-                                size: '14',
-                                lineHeight: '16',
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'left',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '0.6'
-                            },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            }
+                            font: paragraph,
+                            text: textPropsCenter,
+                            color: black,
+                            opacity: opacity,
+                            padding: padding
                         }
                     },
                     title: {
                         M: {
-                            font: {
-                                theme: 'Title4',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'left',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
+                            font: title4,
+                            text: textProps,
+                            color: black,
+                            opacity: opacity,
                             padding: {
                                 top: '0',
                                 right: '0',
@@ -690,30 +216,10 @@ export default {
                             }
                         },
                         T: {
-                            font: {
-                                theme: 'Title4',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'left',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
+                            font: title4,
+                            text: textProps,
+                            color: black,
+                            opacity: opacity,
                             padding: {
                                 top: '0',
                                 right: '0',
@@ -722,30 +228,10 @@ export default {
                             }
                         },
                         D: {
-                            font: {
-                                theme: 'Title4',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'left',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
+                            font: title4,
+                            text: textProps,
+                            color: black,
+                            opacity: opacity,
                             padding: {
                                 top: '0',
                                 right: '0',
@@ -756,30 +242,10 @@ export default {
                     },
                     text: {
                         M: {
-                            font: {
-                                theme: 'Paragraph',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'left',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
+                            font: paragraph,
+                            text: textProps,
+                            color: black,
+                            opacity: opacity,
                             padding: {
                                 top: '0',
                                 right: '0',
@@ -788,30 +254,10 @@ export default {
                             }
                         },
                         T: {
-                            font: {
-                                theme: 'Paragraph',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'left',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
+                            font: paragraph,
+                            text: textProps,
+                            color: black,
+                            opacity: opacity,
                             padding: {
                                 top: '0',
                                 right: '0',
@@ -820,30 +266,10 @@ export default {
                             }
                         },
                         D: {
-                            font: {
-                                theme: 'Paragraph',
-                                family: null,
-                                typeface: null,
-                                weight: null,
-                                style: null,
-                                size: null,
-                                lineHeight: null,
-                                letterSpacing: '0'
-                            },
-                            text: {
-                                align: 'left',
-                                transform: null,
-                                decoration: null
-                            },
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
-                            opacity: {
-                                value: '1'
-                            },
+                            font: paragraph,
+                            text: textProps,
+                            color: black,
+                            opacity: opacity,
                             padding: {
                                 top: '0',
                                 right: '0',
@@ -868,20 +294,11 @@ export default {
                                     name: 'Grey',
                                     shade: '40'
                                 },
-                                hover: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
-                                    shade: null
-                                }
+                                hover: black
                             },
                             opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                hover: {
-                                    value: '1'
-                                }
+                                basic: opacity,
+                                hover: opacity
                             },
                             margin: {
                                 top: '0',
@@ -905,20 +322,11 @@ export default {
                                     name: 'Grey',
                                     shade: '40'
                                 },
-                                hover: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
-                                    shade: null
-                                }
+                                hover: black
                             },
                             opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                hover: {
-                                    value: '1'
-                                }
+                                basic: opacity,
+                                hover: opacity
                             },
                             margin: {
                                 top: '0',
@@ -942,20 +350,11 @@ export default {
                                     name: 'Grey',
                                     shade: '40'
                                 },
-                                hover: {
-                                    hex: '#000000',
-                                    rgb: '0,0,0',
-                                    name: 'black',
-                                    shade: null
-                                }
+                                hover: black
                             },
                             opacity: {
-                                basic: {
-                                    value: '1'
-                                },
-                                hover: {
-                                    value: '1'
-                                }
+                                basic: opacity,
+                                hover: opacity
                             },
                             margin: {
                                 top: '0',
@@ -967,34 +366,19 @@ export default {
                     },
                     photo: {
                         M: {
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
+                            color: black,
                             opacity: {
                                 value: '0.5'
                             }
                         },
                         T: {
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
+                            color: black,
                             opacity: {
                                 value: '0.5'
                             }
                         },
                         D: {
-                            color: {
-                                hex: '#000000',
-                                rgb: '0,0,0',
-                                name: 'black',
-                                shade: null
-                            },
+                            color: black,
                             opacity: {
                                 value: '0.5'
                             }
@@ -1008,15 +392,8 @@ export default {
                                 maxWidth: '',
                                 maxHeight: ''
                             },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'flex-start'
-                            }
+                            padding: padding,
+                            alignment: alignmentStart
                         },
                         T: {
                             size: {
@@ -1025,15 +402,8 @@ export default {
                                 maxWidth: '',
                                 maxHeight: ''
                             },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'flex-start'
-                            }
+                            padding: padding,
+                            alignment: alignmentStart
                         },
                         D: {
                             size: {
@@ -1042,15 +412,8 @@ export default {
                                 maxWidth: '',
                                 maxHeight: ''
                             },
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '0',
-                                left: '0'
-                            },
-                            alignment: {
-                                horizontal: 'flex-start'
-                            }
+                            padding: padding,
+                            alignment: alignmentStart
                         }
                     }
                 }

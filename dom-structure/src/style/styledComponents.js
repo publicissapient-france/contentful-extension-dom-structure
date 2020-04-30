@@ -326,3 +326,11 @@ export const Error = styled.div`
     color : ${ extensionTheme.redM };
   }
 `;
+
+
+export const ChoiceInterface = styled.div`
+   display : flex;
+   & button{
+    margin-right : 10px;
+   }
+`;

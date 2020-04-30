@@ -167,13 +167,13 @@ class CTA extends Component {
                                                 <label>
                                                     <input type={'checkbox'} defaultChecked={this.getExternal()}
                                                            onChange={(e) => {
-                                                               this.props.updateSettingsNoResponsive('state', {external: !this.getExternal()})
+                                                               this.props.updateSettingsNoResponsive('state', !this.getExternal(), 'external')
                                                            }}/>
                                                     external</label>
                                                 <label>
                                                     <input type={'checkbox'} defaultChecked={this.getDisabled()}
                                                            onChange={(e) => {
-                                                               this.props.updateSettingsNoResponsive('state', {disabled: !this.getDisabled()})
+                                                               this.props.updateSettingsNoResponsive('state',  !this.getDisabled(), 'disabled')
                                                            }}/>
                                                     disabled</label>
                                             </div>

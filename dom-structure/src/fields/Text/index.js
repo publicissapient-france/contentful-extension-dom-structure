@@ -88,6 +88,7 @@ class Text extends Component {
         //if (!this.props.settings) return null;
         return (
             <div>
+                editor interface { this.props.editorOnly ? 'editor' :  ' integrateur'}
                 <Banner>
                     <div>
                         <ActiveCheckBox

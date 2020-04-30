@@ -11,7 +11,7 @@ import {
     updateField,
     toggleFieldActive,
     updateFieldContent,
-    updateFieldSettings
+    updateFieldSettings, getInterfaceMode
 } from '../actions';
 import update from 'react-addons-update';
 import PropTypes from 'prop-types';
@@ -116,7 +116,7 @@ const FieldWrapper = WrappedComponent => {
             this.setState(prevState => ({
                 openSettings: !prevState.openSettings,
                 openContent: false,
-                currentResponsiveMode: this.props.responsiveSettings[0]
+                currentResponsiveMode: this.props.responsiveSettings ? this.props.responsiveSettings[0] : ''
             }));
         }
 
@@ -124,7 +124,7 @@ const FieldWrapper = WrappedComponent => {
             this.setState({
                 openSettings: trigger,
                 openContent: false,
-                currentResponsiveMode: this.props.responsiveSettings[0]
+                currentResponsiveMode: this.props.responsiveSettings ? this.props.responsiveSettings[0] : ''
             });
         }
 
@@ -224,12 +224,24 @@ const FieldWrapper = WrappedComponent => {
         getSettingsPropertyNoResponsive = property => this.state.settings[property]
         getDefaultSettingsPropertyNoResponsive = property => this.props.defaultSettings[property]
         getStoreSettingsPropertyNoResponsive = property => this.state.storeSettings[property] ? this.state.storeSettings[property] : null
-        updateSettingsNoResponsive = (targetProperty, value) => {
-            this.setState(prevState => ({
-                settings: update(prevState.settings, {
-                    [targetProperty]: {$set: value}
-                })
-            }));
+
+        updateSettingsNoResponsive = (targetProperty, value, subProperty) => {
+            if(subProperty){
+                this.setState(prevState => ({
+                    settings: update(prevState.settings, {
+                        [targetProperty]: {
+                            [subProperty] : {$set: value}
+                        }
+                    })
+                }));
+            }else{
+                this.setState(prevState => ({
+                    settings: update(prevState.settings, {
+                        [targetProperty]: {$set: value}
+                    })
+                }));
+            }
+
         }
 
         isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings, this.state.storeSettings))
@@ -361,7 +373,8 @@ FieldWrapper.propTypes = {
 
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state),
-    indexLanguage: getCurrentLanguage(state).language
+    indexLanguage: getCurrentLanguage(state).language,
+    editorOnly : getInterfaceMode(state).editorOnly
 });
 
 const composedFieldWrapper = compose(

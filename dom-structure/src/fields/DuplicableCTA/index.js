@@ -42,7 +42,7 @@ import {
     Row,
     ChoicesContent,
     ChoicesCustom,
-    ButtonEvents
+    ButtonEvents, CheckboxAnimation
 } from './styled';
 
 class DuplicableCTA extends Component {
@@ -108,6 +108,7 @@ class DuplicableCTA extends Component {
     getLink = () => this.props.content.link && this.props.content.link[this.props.indexLanguage] ? this.props.content.link[this.props.indexLanguage] : '';
     getExternal = () => this.props.getSettingsPropertyNoResponsive('state') ? this.props.getSettingsPropertyNoResponsive('state').external : false;
     getDisabled = () => this.props.getSettingsPropertyNoResponsive('state') ? this.props.getSettingsPropertyNoResponsive('state').disabled : false;
+    getAnimation = () => this.props.getSettingsPropertyNoResponsive('state') ? this.props.getSettingsPropertyNoResponsive('state').animation : '';
 
     updateTypography = (property, value, event) => this.props.updateSettingsProperty('typography', property, value, event);
     updateTypographyColor = (property, value, event) => this.props.updateSettingsEachResponsiveMode('typography', property, value, event);
@@ -177,13 +178,13 @@ class DuplicableCTA extends Component {
                                         <label>
                                             <input type={'checkbox'} defaultChecked={this.getExternal()}
                                                    onChange={(e) => {
-                                                       this.props.updateSettingsNoResponsive('state', {external: !this.getExternal()})
+                                                       this.props.updateSettingsNoResponsive('state', !this.getExternal(), 'external')
                                                    }}/>
                                             external</label>
                                         <label>
                                             <input type={'checkbox'} defaultChecked={this.getDisabled()}
                                                    onChange={(e) => {
-                                                       this.props.updateSettingsNoResponsive('state', {disabled: !this.getDisabled()})
+                                                       this.props.updateSettingsNoResponsive('state',  !this.getDisabled(), 'disabled')
                                                    }}/>
                                             disabled</label>
                                     </div>
@@ -242,6 +243,17 @@ class DuplicableCTA extends Component {
                                              event={this.state.currentEvent}
                                 />
                                 <caption>Color for all devices</caption>
+                                {
+                                    this.getAnimation() !== null ?
+                                    <CheckboxAnimation>
+                                        <input type={'checkbox'} defaultChecked={this.getAnimation() === 'underline'}
+                                               onChange={(e) => {
+                                                   this.props.updateSettingsNoResponsive('state',  this.getAnimation() === 'underline' ? '' : 'underline', 'animation')
+                                               }}/>
+                                        <label>animate underline</label>
+                                    </CheckboxAnimation> : null
+                                }
+
                             </Column>
                             <Column className={this.state.openPreview || this.state.openColorView ? 'hidden' : ''}>
                                 <Typography font={this.props.getSettingsByProperty('typography', 'font')}
