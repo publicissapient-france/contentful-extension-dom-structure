@@ -23,6 +23,7 @@ class FieldBanner extends Component {
                 <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
                                   currentMode={currentResponsiveMode}
                                   action={this.props.setResponsiveMode}/>
+                { children }
                 {
                     isEmpty(this.props.defaultContent) ? null :
                         <Icon className={openContent ? 'active' : ''}
@@ -41,7 +42,7 @@ class FieldBanner extends Component {
                             <SvgSetting/>
                         </Icon>
                 }
-                { children }
+
             </div>
         </Banner>);
     }

@@ -121,32 +121,6 @@ export default {
             settings: settingsText
         },
         {
-            name: 'Program Title',
-            nameProperty: 'ProgramTitle',
-            typeField: 'Text',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {
-                    text: {}
-                }
-            },
-            settings: {}
-        },
-        {
-            name: 'Method Title',
-            nameProperty: 'MethodTitle',
-            typeField: 'Text',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {
-                    text: {}
-                }
-            },
-            settings: {}
-        },
-        {
             name: 'Badge Template',
             nameProperty: 'BadgeTemplate',
             typeField: 'Template',
@@ -189,6 +163,17 @@ export default {
                 defaultValue: {}
             },
             settings: settingsTitle
+        },
+        {
+            name: 'Session Content',
+            nameProperty: 'SessionContent',
+            typeField: 'TextMarkdown',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsText
         },
         {
             name: 'Promo Template',
@@ -295,9 +280,7 @@ export default {
             content: {
                 responsive: ['A'],
                 parameters: {},
-                defaultValue: {
-                    text: {}
-                }
+                defaultValue: {}
             },
             settings: settingsTitle
         },
@@ -313,7 +296,7 @@ export default {
             settings: settingsSingleImage
         },{
             name: 'Public Template',
-            nameProperty: 'TemplatePublic',
+            nameProperty: 'PublicTemplate',
             typeField: 'Template',
             content: {
                 responsive: ['M', 'T', 'D'],

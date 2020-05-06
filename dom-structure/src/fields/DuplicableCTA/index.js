@@ -148,23 +148,24 @@ class DuplicableCTA extends Component {
                         </ChoicesContent>
                     </Content>
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                        <ChoicesTypography>
-                            {
-                                this.state.events && this.state.events.length !== 0 ?
-                                    <ButtonEvents>
-                                        {
-                                            this.state.events.map((event, i) => {
-                                                return <button
-                                                    key={i}
-                                                    className={event === this.state.currentEvent ? 'current' : ''}
-                                                    onClick={() => {
-                                                        this.toggleCurrentEvent(event)
-                                                    }}>{event}</button>
-                                            })
-                                        }
-                                    </ButtonEvents> : null
+                        {
+                            this.state.events && this.state.events.length !== 0 ?
+                                <ButtonEvents>
+                                    {
+                                        this.state.events.map((event, i) => {
+                                            return <button
+                                                key={i}
+                                                className={event === this.state.currentEvent ? 'current' : ''}
+                                                onClick={() => {
+                                                    this.toggleCurrentEvent(event)
+                                                }}>{event}</button>
+                                        })
+                                    }
+                                </ButtonEvents> : null
 
-                            }
+                        }
+                        <ChoicesTypography>
+
                             <Column className={this.state.openPreview || this.state.openColorView ? 'full-width' : ''}>
 
                                 <TextPreview hidden={this.state.openColorView}

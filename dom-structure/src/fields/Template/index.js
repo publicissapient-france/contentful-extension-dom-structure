@@ -157,15 +157,6 @@ class Template extends Component {
                                 </Row>
                                 <Row></Row>
                             </Column>
-                            <BorderSystem
-                                label={null}
-                                propertyName={'border'}
-                                getSettingsByProperty={this.props.getSettingsByProperty}
-                                getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
-                                getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
-                                updateSettingsProperty={this.props.updateSettingsProperty}
-                                currentResponsiveMode={currentResponsiveMode}
-                            />
                             <Column/>
                             <Column>
                                 <Shadow shadow={this.props.getSettingsByProperty('basis', 'shadow')}
@@ -179,6 +170,16 @@ class Template extends Component {
                                         customTarget={'shadow2'}
                                 />
                             </Column>
+                            <BorderSystem
+                                label={null}
+                                propertyName={'border'}
+                                getSettingsByProperty={this.props.getSettingsByProperty}
+                                getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
+                                getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
+                                updateSettingsProperty={this.props.updateSettingsProperty}
+                                currentResponsiveMode={currentResponsiveMode}
+                            />
+
                         </Choices>
                     </Settings>
                 </Field>
