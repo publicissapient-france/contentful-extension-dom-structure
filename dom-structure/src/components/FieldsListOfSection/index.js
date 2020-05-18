@@ -10,6 +10,7 @@ import { SelectFormationsForSection } from '../../fields/SelectFormations/index'
 import { SelectPartnersForSection } from '../../fields/SelectPartners/index';
 import { MultipleImagesForSection } from '../../fields/MultipleImages/index';
 import { SelectCategoryForSection } from '../../fields/SelectCategory/index';
+import { MultiSelectCategoryForSection } from '../../fields/MultiSelectCategory/index';
 
 class FieldsListOfSection extends Component {
 
@@ -62,6 +63,9 @@ class FieldsListOfSection extends Component {
 
                         case 'MultipleImages':
                             return <MultipleImagesForSection {...params} />;
+
+                        case 'MultiSelectCategory':
+                            return <MultiSelectCategoryForSection {...params} />;
 
                         default :
                             return <div className={'error'}><p>No field <strong>{field.typefield}</strong> matches</p>

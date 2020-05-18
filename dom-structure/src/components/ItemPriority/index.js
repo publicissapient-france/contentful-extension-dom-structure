@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Container, Text, ButtonsMove, Button} from "./styled";
-import SvgArrowToTop from '../../../components/svg/SvgArrowToTop'
+import SvgArrowToTop from '../svg/SvgArrowToTop'
 
 class ItemPriority extends Component{
     render(){
-        const { formation, index } = this.props;
+        const { data, index } = this.props;
 
-        if (!formation) return null
+        if (!data) return null
         return (
             <Container>
                 <ButtonsMove>
@@ -15,7 +15,7 @@ class ItemPriority extends Component{
                         onClick={() => this.props.moveElementToBottom(index)}><SvgArrowToTop/></Button>
                     <Button onClick={() => this.props.moveElementToTop(index)}><SvgArrowToTop/></Button>
                 </ButtonsMove>
-                <Text>{ formation.name }</Text>
+                <Text>{ data.name }</Text>
             </Container>
         )
     }

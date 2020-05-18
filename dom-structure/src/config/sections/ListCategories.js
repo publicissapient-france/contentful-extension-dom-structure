@@ -16,7 +16,7 @@ import {
 } from "../../utils/atom.model.config";
 
 export default {
-    model: 'ListFormations',
+    model: 'ListCategories',
     fields: [
         {
             name: 'Template',
@@ -66,9 +66,9 @@ export default {
             settings: settingsTemplate
         },
         {
-            name: 'Formations',
-            nameProperty: 'Formations',
-            typeField: 'SelectFormations',
+            name: 'Category',
+            nameProperty: 'Category',
+            typeField: 'MultiSelectCategory',
             content: {
                 responsive: ['A'],
                 parameters: {},
@@ -136,7 +136,7 @@ export default {
                             }
                         }
                     },
-                    category: {
+                    tagline: {
                         M: {
                             font: title4,
                             text: textProps,
@@ -211,188 +211,7 @@ export default {
                                 left: '0'
                             }
                         }
-                    },
-                    textSession: {
-                        M: {
-                            font: paragraph,
-                            text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '10',
-                                left: '0'
-                            }
-                        },
-                        T: {
-                            font: paragraph,
-                            text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '10',
-                                left: '0'
-                            }
-                        },
-                        D: {
-                            font: paragraph,
-                            text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '10',
-                                left: '0'
-                            }
-                        }
-                    },
-                    taglineSession: {
-                        M: {
-                            font: paragraph,
-                            text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '10',
-                                left: '0'
-                            }
-                        },
-                        T: {
-                            font: paragraph,
-                            text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '10',
-                                left: '0'
-                            }
-                        },
-                        D: {
-                            font: paragraph,
-                            text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '10',
-                                left: '0'
-                            }
-                        }
-                    },
-                    textPromo: {
-                        M: {
-                            font: paragraph,
-                            text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '10',
-                                left: '0'
-                            }
-                        },
-                        T: {
-                            font: paragraph,
-                            text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '10',
-                                left: '0'
-                            }
-                        },
-                        D: {
-                            font: paragraph,
-                            text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '10',
-                                left: '0'
-                            }
-                        }
-                    },
-                    taglinePromo: {
-                        M: {
-                            font: paragraph,
-                            text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '10',
-                                left: '0'
-                            }
-                        },
-                        T: {
-                            font: paragraph,
-                            text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '10',
-                                left: '0'
-                            }
-                        },
-                        D: {
-                            font: paragraph,
-                            text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: {
-                                top: '0',
-                                right: '0',
-                                bottom: '10',
-                                left: '0'
-                            }
-                        }
-                    },
-                    session: {
-                        M: {
-                            color: black,
-                            opacity: opacity
-                        },
-                        T: {
-                            color: black,
-                            opacity: opacity
-                        },
-                        D: {
-                            color: black,
-                            opacity: opacity
-                        }
-                    },
-                    promo: {
-                        M: {
-                            color: black,
-                            opacity: opacity
-                        },
-                        T: {
-                            color: black,
-                            opacity: opacity
-                        },
-                        D: {
-                            color: black,
-                            opacity: opacity
-                        }
                     }
-
                 }
             }
 

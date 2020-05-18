@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {getCurrentStyle} from '../../actions';
 
 import FieldWrapper from '../../HOC/FieldWrapper';
-import FormationSelector from '../../interfaces/FormationSelector';
+import CategoryMultiSelector from '../../interfaces/CategoryMultiSelector';
 import TypeSystem from '../../interfaces/system/TypeSystem'
 import ImageSystem from '../../interfaces/system/ImageSystem'
 
@@ -13,13 +13,13 @@ import FieldWrapperOfSection from "../../HOC/FieldWrapperOfSection";
 import FieldBanner from "../../components/FieldBanner";
 import FieldUpdateForm from "../../components/FieldUpdateForm";
 
-class SelectFormations extends Component {
+class MultiSelectCategory extends Component {
     constructor(props) {
         super(props);
     }
 
     componentDidUpdate(prevProps) {
-        ['category', 'title', 'text', 'textSession', 'taglineSession', 'textPromo', 'taglinePromo', 'session', 'promo'].map(prop => {
+        ['tagline', 'title', 'text'].map(prop => {
             if (this.props.settings && this.props.getSettingsByProperty(prop, 'font')) {
                 if (!Object.values(this.props.settings[prop])[0].font.family && this.props.themes) {
                     this.props.initFont(prop);
@@ -28,7 +28,7 @@ class SelectFormations extends Component {
         })
     }
 
-    getFormations = () => this.props.content.data ? this.props.content.data : [];
+    getData = () => this.props.content.data ? this.props.content.data : [];
     getPriority = () => this.props.content.priority ? this.props.content.priority : [];
 
     updateBasis = (property, value, event) => this.props.updateSettingsProperty('basis', property, value, event);
@@ -42,16 +42,19 @@ class SelectFormations extends Component {
                 <Field>
                     <Content className={!this.props.openContent ? 'hidden' : ''}>
                         <Choices>
-                            <FormationSelector updateContent={this.props.updateContent}
-                                             formations={this.getFormations()}
-                                             priority={this.getPriority()}
-                                             toggleCurrentEvent={this.toggleCurrentEvent}
+                            <CategoryMultiSelector updateContent={this.props.updateContent}
+                                              categories={this.getData()}
+                                              priority={this.getPriority()}
+                                              toggleCurrentEvent={this.toggleCurrentEvent}
+                                              multichoices
                             />
+
+
                         </Choices>
                     </Content>
                     <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                         {
-                            ['category', 'title', 'text', 'textSession', 'taglineSession', 'textPromo', 'taglinePromo', 'session', 'promo'].map(prop => {
+                            ['tagline', 'title', 'text'].map(prop => {
                                 return <TypeSystem key={prop}
                                                    label={prop}
                                                    propertyName={prop}
@@ -89,8 +92,8 @@ const mapStateToProps = state => ({
     themes: getCurrentStyle(state).style.themes
 });
 
-const WrappedComponent = FieldWrapper(connect(mapStateToProps)(SelectFormations));
+const WrappedComponent = FieldWrapper(connect(mapStateToProps)(MultiSelectCategory));
 export default WrappedComponent;
-export const SelectFormationsForComponent = WrappedComponent;
-export const SelectFormationsForSection = FieldWrapperOfSection(connect(mapStateToProps)(SelectFormations));
+export const MultiSelectCategoryForComponent = WrappedComponent;
+export const MultiSelectCategoryForSection = FieldWrapperOfSection(connect(mapStateToProps)(MultiSelectCategory));
 

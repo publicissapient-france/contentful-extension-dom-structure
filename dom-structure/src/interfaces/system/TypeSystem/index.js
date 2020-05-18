@@ -41,14 +41,18 @@ class TypeSystem extends Component {
                 }
                 <Column
                     className={this.state.openPreview || this.state.openColor ? 'full-width' : ''}>
-                    <TextPreview hidden={this.state.openColor}
-                                 color={this.props.getSettingsByProperty(propertyName, 'color', event)}
-                                 font={this.props.getSettingsByProperty(propertyName, 'font')}
-                                 text={this.props.getSettingsByProperty(propertyName, 'text')}
-                                 opacity={this.props.getSettingsByProperty(propertyName, 'opacity', event)}
-                                 open={this.state.openPreview}
-                                 toggleOpenPreview={this.toggleOpenPreview}
-                    />
+
+                    {
+                        !this.props.getDefaultSettingsByProperty(propertyName, 'font') ? null :
+                            <TextPreview hidden={this.state.openColor}
+                                         color={this.props.getSettingsByProperty(propertyName, 'color', event)}
+                                         font={this.props.getSettingsByProperty(propertyName, 'font')}
+                                         text={this.props.getSettingsByProperty(propertyName, 'text')}
+                                         opacity={this.props.getSettingsByProperty(propertyName, 'opacity', event)}
+                                         open={this.state.openPreview}
+                                         toggleOpenPreview={this.toggleOpenPreview}
+                            />
+                    }
                     <ColorPicker hidden={this.state.openPreview}
                                  color={this.props.getSettingsByProperty(propertyName, 'color', event)}
                                  opacity={this.props.getSettingsByProperty(propertyName, 'opacity', event)}
@@ -71,19 +75,23 @@ class TypeSystem extends Component {
                     }
 
                 </Column>
-                <Column
-                    className={this.state.openPreview || this.state.openColor ? 'hidden' : ''}>
-                    <Typography
-                        font={this.props.getSettingsByProperty(propertyName, 'font')}
-                        text={this.props.getSettingsByProperty(propertyName, 'text')}
-                        defaultFont={this.props.getDefaultSettingsByProperty(propertyName, 'font')}
-                        defaultText={this.props.getDefaultSettingsByProperty(propertyName, 'text')}
-                        storeValueFont={this.props.getStoreSettingsByProperty(propertyName, 'font')}
-                        storeValueText={this.props.getStoreSettingsByProperty(propertyName, 'text')}
-                        updateStateProps={this.updateSettings}
-                        currentMode={currentResponsiveMode}
-                    />
-                </Column>
+                {
+                    !this.props.getDefaultSettingsByProperty(propertyName, 'font') ? null :
+                        <Column
+                            className={this.state.openPreview || this.state.openColor ? 'hidden' : ''}>
+                            <Typography
+                                font={this.props.getSettingsByProperty(propertyName, 'font')}
+                                text={this.props.getSettingsByProperty(propertyName, 'text')}
+                                defaultFont={this.props.getDefaultSettingsByProperty(propertyName, 'font')}
+                                defaultText={this.props.getDefaultSettingsByProperty(propertyName, 'text')}
+                                storeValueFont={this.props.getStoreSettingsByProperty(propertyName, 'font')}
+                                storeValueText={this.props.getStoreSettingsByProperty(propertyName, 'text')}
+                                updateStateProps={this.updateSettings}
+                                currentMode={currentResponsiveMode}
+                            />
+                        </Column>
+                }
+
                 <Column/>
                 {!usePadding ? null :
                     <Column>

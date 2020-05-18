@@ -5,7 +5,7 @@ import {Container, Formations, List, Priority, PriorityList, Drop, FormationsCon
 import ButtonValidate from '../../components/ui/ButtonValidate';
 import {getCurrentExtension} from '../../actions/index';
 import ItemFormation from './ItemFormation';
-import ItemPriority from './ItemPriority';
+import ItemPriority from '../../components/ItemPriority';
 
 class FormationSelector extends Component {
     constructor(props) {
@@ -222,7 +222,7 @@ class FormationSelector extends Component {
                             {
                                 this.state.priority ? this.state.priority.map((id, i) => {
                                     const formation = this.getById(id);
-                                    return <ItemPriority formation={formation}
+                                    return <ItemPriority data={formation}
                                                          index={i}
                                                          key={i}
                                                          moveElementToBottom={this.moveElementToBottom}
