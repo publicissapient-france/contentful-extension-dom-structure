@@ -63,6 +63,7 @@ class TypeSystem extends Component {
                                  openView={this.state.openColor}
                                  updateStateProps={this.updateSettings}
                                  toggleOpenView={this.toggleOpenColor}
+                                 event={this.props.event}
                     />
                     {
                         !useSeo ? null :
