@@ -69,7 +69,7 @@ class FieldsList extends Component {
                             case key === 'CTA':
                                 return <CTA {...params} />;
 
-                            case key === 'Links' || key === 'SubLinks':
+                            case key === 'Links':
                                 return <NavigationLinks {...params} />;
 
                             case key === 'Bar':
@@ -104,6 +104,9 @@ class FieldsList extends Component {
 
                             case key.includes('CTA'):
                                 return <CTA {...params} />;
+
+                            case key.includes('NavigationLinks') || key.includes('NavigationSubLinks') || :
+                                return <NavigationLinks {...params} />;
 
                             default :
                                 return <div className={'error'}><p>No

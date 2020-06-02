@@ -57,20 +57,8 @@ export default {
 
         },
         {
-            name: 'Template SubLinks',
-            nameProperty: 'TemplateSubLinks',
-            typeField: 'Template',
-            content: {
-                responsive: ['M', 'T', 'D'],
-                parameters: {},
-                defaultValue: {}
-            },
-            settings: settingsTemplate
-
-        },
-        {
-            name: 'Links',
-            nameProperty: 'Links',
+            name: 'Navigation Links',
+            nameProperty: 'NavigationLinks',
             typeField: 'NavigationLinks',
             content: {
                 responsive: ['A'],
@@ -244,8 +232,20 @@ export default {
 
         },
         {
-            name: 'SubLinks',
-            nameProperty: 'SubLinks',
+            name: 'Template SubLinks',
+            nameProperty: 'TemplateSubLinks',
+            typeField: 'Template',
+            content: {
+                responsive: ['M', 'T', 'D'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsTemplate
+
+        },
+        {
+            name: 'Navigation SubLinks',
+            nameProperty: 'NavigationSubLinks',
             typeField: 'NavigationLinks',
             content: {
                 responsive: ['A'],
