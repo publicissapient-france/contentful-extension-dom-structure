@@ -57,6 +57,18 @@ export default {
 
         },
         {
+            name: 'Template SubLinks',
+            nameProperty: 'TemplateSubLinks',
+            typeField: 'Template',
+            content: {
+                responsive: ['M', 'T', 'D'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsTemplate
+
+        },
+        {
             name: 'Links',
             nameProperty: 'Links',
             typeField: 'NavigationLinks',
@@ -229,18 +241,6 @@ export default {
                     }
                 }
             }
-
-        },
-        {
-            name: 'Template SubLinks',
-            nameProperty: 'TemplateSubLinks',
-            typeField: 'Template',
-            content: {
-                responsive: ['M', 'T', 'D'],
-                parameters: {},
-                defaultValue: {}
-            },
-            settings: settingsTemplate
 
         },
         {
