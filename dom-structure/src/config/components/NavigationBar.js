@@ -4,221 +4,56 @@ import {
     grey70,
     margin,
     opacity,
-    padding, paragraph, textPropsCenter,
-    transparent,
-    white
+    paragraph, size, textPropsCenter,
+    transparent
 } from "../../utils/atom.model.config";
-import {settingsSingleImage} from "../../utils/organism.model.config";
+import {settingsSingleImage, settingsTemplate} from "../../utils/organism.model.config";
 
 export default {
-    model: 'NavigationBasic',
+    model: 'NavigationBar',
     fields: [
         {
-            name: 'Navigation Bar',
-            nameProperty: 'Bar',
-            typeField: 'NavigationBar',
+            name: 'Template Left Container',
+            nameProperty: 'TemplateLeft',
+            typeField: 'Template',
             content: {
-                responsive: ['A'],
+                responsive: ['M', 'T', 'D'],
                 parameters: {},
                 defaultValue: {}
             },
-            settings: {
-                responsive: ['M', 'T', 'D'],
+            settings: settingsTemplate
+
+        },
+        {
+            name: 'Image',
+            nameProperty: 'Image',
+            typeField: 'SingleImage',
+            content: {
+                responsive: ['A'],
+                parameters: {},
                 defaultValue: {
-                    basis: {
-                        M: {
-                            size: {
-                                basic: {
-                                    width: '100%',
-                                    height: '50',
-                                    maxWidth: '',
-                                    maxHeight: '',
-                                    minWidth: '',
-                                    minHeight: ''
-                                },
-                                scroll: {
-                                    width: '100%',
-                                    height: '50',
-                                    maxWidth: '',
-                                    maxHeight: '',
-                                    minWidth: '',
-                                    minHeight: ''
-                                }
-
-                            },
-                            padding: {
-                                basic: padding,
-                                scroll: padding
-
-                            },
-                            margin: {
-                                basic: margin,
-                                scroll: margin
-                            },
-                            color: {
-                                basic: white,
-                                scroll: white
-
-                            },
-                            opacity: {
-                                basic: {
-                                    value: '0.8'
-                                },
-                                scroll: {
-                                    value: '0.8'
-                                }
-
-                            }
-                        },
-                        T: {
-                            size: {
-                                basic: {
-                                    width: '100%',
-                                    height: '50',
-                                    maxWidth: '',
-                                    maxHeight: '',
-                                    minWidth: '',
-                                    minHeight: ''
-                                },
-                                scroll: {
-                                    width: '100%',
-                                    height: '50',
-                                    maxWidth: '',
-                                    maxHeight: '',
-                                    minWidth: '',
-                                    minHeight: ''
-                                }
-
-                            },
-                            padding: {
-                                basic: padding,
-                                scroll: padding
-
-                            },
-                            margin: {
-                                basic: margin,
-                                scroll: margin
-                            },
-                            color: {
-                                basic: white,
-                                scroll: white
-
-                            },
-                            opacity: {
-                                basic: {
-                                    value: '0.8'
-                                },
-                                scroll: {
-                                    value: '0.8'
-                                }
-
-                            }
-                        },
-                        D: {
-                            size: {
-                                basic: {
-                                    width: '100%',
-                                    height: '60',
-                                    maxWidth: '',
-                                    maxHeight: '',
-                                    minWidth: '',
-                                    minHeight: ''
-                                },
-                                scroll: {
-                                    width: '100%',
-                                    height: '60',
-                                    maxWidth: '',
-                                    maxHeight: '',
-                                    minWidth: '',
-                                    minHeight: ''
-                                }
-
-                            },
-                            padding: {
-                                basic: padding,
-                                scroll: padding
-
-                            },
-                            margin: {
-                                basic: margin,
-                                scroll: margin
-                            },
-                            color: {
-                                basic: white,
-                                scroll: white
-
-                            },
-                            opacity: {
-                                basic: {
-                                    value: '0.9'
-                                },
-                                scroll: {
-                                    value: '0.9'
-                                }
-
+                    images: [
+                        {
+                            alt: {},
+                            asset: {
+                                A: {}
                             }
                         }
-                    },
-                    svg: {
-                        M: {
-                            size: {
-                                width: '30',
-                                height: ''
-                            },
-                            fill: black,
-                            opacityFill: opacity,
-                            color: white,
-                            opacity: opacity
-                        },
-                        T: {
-                            size: {
-                                width: '30',
-                                height: ''
-                            },
-                            fill: black,
-                            opacityFill: opacity,
-                            color: white,
-                            opacity: opacity
-                        },
-                        D: {
-                            size: {
-                                width: '30',
-                                height: ''
-                            },
-                            fill: transparent,
-                            opacityFill: opacity,
-                            color: black,
-                            opacity: opacity
-                        }
-                    },
-                    burger: {
-                        M: {
-                            size: {
-                                width: '50',
-                                height: '50'
-                            },
-                            fill: grey70,
-                            opacityFill: opacity
-                        },
-                        T: {
-                            size: {
-                                width: '50',
-                                height: '50'
-                            },
-                            fill: grey70,
-                            opacityFill: opacity
-                        },
-                        D: {
-                            size: {
-                                width: '50',
-                                height: '50'
-                            },
-                            fill: grey70,
-                            opacityFill: opacity
-                        }
-                    }
+                    ]
                 }
-            }
+            },
+            settings: settingsSingleImage
+        },
+        {
+            name: 'Template Links',
+            nameProperty: 'TemplateLinks',
+            typeField: 'Template',
+            content: {
+                responsive: ['M', 'T', 'D'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsTemplate
 
         },
         {
@@ -235,13 +70,7 @@ export default {
                 defaultValue: {
                     basis: {
                         M: {
-                            size: {
-                                width: '',
-                                height: '50',
-                                maxWidth: '',
-                                maxHeight: ''
-
-                            },
+                            size: size,
                             padding: {
                                 top: '10',
                                 right: '20',
@@ -262,13 +91,7 @@ export default {
                             }
                         },
                         T: {
-                            size: {
-                                width: '',
-                                height: '50',
-                                maxWidth: '',
-                                maxHeight: ''
-
-                            },
+                            size: size,
                             padding: {
                                 top: '10',
                                 right: '15',
@@ -289,13 +112,7 @@ export default {
                             }
                         },
                         D: {
-                            size: {
-                                width: '',
-                                height: '60',
-                                maxWidth: '',
-                                maxHeight: ''
-
-                            },
+                            size: size,
                             padding: {
                                 top: '10',
                                 right: '15',
@@ -415,24 +232,213 @@ export default {
 
         },
         {
-            name: 'Image',
-            nameProperty: 'Image',
-            typeField: 'SingleImage',
+            name: 'Template SubLinks',
+            nameProperty: 'TemplateSubLinks',
+            typeField: 'Template',
+            content: {
+                responsive: ['M', 'T', 'D'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsTemplate
+
+        },
+        {
+            name: 'Navigation SubLinks',
+            nameProperty: 'SubLinks',
+            typeField: 'NavigationLinks',
             content: {
                 responsive: ['A'],
                 parameters: {},
+                defaultValue: {}
+            },
+            settings: {
+                responsive: ['M', 'T', 'D'],
                 defaultValue: {
-                    images: [
-                        {
-                            alt: {},
-                            asset: {
-                                A: {}
+                    basis: {
+                        M: {
+                            size: size,
+                            padding: {
+                                top: '10',
+                                right: '20',
+                                bottom: '10',
+                                left: '20'
+                            },
+                            margin: margin,
+                            alignment: alignmentStart,
+                            color: {
+                                basic: transparent,
+                                hover: transparent,
+                                active: transparent
+                            },
+                            opacity: {
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
+                            }
+                        },
+                        T: {
+                            size: size,
+                            padding: {
+                                top: '10',
+                                right: '15',
+                                bottom: '10',
+                                left: '15'
+                            },
+                            margin: margin,
+                            alignment: alignmentStart,
+                            color: {
+                                basic: transparent,
+                                hover: transparent,
+                                active: transparent
+                            },
+                            opacity: {
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
+                            }
+                        },
+                        D: {
+                            size: size,
+                            padding: {
+                                top: '10',
+                                right: '15',
+                                bottom: '10',
+                                left: '15'
+                            },
+                            margin: margin,
+                            alignment: alignmentStart,
+                            color: {
+                                basic: transparent,
+                                hover: transparent,
+                                active: transparent
+                            },
+                            opacity: {
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
                             }
                         }
-                    ]
+                    },
+                    typography: {
+                        M: {
+                            font: paragraph,
+                            text: textPropsCenter,
+                            color: {
+                                basic: black,
+                                hover: grey70,
+                                active: grey70
+                            },
+                            opacity: {
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
+                            }
+                        },
+                        T: {
+                            font: paragraph,
+                            text: textPropsCenter,
+                            color: {
+                                basic: black,
+                                hover: grey70,
+                                active: grey70
+                            },
+                            opacity: {
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
+                            }
+                        },
+                        D: {
+                            font: paragraph,
+                            text: textPropsCenter,
+                            color: {
+                                basic: black,
+                                hover: grey70,
+                                active: grey70
+                            },
+                            opacity: {
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
+                            }
+                        },
+
+                    },
+                    border: {
+                        M: {
+                            width: borderWidth,
+                            radius: borderRadius,
+                            color: {
+                                basic: transparent,
+                                hover: transparent,
+                                active: transparent
+                            },
+                            opacity: {
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
+                            }
+                        },
+                        T: {
+                            width: borderWidth,
+                            radius: borderRadius,
+                            color: {
+                                basic: transparent,
+                                hover: transparent,
+                                active: transparent
+                            },
+                            opacity: {
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
+                            }
+                        },
+                        D: {
+                            width: {
+                                top: '0',
+                                right: '0',
+                                bottom: '1',
+                                left: '0'
+                            },
+                            radius: borderRadius,
+                            color: {
+                                basic: transparent,
+                                hover: transparent,
+                                active: transparent
+                            },
+                            opacity: {
+                                basic: opacity,
+                                hover: opacity,
+                                active: opacity
+                            }
+                        }
+                    }
                 }
+            }
+
+        },
+        {
+            name: 'Template Burger',
+            nameProperty: 'TemplateBurger',
+            typeField: 'Template',
+            content: {
+                responsive: ['M', 'T', 'D'],
+                parameters: {},
+                defaultValue: {}
             },
-            settings: settingsSingleImage
+            settings: settingsTemplate
+        },
+        {
+            name: 'Template Language',
+            nameProperty: 'TemplateLanguage',
+            typeField: 'Template',
+            content: {
+                responsive: ['M', 'T', 'D'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsTemplate
         }
     ]
 };
