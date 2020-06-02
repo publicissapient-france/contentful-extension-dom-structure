@@ -57,7 +57,7 @@ export default {
 
         },
         {
-            name: 'Navigation Links',
+            name: 'Links',
             nameProperty: 'Links',
             typeField: 'NavigationLinks',
             content: {
@@ -244,7 +244,7 @@ export default {
 
         },
         {
-            name: 'Navigation SubLinks',
+            name: 'SubLinks',
             nameProperty: 'SubLinks',
             typeField: 'NavigationLinks',
             content: {
