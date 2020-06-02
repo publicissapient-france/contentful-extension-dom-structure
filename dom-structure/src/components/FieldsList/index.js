@@ -69,7 +69,7 @@ class FieldsList extends Component {
                             case key === 'CTA':
                                 return <CTA {...params} />;
 
-                            case key === 'Links':
+                            case key === 'Links' || key === 'SubLinks':
                                 return <NavigationLinks {...params} />;
 
                             case key === 'Bar':
