@@ -105,7 +105,7 @@ class FieldsList extends Component {
                             case key.includes('CTA'):
                                 return <CTA {...params} />;
 
-                            case key.includes('NavigationLinks') || key.includes('NavigationSubLinks') || :
+                            case key.includes('NavigationLinks') || key.includes('NavigationSubLinks') :
                                 return <NavigationLinks {...params} />;
 
                             default :
