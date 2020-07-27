@@ -8,7 +8,7 @@ export const Responsive = styled.div`
   width : fit-content;
   justify-content : space-between;
   border-right : 1px solid ${ extensionTheme.grey30 }; 
-  //padding-right : 20px;
+  padding-right : 15px;
 `;
 
 export const ToogleResponsive = styled.div`

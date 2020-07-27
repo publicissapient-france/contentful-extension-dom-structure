@@ -32,6 +32,7 @@ export const Choices = styled.div`
     }
     &:nth-child(5){
         width :75%;
+         border-top : 1px solid ${ extensionTheme.grey20 };
     }
    }
 `;

@@ -11,7 +11,7 @@ import {
     updateFieldOfSection,
     toggleFieldActiveOfSection,
     updateFieldContentOfSection,
-    updateFieldSettingsOfSection, updateFieldSettings, getInterfaceMode
+    updateFieldSettingsOfSection, updateFieldSettings, getInterfaceMode, getCurrentStyle
 } from '../actions';
 import update from 'react-addons-update';
 import PropTypes from 'prop-types';
@@ -415,7 +415,8 @@ FieldWrapperOfSection.propTypes = {
 const mapStateToProps = state => ({
     dom: getCurrentDOM(state),
     indexLanguage: getCurrentLanguage(state).language,
-    editorOnly : getInterfaceMode(state).editorOnly
+    editorOnly : getInterfaceMode(state).editorOnly,
+    themes: getCurrentStyle(state).style.themes
 });
 
 const composedFieldWrapper = compose(

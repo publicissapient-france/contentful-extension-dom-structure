@@ -11,7 +11,7 @@ import { SelectPartnersForSection } from '../../fields/SelectPartners/index';
 import { MultipleImagesForSection } from '../../fields/MultipleImages/index';
 import { SelectCategoryForSection } from '../../fields/SelectCategory/index';
 import { MultiSelectCategoryForSection } from '../../fields/MultiSelectCategory/index';
-
+import { ScheduleForSection } from '../../fields/Schedule';
 class FieldsListOfSection extends Component {
 
     render () {
@@ -66,6 +66,9 @@ class FieldsListOfSection extends Component {
 
                         case 'MultiSelectCategory':
                             return <MultiSelectCategoryForSection {...params} />;
+
+                        case 'Schedule':
+                            return <ScheduleForSection {...params} />;
 
                         default :
                             return <div className={'error'}><p>No field <strong>{field.typefield}</strong> matches</p>

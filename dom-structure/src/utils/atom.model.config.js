@@ -85,6 +85,7 @@ export const alignmentCenter = {horizontal: 'center'}
 export const alignmentStart = {horizontal: 'flex-start'}
 
 export const opacity = {value: '1'}
+export const opacity40 = {value: '0.4'}
 
 export const opacityBHD = {
     basic: {value: '1'},
@@ -118,6 +119,13 @@ export const grey70 = {
     rgb: '102,102,102',
     name: 'Grey',
     shade: '70'
+}
+
+export const grey60 = {
+    hex: '#B2B2B2',
+    rgb: '178,178,178',
+    name: 'Grey',
+    shade: '60'
 }
 
 export const transparent = {

@@ -261,7 +261,7 @@ export const HexColor = styled.p`
 
 `;
 export const BlockColor = styled.div`
-    width : auto;
+    width : fit-content;
     height : fit-content;
     border-width : 1px;
     border-style: solid;
