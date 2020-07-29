@@ -74,10 +74,6 @@ class CardDuoWrapper extends Component {
                         children.props.children[1]
                     }</CustomOrder>
                 </Card>
-
-
-
-
             </Wrapper>
         );
     }

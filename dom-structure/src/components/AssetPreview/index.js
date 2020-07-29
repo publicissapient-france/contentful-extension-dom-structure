@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Icon } from '@contentful/forma-36-react-components';
 import {
     Container,
     Preview,
@@ -19,12 +18,7 @@ class AssetPreview extends Component {
             >
                 {
                     !asset || !asset.url ? <ViewPort>
-                        <Icon
-                            color={'muted'}
-                            icon="Asset"
-                            size="large"
-                            className="image-icon"
-                        />
+                        <span>Asset</span>
                     </ViewPort>
                         : <Preview style={bg}/>
 

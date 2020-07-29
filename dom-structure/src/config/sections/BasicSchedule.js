@@ -1,5 +1,5 @@
-import {settingsFlexContainer, settingsSectionTemplate} from "../../utils/organism.model.config";
-import {alignmentStart,grey60, black, opacity,opacity40, padding, paragraph, title3, title4, textProps, white} from "../../utils/atom.model.config";
+import { settingsSectionTemplate} from "../../utils/organism.model.config";
+import {grey60, black, opacity,opacity40, padding, paragraph, textProps, white} from "../../utils/atom.model.config";
 
 export default {
     model: 'BasicSchedule',
@@ -25,7 +25,6 @@ export default {
                 }
             },
             settings: settingsSectionTemplate
-
         },
         {
             name: 'Schedule',

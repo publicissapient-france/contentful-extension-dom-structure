@@ -1,5 +1,4 @@
 import React from 'react';
-import { Icon } from '@contentful/forma-36-react-components';
 import { Container, ViewPort, IconContainer, Actions } from './styled';
 
 import SvgAddSmall from '../svg/SvgAddSmall';
@@ -10,12 +9,7 @@ export default function UploadView (props) {
     return (
         <Container>
             <ViewPort isDraggingOver={props.isDraggingOver} >
-                <Icon
-                    color={props.isDraggingOver ? 'secondary' : 'muted'}
-                    icon="Asset"
-                    size="large"
-                    className="image-icon"
-                />
+                <span>upload asset</span>
             </ViewPort>
             {!props.isDraggingOver ? (
                 <Actions>

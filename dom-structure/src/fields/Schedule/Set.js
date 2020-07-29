@@ -19,10 +19,6 @@ export const Container = styled.div`
             color : ${extensionTheme.black};
         }
    }
-   
-   
-   
-  
 `;
 export const SvgContainer = styled.div.attrs(props => ({
     color : props.color
@@ -47,7 +43,6 @@ export const SvgContainer = styled.div.attrs(props => ({
 export class Set extends Component {
     render() {
         const {label, property, view} = this.props;
-
         return (
             <Container>
                 {
@@ -73,9 +68,6 @@ export class Set extends Component {
 export class SetTypography extends Component {
     render() {
         const {label, property, view, propertyBkg} = this.props;
-
-        console.log('settings property : ', this.props.getSettingsByProperty(property, 'color'));
-
         return (
             <Container onClick={e => {
                 view === property ? this.props.updateSelectedView('') : this.props.updateSelectedView(property)

@@ -1,8 +1,5 @@
 import React from 'react';
 import {
-    Asset
-} from '@contentful/forma-36-react-components';
-import {
     Container,
     Actions,
     Warning,
@@ -39,7 +36,7 @@ export default function FileView (props) {
                         <Preview style={bg}/>
                     ) : (
                         <Preview>
-                            <Asset type={type} className="file-type-icon"/>
+                            <span>Asset file</span>
                         </Preview>
                     )}
                 </div>

@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "@contentful/forma-36-fcss": "0.0.13",
-    "@contentful/forma-36-react-components": "2.9.3",
     "@contentful/forma-36-tokens": "0.2.0",
     "babel-plugin-syntax-dynamic-import": "6.18.0",
     "contentful-ui-extensions-sdk": "3.5.0",
