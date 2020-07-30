@@ -29,6 +29,11 @@ export const Grid = styled.div`
 `;
 
 
+export const Choices = styled.div`
+   
+`;
+
+
 export const Settings = styled.div`
    & ${Choices}{
     &${Column}:nth-child(2){
