@@ -61,14 +61,19 @@ class SpeakerSelector extends Component {
 
     initSpeakersRessources = async () => {
         await this.props.extensionInfo.extension.space.getEntries({
-            'content_type': 'event',
+            'content_type': 'website',
         }).then(selectedEntry => {
-            this.setState({
-                speakers: selectedEntry.items[0].fields.speakers[this.findProperLocale()]
-            })
-            return selectedEntry.items[0].fields.speakers[this.findProperLocale()]
-        });
-        console.log('STATE SPEAKERS', this.state.speakers)
+            const speakersUrl =  selectedEntry.items[0].fields.speakers[this.findProperLocale()];
+            fetch(speakersUrl)
+                .then(results => {
+                    const result = results.json();
+                    console.log(result)
+                    return result
+                })
+                .then(data =>{
+                    this.setState({ speakers: data })
+                });
+        })
     }
 
     findProperLocale = () => this.props.extensionInfo.extension.locales.default;
