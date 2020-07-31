@@ -10,6 +10,9 @@ import {
 import SvgAttachement from '../svg/SvgAttachement';
 import SvgAddSmall from '../svg/SvgAddSmall';
 import SvgTrashSmall from '../svg/SvgTrashSmall';
+import {
+    Asset
+} from '@contentful/forma-36-react-components';
 
 export default function FileView (props) {
     const url = props.url;
@@ -36,7 +39,7 @@ export default function FileView (props) {
                         <Preview style={bg}/>
                     ) : (
                         <Preview>
-                            <span>Asset file</span>
+                            <Asset type={type} className="file-type-icon"/>
                         </Preview>
                     )}
                 </div>

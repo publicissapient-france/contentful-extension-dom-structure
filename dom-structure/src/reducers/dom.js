@@ -220,7 +220,6 @@ const dom = (state = [], action) => {
             });
 
         case 'DUPLICATE_FIELD_COMPONENT':
-            console.log('FIELD ACTION', action);
 const arrayF = Object.keys(state[action.indexSection].components[action.indexComponent].fields).map( field =>  {
     console.log('field', field);
     console.log('type of field', typeof field);
@@ -228,7 +227,6 @@ const arrayF = Object.keys(state[action.indexSection].components[action.indexCom
 
 
 })
-            console.log('arrayF', arrayF);
             const number = arrayF.filter(el => el).length;
             console.log('number', number);
 

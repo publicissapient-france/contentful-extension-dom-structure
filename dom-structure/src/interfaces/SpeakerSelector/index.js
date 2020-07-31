@@ -35,7 +35,6 @@ class SpeakerSelector extends Component {
             display: this.props.display,
             priority: this.props.priority
         })
-        console.log('PROPS SPEAKERS ON SELECTOR : ', this.props.speakers)
     };
 
     componentDidUpdate(prevProps) {

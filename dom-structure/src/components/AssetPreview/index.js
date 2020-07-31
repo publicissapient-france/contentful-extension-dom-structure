@@ -4,6 +4,7 @@ import {
     Preview,
     ViewPort
 } from './styled';
+import { Icon } from '@contentful/forma-36-react-components';
 
 class AssetPreview extends Component {
     render () {
@@ -18,7 +19,11 @@ class AssetPreview extends Component {
             >
                 {
                     !asset || !asset.url ? <ViewPort>
-                        <span>Asset</span>
+                        <Icon color={'muted'}
+                            icon="Asset"
+                            size="large"
+                            className="image-icon"
+                            />
                     </ViewPort>
                         : <Preview style={bg}/>
 
