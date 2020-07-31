@@ -55,48 +55,96 @@ export default {
                     },
                     set1Title: {
                         M: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '14',
+                                lineHeight: '18',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
                             color: white,
-                            opacity: opacity,
-                            padding: padding
+                            opacity: opacity
                         },
                         T: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '14',
+                                lineHeight: '18',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
                             color: white,
-                            opacity: opacity,
-                            padding: padding
+                            opacity: opacity
                         },
                         D: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '14',
+                                lineHeight: '18',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
                             color: white,
-                            opacity: opacity,
-                            padding: padding
+                            opacity: opacity
                         }
                     },
                     set1Text: {
                         M: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '13',
+                                lineHeight: '13',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
                             color: white,
-                            opacity: opacity40,
-                            padding: padding
+                            opacity: opacity40
                         },
                         T: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '13',
+                                lineHeight: '13',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
                             color: white,
-                            opacity: opacity40,
-                            padding: padding
+                            opacity: opacity40
                         },
                         D: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '13',
+                                lineHeight: '13',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
                             color: white,
-                            opacity: opacity40,
-                            padding: padding
+                            opacity: opacity40
                         }
                     },
                     set2Bkg: {
@@ -115,48 +163,96 @@ export default {
                     },
                     set2Title: {
                         M: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '14',
+                                lineHeight: '18',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: padding
+                            color: white,
+                            opacity: opacity
                         },
                         T: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '14',
+                                lineHeight: '18',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: padding
+                            color: white,
+                            opacity: opacity
                         },
                         D: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '14',
+                                lineHeight: '18',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: padding
+                            color: white,
+                            opacity: opacity
                         }
                     },
                     set2Text: {
                         M: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '13',
+                                lineHeight: '13',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
-                            color: black,
-                            opacity: opacity40,
-                            padding: padding
+                            color: white,
+                            opacity: opacity40
                         },
                         T: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '13',
+                                lineHeight: '13',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
-                            color: black,
-                            opacity: opacity40,
-                            padding: padding
+                            color: white,
+                            opacity: opacity40
                         },
                         D: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '13',
+                                lineHeight: '13',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
-                            color: black,
-                            opacity: opacity40,
-                            padding: padding
+                            color: white,
+                            opacity: opacity40
                         }
                     },
                     set3Bkg: {
@@ -175,48 +271,96 @@ export default {
                     },
                     set3Title: {
                         M: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '14',
+                                lineHeight: '18',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: padding
+                            color: white,
+                            opacity: opacity
                         },
                         T: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '14',
+                                lineHeight: '18',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: padding
+                            color: white,
+                            opacity: opacity
                         },
                         D: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '14',
+                                lineHeight: '18',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
-                            color: black,
-                            opacity: opacity,
-                            padding: padding
+                            color: white,
+                            opacity: opacity
                         }
                     },
                     set3Text: {
                         M: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '13',
+                                lineHeight: '13',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
-                            color: black,
-                            opacity: opacity40,
-                            padding: padding
+                            color: white,
+                            opacity: opacity40
                         },
                         T: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '13',
+                                lineHeight: '13',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
-                            color: black,
-                            opacity: opacity40,
-                            padding: padding
+                            color: white,
+                            opacity: opacity40
                         },
                         D: {
-                            font: paragraph,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '13',
+                                lineHeight: '13',
+                                letterSpacing: '0'
+                            },
                             text: textProps,
-                            color: black,
-                            opacity: opacity40,
-                            padding: padding
+                            color: white,
+                            opacity: opacity40
                         }
                     }
 

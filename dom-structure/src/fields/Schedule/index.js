@@ -73,8 +73,11 @@ class Schedule extends Component {
                             {[{n : '1', label : 'Tabs Date, Filter Button, Opening, Keynote, Opening'},
                                 {n : '2', label : 'Breakfast, Lunch, Break,Party'},
                                 {n : '3', label : 'Talk, Fastrack, Rex...'}].map(e => <SetContainer>
-                                    <h4>Set {e.n}</h4>
-                                    <label>{e.label}</label>
+                                    <div>
+                                        <h4>Set {e.n}</h4>
+                                        <label>{e.label}</label>
+                                    </div>
+
                                     <Set property={`set${e.n}Bkg`} label={'Background'}
                                          getSettingsByProperty={this.props.getSettingsByProperty}
                                          view={this.state.selectedView} updateSelectedView={this.updateSelectedView}/>
@@ -108,11 +111,10 @@ class Schedule extends Component {
                         }
                         {
                             this.state.selectedView.includes('Title') || this.state.selectedView.includes('Text') ?
-                                <Column className={this.state.openColorView ? 'full-width' : ''}>
+                                <Column className={[this.state.openColorView ? 'full-width' : '', 'column-typo']}>
                                     <TypeSystem key={this.state.selectedView}
                                                 label={null}
                                                 propertyName={this.state.selectedView}
-                                                usePadding
                                                 getSettingsByProperty={this.props.getSettingsByProperty}
                                                 getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
                                                 getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}

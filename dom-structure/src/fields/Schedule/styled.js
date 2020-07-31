@@ -1,5 +1,6 @@
 import { extensionTheme } from '../../style/theme';
 import styled from 'styled-components';
+import {AlignProps, TransformProps} from '../../interfaces/Typography/styled';
 
 export const Column = styled.div`
    display : flex;
@@ -46,6 +47,14 @@ export const Settings = styled.div`
             border-bottom : 1px solid ${extensionTheme.grey20};
         }
    }
+   
+   & ${AlignProps}, & ${TransformProps}{
+    display : none;
+   }
+   ${Column}.column-typo{
+        max-height : 210px;
+        overflow : hidden;
+   }
 `;
 
 
@@ -68,10 +77,19 @@ export const Sets = styled.div`
    &>div{
     width : calc(100%/3);
     
+    
+     
+    
     &:not(:first-child){
         border-left : 1px solid ${extensionTheme.grey30};
     }
    }
+   
+  
+   
+   
+   
+   
 `;
 
 export const SetContainer = styled.div`
@@ -88,5 +106,11 @@ export const SetContainer = styled.div`
    & label{
     line-height : 12px;
    }
+   
+   &>div:first-child{
+        height : 50px;
+   }
+   
+   
 `;
 
