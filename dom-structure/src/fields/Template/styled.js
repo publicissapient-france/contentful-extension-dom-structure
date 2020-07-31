@@ -55,7 +55,7 @@ export const Choices = styled.div`
     
     &:nth-child(4){
         width :75%;
-        flex-direction : row;
+        flex-direction : column;
         
     }
     &:nth-child(6){
