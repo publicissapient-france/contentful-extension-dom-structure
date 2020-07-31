@@ -174,7 +174,7 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: textProps,
-                            color: white,
+                            color: black,
                             opacity: opacity
                         },
                         T: {
@@ -189,7 +189,7 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: textProps,
-                            color: white,
+                            color: black,
                             opacity: opacity
                         },
                         D: {
@@ -204,7 +204,7 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: textProps,
-                            color: white,
+                            color: black,
                             opacity: opacity
                         }
                     },
@@ -221,7 +221,7 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: textProps,
-                            color: white,
+                            color: black,
                             opacity: opacity40
                         },
                         T: {
@@ -236,7 +236,7 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: textProps,
-                            color: white,
+                            color: black,
                             opacity: opacity40
                         },
                         D: {
@@ -251,7 +251,7 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: textProps,
-                            color: white,
+                            color: black,
                             opacity: opacity40
                         }
                     },
@@ -282,7 +282,7 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: textProps,
-                            color: white,
+                            color: black,
                             opacity: opacity
                         },
                         T: {
@@ -297,7 +297,7 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: textProps,
-                            color: white,
+                            color: black,
                             opacity: opacity
                         },
                         D: {
@@ -312,7 +312,7 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: textProps,
-                            color: white,
+                            color: black,
                             opacity: opacity
                         }
                     },
@@ -329,7 +329,7 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: textProps,
-                            color: white,
+                            color: black,
                             opacity: opacity40
                         },
                         T: {
@@ -344,7 +344,7 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: textProps,
-                            color: white,
+                            color: black,
                             opacity: opacity40
                         },
                         D: {
@@ -359,7 +359,7 @@ export default {
                                 letterSpacing: '0'
                             },
                             text: textProps,
-                            color: white,
+                            color: black,
                             opacity: opacity40
                         }
                     }

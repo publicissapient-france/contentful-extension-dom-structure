@@ -35,7 +35,6 @@ class ColorPicker extends Component {
     }
 
     componentDidMount = () => {
-        console.log('this.props.color', this.props.color);
         this.setState({
             color: this.props.color
         });

@@ -221,18 +221,15 @@ const dom = (state = [], action) => {
 
         case 'DUPLICATE_FIELD_COMPONENT':
 const arrayF = Object.keys(state[action.indexSection].components[action.indexComponent].fields).map( field =>  {
-    console.log('field', field);
-    console.log('type of field', typeof field);
+
     return field.includes(action.nameProperty);
 
 
 })
             const number = arrayF.filter(el => el).length;
-            console.log('number', number);
 
             const duplicateField = Object.assign({}, state[action.indexSection].components[action.indexComponent].fields[action.nameProperty]) ;
 
-            console.log('duplicate field', duplicateField)
             const nameOfField = action.nameProperty.concat(String(number))
 
 

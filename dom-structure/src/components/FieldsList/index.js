@@ -18,19 +18,11 @@ import Iframe from '../../fields/Iframe';
 class FieldsList extends Component {
     render() {
         const {fields, index, indexParent, triggerOpening, fieldsComponent} = this.props;
-        Object.keys(fieldsComponent).map( (key, i) => {
-            console.log(key)
-            console.log(fieldsComponent[key])
-        })
 
         return (
             <FieldContainer>
                 {
                     Object.keys(fieldsComponent).map( (key, i) => {
-
-                        console.log(key)
-                        console.log(fieldsComponent[key])
-
                         let config = fields.find( el => el.nameProperty.includes(key) )
                         if(!config){
                             config = fields.find( el => key.includes(el.nameProperty) )

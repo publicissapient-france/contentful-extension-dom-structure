@@ -30,11 +30,11 @@ class Schedule extends Component {
 
     componentDidUpdate(prevProps) {
         ['set1Title', 'set1Text', 'set2Title', 'set2Text', 'set3Title', 'set3Text'].map(prop => {
-            if (this.props.settings && this.props.getSettingsByProperty(prop, 'font')) {
+            /*if (this.props.settings && this.props.getSettingsByProperty(prop, 'font')) {
                 if (!Object.values(this.props.settings[prop])[0].font.family && this.props.themes) {
                     this.props.initFont(prop);
                 }
-            }
+            }*/
         })
     }
 

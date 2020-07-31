@@ -12,7 +12,6 @@ class Shadow extends Component {
     }
 
     componentDidMount = () => {
-        console.log('this.props.shadow', this.props.shadow);
         this.setState({
             shadow: this.props.shadow
         });

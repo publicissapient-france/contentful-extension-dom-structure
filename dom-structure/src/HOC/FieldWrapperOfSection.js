@@ -339,15 +339,11 @@ const FieldWrapperOfSection = WrappedComponent => {
 
         cancelStateValue = e => {
             e.preventDefault();
-            console.log('BAFORE STATE', this.state.content);
 
             this.setState(prevState => ({
                 content: prevState.storeContent,
                 settings: prevState.storeSettings
-            }), () => {
-                console.log('AFTER BEFORE', this.state.content);
-
-            });
+            }));
         }
 
         render() {

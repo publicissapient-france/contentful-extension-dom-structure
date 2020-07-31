@@ -66,7 +66,6 @@ class SpeakerSelector extends Component {
             fetch(speakersUrl)
                 .then(results => {
                     const result = results.json();
-                    console.log(result)
                     return result
                 })
                 .then(data =>{
