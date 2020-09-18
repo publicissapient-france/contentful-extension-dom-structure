@@ -18,6 +18,7 @@ import {
 } from '../actions';
 import { extractActiveValue, arrayToString, extractFontValueToCSS, extractAssetUrl, findProp } from '../utils/functions';
 import ButtonAction from "../components/ui/ButtonAction";
+import axios from 'axios';
 
 
 class App extends React.Component {
@@ -39,6 +40,9 @@ class App extends React.Component {
             this.props.dispatch(initDOM(JSON.parse(this.props.extension.field.getValue().dom)));
             this.props.dispatch(initExtensionInformation(this.props.extension));
             this.props.dispatch(initVisibility());
+
+            this.initDomFromExternal(this.props.extension.entry.getSys().id);
+
         }
 
         this.detachFns = [];
@@ -72,6 +76,18 @@ class App extends React.Component {
     componentWillUnmount = () => {
         this.detachFns.forEach(detach => detach());
         this.props.extension.window.stopAutoResizer();
+    }
+
+    initDomFromExternal = (id) => {
+        console.log('entry id', id);
+
+        axios.get(`https://dom-app-ts.herokuapp.com/dom`, {
+            headers: {"Access-Control-Allow-Origin": "*"}
+        })
+            .then(res => {
+                const dom = res.data;
+                console.log('dom on axios', dom)
+            })
     }
 
     setFieldValue = () => {
