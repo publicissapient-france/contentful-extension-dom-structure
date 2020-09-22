@@ -3,6 +3,7 @@ import {
     iconFont,
     borderRadius,
     colorAndGradient,
+    transparent,
     flexProperties1,
     flexProperties2,
     flexProperties3,
@@ -252,6 +253,40 @@ export const settingsSingleImage = {
                 padding: padding,
                 margin: margin,
                 alignment: alignmentStart
+            }
+        },
+        border: borderMTD
+    }
+}
+
+
+export const settingsSingleImageWithColor = {
+    responsive: ['M', 'T', 'D'],
+    defaultValue: {
+        basis: {
+            M: {
+                size: size,
+                padding: padding,
+                margin: margin,
+                alignment: alignmentStart,
+                color: transparent,
+                opacity: opacity
+            },
+            T: {
+                size: size,
+                padding: padding,
+                margin: margin,
+                alignment: alignmentStart,
+                color: transparent,
+                opacity: opacity
+            },
+            D: {
+                size: size,
+                padding: padding,
+                margin: margin,
+                alignment: alignmentStart,
+                color: transparent,
+                opacity: opacity
             }
         },
         border: borderMTD

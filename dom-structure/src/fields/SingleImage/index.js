@@ -9,7 +9,7 @@ import FieldWrapperOfSection from '../../HOC/FieldWrapperOfSection';
 import AssetPreview from '../../components/AssetPreview';
 import FieldBanner from "../../components/FieldBanner";
 import FieldUpdateForm from "../../components/FieldUpdateForm";
-
+import ColorPicker from '../../interfaces/ColorPicker';
 import ImageUploader from '../../interfaces/ImageUploader';
 import Padding from '../../interfaces/Padding';
 import Size from '../../interfaces/Size';
@@ -21,8 +21,16 @@ import {Field} from '../../style/styledComponentsFields';
 import {Content, Settings, Choices, Column, Row} from './styled';
 
 class SingleImage extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            openColorView: false
+        };
+    }
 
     updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
+    toggleOpenView = () => this.setState(prevState => ({openColorView: !prevState.openColorView}));
 
     render() {
         const {updated, content, indexLanguage, currentResponsiveMode, responsiveContent} = this.props;
@@ -81,6 +89,19 @@ class SingleImage extends Component {
                                            storeValueAlignment={this.props.getStoreSettingsByProperty('basis','alignment')}
                                            defaultAlignment={this.props.getDefaultSettingsByProperty('basis','alignment')}
                                            updateStateProps={this.updateBasis}  />
+                            </Column>
+                            <Column className={this.state.openColorView ? 'full-width' : ''}>
+                                <ColorPicker hidden={false}
+                                             color={this.props.getSettingsByProperty('basis', 'color')}
+                                             opacity={this.props.getSettingsByProperty('basis', 'opacity')}
+                                             storeValueColor={this.props.getStoreSettingsByProperty('basis', 'color')}
+                                             storeValueOpacity={this.props.getStoreSettingsByProperty('basis', 'color')}
+                                             defaultColor={this.props.getDefaultSettingsByProperty('basis', 'color')}
+                                             defaultOpacity={this.props.getDefaultSettingsByProperty('basis', 'opacity')}
+                                             openView={this.state.openColorView}
+                                             updateStateProps={this.updateBasis}
+                                             toggleOpenView={this.toggleOpenView}
+                                />
                             </Column>
                             <BorderSystem label={null}
                                           propertyName={'border'}
