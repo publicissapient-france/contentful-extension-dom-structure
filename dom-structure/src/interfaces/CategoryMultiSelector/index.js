@@ -163,7 +163,8 @@ class CategoryMultiSelector extends Component {
                                 return <Select key={i}>
                                     <input checked={this.alreadySelected(category.id)} type={'checkbox'}
                                            onChange={(e) => this.updateSelected(e, category.id) }/>
-                                    <p>{category.name}</p>
+                                    <p  className={this.alreadyOnPriority(category.id) ? 'active' : ''}
+                                        onClick={() => this.updatePriority(category.id)}>{category.name}</p>
                                 </Select>
                             }) : null
                         }

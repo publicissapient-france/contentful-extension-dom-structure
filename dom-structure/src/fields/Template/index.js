@@ -20,8 +20,13 @@ import {Content, Settings, Choices, Column, Row} from './styled';
 import BorderSystem from "../../interfaces/system/BorderSystem";
 
 class Template extends Component {
+    constructor(props) {
+        super(props);
 
-
+        this.state = {
+            openColorView: false
+        };
+    }
 
     componentDidMount() {
 

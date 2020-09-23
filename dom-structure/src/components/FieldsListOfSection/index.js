@@ -11,6 +11,7 @@ import { SelectPartnersForSection } from '../../fields/SelectPartners/index';
 import { MultipleImagesForSection } from '../../fields/MultipleImages/index';
 import { SelectCategoryForSection } from '../../fields/SelectCategory/index';
 import { MultiSelectCategoryForSection } from '../../fields/MultiSelectCategory/index';
+import { MultiSelectCustomContentTypeForSection } from '../../fields/MultiSelectCustomContentType/index';
 import { ScheduleForSection } from '../../fields/Schedule';
 class FieldsListOfSection extends Component {
 
@@ -66,6 +67,9 @@ class FieldsListOfSection extends Component {
 
                         case 'MultiSelectCategory':
                             return <MultiSelectCategoryForSection {...params} />;
+
+                        case 'MultiSelectCustomContentType':
+                            return <MultiSelectCustomContentTypeForSection {...params} />;
 
                         case 'Schedule':
                             return <ScheduleForSection {...params} />;
