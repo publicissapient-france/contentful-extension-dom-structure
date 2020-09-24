@@ -232,6 +232,13 @@ export const settingsText = {
     }
 }
 
+export const settingsSimpleText = {
+    responsive: ['M', 'T', 'D'],
+    defaultValue: {
+        typography: typographyParagraphMTD
+    }
+}
+
 export const settingsSingleImage = {
     responsive: ['M', 'T', 'D'],
     defaultValue: {
