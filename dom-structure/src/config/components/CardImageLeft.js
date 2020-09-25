@@ -3,7 +3,7 @@ import {
     settingsTitle,
     settingsTagline,
     settingsText,
-    settingsSingleImage, settingsCTA
+    settingsSingleImage, settingsCTA, settingsSimpleText
 } from "../../utils/organism.model.config";
 
 export default {
@@ -68,6 +68,17 @@ export default {
                 }
             },
             settings: settingsText
+        },
+        {
+            name: 'Content Bold',
+            nameProperty: 'ContentBold',
+            typeField: 'TextMarkdown',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsSimpleText
         },
         {
             name: 'Image',
