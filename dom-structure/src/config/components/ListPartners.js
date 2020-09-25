@@ -1,4 +1,4 @@
-import {settingsFlexContainer, settingsTemplate, settingsTemplate} from "../../utils/organism.model.config";
+import {settingsFlexContainer, settingsSectionTemplate, settingsTemplate} from "../../utils/organism.model.config";
 import {alignmentStart, padding} from "../../utils/atom.model.config";
 
 export default {
@@ -24,7 +24,7 @@ export default {
                     ]
                 }
             },
-            settings: settingsTemplate
+            settings: settingsSectionTemplate
 
         },
         {

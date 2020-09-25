@@ -14,6 +14,7 @@ import NavigationBar from '../../fields/NavigationBar/index';
 import SelectSpeakers from '../../fields/SelectSpeakers/index';
 import SelectCategory from '../../fields/SelectCategory/index';
 import Iframe from '../../fields/Iframe';
+import { FlexContainerForComponent } from '../../fields/FlexContainer'
 
 class FieldsList extends Component {
     render() {
@@ -45,6 +46,9 @@ class FieldsList extends Component {
                         switch (true) {
                             case key === 'Template' || key === 'Separator':
                                 return <TemplateForComponent {...params}/>;
+
+                            case key === 'FlexContainer':
+                                return <FlexContainerForComponent {...params}/>;
 
                             case key === 'Title' || key === 'Tagline' || key === 'Heading':
                                 return <Text {...params} />;
