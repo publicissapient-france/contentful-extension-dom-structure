@@ -1,4 +1,4 @@
-import {settingsFlexContainer, settingsSectionTemplate} from "../../utils/organism.model.config";
+import {settingsFlexContainer, settingsTemplate} from "../../utils/organism.model.config";
 
 export default {
     model: 'BasicLayoutCornersImages',
@@ -12,7 +12,7 @@ export default {
                 parameters: {},
                 defaultValue: {}
             },
-            settings: settingsSectionTemplate
+            settings: settingsTemplate
         },
         {
             name: 'Flex Container',
