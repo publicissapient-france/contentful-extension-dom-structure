@@ -15,6 +15,7 @@ import SelectSpeakers from '../../fields/SelectSpeakers/index';
 import SelectCategory from '../../fields/SelectCategory/index';
 import Iframe from '../../fields/Iframe';
 import { FlexContainerForComponent } from '../../fields/FlexContainer'
+import { SelectPartnersForComponent } from '../../fields/SelectPartners/index';
 
 class FieldsList extends Component {
     render() {
@@ -103,6 +104,9 @@ class FieldsList extends Component {
 
                             case key.includes('NavigationLinks') || key.includes('NavigationSubLinks') :
                                 return <NavigationLinks {...params} />;
+
+                            case  key.includes('Partners'):
+                                return <SelectPartnersForComponent  {...params} />
 
                             default :
                                 return <div className={'error'}><p>No

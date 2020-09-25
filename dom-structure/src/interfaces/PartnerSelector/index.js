@@ -46,7 +46,12 @@ class PartnerSelector extends Component {
                 priority: this.props.priority,
                 selected: this.orderSelectedWithPriority()
             }, () => {
-                this.props.updateContent(this.state.selected, 'data')
+                if(this.props.forComponent){
+                    this.props.updateContent('data', this.state.selected)
+                }else{
+                    this.props.updateContent(this.state.selected, 'data')
+                }
+
             })
         }
     }
@@ -78,7 +83,13 @@ class PartnerSelector extends Component {
         this.setState(prevState => ({
             priority: [...prevState.priority, id]
         }), () => {
-            this.props.updateContent(this.state.priority, 'priority')
+
+            if(this.props.forComponent){
+                this.props.updateContent('priority', this.state.priority)
+            }else{
+                this.props.updateContent(this.state.priority, 'priority')
+            }
+
             this.refreshOrderWithPriority()
         })
     }
@@ -99,7 +110,11 @@ class PartnerSelector extends Component {
         this.setState(prevState => ({
             priority: prevState.priority.filter(item => item !== id)
         }), () => {
-            this.props.updateContent(this.state.priority, 'priority')
+            if(this.props.forComponent){
+                this.props.updateContent('priority', this.state.priority)
+            }else{
+                this.props.updateContent(this.state.priority, 'priority')
+            }
             this.refreshOrderWithPriority()
         })
     }
@@ -108,7 +123,11 @@ class PartnerSelector extends Component {
         this.setState({
             selected: this.orderSelectedWithPriority()
         }, () => {
-            this.props.updateContent(this.state.selected, 'data')
+            if(this.props.forComponent){
+                this.props.updateContent('data', this.state.selected)
+            }else{
+                this.props.updateContent(this.state.selected, 'data')
+            }
         })
     }
 
@@ -118,7 +137,11 @@ class PartnerSelector extends Component {
         this.setState(prevState => ({
             selected: [...prevState.selected, id]
         }), () => {
-            this.props.updateContent(this.state.selected, 'data')
+            if(this.props.forComponent){
+                this.props.updateContent('data', this.state.selected)
+            }else{
+                this.props.updateContent(this.state.selected, 'data')
+            }
         })
     }
 
@@ -126,7 +149,11 @@ class PartnerSelector extends Component {
         this.setState(prevState => ({
             selected: prevState.selected.filter(item => item !== id)
         }), () => {
-            this.props.updateContent(this.state.selected, 'data')
+            if(this.props.forComponent){
+                this.props.updateContent('data', this.state.selected)
+            }else{
+                this.props.updateContent(this.state.selected, 'data')
+            }
         })
     }
 
@@ -153,7 +180,11 @@ class PartnerSelector extends Component {
         newOrder[index] = b;
 
         this.setState({priority: newOrder}, () => {
-            this.props.updateContent(this.state.priority, 'priority')
+            if(this.props.forComponent){
+                this.props.updateContent('priority', this.state.priority)
+            }else{
+                this.props.updateContent(this.state.priority, 'priority')
+            }
         })
     }
 
@@ -166,7 +197,11 @@ class PartnerSelector extends Component {
         newOrder[index + 1] = a;
 
         this.setState({priority: newOrder}, () => {
-            this.props.updateContent(this.state.priority, 'priority')
+            if(this.props.forComponent){
+                this.props.updateContent('priority', this.state.priority)
+            }else{
+                this.props.updateContent(this.state.priority, 'priority')
+            }
         })
     }
 

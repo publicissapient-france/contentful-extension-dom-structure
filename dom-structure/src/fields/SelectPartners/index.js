@@ -30,6 +30,7 @@ class SelectPartners extends Component {
                             <PartnerSelector updateContent={this.props.updateContent}
                                              partners={this.getData()}
                                              priority={this.getPriority()}
+                                             forComponent={this.props.indexSection && this.props.indexComponent ? true : false}
                             />
                         </Choices>
                     </Content>
