@@ -19,7 +19,7 @@ class CustomContentTypeMultiSelector extends Component {
             selectedContents: [],
             priority: [],
             contentType: "",
-            availableContentType: ["publication", "event"]
+            availableContentType: ["publication", "event", "customerCase"]
         };
     }
 
