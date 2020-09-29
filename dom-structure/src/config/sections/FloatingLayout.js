@@ -1,6 +1,6 @@
-import {settingsCTA, settingsFlexContainer, settingsTemplate} from "../../utils/organism.model.config";
+import {settingsFlexContainer, settingsTemplate} from "../../utils/organism.model.config";
 export default {
-    model: 'LayoutFloatingButton',
+    model: 'FloatingLayout',
     fields: [
         {
             name: 'Template',
@@ -36,22 +36,6 @@ export default {
                 }
             },
             settings: settingsFlexContainer
-
-        },
-        {
-            name: 'CTA',
-            nameProperty: 'CTA',
-            typeField: 'CTA',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {
-                    text: {},
-                    link: {},
-                    icon: {}
-                }
-            },
-            settings: settingsCTA
 
         }
     ]
