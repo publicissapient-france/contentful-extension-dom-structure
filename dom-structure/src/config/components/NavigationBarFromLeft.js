@@ -13,6 +13,38 @@ export default {
     model: 'NavigationBarFromLeft',
     fields: [
         {
+            name: 'Template Left Container',
+            nameProperty: 'TemplateLeft',
+            typeField: 'Template',
+            content: {
+                responsive: ['M', 'T', 'D'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsTemplate
+
+        },
+        {
+            name: 'Image',
+            nameProperty: 'Image',
+            typeField: 'SingleImage',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {
+                    images: [
+                        {
+                            alt: {},
+                            asset: {
+                                A: {}
+                            }
+                        }
+                    ]
+                }
+            },
+            settings: settingsSingleImage
+        },
+        {
             name: 'Template Links',
             nameProperty: 'TemplateLinks',
             typeField: 'Template',
@@ -385,26 +417,6 @@ export default {
                 }
             }
 
-        },
-        {
-            name: 'Image',
-            nameProperty: 'Image',
-            typeField: 'SingleImage',
-            content: {
-                responsive: ['A'],
-                parameters: {},
-                defaultValue: {
-                    images: [
-                        {
-                            alt: {},
-                            asset: {
-                                A: {}
-                            }
-                        }
-                    ]
-                }
-            },
-            settings: settingsSingleImage
         },
         {
             name: 'Template Burger',
