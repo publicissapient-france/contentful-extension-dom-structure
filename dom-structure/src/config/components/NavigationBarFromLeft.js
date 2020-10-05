@@ -644,17 +644,6 @@ export default {
 
         },
         {
-            name: 'Template Burger',
-            nameProperty: 'TemplateBurger',
-            typeField: 'Template',
-            content: {
-                responsive: ['M', 'T', 'D'],
-                parameters: {},
-                defaultValue: {}
-            },
-            settings: settingsTemplate
-        },
-        {
             name: 'Template Language',
             nameProperty: 'TemplateLanguage',
             typeField: 'Template',
