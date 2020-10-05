@@ -142,6 +142,13 @@ export const colorAndGradient = {
     shade: null,
     gradient: ''
 }
+export const colorGreyAndGradient = {
+    hex: '#666666',
+    rgb: '102,102,102',
+    name: 'Grey',
+    shade: '70',
+    gradient: ''
+}
 
 // TYPO
 
@@ -192,7 +199,7 @@ export const textProps = {
     decoration: null
 }
 export const textPropsCenter = {
-    align: 'left',
+    align: 'center',
     transform: null,
     decoration: null
 }

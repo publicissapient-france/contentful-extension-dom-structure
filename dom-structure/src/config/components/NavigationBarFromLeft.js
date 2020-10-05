@@ -1,13 +1,14 @@
 import {
-    alignmentStart,
-    black, borderRadius, borderWidth,
+    alignmentStart, backgroundPosition,
+    black, borderRadius, borderWidth, colorAndGradient, colorGreyAndGradient,
     grey70,
     margin,
-    opacity,
-    paragraph, size, textPropsCenter,
-    transparent
+    opacity, padding,
+    paragraph, shadow, size, textProps, textPropsCenter,
+    transparent, white
 } from "../../utils/atom.model.config";
 import {settingsSingleImage, settingsTemplate} from "../../utils/organism.model.config";
+import {borderMTD} from "../../utils/molecules.model.config";
 
 export default {
     model: 'NavigationBarFromLeft',
@@ -21,7 +22,77 @@ export default {
                 parameters: {},
                 defaultValue: {}
             },
-            settings: settingsTemplate
+            settings: {
+                responsive: ['M', 'T', 'D'],
+                defaultValue: {
+                    basis: {
+                        M: {
+                            size: {
+                                width: '100%',
+                                height: '110',
+                                maxWidth: '',
+                                maxHeight: '',
+                                minWidth: '',
+                                minHeight: ''
+                            },
+                            padding: {
+                                top: '0',
+                                right: '30',
+                                bottom: '0',
+                                left: '30'
+                            },
+                            margin: margin,
+                            color: colorAndGradient,
+                            opacity: opacity,
+                            shadow: shadow,
+                            background: backgroundPosition
+                        },
+                        T: {
+                            size: {
+                                width: 'calc(100% /3)',
+                                height: '110',
+                                maxWidth: '',
+                                maxHeight: '',
+                                minWidth: 'calc(100% /3)',
+                                minHeight: ''
+                            },
+                            padding: {
+                                top: '0',
+                                right: '40',
+                                bottom: '0',
+                                left: '40'
+                            },
+                            margin: margin,
+                            color: colorAndGradient,
+                            opacity: opacity,
+                            shadow: shadow,
+                            background: backgroundPosition
+                        },
+                        D: {
+                            size: {
+                                width: 'calc(100% /3)',
+                                height: '110',
+                                maxWidth: '',
+                                maxHeight: '',
+                                minWidth: 'calc(100% /3)',
+                                minHeight: ''
+                            },
+                            padding: {
+                                top: '0',
+                                right: '40',
+                                bottom: '0',
+                                left: '40'
+                            },
+                            margin: margin,
+                            color: colorAndGradient,
+                            opacity: opacity,
+                            shadow: shadow,
+                            background: backgroundPosition
+                        }
+                    },
+                    border: borderMTD
+                }
+            }
 
         },
         {
@@ -42,7 +113,68 @@ export default {
                     ]
                 }
             },
-            settings: settingsSingleImage
+            settings: {
+                responsive: ['M', 'T', 'D'],
+                defaultValue: {
+                    basis: {
+                        M: {
+                            size: {
+                                width: '',
+                                height: '70',
+                                maxWidth: '',
+                                maxHeight: '',
+                                minWidth: '',
+                                minHeight: ''
+                            },
+                            padding: padding,
+                            margin: {
+                                top: '20',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            alignment: alignmentStart
+                        },
+                        T: {
+                            size: {
+                                width: '',
+                                height: '70',
+                                maxWidth: '',
+                                maxHeight: '',
+                                minWidth: '',
+                                minHeight: ''
+                            },
+                            padding: padding,
+                            margin: {
+                                top: '20',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            alignment: alignmentStart
+                        },
+                        D: {
+                            size: {
+                                width: '',
+                                height: '70',
+                                maxWidth: '',
+                                maxHeight: '',
+                                minWidth: '',
+                                minHeight: ''
+                            },
+                            padding: padding,
+                            margin: {
+                                top: '20',
+                                right: '0',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            alignment: alignmentStart
+                        }
+                    },
+                    border: borderMTD
+                }
+            }
         },
         {
             name: 'Template Links',
@@ -72,10 +204,10 @@ export default {
                         M: {
                             size: size,
                             padding: {
-                                top: '10',
-                                right: '20',
-                                bottom: '10',
-                                left: '20'
+                                top: '15',
+                                right: '30',
+                                bottom: '15',
+                                left: '30'
                             },
                             margin: margin,
                             alignment: alignmentStart,
@@ -93,10 +225,10 @@ export default {
                         T: {
                             size: size,
                             padding: {
-                                top: '10',
-                                right: '15',
-                                bottom: '10',
-                                left: '15'
+                                top: '0',
+                                right: '40',
+                                bottom: '25',
+                                left: '40'
                             },
                             margin: margin,
                             alignment: alignmentStart,
@@ -114,10 +246,10 @@ export default {
                         D: {
                             size: size,
                             padding: {
-                                top: '10',
-                                right: '15',
-                                bottom: '10',
-                                left: '15'
+                                top: '0',
+                                right: '40',
+                                bottom: '25',
+                                left: '40'
                             },
                             margin: margin,
                             alignment: alignmentStart,
@@ -135,8 +267,17 @@ export default {
                     },
                     typography: {
                         M: {
-                            font: paragraph,
-                            text: textPropsCenter,
+                            font: {
+                                theme: 'Title3',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '30',
+                                lineHeight: '45',
+                                letterSpacing: '0'
+                            },
+                            text: textProps,
                             color: {
                                 basic: black,
                                 hover: grey70,
@@ -149,8 +290,17 @@ export default {
                             }
                         },
                         T: {
-                            font: paragraph,
-                            text: textPropsCenter,
+                            font: {
+                                theme: 'Title3',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '30',
+                                lineHeight: '45',
+                                letterSpacing: '0'
+                            },
+                            text: textProps,
                             color: {
                                 basic: black,
                                 hover: grey70,
@@ -163,8 +313,17 @@ export default {
                             }
                         },
                         D: {
-                            font: paragraph,
-                            text: textPropsCenter,
+                            font: {
+                                theme: 'Title3',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '30',
+                                lineHeight: '45',
+                                letterSpacing: '0'
+                            },
+                            text: textProps,
                             color: {
                                 basic: black,
                                 hover: grey70,
@@ -208,12 +367,7 @@ export default {
                             }
                         },
                         D: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '1',
-                                left: '0'
-                            },
+                            width: borderWidth,
                             radius: borderRadius,
                             color: {
                                 basic: transparent,
@@ -240,7 +394,56 @@ export default {
                 parameters: {},
                 defaultValue: {}
             },
-            settings: settingsTemplate
+            settings: {
+                responsive: ['M', 'T', 'D'],
+                defaultValue: {
+                    basis: {
+                        M: {
+                            size: size,
+                            padding: {
+                                top: '30',
+                                right: '0',
+                                bottom: '30',
+                                left: '0'
+                            },
+                            margin: margin,
+                            color: colorGreyAndGradient,
+                            opacity: opacity,
+                            shadow: shadow,
+                            background: backgroundPosition
+                        },
+                        T: {
+                            size: size,
+                            padding: {
+                                top: '0',
+                                right: '60',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            margin: margin,
+                            color: colorGreyAndGradient,
+                            opacity: opacity,
+                            shadow: shadow,
+                            background: backgroundPosition
+                        },
+                        D: {
+                            size: size,
+                            padding: {
+                                top: '0',
+                                right: '60',
+                                bottom: '0',
+                                left: '0'
+                            },
+                            margin: margin,
+                            color: colorGreyAndGradient,
+                            opacity: opacity,
+                            shadow: shadow,
+                            background: backgroundPosition
+                        }
+                    },
+                    border: borderMTD
+                }
+            }
 
         },
         {
@@ -259,10 +462,10 @@ export default {
                         M: {
                             size: size,
                             padding: {
-                                top: '10',
-                                right: '20',
-                                bottom: '10',
-                                left: '20'
+                                top: '15',
+                                right: '30',
+                                bottom: '15',
+                                left: '30'
                             },
                             margin: margin,
                             alignment: alignmentStart,
@@ -280,10 +483,10 @@ export default {
                         T: {
                             size: size,
                             padding: {
-                                top: '10',
-                                right: '15',
-                                bottom: '10',
-                                left: '15'
+                                top: '8',
+                                right: '0',
+                                bottom: '8',
+                                left: '0'
                             },
                             margin: margin,
                             alignment: alignmentStart,
@@ -301,10 +504,10 @@ export default {
                         D: {
                             size: size,
                             padding: {
-                                top: '10',
-                                right: '15',
-                                bottom: '10',
-                                left: '15'
+                                top: '8',
+                                right: '0',
+                                bottom: '8',
+                                left: '0'
                             },
                             margin: margin,
                             alignment: alignmentStart,
@@ -322,12 +525,21 @@ export default {
                     },
                     typography: {
                         M: {
-                            font: paragraph,
-                            text: textPropsCenter,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '20',
+                                lineHeight: '30',
+                                letterSpacing: '0'
+                            },
+                            text: textProps,
                             color: {
-                                basic: black,
-                                hover: grey70,
-                                active: grey70
+                                basic: white,
+                                hover: black,
+                                active: black
                             },
                             opacity: {
                                 basic: opacity,
@@ -336,12 +548,21 @@ export default {
                             }
                         },
                         T: {
-                            font: paragraph,
-                            text: textPropsCenter,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '20',
+                                lineHeight: '30',
+                                letterSpacing: '0'
+                            },
+                            text: textProps,
                             color: {
-                                basic: black,
-                                hover: grey70,
-                                active: grey70
+                                basic: white,
+                                hover: black,
+                                active: black
                             },
                             opacity: {
                                 basic: opacity,
@@ -350,12 +571,21 @@ export default {
                             }
                         },
                         D: {
-                            font: paragraph,
-                            text: textPropsCenter,
+                            font: {
+                                theme: 'Paragraph',
+                                family: null,
+                                typeface: null,
+                                weight: null,
+                                style: null,
+                                size: '20',
+                                lineHeight: '30',
+                                letterSpacing: '0'
+                            },
+                            text: textProps,
                             color: {
-                                basic: black,
-                                hover: grey70,
-                                active: grey70
+                                basic: white,
+                                hover: black,
+                                active: black
                             },
                             opacity: {
                                 basic: opacity,
@@ -395,12 +625,7 @@ export default {
                             }
                         },
                         D: {
-                            width: {
-                                top: '0',
-                                right: '0',
-                                bottom: '1',
-                                left: '0'
-                            },
+                            width: borderWidth,
                             radius: borderRadius,
                             color: {
                                 basic: transparent,
@@ -417,17 +642,6 @@ export default {
                 }
             }
 
-        },
-        {
-            name: 'Template Burger',
-            nameProperty: 'TemplateBurger',
-            typeField: 'Template',
-            content: {
-                responsive: ['M', 'T', 'D'],
-                parameters: {},
-                defaultValue: {}
-            },
-            settings: settingsTemplate
         },
         {
             name: 'Template Language',
