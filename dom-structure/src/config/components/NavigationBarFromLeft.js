@@ -416,9 +416,9 @@ export default {
                             size: size,
                             padding: {
                                 top: '0',
-                                right: '60',
+                                right: '0',
                                 bottom: '0',
-                                left: '0'
+                                left: '60'
                             },
                             margin: margin,
                             color: colorGreyAndGradient,
@@ -430,9 +430,9 @@ export default {
                             size: size,
                             padding: {
                                 top: '0',
-                                right: '60',
+                                right: '0',
                                 bottom: '0',
-                                left: '0'
+                                left: '60'
                             },
                             margin: margin,
                             color: colorGreyAndGradient,
