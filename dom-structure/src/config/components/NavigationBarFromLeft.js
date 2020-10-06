@@ -416,7 +416,7 @@ export default {
                             size: size,
                             padding: {
                                 top: '0',
-                                right: '0',
+                                right: '40',
                                 bottom: '0',
                                 left: '60'
                             },
@@ -430,7 +430,7 @@ export default {
                             size: size,
                             padding: {
                                 top: '0',
-                                right: '0',
+                                right: '40',
                                 bottom: '0',
                                 left: '60'
                             },
