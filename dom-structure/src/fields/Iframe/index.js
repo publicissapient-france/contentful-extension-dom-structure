@@ -12,6 +12,14 @@ import FieldUpdateForm from "../../components/FieldUpdateForm";
 import Size from '../../interfaces/Size'
 
 class Iframe extends Component {
+    componentDidUpdate(prevProps) {
+        if (this.props.responsiveSettings !== prevProps.responsiveSettings) {
+            this.props.setResponsiveMode(this.props.responsiveSettings[0]);
+        }
+    }
+
+    updateBasis = (property, value) => this.props.updateSettingsProperty('basis', property, value);
+
     render() {
         const {indexLanguage, content, updated} = this.props;
         if (!this.props.settings) return null;
