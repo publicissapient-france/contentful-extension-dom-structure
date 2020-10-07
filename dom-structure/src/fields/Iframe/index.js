@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
 import FieldWrapper from '../../HOC/FieldWrapper';
 import InputIframe from '../../interfaces/InputIframe';
-import { Field} from '../../style/styledComponentsFields';
-import { Content} from './styled';
+import {Field} from '../../style/styledComponentsFields';
+import {Content, Choices, Column, Settings} from './styled';
 import {getCurrentStyle} from "../../actions";
 import {connect} from "react-redux";
 import isEmpty from "lodash/isEmpty";
-import { getHtml} from "../../utils/Fields/getters";
+import {getHtml} from "../../utils/Fields/getters";
 import FieldBanner from "../../components/FieldBanner";
 import FieldUpdateForm from "../../components/FieldUpdateForm";
+import Size from '../../interfaces/Size'
 
 class Iframe extends Component {
-
     render() {
         const {indexLanguage, content, updated} = this.props;
         if (!this.props.settings) return null;
@@ -24,13 +24,26 @@ class Iframe extends Component {
                         !isEmpty(this.props.content) ?
                             <Content className={!this.props.openContent ? 'hidden' : ''}>
                                 <InputIframe currentLanguage={indexLanguage}
-                                               action={this.props.updateTranlatedContent} targetProperty={'html'}
-                                               defaultValue={getHtml(content, indexLanguage)}/>
+                                             action={this.props.updateTranlatedContent} targetProperty={'html'}
+                                             defaultValue={getHtml(content, indexLanguage)}/>
                             </Content>
                             : null
                     }
                 </Field>
-                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
+                <Settings className={!this.props.openSettings ? 'hidden' : ''}>
+                    <Choices>
+                        <Column/>
+                        <Column className={this.state.openColorView ? 'hidden' : ''}>
+                            <Size size={this.props.getSettingsByProperty('basis', 'size')}
+                                  storeValueSize={this.props.getStoreSettingsByProperty('basis', 'size')}
+                                  defaultSize={this.props.getDefaultSettingsByProperty('basis', 'size')}
+                                  updateStateProps={this.updateBasis}
+                            />
+                        </Column>
+                    </Choices>
+                </Settings>
+                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue}
+                                 updating={this.props.updateField}/>
             </div>
         );
     }

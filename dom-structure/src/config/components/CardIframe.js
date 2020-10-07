@@ -5,6 +5,7 @@ import {
     settingsText,
     settingsTitle
 } from "../../utils/organism.model.config";
+import {margin, size} from "../../utils/atom.model.config";
 
 export default {
     model: 'CardIframe',
@@ -84,7 +85,19 @@ export default {
             },
             settings: {
                 responsive: ['M', 'T', 'D'],
-                defaultValue: {}
+                defaultValue: {
+                    basis: {
+                        M: {
+                            size: size
+                        },
+                        T: {
+                            size: size
+                        },
+                        D: {
+                            size: size
+                        }
+                    }
+                }
             }
         },
         {
