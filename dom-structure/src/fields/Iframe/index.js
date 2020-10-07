@@ -33,7 +33,7 @@ class Iframe extends Component {
                 <Settings className={!this.props.openSettings ? 'hidden' : ''}>
                     <Choices>
                         <Column/>
-                        <Column className={this.state.openColorView ? 'hidden' : ''}>
+                        <Column>
                             <Size size={this.props.getSettingsByProperty('basis', 'size')}
                                   storeValueSize={this.props.getStoreSettingsByProperty('basis', 'size')}
                                   defaultSize={this.props.getDefaultSettingsByProperty('basis', 'size')}
