@@ -8,7 +8,13 @@ import {
     backgroundPosition,
     borderWidth, borderRadius, transparent
 } from "../../utils/atom.model.config";
-import {settingsSingleImage, settingsTagline, settingsText, settingsTitle} from "../../utils/organism.model.config";
+import {
+    settingsSimpleText,
+    settingsSingleImage,
+    settingsTagline,
+    settingsText,
+    settingsTitle
+} from "../../utils/organism.model.config";
 
 export default {
     model: 'CardClickable',
@@ -121,6 +127,17 @@ export default {
             },
             settings: settingsText
 
+        },
+        {
+            name: 'Content Bold',
+            nameProperty: 'ContentBold',
+            typeField: 'TextMarkdown',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsSimpleText
         },
         {
             name: 'Image',
