@@ -11,7 +11,7 @@ import {
 import {
     settingsSimpleText,
     settingsSingleImage,
-    settingsTagline,
+    settingsTagline, settingsTemplate,
     settingsText,
     settingsTitle
 } from "../../utils/organism.model.config";
@@ -38,30 +38,7 @@ export default {
                     ]
                 }
             },
-            settings: {
-                responsive: ['A'],
-                defaultValue: {
-                    basis: {
-                        A: {
-                            size: size,
-                            padding: padding,
-                            margin: margin,
-                            color: white,
-                            opacity: opacity,
-                            shadow: shadow,
-                            background: backgroundPosition
-                        }
-                    },
-                    border: {
-                        A: {
-                            width: borderWidth,
-                            radius: borderRadius,
-                            color: transparent,
-                            opacity: opacity
-                        }
-                    }
-                }
-            }
+            settings: settingsTemplate
 
         },
         {
