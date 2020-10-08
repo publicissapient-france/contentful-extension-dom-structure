@@ -1,5 +1,5 @@
 import {
-    settingsCTA,
+    settingsCTA, settingsSimpleText,
     settingsSingleImageWithColor, settingsTagline,
     settingsTemplate,
     settingsText,
@@ -74,6 +74,17 @@ export default {
             },
             settings: settingsText
 
+        },
+        {
+            name: 'Content Bold',
+            nameProperty: 'ContentBold',
+            typeField: 'TextMarkdown',
+            content: {
+                responsive: ['A'],
+                parameters: {},
+                defaultValue: {}
+            },
+            settings: settingsSimpleText
         },
         {
             name: 'Image',
