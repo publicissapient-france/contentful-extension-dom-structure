@@ -9,10 +9,20 @@ export const ContainerSection = styled(Container)`
 export const Settings = styled(OptionsBlock)`
   padding-right : 15px;
 `;
-export const TopBar = styled.div`
+export const TopBar = styled.div.attrs(props => ({
+    borderBottom: props.borderBottom
+}))`
   width : 100%;
   display : flex;
   justify-content: space-between;
+  box-sizing : border-box;
+  padding-right : 14px;
+  
+  ${props => props.borderBottom ? 
+        `
+        border-bottom : 1px solid ${extensionTheme.grey30};
+        `
+    : '' }
 `;
 
 export const Description = styled.div`
@@ -20,14 +30,10 @@ export const Description = styled.div`
   width : fit-content
   
 `;
-export const Actions = styled(Description)`
-    padding-right : 3px;
-`;
-
 export const Children = styled.div`
   display : flex;
   flex-wrap : wrap;
-  padding-right : 15px;
+  padding-right : 10px;
 
 `;
 
@@ -69,45 +75,6 @@ export const Active = styled(CheckBox)`
 `;
 
 
-export const Banner = styled.div`
-  display : flex;
-  align-items : center;
-  justify-content: space-between;
-  width : 100%;
-  background : ${ extensionTheme.orange }; 
-  color :  ${ extensionTheme.orange }; 
-  padding-right : 3px;
-  
-  & p{
-    padding-left : 10px;
-    text-transform : uppercase;
-    font-weight : 300;
-  }
-  
-  & ${ Icon }{
-    height : 40px;
-    
-  & svg{
-    //width : 40px;
-    //height : 40px;
-  }
-    
-    & svg g path, & svg  path, & svg rect {
-        fill : ${ extensionTheme.white };   
-    }
-    
-    &:hover{
-        & svg g path, & svg  path {
-            fill : ${ extensionTheme.grey10 };   
-        }
-    }
-  }
-`;
-
-
-export const Toggle = styled.div`
-  display : flex;
-`;
 
 export const FieldsContainer = styled.div`
  padding-bottom : 10px;
@@ -115,4 +82,50 @@ export const FieldsContainer = styled.div`
 
 export const Fields = styled.div`
 
+`;
+
+export const PanelActions = styled.div`
+     display : flex;
+     padding-left : 5px;
+     padding-right : 5px;
+     
+     &.options{
+          padding : 0;
+          background-color : ${extensionTheme.grey35};
+          top : 0;
+          right : 100%;
+          height : 40px;
+          
+           & ${Icon}>svg g path, & ${Icon}>svg path, & ${Icon}>svg rect, & ${Icon}>svg g circle {
+                fill : ${ extensionTheme.white };
+           }
+           
+           & ${Icon}.trash:hover{
+                &>svg g path, &>svg path, &>svg  rect {
+                    fill : ${ extensionTheme.redM };
+                }
+              }
+          & ${Icon}.trash.active{
+            &>svg g path, &>svg path, &>svg  rect {
+                fill : ${ extensionTheme.redM };
+            }
+          }
+          
+          &>div{
+            display: flex;
+            padding-left : 5px;
+            padding-right : 5px;
+          }
+          &>div:not(:last-child){
+            border-right : 1px solid ${extensionTheme.white};
+          }
+     }
+`;
+
+
+export const Actions = styled(Description)`
+    
+    & ${PanelActions}:not(:last-child){
+        border-right : 1px solid ${extensionTheme.grey30};
+    }
 `;

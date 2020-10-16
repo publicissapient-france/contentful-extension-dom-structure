@@ -222,36 +222,37 @@ export const Icon = styled.div`
   display :flex;
   align-items : center;
   transition : transform 0.3s ease; 
+  position : relative;
   
-  & svg g path, & svg path, & svg rect {
+  &>svg g path, &>svg path, &>svg rect, &>svg g circle {
         fill : ${ extensionTheme.grey40 };
     }
 
   &.active{
-    & svg g path, & svg path, & svg rect {
+    &>svg g path, &>svg path, &>svg rect, &>svg g circle {
         fill : ${ extensionTheme.greenM };
     }
   }
   
   &.disable{
-    & svg g path, & svg  path {
+    &>svg g path, &>svg  path, &>svg g circle {
         fill : ${ extensionTheme.grey20 };
     }
   }
   
   &:not(.disable):hover{
-    & svg g path, & svg  path, & svg rect {
+    &>svg g path, &>svg  path, &>svg rect, , &>svg g circle {
         fill : ${ extensionTheme.greenM };
     }
   }
   
    &.trash:hover{
-    & svg g path, & svg path, & svg  rect {
+    &>svg g path, &>svg path, &>svg  rect {
         fill : ${ extensionTheme.redM };
     }
   }
   &.trash.active{
-    & svg g path, & svg path, & svg  rect {
+    &>svg g path, &>svg path, &>svg  rect {
         fill : ${ extensionTheme.redM };
     }
   }
@@ -261,12 +262,12 @@ export const Icon = styled.div`
   }
   
   &.toggleAll{
-    & svg g path, & svg path, & svg  rect {
+    &>svg g path, &>svg path, &>svg  rect {
         fill : ${ extensionTheme.white };
     }
     
     &:hover{
-        & svg g path, & svg path, & svg  rect {
+        &>svg g path, &>svg path, &>svg  rect {
             fill : ${ extensionTheme.white };
         }
     }

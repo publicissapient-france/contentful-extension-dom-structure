@@ -14,21 +14,24 @@ export const ContainerComponent = styled(Container)`
   overflow : hidden;
 `;
 
-export const TopBar = styled.div`
+export const TopBar = styled.div.attrs(props => ({
+    borderBottom: props.borderBottom
+}))`
   width : 100%;
   display : flex;
   justify-content: space-between;
+  
+  ${props => props.borderBottom ?
+    `
+        border-bottom : 1px solid ${extensionTheme.grey30};
+        `
+    : '' }
 `;
 
 export const Description = styled.div`
   display : flex;
   width : fit-content
   padding-left:10px;
-`;
-export const Actions = styled.div`
-  display : flex;
-  width : fit-content;
-  padding-right: 3px;
 `;
 
 export const Languages = styled.div`
@@ -134,3 +137,51 @@ export const Fields = styled.div`
  
 `;
 
+
+export const PanelActions = styled.div`
+     display : flex;
+     padding-left : 5px;
+     padding-right : 5px;
+     
+     &.options{
+          padding : 0;
+          background-color : ${extensionTheme.grey35};
+          top : 0;
+          right : 100%;
+          height : 40px;
+          
+           & ${Icon}>svg g path, & ${Icon}>svg path, & ${Icon}>svg rect, & ${Icon}>svg g circle {
+                fill : ${ extensionTheme.white };
+           }
+           
+           & ${Icon}.trash:hover{
+                &>svg g path, &>svg path, &>svg  rect {
+                    fill : ${ extensionTheme.redM };
+                }
+              }
+          & ${Icon}.trash.active{
+            &>svg g path, &>svg path, &>svg  rect {
+                fill : ${ extensionTheme.redM };
+            }
+          }
+          
+          &>div{
+            display: flex;
+            padding-left : 5px;
+            padding-right : 5px;
+          }
+          &>div:not(:last-child){
+            border-right : 1px solid ${extensionTheme.white};
+          }
+     }
+`;
+
+export const Actions = styled.div`
+  display : flex;
+  width : fit-content;
+  padding-right: 3px;
+  
+  & ${PanelActions}:not(:last-child){
+        border-right : 1px solid ${extensionTheme.grey30};
+    }
+`;

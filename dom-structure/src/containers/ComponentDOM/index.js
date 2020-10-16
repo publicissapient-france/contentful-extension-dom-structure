@@ -9,6 +9,11 @@ import SvgCheck from '../../components/svg/SvgCheck';
 import SvgDuplicate from '../../components/svg/SvgDuplicate';
 import SvgTrash from '../../components/svg/SvgTrash';
 import SvgSpec from '../../components/svg/SvgSpec';
+import SvgHorizontalThreeDots from '../../components/svg/SvgHorizontalThreeDots';
+import SvgDuplicateComponent from '../../components/svg/SvgDuplicateComponent';
+import SvgPastComponent from '../../components/svg/SvgPastComponent';
+import SvgCopyComponent from '../../components/svg/SvgCopyComponent';
+
 import FieldsList from '../../components/FieldsList';
 
 import {
@@ -28,7 +33,7 @@ import {
     FieldsContainer,
     Fields,
     Column,
-    Buttons
+    Buttons, PanelActions
 } from './styled';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
@@ -54,11 +59,13 @@ class ComponentDOM extends Component {
 
         this.state = {
             openBoxes: true,
+
             semiOpenBoxes: false,
             openSettings: false,
             openContent: false,
             component: null,
             openSafeDelete: false,
+            openOption: false,
             config: {},
             triggerOpening: false
         };
@@ -110,6 +117,11 @@ class ComponentDOM extends Component {
         openContent: false,
         openSettings: false
     })
+    toggleOptions = () => this.setState({
+        openOption: !this.state.openOption,
+        openSafeDelete: false
+    })
+
     toggleOpenSettings = () => this.setState({
         openSettings: !this.state.openSettings,
         openContent: false,
@@ -155,7 +167,7 @@ class ComponentDOM extends Component {
 
     isUpdated = () => (this.state.component && (this.state.component.name !== this.props.component.name ||
             this.state.component.model !== this.props.component.model ||
-            this.state.component.order !==  this.props.component.order
+            this.state.component.order !== this.props.component.order
         )
     )
 
@@ -175,7 +187,7 @@ class ComponentDOM extends Component {
 
         return (
             <ContainerComponent>
-                <TopBar>
+                <TopBar  borderBottom={this.state.openSettings}>
                     <Description>
                         <Active
                             className={component.active ? 'active' : ''}
@@ -188,40 +200,68 @@ class ComponentDOM extends Component {
                         <h4>{component.model} </h4>
                     </Description>
                     <Actions>
-                        <Icon className={this.state.openSettings && !this.state.triggerOpening ? 'active' : ''}
-                              onClick={() => this.toggleOpenSettings()}>
-                            <SvgSetting/>
-                        </Icon>
-                        <Icon className={this.state.triggerOpening ? 'active' : ''}
-                              onClick={() => {
-                                  this.triggerOpening();
-                                  if (!this.state.openSettings) {
-                                      this.toggleOpenSettings();
-                                  }
-                              }}>
-                            <SvgSpec/>
-                        </Icon>
-                        <Range>
-                            <Icon className={index === 0 ? 'disable' : ''} onClick={() => {
-                                if (index !== 0) {
-                                    dispatch(moveComponentToTop(index, indexParent));
-                                }
-                            }}>
-                                <SvgRange/>
+                        <PanelActions className={this.state.openOption ? 'hidden' : ''}>
+                            <Icon className={this.state.openSettings && !this.state.triggerOpening ? 'active' : ''}
+                                  onClick={() => this.toggleOpenSettings()}>
+                                <SvgSetting/>
                             </Icon>
-                            <Icon className={index === (lengthParent - 1) ? 'disable' : ''} onClick={() => {
-                                if (index !== (lengthParent - 1)) {
-                                    dispatch(moveComponentToDown(index, indexParent));
-                                }
-                            }}>
-                                <SvgRange/>
-                            </Icon>
+                        </PanelActions>
+                        <PanelActions className={['options', !this.state.openOption ? 'hidden' : '']}>
+                            <div>
+                                <Icon className={['trash', this.state.openSafeDelete ? 'active' : '']}
+                                      onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
+                            </div>
+                            <div>
+                                <Icon className={''} onClick={() => {
+                                    console.log('past component')
+                                }}>
+                                    <SvgPastComponent/>
+                                </Icon>
+                                <Icon className={''} onClick={() => {
+                                    console.log('copy component')
+                                }}>
+                                    <SvgCopyComponent/>
+                                </Icon>
+                            </div>
+                            <div>
+                                <Icon
+                                    onClick={() => dispatch(duplicateComponent(index, indexParent))}><SvgDuplicateComponent/></Icon>
+                            </div>
+                        </PanelActions>
+                        <PanelActions>
+                            <Icon className={this.state.openOption ? 'active' : ''}
+                                  onClick={() => {
+                                      this.toggleOptions();
+                                  }}>
+                                <SvgHorizontalThreeDots/>
 
-                        </Range>
-                        <Icon className={['trash', this.state.openSafeDelete ? 'active' : '']}
-                              onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
-                        <Icon
-                              onClick={() => dispatch(duplicateComponent(index, indexParent))}><SvgDuplicate/></Icon>
+                            </Icon>
+                            <Icon className={this.state.triggerOpening ? 'active' : ''}
+                                  onClick={() => {
+                                      this.triggerOpening();
+                                      if (!this.state.openSettings) {
+                                          this.toggleOpenSettings();
+                                      }
+                                  }}>
+                                <SvgSpec/>
+                            </Icon>
+                            <Range>
+                                <Icon className={index === 0 ? 'disable' : ''} onClick={() => {
+                                    if (index !== 0) {
+                                        dispatch(moveComponentToTop(index, indexParent));
+                                    }
+                                }}>
+                                    <SvgRange/>
+                                </Icon>
+                                <Icon className={index === (lengthParent - 1) ? 'disable' : ''} onClick={() => {
+                                    if (index !== (lengthParent - 1)) {
+                                        dispatch(moveComponentToDown(index, indexParent));
+                                    }
+                                }}>
+                                    <SvgRange/>
+                                </Icon>
+                            </Range>
+                        </PanelActions>
                     </Actions>
 
                 </TopBar>
@@ -299,7 +339,8 @@ class ComponentDOM extends Component {
                 </div>
                 <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>
                     <Fields>
-                        <FieldsList triggerOpening={this.state.triggerOpening} fields={this.getComponentFields()} fieldsComponent={component.fields}
+                        <FieldsList triggerOpening={this.state.triggerOpening} fields={this.getComponentFields()}
+                                    fieldsComponent={component.fields}
                                     index={index} indexParent={indexParent}/>
                     </Fields>
                 </FieldsContainer>
