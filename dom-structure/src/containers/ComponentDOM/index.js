@@ -219,6 +219,8 @@ class ComponentDOM extends Component {
                                 </Icon>
                                 <Icon className={''} onClick={() => {
                                     console.log('copy component')
+                                    console.log(this.state.component);
+                                    navigator.clipboard.writeText('test copy component')
                                 }}>
                                     <SvgCopyComponent/>
                                 </Icon>
