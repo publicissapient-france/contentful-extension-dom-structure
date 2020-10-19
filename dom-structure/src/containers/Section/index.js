@@ -46,11 +46,9 @@ import ButtonDelete from '../../components/ui/ButtonDelete';
 import update from 'react-addons-update';
 import AddComponent from '../AddComponent/index';
 import ButtonValidate from '../../components/ui/ButtonValidate';
-
 import PropTypes from 'prop-types';
 import FieldsListOfSection from "../../components/FieldsListOfSection";
 import sectionConfig from '../../config/sections/*.js';
-
 
 class Section extends Component {
     constructor(props) {
@@ -295,8 +293,7 @@ class Section extends Component {
                 <AddChild>
                     <AddComponent index={index} open={this.state.openAdd} parent={this}/>
                 </AddChild>
-
-
+                
                 <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>
                     <Fields>
                         <FieldsListOfSection triggerOpening={this.state.triggerOpening} fields={this.getSectionFields()}
