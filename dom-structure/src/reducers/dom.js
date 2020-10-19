@@ -110,6 +110,20 @@ const dom = (state = [], action) => {
                 }
             });
 
+        case 'PAST_COMPONENT_PRESET':
+            return update(state, {
+                [action.indexParent]: {
+                    components: {
+                        [action.index]: {
+                            name: {$set: action.component.name},
+                            model: {$set: action.component.model},
+                            fields: {$set: action.component.fields},
+                            order: {$set: action.component.order}
+                        }
+                    }
+                }
+            });
+
         case 'REMOVE_COMPONENT':
             return update(state, {
                 [action.indexParent]: {

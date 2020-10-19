@@ -46,8 +46,8 @@ import {
     removeComponent,
     updateComponent,
     toggleComponentActive,
-    duplicateComponent
-
+    duplicateComponent,
+    pastComponentPreset
 
 } from '../../actions/index';
 import update from 'react-addons-update';
@@ -214,6 +214,14 @@ class ComponentDOM extends Component {
                             <div>
                                 <Icon className={''} onClick={() => {
                                     console.log('past component')
+                                    const componentToPast = localStorage.getItem('copiedComponent');
+                                    console.log('componentToPast', componentToPast);
+                                    if(!componentToPast){
+                                        console.log('no component on memory');
+                                    }else{
+                                        dispatch(pastComponentPreset(JSON.parse(componentToPast), index, indexParent));
+
+                                    }
                                 }}>
                                     <SvgPastComponent/>
                                 </Icon>
@@ -221,6 +229,7 @@ class ComponentDOM extends Component {
                                     console.log('copy component')
                                     console.log(this.state.component);
                                     navigator.clipboard.writeText('test copy component')
+                                    localStorage.setItem("copiedComponent", JSON.stringify(this.state.component));
                                 }}>
                                     <SvgCopyComponent/>
                                 </Icon>
