@@ -70,6 +70,14 @@ const dom = (state = [], action) => {
                 [action.index + 1]: {$set: moveDown}
             });
 
+        case 'DUPLICATE_SECTION':
+            const duplicatedSection = Object.assign({}, state[action.index]);
+            return [
+                ...state.slice(0, action.index),
+                duplicatedSection,
+                ...state.slice(action.index)
+            ]
+
 
         case 'ADD_COMPONENT':
             return update(state, {
@@ -152,15 +160,15 @@ const dom = (state = [], action) => {
 
 
         case 'DUPLICATE_COMPONENT':
-            const duplicatedComponent = Object.assign({}, state[action.indexParent].components[action.index]) ;
+            const duplicatedComponent = Object.assign({}, state[action.indexParent].components[action.index]);
+            const updatedListComponents = [
+                ...state[action.indexParent].components.slice(0, action.index),
+                duplicatedComponent,
+                ...state[action.indexParent].components.slice(action.index)
+            ]
             return update(state, {
                 [action.indexParent]: {
-                    components: {
-                        $push: [
-
-                            duplicatedComponent
-                        ]
-                    }
+                    components: {$set: updatedListComponents}
                 }
             });
 
@@ -220,20 +228,20 @@ const dom = (state = [], action) => {
             });
 
         case 'DUPLICATE_FIELD_COMPONENT':
-const arrayF = Object.keys(state[action.indexSection].components[action.indexComponent].fields).map( field =>  {
+            const arrayF = Object.keys(state[action.indexSection].components[action.indexComponent].fields).map(field => {
 
-    return field.includes(action.nameProperty);
+                return field.includes(action.nameProperty);
 
 
-})
+            })
             const number = arrayF.filter(el => el).length;
 
-            const duplicateField = Object.assign({}, state[action.indexSection].components[action.indexComponent].fields[action.nameProperty]) ;
+            const duplicateField = Object.assign({}, state[action.indexSection].components[action.indexComponent].fields[action.nameProperty]);
 
             const nameOfField = action.nameProperty.concat(String(number))
 
 
-           return update(state, {
+            return update(state, {
                 [action.indexSection]: {
                     components: {
                         [action.indexComponent]: {
@@ -244,7 +252,6 @@ const arrayF = Object.keys(state[action.indexSection].components[action.indexCom
                     }
                 }
             });
-
 
 
         case 'INIT_FIELD_SECTION':
@@ -261,8 +268,6 @@ const arrayF = Object.keys(state[action.indexSection].components[action.indexCom
                     }
                 }
             });
-
-
 
 
         case 'TOGGLE_FIELD_ACTIVE':

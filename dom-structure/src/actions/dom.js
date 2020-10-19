@@ -49,6 +49,11 @@ export const moveSectionToDown = number => ({
     index: number
 });
 
+export const duplicateSection = number => ({
+    type: 'DUPLICATE_SECTION',
+    index: number
+});
+
 
 // COMPONENT
 

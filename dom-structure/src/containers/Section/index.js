@@ -39,7 +39,7 @@ import {
     removeSection,
     moveSectionToTop,
     moveSectionToDown,
-    toggleSectionActive
+    toggleSectionActive, duplicateSection
 } from '../../actions/index';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonDelete from '../../components/ui/ButtonDelete';
@@ -197,8 +197,9 @@ class Section extends Component {
                                 </Icon>
                             </div>
                             <div>
-                                <Icon className={''} onClick={() => {
+                                <Icon className={''}   onClick={() => {
                                     console.log('duplicate section')
+                                    dispatch(duplicateSection(index));
                                 }}>
                                     <SvgDuplicateSection/>
                                 </Icon>
@@ -242,7 +243,7 @@ class Section extends Component {
                         <ButtonBasic label={'Cancel'} action={this.toggleSafeSecure}/>
                         <ButtonDelete label={'Delete'} action={() => {
                             dispatch(removeSection(index));
-                            this.setState({openSafeDelete: false});
+                            this.setState({openSafeDelete: false, openOption : false});
                         }}/>
                     </div>
                 </SafeDelete>
