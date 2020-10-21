@@ -37,7 +37,9 @@ const dom = (state = [], action) => {
             return update(state, {
                 [action.index]: {
                     name: {$set: action.section.name},
-                    model: {$set: action.section.model}
+                    model: {$set: action.section.model},
+                    fields: {$set: action.section.fields},
+                    components: {$set: action.section.components}
                 }
             });
 
@@ -102,9 +104,10 @@ const dom = (state = [], action) => {
                 [action.indexParent]: {
                     components: {
                         [action.index]: {
-                            name: {$set: action.name},
-                            model: {$set: action.model},
-                            order: {$set: action.order}
+                            name: {$set: action.component.name},
+                            model: {$set: action.component.model},
+                            order: {$set: action.component.order},
+                            fields: {$set: action.component.fields}
                         }
                     }
                 }

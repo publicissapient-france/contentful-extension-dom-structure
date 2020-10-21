@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Form, OptionsBlock, Icon, Container } from '../../style/styledComponents';
+import {Form, OptionsBlock, Icon, Container, SafeDelete} from '../../style/styledComponents';
 import { extensionTheme } from '../../style/theme';
 import { CheckBox } from '../../style/styledComponentsFields';
 
@@ -16,7 +16,7 @@ export const TopBar = styled.div.attrs(props => ({
   display : flex;
   justify-content: space-between;
   box-sizing : border-box;
-  padding-right : 14px;
+  padding-right : 11px;
   
   ${props => props.borderBottom ? 
         `
@@ -96,9 +96,58 @@ export const PanelActions = styled.div`
           right : 100%;
           height : 40px;
           
+          &>div{
+            display: flex;
+            
+            & ${Icon}:first-child{
+              border-left-width : 5px;
+              border-left-style : solid;
+              border-left-color : ${extensionTheme.grey35};
+              
+              &:hover{
+                border-left-color : ${extensionTheme.grey10};
+                
+                &.disabled{
+                    border-left-color : ${extensionTheme.grey35};
+                }
+              }
+              
+              
+            }
+            & ${Icon}:last-child{
+                border-right-width : 5px;
+                border-right-style : solid;
+                border-right-color : ${extensionTheme.grey35};
+                
+                &:hover{
+                  border-right-color : ${extensionTheme.grey10};
+                  
+                  &.disabled{
+                    border-right-color : ${extensionTheme.grey35};
+                  }
+                }
+            }
+          }
+          
+          &>div:not(:last-child){
+            border-right : 1px solid ${extensionTheme.white};
+          }
+          
+          
            & ${Icon}>svg g path, & ${Icon}>svg path, & ${Icon}>svg rect, & ${Icon}>svg g circle {
                 fill : ${ extensionTheme.white };
            }
+           
+           
+           & ${Icon}:hover{
+                background-color : ${extensionTheme.grey10};
+                border-color : ${extensionTheme.grey10};
+               &>svg path, &>svg g path, & &>svg path, &>svg rect, &>svg g circle {
+                    fill : ${ extensionTheme.greenM };
+               }
+           }
+           
+           
            
            & ${Icon}.trash:hover{
                 &>svg g path, &>svg path, &>svg  rect {
@@ -111,21 +160,38 @@ export const PanelActions = styled.div`
             }
           }
           
-          &>div{
-            display: flex;
-            padding-left : 5px;
-            padding-right : 5px;
+          & ${Icon}.disabled{
+               opacity : 0.5;
+               cursor : auto;
+               
+               &:hover{
+                    background-color : ${extensionTheme.grey35};
+                    border-color : ${extensionTheme.grey35};
+                    
+                    &>svg g path, &>svg path, &>svg  rect {
+                        fill : ${ extensionTheme.white };
+                    }
+               }
           }
-          &>div:not(:last-child){
-            border-right : 1px solid ${extensionTheme.white};
-          }
+          
+          
      }
 `;
 
-
-export const Actions = styled(Description)`
-    
-    & ${PanelActions}:not(:last-child){
+export const Actions = styled.div`
+  display : flex;
+  width : fit-content;
+  padding-right: 3px;
+  
+  & ${PanelActions}:not(:last-child){
         border-right : 1px solid ${extensionTheme.grey30};
     }
+`;
+export const ChoiceOptions = styled(SafeDelete)`
+  background-color : ${extensionTheme.grey10};
+  padding-left : 18px;
+  
+  & p{
+    color: ${extensionTheme.black};  
+  }
 `;

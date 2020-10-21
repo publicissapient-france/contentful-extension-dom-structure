@@ -34,49 +34,6 @@ export const Description = styled.div`
   padding-left:10px;
 `;
 
-export const Languages = styled.div`
-  display : flex;
-  height : auto;
-  align-items : center;
-  width : fit-content;
-  justify-content : space-between;
-`;
-
-export const Banner = styled.div`
-  display : flex;
-  align-items : center;
-  justify-content: space-between;
-  width : 100%;
-  background : ${ extensionTheme.blueM }; 
-  color :  ${ extensionTheme.white }; 
-  padding-right : 3px;
-  
-  & p{
-    padding-left : 10px;
-    text-transform : uppercase;
-    font-weight : 300;
-  }
-  
-  & ${ Icon }{
-    height : 40px;
-    
-  & svg{
-    //width : 40px;
-    //height : 40px;
-  }
-    
-    & svg g path, & svg  path, & svg rect {
-        fill : ${ extensionTheme.white };   
-    }
-    
-    &:hover{
-        & svg g path, & svg  path {
-            fill : ${ extensionTheme.grey10 };   
-        }
-    }
-  }
-`;
-
 export const FormComponent = styled(Form)`
     flex-wrap : wrap;
     align-items : space-between;
@@ -92,7 +49,6 @@ export const Column = styled.div`
     padding-bottom : 10px;
     display : flex;
     flex-direction:column;
-    
     
   }
 `;
@@ -124,18 +80,9 @@ export const Active = styled(CheckBox)`
     
 `;
 
-export const Toggle = styled.div`
-  display : flex;
-`;
+export const FieldsContainer = styled.div``;
 
-// STYLE REFONT
-export const FieldsContainer = styled.div`
- 
-`;
-
-export const Fields = styled.div`
- 
-`;
+export const Fields = styled.div``;
 
 
 export const PanelActions = styled.div`
@@ -150,9 +97,56 @@ export const PanelActions = styled.div`
           right : 100%;
           height : 40px;
           
+          &>div{
+            display: flex;
+            
+            & ${Icon}:first-child{
+              border-left-width : 5px;
+              border-left-style : solid;
+              border-left-color : ${extensionTheme.grey35};
+              
+              &:hover{
+                border-left-color : ${extensionTheme.white};
+                
+                &.disabled{
+                    border-left-color : ${extensionTheme.grey35};
+                }
+              }
+            }
+            & ${Icon}:last-child{
+                border-right-width : 5px;
+                border-right-style : solid;
+                border-right-color : ${extensionTheme.grey35};
+                
+                &:hover{
+                  border-right-color : ${extensionTheme.white};
+                  
+                    &.disabled{
+                      border-left-color : ${extensionTheme.grey35};
+                    }
+                }
+            }
+          }
+          
+          &>div:not(:last-child){
+            border-right : 1px solid ${extensionTheme.white};
+          }
+          
+          
            & ${Icon}>svg g path, & ${Icon}>svg path, & ${Icon}>svg rect, & ${Icon}>svg g circle {
                 fill : ${ extensionTheme.white };
            }
+           
+           
+           & ${Icon}:hover{
+                background-color : ${extensionTheme.white};
+                border-color : ${extensionTheme.white}
+               &>svg path, &>svg g path, & &>svg path, &>svg rect, &>svg g circle {
+                    fill : ${ extensionTheme.greenM };
+               }
+           }
+           
+           
            
            & ${Icon}.trash:hover{
                 &>svg g path, &>svg path, &>svg  rect {
@@ -165,14 +159,21 @@ export const PanelActions = styled.div`
             }
           }
           
-          &>div{
-            display: flex;
-            padding-left : 5px;
-            padding-right : 5px;
+          & ${Icon}.disabled{
+               opacity : 0.5;
+               cursor : auto;
+               
+               &:hover{
+                    background-color : ${extensionTheme.grey35};
+                    border-color : ${extensionTheme.grey35};
+                    
+                    &>svg g path, &>svg path, &>svg  rect {
+                        fill : ${ extensionTheme.white };
+                    }
+               }
           }
-          &>div:not(:last-child){
-            border-right : 1px solid ${extensionTheme.white};
-          }
+          
+          
      }
 `;
 

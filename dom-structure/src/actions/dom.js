@@ -64,11 +64,9 @@ export const addComponent = (object, number) => ({
 
 });
 
-export const updateComponent = (name, model, order, number, numberParent) => ({
+export const updateComponent = (object, number, numberParent) => ({
     type: 'UPDATE_COMPONENT',
-    name: name,
-    model: model,
-    order : order,
+    component : object,
     index: number,
     indexParent: numberParent
 });

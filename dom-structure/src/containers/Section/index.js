@@ -12,27 +12,26 @@ import SvgCopyAllComponents from '../../components/svg/SvgCopyAllComponents';
 import SvgCopySection from '../../components/svg/SvgCopySection';
 import SvgPastAllComponents from '../../components/svg/SvgPastAllComponents';
 import SvgPastSection from '../../components/svg/SvgPastSection';
-
+import {getCurrentExtension} from "../../actions";
+import isEqual from 'lodash/isEqual';
 import ComponentDOM from '../ComponentDOM/index';
 
 import {
     Icon,
     Range,
-    SafeDelete
+    SafeDelete,
 } from '../../style/styledComponents';
 import {
     ContainerSection,
     Settings,
     TopBar,
     Active,
-    Actions,
     Description,
     FormSection,
     AddChild,
     Children,
     Fields,
-    FieldsContainer,
-    PanelActions
+    FieldsContainer, PanelActions, Actions, ChoiceOptions
 } from './styled';
 import {
     updateSection,
@@ -50,6 +49,18 @@ import PropTypes from 'prop-types';
 import FieldsListOfSection from "../../components/FieldsListOfSection";
 import sectionConfig from '../../config/sections/*.js';
 
+const ALERT = {
+    ERROR_COPY_SECTION: "ERREUR : Impossible de copier la section. Cette action necessite l'accès au Local Storage de votre navigateur. Vérifiez que vous n'êtes pas en navigation privé.",
+    ERROR_COPY_COMPONENTS: "ERREUR : Impossible de copier les composants. Cette action necessite l'accès au Local Storage de votre navigateur. Vérifiez que vous n'êtes pas en navigation privé.",
+    ERROR_MEMORY_SECTION: "ERREUR : Pas de section en mémoire. \n Cette action necessite l'accès au Local Storage de votre navigateur. Vérifiez que vous n'êtes pas en navigation privé. ",
+    ERROR_MEMORY_COMPONENTS: "ERREUR : Pas de composants en mémoire. \n Cette action necessite l'accès au Local Storage de votre navigateur. Vérifiez que vous n'êtes pas en navigation privé. ",
+    SUCCESS_PAST_SECTION: "Section importée. Appuyer sur UPDATE pour enregistrer.",
+    SUCCESS_PAST_COMPONENTS: "Composants importés. Appuyer sur UPDATE pour enregistrer.",
+    SUCCESS_COPY_SECTION: "Section copiée.",
+    SUCCESS_COPY_COMPONENTS: "Composants copiés.",
+    SUCCESS_DUPLICATION: "Section dupliquée."
+}
+
 class Section extends Component {
     constructor(props) {
         super(props);
@@ -60,12 +71,22 @@ class Section extends Component {
             openSafeDelete: false,
             openOption: false,
             section: null,
-            triggerOpening: false
+            triggerOpening: false,
+            openOptionsPast: false,
+            openOptionsReplace : false,
+            sectionOnLocalStorage: false,
+            componentsOnLocalStorage: false
         };
     }
 
     componentDidMount = () => {
         this.setState({section: this.props.section});
+        if (localStorage.getItem('copiedSection')) {
+            this.setState({sectionOnLocalStorage: true});
+        }
+        if (localStorage.getItem('copiedComponents')) {
+            this.setState({componentsOnLocalStorage: true});
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -123,17 +144,116 @@ class Section extends Component {
             })
         }
     })
+    toggleOpenOptionsPast = () => this.setState({
+        openOptionsPast: !this.state.openOptionsPast,
+        openOptionsReplace: false,
+        openSettings: false,
+        openSafeDelete: false,
+        openAdd: false
+    })
+    toggleOpenOptionsReplace = () => this.setState({
+        openOptionsReplace: !this.state.openOptionsReplace,
+        openOptionsPast: false,
+        openSettings: false,
+        openSafeDelete: false,
+        openAdd: false
+    })
+
     triggerOpening = () => this.setState(prevState => ({
         triggerOpening: !prevState.triggerOpening
     }))
 
-    isUpdated = () => (this.state.section && (this.state.section.name !== this.props.section.name ||
-        this.state.section.model !== this.props.section.model))
+    isUpdated = () => (this.state.section && !isEqual(this.state.section, this.props.section))
 
     getSectionFields = () => {
         return sectionConfig[this.props.section.model].default.fields;
     }
 
+    notifierError = (msg) => this.props.extensionInfo.extension.notifier.error(msg);
+    notifierSuccess = (msg) => this.props.extensionInfo.extension.notifier.success(msg);
+
+    copySectionToLocalStorage = () => {
+        localStorage.setItem("copiedSection", JSON.stringify(this.state.section));
+        if (localStorage.getItem('copiedSection') && localStorage.getItem('copiedSection') === JSON.stringify(this.state.section)) {
+            this.notifierSuccess(ALERT.SUCCESS_COPY_SECTION);
+            this.setState({sectionOnLocalStorage: true});
+        } else {
+            this.notifierError(ALERT.ERROR_COPY_SECTION);
+        }
+    }
+
+    pastSection = (withComponents = false) => {
+        const sectionToPast = JSON.parse(localStorage.getItem('copiedSection'));
+        if (!sectionToPast) {
+            this.notifierError(ALERT.ERROR_MEMORY_SECTION);
+        } else {
+            if(withComponents){
+                this.setState(prevState => ({
+                    openSettings: true,
+                    section: update(prevState.section, {
+                        name: {$set: sectionToPast.name},
+                        model: {$set: sectionToPast.model},
+                        fields: {$set: sectionToPast.fields},
+                        components: {$set: [...prevState.section.components, ...sectionToPast.components]}
+                    })
+                }), () => {
+                    this.notifierSuccess(ALERT.SUCCESS_PAST_SECTION);
+                    this.setState({openOptionsPast: false});
+                })
+            }else{
+                this.setState(prevState => ({
+                    openSettings: true,
+                    section: update(prevState.section, {
+                        name: {$set: sectionToPast.name},
+                        model: {$set: sectionToPast.model},
+                        fields: {$set: sectionToPast.fields},
+                    })
+                }), () => {
+                    this.notifierSuccess(ALERT.SUCCESS_PAST_SECTION);
+                    this.setState({openOptionsPast: false});
+                })
+            }
+        }
+    }
+
+    pastComponents = (replaceComponents = false) => {
+        const elementsToPast = JSON.parse(localStorage.getItem('copiedComponents'));
+        if (!elementsToPast) {
+            this.notifierError(ALERT.ERROR_MEMORY_SECTION);
+        } else {
+            if(replaceComponents){
+                this.setState(prevState => ({
+                    openSettings: true,
+                    section: update(prevState.section, {
+                        components: {$set: elementsToPast}
+                    })
+                }), () => {
+                    this.notifierSuccess(ALERT.SUCCESS_PAST_COMPONENTS);
+                    this.setState({openOptionsReplace: false});
+                })
+            }else{
+                this.setState(prevState => ({
+                    openSettings: true,
+                    section: update(prevState.section, {
+                        components: {$set: [...prevState.section.components, ...elementsToPast]}
+                    })
+                }), () => {
+                    this.notifierSuccess(ALERT.SUCCESS_PAST_SECTION);
+                    this.setState({openOptionsReplace: false});
+                })
+            }
+        }
+    }
+
+    copyComponentsToLocalStorage  = () => {
+        console.log(this.state.section);
+        localStorage.setItem("copiedComponents", JSON.stringify(this.state.section.components));
+        if (localStorage.getItem('copiedComponents') && localStorage.getItem('copiedComponents') === JSON.stringify(this.state.section.components)) {
+            this.notifierSuccess(ALERT.SUCCESS_COPY_COMPONENTS);
+        } else {
+            this.notifierError(ALERT.ERROR_COPY_COMPONENTS)
+        }
+    }
 
     render() {
         const {dispatch, domLength, section, index} = this.props;
@@ -145,11 +265,11 @@ class Section extends Component {
         if (!this.state.section) return null;
         return (
             <ContainerSection>
-                <TopBar borderBottom={this.state.openSettings}>
+                <TopBar borderBottom={this.state.openSettings || this.state.openOptionsPast}>
                     <Description>
                         <Active
                             className={this.state.section.active ? 'active' : ''}
-                            onClick={e => {
+                            onClick={() => {
                                 this.toggleActive();
                             }}>
                             <SvgCheck/>
@@ -169,37 +289,35 @@ class Section extends Component {
                                 <SvgSetting/>
                             </Icon>
                         </PanelActions>
-                        <PanelActions className={['options', !this.state.openOption ? 'hidden' : '']}>
+                        <PanelActions className={['options', !this.state.openOption ? 'hidden' : '']}
+                                      onMouseLeave={() => this.setState({openOption: false})}>
                             <div>
                                 <Icon className={['trash', this.state.openSafeDelete ? 'active' : '']}
-                                      onClick={() => {this.toggleSafeSecure()}}><SvgTrash/></Icon>
+                                      onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
                             </div>
                             <div>
-                                <Icon className={''} onClick={() => {
-                                    console.log('past all components')
+                                <Icon className={!this.state.componentsOnLocalStorage ? 'disabled' : ''} onClick={() => {
+                                    if(this.state.componentsOnLocalStorage){ this.toggleOpenOptionsReplace();}
                                 }}>
                                     <SvgPastAllComponents/>
                                 </Icon>
                                 <Icon className={''} onClick={() => {
-                                    console.log('copy all components')
+                                    this.copyComponentsToLocalStorage();
+                                    this.setState({componentsOnLocalStorage : true})
                                 }}>
                                     <SvgCopyAllComponents/>
                                 </Icon>
                             </div>
                             <div>
-                                <Icon className={''} onClick={() => {
-                                    console.log('past section')
+                                <Icon className={!this.state.sectionOnLocalStorage ? 'disabled' : ''} onClick={() => {
+                                    if (this.state.sectionOnLocalStorage) {this.toggleOpenOptionsPast();}
                                 }}><SvgPastSection/></Icon>
-                                <Icon className={''} onClick={() => {
-                                    console.log('copy section')
-                                }}>
-                                    <SvgCopySection/>
-                                </Icon>
+                                <Icon className={''} onClick={() => this.copySectionToLocalStorage()}><SvgCopySection/></Icon>
                             </div>
                             <div>
-                                <Icon className={''}   onClick={() => {
-                                    console.log('duplicate section')
+                                <Icon className={''} onClick={() => {
                                     dispatch(duplicateSection(index));
+                                    this.notifierSuccess(ALERT.SUCCESS_DUPLICATION);
                                 }}>
                                     <SvgDuplicateSection/>
                                 </Icon>
@@ -207,11 +325,8 @@ class Section extends Component {
                         </PanelActions>
                         <PanelActions>
                             <Icon className={this.state.openOption ? 'active' : ''}
-                                  onClick={() => {
-                                      this.toggleOptions();
-                                  }}>
+                                  onClick={() => this.toggleOptions()}>
                                 <SvgHorizontalThreeDots/>
-
                             </Icon>
                             <Icon className={this.state.triggerOpening ? 'active' : ''}
                                   onClick={() => {
@@ -243,10 +358,26 @@ class Section extends Component {
                         <ButtonBasic label={'Cancel'} action={this.toggleSafeSecure}/>
                         <ButtonDelete label={'Delete'} action={() => {
                             dispatch(removeSection(index));
-                            this.setState({openSafeDelete: false, openOption : false});
+                            this.setState({openSafeDelete: false, openOption: false});
                         }}/>
                     </div>
                 </SafeDelete>
+                <ChoiceOptions className={!this.state.openOptionsPast ? 'hidden' : ''}>
+                    <p>What do you want to import ? </p>
+                    <div className={'buttons'}>
+                        <ButtonValidate label={'Section presets'} action={() => this.pastSection()}/>
+                        <ButtonValidate label={'Section presets and Components'} action={() => this.pastSection(true)}/>
+                        <ButtonBasic label={'Cancel'} action={this.toggleOpenOptionsPast}/>
+                    </div>
+                </ChoiceOptions>
+                <ChoiceOptions className={!this.state.openOptionsReplace ? 'hidden' : ''}>
+                    <p>What do you want to import ? </p>
+                    <div className={'buttons'}>
+                        <ButtonValidate label={'Replace'} action={() => this.pastComponents(true)}/>
+                        <ButtonValidate label={'Add'} action={() => this.pastComponents()}/>
+                        <ButtonBasic label={'Cancel'} action={this.toggleOpenOptionsReplace}/>
+                    </div>
+                </ChoiceOptions>
                 <Settings className={!this.state.openSettings ? 'hidden' : ''}>
                     <FormSection onSubmit={e => {
                         e.preventDefault();
@@ -272,9 +403,7 @@ class Section extends Component {
                             <label>Section Name</label>
                             <input ref={node => (inputName = node)} type={'text'}
                                    value={this.state.section.name || ''}
-                                   onChange={e => {
-                                       this.updateName(e.target.value);
-                                   }}/>
+                                   onChange={e => this.updateName(e.target.value)}/>
                         </div>
                         <div className={'buttons'}>
                             <ButtonBasic
@@ -294,7 +423,7 @@ class Section extends Component {
                 <AddChild>
                     <AddComponent index={index} open={this.state.openAdd} parent={this}/>
                 </AddChild>
-                
+
                 <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>
                     <Fields>
                         <FieldsListOfSection triggerOpening={this.state.triggerOpening} fields={this.getSectionFields()}
@@ -317,4 +446,9 @@ Section.propTypes = {
     domLength: PropTypes.number
 };
 
-export default connect()(Section);
+
+const mapStateToProps = state => ({
+    extensionInfo: getCurrentExtension(state)
+});
+
+export default connect(mapStateToProps)(Section);

@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import isEqual from 'lodash/isEqual'
-
 import OrderFieldsContent from '../OrderFieldsContent';
 import SvgSetting from '../../components/svg/SvgSetting';
 import SvgRange from '../../components/svg/SvgRange';
 import SvgCheck from '../../components/svg/SvgCheck';
-import SvgDuplicate from '../../components/svg/SvgDuplicate';
 import SvgTrash from '../../components/svg/SvgTrash';
 import SvgSpec from '../../components/svg/SvgSpec';
 import SvgHorizontalThreeDots from '../../components/svg/SvgHorizontalThreeDots';
@@ -19,21 +16,18 @@ import FieldsList from '../../components/FieldsList';
 import {
     Icon,
     Range,
-    SafeDelete
+    SafeDelete,
 } from '../../style/styledComponents';
 import {
     ContainerComponent,
     FormComponent,
-    Banner,
     Description,
-    Actions,
     Active,
-    Toggle,
     TopBar,
     FieldsContainer,
     Fields,
     Column,
-    Buttons, PanelActions
+    Buttons, PanelActions, Actions
 } from './styled';
 import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
@@ -52,6 +46,16 @@ import {
 } from '../../actions/index';
 import update from 'react-addons-update';
 import PropTypes from 'prop-types';
+import {getCurrentExtension} from "../../actions";
+
+
+const ALERT = {
+    ERROR_COPY_COMPONENT: "ERREUR : Impossible de copier le composant. Cette action necessite l'accès au Local Storage de votre navigateur. Vérifiez que vous n'êtes pas en navigation privé.",
+    ERROR_MEMORY_COMPONENT: "ERREUR : Pas de composant en mémoire. \n Cette action necessite l'accès au Local Storage de votre navigateur. Vérifiez que vous n'êtes pas en navigation privé. ",
+    SUCCESS_PAST_COMPONENT: "Composant importé. Appuyer sur UPDATE pour enregistrer.",
+    SUCCESS_COPY_COMPONENT: "Composant copié.",
+    SUCCESS_DUPLICATION: "Composant dupliqué."
+}
 
 class ComponentDOM extends Component {
     constructor(props) {
@@ -59,7 +63,6 @@ class ComponentDOM extends Component {
 
         this.state = {
             openBoxes: true,
-
             semiOpenBoxes: false,
             openSettings: false,
             openContent: false,
@@ -67,7 +70,8 @@ class ComponentDOM extends Component {
             openSafeDelete: false,
             openOption: false,
             config: {},
-            triggerOpening: false
+            triggerOpening: false,
+            componentsOnLocalStorage: false
         };
     }
 
@@ -75,6 +79,9 @@ class ComponentDOM extends Component {
         this.setState({component: this.props.component}, () => {
         });
 
+        if (localStorage.getItem('copiedComponents')) {
+            this.setState({componentsOnLocalStorage: true});
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -179,6 +186,38 @@ class ComponentDOM extends Component {
         return componentConfig[this.state.component.model].default.fields;
     }
 
+    notifierError = (msg) => this.props.extensionInfo.extension.notifier.error(msg);
+    notifierSuccess = (msg) => this.props.extensionInfo.extension.notifier.success(msg);
+
+    pastComponent = () => {
+        const componentToPast = JSON.parse(localStorage.getItem('copiedComponents'));
+        if (!componentToPast) {
+            this.notifierError(ALERT.ERROR_MEMORY_COMPONENT);
+        } else {
+            const pasted = componentToPast[0];
+            this.setState(prevState => ({
+                openSettings : true,
+                component: update(prevState.component, {
+                    name: {$set: pasted.name},
+                    model: {$set: pasted.model},
+                    order: {$set: pasted.order},
+                    fields: {$set: pasted.fields}
+                })
+            }), () => {
+                this.notifierSuccess(ALERT.SUCCESS_PAST_COMPONENT);
+            })
+        }
+    }
+
+    copyComponent = () => {
+        localStorage.setItem("copiedComponents", JSON.stringify([this.state.component]));
+        if (localStorage.getItem('copiedComponents') && localStorage.getItem('copiedComponents') === JSON.stringify([this.state.component])) {
+            this.notifierSuccess(ALERT.SUCCESS_COPY_COMPONENT);
+        } else {
+            this.notifierError(ALERT.ERROR_COPY_COMPONENT);
+        }
+    }
+
     render() {
         const {dispatch, component, index, indexParent, lengthParent} = this.props;
         let inputName, selectModel;
@@ -187,7 +226,7 @@ class ComponentDOM extends Component {
 
         return (
             <ContainerComponent>
-                <TopBar  borderBottom={this.state.openSettings}>
+                <TopBar borderBottom={this.state.openSettings}>
                     <Description>
                         <Active
                             className={component.active ? 'active' : ''}
@@ -206,46 +245,30 @@ class ComponentDOM extends Component {
                                 <SvgSetting/>
                             </Icon>
                         </PanelActions>
-                        <PanelActions className={['options', !this.state.openOption ? 'hidden' : '']}>
+                        <PanelActions className={['options', !this.state.openOption ? 'hidden' : '']}
+                                      onMouseLeave={() => {
+                                          this.setState({openOption: false});
+                                      }}>
                             <div>
                                 <Icon className={['trash', this.state.openSafeDelete ? 'active' : '']}
                                       onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
                             </div>
                             <div>
-                                <Icon className={''} onClick={() => {
-                                    console.log('past component')
-                                    const componentToPast = localStorage.getItem('copiedComponent');
-                                    console.log('componentToPast', componentToPast);
-                                    if(!componentToPast){
-                                        console.log('no component on memory');
-                                    }else{
-                                        dispatch(pastComponentPreset(JSON.parse(componentToPast), index, indexParent));
-
-                                    }
+                                <Icon className={!this.state.componentsOnLocalStorage ? 'disabled' : ''} onClick={() => {
+                                    if(this.state.componentsOnLocalStorage){this.pastComponent()}
                                 }}>
                                     <SvgPastComponent/>
                                 </Icon>
-                                <Icon className={''} onClick={() => {
-                                    console.log('copy component')
-                                    console.log(this.state.component);
-                                    navigator.clipboard.writeText('test copy component')
-                                    localStorage.setItem("copiedComponent", JSON.stringify(this.state.component));
-                                }}>
-                                    <SvgCopyComponent/>
-                                </Icon>
+                                <Icon className={''} onClick={() => this.copyComponent()}><SvgCopyComponent/></Icon>
                             </div>
                             <div>
-                                <Icon
-                                    onClick={() => dispatch(duplicateComponent(index, indexParent))}><SvgDuplicateComponent/></Icon>
+                                <Icon onClick={() => dispatch(duplicateComponent(index, indexParent))}><SvgDuplicateComponent/></Icon>
                             </div>
                         </PanelActions>
                         <PanelActions>
                             <Icon className={this.state.openOption ? 'active' : ''}
-                                  onClick={() => {
-                                      this.toggleOptions();
-                                  }}>
+                                  onClick={() => this.toggleOptions()}>
                                 <SvgHorizontalThreeDots/>
-
                             </Icon>
                             <Icon className={this.state.triggerOpening ? 'active' : ''}
                                   onClick={() => {
@@ -292,7 +315,7 @@ class ComponentDOM extends Component {
                         if (!this.isUpdated()) {
                             return;
                         }
-                        dispatch(updateComponent(this.state.component.name, this.state.component.model, this.state.component.order, index, indexParent));
+                        dispatch(updateComponent(this.state.component, index, indexParent));
                     }}
                     >
                         <Column>
@@ -316,7 +339,6 @@ class ComponentDOM extends Component {
                                             return <option value={key} key={i}>{key}</option>;
                                         })
                                     }
-
                                 </select>
                             </div>
                         </Column>
@@ -338,7 +360,8 @@ class ComponentDOM extends Component {
                                         component: update(prevState.component, {
                                             name: {$set: this.props.component.name},
                                             model: {$set: this.props.component.model},
-                                            order: {$set: this.props.component.order}
+                                            order: {$set: this.props.component.order},
+                                            fields: {$set: this.props.component.fields}
                                         })
                                     }));
                                     inputName.value = component.name;
@@ -371,5 +394,8 @@ ComponentDOM.propTypes = {
     lengthParent: PropTypes.number.isRequired
 };
 
-const mapStateToProps = state => ({});
+
+const mapStateToProps = state => ({
+    extensionInfo: getCurrentExtension(state)
+});
 export default connect(mapStateToProps)(ComponentDOM);
