@@ -1,7 +1,7 @@
 import debounce from 'debounce-fn';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Extension, MainContainer, ChoiceInterface } from '../style/styledComponents';
+import { Extension, MainContainer, ChoiceInterface, ErrorBanner } from '../style/styledComponents';
 import ButtonAddSection from './AddingSection';
 import Section from './Section/index';
 import AddSection from './AddSection/index';
@@ -14,7 +14,7 @@ import {
     initStyleInformation,
     addFontFaces,
     getFontfaces,
-    getCurrentStyle, getCurrentDOM, toggleEditorOnly
+    getCurrentStyle, getCurrentDOM, toggleEditorOnly, updateAccessLocalStorage
 } from '../actions';
 import { extractActiveValue, arrayToString, extractFontValueToCSS, extractAssetUrl, findProp } from '../utils/functions';
 
@@ -25,7 +25,6 @@ class App extends React.Component {
 
         this.state = {
             openAddSectionTop: false,
-            accessLocalStorage : true
         };
 
         this.onViewingEntryUpdated = debounce(this.onViewingEntryUpdated, {
@@ -61,7 +60,7 @@ class App extends React.Component {
                return true;
             }
         } catch (e) {
-            this.setState({accessLocalStorage : false});
+            this.props.dispatch(updateAccessLocalStorage(false));
         }
     }
 
@@ -186,10 +185,10 @@ class App extends React.Component {
                                 }}
                                 />
                             </ChoiceInterface> */}
-                            {!this.state.accessLocalStorage && <p>
+                            {!this.props.store.getState().visibility.accessLocalStorage && <ErrorBanner>
                                 <strong>No access to local storage</strong>.
                                 You are probably in private browsing mode.
-                                Some functionality uses local storage (copy paste components and sections). <br/>Change the browser mode to use them.</p>}
+                                Some functionality uses local storage (copy paste components and sections). <br/>Change the browser mode to use them.</ErrorBanner>}
                             <ButtonAddSection onTop={true}/>
                             <AddSection open={this.props.store.getState().visibility.openFormAddSectionToTop} onTop={true}/>
                             { this.renderDomStructure() }

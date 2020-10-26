@@ -40,13 +40,11 @@ import {
     removeComponent,
     updateComponent,
     toggleComponentActive,
-    duplicateComponent,
-    pastComponentPreset
+    duplicateComponent, getAccessLocalStorageAvailable, getCurrentExtension, incrementVersionStorage
 
-} from '../../actions/index';
+} from '../../actions';
 import update from 'react-addons-update';
 import PropTypes from 'prop-types';
-import {getCurrentExtension} from "../../actions";
 
 
 const ALERT = {
@@ -76,9 +74,21 @@ class ComponentDOM extends Component {
     }
 
     componentDidMount = async () => {
-        this.setState({component: this.props.component}, () => {
-        });
+        this.setState({component: this.props.component});
+        this.checkLocalStorage();
+    }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.component !== prevProps.component) {
+            this.setState({component: this.props.component});
+        }
+
+        if (this.props.versionStorage !== prevProps.versionStorage) {
+            this.checkLocalStorage();
+        }
+    }
+
+    checkLocalStorage = () => {
         try {
             if (localStorage && localStorage.getItem('copiedComponents')) {
                 this.setState({componentsOnLocalStorage: true});
@@ -88,14 +98,6 @@ class ComponentDOM extends Component {
                 console.log('private navigation');
             }
         }
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.component !== prevProps.component) {
-            this.setState({component: this.props.component});
-        }
-
-
     }
 
     updateModel = model => {
@@ -202,7 +204,7 @@ class ComponentDOM extends Component {
         } else {
             const pasted = componentToPast[0];
             this.setState(prevState => ({
-                openSettings : true,
+                openSettings: true,
                 component: update(prevState.component, {
                     name: {$set: pasted.name},
                     model: {$set: pasted.model},
@@ -218,6 +220,7 @@ class ComponentDOM extends Component {
     copyComponent = () => {
         localStorage.setItem("copiedComponents", JSON.stringify([this.state.component]));
         if (localStorage.getItem('copiedComponents') && localStorage.getItem('copiedComponents') === JSON.stringify([this.state.component])) {
+            this.props.dispatch(incrementVersionStorage());
             this.notifierSuccess(ALERT.SUCCESS_COPY_COMPONENT);
         } else {
             this.notifierError(ALERT.ERROR_COPY_COMPONENT);
@@ -232,7 +235,7 @@ class ComponentDOM extends Component {
 
         return (
             <ContainerComponent>
-                <TopBar borderBottom={this.state.openSettings  || this.state.openSafeDelete}>
+                <TopBar borderBottom={this.state.openSettings || this.state.openSafeDelete}>
                     <Description>
                         <Active
                             className={component.active ? 'active' : ''}
@@ -246,14 +249,15 @@ class ComponentDOM extends Component {
                     </Description>
                     <Actions>
                         <PanelActions className={this.state.openOption ? 'hidden' : ''}>
-                            <Icon title={"presets"} className={this.state.openSettings && !this.state.triggerOpening ? 'active' : ''}
+                            <Icon title={"presets"}
+                                  className={this.state.openSettings && !this.state.triggerOpening ? 'active' : ''}
                                   onClick={() => this.toggleOpenSettings()}>
                                 <SvgSetting/>
                             </Icon>
                         </PanelActions>
                         <PanelActions className={'options'}
                                       onMouseLeave={() => {
-                                          if(!this.state.openSafeDelete){
+                                          if (!this.state.openSafeDelete) {
                                               this.setState({openOption: false});
                                           }
                                       }}>
@@ -262,15 +266,26 @@ class ComponentDOM extends Component {
                                       onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
                             </div>
                             <div className={[!this.state.openOption ? 'hidden' : '']}>
-                                <Icon  title={"past component"} className={!this.state.componentsOnLocalStorage ? 'disabled' : ''} onClick={() => {
-                                    if(this.state.componentsOnLocalStorage){this.pastComponent()}
-                                }}>
+                                <Icon title={"past component"}
+                                      className={!this.state.componentsOnLocalStorage || !this.props.accessLocalStorage ? 'disabled' : ''}
+                                      onClick={() => {
+                                          if (this.state.componentsOnLocalStorage && this.props.accessLocalStorage) {
+                                              this.pastComponent()
+                                          }
+                                      }}>
                                     <SvgPastComponent/>
                                 </Icon>
-                                <Icon title={"copy component"} className={''} onClick={() => this.copyComponent()}><SvgCopyComponent/></Icon>
+                                <Icon title={"copy component"}
+                                      className={!this.props.accessLocalStorage ? 'disabled' : ''} onClick={() => {
+                                    if (this.props.accessLocalStorage) {
+                                        this.copyComponent();
+                                        this.setState({componentsOnLocalStorage: true})
+                                    }
+                                }}><SvgCopyComponent/></Icon>
                             </div>
                             <div className={[!this.state.openOption ? 'hidden' : '']}>
-                                <Icon title={"duplicate component"} onClick={() => dispatch(duplicateComponent(index, indexParent))}><SvgDuplicateComponent/></Icon>
+                                <Icon title={"duplicate component"}
+                                      onClick={() => dispatch(duplicateComponent(index, indexParent))}><SvgDuplicateComponent/></Icon>
                             </div>
                             <Icon title={"options"} className={['btn-options', this.state.openOption ? 'active' : '']}
                                   onClick={() => this.toggleOptions()}>
@@ -399,6 +414,8 @@ ComponentDOM.propTypes = {
 
 
 const mapStateToProps = state => ({
-    extensionInfo: getCurrentExtension(state)
+    extensionInfo: getCurrentExtension(state),
+    accessLocalStorage: getAccessLocalStorageAvailable(state).accessLocalStorage,
+
 });
 export default connect(mapStateToProps)(ComponentDOM);

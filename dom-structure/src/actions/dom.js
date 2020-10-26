@@ -99,14 +99,6 @@ export const duplicateComponent = (number, numberParent) => ({
 });
 
 
-export const pastComponentPreset = (object, number, numberParent) => ({
-    type: 'PAST_COMPONENT_PRESET',
-    component: object,
-    index: number,
-    indexParent: numberParent
-
-});
-
 export const toggleComponentActive = (bool, number, numberParent) => ({
     type: 'TOGGLE_COMPONENT_ACTIVE',
     active: bool,

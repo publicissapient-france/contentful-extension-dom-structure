@@ -41,3 +41,27 @@ export const getInterfaceMode = state => ({
     type: 'GET_INTERFACE_MODE',
     editorOnly: state.visibility.editorOnly
 });
+
+export const updateAccessLocalStorage = (active) => ({
+    type: 'UPDATE_ACCESS_LOCAL_STORAGE',
+    active:active
+});
+
+export const getVisibility = (state) => ({
+    type: 'GET_ACCESS_LOCAL_STORAGE',
+    visibility: state.visibility
+});
+
+
+export const getAccessLocalStorageAvailable = state => ({
+    type: 'GET_ACCESS_LOCAL_STORAGE_AVAILABLE',
+    accessLocalStorage: state.visibility.accessLocalStorage
+});
+export const getVersionStorage = state => ({
+    type: 'GET_VERSION_STORAGE',
+    versionStorage: state.visibility.versionStorage
+});
+
+export const incrementVersionStorage = () => ({
+    type: 'INCREMENT_VERSION_STORAGE'
+});

@@ -315,6 +315,18 @@ export const SafeDelete = styled.div`
   }
 `;
 
+export const ErrorBanner = styled.div`
+  width : 100%;
+  background: ${ extensionTheme.redXS };  
+  color: ${ extensionTheme.redM };  
+  padding: 15px;
+  margin-bottom: 30px;
+  align-items : center;
+  box-sizing : border-box;
+  
+  
+`;
+
 export const Error = styled.div`
   
   & h2{
