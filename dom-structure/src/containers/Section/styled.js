@@ -28,6 +28,7 @@ export const TopBar = styled.div.attrs(props => ({
 export const Description = styled.div`
   display : flex;
   width : fit-content
+  min-width : fit-content
   
 `;
 export const Children = styled.div`
@@ -96,8 +97,26 @@ export const PanelActions = styled.div`
           right : 100%;
           height : 40px;
           
+          & ${Icon}.btn-options{
+            background-color : ${extensionTheme.grey10}
+                
+                &>svg g path, &>svg path, &>svg rect, &>svg g circle {
+                    fill : ${ extensionTheme.grey35 };
+                }
+                
+                &.active{
+                    &>svg g path, &>svg path, &>svg rect, &>svg g circle {
+                        fill : ${ extensionTheme.greenM };
+                    }
+                }
+          }
+          
           &>div{
             display: flex;
+            
+            &.hidden{
+                display : none;
+            }
             
             & ${Icon}:first-child{
               border-left-width : 5px;
@@ -111,9 +130,8 @@ export const PanelActions = styled.div`
                     border-left-color : ${extensionTheme.grey35};
                 }
               }
-              
-              
             }
+            
             & ${Icon}:last-child{
                 border-right-width : 5px;
                 border-right-style : solid;
@@ -139,21 +157,22 @@ export const PanelActions = styled.div`
            }
            
            
-           & ${Icon}:hover{
+           & ${Icon}:hover, & ${Icon}.active {
                 background-color : ${extensionTheme.grey10};
-                border-color : ${extensionTheme.grey10};
+                border-color : ${extensionTheme.grey10} !important;
                &>svg path, &>svg g path, & &>svg path, &>svg rect, &>svg g circle {
                     fill : ${ extensionTheme.greenM };
                }
            }
            
-           
-           
            & ${Icon}.trash:hover{
+                background-color : ${extensionTheme.grey10};
+                border-color : ${extensionTheme.grey10} !important;
                 &>svg g path, &>svg path, &>svg  rect {
                     fill : ${ extensionTheme.redM };
                 }
-              }
+           }
+           
           & ${Icon}.trash.active{
             &>svg g path, &>svg path, &>svg  rect {
                 fill : ${ extensionTheme.redM };
@@ -166,15 +185,13 @@ export const PanelActions = styled.div`
                
                &:hover{
                     background-color : ${extensionTheme.grey35};
-                    border-color : ${extensionTheme.grey35};
+                    border-color : ${extensionTheme.grey35} !important;
                     
                     &>svg g path, &>svg path, &>svg  rect {
                         fill : ${ extensionTheme.white };
                     }
                }
           }
-          
-          
      }
 `;
 
@@ -194,4 +211,17 @@ export const ChoiceOptions = styled(SafeDelete)`
   & p{
     color: ${extensionTheme.black};  
   }
+`;
+
+
+
+export const Buttons = styled.div`
+    width : 100%;
+    display : flex;
+    justify-content : flex-end;
+    
+    &.hidden{
+        display : flex;
+        opacity : 0;
+    }
 `;

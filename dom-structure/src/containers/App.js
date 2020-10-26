@@ -17,7 +17,6 @@ import {
     getCurrentStyle, getCurrentDOM, toggleEditorOnly
 } from '../actions';
 import { extractActiveValue, arrayToString, extractFontValueToCSS, extractAssetUrl, findProp } from '../utils/functions';
-import ButtonAction from "../components/ui/ButtonAction";
 
 
 class App extends React.Component {
@@ -25,7 +24,8 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            openAddSectionTop: false
+            openAddSectionTop: false,
+            accessLocalStorage : true
         };
 
         this.onViewingEntryUpdated = debounce(this.onViewingEntryUpdated, {
@@ -55,6 +55,14 @@ class App extends React.Component {
 
         this.props.extension.window.startAutoResizer();
         await this.initStyleStore();
+
+        try {
+            if (localStorage) {
+               return true;
+            }
+        } catch (e) {
+            this.setState({accessLocalStorage : false});
+        }
     }
 
     componentDidUpdate = prevProps => {
@@ -168,7 +176,7 @@ class App extends React.Component {
                 <div className={'container'} ref={elem => this.nv = elem}>
                     <section>
                         <MainContainer className={'container'} >
-                            <ChoiceInterface>
+                            {/*<ChoiceInterface>
                                 <ButtonAction type={''} label={'Editeur'} active={this.props.store.getState().visibility.editorOnly} action={() => {
                                     this.props.dispatch(toggleEditorOnly(true))
                                 }}
@@ -177,12 +185,16 @@ class App extends React.Component {
                                     this.props.dispatch(toggleEditorOnly(false))
                                 }}
                                 />
-                            </ChoiceInterface>
+                            </ChoiceInterface> */}
+                            {!this.state.accessLocalStorage && <p>
+                                <strong>No access to local storage</strong>.
+                                You are probably in private browsing mode.
+                                Some functionality uses local storage (copy paste components and sections). <br/>Change the browser mode to use them.</p>}
                             <ButtonAddSection onTop={true}/>
                             <AddSection open={this.props.store.getState().visibility.openFormAddSectionToTop} onTop={true}/>
                             { this.renderDomStructure() }
                             <ButtonAddSection onTop={false}/>
-                            <AddSection open={this.props.store.getState().visibility.openFormAddSection} onTop={false} />
+                            <AddSection open={this.props.store.getState().visibility.openFormAddSectionToBottom} onTop={false} />
                         </MainContainer>
                     </section>
                 </div>

@@ -6,6 +6,7 @@ const visibility = (state = [], action) => {
         return {
             openFormAddSection: false,
             openFormAddSectionToTop: false,
+            openFormAddSectionToBottom: false,
             selectedLanguage: 0,
             editorOnly : false,
             view: {}
@@ -16,9 +17,21 @@ const visibility = (state = [], action) => {
             openFormAddSection: { $set: !state.openFormAddSection }
         });
 
+    case 'CLOSE_FORM_ADD_SECTION':
+        return update(state, {
+            openFormAddSection: { $set: false },
+            toggleFormAddSectionToTop: { $set: false },
+            toggleFormAddSectionToBottom: { $set: false }
+        });
+
     case 'TOGGLE_FORM_ADD_SECTION_TO_TOP':
         return update(state, {
             openFormAddSectionToTop: { $set: !state.openFormAddSectionToTop }
+        });
+
+    case 'TOGGLE_FORM_ADD_SECTION_TO_BOTTOM':
+        return update(state, {
+            openFormAddSectionToBottom: { $set: !state.openFormAddSectionToBottom }
         });
 
     case 'TOGGLE_EDITOR_ONLY':

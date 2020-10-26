@@ -14,8 +14,14 @@ export const toggleResponsiveMode = mode => ({
 export const toggleFormAddSection = () => ({
     type: 'TOGGLE_FORM_ADD_SECTION',
 });
+export const closeFormAddSection = () => ({
+    type: 'CLOSE_FORM_ADD_SECTION',
+});
 export const toggleFormAddSectionToTop = () => ({
     type: 'TOGGLE_FORM_ADD_SECTION_TO_TOP',
+});
+export const toggleFormAddSectionToBottom = () => ({
+    type: 'TOGGLE_FORM_ADD_SECTION_TO_BOTTOM',
 });
 export const openFormAddSection = () => ({
     type: 'GET_VISIBILITY_FORM_ADD_SECTION',

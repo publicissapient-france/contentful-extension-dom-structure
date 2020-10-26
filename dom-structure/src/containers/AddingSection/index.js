@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {toggleFormAddSection, toggleFormAddSectionToTop} from '../../actions/index';
+import {toggleFormAddSectionToBottom, toggleFormAddSectionToTop} from '../../actions/index';
 import {Button} from './styled';
 import SvgAddSection from '../../components/svg/SvgAddSection';
 
@@ -14,7 +14,7 @@ class AddingSection extends Component {
                 Add section
             </Button>;
         } else {
-            return <Button onClick={() => dispatch(toggleFormAddSection())}>
+            return <Button onClick={() => dispatch(toggleFormAddSectionToBottom())}>
                 <SvgAddSection/>
                 Add section
             </Button>;

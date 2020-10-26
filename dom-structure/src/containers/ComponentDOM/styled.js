@@ -84,7 +84,6 @@ export const FieldsContainer = styled.div``;
 
 export const Fields = styled.div``;
 
-
 export const PanelActions = styled.div`
      display : flex;
      padding-left : 5px;
@@ -97,8 +96,26 @@ export const PanelActions = styled.div`
           right : 100%;
           height : 40px;
           
+          & ${Icon}.btn-options{
+            background-color : ${extensionTheme.white}
+            
+            &>svg g path, &>svg path, &>svg rect, &>svg g circle {
+                fill : ${ extensionTheme.grey35 };
+            }
+            
+            &.active{
+                &>svg g path, &>svg path, &>svg rect, &>svg g circle {
+                    fill : ${ extensionTheme.greenM };
+                }
+            }
+          }
+          
           &>div{
             display: flex;
+            
+            &.hidden{
+                display : none;
+            }
             
             & ${Icon}:first-child{
               border-left-width : 5px;
@@ -172,8 +189,6 @@ export const PanelActions = styled.div`
                     }
                }
           }
-          
-          
      }
 `;
 

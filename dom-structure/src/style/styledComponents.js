@@ -12,7 +12,6 @@ export const Extension = styled.div`
 `;
 export const MainContainer = styled.div`
     border-radius : 2px;
-    box-shadow : 0 1px 3px rgba(0,0,0,0.08);
     padding-bottom : 20px;
     margin-bottom : 20px;
     padding-top : 20px;

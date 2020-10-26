@@ -79,8 +79,14 @@ class ComponentDOM extends Component {
         this.setState({component: this.props.component}, () => {
         });
 
-        if (localStorage.getItem('copiedComponents')) {
-            this.setState({componentsOnLocalStorage: true});
+        try {
+            if (localStorage && localStorage.getItem('copiedComponents')) {
+                this.setState({componentsOnLocalStorage: true});
+            }
+        } catch (e) {
+            if (e.code === DOMException.QUOTA_EXCEEDED_ERR && storage.length === 0) {
+                console.log('private navigation');
+            }
         }
     }
 
@@ -226,7 +232,7 @@ class ComponentDOM extends Component {
 
         return (
             <ContainerComponent>
-                <TopBar borderBottom={this.state.openSettings}>
+                <TopBar borderBottom={this.state.openSettings  || this.state.openSafeDelete}>
                     <Description>
                         <Active
                             className={component.active ? 'active' : ''}
@@ -240,37 +246,39 @@ class ComponentDOM extends Component {
                     </Description>
                     <Actions>
                         <PanelActions className={this.state.openOption ? 'hidden' : ''}>
-                            <Icon className={this.state.openSettings && !this.state.triggerOpening ? 'active' : ''}
+                            <Icon title={"presets"} className={this.state.openSettings && !this.state.triggerOpening ? 'active' : ''}
                                   onClick={() => this.toggleOpenSettings()}>
                                 <SvgSetting/>
                             </Icon>
                         </PanelActions>
-                        <PanelActions className={['options', !this.state.openOption ? 'hidden' : '']}
+                        <PanelActions className={'options'}
                                       onMouseLeave={() => {
-                                          this.setState({openOption: false});
+                                          if(!this.state.openSafeDelete){
+                                              this.setState({openOption: false});
+                                          }
                                       }}>
-                            <div>
-                                <Icon className={['trash', this.state.openSafeDelete ? 'active' : '']}
+                            <div className={[!this.state.openOption ? 'hidden' : '']}>
+                                <Icon title={"delete"} className={['trash', this.state.openSafeDelete ? 'active' : '']}
                                       onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
                             </div>
-                            <div>
-                                <Icon className={!this.state.componentsOnLocalStorage ? 'disabled' : ''} onClick={() => {
+                            <div className={[!this.state.openOption ? 'hidden' : '']}>
+                                <Icon  title={"past component"} className={!this.state.componentsOnLocalStorage ? 'disabled' : ''} onClick={() => {
                                     if(this.state.componentsOnLocalStorage){this.pastComponent()}
                                 }}>
                                     <SvgPastComponent/>
                                 </Icon>
-                                <Icon className={''} onClick={() => this.copyComponent()}><SvgCopyComponent/></Icon>
+                                <Icon title={"copy component"} className={''} onClick={() => this.copyComponent()}><SvgCopyComponent/></Icon>
                             </div>
-                            <div>
-                                <Icon onClick={() => dispatch(duplicateComponent(index, indexParent))}><SvgDuplicateComponent/></Icon>
+                            <div className={[!this.state.openOption ? 'hidden' : '']}>
+                                <Icon title={"duplicate component"} onClick={() => dispatch(duplicateComponent(index, indexParent))}><SvgDuplicateComponent/></Icon>
                             </div>
-                        </PanelActions>
-                        <PanelActions>
-                            <Icon className={this.state.openOption ? 'active' : ''}
+                            <Icon title={"options"} className={['btn-options', this.state.openOption ? 'active' : '']}
                                   onClick={() => this.toggleOptions()}>
                                 <SvgHorizontalThreeDots/>
                             </Icon>
-                            <Icon className={this.state.triggerOpening ? 'active' : ''}
+                        </PanelActions>
+                        <PanelActions>
+                            <Icon title={"open / close fields"} className={this.state.triggerOpening ? 'active' : ''}
                                   onClick={() => {
                                       this.triggerOpening();
                                       if (!this.state.openSettings) {
@@ -279,7 +287,7 @@ class ComponentDOM extends Component {
                                   }}>
                                 <SvgSpec/>
                             </Icon>
-                            <Range>
+                            <Range title={"range"}>
                                 <Icon className={index === 0 ? 'disable' : ''} onClick={() => {
                                     if (index !== 0) {
                                         dispatch(moveComponentToTop(index, indexParent));
@@ -302,10 +310,13 @@ class ComponentDOM extends Component {
                 <SafeDelete className={!this.state.openSafeDelete ? 'hidden' : ''}>
                     <p>The deletion is final. Are you sure you want to delete this component?</p>
                     <div className={'buttons'}>
-                        <ButtonBasic label={'Cancel'} action={this.toggleSafeSecure}/>
+                        <ButtonBasic label={'Cancel'} action={() => {
+                            this.toggleSafeSecure();
+                            this.setState({openOption: false});
+                        }}/>
                         <ButtonDelete label={'Delete'} action={() => {
                             dispatch(removeComponent(index, indexParent));
-                            this.setState({openSafeDelete: false});
+                            this.setState({openSafeDelete: false, openOption: false});
                         }}/>
                     </div>
                 </SafeDelete>
@@ -329,17 +340,7 @@ class ComponentDOM extends Component {
                             </div>
                             <div>
                                 <label>Model</label>
-                                <select disabled ref={node => (selectModel = node)}
-                                        value={this.state.component.model || null}
-                                        onChange={e => {
-                                            this.updateModel(e.target.value);
-                                        }}>
-                                    {
-                                        Object.keys(componentConfig).map((key, i) => {
-                                            return <option value={key} key={i}>{key}</option>;
-                                        })
-                                    }
-                                </select>
+                                <p> {this.state.component.model || ''}</p>
                             </div>
                         </Column>
                         <Column>
@@ -350,25 +351,27 @@ class ComponentDOM extends Component {
                                                     order={this.state.component.order} updateOrder={this.updateOrder}/>
                             </div>
                         </Column>
-                        <Buttons className={'buttons'}>
-                            <ButtonBasic
-                                label={'Cancel'}
-                                disabled={!this.isUpdated()}
-                                action={e => {
-                                    e.preventDefault();
-                                    this.setState(prevState => ({
-                                        component: update(prevState.component, {
-                                            name: {$set: this.props.component.name},
-                                            model: {$set: this.props.component.model},
-                                            order: {$set: this.props.component.order},
-                                            fields: {$set: this.props.component.fields}
-                                        })
-                                    }));
-                                    inputName.value = component.name;
-                                    selectModel.value = component.model;
-                                }}/>
-                            <ButtonValidate label={'Update'} type={'submit'} disabled={!this.isUpdated()}/>
-                        </Buttons>
+                        {
+                            this.isUpdated() && <Buttons className={'buttons'}>
+                                <ButtonBasic
+                                    label={'Cancel'}
+                                    disabled={!this.isUpdated()}
+                                    action={e => {
+                                        e.preventDefault();
+                                        this.setState(prevState => ({
+                                            component: update(prevState.component, {
+                                                name: {$set: this.props.component.name},
+                                                model: {$set: this.props.component.model},
+                                                order: {$set: this.props.component.order},
+                                                fields: {$set: this.props.component.fields}
+                                            })
+                                        }));
+                                        inputName.value = component.name;
+                                        selectModel.value = component.model;
+                                    }}/>
+                                <ButtonValidate label={'Update'} type={'submit'} disabled={!this.isUpdated()}/>
+                            </Buttons>
+                        }
                     </FormComponent>
                 </div>
                 <FieldsContainer className={!this.state.openSettings ? 'hidden' : ''}>

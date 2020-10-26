@@ -31,7 +31,7 @@ import {
     AddChild,
     Children,
     Fields,
-    FieldsContainer, PanelActions, Actions, ChoiceOptions
+    FieldsContainer, PanelActions, Actions, ChoiceOptions, Buttons
 } from './styled';
 import {
     updateSection,
@@ -76,16 +76,22 @@ class Section extends Component {
             openOptionsReplace : false,
             sectionOnLocalStorage: false,
             componentsOnLocalStorage: false
+
         };
     }
 
     componentDidMount = () => {
         this.setState({section: this.props.section});
-        if (localStorage.getItem('copiedSection')) {
-            this.setState({sectionOnLocalStorage: true});
-        }
-        if (localStorage.getItem('copiedComponents')) {
-            this.setState({componentsOnLocalStorage: true});
+        try {
+            if (localStorage && localStorage.getItem('copiedSection')) {
+                this.setState({sectionOnLocalStorage: true});
+            }
+            if (localStorage && localStorage.getItem('copiedComponents')) {
+                this.setState({componentsOnLocalStorage: true});
+            }
+        } catch (e) {
+                console.log('private navigation');
+
         }
     }
 
@@ -123,7 +129,9 @@ class Section extends Component {
     toggleSafeSecure = () => this.setState({
         openSafeDelete: !this.state.openSafeDelete,
         openAdd: false,
-        openSettings: false
+        openSettings: false,
+        openOptionsReplace: false,
+        openOptionsAdd: false
 
     }, () => console.log(this.state));
 
@@ -198,7 +206,7 @@ class Section extends Component {
                     })
                 }), () => {
                     this.notifierSuccess(ALERT.SUCCESS_PAST_SECTION);
-                    this.setState({openOptionsPast: false});
+                    this.setState({openOptionsPast: false,  openOption : false});
                 })
             }else{
                 this.setState(prevState => ({
@@ -210,7 +218,7 @@ class Section extends Component {
                     })
                 }), () => {
                     this.notifierSuccess(ALERT.SUCCESS_PAST_SECTION);
-                    this.setState({openOptionsPast: false});
+                    this.setState({openOptionsPast: false,  openOption : false});
                 })
             }
         }
@@ -229,7 +237,7 @@ class Section extends Component {
                     })
                 }), () => {
                     this.notifierSuccess(ALERT.SUCCESS_PAST_COMPONENTS);
-                    this.setState({openOptionsReplace: false});
+                    this.setState({openOptionsReplace: false, openOption : false});
                 })
             }else{
                 this.setState(prevState => ({
@@ -239,7 +247,7 @@ class Section extends Component {
                     })
                 }), () => {
                     this.notifierSuccess(ALERT.SUCCESS_PAST_SECTION);
-                    this.setState({openOptionsReplace: false});
+                    this.setState({openOptionsReplace: false, openOption : false});
                 })
             }
         }
@@ -265,7 +273,7 @@ class Section extends Component {
         if (!this.state.section) return null;
         return (
             <ContainerSection>
-                <TopBar borderBottom={this.state.openSettings || this.state.openOptionsPast}>
+                <TopBar borderBottom={this.state.openSettings || this.state.openOptionsPast || this.state.openOptionsReplace || this.state.openSafeDelete}>
                     <Description>
                         <Active
                             className={this.state.section.active ? 'active' : ''}
@@ -279,56 +287,62 @@ class Section extends Component {
                     </Description>
                     <Actions>
                         <PanelActions className={this.state.openOption ? 'hidden' : ''}>
-                            <Icon className={this.state.openAdd ? 'active' : ''} onClick={() => this.toggleOpenAdd()}>
+                            <Icon title={"add component"} className={this.state.openAdd ? 'active' : ''} onClick={() => this.toggleOpenAdd()}>
                                 <SvgAddElement/>
                             </Icon>
                         </PanelActions>
                         <PanelActions className={this.state.openOption ? 'hidden' : ''}>
-                            <Icon className={this.state.openSettings && !this.state.triggerOpening ? 'active' : ''}
+                            <Icon title={"presets"} className={this.state.openSettings && !this.state.triggerOpening ? 'active' : ''}
                                   onClick={() => this.toggleOpenSettings()}>
                                 <SvgSetting/>
                             </Icon>
                         </PanelActions>
-                        <PanelActions className={['options', !this.state.openOption ? 'hidden' : '']}
-                                      onMouseLeave={() => this.setState({openOption: false})}>
-                            <div>
-                                <Icon className={['trash', this.state.openSafeDelete ? 'active' : '']}
+                        <PanelActions className={'options'}
+                                      onMouseLeave={() => {
+                                          if(!this.state.openOptionsReplace && !this.state.openOptionsPast && !this.state.openSafeDelete){
+                                              this.setState({openOption: false});
+                                          }
+                                      }}>
+                            <div className={[!this.state.openOption ? 'hidden' : '']}>
+                                <Icon title={"delete"} className={['trash', this.state.openSafeDelete ? 'active' : '']}
                                       onClick={() => this.toggleSafeSecure()}><SvgTrash/></Icon>
                             </div>
-                            <div>
-                                <Icon className={!this.state.componentsOnLocalStorage ? 'disabled' : ''} onClick={() => {
+                            <div className={[!this.state.openOption ? 'hidden' : '']}>
+                                <Icon title={"past components"} className={[!this.state.componentsOnLocalStorage ? 'disabled' : '', this.state.openOptionsReplace ? 'active' : '']} onClick={() => {
                                     if(this.state.componentsOnLocalStorage){ this.toggleOpenOptionsReplace();}
                                 }}>
                                     <SvgPastAllComponents/>
                                 </Icon>
-                                <Icon className={''} onClick={() => {
-                                    this.copyComponentsToLocalStorage();
-                                    this.setState({componentsOnLocalStorage : true})
+                                <Icon title={"copy components"} className={this.state.section.components.length === 0 ? 'disabled' : ''} onClick={() => {
+                                    if(!this.state.section.components.length === 0){
+                                        this.copyComponentsToLocalStorage();
+                                        this.setState({componentsOnLocalStorage : true});
+                                    }
                                 }}>
                                     <SvgCopyAllComponents/>
                                 </Icon>
                             </div>
-                            <div>
-                                <Icon className={!this.state.sectionOnLocalStorage ? 'disabled' : ''} onClick={() => {
+                            <div className={[!this.state.openOption ? 'hidden' : '']}>
+                                <Icon title={"past section"} className={[!this.state.sectionOnLocalStorage ? 'disabled' : '', this.state.openOptionsPast ? 'active' : '']} onClick={() => {
                                     if (this.state.sectionOnLocalStorage) {this.toggleOpenOptionsPast();}
                                 }}><SvgPastSection/></Icon>
-                                <Icon className={''} onClick={() => this.copySectionToLocalStorage()}><SvgCopySection/></Icon>
+                                <Icon title={"copy section"} className={''} onClick={() => this.copySectionToLocalStorage()}><SvgCopySection/></Icon>
                             </div>
-                            <div>
-                                <Icon className={''} onClick={() => {
+                            <div className={[!this.state.openOption ? 'hidden' : '']}>
+                                <Icon title={"duplicate section"} className={''} onClick={() => {
                                     dispatch(duplicateSection(index));
                                     this.notifierSuccess(ALERT.SUCCESS_DUPLICATION);
                                 }}>
                                     <SvgDuplicateSection/>
                                 </Icon>
                             </div>
-                        </PanelActions>
-                        <PanelActions>
-                            <Icon className={this.state.openOption ? 'active' : ''}
+                            <Icon title={"options"} className={['btn-options', this.state.openOption ? 'active' : '']}
                                   onClick={() => this.toggleOptions()}>
                                 <SvgHorizontalThreeDots/>
                             </Icon>
-                            <Icon className={this.state.triggerOpening ? 'active' : ''}
+                        </PanelActions>
+                        <PanelActions>
+                            <Icon title={"open  / close fields"} className={this.state.triggerOpening ? 'active' : ''}
                                   onClick={() => {
                                       this.triggerOpening();
                                       if (!this.state.openSettings) {
@@ -337,7 +351,7 @@ class Section extends Component {
                                   }}>
                                 <SvgSpec/>
                             </Icon>
-                            <Range>
+                            <Range title={"range"}>
                                 <Icon className={index === 0 ? 'disable' : ''} onClick={() => {
                                     if (index !== 0) dispatch(moveSectionToTop(index));
                                 }}>
@@ -355,7 +369,10 @@ class Section extends Component {
                 <SafeDelete className={!this.state.openSafeDelete ? 'hidden' : ''}>
                     <p>The deletion is final. Are you sure you want to delete this section?</p>
                     <div className={'buttons'}>
-                        <ButtonBasic label={'Cancel'} action={this.toggleSafeSecure}/>
+                        <ButtonBasic label={'Cancel'} action={() => {
+                            this.toggleSafeSecure();
+                            this.setState({openOption: false});
+                        }}/>
                         <ButtonDelete label={'Delete'} action={() => {
                             dispatch(removeSection(index));
                             this.setState({openSafeDelete: false, openOption: false});
@@ -367,7 +384,10 @@ class Section extends Component {
                     <div className={'buttons'}>
                         <ButtonValidate label={'Section presets'} action={() => this.pastSection()}/>
                         <ButtonValidate label={'Section presets and Components'} action={() => this.pastSection(true)}/>
-                        <ButtonBasic label={'Cancel'} action={this.toggleOpenOptionsPast}/>
+                        <ButtonBasic label={'Cancel'} action={() => {
+                            this.toggleOpenOptionsPast();
+                            this.setState({openOption : false});
+                        }}/>
                     </div>
                 </ChoiceOptions>
                 <ChoiceOptions className={!this.state.openOptionsReplace ? 'hidden' : ''}>
@@ -375,7 +395,10 @@ class Section extends Component {
                     <div className={'buttons'}>
                         <ButtonValidate label={'Replace'} action={() => this.pastComponents(true)}/>
                         <ButtonValidate label={'Add'} action={() => this.pastComponents()}/>
-                        <ButtonBasic label={'Cancel'} action={this.toggleOpenOptionsReplace}/>
+                        <ButtonBasic label={'Cancel'} action={() => {
+                            this.toggleOpenOptionsReplace();
+                            this.setState({openOption : false});
+                        }}/>
                     </div>
                 </ChoiceOptions>
                 <Settings className={!this.state.openSettings ? 'hidden' : ''}>
@@ -405,7 +428,7 @@ class Section extends Component {
                                    value={this.state.section.name || ''}
                                    onChange={e => this.updateName(e.target.value)}/>
                         </div>
-                        <div className={'buttons'}>
+                        <Buttons className={['buttons', this.isUpdated() ? ''  : 'hidden']}>
                             <ButtonBasic
                                 label={'Cancel'}
                                 disabled={!this.isUpdated()}
@@ -417,7 +440,7 @@ class Section extends Component {
                                     selectModel.value = section.model;
                                 }}/>
                             <ButtonValidate label={'Update'} disabled={!this.isUpdated()}/>
-                        </div>
+                        </Buttons>
                     </FormSection>
                 </Settings>
                 <AddChild>

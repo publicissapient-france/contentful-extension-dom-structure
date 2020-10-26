@@ -93,7 +93,7 @@ class AddComponent extends Component {
 
                     <div className={'buttons'}>
                         <ButtonBasic
-                            disabled={!this.isComplete()}
+                            disabled={false}
                             label={'Cancel'}
                             action={ e => {
                                 e.preventDefault();

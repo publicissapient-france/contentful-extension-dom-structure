@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import update from 'react-addons-update';
-import { addSection, addSectionToTop, toggleFormAddSection, toggleFormAddSectionToTop } from '../../actions/index';
+import { addSection, addSectionToTop, closeFormAddSection, toggleFormAddSectionToTop, toggleFormAddSectionToBottom } from '../../actions/index';
 import { Container } from '../../style/styledComponents';
 import { FormSection, Information } from './styled';
 import ButtonBasic from '../../components/ui/ButtonBasic';
@@ -72,7 +72,7 @@ class AddSection extends Component {
                             dispatch(toggleFormAddSectionToTop());
                         } else {
                             dispatch(addSection(this.state.section));
-                            dispatch(toggleFormAddSection());
+                            dispatch(toggleFormAddSectionToBottom());
                         }
                         inputName.value = '';
                         selectModel.value = '';
@@ -101,12 +101,16 @@ class AddSection extends Component {
                     <div className={'buttons'}>
                         <ButtonBasic
                             label={'Cancel'}
-                            disabled={!this.isComplete()}
+                            disabled={false}
                             action={ e => {
                                 this.clearForm();
                                 inputName.value = '';
                                 selectModel.value = '';
-                                dispatch(toggleFormAddSection());
+                                if (onTop) {
+                                    dispatch(toggleFormAddSectionToTop());
+                                } else {
+                                    dispatch(toggleFormAddSectionToBottom());
+                                }
                             }}
                         />
                         <ButtonValidate label={'Add'} type={'submit'} disabled={!this.isComplete()}/>
