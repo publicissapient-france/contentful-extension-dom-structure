@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {connect} from 'react-redux';
 import update from 'react-addons-update';
 import isEqual from 'lodash/isEqual';
@@ -28,7 +28,6 @@ import ButtonValidate from '../../components/ui/ButtonValidate';
 import FieldsListOfSection from "../../components/FieldsListOfSection";
 import ActionsBarSection from './ActionsBarSection';
 import SvgCheck from '../../components/svg/SvgCheck';
-
 
 class Section extends Component {
     constructor(props) {
@@ -98,8 +97,7 @@ class Section extends Component {
     }
 
     toggleOptions = () => this.setState({
-        openOption: !this.state.openOption,
-        currentView: ''
+        openOption: !this.state.openOption
     })
 
     triggerOpening = () => this.setState(prevState => ({
@@ -300,7 +298,6 @@ class Section extends Component {
                                         disabled={!this.isUpdated()}
                                         action={e => {
                                             e.preventDefault();
-                                            this.updateView('')
                                             this.setState({section: this.props.section});
                                             inputName.value = section.name;
                                             selectModel.value = section.model;

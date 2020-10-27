@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import isEmpty from 'lodash/isEmpty';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import {Container, Preview, Element, ButtonsMove, Button, PreviewContainer, Label} from './styled';
 import SvgArrowToTop from '../../components/svg/SvgArrowToTop';
@@ -20,147 +20,130 @@ const mapModelToWrappers = {
     HeaderBasicWrapper
 }
 
-class OrderFieldsContent extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {};
+const getSvgElementByType = (type) => {
+    switch (type) {
+        case 'Template' :
+            return null;
+        case 'Text' :
+            return <SvgElementText/>;
+        case 'TextMarkdown' :
+            return <SvgElementTextMarkdown/>;
+        case 'SingleImage' :
+            return <SvgElementImage/>;
+        case 'MultiplesImage' :
+            return <SvgElementImage/>;
+        case 'CTA' :
+            return <SvgElementCTA/>;
+        default :
+            return <div>no preview</div>
     }
+}
 
-    componentDidMount() {
+const OrderFieldsContent = ({fields, order, componentModel, updateOrder}) => {
 
-    }
+    const getFieldByName = (name) => fields.find((field) => field.nameProperty === name);
 
-    componentDidUpdate(prevProps) {
-
-    }
-
-    getFieldByName = (name) => this.props.fields.find((field) => field.nameProperty === name);
-
-
-    getSvgElementByType = (type) => {
-        switch (type) {
-            case 'Template' :
-                return null;
-            case 'Text' :
-                return <SvgElementText/>;
-            case 'TextMarkdown' :
-                return <SvgElementTextMarkdown/>;
-            case 'SingleImage' :
-                return <SvgElementImage/>;
-            case 'MultiplesImage' :
-                return <SvgElementImage/>;
-            case 'CTA' :
-                return <SvgElementCTA/>;
-            default :
-                return <div>no preview</div>
-        }
-
-    }
-
-    moveElementToTop = (index, indexSubOrder = null) => {
+    const moveElementToTop = (index, indexSubOrder = null) => {
         if (index === 0) return
-        if(indexSubOrder !== null){
-            const a = this.props.order[indexSubOrder][index];
-            const b = this.props.order[indexSubOrder][index - 1];
-            let newOrder = [...this.props.order];
+        if (indexSubOrder !== null) {
+            const a = order[indexSubOrder][index];
+            const b = order[indexSubOrder][index - 1];
+            let newOrder = [...order];
             newOrder[indexSubOrder][index - 1] = a;
             newOrder[indexSubOrder][index] = b;
-            this.props.updateOrder(newOrder);
-        }else{
-            const a = this.props.order[index];
-            const b = this.props.order[index - 1];
-            let newOrder = [...this.props.order];
+            updateOrder(newOrder);
+        } else {
+            const a = order[index];
+            const b = order[index - 1];
+            let newOrder = [...order];
             newOrder[index - 1] = a;
             newOrder[index] = b;
-            this.props.updateOrder(newOrder);
+            updateOrder(newOrder);
         }
     }
 
 
-    moveElementToBottom = (index, indexSubOrder = null) => {
-        if(indexSubOrder  !== null){
-            if (index === (this.props.order[indexSubOrder].length - 1)) return
-            const a = this.props.order[indexSubOrder][index];
-            const b = this.props.order[indexSubOrder][index + 1];
-            let newOrder = [...this.props.order];
+    const moveElementToBottom = (index, indexSubOrder = null) => {
+        if (indexSubOrder !== null) {
+            if (index === (order[indexSubOrder].length - 1)) return
+            const a = order[indexSubOrder][index];
+            const b = [indexSubOrder][index + 1];
+            let newOrder = [...order];
             newOrder[indexSubOrder][index] = b;
             newOrder[indexSubOrder][index + 1] = a;
-            this.props.updateOrder(newOrder);
-        }else{
-            if (index === (this.props.order.length - 1)) return
-            const a = this.props.order[index];
-            const b = this.props.order[index + 1];
-            let newOrder = [...this.props.order];
+            updateOrder(newOrder);
+        } else {
+            if (index === (order.length - 1)) return
+            const a = order[index];
+            const b = order[index + 1];
+            let newOrder = [...order];
             newOrder[index] = b;
             newOrder[index + 1] = a;
-            this.props.updateOrder(newOrder);
+            updateOrder(newOrder);
         }
     }
 
-    renderFieldView = (field, indexField, indexSubOrder = null) => {
+    const renderFieldView = (field, indexField, indexSubOrder = null) => {
         return <Preview key={indexField}>
             <Element>
                 <ButtonsMove>
                     <Button onClick={() =>
-                        this.moveElementToBottom(indexField, indexSubOrder)
+                        moveElementToBottom(indexField, indexSubOrder)
                     }><SvgArrowToTop/></Button>
                     <Button onClick={() => {
-                        this.moveElementToTop(indexField,indexSubOrder)
+                        moveElementToTop(indexField, indexSubOrder)
                     }}><SvgArrowToTop/></Button>
                 </ButtonsMove>
                 {
-                    this.getSvgElementByType(field.typeField)
+                    getSvgElementByType(field.typeField)
                 }
                 <Label>{field.name}</Label>
             </Element>
         </Preview>
     }
 
-    renderOrderPreview = (order) => {
+    const renderOrderPreview = (order) => {
         let result;
         if (Array.isArray(order[0])) {
             result = order.map((subOrder, i) => {
                 return subOrder.map((field, j) => {
-                        const fieldConfig = this.getFieldByName(field);
+                        const fieldConfig = getFieldByName(field);
                         if (!fieldConfig) return null
-                        return this.renderFieldView(fieldConfig, j, i)
+                        return renderFieldView(fieldConfig, j, i)
                     }
                 )
             })
         } else {
             result = order.map((field, i) => {
-                const fieldConfig = this.getFieldByName(field);
+                const fieldConfig = getFieldByName(field);
                 if (!fieldConfig) return null
-                return this.renderFieldView(fieldConfig, i)
+                return renderFieldView(fieldConfig, i)
             })
         }
         return result
-
     }
 
-    render() {
-        const {fields, order, componentModel} = this.props;
-        if (!order || !fields) return null;
+    if (!order || !fields) return null;
 
-        const PreviewContent = <PreviewContainer>
+    const PreviewContent = <PreviewContainer>{renderOrderPreview(order)}</PreviewContainer>
+
+    return (
+        <Container>
             {
-                this.renderOrderPreview(order)
+                mapModelToWrappers[`${componentModel}Wrapper`] ?
+                    React.createElement(mapModelToWrappers[`${componentModel}Wrapper`], {}, PreviewContent)
+                    : React.createElement(mapModelToWrappers[`DefaultWrapper`], {}, PreviewContent)
             }
-        </PreviewContainer>
+        </Container>
+    );
 
-        return (
-            <Container>
-                {
-                    mapModelToWrappers[`${componentModel}Wrapper`] ?
-                        React.createElement(mapModelToWrappers[`${componentModel}Wrapper`], {}, PreviewContent)
-                        : React.createElement(mapModelToWrappers[`DefaultWrapper`], {}, PreviewContent)
-                }
-            </Container>
-        );
-    }
 }
 
-OrderFieldsContent.propTypes = {};
+OrderFieldsContent.propTypes = {
+    fields : PropTypes.array,
+    order : PropTypes.array,
+    componentModel :  PropTypes.string,
+    updateOrder : PropTypes.func
+};
 
 export default OrderFieldsContent;

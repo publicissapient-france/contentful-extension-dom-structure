@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { DotContainer } from './styled';
+import React from 'react';
+import {DotContainer} from './styled';
 import PropTypes from 'prop-types';
 
 const classByState = {
@@ -7,22 +7,21 @@ const classByState = {
     DISABLED: ''
 };
 
-class Dot extends Component {
-    getClassName = () => {
-        const state = this.getElementState();
+const Dot = ({enabled}) => {
+    const getClassName = () => {
+        const state = getElementState();
         return classByState[state];
     }
 
-    getElementState = () => {
-        if (this.props.enabled) {
+    const getElementState = () => {
+        if (enabled) {
             return 'ENABLED';
         }
         return 'DISABLED';
     }
 
-    render () {
-        return (<DotContainer className={this.getClassName()}/>);
-    }
+    return (<DotContainer className={getClassName()}/>);
+
 }
 
 Dot.propTypes = {

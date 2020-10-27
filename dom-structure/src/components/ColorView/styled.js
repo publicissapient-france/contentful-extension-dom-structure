@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { extensionTheme } from '../../style/theme';
 
+export const Container = styled.div`padding-top : 10px;`;
+
 export const ChoiceColor = styled.div`
   display : flex;
   flex-direction : column;

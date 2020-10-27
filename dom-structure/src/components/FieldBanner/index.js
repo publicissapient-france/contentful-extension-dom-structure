@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Banner} from '../../style/styledComponentsFields'
 import {Icon} from '../../style/styledComponents';
@@ -9,45 +9,66 @@ import isEmpty from "lodash/isEmpty";
 import SvgContent from '../svg/SvgContent';
 import SvgSetting from '../svg/SvgSetting';
 
-class FieldBanner extends Component {
+const FieldBanner = ({
+                         name,
+                         active,
+                         defaultContent,
+                         openContent,
+                         toggleContent,
+                         defaultSettings,
+                         openSettings,
+                         toggleSettings,
+                         currentResponsiveMode,
+                         toggleActive,
+                         getResponsiveChoices,
+                         setResponsiveMode,
+                         editorOnly,
+                         children
+                     }) => {
 
-    render() {
-        const {name, active, openContent, openSettings, currentResponsiveMode, children} = this.props
-        return (<Banner>
-            <div>
-                <ActiveCheckBox active={active} action={this.props.toggleActive}/>
-                <p>{name}</p>
-            </div>
-            <div>
-                <LanguageToggle hidden={(!openContent && !openSettings) || openSettings}/>
-                <ResponsiveToggle responsive={this.props.getResponsiveChoices()}
-                                  currentMode={currentResponsiveMode}
-                                  action={this.props.setResponsiveMode}/>
-                { children }
-                {
-                    isEmpty(this.props.defaultContent) ? null :
-                        <Icon className={openContent ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleContent();
-                              }}>
-                            <SvgContent/>
-                        </Icon>
-                }
-                {
-                    this.props.editorOnly ||  isEmpty(this.props.defaultSettings) ? null :
-                        <Icon className={openSettings ? 'active' : ''}
-                              onClick={() => {
-                                  this.props.toggleSettings();
-                              }}>
-                            <SvgSetting/>
-                        </Icon>
-                }
-
-            </div>
-        </Banner>);
-    }
+    return (<Banner>
+        <div>
+            <ActiveCheckBox active={active} action={toggleActive}/>
+            <p>{name}</p>
+        </div>
+        <div>
+            <LanguageToggle hidden={(!openContent && !openSettings) || openSettings}/>
+            <ResponsiveToggle responsive={getResponsiveChoices()}
+                              currentMode={currentResponsiveMode}
+                              action={setResponsiveMode}/>
+            {children}
+            {
+                !isEmpty(defaultContent) &&
+                    <Icon className={openContent ? 'active' : ''}
+                          onClick={() => toggleContent()}>
+                        <SvgContent/>
+                    </Icon>
+            }
+            {
+                !(editorOnly || isEmpty(defaultSettings)) &&
+                    <Icon className={openSettings ? 'active' : ''}
+                          onClick={() => toggleSettings()}>
+                        <SvgSetting/>
+                    </Icon>
+            }
+        </div>
+    </Banner>);
 }
 
-FieldBanner.propTypes = {};
+FieldBanner.propTypes = {
+    name : PropTypes.string,
+    active : PropTypes.bool,
+    defaultContent : PropTypes.object,
+    defaultSettings: PropTypes.object,
+    openContent: PropTypes.bool,
+    toggleContent: PropTypes.func,
+    openSettings: PropTypes.bool,
+    toggleSettings: PropTypes.func,
+    currentResponsiveMode: PropTypes.string,
+    toggleActive: PropTypes.func,
+    getResponsiveChoices: PropTypes.func,
+    setResponsiveMode: PropTypes.func,
+    editorOnly: PropTypes.bool
+};
 
 export default FieldBanner;

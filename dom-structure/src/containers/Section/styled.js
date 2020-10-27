@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Form, OptionsBlock, Icon, Container, SafeDelete} from '../../style/styledComponents';
+import {Form, OptionsBlock, Container, SafeDelete} from '../../style/styledComponents';
 import { extensionTheme } from '../../style/theme';
 import { CheckBox } from '../../style/styledComponentsFields';
 
@@ -41,11 +41,11 @@ export const Children = styled.div`
 export const FormSection = styled(Form)`
     padding-left : 15px;
     box-sizing: border-box;
+    justify-content: flex-start;
     
     &>div:nth-child(1) select{
         max-width : 205px; 
     }
-    
 `;
 
 export const Active = styled(CheckBox)`

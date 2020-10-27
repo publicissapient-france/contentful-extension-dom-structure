@@ -49,7 +49,7 @@ class FieldsList extends Component {
                                 return <TemplateForComponent {...params}/>;
 
                             case key === 'FlexContainer':
-                                return <FlexContainerForComponent {...params}/>;
+                                return <FlexContainerForComponent key={key} {...params}/>;
 
                             case key === 'Title' || key === 'Tagline' || key === 'Heading':
                                 return <Text {...params} />;

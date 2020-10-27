@@ -7,7 +7,6 @@ export const Container = styled.div`
     flex-direction:column;
     padding: 20px 0 20px 20px;
     
-    
    &.image-file {
         grid-template-columns: 1fr minmax(40%, 1fr);
         grid-column-gap: 2rem;
@@ -23,7 +22,6 @@ export const Container = styled.div`
         height: 4rem;
     }
     
-   
     & img {
         height: 100%;
     }

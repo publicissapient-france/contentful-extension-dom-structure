@@ -54,7 +54,7 @@ class ComponentDOM extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(this.props.component, prevProps.component)) {
+        if (!isEqual(this.props.component, prevProps.component) ) {
             this.setState({component: this.props.component});
         }
 
@@ -100,8 +100,7 @@ class ComponentDOM extends Component {
     toggleActive = () => this.props.dispatch(toggleComponentActive(!this.props.component.active, this.props.index, this.props.indexParent));
 
     toggleOptions = () => this.setState({
-        openOption: !this.state.openOption,
-        currentView: ''
+        openOption: !this.state.openOption
     })
 
     triggerOpening = () => this.setState(prevState => ({
@@ -109,10 +108,9 @@ class ComponentDOM extends Component {
     }))
 
     isUpdated = () => (this.state.component && (
-        !isEqual(this.state.component, this.props.component) ||
         this.state.component.name !== this.props.component.name ||
         this.state.component.model !== this.props.component.model ||
-        this.state.component.order !== this.props.component.order
+        this.state.component.order !== this.props.component.order 
      ))
 
 
@@ -237,7 +235,6 @@ class ComponentDOM extends Component {
                                         disabled={!this.isUpdated()}
                                         action={e => {
                                             e.preventDefault();
-                                            this.updateView('')
                                             this.setState(prevState => ({
                                                 component: update(prevState.component, {
                                                     name: {$set: this.props.component.name},
@@ -246,8 +243,8 @@ class ComponentDOM extends Component {
                                                     fields: {$set: this.props.component.fields}
                                                 })
                                             }));
-                                            inputName.value = component.name;
-                                            selectModel.value = component.model;
+                                            if(inputName) inputName.value = component.name;
+                                            if(selectModel) selectModel.value = component.model;
                                         }}/>
                                     <ButtonValidate label={'Update'} type={'submit'} disabled={!this.isUpdated()}/>
                                 </Buttons>
