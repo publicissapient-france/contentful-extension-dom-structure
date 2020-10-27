@@ -1,6 +1,17 @@
 import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux'
+import {
+    duplicateSection,
+    getAccessLocalStorageAvailable,
+    getCurrentExtension,
+    getVersionStorage, moveSectionToDown, moveSectionToTop
+} from "../../../actions";
+import {ALERT, notifierSuccess} from "../../../utils/Notifier";
+import {copyComponentsToLocalStorage, copySectionToLocalStorage} from "../../../utils/LocalStorageFunctions";
+
 import {Bar, Group} from "./styled";
 import {Icon, Range} from "../../../style/styledComponents";
+
 import SvgAddElement from '../../../components/svg/SvgAddElement';
 import SvgSetting from '../../../components/svg/SvgSetting';
 import SvgTrash from '../../../components/svg/SvgTrash';
@@ -12,19 +23,6 @@ import SvgCopySection from '../../../components/svg/SvgCopySection';
 import SvgDuplicateSection from '../../../components/svg/SvgDuplicateSection';
 import SvgSpec from '../../../components/svg/SvgSpec';
 import SvgRange from '../../../components/svg/SvgRange';
-
-import {copyComponentsToLocalStorage, copySectionToLocalStorage} from "../LocalStorageFunctions";
-
-import {connect} from 'react-redux'
-import {
-    duplicateSection,
-    getAccessLocalStorageAvailable,
-    getCurrentExtension,
-    getVersionStorage, moveSectionToDown, moveSectionToTop
-} from "../../../actions";
-
-import {ALERT, notifierSuccess} from "../Notifier";
-
 
 const ActionsBarSection = ({
                                nbrComponentsOfSection,

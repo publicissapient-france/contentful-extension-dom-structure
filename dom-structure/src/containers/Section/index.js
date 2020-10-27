@@ -4,8 +4,10 @@ import update from 'react-addons-update';
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import sectionConfig from '../../config/sections/*.js';
+import {updateSection, removeSection, toggleSectionActive, getCurrentExtension, getVersionStorage} from '../../actions/index';
+import {notifierError, notifierSuccess, ALERT} from "../../utils/Notifier";
 
-import {SafeDelete,} from '../../style/styledComponents';
+import {SafeDelete} from '../../style/styledComponents';
 import {
     ContainerSection,
     Settings,
@@ -17,8 +19,6 @@ import {
     Fields,
     FieldsContainer,ChoiceOptions, Buttons
 } from './styled';
-import {updateSection, removeSection, toggleSectionActive, getCurrentExtension, getAccessLocalStorageAvailable, getVersionStorage} from '../../actions/index';
-import {notifierError, notifierSuccess, ALERT} from "./Notifier";
 
 import ComponentDOM from '../ComponentDOM/index';
 import ButtonBasic from '../../components/ui/ButtonBasic';
@@ -270,7 +270,6 @@ class Section extends Component {
                         <FormSection onSubmit={e => {
                             e.preventDefault();
                             if (!this.isUpdated()) return;
-                            console.log('section3 ---- ', this.state.section)
                             dispatch(updateSection(this.state.section, index));
                         }}
                         >
@@ -294,19 +293,21 @@ class Section extends Component {
                                        value={this.state.section.name || ''}
                                        onChange={e => this.updateName(e.target.value)}/>
                             </div>
-                            <Buttons className={['buttons', this.isUpdated() ? '' : 'hidden']}>
-                                <ButtonBasic
-                                    label={'Cancel'}
-                                    disabled={!this.isUpdated()}
-                                    action={e => {
-                                        e.preventDefault();
-                                        this.updateView('')
-                                        this.setState({section: this.props.section});
-                                        inputName.value = section.name;
-                                        selectModel.value = section.model;
-                                    }}/>
-                                <ButtonValidate label={'Update'}  type={'submit'} disabled={!this.isUpdated()}/>
-                            </Buttons>
+                            {
+                                this.isUpdated() &&  <Buttons className={'buttons'}>
+                                    <ButtonBasic
+                                        label={'Cancel'}
+                                        disabled={!this.isUpdated()}
+                                        action={e => {
+                                            e.preventDefault();
+                                            this.updateView('')
+                                            this.setState({section: this.props.section});
+                                            inputName.value = section.name;
+                                            selectModel.value = section.model;
+                                        }}/>
+                                    <ButtonValidate label={'Update'}  type={'submit'} disabled={!this.isUpdated()}/>
+                                </Buttons>
+                            }
                         </FormSection>
                     </Settings> : null
                 }
@@ -343,7 +344,6 @@ Section.propTypes = {
 
 const mapStateToProps = state => ({
     extensionInfo: getCurrentExtension(state),
-    accessLocalStorage: getAccessLocalStorageAvailable(state).accessLocalStorage,
     versionStorage: getVersionStorage(state).versionStorage,
 });
 
