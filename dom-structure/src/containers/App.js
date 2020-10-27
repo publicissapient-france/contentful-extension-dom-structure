@@ -18,14 +18,9 @@ import {
 } from '../actions';
 import { extractActiveValue, arrayToString, extractFontValueToCSS, extractAssetUrl, findProp } from '../utils/functions';
 
-
 class App extends React.Component {
     constructor (props) {
         super(props);
-
-        this.state = {
-            openAddSectionTop: false,
-        };
 
         this.onViewingEntryUpdated = debounce(this.onViewingEntryUpdated, {
             wait: 250

@@ -40,7 +40,7 @@ import {
     removeComponent,
     updateComponent,
     toggleComponentActive,
-    duplicateComponent, getAccessLocalStorageAvailable, getCurrentExtension, incrementVersionStorage
+    duplicateComponent, getAccessLocalStorageAvailable, getCurrentExtension, incrementVersionStorage, getVersionStorage
 
 } from '../../actions';
 import update from 'react-addons-update';
@@ -416,6 +416,7 @@ ComponentDOM.propTypes = {
 const mapStateToProps = state => ({
     extensionInfo: getCurrentExtension(state),
     accessLocalStorage: getAccessLocalStorageAvailable(state).accessLocalStorage,
+    versionStorage: getVersionStorage(state).versionStorage,
 
 });
 export default connect(mapStateToProps)(ComponentDOM);

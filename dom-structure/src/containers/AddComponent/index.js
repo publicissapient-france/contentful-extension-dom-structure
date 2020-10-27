@@ -58,10 +58,10 @@ class AddComponent extends Component {
     isComplete = () => (this.state.component && this.state.component.name && this.state.component.model)
 
     render () {
-        const { dispatch, index, open, parent } = this.props;
+        const { dispatch, index, updateView } = this.props;
         let inputName, selectModel;
         return (
-            <ContainerForm className={!open ? 'hidden' : ''}>
+            <ContainerForm>
                 <FormComponent
                     onSubmit={e => {
                         e.preventDefault();
@@ -69,7 +69,7 @@ class AddComponent extends Component {
                         dispatch(addComponent(this.state.component, index));
                         inputName.value = '';
                         selectModel.value = '';
-                        parent.setState({ openAdd: !parent.state.openAdd });
+                        updateView('formAddComponent');
                         this.clearForm();
                     }}
                 >
@@ -100,7 +100,7 @@ class AddComponent extends Component {
                                 this.clearForm();
                                 inputName.value = '';
                                 selectModel.value = '';
-                                parent.setState({ openAdd: !parent.state.openAdd });
+                                updateView('formAddComponent');
                             }}
                         />
                         <ButtonValidate type={'submit'} label={'Add'} disabled={!this.isComplete()}/>
