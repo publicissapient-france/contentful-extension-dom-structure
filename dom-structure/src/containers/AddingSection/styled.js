@@ -27,7 +27,5 @@ export const Button = styled.button`
       cursor : pointer !important;
     }
     
-    
-   
     &:focus {outline:0;}
 `;

@@ -6,7 +6,7 @@ import SvgAddSmall from '../svg/SvgAddSmall';
 import SvgAttachement from '../svg/SvgAttachement';
 import SvgTrashSmall from '../svg/SvgTrashSmall';
 
-export default UploadView =  (props) => {
+const UploadView =  (props) => {
     return (
         <Container>
             <ViewPort isDraggingOver={props.isDraggingOver} >
@@ -34,3 +34,5 @@ export default UploadView =  (props) => {
         </Container>
     );
 }
+
+export default UploadView;

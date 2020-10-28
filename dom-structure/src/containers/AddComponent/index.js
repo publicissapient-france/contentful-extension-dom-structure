@@ -1,119 +1,116 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { addComponent } from '../../actions/index';
-import { ContainerForm, FormComponent } from './styled';
-import update from 'react-addons-update';
-import componentConfig from '../../config/components/*.js';
-import ButtonBasic from '../../components/ui/ButtonBasic';
-
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {addComponent} from '../../actions/index';
+import componentConfig from '../../config/components/*.js';
+
+import {ContainerForm, FormComponent} from './styled';
+
+import ButtonBasic from '../../components/ui/ButtonBasic';
 import ButtonValidate from '../../components/ui/ButtonValidate';
 
-class AddComponent extends Component {
-    constructor (props) {
-        super(props);
+const AddComponent = ({dispatch, index, updateView}) => {
 
-        this.state = {
-            component: {
-                type: 'components'
-            }
-        };
+    const [component, setComponent] = useState({
+        type: 'components'
+    })
+
+    const updateName = name => {
+        setComponent(prev => ({
+            ...prev,
+            name: name
+        }));
     }
 
-    updateName = name => {
-        this.setState({
-            component: update(this.state.component, {
-                name: { $set: name },
-            })
-        });
-    }
-
-    updateModel = model => {
+    const updateModel = model => {
         let fields = {};
         componentConfig[model].default.fields.map(field => {
             fields[field.nameProperty] = {
-                active: true, content: {}, settings: {}, responsiveSettings: field.settings.responsive };
+                active: true, content: {}, settings: {}, responsiveSettings: field.settings.responsive
+            };
         });
         let order = componentConfig[model].default.order;
-        this.setState(
-            {
-                component: update(this.state.component, {
-                    model: { $set: model },
-                    fields: { $set: fields },
-                    order : { $set :  order }
-                })
-            });
+        setComponent(prev => ({
+            ...prev,
+            model: model,
+            fields: fields,
+            order: order
+        }));
     }
 
-    clearForm = () => {
-        this.setState({
-            component: {
-                type: 'component',
-                name: null,
-                model: null
-            }
-        });
+    const clearForm = () => {
+        setComponent(prev => ({
+            ...prev,
+            type: 'component',
+            name: null,
+            model: null
+        }));
     }
 
-    isComplete = () => (this.state.component && this.state.component.name && this.state.component.model)
+    const isComplete = () => (component && component.name && component.model)
 
-    render () {
-        const { dispatch, index, updateView } = this.props;
-        let inputName, selectModel;
-        return (
-            <ContainerForm>
-                <FormComponent
-                    onSubmit={e => {
-                        e.preventDefault();
-                        if (!this.isComplete()) { return; }
-                        dispatch(addComponent(this.state.component, index));
-                        inputName.value = '';
-                        selectModel.value = '';
-                        updateView('formAddComponent');
-                        this.clearForm();
-                    }}
-                >
-                    <div>
-                        <label>Model</label>
-                        <select ref={node => (selectModel = node)} defaultValue={''}
-                            onChange={e => { this.updateModel(e.target.value); }}>
-                            <option value={null}></option>
-                            {
-                                Object.keys(componentConfig).map((key, i) => {
-                                    return <option value={key} key={i}>{key}</option>;
-                                })
-                            }
-                        </select>
-                    </div>
-                    <div>
-                        <label>Component Name</label>
-                        <input ref={node => (inputName = node)} type={'text'}
-                            onChange={e => { this.updateName(e.target.value); }}/>
-                    </div>
+    let inputName, selectModel;
+    return (
+        <ContainerForm>
+            <FormComponent
+                onSubmit={e => {
+                    e.preventDefault();
+                    if (!isComplete()) {
+                        return;
+                    }
+                    dispatch(addComponent(component, index));
+                    inputName.value = '';
+                    selectModel.value = '';
+                    updateView('formAddComponent');
+                    clearForm();
+                }}
+            >
+                <div>
+                    <label>Model</label>
+                    <select ref={node => (selectModel = node)} defaultValue={''}
+                            onChange={e => {
+                                updateModel(e.target.value);
+                            }}>
+                        <option value={null}></option>
+                        {
+                            Object.keys(componentConfig).map((key, i) => {
+                                return <option value={key} key={i}>{key}</option>;
+                            })
+                        }
+                    </select>
+                </div>
+                <div>
+                    <label>Component Name</label>
+                    <input ref={node => (inputName = node)} type={'text'}
+                           onChange={e => {
+                               updateName(e.target.value);
+                           }}/>
+                </div>
 
-                    <div className={'buttons'}>
-                        <ButtonBasic
-                            disabled={false}
-                            label={'Cancel'}
-                            action={ e => {
-                                e.preventDefault();
-                                this.clearForm();
-                                inputName.value = '';
-                                selectModel.value = '';
-                                updateView('formAddComponent');
-                            }}
-                        />
-                        <ButtonValidate type={'submit'} label={'Add'} disabled={!this.isComplete()}/>
-                    </div>
-                </FormComponent>
-            </ContainerForm>
-        );
-    }
+                <div className={'buttons'}>
+                    <ButtonBasic
+                        disabled={false}
+                        label={'Cancel'}
+                        action={e => {
+                            e.preventDefault();
+                            clearForm();
+                            inputName.value = '';
+                            selectModel.value = '';
+                            updateView('formAddComponent');
+                        }}
+                    />
+                    <ButtonValidate type={'submit'} label={'Add'} disabled={!isComplete()}/>
+                </div>
+            </FormComponent>
+        </ContainerForm>
+    );
+
 }
 
 AddComponent.propTypes = {
     index: PropTypes.number.isRequired,
-    open: PropTypes.bool.isRequired
+    open: PropTypes.bool.isRequired,
+    updateView : PropTypes.func
 };
 
 export default connect()(AddComponent);
