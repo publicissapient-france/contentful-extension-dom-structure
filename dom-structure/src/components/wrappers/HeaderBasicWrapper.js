@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {extensionTheme} from "../../style/theme";
 import styled from "styled-components";
 import SvgElementCTA from '../svg/SvgElementCTA'
@@ -18,9 +18,7 @@ const Element = styled.div`
         width : 100px;
         height : 20px;
    }
-    
 `;
-
 
 const Wrapper = styled.div`
     padding : 20px;
@@ -36,23 +34,18 @@ const Wrapper = styled.div`
     }
 `;
 
-
-
-class HeaderPicturesOnCornersWrapper extends Component {
-    render() {
-        const {children} = this.props;
-        return (
-            <Wrapper>
-                {children}
-                <Element>
-                    <SvgElementCTA/>
-                </Element>
-                <Element>
-                    <SvgElementCTA/>
-                </Element>
-            </Wrapper>
-        );
-    }
+const HeaderPicturesOnCornersWrapper = ({children}) => {
+    return (
+        <Wrapper>
+            {children}
+            <Element>
+                <SvgElementCTA/>
+            </Element>
+            <Element>
+                <SvgElementCTA/>
+            </Element>
+        </Wrapper>
+    );
 };
 
 export default HeaderPicturesOnCornersWrapper;

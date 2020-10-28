@@ -1,19 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from './styled';
+import {Button} from './styled';
 
-export default class ButtonAction extends Component {
-    render () {
-        const { label, active, action, type } = this.props;
-        return (
-            <Button type={type} className={active ? 'active' : ''} onClick={action}
-            >{ label }</Button>
-        );
-    }
+const ButtonAction = ({label, active, action, type}) => {
+    return (<Button type={type} className={active ? 'active' : ''} onClick={action}>{label}</Button>);
 }
 
 ButtonAction.propTypes = {
     label: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
-    type: PropTypes.string
+    type: PropTypes.string,
+    action : PropTypes.func
 };
+
+export default ButtonAction;

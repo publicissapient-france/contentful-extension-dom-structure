@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {extensionTheme} from "../../style/theme";
 import styled from "styled-components";
 
@@ -41,19 +41,16 @@ const CornerBottomRight = styled(Corner)`
     border-bottom : 20px solid ${ extensionTheme.grey30};
     border-left : 20px solid transparent;
 `
-class HeaderPicturesOnCornersWrapper extends Component {
-    render() {
-        const {children} = this.props;
-        return (
-            <Wrapper>
-                <CornerTopLeft/>
-                <CornerTopRight/>
-                <CornerBottomLeft/>
-                <CornerBottomRight/>
-                {children}
-            </Wrapper>
-        );
-    }
+const HeaderPicturesOnCornersWrapper = ({children}) => {
+    return (
+        <Wrapper>
+            <CornerTopLeft/>
+            <CornerTopRight/>
+            <CornerBottomLeft/>
+            <CornerBottomRight/>
+            {children}
+        </Wrapper>
+    );
 };
 
 export default HeaderPicturesOnCornersWrapper;

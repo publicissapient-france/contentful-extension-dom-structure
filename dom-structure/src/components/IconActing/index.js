@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { IconContainer } from '../../style/styledComponentsFields';
+import React from 'react';
+import {IconContainer} from '../../style/styledComponentsFields';
 import PropTypes from 'prop-types';
 
 const classByState = {
@@ -8,47 +8,38 @@ const classByState = {
     SELECTED: 'active',
 };
 
-class IconActing extends Component {
-    constructor (props) {
-        super(props);
+const IconActing = ({children, objectA, objectB, targetProperty, value, nullAllowed, action}) => {
 
-        this.state = {};
-    }
-
-    getClassName = () => {
-        const state = this.getButtonState();
+    const getClassName = () => {
+        const state = getButtonState();
         return classByState[state];
     }
 
-    getButtonState = () => {
-        const target = this.props.targetProperty;
-        const propertyB = this.props.objectB[target];
-        if (this.props.objectA && propertyB !== this.props.objectA[target] && propertyB === this.props.value) {
+    const getButtonState = () => {
+        const target = targetProperty;
+        const propertyB = objectB[target];
+        if (objectA && propertyB !== objectA[target] && propertyB === value) {
             return 'NEWLY_SELECTED';
         }
-        if (propertyB === this.props.value) {
+        if (propertyB === value) {
             return 'SELECTED';
         }
         return 'NOT_SELECTED';
     }
 
-    render () {
-        const { children, objectB, targetProperty, value, nullAllowed } = this.props;
-
-        return (
-            <IconContainer
-                className={this.getClassName()}
-                onClick={e => {
-                    if (nullAllowed && objectB[targetProperty] === value) {
-                        this.props.action(targetProperty, null);
-                    } else {
-                        this.props.action(targetProperty, value);
-                    }
-                }}>
-                {children}
-            </IconContainer>
-        );
-    }
+    return (
+        <IconContainer
+            className={getClassName()}
+            onClick={() => {
+                if (nullAllowed && objectB[targetProperty] === value) {
+                    action(targetProperty, null);
+                } else {
+                    action(targetProperty, value);
+                }
+            }}>
+            {children}
+        </IconContainer>
+    );
 }
 
 IconActing.propTypes = {
@@ -59,7 +50,8 @@ IconActing.propTypes = {
         PropTypes.string,
         PropTypes.number
     ]).isRequired,
-    nullAllowed: PropTypes.bool
+    nullAllowed: PropTypes.bool,
+    action: PropTypes.func
 };
 
 export default IconActing;

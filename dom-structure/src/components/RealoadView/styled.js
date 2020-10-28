@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { extensionTheme } from '../../style/theme';
 
 export const IconContainer = styled.div`
- 
- 
  & svg{
     & path, & rect{
        transition : fill .2s ease;
@@ -18,7 +16,6 @@ export const IconContainer = styled.div`
         }
     }
  }
- 
 `;
 
 export const Actions = styled.nav`
@@ -26,12 +23,10 @@ export const Actions = styled.nav`
     flex-direction : column;
     justify-content: space-between;
     padding : 0 10px;
-    
 `;
 
 export const View = styled.div`
     display:flex;
-        
 `;
 
 export const ViewPort = styled.div`
@@ -62,11 +57,8 @@ export const ViewPort = styled.div`
        & path, & rect{
            fill : ${ extensionTheme.grey30 }
        }
-        
      }
-   
   } 
-  
  `;
 
 export const Container = styled.div`
@@ -83,10 +75,8 @@ export const Container = styled.div`
             & path, & g, & rect{
                 fill : ${ extensionTheme.grey20 };
             }
-        
         }
    }
-   
 `;
 
 export const RefreshMessage = styled.div`
@@ -97,8 +87,7 @@ export const RefreshMessage = styled.div`
    justify-content : center;
    
    & button{
-    align-self : flex-start;
-    margin-top : 10px;
+        align-self : flex-start;
+        margin-top : 10px;
    }
-   
 `;

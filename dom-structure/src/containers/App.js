@@ -165,6 +165,7 @@ class App extends React.Component {
     }
 
     render = () => {
+        console.log('this.props.fontfaces', this.props.fontfaces)
         return (
             <Extension>
                 <div className={'container'} ref={elem => this.nv = elem}>

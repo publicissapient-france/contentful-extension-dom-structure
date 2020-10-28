@@ -8,7 +8,5 @@ export const FieldContainer = styled.div`
         padding-top : 15px;
         border-top : 1px solid ${ extensionTheme.grey20 }; 
         border-bottom : 1px solid ${ extensionTheme.grey20 }; 
-        
     }
-   
 `;

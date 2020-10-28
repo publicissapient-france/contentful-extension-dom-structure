@@ -10,5 +10,4 @@ export const FieldContainer = styled.div`
         border-bottom : 1px solid ${ extensionTheme.grey20 }; 
         
     }
-   
 `;

@@ -8,7 +8,7 @@ import SvgRefresh from '../svg/SvgRefresh';
 
 import ButtonValidate from '../ui/ButtonValidate';
 
-export default function ReloadView (props) {
+const ReloadView = ({assetId, onClickReload}) =>  {
     return (
         <Container>
             <View>
@@ -33,8 +33,10 @@ export default function ReloadView (props) {
             </View>
             <RefreshMessage>
                 <p>You added a new image. <br/>Click on "refresh" to see it</p>
-                <ButtonValidate label={'Refresh'} action={() => { props.onClickReload(props.assetId); }}/>
+                <ButtonValidate label={'Refresh'} action={() => { onClickReload(assetId); }}/>
             </RefreshMessage>
         </Container>
     );
 }
+
+export default ReloadView;

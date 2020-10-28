@@ -110,9 +110,8 @@ class ComponentDOM extends Component {
     isUpdated = () => (this.state.component && (
         this.state.component.name !== this.props.component.name ||
         this.state.component.model !== this.props.component.model ||
-        this.state.component.order !== this.props.component.order 
+        this.state.component.order !== this.props.component.order
      ))
-
 
     getComponentFields = () => {
         return componentConfig[this.props.component.model].default.fields;
@@ -250,7 +249,6 @@ class ComponentDOM extends Component {
                                 </Buttons>
                             }
                         </FormComponent></div> : null
-
                 }
                 {
                     this.state.currentView === 'presets' &&

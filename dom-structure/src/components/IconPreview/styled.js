@@ -14,7 +14,6 @@ export const TextContainer = styled.div`
     min-height : 115px;
     width : 100%;
     box-sizing : border-box;
-    
 
     &.is-open{
         height : 240px;
@@ -24,7 +23,6 @@ export const TextContainer = styled.div`
         & p{
             max-width : 100%;
         }
-
     }
     
     &.on-dark{
@@ -38,7 +36,6 @@ export const TextContainer = styled.div`
         word-break : break-word;
         box-sizing : border-box;
     }
-    
 `;
 export const Options = styled.div`
     position: absolute;
@@ -52,8 +49,6 @@ export const Options = styled.div`
         width : 22px;
         height : 22px;
         margin-bottom : 5px;
-        
-        
     }
 `;
 
@@ -67,7 +62,6 @@ export const Error = styled.p`
     justify-content : center;
     text-align : center;
     color : ${ extensionTheme.grey40 };
-    
 `;
 
 

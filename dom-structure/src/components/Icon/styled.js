@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { extensionTheme } from '../../style/theme';
 
-
 export const IconContainer = styled.div`
     cursor : pointer;
     color : ${extensionTheme.grey80};

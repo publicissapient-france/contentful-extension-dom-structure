@@ -22,10 +22,8 @@ export const Button = styled.button`
     background :  ${ extensionTheme.grey45 };
    }
 
-   
    &.active{
     background : ${ extensionTheme.greenM };
-   // background-image : -webkit-gradient(linear,left bottom,left top,from(#0eb87f),to(#14d997));
     background-size : 100% 200%;
     border : 1px solid  ${ extensionTheme.greenM };
     color : white;
@@ -36,7 +34,6 @@ export const Button = styled.button`
           background-image : transparent;
           cursor : pointer !important;
         }
-    
     }
    
     &:focus {outline:0;}

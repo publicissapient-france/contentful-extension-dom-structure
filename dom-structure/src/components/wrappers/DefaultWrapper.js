@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {extensionTheme} from "../../style/theme";
 import styled from "styled-components";
 
@@ -8,15 +8,10 @@ const Wrapper = styled.div`
     width : fit-content;
 `;
 
-class DefaultWrapper extends Component {
-    render() {
-        const {children} = this.props;
-        return(
-            <Wrapper>
-            {children}
-        </Wrapper>
-        );
-    }
+const DefaultWrapper = ({children}) => {
+    return (
+        <Wrapper>{children}</Wrapper>
+    );
 };
 
 export default DefaultWrapper;

@@ -21,7 +21,6 @@ export const Container = styled.div`
         width: 4rem;
         height: 4rem;
     }
-    
    
     & img {
         height: 100%;
@@ -34,13 +33,11 @@ export const Container = styled.div`
 export const Preview = styled.header`
    width : 120px;
    height : 120px;
-   
 `;
 
 export const DataContainer = styled.div`
    display : flex;
    margin-bottom : 10px;
-   
 `;
 
 export const IconContainer = styled.div`
@@ -55,7 +52,6 @@ export const IconContainer = styled.div`
             fill : ${ extensionTheme.grey40 }
         }
      }
-     
    
      &:hover{
         & svg{
@@ -86,23 +82,14 @@ export const IconContainer = styled.div`
                 fill : ${ extensionTheme.blueM }
         }
      } 
-     
-     
-     
-     
-     
-        
-        
  }
- 
 `;
 
 export const Actions = styled.nav`
     display:flex;
     flex-direction : column;
     justify-content : space-between; 
-     padding : 0 10px;
-    
+    padding : 0 10px;
 `;
 
 export const Warning = styled.div`

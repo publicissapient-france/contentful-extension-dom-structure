@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {extensionTheme} from "../../style/theme";
 import styled from "styled-components";
 import SvgElementImage from '../svg/SvgElementImage';
@@ -12,8 +12,8 @@ const Wrapper = styled.div`
 
 const Card = styled.div`
     display : flex;
-    
 `;
+
 const Separator = styled.div`
     display : flex;
     border-left: 1px solid ${ extensionTheme.grey30};
@@ -44,10 +44,7 @@ const CustomOrder = styled.div`
     border-bottom : 1px solid ${ extensionTheme.grey80 };
 `;
 
-class CardDuoWrapper extends Component {
-
-    render() {
-        const {children} = this.props;
+const CardDuoWrapper = ({children}) => {
         return (
             <Wrapper>
                 <Card>
@@ -57,9 +54,7 @@ class CardDuoWrapper extends Component {
                         </ElementImage>
                     </FixedElement>
                     <CustomOrder>
-                    {
-                        children.props.children[0]
-                    }
+                        {children.props.children[0]}
                     </CustomOrder>
                 </Card>
                 <Separator><label>separator</label></Separator>
@@ -70,13 +65,12 @@ class CardDuoWrapper extends Component {
                         </ElementImage>
                     </FixedElement>
                     <CustomOrder>
-                    {
-                        children.props.children[1]
-                    }</CustomOrder>
+                        {children.props.children[1]}
+                    </CustomOrder>
                 </Card>
             </Wrapper>
         );
     }
-};
+;
 
 export default CardDuoWrapper;

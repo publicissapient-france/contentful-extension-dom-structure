@@ -14,9 +14,8 @@ export const Button = styled.button`
   font-weight : 300;
   height : 33px;
   border : 1px solid transparent;
-    margin-left : 10px;
+  margin-left : 10px;
 
-   
   &:hover{
      background : ${ extensionTheme.redL } !important;
     }

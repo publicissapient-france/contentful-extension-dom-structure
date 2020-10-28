@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { IconContainer} from "./styled";
+import {IconContainer} from "./styled";
 
-class Icon extends Component {
+class Icon extends Component{
     constructor(props) {
         super(props)
         this.myInput = React.createRef()

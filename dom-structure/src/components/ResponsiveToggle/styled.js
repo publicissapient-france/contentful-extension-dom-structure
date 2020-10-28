@@ -14,27 +14,19 @@ export const Responsive = styled.div`
 export const ToogleResponsive = styled.div`
    width : 40px;
   height : 34px;
-  display : flex;
- // border-width : 1px;
-  //border-style : solid;
-  //border-color :  ${ extensionTheme.grey40 }; 
+  display : flex; 
   color :  ${ extensionTheme.grey40 }; 
-  //border-radius : 3px;
   font-size : 11px;
   letter-spacing:1px;
   justify-content : center;
   align-items : center;
   cursor : pointer;
-  //background : ${ extensionTheme.white }; 
-  transition: background 0.6s ease, color 0.6s ease;
-  //margin-left : 10px;
-  
+  transition: background 0.6s ease, color 0.6s ease;  
   
   &.active{
     color :  ${ extensionTheme.white }; 
     background : ${ extensionTheme.blueM }; 
     border-color :  ${ extensionTheme.blueM }; 
-
   }
 `;
 
@@ -52,8 +44,8 @@ export const Icon = styled.div`
   }
   
   & svg path, & svg g path, & svg path, & svg rect {
-        fill : ${ extensionTheme.grey40 };
-    }
+    fill : ${ extensionTheme.grey40 };
+  }
 
   &.active{
     & svg path,& svg g path, & svg path, & svg rect {

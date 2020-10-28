@@ -62,7 +62,7 @@ const arrayToString = array => array.join('');
 
 const extractFontValueToCSS = async (This, font, locale) => {
     return `@font-face {
-                 font-family: "${ font.fields.name[locale] }";
+                 font-family: '${ font.fields.name[locale] }';
                  font-style: ${ font.fields.style[locale].toLowerCase() };
                  font-weight: ${ font.fields.weight[locale][1] };
                  src: local('${ font.fields.name[locale] }'), 

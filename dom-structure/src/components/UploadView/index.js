@@ -1,12 +1,12 @@
 import React from 'react';
 import { Container, ViewPort, IconContainer, Actions } from './styled';
+import { Icon } from '@contentful/forma-36-react-components';
 
 import SvgAddSmall from '../svg/SvgAddSmall';
 import SvgAttachement from '../svg/SvgAttachement';
 import SvgTrashSmall from '../svg/SvgTrashSmall';
-import { Icon } from '@contentful/forma-36-react-components';
 
-export default function UploadView (props) {
+export default UploadView =  (props) => {
     return (
         <Container>
             <ViewPort isDraggingOver={props.isDraggingOver} >
