@@ -1,34 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Languages, ToogleLanguage } from './styled';
-import { connect } from 'react-redux';
-import { getCurrentExtension, getCurrentLanguage, toggleLanguage } from '../../actions/index';
-import { getCountryISO } from '../../utils/functions';
+import {Languages, ToogleLanguage} from './styled';
+import {connect} from 'react-redux';
+import {getCurrentExtension, getCurrentLanguage, toggleLanguage} from '../../actions/index';
+import {getCountryISO} from '../../utils/functions';
 
-class LanguageToggle extends Component {
-    render () {
-        const { dispatch, extension, indexLanguage, hidden } = this.props;
-
-        if (!extension.locales) return null;
-        return (
-            <Languages className={hidden ? 'hidden' : ''}>
-                {
-                    extension.locales.available.map((language, i) => {
-                        return <ToogleLanguage
-                            key={i}
-                            className={indexLanguage === i ? 'active' : ''}
-                            onClick={e => {
-                                dispatch(toggleLanguage(i));
-                            }}>{getCountryISO(language)}</ToogleLanguage>;
-                    })
-                }
-            </Languages>
-        );
-    }
+const LanguageToggle = ({dispatch, extension, indexLanguage, hidden}) => {
+    if (!extension.locales) return null;
+    return (
+        <Languages className={hidden ? 'hidden' : ''}>
+            {
+                extension.locales.available.map((language, i) => {
+                    return <ToogleLanguage
+                        key={i}
+                        className={indexLanguage === i ? 'active' : ''}
+                        onClick={() => {
+                            dispatch(toggleLanguage(i));
+                        }}>{getCountryISO(language)}</ToogleLanguage>;
+                })
+            }
+        </Languages>
+    );
 };
 
 LanguageToggle.propTypes = {
-    hidden: PropTypes.bool
+    hidden: PropTypes.bool,
+    indexLanguage: PropTypes.number
 };
 
 const mapStateToProps = state => ({

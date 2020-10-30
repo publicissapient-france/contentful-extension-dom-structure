@@ -1,13 +1,11 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import update from 'react-addons-update';
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import sectionConfig from '../../config/sections/*.js';
-import {updateSection, removeSection, toggleSectionActive, getCurrentExtension, getVersionStorage} from '../../actions/index';
-import {notifierError, notifierSuccess, ALERT} from "../../utils/Notifier";
 
-import {SafeDelete} from '../../style/styledComponents';
+import {SafeDelete,} from '../../style/styledComponents';
 import {
     ContainerSection,
     Settings,
@@ -19,6 +17,8 @@ import {
     Fields,
     FieldsContainer,ChoiceOptions, Buttons
 } from './styled';
+import {updateSection, removeSection, toggleSectionActive, getCurrentExtension, getAccessLocalStorageAvailable, getVersionStorage} from '../../actions/index';
+import {notifierError, notifierSuccess, ALERT} from "../../utils/Notifier";
 
 import ComponentDOM from '../ComponentDOM/index';
 import ButtonBasic from '../../components/ui/ButtonBasic';
@@ -28,6 +28,7 @@ import ButtonValidate from '../../components/ui/ButtonValidate';
 import FieldsListOfSection from "../../components/FieldsListOfSection";
 import ActionsBarSection from './ActionsBarSection';
 import SvgCheck from '../../components/svg/SvgCheck';
+
 
 class Section extends Component {
     constructor(props) {
@@ -97,7 +98,8 @@ class Section extends Component {
     }
 
     toggleOptions = () => this.setState({
-        openOption: !this.state.openOption
+        openOption: !this.state.openOption,
+        currentView: ''
     })
 
     triggerOpening = () => this.setState(prevState => ({
@@ -268,6 +270,7 @@ class Section extends Component {
                         <FormSection onSubmit={e => {
                             e.preventDefault();
                             if (!this.isUpdated()) return;
+                            console.log('section3 ---- ', this.state.section)
                             dispatch(updateSection(this.state.section, index));
                         }}
                         >
@@ -291,20 +294,19 @@ class Section extends Component {
                                        value={this.state.section.name || ''}
                                        onChange={e => this.updateName(e.target.value)}/>
                             </div>
-                            {
-                                this.isUpdated() &&  <Buttons className={'buttons'}>
-                                    <ButtonBasic
-                                        label={'Cancel'}
-                                        disabled={!this.isUpdated()}
-                                        action={e => {
-                                            e.preventDefault();
-                                            this.setState({section: this.props.section});
-                                            inputName.value = section.name;
-                                            selectModel.value = section.model;
-                                        }}/>
-                                    <ButtonValidate label={'Update'}  type={'submit'} disabled={!this.isUpdated()}/>
-                                </Buttons>
-                            }
+                            <Buttons className={['buttons', this.isUpdated() ? '' : 'hidden']}>
+                                <ButtonBasic
+                                    label={'Cancel'}
+                                    disabled={!this.isUpdated()}
+                                    action={e => {
+                                        e.preventDefault();
+                                        this.updateView('')
+                                        this.setState({section: this.props.section});
+                                        inputName.value = section.name;
+                                        selectModel.value = section.model;
+                                    }}/>
+                                <ButtonValidate label={'Update'}  type={'submit'} disabled={!this.isUpdated()}/>
+                            </Buttons>
                         </FormSection>
                     </Settings> : null
                 }
@@ -341,7 +343,358 @@ Section.propTypes = {
 
 const mapStateToProps = state => ({
     extensionInfo: getCurrentExtension(state),
+    accessLocalStorage: getAccessLocalStorageAvailable(state).accessLocalStorage,
     versionStorage: getVersionStorage(state).versionStorage,
 });
 
 export default connect(mapStateToProps)(Section);
+
+
+
+
+/*
+
+
+//FIRST TRY TO PASS CLASS TO FUNCTIONNAL
+
+import React, {Component, useState, useEffect} from 'react';
+import {connect} from 'react-redux';
+import update from 'react-addons-update';
+import isEqual from 'lodash/isEqual';
+import PropTypes from 'prop-types';
+import sectionConfig from '../../config/sections/*.js';
+import {
+    updateSection,
+    removeSection,
+    toggleSectionActive,
+    getCurrentExtension,
+    getVersionStorage
+} from '../../actions/index';
+import {notifierError, notifierSuccess, ALERT} from "../../utils/Notifier";
+
+import {SafeDelete} from '../../style/styledComponents';
+import {
+    ContainerSection,
+    Settings,
+    TopBar,
+    Active,
+    Description,
+    FormSection,
+    Children,
+    Fields,
+    FieldsContainer, ChoiceOptions, Buttons
+} from './styled';
+
+import ComponentDOM from '../ComponentDOM/index';
+import ButtonBasic from '../../components/ui/ButtonBasic';
+import ButtonDelete from '../../components/ui/ButtonDelete';
+import AddComponent from '../AddComponent/index';
+import ButtonValidate from '../../components/ui/ButtonValidate';
+import FieldsListOfSection from "../../components/FieldsListOfSection";
+import ActionsBarSection from './ActionsBarSection';
+import SvgCheck from '../../components/svg/SvgCheck';
+import {toggleComponentActive} from "../../actions";
+
+const Section = (props) => {
+    const [currentView, setCurrentView] = useState('');
+    const [section, setSection] = useState(null);
+    const [openOption, setOpenOption] = useState(false);
+    const [triggerOpening, setTriggerOpening] = useState(false);
+    const [sectionOnLocalStorage, setSectionOnLocalStorage] = useState(false);
+    const [componentsOnLocalStorage, setComponentsOnLocalStorage] = useState(false);
+
+    useEffect(() => {
+        setSection(props.section);
+        checkLocalStorage();
+    }, [props.versionStorage, props.section]);
+
+
+    const checkLocalStorage = () => {
+        try {
+            if (localStorage && localStorage.getItem('copiedSection')) {
+                setSectionOnLocalStorage(true);
+            }
+            if (localStorage && localStorage.getItem('copiedComponents')) {
+                setComponentsOnLocalStorage(true);
+            }
+        } catch (e) {
+            console.log('private navigation');
+        }
+    }
+
+    const updateModel = model => {
+        setSection(prev => ({
+            ...prev,
+            model: model
+        }));
+    }
+
+    const updateName = name => {
+        setSection(prev => ({
+            ...prev,
+            name: name
+        }));
+    }
+
+    const toggleActive = () => props.dispatch(toggleSectionActive(!props.section.active, props.index));
+
+    const toggleOptions = () => setOpenOption(prev => !prev);
+
+    const toggleTriggerOpening = () => setTriggerOpening(prev => !prev);
+
+
+    const isUpdated = () => (section && !isEqual(section, props.section) || (section && !isEqual(section.components, props.section.components)))
+
+    const getSectionFields = () => {
+        return sectionConfig[props.section.model].default.fields;
+    }
+
+    const pastSection = (withComponents = false) => {
+
+        const sectionToPast = JSON.parse(localStorage.getItem('copiedSection'));
+        if (!sectionToPast) {
+            notifierError(props.extensionInfo.extension, ALERT.ERROR_MEMORY_SECTION);
+        } else {
+            if (withComponents) {
+                setSection(prev => ({
+                    ...prev,
+                    name: sectionToPast.name,
+                    model: sectionToPast.model,
+                    fields: sectionToPast.fields,
+                    components: [...prev.components, ...sectionToPast.components]
+                }), () => {
+                    console.log('test')
+                    setCurrentView('presets');
+                    notifierSuccess(props.extensionInfo.extension, ALERT.SUCCESS_PAST_SECTION);
+                });
+
+
+            } else {
+                return new Promise((resolve, reject) => {
+                    setSection(prev => ({
+                        ...prev,
+                        name: sectionToPast.name,
+                        model: sectionToPast.model,
+                        fields: sectionToPast.fields
+                    }));
+                    resolve();
+                }).then(() => {
+                    console.log('test 2')
+                    setCurrentView('presets');
+                    notifierSuccess(props.extensionInfo.extension, ALERT.SUCCESS_PAST_SECTION);
+                })
+
+            }
+        }
+    }
+
+    const pastComponents = (replaceComponents = false) => {
+        const elementsToPast = JSON.parse(localStorage.getItem('copiedComponents'));
+        if (!elementsToPast) {
+            notifierError(props.extensionInfo.extension, ALERT.ERROR_MEMORY_SECTION);
+        } else {
+            if (replaceComponents) {
+                return new Promise((resolve, reject) => {
+                    setSection(prev => ({
+                        ...prev,
+                        components: elementsToPast
+                    }));
+                    resolve();
+                }).then(() => {
+                    updateView('presets');
+                    notifierSuccess(props.extensionInfo.extension, ALERT.SUCCESS_PAST_COMPONENTS);
+                    closeOption();
+                })
+
+
+            } else {
+                return new Promise((resolve, reject) => {
+                    setSection(prev => ({
+                        ...prev,
+                        components: [...prev.components, ...elementsToPast]
+                    }));
+                    resolve();
+                }).then(() => {
+                    updateView('presets');
+                    notifierSuccess(props.extensionInfo.extension, ALERT.SUCCESS_PAST_SECTION);
+                    closeOption();
+                })
+
+            }
+        }
+    }
+
+    const updateView = (view) => setCurrentView(prev => prev === view ? '' : view);
+
+    const closeOption = () => setOpenOption(false);
+
+    //const {dispatch, domLength, section, index} = this.props;
+    let inputName, selectModel;
+    let children = (props.section.components && props.section.components.length !== 0) ? props.section.components.map((component, i) =>
+        <ComponentDOM key={i} component={component} index={i} indexParent={props.index}
+                      lengthParent={props.section.components.length}/>
+    ) : null;
+    if (!section) return null;
+    return (
+        <ContainerSection>
+            <TopBar
+                borderBottom={currentView === 'presets' ||
+                currentView === 'formPastComponents' ||
+                currentView === 'formPastSection' ||
+                currentView === 'formDelete'}>
+                <Description>
+                    <Active
+                        className={section.active ? 'active' : ''}
+                        onClick={() => {
+                            toggleActive();
+                        }}>
+                        <SvgCheck/>
+                    </Active>
+                    <h3>{props.section.name}</h3>
+                    <h4>{props.section.model} </h4>
+                </Description>
+                <ActionsBarSection currentView={currentView}
+                                   openOption={openOption}
+                                   triggerOpening={triggerOpening}
+                                   toggleTrigger={toggleTriggerOpening}
+                                   updateView={updateView}
+                                   closeOption={closeOption}
+                                   toggleOptions={toggleOptions}
+                                   nbrComponentsOfSection={section.components.length}
+                                   section={section}
+                                   index={props.index}
+                                   domLength={props.domLength}
+                />
+            </TopBar>
+            {
+                currentView === 'formDelete' &&
+                <SafeDelete>
+                    <p>The deletion is final. Are you sure you want to delete this section?</p>
+                    <div className={'buttons'}>
+                        <ButtonBasic label={'Cancel'} action={() => {
+                            updateView('');
+                            closeOption();
+                        }}/>
+                        <ButtonDelete label={'Delete'} action={() => {
+                            props.dispatch(removeSection(props.index));
+                            updateView('');
+                            closeOption();
+                        }}/>
+                    </div>
+                </SafeDelete>
+            }
+            {
+                currentView === 'formPastSection' &&
+                <ChoiceOptions>
+                    <p>What do you want to import ? </p>
+                    <div className={'buttons'}>
+
+                        <ButtonValidate label={'Section presets'} action={() => {
+                            pastSection();
+                        }}/>
+                        <ButtonValidate label={'Section presets and Components'}
+                                        action={() => pastSection(true)}/>
+                        <ButtonBasic label={'Cancel'} action={() => {
+                            updateView('');
+                            closeOption();
+                        }}/>
+                    </div>
+                </ChoiceOptions>
+            }
+            {
+                currentView === 'formPastComponents' &&
+                <ChoiceOptions>
+                    <p>What do you want to import ? </p>
+                    <div className={'buttons'}>
+                        <ButtonValidate label={'Replace'} action={() => pastComponents(true)}/>
+                        <ButtonValidate label={'Add'} action={() => pastComponents()}/>
+                        <ButtonBasic label={'Cancel'} action={() => {
+                            updateView('');
+                            closeOption();
+                        }}/>
+                    </div>
+                </ChoiceOptions>
+            }
+            {
+                currentView === 'presets' || isUpdated() ? <Settings>
+                    <FormSection onSubmit={e => {
+                        e.preventDefault();
+                        if (!isUpdated()) return;
+                        props.dispatch(updateSection(section, props.index));
+                    }}
+                    >
+                        <div>
+                            <label>Model</label>
+                            <select ref={node => (selectModel = node)}
+                                    value={section.model || null}
+                                    onChange={e => {
+                                        updateModel(e.target.value);
+                                    }}>
+                                {
+                                    Object.keys(sectionConfig).map((key, i) => {
+                                        return <option value={key} key={i}>{key}</option>;
+                                    })
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label>Section Name</label>
+                            <input ref={node => (inputName = node)} type={'text'}
+                                   value={section.name || ''}
+                                   onChange={e => updateName(e.target.value)}/>
+                        </div>
+                        {
+                            isUpdated() && <Buttons className={'buttons'}>
+                                <ButtonBasic
+                                    label={'Cancel'}
+                                    disabled={!isUpdated()}
+                                    action={e => {
+                                        e.preventDefault();
+                                        setSection(props.section);
+                                        inputName.value = section.name;
+                                        selectModel.value = section.model;
+                                    }}/>
+                                <ButtonValidate label={'Update'} type={'submit'} disabled={!isUpdated()}/>
+                            </Buttons>
+                        }
+                    </FormSection>
+                </Settings> : null
+            }
+            {
+                currentView === 'formAddComponent' &&
+                <AddComponent index={props.index} open={true} updateView={updateView}/>
+            }
+            {
+                currentView === 'presets' &&
+                <FieldsContainer>
+                    <Fields>
+                        <FieldsListOfSection triggerOpening={triggerOpening}
+                                             fields={getSectionFields()}
+                                             index={props.index}/>
+                    </Fields>
+                </FieldsContainer>
+            }
+            <Children>{children}</Children>
+        </ContainerSection>
+    );
+
+};
+
+Section.propTypes = {
+    section: PropTypes.shape({
+        active: PropTypes.bool,
+        name: PropTypes.string.isRequired,
+        model: PropTypes.string.isRequired,
+    }),
+    index: PropTypes.number.isRequired,
+    domLength: PropTypes.number
+};
+
+
+const mapStateToProps = state => ({
+    extensionInfo: getCurrentExtension(state),
+    versionStorage: getVersionStorage(state).versionStorage,
+});
+
+export default connect(mapStateToProps)(Section);
+*/

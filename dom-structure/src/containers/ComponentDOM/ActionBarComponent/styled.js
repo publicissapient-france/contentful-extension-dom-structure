@@ -15,7 +15,7 @@ export const Group = styled.div`
           height : 40px;
           
           & ${Icon}.btn-options{
-            background-color : ${extensionTheme.white}
+            background-color : ${extensionTheme.white};
             
             &>svg g path, &>svg path, &>svg rect, &>svg g circle {
                 fill : ${ extensionTheme.grey35 };
@@ -73,9 +73,9 @@ export const Group = styled.div`
            }
            
            
-           & ${Icon}:hover{
+           & ${Icon}:hover, & ${Icon}.active {
                 background-color : ${extensionTheme.white};
-                border-color : ${extensionTheme.white}
+                border-color : ${extensionTheme.white} !important;
                &>svg path, &>svg g path, & &>svg path, &>svg rect, &>svg g circle {
                     fill : ${ extensionTheme.greenM };
                }

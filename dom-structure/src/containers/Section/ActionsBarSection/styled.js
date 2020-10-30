@@ -16,7 +16,7 @@ export const Group = styled.div`
           height : 40px;
           
           & ${Icon}.btn-options{
-            background-color : ${extensionTheme.grey10}
+            background-color : ${extensionTheme.grey10};
                 
                 &>svg g path, &>svg path, &>svg rect, &>svg g circle {
                     fill : ${ extensionTheme.grey35 };
