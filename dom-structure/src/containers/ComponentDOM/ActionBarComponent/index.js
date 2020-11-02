@@ -33,7 +33,6 @@ const ActionsBarComponent = ({
                                  component,
                                  index,
                                  indexParent,
-                   
                                  toggleOptions,
                                  lengthParent,
                                  versionStorage,

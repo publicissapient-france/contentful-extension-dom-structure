@@ -15,7 +15,7 @@ import {
     FormSection,
     Children,
     Fields,
-    FieldsContainer,ChoiceOptions, Buttons
+    FieldsContainer,ChoiceOptions, Buttons, PreviewCode
 } from './styled';
 import {updateSection, removeSection, toggleSectionActive, getCurrentExtension, getAccessLocalStorageAvailable, getVersionStorage} from '../../actions/index';
 import {notifierError, notifierSuccess, ALERT} from "../../utils/Notifier";
@@ -29,6 +29,7 @@ import FieldsListOfSection from "../../components/FieldsListOfSection";
 import ActionsBarSection from './ActionsBarSection';
 import SvgCheck from '../../components/svg/SvgCheck';
 
+import CodeHighlightJSON from '../../components/CodeHighlightJSON';
 
 class Section extends Component {
     constructor(props) {
@@ -235,6 +236,16 @@ class Section extends Component {
                             }}/>
                         </div>
                     </SafeDelete>
+                }
+                {
+                    this.state.currentView === 'configuration' &&
+                    <PreviewCode><CodeHighlightJSON content={`<pre><code class="json">${JSON.stringify({
+                        type : this.state.section.type,
+                        name : this.state.section.name,
+                        active : this.state.section.active,
+                        model : this.state.section.model,
+                        fields : this.state.section.fields
+                    }, null,  4)}</code></pre></pre>`}/></PreviewCode>
                 }
                 {
                     this.state.currentView === 'formPastSection' &&

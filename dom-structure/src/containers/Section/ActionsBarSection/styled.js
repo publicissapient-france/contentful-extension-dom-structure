@@ -115,11 +115,13 @@ export const Group = styled.div`
 
 
 export const Bar = styled.div`
+  position : absolute;  
+  right : 0;
   display : flex;
   width : fit-content;
-  padding-right: 3px;
+  padding-right: 14px;
   
   & ${Group}:not(:last-child){
         border-right : 1px solid ${extensionTheme.grey30};
-    }
+  }
 `;

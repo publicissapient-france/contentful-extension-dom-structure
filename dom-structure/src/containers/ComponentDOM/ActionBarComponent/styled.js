@@ -111,6 +111,8 @@ export const Group = styled.div`
 `;
 
 export const Bar = styled.div`
+  position : absolute;
+  right : 0;  
   display : flex;
   width : fit-content;
   padding-right: 3px;

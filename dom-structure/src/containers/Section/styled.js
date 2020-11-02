@@ -6,12 +6,15 @@ import { CheckBox } from '../../style/styledComponentsFields';
 export const ContainerSection = styled(Container)`
 
 `;
+
 export const Settings = styled(OptionsBlock)`
   padding-right : 15px;
 `;
+
 export const TopBar = styled.div.attrs(props => ({
     borderBottom: props.borderBottom
 }))`
+  position : relative;
   width : 100%;
   display : flex;
   justify-content: space-between;
@@ -99,4 +102,10 @@ export const Buttons = styled.div`
         display : flex;
         opacity : 0;
     }
+`;
+
+export const PreviewCode = styled.div`
+    width : 100%;
+    height: auto;
+    margin-bottom : 20px;
 `;

@@ -17,6 +17,7 @@ export const ContainerComponent = styled(Container)`
 export const TopBar = styled.div.attrs(props => ({
     borderBottom: props.borderBottom
 }))`
+  position : relative;
   width : 100%;
   display : flex;
   justify-content: space-between;

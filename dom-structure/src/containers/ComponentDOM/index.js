@@ -33,8 +33,6 @@ import OrderFieldsContent from '../OrderFieldsContent';
 import SvgCheck from '../../components/svg/SvgCheck';
 import ActionBarComponent from './ActionBarComponent';
 import isEqual from "lodash/isEqual";
-
-//import CodeHighlightJSON from '../../components/CodeHighlight';
 import CodeHighlightJSON from '../../components/CodeHighlightJSON';
 
 class ComponentDOM extends Component {
@@ -54,9 +52,6 @@ class ComponentDOM extends Component {
     componentDidMount = async () => {
         this.setState({component: this.props.component});
         this.checkLocalStorage();
-        Prism.highlightAll();
-        this.updateCodeSyntaxHighlighting();
-
     }
 
     componentDidUpdate(prevProps) {
@@ -68,12 +63,6 @@ class ComponentDOM extends Component {
             this.checkLocalStorage();
         }
     }
-
-    updateCodeSyntaxHighlighting = () => {
-        document.querySelectorAll("pre code").forEach(block => {
-            hljs.highlightBlock(block);
-        });
-    };
 
     checkLocalStorage = () => {
         try {
@@ -124,7 +113,6 @@ class ComponentDOM extends Component {
         this.state.component.model !== this.props.component.model ||
         this.state.component.order !== this.props.component.order
     ))
-
 
     getComponentFields = () => {
         return componentConfig[this.props.component.model].default.fields;

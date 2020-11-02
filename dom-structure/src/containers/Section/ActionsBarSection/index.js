@@ -23,6 +23,7 @@ import SvgCopySection from '../../../components/svg/SvgCopySection';
 import SvgDuplicateSection from '../../../components/svg/SvgDuplicateSection';
 import SvgSpec from '../../../components/svg/SvgSpec';
 import SvgRange from '../../../components/svg/SvgRange';
+import SvgJSON from '../../../components/svg/SvgJSON';
 
 const ActionsBarSection = ({
                                nbrComponentsOfSection,
@@ -79,10 +80,10 @@ const ActionsBarSection = ({
                 </Icon>
             </Group>
             <Group className={'options'} onMouseLeave={() => {
-                console.log(currentView)
                 if (currentView !== 'formPastSection' &&
                     currentView !== 'formPastComponents' &&
-                    currentView !== 'formDelete'
+                    currentView !== 'formDelete' &&
+                    currentView !== 'configuration'
                 ) {
                     closeOption();
                 }
@@ -90,6 +91,10 @@ const ActionsBarSection = ({
                 <div className={[!openOption ? 'hidden' : '']}>
                     <Icon title={"delete"} className={['trash', currentView === 'formDelete' ? 'active' : '']}
                           onClick={() => updateView('formDelete')}><SvgTrash/></Icon>
+                </div>
+                <div className={[!openOption ? 'hidden' : '']}>
+                    <Icon title={"configuration"} className={currentView === 'configuration' ? 'active' : ''}
+                          onClick={() => updateView('configuration')}><SvgJSON/></Icon>
                 </div>
                 <div className={[!openOption ? 'hidden' : '']}>
                     <Icon title={"past components"}

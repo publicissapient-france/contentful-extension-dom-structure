@@ -1,120 +1,106 @@
-import React, { Component } from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import hljs from 'highlight.js/lib/highlight';
 import json from 'highlight.js/lib/languages/json';
-import 'highlight.js/styles/monokai-sublime.css' ;      // import your preferred style
 
 hljs.registerLanguage('json', json);
 
 const StyledContainer = styled.div`
     max-height : 500px;
     overflow-y : scroll;
+    background: #282b2e;
+    
+    & pre{
+        padding : 0;
+        margin : 0;
+    }
 
-/*
-Monokai style - ported by Luigi Maselli - http://grigio.org
-*/
+/* Androidstudio */
 
 .hljs {
+  color: #a9b7c6;
+  background: #282b2e;
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  background: #272822;
-  color: #ddd;
 }
 
-.hljs-tag,
+.hljs-number,
+.hljs-literal,
+.hljs-symbol,
+.hljs-bullet {
+  color: #6897BB;
+}
+
 .hljs-keyword,
 .hljs-selector-tag,
-.hljs-literal,
-.hljs-strong,
-.hljs-name {
-  color: #f92672;
+.hljs-deletion {
+  color: #cc7832;
 }
 
-.hljs-code {
-  color: #66d9ef;
-}
-
-.hljs-class .hljs-title {
-  color: white;
-}
-
-.hljs-attribute,
-.hljs-symbol,
-.hljs-regexp,
-.hljs-link {
-  color: #bf79db;
-}
-
-.hljs-string,
-.hljs-bullet,
-.hljs-subst,
-.hljs-title,
-.hljs-section,
-.hljs-emphasis,
-.hljs-type,
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-addition,
 .hljs-variable,
-.hljs-template-tag,
-.hljs-template-variable {
-  color: #a6e22e;
+.hljs-template-variable,
+.hljs-link {
+  color: #629755;
 }
 
 .hljs-comment,
-.hljs-quote,
-.hljs-deletion,
-.hljs-meta {
-  color: #75715e;
+.hljs-quote {
+  color: #808080;
 }
 
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-literal,
-.hljs-doctag,
-.hljs-title,
+.hljs-meta {
+  color: #bbb529;
+}
+
+.hljs-string,
+.hljs-attribute,
+.hljs-addition {
+  color: #6A8759;
+}
+
 .hljs-section,
-.hljs-type,
-.hljs-selector-id {
+.hljs-title,
+.hljs-type {
+  color: #ffc66d;
+}
+
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #e8bf6a;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
   font-weight: bold;
 }
 
 
+`;
 
-`
-class CodeHighlightJSON extends Component {
-    constructor(props) {
-        super(props);
-        this.nodeRef = React.createRef();
-    }
+const CodeHighlightJSON = ({content}) => {
+    const nodeRef = useRef(null);
 
-    componentDidMount() {
-        this.highlight();
-    }
+    useEffect(() => {
+        highlight();
+    });
 
-    componentDidUpdate() {
-        this.highlight();
-    }
-
-    highlight = () => {
-        if (this.nodeRef) {
-            const nodes = this.nodeRef.current.querySelectorAll('pre');
+    const highlight = () => {
+        if (nodeRef) {
+            const nodes = nodeRef.current.querySelectorAll('pre');
             nodes.forEach((node) => {
                 hljs.highlightBlock(node);
             });
         }
     }
 
-    render() {
-        const { content } = this.props;
-        return (
-            <StyledContainer ref={this.nodeRef} dangerouslySetInnerHTML={{ __html: content }} />
-        );
-    }
+    return (
+        <StyledContainer ref={nodeRef} dangerouslySetInnerHTML={{ __html: content }} />
+    );
 }
-
 
 export default CodeHighlightJSON;
