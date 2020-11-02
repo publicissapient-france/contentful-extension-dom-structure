@@ -7,6 +7,7 @@ import IconActing from '../../components/IconActing';
 import SvgAlignToStart from '../../components/svg/SvgAlignToStart';
 import SvgAlignToEnd from '../../components/svg/SvgAlignToEnd';
 import SvgAlignToCenter from '../../components/svg/SvgAlignToCenter';
+import { usePrevValues} from "../../utils/hooks";
 
 const Alignment = ({alignment, storeValueAlignment, defaultAlignment, hidden, updateStateProps, event}) => {
     const [state, setState] = useState({alignment: alignment});
@@ -14,15 +15,6 @@ const Alignment = ({alignment, storeValueAlignment, defaultAlignment, hidden, up
     useEffect(() => {
         setState({alignment: alignment});
     }, [])
-
-    const usePrevValues = (value, callback) => {
-        const prevValues = useRef(value);
-
-        useEffect(() => {
-            callback(prevValues.current);
-            return () => (prevValues.current = value);
-        }, [value, callback]);
-    };
 
     usePrevValues(
         useMemo(() => ({
@@ -43,7 +35,7 @@ const Alignment = ({alignment, storeValueAlignment, defaultAlignment, hidden, up
             if (prevValues.state.alignment !== state.alignment) {
                 updateStateProps('alignment', state.alignment, event);
             }
-        }, [state.alignment])
+        }, [state])
     );
 
     const updateAlignment = (prop, value) => {
@@ -57,7 +49,7 @@ const Alignment = ({alignment, storeValueAlignment, defaultAlignment, hidden, up
     }
 
 
-    if (!state.alignment || !alignment) return null;
+    if (!state || !state.alignment || !alignment) return null;
     return (
         <Container className={hidden ? 'hidden' : ''}>
             <Field>

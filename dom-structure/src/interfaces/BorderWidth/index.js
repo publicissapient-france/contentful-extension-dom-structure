@@ -1,91 +1,95 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Container, Field, InputsBorder } from './styled';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import { hasNotSamePropertyValue } from '../../utils/functions';
 import Dot from '../../components/Dot';
+import { usePrevValues} from "../../utils/hooks";
 
-class BorderWidth extends Component {
-    constructor (props) {
-        super(props);
-        this.state = {};
-    }
+const BorderWidth = ({width, storeValueWidth, defaultWidth, hidden , updateStateProps}) => {
+    const [state, setState] = useState({width: width});
 
-    componentDidMount = () => {
-        this.setState({
-            width: this.props.width
-        });
-    };
+    useEffect(() => {
+        setState({width: width});
+    }, []);
 
-    componentDidUpdate = prevProps => {
-        if (this.props.width !== prevProps.width) {
-            this.setState(prevState => ({
-                ...prevState,
-                width: this.props.width
-            }));
-        }
-    }
-
-    updateWidth = (prop, value) => {
-        this.setState(prevState => ({
-            ...prevState,
-            width: {
-                ...prevState.width,
-                [prop]: String(value),
+    usePrevValues(
+        useMemo(() => ({
+            width
+        }), [width]),
+        useCallback(prevValues => {
+            if (prevValues.width !== width) {
+                setState({width: width});
             }
-        }), () => {
-            this.props.updateStateProps('width', this.state.width);
-        });
+        }, [width])
+    );
+
+    usePrevValues(
+        useMemo(() => ({
+            state
+        }), [state]),
+        useCallback(prevValues => {
+            if (prevValues.state.width !== state.width) {
+                updateStateProps('width', state.width);
+            }
+        }, [state.width])
+    );
+
+    const updateWidth = (prop, value) => {
+        setState(prev => ({
+            ...prev,
+            width: {
+                ...prev.width,
+                [prop]: value
+            }
+        }));
     }
 
-    render () {
-        const { width, storeValueWidth, defaultWidth, hidden } = this.props;
+    if(!state.width) return null
 
-        if (!this.state.width) return null;
-        return (
-            <Container className={hidden ? 'hidden' : ''}>
-                <Field>
-                    <label>border width</label>
-                    <div>
-                        <InputsBorder>
-                            <Dot enabled={!isEqual(this.state.width, defaultWidth)}/>
-                            {
-                                ['top', 'right','bottom', 'left' ].map(edge => {
-                                    return (
-                                        <input
+    return (
+        <Container className={hidden ? 'hidden' : ''}>
+            <Field>
+                <label>border width</label>
+                <div>
+                    <InputsBorder>
+                        <Dot enabled={!isEqual(state.width, defaultWidth)}/>
+                        {
+                            ['top', 'right','bottom', 'left' ].map(edge => {
+                                return (
+                                    <input
                                         type={'number'}
                                         min={0}
                                         className={hasNotSamePropertyValue(storeValueWidth, width, edge) ? 'updated' : ''}
-                                        value={parseInt(this.state.width[edge])}
+                                        value={parseInt(state.width[edge])}
                                         onChange={e => {
-                                            this.updateWidth(edge, e.target.value);
+                                            updateWidth(edge, e.target.value);
                                         }}/>
-                                    )
-                                })
-                            }
-                        </InputsBorder>
-                    </div>
-                </Field>
-            </Container>
-        );
-    }
+                                )
+                            })
+                        }
+                    </InputsBorder>
+                </div>
+            </Field>
+        </Container>
+    );
 }
 
 BorderWidth.propTypes = {
     updateStateProps: PropTypes.func,
-    margin: PropTypes.shape({
+    width: PropTypes.shape({
         top: PropTypes.string,
         right: PropTypes.string,
         bottom: PropTypes.string,
         left: PropTypes.string
     }),
-    storeValueMargin: PropTypes.shape({
+    storeValueWidth: PropTypes.shape({
         top: PropTypes.string,
         right: PropTypes.string,
         bottom: PropTypes.string,
         left: PropTypes.string
     }),
-    defaultMargin: PropTypes.shape({
+    defaultWidth: PropTypes.shape({
         top: PropTypes.string,
         right: PropTypes.string,
         bottom: PropTypes.string,

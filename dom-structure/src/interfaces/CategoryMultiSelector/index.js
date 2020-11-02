@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect, useMemo, useCallback} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -9,187 +9,206 @@ import {
 } from './styled';
 import {getCurrentExtension} from '../../actions/index';
 import ItemPriority from '../../components/ItemPriority';
+import {usePrevValues} from "../../utils/hooks";
 
-class CategoryMultiSelector extends Component {
-    constructor(props) {
-        super(props);
+const CategoryMultiSelector = ({extensionInfo, categories, priority, updateContent}) => {
+    const [state, setState] = useState({
+        categories: [],
+        selectedCategories: [],
+        priority: []
+    });
 
-        this.state = {
-            categories: [],
-            selectedCategories: [],
-            priority : [],
-        };
-    }
-
-    componentDidMount = async () => {
-        await this.initRessources();
-        this.setState({
-            selectedCategories: this.props.categories,
-            priority: this.props.priority
-        })
-    };
-
-    componentDidUpdate(prevProps) {
-        if (this.props.categories !== prevProps.categories) {
-            this.setState({
-                selectedCategories: this.props.categories
-            })
+    useEffect(() => {
+        async function initialization() {
+            await initRessources();
         }
-        if (this.props.priority !== prevProps.priority) {
-            this.setState({
-                priority: this.props.priority,
-                selectedCategories: this.orderSelectedWithPriority()
-            }, () => {
-                this.props.updateContent(this.state.selectedCategories, 'data')
-            })
-        }
-    }
 
-    findProperLocale = () => this.props.extensionInfo.extension.locales.default;
-    getById = (id) => this.state.categories.find(element => element.id === id);
+        initialization();
 
 
-    initRessources = async () => {
-        await this.props.extensionInfo.extension.space.getEntries({
+        setState(prev => ({
+            ...prev,
+            selectedCategories: categories,
+            priority: priority
+        }))
+    }, []);
+
+    usePrevValues(
+        useMemo(() => ({
+            categories
+        }), [categories]),
+        useCallback(prevValues => {
+            if (prevValues.categories !== categories) {
+                setState(prev => ({
+                    ...prev,
+                    selectedCategories: categories
+                }));
+            }
+        }, [categories])
+    );
+
+    usePrevValues(
+        useMemo(() => ({
+            priority
+        }), [priority]),
+        useCallback(prevValues => {
+            if (prevValues.priority !== priority) {
+                setState(prev => ({
+                    ...prev,
+                    priority: priority,
+                    selectedCategories: orderSelectedWithPriority()
+                }));
+            }
+        }, [priority])
+    );
+
+    usePrevValues(
+        useMemo(() => ({
+            state
+        }), [state]),
+        useCallback(prevValues => {
+            if (prevValues.state.priority !== state.priority) {
+                updateContent(state.priority, 'priority')
+            }
+            if (prevValues.state.selectedCategories !== state.selectedCategories) {
+                updateContent(state.selectedCategories, 'data')
+            }
+        }, [state])
+    );
+
+    const initRessources = async () => {
+        await extensionInfo.extension.space.getEntries({
             'content_type': 'category',
         }).then(result => {
-            this.setState({
+            setState(prev => ({
+                ...prev,
                 categories: result.items.map(item => {
                     let category = {
                         id: item.sys.id,
-                        name: item.fields.name[this.findProperLocale()]
+                        name: item.fields.name[findProperLocale()]
                     }
                     return category
                 })
-            })
+            }))
         });
 
     }
-    addPriority = (id) => {
-        this.setState(prevState => ({
-            priority: [...prevState.priority, id]
-        }), () => {
-            this.props.updateContent(this.state.priority, 'priority')
-            this.refreshOrderWithPriority()
-        })
+    const findProperLocale = () => extensionInfo.extension.locales.default;
+
+    const orderSelectedWithPriority = () => [...state.priority, ...state.selectedCategories.filter(id => !alreadyOnPriority(id))];
+
+    const alreadyOnPriority = (id) => state.priority.find(item => item === id)
+
+    const getById = (id) => state.categories.find(element => element.id === id);
+
+    const orderSelectedWithNewPriority = (newPriority) => [...newPriority, ...state.selectedCategories.filter(id => !(newPriority.find(item => item === id)))];
+
+    const addPriority = (id) => {
+        const newPriority = [...state.priority, id]
+        setState(prev => ({
+            ...prev,
+            priority: newPriority,
+            selectedCategories: orderSelectedWithNewPriority(newPriority)
+        }));
     }
 
-    updatePriority = (id) => !this.alreadyOnPriority(id) ? this.addPriority(id) : this.removePriority(id);
-
-    removePriority = (id) => {
-        this.setState(prevState => ({
-            priority: prevState.priority.filter(item => item !== id)
-        }), () => {
-            this.props.updateContent(this.state.priority, 'priority')
-            this.refreshOrderWithPriority()
-        })
+    const removePriority = (id) => {
+        const newPriority = state.priority.filter(item => item !== id);
+        setState(prev => ({
+            ...prev,
+            priority: newPriority,
+            selectedCategories: orderSelectedWithNewPriority(newPriority)
+        }));
     }
 
-    refreshOrderWithPriority = () => {
-        this.setState({
-            selectedCategories: this.orderSelectedWithPriority()
-        }, () => {
-            this.props.updateContent(this.state.selectedCategories, 'data')
-        })
+    const updatePriority = (id) => !alreadyOnPriority(id) ? addPriority(id) : removePriority(id);
+
+    const addSelected = (id) => {
+        setState(prev => ({
+            ...prev,
+            selectedCategories: [...prev.selectedCategories, id]
+        }));
     }
 
-    alreadyOnPriority = (id) => this.state.priority.find(item => item === id)
-
-
-   // alreadySelected = (id) => this.state.selected === id
-
-    addSelected = (id) => {
-        this.setState(prevState => ({
-            selectedCategories: [...prevState.selectedCategories, id]
-        }), () => {
-
-            this.props.updateContent(this.state.selectedCategories, 'data')
-        })
+    const removeFromSelectedList = (id) => {
+        setState(prev => ({
+            ...prev,
+            selectedCategories: prev.selectedCategories.filter(item => item !== id),
+            priority: prev.priority.filter(item => item !== id)
+        }));
     }
 
-    removeFromSelectedList = (id) => {
-        this.setState(prevState => ({
-            selectedCategories: prevState.selectedCategories.filter(item => item !== id)
-        }), () => {
-            this.removePriority(id)
-            this.props.updateContent(this.state.selectedCategories, 'data')
-        })
-    }
+    const alreadySelected = (id) => state.selectedCategories.find(item => item === id) ? true : false;
 
-    alreadySelected = (id) => this.state.selectedCategories.find(item => item === id) ? true : false
-
-
-    orderSelectedWithPriority = () => [...this.state.priority, ...this.state.selectedCategories.filter(id => !this.alreadyOnPriority(id))];
-
-    moveElementToTop = (index) => {
+    const moveElementToTop = (index) => {
         if (index === 0) return
-        const a = this.props.priority[index];
-        const b = this.props.priority[index - 1];
-        let newOrder = [...this.props.priority];
+        const a = priority[index];
+        const b = priority[index - 1];
+        let newOrder = [...priority];
         newOrder[index - 1] = a;
         newOrder[index] = b;
-        this.setState({priority: newOrder}, () => {
-            this.props.updateContent(this.state.priority, 'priority')
-        })
+
+        setState(prev => ({
+            ...prev,
+            priority: newOrder,
+            selectedCategories: orderSelectedWithNewPriority(newOrder)
+        }));
     }
 
-    moveElementToBottom = (index) => {
-        if (index === (this.props.priority.length - 1)) return
-        const a = this.props.priority[index];
-        const b = this.props.priority[index + 1];
-        let newOrder = [...this.props.priority];
+    const moveElementToBottom = (index) => {
+        if (index === (priority.length - 1)) return
+        const a = priority[index];
+        const b = priority[index + 1];
+        let newOrder = [...priority];
         newOrder[index] = b;
         newOrder[index + 1] = a;
 
-        this.setState({priority: newOrder}, () => {
-            this.props.updateContent(this.state.priority, 'priority')
-        })
+        setState(prev => ({
+            ...prev,
+            priority: newOrder,
+            selectedCategories: orderSelectedWithNewPriority(newOrder)
+        }));
     }
 
-   // updateSelected = (e, id) => (e.target.checked) ? this.addSelected(id) : this.removeSelected();
+    const updateSelected = (e, id) => (e.target.checked) ? addSelected(id) : removeFromSelectedList(id);
 
-    updateSelected = (e, id) => (e.target.checked) ? this.addSelected(id) : this.removeFromSelectedList(id);
-
-
-    render = () => {
-        return (
-            <Container>
-                <Partners>
-                    <label>Category</label>
-                    <List>
-                        {
-                            this.state.categories ? this.state.categories.sort((a, b) => a.name.localeCompare(b.name))
-                                .map((category, i) => {
+    return (
+        <Container>
+            <Partners>
+                <label>Category</label>
+                <List>
+                    {
+                        state.categories ? state.categories.sort((a, b) => a.name.localeCompare(b.name))
+                            .map((category, i) => {
                                 return <Select key={i}>
-                                    <input checked={this.alreadySelected(category.id)} type={'checkbox'}
-                                           onChange={(e) => this.updateSelected(e, category.id) }/>
-                                    <p  className={this.alreadyOnPriority(category.id) ? 'active' : ''}
-                                        onClick={() => this.updatePriority(category.id)}>{category.name}</p>
+                                    <input checked={alreadySelected(category.id)} type={'checkbox'}
+                                           onChange={(e) => updateSelected(e, category.id)}/>
+                                    <p className={alreadyOnPriority(category.id) ? 'active' : ''}
+                                       onClick={() => updatePriority(category.id)}>{category.name}</p>
                                 </Select>
                             }) : null
-                        }
-                    </List>
-                </Partners>
-                <Priority>
-                    <label>Priority List</label>
-                    <PriorityList>
-                        {
-                            this.state.priority ? this.state.priority.map((id, i) => {
-                                const category = this.getById(id);
-                                return <ItemPriority data={category}
-                                                     index={i}
-                                                     key={i}
-                                                     moveElementToBottom={this.moveElementToBottom}
-                                                     moveElementToTop={this.moveElementToTop}
-                                />
+                    }
+                </List>
+            </Partners>
+            <Priority>
+                <label>Priority List</label>
+                <PriorityList>
+                    {
+                        state.priority ? state.priority.map((id, i) => {
+                            const category = getById(id);
+                            return <ItemPriority data={category}
+                                                 index={i}
+                                                 key={i}
+                                                 moveElementToBottom={moveElementToBottom}
+                                                 moveElementToTop={moveElementToTop}
+                            />
 
-                            }) : null
-                        }
-                    </PriorityList>
-                </Priority>
-            </Container>
-        );
-    }
+                        }) : null
+                    }
+                </PriorityList>
+            </Priority>
+        </Container>
+    );
 }
 
 CategoryMultiSelector.protoTypes = {

@@ -30,7 +30,6 @@ export const Inputs = styled.div`
 
 export const InputsBorder = styled(Inputs)`
     & input{
-       
         &:nth-child(2){
             border-top : 3px solid ${ extensionTheme.blueM }
         }

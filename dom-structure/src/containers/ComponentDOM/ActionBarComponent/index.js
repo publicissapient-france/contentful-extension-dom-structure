@@ -142,7 +142,6 @@ const ActionsBarComponent = ({
     )
 }
 
-
 const mapStateToProps = state => ({
     accessLocalStorage: getAccessLocalStorageAvailable(state).accessLocalStorage,
     versionStorage: getVersionStorage(state).versionStorage,

@@ -1,89 +1,82 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Container, Field, Inputs } from './styled';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import { hasNotSamePropertyValue } from '../../utils/functions';
 import Dot from '../../components/Dot';
+import {usePrevValues} from "../../utils/hooks";
 
-class BackgroundProperties extends Component {
-    constructor (props) {
-        super(props);
-        this.state = {};
-    }
+const BackgroundProperties = ({value, storeValue, defaultValue, hidden ,event,  updateStateProps}) => {
+    const [state, setState] = useState({background: value});
 
-    componentDidMount = () => {
-        this.setState({
-            background: this.props.value
-        });
-    };
+    useEffect(() => {
+        setState({background: value});
+    }, [])
 
-    componentDidUpdate = prevProps => {
-        if (this.props.value !== prevProps.value) {
-            this.setState(prevState => ({
-                ...prevState,
-                background: this.props.value
-            }));
-        }
-    }
-
-    updatePadding = (prop, value) => {
-        this.setState(prevState => ({
-            ...prevState,
-            background: {
-                ...prevState.background,
-                [prop]: String(value),
+    usePrevValues(
+        useMemo(() => ({
+            value
+        }), [value]),
+        useCallback(prevValues => {
+            if (prevValues.value !== value) {
+                setState({background: value});
             }
-        }), () => {
-            this.props.updateStateProps('background', this.state.background, this.props.event);
-        });
+        }, [value])
+    );
+
+    usePrevValues(
+        useMemo(() => ({
+            state
+        }), [state]),
+        useCallback(prevValues => {
+            if (prevValues.state.background !== state.background) {
+                updateStateProps('background', state.background, event);
+            }
+        }, [state.background])
+    );
+
+    const updateBackground = (prop, value) => {
+        setState(prev => ({
+            ...prev,
+            background: {
+                ...prev.background,
+                [prop]: String(value)
+            }
+        }));
     }
 
-    render () {
-        const { value, storeValue, defaultValue, hidden } = this.props;
-
-        if (!this.state.background) return null;
-        return (
-            <Container className={hidden ? 'hidden' : ''}>
-                <Field>
-                    <div>
-                        <label>backg.top</label>
-                        <Inputs>
-                            <Dot enabled={!isEqual(defaultValue, value)}/>
-                            <input
-                                type={'number'}
-                                className={hasNotSamePropertyValue(storeValue, value, 'top') ? 'updated' : ''}
-                                value={this.state.background.top}
-                                onChange={e => {
-                                    this.updatePadding('top', e.target.value);
-                                }}/>
-                        </Inputs>
-                    </div>
-
-                </Field>
-            </Container>
-        );
-    }
+    if (!state.background) return null;
+    return (
+        <Container className={hidden ? 'hidden' : ''}>
+            <Field>
+                <div>
+                    <label>backg.top</label>
+                    <Inputs>
+                        <Dot enabled={!isEqual(defaultValue, value)}/>
+                        <input
+                            type={'number'}
+                            className={hasNotSamePropertyValue(storeValue, value, 'top') ? 'updated' : ''}
+                            value={state.background.top}
+                            onChange={e => {
+                                updateBackground('top', e.target.value);
+                            }}/>
+                    </Inputs>
+                </div>
+            </Field>
+        </Container>
+    );
 }
 
 BackgroundProperties.propTypes = {
     updateStateProps: PropTypes.func,
-    padding: PropTypes.shape({
-        top: PropTypes.string,
-        right: PropTypes.string,
-        bottom: PropTypes.string,
-        left: PropTypes.string
+    value: PropTypes.shape({
+        top: PropTypes.string
     }),
-    storeValuePadding: PropTypes.shape({
-        top: PropTypes.string,
-        right: PropTypes.string,
-        bottom: PropTypes.string,
-        left: PropTypes.string
+    storeValue: PropTypes.shape({
+        top: PropTypes.string
     }),
-    defaultPadding: PropTypes.shape({
-        top: PropTypes.string,
-        right: PropTypes.string,
-        bottom: PropTypes.string,
-        left: PropTypes.string
+    defaultValue: PropTypes.shape({
+        top: PropTypes.string
     }),
 };
 
