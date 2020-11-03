@@ -1,4 +1,4 @@
-import {settingsSingleImage, settingsTemplate} from "../../utils/organism.model.config";
+import {settingsSingleImage, settingsTemplate} from "../../utils/configModel/organism.model.config";
 import {
     alignmentStart,
     margin,
@@ -6,8 +6,8 @@ import {
     transparent,
     paragraph,
     textPropsCenter, white, opacityBHD, borderWidth, borderRadius
-} from "../../utils/atom.model.config";
-import {borderMTD} from "../../utils/molecules.model.config";
+} from "../../utils/configModel/atom.model.config";
+import {borderMTD} from "../../utils/configModel/molecules.model.config";
 
 export default {
     model: 'FooterBasic',

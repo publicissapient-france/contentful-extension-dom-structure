@@ -23,32 +23,35 @@ class Link extends Component {
             <div>
                 <FieldBanner {...this.props}/>
                 <Field>
-                    <Content className={!this.props.openContent ? 'hidden' : ''}>
-                        <ChoicesContent>
-                            <Column>
-                                <InputText action={this.props.updateTranlatedContent} targetProperty={'link'}
-                                           defaultValue={getLink(content, indexLanguage)}/>
-                            </Column>
-                            <Column>
-                                <LinkSettings>
-                                    <div>
-                                        <label>
-                                            <input type={'checkbox'} defaultChecked={this.getExternal()}
-                                                   onChange={(e) => {
-                                                       this.props.updateSettingsNoResponsive('state', {external: !this.getExternal()})
-                                                   }}/>
-                                            external</label>
-                                        <label>
-                                            <input type={'checkbox'} defaultChecked={this.getDisabled()}
-                                                   onChange={(e) => {
-                                                       this.props.updateSettingsNoResponsive('state', {disabled: !this.getDisabled()})
-                                                   }}/>
-                                            disabled</label>
-                                    </div>
-                                </LinkSettings>
-                            </Column>
-                        </ChoicesContent>
-                    </Content>
+                    {
+                        this.props.openContent &&
+                        <Content>
+                            <ChoicesContent>
+                                <Column>
+                                    <InputText action={this.props.updateTranlatedContent} targetProperty={'link'}
+                                               defaultValue={getLink(content, indexLanguage)}/>
+                                </Column>
+                                <Column>
+                                    <LinkSettings>
+                                        <div>
+                                            <label>
+                                                <input type={'checkbox'} defaultChecked={this.getExternal()}
+                                                       onChange={(e) => {
+                                                           this.props.updateSettingsNoResponsive('state', {external: !this.getExternal()})
+                                                       }}/>
+                                                external</label>
+                                            <label>
+                                                <input type={'checkbox'} defaultChecked={this.getDisabled()}
+                                                       onChange={(e) => {
+                                                           this.props.updateSettingsNoResponsive('state', {disabled: !this.getDisabled()})
+                                                       }}/>
+                                                disabled</label>
+                                        </div>
+                                    </LinkSettings>
+                                </Column>
+                            </ChoicesContent>
+                        </Content>
+                    }
                 </Field>
                 <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>

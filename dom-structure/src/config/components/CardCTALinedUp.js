@@ -5,7 +5,7 @@ import {
     settingsText,
     settingsTitle,
     settingsCTA
-} from "../../utils/organism.model.config";
+} from "../../utils/configModel/organism.model.config";
 
 export default {
     model: 'CardCTALinedUp',

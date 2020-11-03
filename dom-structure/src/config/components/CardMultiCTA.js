@@ -7,8 +7,8 @@ import {
     backgroundPosition,
     opacity,
     borderWidth, borderRadius, transparent
-} from "../../utils/atom.model.config";
-import {settingsSingleImage, settingsTagline, settingsText, settingsTitle, settingsCTA} from "../../utils/organism.model.config";
+} from "../../utils/configModel/atom.model.config";
+import {settingsSingleImage, settingsTagline, settingsText, settingsTitle, settingsCTA} from "../../utils/configModel/organism.model.config";
 
 export default {
     model: 'CardMultiCTA',

@@ -73,140 +73,143 @@ class NavigationBar extends Component {
                                 />
                             </Content> : null
                     }
-                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                        {
-                            this.state.events && this.state.events.length !== 0 ?
-                                <ButtonEvents>
-                                    {
-                                        this.state.events.map((event, i) => {
-                                            return <button
-                                                key={i}
-                                                className={event === this.state.currentEvent ? 'current' : ''}
-                                                onClick={() => {
-                                                    this.toggleCurrentEvent(event)
-                                                }}>{event}</button>
-                                        })
-                                    }
-                                </ButtonEvents> : null
-                        }
-                        <Choices>
-                            <Column className={this.state.openColorView ? 'full-width' : ''}>
-                                <ColorPicker hidden={false}
-                                             color={this.props.getSettingsByProperty('basis', 'color', this.state.currentEvent)}
-                                             opacity={this.props.getSettingsByProperty('basis', 'opacity', this.state.currentEvent)}
-                                             storeValueColor={this.props.getStoreSettingsByProperty('basis', 'color', this.state.currentEvent)}
-                                             storeValueOpacity={this.props.getStoreSettingsByProperty('basis', 'color', this.state.currentEvent)}
-                                             defaultColor={this.props.getDefaultSettingsByProperty('basis', 'color', this.state.currentEvent)}
-                                             defaultOpacity={this.props.getDefaultSettingsByProperty('basis', 'opacity', this.state.currentEvent)}
-                                             openView={this.state.openColorView}
-                                             updateStateProps={this.updateBasis}
-                                             toggleOpenView={this.toggleOpenView}
-                                             event={this.state.currentEvent}
-                                />
-                            </Column>
-                            <Column className={this.state.openColorView ? 'hidden' : ''}>
-                                <Row>
-                                    <Size
-                                        size={this.props.getSettingsByProperty('basis', 'size', this.state.currentEvent)}
-                                        storeValueSize={this.props.getStoreSettingsByProperty('basis', 'size', this.state.currentEvent)}
-                                        defaultSize={this.props.getDefaultSettingsByProperty('basis', 'size', this.state.currentEvent)}
-                                        updateStateProps={this.updateBasis}
-                                        event={this.state.currentEvent}
+                    {
+                        this.props.openSettings &&
+                        <Settings>
+                            {
+                                this.state.events && this.state.events.length !== 0 ?
+                                    <ButtonEvents>
+                                        {
+                                            this.state.events.map((event, i) => {
+                                                return <button
+                                                    key={i}
+                                                    className={event === this.state.currentEvent ? 'current' : ''}
+                                                    onClick={() => {
+                                                        this.toggleCurrentEvent(event)
+                                                    }}>{event}</button>
+                                            })
+                                        }
+                                    </ButtonEvents> : null
+                            }
+                            <Choices>
+                                <Column className={this.state.openColorView ? 'full-width' : ''}>
+                                    <ColorPicker hidden={false}
+                                                 color={this.props.getSettingsByProperty('basis', 'color', this.state.currentEvent)}
+                                                 opacity={this.props.getSettingsByProperty('basis', 'opacity', this.state.currentEvent)}
+                                                 storeValueColor={this.props.getStoreSettingsByProperty('basis', 'color', this.state.currentEvent)}
+                                                 storeValueOpacity={this.props.getStoreSettingsByProperty('basis', 'color', this.state.currentEvent)}
+                                                 defaultColor={this.props.getDefaultSettingsByProperty('basis', 'color', this.state.currentEvent)}
+                                                 defaultOpacity={this.props.getDefaultSettingsByProperty('basis', 'opacity', this.state.currentEvent)}
+                                                 openView={this.state.openColorView}
+                                                 updateStateProps={this.updateBasis}
+                                                 toggleOpenView={this.toggleOpenView}
+                                                 event={this.state.currentEvent}
                                     />
-                                </Row>
-                                <Row>
-                                    <Padding hidden={this.state.openColorView}
-                                             padding={this.props.getSettingsByProperty('basis', 'padding', this.state.currentEvent)}
-                                             storeValuePadding={this.props.getStoreSettingsByProperty('basis', 'padding', this.state.currentEvent)}
-                                             defaultPadding={this.props.getDefaultSettingsByProperty('basis', 'padding', this.state.currentEvent)}
-                                             updateStateProps={this.updateBasis}
-                                             event={this.state.currentEvent}
-                                    />
-                                    <Margin hidden={this.state.openColorView}
-                                            margin={this.props.getSettingsByProperty('basis', 'margin', this.state.currentEvent)}
-                                            storeValueMargin={this.props.getStoreSettingsByProperty('basis', 'margin', this.state.currentEvent)}
-                                            defaultMargin={this.props.getDefaultSettingsByProperty('basis', 'margin', this.state.currentEvent)}
+                                </Column>
+                                <Column className={this.state.openColorView ? 'hidden' : ''}>
+                                    <Row>
+                                        <Size
+                                            size={this.props.getSettingsByProperty('basis', 'size', this.state.currentEvent)}
+                                            storeValueSize={this.props.getStoreSettingsByProperty('basis', 'size', this.state.currentEvent)}
+                                            defaultSize={this.props.getDefaultSettingsByProperty('basis', 'size', this.state.currentEvent)}
                                             updateStateProps={this.updateBasis}
                                             event={this.state.currentEvent}
+                                        />
+                                    </Row>
+                                    <Row>
+                                        <Padding hidden={this.state.openColorView}
+                                                 padding={this.props.getSettingsByProperty('basis', 'padding', this.state.currentEvent)}
+                                                 storeValuePadding={this.props.getStoreSettingsByProperty('basis', 'padding', this.state.currentEvent)}
+                                                 defaultPadding={this.props.getDefaultSettingsByProperty('basis', 'padding', this.state.currentEvent)}
+                                                 updateStateProps={this.updateBasis}
+                                                 event={this.state.currentEvent}
+                                        />
+                                        <Margin hidden={this.state.openColorView}
+                                                margin={this.props.getSettingsByProperty('basis', 'margin', this.state.currentEvent)}
+                                                storeValueMargin={this.props.getStoreSettingsByProperty('basis', 'margin', this.state.currentEvent)}
+                                                defaultMargin={this.props.getDefaultSettingsByProperty('basis', 'margin', this.state.currentEvent)}
+                                                updateStateProps={this.updateBasis}
+                                                event={this.state.currentEvent}
+                                        />
+                                    </Row>
+                                </Column>
+                            </Choices>
+                            <Separator>
+                                <p>Select Language</p>
+                            </Separator>
+                            <AdditionalChoices>
+                                <Column className={this.state.openColorViewSVG ? 'full-width' : ''}>
+                                    <ColorPicker hidden={false}
+                                                 color={this.props.getSettingsByProperty('svg', 'fill')}
+                                                 opacity={this.props.getSettingsByProperty('svg', 'opacityFill')}
+                                                 storeValueColor={this.props.getStoreSettingsByProperty('svg', 'fill')}
+                                                 storeValueOpacity={this.props.getStoreSettingsByProperty('svg', 'fill')}
+                                                 defaultColor={this.props.getDefaultSettingsByProperty('svg', 'fill')}
+                                                 defaultOpacity={this.props.getDefaultSettingsByProperty('svg', 'opacityFill')}
+                                                 openView={this.state.openColorViewSVG}
+                                                 updateStateProps={this.updateSVG}
+                                                 toggleOpenView={this.toggleOpenViewSVG}
+                                                 customTargetColor={'fill'}
+                                                 customTargetOpacity={'opacityFill'}
+                                                 customName={'Backg.'}
                                     />
-                                </Row>
-                            </Column>
-                        </Choices>
-                        <Separator>
-                            <p>Select Language</p>
-                        </Separator>
-                        <AdditionalChoices>
-                            <Column className={this.state.openColorViewSVG ? 'full-width' : ''}>
-                                <ColorPicker hidden={false}
-                                             color={this.props.getSettingsByProperty('svg', 'fill')}
-                                             opacity={this.props.getSettingsByProperty('svg', 'opacityFill')}
-                                             storeValueColor={this.props.getStoreSettingsByProperty('svg', 'fill')}
-                                             storeValueOpacity={this.props.getStoreSettingsByProperty('svg', 'fill')}
-                                             defaultColor={this.props.getDefaultSettingsByProperty('svg', 'fill')}
-                                             defaultOpacity={this.props.getDefaultSettingsByProperty('svg', 'opacityFill')}
-                                             openView={this.state.openColorViewSVG}
-                                             updateStateProps={this.updateSVG}
-                                             toggleOpenView={this.toggleOpenViewSVG}
-                                             customTargetColor={'fill'}
-                                             customTargetOpacity={'opacityFill'}
-                                             customName={'Backg.'}
-                                />
-                            </Column>
-                            <Column className={this.state.openColorViewSVG ? 'hidden' : ''}>
-                                <Row>
-                                    <Size size={this.props.getSettingsByProperty('svg', 'size')}
-                                          storeValueSize={this.props.getStoreSettingsByProperty('svg', 'size')}
-                                          defaultSize={this.props.getDefaultSettingsByProperty('svg', 'size')}
-                                          updateStateProps={this.updateSVG}
+                                </Column>
+                                <Column className={this.state.openColorViewSVG ? 'hidden' : ''}>
+                                    <Row>
+                                        <Size size={this.props.getSettingsByProperty('svg', 'size')}
+                                              storeValueSize={this.props.getStoreSettingsByProperty('svg', 'size')}
+                                              defaultSize={this.props.getDefaultSettingsByProperty('svg', 'size')}
+                                              updateStateProps={this.updateSVG}
+                                        />
+                                    </Row>
+                                </Column>
+                                <Column className={this.state.openColorViewColor ? 'full-width' : ''}>
+                                    <ColorPicker hidden={false}
+                                                 color={this.props.getSettingsByProperty('svg', 'color')}
+                                                 opacity={this.props.getSettingsByProperty('svg', 'opacity')}
+                                                 storeValueColor={this.props.getStoreSettingsByProperty('svg', 'color')}
+                                                 storeValueOpacity={this.props.getStoreSettingsByProperty('svg', 'color')}
+                                                 defaultColor={this.props.getDefaultSettingsByProperty('svg', 'color')}
+                                                 defaultOpacity={this.props.getDefaultSettingsByProperty('svg', 'opacity')}
+                                                 openView={this.state.openColorViewColor}
+                                                 updateStateProps={this.updateSVG}
+                                                 toggleOpenView={this.toggleOpenViewColor}
+                                                 customName={'Color'}
                                     />
-                                </Row>
-                            </Column>
-                            <Column className={this.state.openColorViewColor ? 'full-width' : ''}>
-                                <ColorPicker hidden={false}
-                                             color={this.props.getSettingsByProperty('svg', 'color')}
-                                             opacity={this.props.getSettingsByProperty('svg', 'opacity')}
-                                             storeValueColor={this.props.getStoreSettingsByProperty('svg', 'color')}
-                                             storeValueOpacity={this.props.getStoreSettingsByProperty('svg', 'color')}
-                                             defaultColor={this.props.getDefaultSettingsByProperty('svg', 'color')}
-                                             defaultOpacity={this.props.getDefaultSettingsByProperty('svg', 'opacity')}
-                                             openView={this.state.openColorViewColor}
-                                             updateStateProps={this.updateSVG}
-                                             toggleOpenView={this.toggleOpenViewColor}
-                                             customName={'Color'}
-                                />
-                            </Column>
-                        </AdditionalChoices>
-                        <Separator>
-                            <p>Burger</p>
-                        </Separator>
-                        <AdditionalChoices>
-                            <Column className={this.state.openColorViewBurger ? 'full-width' : ''}>
-                                <ColorPicker hidden={false}
-                                             color={this.props.getSettingsByProperty('burger', 'fill')}
-                                             opacity={this.props.getSettingsByProperty('burger', 'opacityFill')}
-                                             storeValueColor={this.props.getStoreSettingsByProperty('burger', 'fill')}
-                                             storeValueOpacity={this.props.getStoreSettingsByProperty('burger', 'fill')}
-                                             defaultColor={this.props.getDefaultSettingsByProperty('burger', 'fill')}
-                                             defaultOpacity={this.props.getDefaultSettingsByProperty('burger', 'opacityFill')}
-                                             openView={this.state.openColorViewBurger}
-                                             updateStateProps={this.updateBurger}
-                                             toggleOpenView={this.toggleOpenViewBurger}
-                                             customTargetColor={'fill'}
-                                             customTargetOpacity={'opacityFill'}
-                                             customName={'Color'}
-                                />
-                            </Column>
-                            <Column className={this.state.openColorViewBurger ? 'hidden' : ''}>
-                                <Row>
-                                    <Size size={this.props.getSettingsByProperty('burger', 'size')}
-                                          storeValueSize={this.props.getStoreSettingsByProperty('burger', 'size')}
-                                          defaultSize={this.props.getDefaultSettingsByProperty('burger', 'size')}
-                                          updateStateProps={this.updateBurger}
+                                </Column>
+                            </AdditionalChoices>
+                            <Separator>
+                                <p>Burger</p>
+                            </Separator>
+                            <AdditionalChoices>
+                                <Column className={this.state.openColorViewBurger ? 'full-width' : ''}>
+                                    <ColorPicker hidden={false}
+                                                 color={this.props.getSettingsByProperty('burger', 'fill')}
+                                                 opacity={this.props.getSettingsByProperty('burger', 'opacityFill')}
+                                                 storeValueColor={this.props.getStoreSettingsByProperty('burger', 'fill')}
+                                                 storeValueOpacity={this.props.getStoreSettingsByProperty('burger', 'fill')}
+                                                 defaultColor={this.props.getDefaultSettingsByProperty('burger', 'fill')}
+                                                 defaultOpacity={this.props.getDefaultSettingsByProperty('burger', 'opacityFill')}
+                                                 openView={this.state.openColorViewBurger}
+                                                 updateStateProps={this.updateBurger}
+                                                 toggleOpenView={this.toggleOpenViewBurger}
+                                                 customTargetColor={'fill'}
+                                                 customTargetOpacity={'opacityFill'}
+                                                 customName={'Color'}
                                     />
-                                </Row>
-                            </Column>
-                        </AdditionalChoices>
-                    </Settings>
+                                </Column>
+                                <Column className={this.state.openColorViewBurger ? 'hidden' : ''}>
+                                    <Row>
+                                        <Size size={this.props.getSettingsByProperty('burger', 'size')}
+                                              storeValueSize={this.props.getStoreSettingsByProperty('burger', 'size')}
+                                              defaultSize={this.props.getDefaultSettingsByProperty('burger', 'size')}
+                                              updateStateProps={this.updateBurger}
+                                        />
+                                    </Row>
+                                </Column>
+                            </AdditionalChoices>
+                        </Settings>
+                    }
                 </Field>
                 <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>

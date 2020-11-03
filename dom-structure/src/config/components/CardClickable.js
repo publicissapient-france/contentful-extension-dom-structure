@@ -7,14 +7,14 @@ import {
     shadow,
     backgroundPosition,
     borderWidth, borderRadius, transparent
-} from "../../utils/atom.model.config";
+} from "../../utils/configModel/atom.model.config";
 import {
     settingsSimpleText,
     settingsSingleImage,
     settingsTagline, settingsTemplate,
     settingsText,
     settingsTitle
-} from "../../utils/organism.model.config";
+} from "../../utils/configModel/organism.model.config";
 
 export default {
     model: 'CardClickable',

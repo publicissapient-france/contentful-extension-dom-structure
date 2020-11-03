@@ -28,16 +28,19 @@ class FlexContainer extends Component {
             <div>
                 <FieldBanner {...this.props}/>
                 <Field>
-                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                        <Choices>
-                            <FlexContainerProperties
-                                properties={this.props.getSettingsByProperty('flex', 'properties')}
-                                storeValue={this.props.getStoreSettingsByProperty('flex', 'properties')}
-                                defaultValue={this.props.getDefaultSettingsByProperty('flex', 'properties')}
-                                updateStateProps={this.updateFlexProperty}
-                            />
-                        </Choices>
-                    </Settings>
+                    {
+                        this.props.openSettings &&
+                        <Settings>
+                            <Choices>
+                                <FlexContainerProperties
+                                    properties={this.props.getSettingsByProperty('flex', 'properties')}
+                                    storeValue={this.props.getStoreSettingsByProperty('flex', 'properties')}
+                                    defaultValue={this.props.getDefaultSettingsByProperty('flex', 'properties')}
+                                    updateStateProps={this.updateFlexProperty}
+                                />
+                            </Choices>
+                        </Settings>
+                    }
                 </Field>
                 <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>

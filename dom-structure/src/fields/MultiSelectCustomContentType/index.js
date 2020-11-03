@@ -41,48 +41,54 @@ class MultiSelectCustomContentType extends Component {
             <div>
                 <FieldBanner {...this.props}/>
                 <Field>
-                    <Content className={!this.props.openContent ? 'hidden' : ''}>
-                        <Choices>
-                            <CustomContentTypeMultiSelector updateContent={this.props.updateContent}
-                                              contentType={this.getContentType()}
-                                              contents={this.getData()}
-                                              priority={this.getPriority()}
-                                              toggleCurrentEvent={this.toggleCurrentEvent}
-                                              multichoices
-                            />
-
-
-                        </Choices>
-                    </Content>
-                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                        {
-                            ['tagline', 'title', 'text'].map(prop => {
-                                return <TypeSystem key={prop}
-                                                   label={prop}
-                                                   propertyName={prop}
-                                                   usePadding
-                                                   getSettingsByProperty={this.props.getSettingsByProperty}
-                                                   getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
-                                                   getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
-                                                   updateSettingsProperty={this.props.updateSettingsProperty}
-                                                   currentResponsiveMode={this.props.currentResponsiveMode}
+                    {
+                        this.props.openContent &&
+                        <Content>
+                            <Choices>
+                                <CustomContentTypeMultiSelector updateContent={this.props.updateContent}
+                                                                contentType={this.getContentType()}
+                                                                contents={this.getData()}
+                                                                priority={this.getPriority()}
+                                                                toggleCurrentEvent={this.toggleCurrentEvent}
+                                                                multichoices
                                 />
-                            })
-                        }
 
-                        {
-                            ['image'].map(prop => {
-                                return <ImageSystem key={prop}
-                                                    label={prop}
-                                                    propertyName={prop}
-                                                    getSettingsByProperty={this.props.getSettingsByProperty}
-                                                    getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
-                                                    getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
-                                                    updateSettingsProperty={this.props.updateSettingsProperty}
-                                />
-                            })
-                        }
-                    </Settings>
+
+                            </Choices>
+                        </Content>
+                    }
+                    {
+                        this.props.openSettings &&
+                        <Settings>
+                            {
+                                ['tagline', 'title', 'text'].map(prop => {
+                                    return <TypeSystem key={prop}
+                                                       label={prop}
+                                                       propertyName={prop}
+                                                       usePadding
+                                                       getSettingsByProperty={this.props.getSettingsByProperty}
+                                                       getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
+                                                       getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
+                                                       updateSettingsProperty={this.props.updateSettingsProperty}
+                                                       currentResponsiveMode={this.props.currentResponsiveMode}
+                                    />
+                                })
+                            }
+
+                            {
+                                ['image'].map(prop => {
+                                    return <ImageSystem key={prop}
+                                                        label={prop}
+                                                        propertyName={prop}
+                                                        getSettingsByProperty={this.props.getSettingsByProperty}
+                                                        getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
+                                                        getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
+                                                        updateSettingsProperty={this.props.updateSettingsProperty}
+                                    />
+                                })
+                            }
+                        </Settings>
+                    }
                 </Field>
                 <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>

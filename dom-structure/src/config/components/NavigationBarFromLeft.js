@@ -6,9 +6,9 @@ import {
     opacity, padding,
     paragraph, shadow, size, textProps, textPropsCenter,
     transparent, white
-} from "../../utils/atom.model.config";
-import {settingsSingleImage, settingsTemplate} from "../../utils/organism.model.config";
-import {borderMTD} from "../../utils/molecules.model.config";
+} from "../../utils/configModel/atom.model.config";
+import {settingsSingleImage, settingsTemplate} from "../../utils/configModel/organism.model.config";
+import {borderMTD} from "../../utils/configModel/molecules.model.config";
 
 export default {
     model: 'NavigationBarFromLeft',

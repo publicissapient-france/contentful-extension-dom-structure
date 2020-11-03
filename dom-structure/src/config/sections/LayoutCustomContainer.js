@@ -1,4 +1,4 @@
-import {settingsFlexContainer, settingsTemplate} from "../../utils/organism.model.config";
+import {settingsFlexContainer, settingsTemplate} from "../../utils/configModel/organism.model.config";
 export default {
     model: 'LayoutCustomContainer',
     fields: [

@@ -7,7 +7,7 @@ import {
     sizeNavigation, textPropsCenter,
     transparent,
     white
-} from "../../utils/atom.model.config";
+} from "../../utils/configModel/atom.model.config";
 
 export default {
     model: 'NavigationBarExtentedTop',

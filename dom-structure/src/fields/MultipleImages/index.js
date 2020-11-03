@@ -25,40 +25,46 @@ class MultipleImages extends Component {
             <div>
                 <FieldBanner {...this.props}/>
                 <Field>
-                    <Content className={!this.props.openContent ? 'hidden' : ''}>
-                        {
-                            this.props.content.images
-                                ? this.props.content.images.map((image, i) => {
-                                    return <ImageUploader index={i} key={i}
-                                        asset={getAssetByIndex(content, currentResponsiveMode, i)}
-                                        alt={getAltByIndex(content, indexLanguage, i)}
-                                        updateStateAsset={this.props.updateContentSubProperty}
-                                        updateStateTranslatedProps={this.props.updateTranlatedContentSubProperty}
-                                    />;
-                                }) : null
-                        }
-                    </Content>
-                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                        <Choices>
+                    {
+                        this.props.openContent &&
+                        <Content>
                             {
                                 this.props.content.images
                                     ? this.props.content.images.map((image, i) => {
-                                        return <Row key={i}>
-                                            <AssetPreview
-                                                locale={this.props.extensionInfo.extension.locales ? this.props.extensionInfo.extension.locales.default : null}
-                                                asset={getAssetToPreviewByIndex(content, currentResponsiveMode, responsiveContent, i)}
-                                            />
-                                            <Size size={this.props.getSettingsByProperty('basis','size', i+1)}
-                                                     storeValueSize={this.props.getStoreSettingsByProperty('basis','size', i+1)}
-                                                     defaultSize={this.props.getDefaultSettingsByProperty('basis','size', i+1)}
-                                                     updateStateProps={this.updateBasis}
-                                                     event={i+1}
-
-                                        /></Row>;
+                                        return <ImageUploader index={i} key={i}
+                                                              asset={getAssetByIndex(content, currentResponsiveMode, i)}
+                                                              alt={getAltByIndex(content, indexLanguage, i)}
+                                                              updateStateAsset={this.props.updateContentSubProperty}
+                                                              updateStateTranslatedProps={this.props.updateTranlatedContentSubProperty}
+                                        />;
                                     }) : null
                             }
-                        </Choices>
-                    </Settings>
+                        </Content>
+                    }
+                    {
+                        this.props.openSettings &&
+                        <Settings>
+                            <Choices>
+                                {
+                                    this.props.content.images
+                                        ? this.props.content.images.map((image, i) => {
+                                            return <Row key={i}>
+                                                <AssetPreview
+                                                    locale={this.props.extensionInfo.extension.locales ? this.props.extensionInfo.extension.locales.default : null}
+                                                    asset={getAssetToPreviewByIndex(content, currentResponsiveMode, responsiveContent, i)}
+                                                />
+                                                <Size size={this.props.getSettingsByProperty('basis','size', i+1)}
+                                                      storeValueSize={this.props.getStoreSettingsByProperty('basis','size', i+1)}
+                                                      defaultSize={this.props.getDefaultSettingsByProperty('basis','size', i+1)}
+                                                      updateStateProps={this.updateBasis}
+                                                      event={i+1}
+
+                                                /></Row>;
+                                        }) : null
+                                }
+                            </Choices>
+                        </Settings>
+                    }
                 </Field>
                 <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>

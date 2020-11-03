@@ -7,8 +7,8 @@ import {
     backgroundPosition,
     borderWidth,
     borderRadius, transparent
-} from "../../utils/atom.model.config";
-import {settingsTitle, settingsText, settingsTagline} from "../../utils/organism.model.config";
+} from "../../utils/configModel/atom.model.config";
+import {settingsTitle, settingsText, settingsTagline} from "../../utils/configModel/organism.model.config";
 
 export default {
     model: 'BlockText',

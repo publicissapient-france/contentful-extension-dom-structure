@@ -188,7 +188,6 @@ class CustomContentTypeMultiSelector extends Component {
 
     render = () => {
         return (
-
             <>
                 <SelectContentType>
                     <label>Choose Content Type</label>

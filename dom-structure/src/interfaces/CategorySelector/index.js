@@ -1,106 +1,76 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-    Container,
-    Partners,
-    Select,
-    List
-} from './styled';
+import {Container, Partners, Select, List} from './styled';
 import {getCurrentExtension} from '../../actions/index';
 
-class CategorySelector extends Component {
-    constructor(props) {
-        super(props);
+const CategorySelector = ({category, extensionInfo, updateContent}) => {
+    const [innerCategories, setInnerCategories] = useState([]);
+    const [selected, setSelected] = useState('');
 
-        this.state = {
-            categories: [],
-            selected: ''
-        };
-    }
-
-    componentDidMount = async () => {
-        await this.initRessources();
-        this.setState({
-            selected: this.props.category
-        })
-    };
-
-    componentDidUpdate(prevProps) {
-        if (this.props.category !== prevProps.category) {
-            this.setState({
-                selected: this.props.category
-            })
+    useEffect(() => {
+        async function initialization() {
+            await initRessources();
         }
-    }
 
-    findProperLocale = () => this.props.extensionInfo.extension.locales.default;
-    getById = (id) => this.state.categories.find(element => element.id === id);
+        initialization();
+        setSelected(category);
+    }, []);
 
+    useEffect(() => {
+        setSelected(category);
+    }, [category]);
 
-    initRessources = async () => {
-        await this.props.extensionInfo.extension.space.getEntries({
+    useEffect(() => {
+        updateContent('data', selected)
+    }, [selected]);
+
+    const initRessources = async () => {
+        await extensionInfo.extension.space.getEntries({
             'content_type': 'category',
         }).then(result => {
-            this.setState({
-                categories: result.items.map(item => {
-                    let category = {
-                        id: item.sys.id,
-                        name: item.fields.name[this.findProperLocale()]
-                    }
-                    return category
-                })
-            })
+            setInnerCategories(result.items.map(item => {
+                let category = {
+                    id: item.sys.id,
+                    name: item.fields.name[findProperLocale()]
+                }
+                return category
+            }));
         });
-
     }
 
-    alreadySelected = (id) => this.state.selected === id
+    const findProperLocale = () => extensionInfo.extension.locales.default;
 
-    addSelected = (id) => {
-        this.setState(prevState => ({
-            selected: id
-        }), () => {
-            this.props.updateContent('data', this.state.selected)
-        })
-    }
+    const addSelected = (id) => setSelected(id);
 
-    removeSelected = (id) => {
-        this.setState(prevState => ({
-            selected: ''
-        }), () => {
-            this.props.updateContent('data', this.state.selected)
-        })
-    }
+    const removeSelected = () => setSelected('');
 
-    updateSelected = (e, id) => (e.target.checked) ? this.addSelected(id) : this.removeSelected();
+    const updateSelected = (e, id) => (e.target.checked) ? addSelected(id) : removeSelected();
 
-    render = () => {
-        return (
-            <Container>
-                <Partners>
-                    <label>Category</label>
-                    <List>
-                        {
-                            this.state.categories ? this.state.categories.sort((a, b) => a.name.localeCompare(b.name))
-                                .map((category, i) => {
+    return (
+        <Container>
+            <Partners>
+                <label>Category</label>
+                <List>
+                    {
+                        innerCategories ? innerCategories.sort((a, b) => a.name.localeCompare(b.name))
+                            .map((category, i) => {
                                 return <Select key={i}>
-                                    <input checked={this.state.selected === category.id} type={'checkbox'}
-                                           onChange={(e) => this.updateSelected(e, category.id)}/>
+                                    <input checked={selected === category.id} type={'checkbox'}
+                                           onChange={(e) => updateSelected(e, category.id)}/>
                                     <p>{category.name}</p>
                                 </Select>
                             }) : null
-                        }
-                    </List>
-                </Partners>
-            </Container>
-        );
-    }
+                    }
+                </List>
+            </Partners>
+        </Container>
+    );
 }
 
 CategorySelector.protoTypes = {
-    partners: PropTypes.array,
-    priority: PropTypes.array
+    updateContent: PropTypes.func,
+    category: PropTypes.string
 };
 
 const mapStateToProps = state => ({

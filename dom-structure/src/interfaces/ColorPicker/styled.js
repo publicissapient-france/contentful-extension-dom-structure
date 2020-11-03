@@ -8,7 +8,6 @@ export const SelectedColor = styled(BoxColor)`
     height : 30px;
     align-self:flex-start;
     
-    
     &.updated{
         border : 2px solid ${ extensionTheme.blueM };
     }
@@ -49,8 +48,6 @@ export const Field = styled.div`
 export const FieldsError = styled(Fields)`
     display : block;
 `;
-
-
 
 export const ChoiceColor = styled.div`
    display : flex;

@@ -6,8 +6,8 @@ import {
     opacity,
     paragraph, size, textPropsCenter,
     transparent
-} from "../../utils/atom.model.config";
-import {settingsSingleImage, settingsTemplate} from "../../utils/organism.model.config";
+} from "../../utils/configModel/atom.model.config";
+import {settingsSingleImage, settingsTemplate} from "../../utils/configModel/organism.model.config";
 
 export default {
     model: 'NavigationBar',

@@ -4,7 +4,7 @@ import {
     settingsTemplate,
     settingsText,
     settingsTitle
-} from "../../utils/organism.model.config";
+} from "../../utils/configModel/organism.model.config";
 
 export default {
     model: 'CardCategoryLong',

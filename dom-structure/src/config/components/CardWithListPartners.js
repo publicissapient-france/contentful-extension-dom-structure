@@ -4,8 +4,8 @@ import {
     settingsSimpleText, settingsSingleImage, settingsTagline,
     settingsTemplate,
     settingsText, settingsTitle
-} from "../../utils/organism.model.config";
-import {alignmentStart, padding} from "../../utils/atom.model.config";
+} from "../../utils/configModel/organism.model.config";
+import {alignmentStart, padding} from "../../utils/configModel/atom.model.config";
 
 export default {
     model: 'CardWithListPartners',

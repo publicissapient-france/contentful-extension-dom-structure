@@ -1,7 +1,7 @@
 import {
     settingsSingleImage,
     settingsTemplate
-} from "../../utils/organism.model.config";
+} from "../../utils/configModel/organism.model.config";
 
 export default {
     model: 'ImageOnlyOnMobile',

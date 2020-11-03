@@ -4,7 +4,7 @@ import {
     settingsTagline,
     settingsText,
     settingsSingleImage, settingsCTA, settingsSimpleText
-} from "../../utils/organism.model.config";
+} from "../../utils/configModel/organism.model.config";
 
 export default {
     model: 'CardImageLeft',

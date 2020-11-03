@@ -1,4 +1,4 @@
-import {settingsFlexContainer, settingsSectionTemplate} from "../../utils/organism.model.config";
+import {settingsFlexContainer, settingsSectionTemplate} from "../../utils/configModel/organism.model.config";
 import {
     alignmentStart,
     black,
@@ -9,8 +9,8 @@ import {
     textPropsCenter,
     title3, title4,
     white
-} from "../../utils/atom.model.config";
-import {borderMTD} from "../../utils/molecules.model.config";
+} from "../../utils/configModel/atom.model.config";
+import {borderMTD} from "../../utils/configModel/molecules.model.config";
 
 export default {
     model: 'ListSpeakers',

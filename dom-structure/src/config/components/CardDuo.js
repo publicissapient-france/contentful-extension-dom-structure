@@ -7,8 +7,8 @@ import {
     shadow,
     backgroundPosition,
     borderWidth, borderRadius, transparent, alignmentStart, black
-} from "../../utils/atom.model.config";
-import {settingsCTA, settingsTagline, settingsText, settingsTitle} from "../../utils/organism.model.config";
+} from "../../utils/configModel/atom.model.config";
+import {settingsCTA, settingsTagline, settingsText, settingsTitle} from "../../utils/configModel/organism.model.config";
 
 export default {
     model: 'CardDuo',

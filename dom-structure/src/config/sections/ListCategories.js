@@ -3,7 +3,7 @@ import {
     settingsFlexContainer,
     settingsSectionTemplate,
     settingsTemplate
-} from "../../utils/organism.model.config";
+} from "../../utils/configModel/organism.model.config";
 import {
     alignmentStart,
     black,
@@ -13,7 +13,7 @@ import {
     size,
     textProps,
     title4
-} from "../../utils/atom.model.config";
+} from "../../utils/configModel/atom.model.config";
 
 export default {
     model: 'ListCategories',

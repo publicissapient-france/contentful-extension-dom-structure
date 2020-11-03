@@ -1,4 +1,4 @@
-import {settingsTemplate, settingsText, settingsTitle} from "../../utils/organism.model.config";
+import {settingsTemplate, settingsText, settingsTitle} from "../../utils/configModel/organism.model.config";
 
 export default {
     model: 'HeaderCategory',

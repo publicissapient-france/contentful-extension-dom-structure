@@ -7,8 +7,8 @@ import {
     padding, paragraph, textPropsCenter,
     transparent,
     white
-} from "../../utils/atom.model.config";
-import {settingsSingleImage} from "../../utils/organism.model.config";
+} from "../../utils/configModel/atom.model.config";
+import {settingsSingleImage} from "../../utils/configModel/organism.model.config";
 
 export default {
     model: 'NavigationBasic',

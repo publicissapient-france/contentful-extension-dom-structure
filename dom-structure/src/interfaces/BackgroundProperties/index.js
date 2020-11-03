@@ -1,51 +1,31 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Container, Field, Inputs } from './styled';
+import React, {useState, useEffect} from 'react';
+import {Container, Field, Inputs} from './styled';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
-import { hasNotSamePropertyValue } from '../../utils/functions';
+import {hasNotSamePropertyValue} from '../../utils/functions';
 import Dot from '../../components/Dot';
-import {usePrevValues} from "../../utils/hooks";
 
-const BackgroundProperties = ({value, storeValue, defaultValue, hidden ,event,  updateStateProps}) => {
-    const [state, setState] = useState({background: value});
+const BackgroundProperties = ({value, storeValue, defaultValue, hidden, event, updateStateProps}) => {
+    const [innerBackground, setInnerBackground] = useState(value);
 
     useEffect(() => {
-        setState({background: value});
-    }, [])
+        setInnerBackground(value);
+    }, [value])
 
-    usePrevValues(
-        useMemo(() => ({
-            value
-        }), [value]),
-        useCallback(prevValues => {
-            if (prevValues.value !== value) {
-                setState({background: value});
-            }
-        }, [value])
-    );
-
-    usePrevValues(
-        useMemo(() => ({
-            state
-        }), [state]),
-        useCallback(prevValues => {
-            if (prevValues.state.background !== state.background) {
-                updateStateProps('background', state.background, event);
-            }
-        }, [state.background])
-    );
+    useEffect(() => {
+        if (innerBackground) {
+            updateStateProps('background', innerBackground, event);
+        }
+    }, [innerBackground])
 
     const updateBackground = (prop, value) => {
-        setState(prev => ({
+        setInnerBackground(prev => ({
             ...prev,
-            background: {
-                ...prev.background,
-                [prop]: String(value)
-            }
+            [prop]: String(value)
         }));
     }
 
-    if (!state.background) return null;
+    if (!innerBackground) return null;
     return (
         <Container className={hidden ? 'hidden' : ''}>
             <Field>
@@ -56,7 +36,7 @@ const BackgroundProperties = ({value, storeValue, defaultValue, hidden ,event,  
                         <input
                             type={'number'}
                             className={hasNotSamePropertyValue(storeValue, value, 'top') ? 'updated' : ''}
-                            value={state.background.top}
+                            value={innerBackground.top}
                             onChange={e => {
                                 updateBackground('top', e.target.value);
                             }}/>
@@ -77,7 +57,7 @@ BackgroundProperties.propTypes = {
     }),
     defaultValue: PropTypes.shape({
         top: PropTypes.string
-    }),
+    })
 };
 
 export default BackgroundProperties;

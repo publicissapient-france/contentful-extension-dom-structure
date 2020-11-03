@@ -29,6 +29,7 @@ class Template extends Component {
     }
 
     componentDidMount() {
+        console.log('TEMPLATE');
 
     };
 

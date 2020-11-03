@@ -38,18 +38,21 @@ class Iframe extends Component {
                             : null
                     }
                 </Field>
-                <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                    <Choices>
-                        <Column/>
-                        <Column>
-                            <Size size={this.props.getSettingsByProperty('basis', 'size')}
-                                  storeValueSize={this.props.getStoreSettingsByProperty('basis', 'size')}
-                                  defaultSize={this.props.getDefaultSettingsByProperty('basis', 'size')}
-                                  updateStateProps={this.updateBasis}
-                            />
-                        </Column>
-                    </Choices>
-                </Settings>
+                {
+                    this.props.openSettings &&
+                    <Settings>
+                        <Choices>
+                            <Column/>
+                            <Column>
+                                <Size size={this.props.getSettingsByProperty('basis', 'size')}
+                                      storeValueSize={this.props.getStoreSettingsByProperty('basis', 'size')}
+                                      defaultSize={this.props.getDefaultSettingsByProperty('basis', 'size')}
+                                      updateStateProps={this.updateBasis}
+                                />
+                            </Column>
+                        </Choices>
+                    </Settings>
+                }
                 <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue}
                                  updating={this.props.updateField}/>
             </div>

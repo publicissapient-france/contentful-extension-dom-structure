@@ -1,5 +1,5 @@
-import {padding, size, margin, black, opacity, alignmentStart} from "../../utils/atom.model.config";
-import {borderMTD} from "../../utils/molecules.model.config";
+import {padding, size, margin, black, opacity, alignmentStart} from "../../utils/configModel/atom.model.config";
+import {borderMTD} from "../../utils/configModel/molecules.model.config";
 
 export default {
     model: 'ButtonScrollTop',

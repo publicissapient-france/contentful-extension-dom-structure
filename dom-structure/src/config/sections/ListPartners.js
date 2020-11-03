@@ -1,5 +1,5 @@
-import {settingsFlexContainer, settingsSectionTemplate, settingsTemplate} from "../../utils/organism.model.config";
-import {alignmentStart, padding} from "../../utils/atom.model.config";
+import {settingsFlexContainer, settingsSectionTemplate, settingsTemplate} from "../../utils/configModel/organism.model.config";
+import {alignmentStart, padding} from "../../utils/configModel/atom.model.config";
 
 export default {
     model: 'ListPartners',

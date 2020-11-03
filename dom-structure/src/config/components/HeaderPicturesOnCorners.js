@@ -1,5 +1,5 @@
-import {black, opacity, backgroundPosition, padding, margin, alignmentCenter} from "../../utils/atom.model.config";
-import {settingsTagline, settingsTitle} from "../../utils/organism.model.config";
+import {black, opacity, backgroundPosition, padding, margin, alignmentCenter} from "../../utils/configModel/atom.model.config";
+import {settingsTagline, settingsTitle} from "../../utils/configModel/organism.model.config";
 
 export default {
     model: 'HeaderPicturesOnCorners',

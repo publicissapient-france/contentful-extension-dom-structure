@@ -4,8 +4,8 @@ import {
     settingsTemplate,
     settingsText,
     settingsTitle
-} from "../../utils/organism.model.config";
-import {margin, size} from "../../utils/atom.model.config";
+} from "../../utils/configModel/organism.model.config";
+import {margin, size} from "../../utils/configModel/atom.model.config";
 
 export default {
     model: 'CardIframe',
