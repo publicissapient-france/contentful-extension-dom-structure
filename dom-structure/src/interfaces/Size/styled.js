@@ -22,7 +22,6 @@ export const Field = styled.div`
     &>label{
         margin-left : 30px;
     }
- 
     
     &>div{
         width : fit-content;

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -16,241 +16,155 @@ import {
 import {getCurrentExtension} from '../../actions/index';
 import SvgArrowToTop from '../../components/svg/SvgArrowToTop';
 
-class PartnerSelector extends Component {
-    constructor(props) {
-        super(props);
+const PartnerSelector = ({partners, priority, updateContent, forComponent, extensionInfo}) => {
+    const [innerPriority, setInnerPriority] = useState(priority);
+    const [innerPartners, setInnerPartners] = useState([]);
+    const [selected, setSelected] = useState(partners);
 
-        this.state = {
-            partners: [],
-            selected: [],
-            priority: []
-        };
-    }
-
-    componentDidMount = async () => {
-        await this.initRessources();
-        this.setState({
-            selected: this.props.partners,
-            priority: this.props.priority
-        })
-    };
-
-    componentDidUpdate(prevProps) {
-        if (this.props.partners !== prevProps.partners) {
-            this.setState({
-                selected: this.props.partners
-            })
+    useEffect(() => {
+        async function initialization() {
+            await initRessources();
         }
-        if (this.props.priority !== prevProps.priority) {
-            this.setState({
-                priority: this.props.priority,
-                selected: this.orderSelectedWithPriority()
-            }, () => {
-                if(this.props.forComponent){
-                    this.props.updateContent('data', this.state.selected)
-                }else{
-                    this.props.updateContent(this.state.selected, 'data')
-                }
 
-            })
+        initialization();
+        setInnerPriority(priority);
+        setSelected(partners);
+    }, []);
+
+    useEffect(() => {
+        setSelected(partners)
+    }, [partners]);
+
+    useEffect(() => {
+        if (forComponent) {
+            updateContent('priority', innerPriority)
+        } else {
+            updateContent(innerPriority, 'priority')
         }
-    }
+    }, [innerPriority])
 
-    findProperLocale = () => this.props.extensionInfo.extension.locales.default;
-    getById = (id) => this.state.partners.find(element => element.id === id);
+    useEffect(() => {
+        if (forComponent) {
+            updateContent('data', selected)
+        } else {
+            updateContent(selected, 'data')
+        }
+    }, [selected])
 
-
-    initRessources = async () => {
-        await this.props.extensionInfo.extension.space.getEntries({
+    const initRessources = async () => {
+        await extensionInfo.extension.space.getEntries({
             'content_type': 'partner',
         }).then(result => {
-            this.setState({
-                partners: result.items.map(item => {
-                    let partner = {
-                        id: item.sys.id,
-                        name: item.fields.name[this.findProperLocale()]
-                    }
-                    return partner
-                })
-            })
+            setInnerPartners(result.items.map(item => {
+                let partner = {
+                    id: item.sys.id,
+                    name: item.fields.name[findProperLocale()]
+                }
+                return partner
+            }))
         });
-
     }
 
-    alreadySelected = (id) => this.state.selected.find(item => item === id)
+    const findProperLocale = () => extensionInfo.extension.locales.default;
+    const getById = (id) => innerPartners.find(element => element.id === id);
+    const orderSelectedWithNewPriority = (newPriority) => [...newPriority, ...selected.filter(id => !(newPriority.find(item => item === id)))];
+    const alreadyOnPriority = (id) => innerPriority.find(item => item === id)
 
-    addPriority = (id) => {
-        this.setState(prevState => ({
-            priority: [...prevState.priority, id]
-        }), () => {
-
-            if(this.props.forComponent){
-                this.props.updateContent('priority', this.state.priority)
-            }else{
-                this.props.updateContent(this.state.priority, 'priority')
-            }
-
-            this.refreshOrderWithPriority()
-        })
+    const addPriority = (id) => {
+        const newPriority = [...innerPriority, id];
+        setInnerPriority(newPriority);
+        setSelected(orderSelectedWithNewPriority(newPriority));
     }
 
-    updatePriority = (id) => {
-        if (!this.alreadyOnPriority(id)) {
-            this.addPriority(id);
-
-            if (!this.alreadySelected(id)) {
-                this.addSelected(id);
-            }
-        } else {
-            this.removePriority(id);
-        }
+    const removePriority = (id) => {
+        const newPriority = innerPriority.filter(item => item !== id);
+        setInnerPriority(newPriority);
+        setSelected(orderSelectedWithNewPriority(newPriority));
     }
 
-    removePriority = (id) => {
-        this.setState(prevState => ({
-            priority: prevState.priority.filter(item => item !== id)
-        }), () => {
-            if(this.props.forComponent){
-                this.props.updateContent('priority', this.state.priority)
-            }else{
-                this.props.updateContent(this.state.priority, 'priority')
-            }
-            this.refreshOrderWithPriority()
-        })
+    const updatePriority = (id) => !alreadyOnPriority(id) ? addPriority(id) : removePriority(id);
+
+    const addSelected = (id) => {
+        setSelected([...selected, id])
     }
 
-    refreshOrderWithPriority = () => {
-        this.setState({
-            selected: this.orderSelectedWithPriority()
-        }, () => {
-            if(this.props.forComponent){
-                this.props.updateContent('data', this.state.selected)
-            }else{
-                this.props.updateContent(this.state.selected, 'data')
-            }
-        })
+    const removeFromSelectedList = (id) => {
+        setSelected(selected.filter(item => item !== id));
+        setInnerPriority(innerPriority.filter(item => item !== id));
     }
 
-    alreadyOnPriority = (id) => this.state.priority.find(item => item === id)
+    const updateSelected = (e, id) => (e.target.checked) ? addSelected(id) : removeFromSelectedList(id);
 
-    addSelected = (id) => {
-        this.setState(prevState => ({
-            selected: [...prevState.selected, id]
-        }), () => {
-            if(this.props.forComponent){
-                this.props.updateContent('data', this.state.selected)
-            }else{
-                this.props.updateContent(this.state.selected, 'data')
-            }
-        })
-    }
+    const alreadySelected = (id) => selected.find(item => item === id) ? true : false;
 
-    removeSelected = (id) => {
-        this.setState(prevState => ({
-            selected: prevState.selected.filter(item => item !== id)
-        }), () => {
-            if(this.props.forComponent){
-                this.props.updateContent('data', this.state.selected)
-            }else{
-                this.props.updateContent(this.state.selected, 'data')
-            }
-        })
-    }
-
-    updateSelected = (e, id) => {
-        if (e.target.checked) {
-            this.addSelected(id);
-        } else {
-            this.removeSelected(id);
-
-            if (this.alreadyOnPriority(id)) {
-                this.removePriority(id);
-            }
-        }
-    }
-
-    orderSelectedWithPriority = () => [...this.state.priority, ...this.state.selected.filter(id => !this.alreadyOnPriority(id))];
-
-    moveElementToTop = (index) => {
+    const moveElementToTop = (index) => {
         if (index === 0) return
-        const a = this.props.priority[index];
-        const b = this.props.priority[index - 1];
-        let newOrder = [...this.props.priority];
+        const a = priority[index];
+        const b = priority[index - 1];
+        let newOrder = [...priority];
         newOrder[index - 1] = a;
         newOrder[index] = b;
 
-        this.setState({priority: newOrder}, () => {
-            if(this.props.forComponent){
-                this.props.updateContent('priority', this.state.priority)
-            }else{
-                this.props.updateContent(this.state.priority, 'priority')
-            }
-        })
+        setInnerPriority(newOrder);
+        setSelected(orderSelectedWithNewPriority(newOrder));
     }
 
-    moveElementToBottom = (index) => {
-        if (index === (this.props.priority.length - 1)) return
-        const a = this.props.priority[index];
-        const b = this.props.priority[index + 1];
-        let newOrder = [...this.props.priority];
+    const moveElementToBottom = (index) => {
+        if (index === (priority.length - 1)) return
+        const a = priority[index];
+        const b = priority[index + 1];
+        let newOrder = [...priority];
         newOrder[index] = b;
         newOrder[index + 1] = a;
 
-        this.setState({priority: newOrder}, () => {
-            if(this.props.forComponent){
-                this.props.updateContent('priority', this.state.priority)
-            }else{
-                this.props.updateContent(this.state.priority, 'priority')
-            }
-        })
+        setInnerPriority(newOrder);
+        setSelected(orderSelectedWithNewPriority(newOrder));
     }
 
-    render = () => {
-        return (
-            <Container>
-                <Partners>
-                    <label>Partners</label>
-                    <List>
-                        {
-                            this.state.partners ? this.state.partners.sort((a, b) => a.name.localeCompare(b.name)).map((partner, i) => {
-                                return <Select key={i}>
-                                    <input checked={this.state.selected.includes(partner.id)} type={'checkbox'}
-                                           onChange={(e) => this.updateSelected(e, partner.id)}/>
-                                    <p className={this.state.priority.includes(partner.id) ? 'active' : ''}
-                                       onClick={() => {
-                                           this.updatePriority(partner.id)
-                                       }}>{partner.name}</p>
-                                </Select>
-                            }) : null
-                        }
-                    </List>
-                </Partners>
-                <Priority>
-                    <label>Priority List</label>
-                    <PriorityList>
-                        {
-                            this.state.priority ? this.state.priority.map((id, i) => {
-                                const partner = this.getById(id);
-                                if (!partner) return null
-                                return <Element key={i}>
-                                    <ButtonsMove>
-                                        <Button onClick={() => this.moveElementToBottom(i)}><SvgArrowToTop/></Button>
-                                        <Button onClick={() => this.moveElementToTop(i)}><SvgArrowToTop/></Button>
-                                    </ButtonsMove>
-                                    <Identity>{partner.name}</Identity>
-                                </Element>
-                            }) : null
-                        }
-                    </PriorityList>
-                </Priority>
-            </Container>
-        );
-    }
+    return (
+        <Container>
+            <Partners>
+                <label>Partners</label>
+                <List>
+                    {
+                        innerPartners && innerPartners.sort((a, b) => a.name.localeCompare(b.name)).map((partner, i) => {
+                            return <Select key={i}>
+                                <input checked={selected.includes(partner.id)} type={'checkbox'}
+                                       onChange={(e) => updateSelected(e, partner.id)}/>
+                                <p className={innerPriority.includes(partner.id) ? 'active' : ''}
+                                   onClick={() => updatePriority(partner.id)}>{partner.name}</p>
+                            </Select>
+                        })
+                    }
+                </List>
+            </Partners>
+            <Priority>
+                <label>Priority List</label>
+                <PriorityList>
+                    {
+                        innerPriority && innerPriority.map((id, i) => {
+                            const partner = getById(id);
+                            if (!partner) return null
+                            return <Element key={i}>
+                                <ButtonsMove>
+                                    <Button onClick={() => moveElementToBottom(i)}><SvgArrowToTop/></Button>
+                                    <Button onClick={() => moveElementToTop(i)}><SvgArrowToTop/></Button>
+                                </ButtonsMove>
+                                <Identity>{partner.name}</Identity>
+                            </Element>
+                        })
+                    }
+                </PriorityList>
+            </Priority>
+        </Container>
+    );
 }
 
 PartnerSelector.protoTypes = {
     partners: PropTypes.array,
-    priority: PropTypes.array
+    priority: PropTypes.array,
+    updateContent: PropTypes.func,
+    forComponent: PropTypes.bool
 };
 
 const mapStateToProps = state => ({

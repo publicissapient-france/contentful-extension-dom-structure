@@ -29,7 +29,6 @@ class Template extends Component {
     }
 
     componentDidMount() {
-        console.log('TEMPLATE');
 
     };
 
@@ -95,8 +94,8 @@ class Template extends Component {
                 <FieldBanner {...this.props}/>
                 <Field>
                     {
-                        !isEmpty(this.props.defaultContent) ?
-                            <Content className={!this.props.openContent ? 'hidden' : ''}>
+                        !isEmpty(this.props.defaultContent) && this.props.openContent ?
+                            <Content>
                                 <ImageUploader asset={getAsset(content, currentResponsiveMode)}
                                                alt={getAlt(content, indexLanguage)}
                                                index={0}
@@ -105,86 +104,91 @@ class Template extends Component {
                                 />
                             </Content> : null
                     }
-
-                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                        <Choices>
-                            <Column className={this.state.openColorView ? 'full-width' : ''}>
-                                <ColorPicker hidden={false}
-                                             color={this.props.getSettingsByProperty('basis', 'color')}
-                                             opacity={this.props.getSettingsByProperty('basis', 'opacity')}
-                                             storeValueColor={this.props.getStoreSettingsByProperty('basis', 'color')}
-                                             storeValueOpacity={this.props.getStoreSettingsByProperty('basis', 'color')}
-                                             defaultColor={this.props.getDefaultSettingsByProperty('basis', 'color')}
-                                             defaultOpacity={this.props.getDefaultSettingsByProperty('basis', 'opacity')}
-                                             openView={this.state.openColorView}
-                                             updateStateProps={this.updateBasis}
-                                             toggleOpenView={this.toggleOpenView}
-                                />
-                            </Column>
-                            <Column className={this.state.openColorView ? 'hidden' : ''}>
-                                <Row>
-                                    <Gradient color={this.props.getSettingsByProperty('basis', 'color')}
-                                              storeValue={this.props.getStoreSettingsByProperty('basis', 'color')}
-                                              defaultValue={this.props.getDefaultSettingsByProperty('basis', 'color')}
-                                              updateStateProps={this.updateBasis}/>
-                                </Row>
-                                <Row>
-                                    <BackgroundProperties
-                                        value={this.props.getSettingsByProperty('basis', 'background')}
-                                        storeValue={this.props.getStoreSettingsByProperty('basis', 'background')}
-                                        defaultValue={this.props.getDefaultSettingsByProperty('basis', 'background')}
-                                        updateStateProps={this.updateBasis}/>
-                                </Row>
-                                <Row>
-                                    <Size size={this.props.getSettingsByProperty('basis', 'size')}
-                                          storeValueSize={this.props.getStoreSettingsByProperty('basis', 'size')}
-                                          defaultSize={this.props.getDefaultSettingsByProperty('basis', 'size')}
-                                          updateStateProps={this.updateBasis}
+                    {
+                        this.props.openSettings &&
+                        <Settings>
+                            <Choices>
+                                <Column className={this.state.openColorView ? 'full-width' : ''}>
+                                    <ColorPicker hidden={false}
+                                                 color={this.props.getSettingsByProperty('basis', 'color')}
+                                                 opacity={this.props.getSettingsByProperty('basis', 'opacity')}
+                                                 storeValueColor={this.props.getStoreSettingsByProperty('basis', 'color')}
+                                                 storeValueOpacity={this.props.getStoreSettingsByProperty('basis', 'color')}
+                                                 defaultColor={this.props.getDefaultSettingsByProperty('basis', 'color')}
+                                                 defaultOpacity={this.props.getDefaultSettingsByProperty('basis', 'opacity')}
+                                                 openView={this.state.openColorView}
+                                                 updateStateProps={this.updateBasis}
+                                                 toggleOpenView={this.toggleOpenView}
                                     />
-                                </Row>
-                                <Row>
-                                    <Padding hidden={this.state.openColorView}
-                                             padding={this.props.getSettingsByProperty('basis', 'padding')}
-                                             storeValuePadding={this.props.getStoreSettingsByProperty('basis', 'padding')}
-                                             defaultPadding={this.props.getDefaultSettingsByProperty('basis', 'padding')}
-                                             updateStateProps={this.updateBasis}
-                                    />
-                                    <Margin hidden={this.state.openColorView}
-                                            margin={this.props.getSettingsByProperty('basis', 'margin')}
-                                            storeValueMargin={this.props.getStoreSettingsByProperty('basis', 'margin')}
-                                            defaultMargin={this.props.getDefaultSettingsByProperty('basis', 'margin')}
+                                </Column>
+                                <Column className={this.state.openColorView ? 'hidden' : ''}>
+                                    <Row>
+                                        <Gradient color={this.props.getSettingsByProperty('basis', 'color')}
+                                                  storeValue={this.props.getStoreSettingsByProperty('basis', 'color')}
+                                                  defaultValue={this.props.getDefaultSettingsByProperty('basis', 'color')}
+                                                  updateStateProps={this.updateBasis}/>
+                                    </Row>
+                                    <Row>
+                                        <BackgroundProperties
+                                            value={this.props.getSettingsByProperty('basis', 'background')}
+                                            storeValue={this.props.getStoreSettingsByProperty('basis', 'background')}
+                                            defaultValue={this.props.getDefaultSettingsByProperty('basis', 'background')}
+                                            updateStateProps={this.updateBasis}/>
+                                    </Row>
+                                    <Row>
+                                        <Size size={this.props.getSettingsByProperty('basis', 'size')}
+                                              storeValueSize={this.props.getStoreSettingsByProperty('basis', 'size')}
+                                              defaultSize={this.props.getDefaultSettingsByProperty('basis', 'size')}
+                                              updateStateProps={this.updateBasis}
+                                        />
+                                    </Row>
+                                    <Row>
+                                        <Padding hidden={this.state.openColorView}
+                                                 padding={this.props.getSettingsByProperty('basis', 'padding')}
+                                                 storeValuePadding={this.props.getStoreSettingsByProperty('basis', 'padding')}
+                                                 defaultPadding={this.props.getDefaultSettingsByProperty('basis', 'padding')}
+                                                 updateStateProps={this.updateBasis}
+                                        />
+                                        <Margin hidden={this.state.openColorView}
+                                                margin={this.props.getSettingsByProperty('basis', 'margin')}
+                                                storeValueMargin={this.props.getStoreSettingsByProperty('basis', 'margin')}
+                                                defaultMargin={this.props.getDefaultSettingsByProperty('basis', 'margin')}
+                                                updateStateProps={this.updateBasis}
+                                        />
+                                    </Row>
+                                    <Row></Row>
+                                </Column>
+                                <Column/>
+                                <Column>
+                                    <Shadow shadow={this.props.getSettingsByProperty('basis', 'shadow')}
+                                            storeValueShadow={this.props.getStoreSettingsByProperty('basis', 'shadow')}
+                                            defaultShadow={this.props.getDefaultSettingsByProperty('basis', 'shadow')}
+                                            updateStateProps={this.updateBasis}/>
+                                    <Shadow shadow={this.props.getSettingsByProperty('basis', 'shadow2')}
+                                            storeValueShadow={this.props.getStoreSettingsByProperty('basis', 'shadow2')}
+                                            defaultShadow={this.props.getDefaultSettingsByProperty('basis', 'shadow2')}
                                             updateStateProps={this.updateBasis}
+                                            customTarget={'shadow2'}
                                     />
-                                </Row>
-                                <Row></Row>
-                            </Column>
-                            <Column/>
-                            <Column>
-                                <Shadow shadow={this.props.getSettingsByProperty('basis', 'shadow')}
-                                        storeValueShadow={this.props.getStoreSettingsByProperty('basis', 'shadow')}
-                                        defaultShadow={this.props.getDefaultSettingsByProperty('basis', 'shadow')}
-                                        updateStateProps={this.updateBasis}/>
-                                <Shadow shadow={this.props.getSettingsByProperty('basis', 'shadow2')}
-                                        storeValueShadow={this.props.getStoreSettingsByProperty('basis', 'shadow2')}
-                                        defaultShadow={this.props.getDefaultSettingsByProperty('basis', 'shadow2')}
-                                        updateStateProps={this.updateBasis}
-                                        customTarget={'shadow2'}
+                                </Column>
+                                <BorderSystem
+                                    label={null}
+                                    propertyName={'border'}
+                                    getSettingsByProperty={this.props.getSettingsByProperty}
+                                    getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
+                                    getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
+                                    updateSettingsProperty={this.props.updateSettingsProperty}
+                                    currentResponsiveMode={currentResponsiveMode}
                                 />
-                            </Column>
-                            <BorderSystem
-                                label={null}
-                                propertyName={'border'}
-                                getSettingsByProperty={this.props.getSettingsByProperty}
-                                getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
-                                getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
-                                updateSettingsProperty={this.props.updateSettingsProperty}
-                                currentResponsiveMode={currentResponsiveMode}
-                            />
 
-                        </Choices>
-                    </Settings>
+                            </Choices>
+                        </Settings>
+                    }
+
+
                 </Field>
-                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
+                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue}
+                                 updating={this.props.updateField}/>
             </div>
         );
     }

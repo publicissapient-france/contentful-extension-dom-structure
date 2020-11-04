@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import isEmpty from "lodash/isEmpty";
 import {getCurrentStyle} from "../../actions";
-import { getHtml} from "../../utils/Fields/getters";
+import {getHtml} from "../../utils/Fields/getters";
 
 import FieldWrapper from '../../HOC/FieldWrapper';
 import FieldBanner from "../../components/FieldBanner";
@@ -39,42 +39,45 @@ class TextMarkdown extends Component {
                 <FieldBanner {...this.props}/>
                 <Field>
                     {
-                        !isEmpty(this.props.content) ?
-                            <Content className={!this.props.openContent ? 'hidden' : ''}>
+                        !isEmpty(this.props.content) && this.props.openContent ?
+                            <Content>
                                 <InputMarkdown currentLanguage={indexLanguage}
                                                action={this.props.updateTranlatedContent} targetProperty={'html'}
                                                defaultValue={getHtml(content, indexLanguage)}/>
                             </Content>
                             : null
                     }
-
-                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                        <TypeSystem label={null}
-                                    propertyName={'typography'}
-                                    getSettingsByProperty={this.props.getSettingsByProperty}
-                                    getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
-                                    getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
-                                    updateSettingsProperty={this.props.updateSettingsProperty}
-                                    currentResponsiveMode={currentResponsiveMode}
-                                    getSettingsPropertyNoResponsive={this.props.getSettingsPropertyNoResponsive}
-                                    getDefaultSettingsPropertyNoResponsive={this.props.getDefaultSettingsPropertyNoResponsive}
-                                    getStoreSettingsPropertyNoResponsive={this.props.getStoreSettingsPropertyNoResponsive}
-                                    updateSettingsNoResponsive={this.props.updateSettingsNoResponsive}
-                        />
-                        <Choices>
-                            <Column/>
-                            <Column>
-                                <Padding hidden={false}
-                                         padding={this.props.getSettingsByProperty('basis', 'padding')}
-                                         storeValuePadding={this.props.getStoreSettingsByProperty('basis', 'padding')}
-                                         defaultPadding={this.props.getDefaultSettingsByProperty('basis', 'padding')}
-                                         updateStateProps={this.updateBasis}
-                                />
-                            </Column>
-                        </Choices>
-                    </Settings>
+                    {
+                        this.props.openSettings &&
+                        <Settings>
+                            <TypeSystem label={null}
+                                        propertyName={'typography'}
+                                        getSettingsByProperty={this.props.getSettingsByProperty}
+                                        getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
+                                        getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
+                                        updateSettingsProperty={this.props.updateSettingsProperty}
+                                        currentResponsiveMode={currentResponsiveMode}
+                                        getSettingsPropertyNoResponsive={this.props.getSettingsPropertyNoResponsive}
+                                        getDefaultSettingsPropertyNoResponsive={this.props.getDefaultSettingsPropertyNoResponsive}
+                                        getStoreSettingsPropertyNoResponsive={this.props.getStoreSettingsPropertyNoResponsive}
+                                        updateSettingsNoResponsive={this.props.updateSettingsNoResponsive}
+                            />
+                            <Choices>
+                                <Column/>
+                                <Column>
+                                    <Padding hidden={false}
+                                             padding={this.props.getSettingsByProperty('basis', 'padding')}
+                                             storeValuePadding={this.props.getStoreSettingsByProperty('basis', 'padding')}
+                                             defaultPadding={this.props.getDefaultSettingsByProperty('basis', 'padding')}
+                                             updateStateProps={this.updateBasis}
+                                    />
+                                </Column>
+                            </Choices>
+                        </Settings>
+                    }
                 </Field>
-                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
+                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue}
+                                 updating={this.props.updateField}/>
             </div>
         );
     }

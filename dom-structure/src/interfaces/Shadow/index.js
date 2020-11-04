@@ -1,72 +1,48 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Container, Field, Inputs, Preview} from './styled';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import {hasNotSamePropertyValue} from '../../utils/functions';
 import Dot from '../../components/Dot';
 
-class Shadow extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
+const Shadow = ({shadow, storeValueShadow, defaultShadow, hidden, customTarget, event, updateStateProps}) => {
+    const [innerShadow, setInnerShadow] = useState(shadow);
+
+    useEffect(() => {
+        setInnerShadow(shadow);
+    }, [shadow]);
+
+    useEffect(() => {
+        updateStateProps(customTarget || 'shadow', innerShadow, event);
+    }, [innerShadow]);
+
+    const updateShadow = (prop, value) => {
+        setInnerShadow(prev => ({
+            ...prev,
+            [prop]: value
+        }));
     }
 
-    componentDidMount = () => {
-        this.setState({
-            shadow: this.props.shadow
-        });
-    };
-
-    componentDidUpdate = prevProps => {
-        if (this.props.shadow !== prevProps.shadow) {
-            this.setState(prevState => ({
-                ...prevState,
-                shadow: this.props.shadow
-            }));
-        }
-    }
-
-    updateShadow = (prop, value) => {
-        this.setState(prevState => ({
-            ...prevState,
-            shadow: {
-                ...prevState.shadow,
-                [prop]: value,
-            }
-        }), () => {
-            this.props.updateStateProps(this.props.customTarget || 'shadow', this.state.shadow, this.props.event);
-        });
-    }
-
-    render() {
-        const {shadow, storeValueShadow, defaultShadow, hidden} = this.props;
-
-        if (!shadow || !this.state.shadow ) return null;
-        return (
-            <Container className={hidden ? 'hidden' : ''}>
-                <Field>
-                    <div>
-                        <label>shadow</label>
-                        <Inputs>
-                            <Dot enabled={!isEqual(defaultShadow, shadow)}/>
-                            <input type={'text'}
-                                   value={shadow.value}
-                                   className={hasNotSamePropertyValue(storeValueShadow, shadow, 'value') ? 'updated' : ''}
-                                   onChange={e => {
-                                       this.updateShadow('value', e.target.value)
-
-                                   }}/>
-
-                        </Inputs>
-                    </div>
-                    <Preview shadow={shadow.value}>
-                        <div/>
-                    </Preview>
-                </Field>
-            </Container>
-
-        );
-    }
+    if (!shadow || !innerShadow ) return null;
+    return (
+        <Container className={hidden ? 'hidden' : ''}>
+            <Field>
+                <div>
+                    <label>shadow</label>
+                    <Inputs>
+                        <Dot enabled={!isEqual(defaultShadow, shadow)}/>
+                        <input type={'text'}
+                               value={shadow.value}
+                               className={hasNotSamePropertyValue(storeValueShadow, shadow, 'value') ? 'updated' : ''}
+                               onChange={e => updateShadow('value', e.target.value)}/>
+                    </Inputs>
+                </div>
+                <Preview shadow={shadow.value}>
+                    <div/>
+                </Preview>
+            </Field>
+        </Container>
+    );
 }
 
 Shadow.propTypes = {
@@ -80,6 +56,9 @@ Shadow.propTypes = {
     defaultShadow: PropTypes.shape({
         value: PropTypes.string,
     }),
+    hidden : PropTypes.bool,
+    customTarget : PropTypes.string,
+    event: PropTypes.string
 };
 
 export default Shadow;

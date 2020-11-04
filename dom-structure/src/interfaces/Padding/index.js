@@ -1,72 +1,50 @@
-import React, { Component } from 'react';
-import { Container, Field, Inputs } from './styled';
+import React, {useState, useEffect} from 'react';
+import {Container, Field, Inputs} from './styled';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
-import { hasNotSamePropertyValue } from '../../utils/functions';
+import {hasNotSamePropertyValue} from '../../utils/functions';
 import Dot from '../../components/Dot';
 
-class Padding extends Component {
-    constructor (props) {
-        super(props);
-        this.state = {};
+const Padding = ({padding, storeValuePadding, defaultPadding, hidden, updateStateProps, event}) => {
+    const [innerPadding, setInnerPadding] = useState(padding);
+
+    useEffect(() => {
+        setInnerPadding(padding);
+    }, [padding]);
+
+    useEffect(() => {
+        updateStateProps('padding', innerPadding, event);
+    }, [innerPadding]);
+
+    const updatePadding = (prop, value) => {
+        setInnerPadding(prev => ({
+            ...prev,
+            [prop]: String(value)
+        }))
     }
 
-    componentDidMount = () => {
-        this.setState({
-            padding: this.props.padding
-        });
-    };
-
-    componentDidUpdate = prevProps => {
-        if (this.props.padding !== prevProps.padding) {
-            this.setState(prevState => ({
-                ...prevState,
-                padding: this.props.padding
-            }));
-        }
-    }
-
-    updatePadding = (prop, value) => {
-        this.setState(prevState => ({
-            ...prevState,
-            padding: {
-                ...prevState.padding,
-                [prop]: String(value),
-            }
-        }), () => {
-            this.props.updateStateProps('padding', this.state.padding, this.props.event);
-        });
-    }
-
-    render () {
-        const { padding, storeValuePadding, defaultPadding, hidden } = this.props;
-
-        if (!this.state.padding) return null;
-        return (
-            <Container className={hidden ? 'hidden' : ''}>
-                <Field>
-                    <div>
-                        <label>padding</label>
-                        <Inputs>
-                            <Dot enabled={!isEqual(defaultPadding, padding)}/>
-                            {
-                                ['top', 'right', 'bottom', 'left'].map((edge, i) => {
-                                    return (
-                                        <input key={i} type={'number'} min={0}
-                                            className={hasNotSamePropertyValue(storeValuePadding, padding, edge) ? 'updated' : ''}
-                                            value={this.state.padding[edge]}
-                                            onChange={e => {
-                                                this.updatePadding(edge, e.target.value);
-                                            }}/>)
-                                })
-                            }
-                        </Inputs>
-                    </div>
-
-                </Field>
-            </Container>
-        );
-    }
+    if (!innerPadding) return null;
+    return (
+        <Container className={hidden ? 'hidden' : ''}>
+            <Field>
+                <div>
+                    <label>padding</label>
+                    <Inputs>
+                        <Dot enabled={!isEqual(defaultPadding, padding)}/>
+                        {
+                            ['top', 'right', 'bottom', 'left'].map((edge, i) => {
+                                return (
+                                    <input key={i} type={'number'} min={0}
+                                           className={hasNotSamePropertyValue(storeValuePadding, padding, edge) ? 'updated' : ''}
+                                           value={innerPadding[edge]}
+                                           onChange={e => updatePadding(edge, e.target.value)}/>)
+                            })
+                        }
+                    </Inputs>
+                </div>
+            </Field>
+        </Container>
+    );
 }
 
 Padding.propTypes = {
@@ -89,6 +67,9 @@ Padding.propTypes = {
         bottom: PropTypes.string,
         left: PropTypes.string
     }),
+    hidden: PropTypes.bool,
+    updateStateProps: PropTypes.func,
+    event: PropTypes.string
 };
 
 export default Padding;

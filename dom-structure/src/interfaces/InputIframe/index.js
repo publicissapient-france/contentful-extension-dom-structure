@@ -1,20 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Container} from './styled';
 
-class InputIframe extends Component {
-    render () {
-        const { action, targetProperty, defaultValue } = this.props;
-        return (<Container>
-
+const InputIframe = ({action, targetProperty, defaultValue}) => {
+    return (
+        <Container>
             <textarea
-                   value={defaultValue}
-                   onChange={e => {
-                       action(e.target.value, targetProperty);
-                   }}/>
+                value={defaultValue}
+                onChange={e => action(e.target.value, targetProperty)}/>
             <span>Iframe Html Code</span>
-        </Container>);
-    }
+        </Container>
+    );
 }
 
 InputIframe.propTypes = {

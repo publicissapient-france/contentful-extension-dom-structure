@@ -4,8 +4,7 @@ import { extensionTheme } from '../../style/theme';
 export const ChoiceFont = styled.div`
    display : flex;
    flex-direction : column;
-    height : 100%;
-
+   height : 100%;
 `;
 
 export const ContainerProps = styled.div`
@@ -58,7 +57,6 @@ export const TypoProps = styled.div`
     & input{
         max-width : 50px;
         margin-left : 10px;
-       
     }
    }
 `;

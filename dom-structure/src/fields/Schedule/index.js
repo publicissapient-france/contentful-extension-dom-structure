@@ -56,75 +56,83 @@ class Schedule extends Component {
             <div>
                 <FieldBanner {...this.props}/>
                 <Field>
-                    <Content className={!this.props.openContent ? 'hidden' : ''}>
+                    {
+                        this.props.openContent &&
+                        <Content></Content>
+                    }
+                    {
+                        this.props.openSettings &&
+                        <Settings>
+                            <Grid>
+                                <label>
+                                    <input type={'checkbox'} defaultChecked={this.getGrid()}
+                                           onChange={(e) => {
+                                               this.props.updateSettingsNoResponsive('grid', !this.getGrid())
+                                           }}/>
+                                    Display grid
+                                </label>
+                            </Grid>
+                            <Sets>
+                                {[{n: '1', label: 'Tabs Date, Filter Button, Opening, Keynote, Opening'},
+                                    {n: '2', label: 'Breakfast, Lunch, Break,Party'},
+                                    {n: '3', label: 'Talk, Fastrack, Rex...'}].map(e => <SetContainer>
+                                        <div>
+                                            <h4>Set {e.n}</h4>
+                                            <label>{e.label}</label>
+                                        </div>
 
-                    </Content>
-                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                        <Grid>
-                            <label>
-                                <input type={'checkbox'} defaultChecked={this.getGrid()}
-                                       onChange={(e) => {
-                                           this.props.updateSettingsNoResponsive('grid', !this.getGrid())
-                                       }}/>
-                                Display grid
-                            </label>
-                        </Grid>
-                        <Sets>
-                            {[{n : '1', label : 'Tabs Date, Filter Button, Opening, Keynote, Opening'},
-                                {n : '2', label : 'Breakfast, Lunch, Break,Party'},
-                                {n : '3', label : 'Talk, Fastrack, Rex...'}].map(e => <SetContainer>
-                                    <div>
-                                        <h4>Set {e.n}</h4>
-                                        <label>{e.label}</label>
-                                    </div>
+                                        <Set property={`set${e.n}Bkg`} label={'Background'}
+                                             getSettingsByProperty={this.props.getSettingsByProperty}
+                                             view={this.state.selectedView} updateSelectedView={this.updateSelectedView}/>
+                                        <SetTypography property={`set${e.n}Title`} propertyBkg={`set${e.n}Bkg`}
+                                                       label={'Title'}
+                                                       getSettingsByProperty={this.props.getSettingsByProperty}
+                                                       view={this.state.selectedView}
+                                                       updateSelectedView={this.updateSelectedView}/>
+                                        <SetTypography property={`set${e.n}Text`} propertyBkg={`set${e.n}Bkg`}
+                                                       label={'Duration, Author'}
+                                                       getSettingsByProperty={this.props.getSettingsByProperty}
+                                                       view={this.state.selectedView}
+                                                       updateSelectedView={this.updateSelectedView}/>
+                                    </SetContainer>
+                                )}
+                            </Sets>
+                            {
+                                this.state.selectedView.includes('Bkg') ?
+                                    <Column className={this.state.openColorView ? 'full-width' : ''}>
+                                        <ColorPicker hidden={false}
+                                                     color={this.props.getSettingsByProperty(this.state.selectedView, 'color')}
+                                                     opacity={this.props.getSettingsByProperty(this.state.selectedView, 'opacity')}
+                                                     storeValueColor={this.props.getStoreSettingsByProperty(this.state.selectedView, 'color')}
+                                                     storeValueOpacity={this.props.getStoreSettingsByProperty(this.state.selectedView, 'color')}
+                                                     defaultColor={this.props.getDefaultSettingsByProperty(this.state.selectedView, 'color')}
+                                                     defaultOpacity={this.props.getDefaultSettingsByProperty(this.state.selectedView, 'opacity')}
+                                                     openView={this.state.openColorView}
+                                                     updateStateProps={this.updateSetBkg}
+                                                     toggleOpenView={this.toggleOpenView}
+                                        />
+                                    </Column>
+                                    : null
+                            }
+                            {
+                                this.state.selectedView.includes('Title') || this.state.selectedView.includes('Text') ?
+                                    <Column className={[this.state.openColorView ? 'full-width' : '', 'column-typo']}>
+                                        <TypeSystem key={this.state.selectedView}
+                                                    label={null}
+                                                    propertyName={this.state.selectedView}
+                                                    getSettingsByProperty={this.props.getSettingsByProperty}
+                                                    getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
+                                                    getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
+                                                    updateSettingsProperty={this.props.updateSettingsProperty}
+                                                    currentResponsiveMode={this.props.currentResponsiveMode}
+                                        />
+                                    </Column>
+                                    : null
+                            }
+                        </Settings>
+                    }
 
-                                    <Set property={`set${e.n}Bkg`} label={'Background'}
-                                         getSettingsByProperty={this.props.getSettingsByProperty}
-                                         view={this.state.selectedView} updateSelectedView={this.updateSelectedView}/>
-                                    <SetTypography property={`set${e.n}Title`} propertyBkg={`set${e.n}Bkg`} label={'Title'}
-                                                   getSettingsByProperty={this.props.getSettingsByProperty}
-                                                   view={this.state.selectedView}
-                                                   updateSelectedView={this.updateSelectedView}/>
-                                    <SetTypography property={`set${e.n}Text`} propertyBkg={`set${e.n}Bkg`} label={'Duration, Author'}
-                                                   getSettingsByProperty={this.props.getSettingsByProperty}
-                                                   view={this.state.selectedView}
-                                                   updateSelectedView={this.updateSelectedView}/>
-                                </SetContainer>
-                            )}
-                        </Sets>
-                        {
-                            this.state.selectedView.includes('Bkg') ?
-                                <Column className={this.state.openColorView ? 'full-width' : ''}>
-                                    <ColorPicker hidden={false}
-                                                 color={this.props.getSettingsByProperty(this.state.selectedView, 'color')}
-                                                 opacity={this.props.getSettingsByProperty(this.state.selectedView, 'opacity')}
-                                                 storeValueColor={this.props.getStoreSettingsByProperty(this.state.selectedView, 'color')}
-                                                 storeValueOpacity={this.props.getStoreSettingsByProperty(this.state.selectedView, 'color')}
-                                                 defaultColor={this.props.getDefaultSettingsByProperty(this.state.selectedView, 'color')}
-                                                 defaultOpacity={this.props.getDefaultSettingsByProperty(this.state.selectedView, 'opacity')}
-                                                 openView={this.state.openColorView}
-                                                 updateStateProps={this.updateSetBkg}
-                                                 toggleOpenView={this.toggleOpenView}
-                                    />
-                                </Column>
-                                : null
-                        }
-                        {
-                            this.state.selectedView.includes('Title') || this.state.selectedView.includes('Text') ?
-                                <Column className={[this.state.openColorView ? 'full-width' : '', 'column-typo']}>
-                                    <TypeSystem key={this.state.selectedView}
-                                                label={null}
-                                                propertyName={this.state.selectedView}
-                                                getSettingsByProperty={this.props.getSettingsByProperty}
-                                                getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
-                                                getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
-                                                updateSettingsProperty={this.props.updateSettingsProperty}
-                                                currentResponsiveMode={this.props.currentResponsiveMode}
-                                    />
-                                </Column>
-                                : null
-                        }
-                    </Settings>
+
                 </Field>
                 <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue}
                                  updating={this.props.updateField}/>

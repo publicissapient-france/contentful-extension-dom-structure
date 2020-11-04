@@ -19,8 +19,6 @@ export const Inputs = styled.div`
     & input{
         width : 260px;
         margin-right : 20px;
-        
-       
     } 
 `;
 
@@ -30,15 +28,12 @@ export const Preview = styled.div.attrs(props => ({
     display : flex; 
     padding : 20px;
     border : 1px solid ${ extensionTheme.grey10 };
+    
     &>div{
         border : 1px solid ${ extensionTheme.grey50 };
         width : 50px;
         height : 50px;
         background : ${ props =>  `${ props.gradient ? `${props.gradient}` : ''};`
     };
-       
     } 
-  
-   
-    
 `;

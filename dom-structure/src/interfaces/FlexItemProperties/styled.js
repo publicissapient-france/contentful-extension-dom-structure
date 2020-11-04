@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { extensionTheme } from '../../style/theme';
-import {IconContainer} from "../../style/styledComponentsFields";
 
 export const Container = styled.div`
   padding : 10px 5px;
@@ -11,7 +10,6 @@ export const Field = styled.div`
     display : flex; 
     flex-wrap : wrap;
 `;
-
 
 export const FlexProperty = styled.div`
     width : 100%;
@@ -26,13 +24,11 @@ export const FlexProperty = styled.div`
     }
 `;
 
-
 export const ContainerProperty = styled.div`
    display : flex;
    flex-wrap : wrap;
    width : calc(100% - 100px);
-        
-        
+           
    &>div{
        border: 1px solid ${ extensionTheme.grey20} ;
        width : auto;
@@ -46,11 +42,9 @@ export const ContainerProperty = styled.div`
    &>div:not(last-child){
        margin-right: 20px;
    }
-   
 `;
 
 export const Preview = styled.div`
-
    display : flex;
    position : absolute;
    width : 200px;
@@ -65,8 +59,7 @@ export const Preview = styled.div`
     margin : 5px;
     min-height : 10px;
     background : ${ extensionTheme.grey50};
-   }
-    
+   } 
 `;
 export const FlexElement = styled.div.attrs(props => ({
     order: props.flex.order,
@@ -74,11 +67,10 @@ export const FlexElement = styled.div.attrs(props => ({
     alignSelf: props.flex.alignSelf
 }))`
  background-color ${extensionTheme.grey60 } !important;
-${ props => `
+    ${ props => `
    order: ${ props.order };
    flex-grow: ${props.grow };
    align-self: ${ props.alignSelf };
    `
-    };
-       
+    };    
 `;

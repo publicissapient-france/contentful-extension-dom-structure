@@ -40,44 +40,52 @@ class SelectFormations extends Component {
             <div>
                 <FieldBanner {...this.props}/>
                 <Field>
-                    <Content className={!this.props.openContent ? 'hidden' : ''}>
-                        <Choices>
-                            <FormationSelector updateContent={this.props.updateContent}
-                                             formations={this.getFormations()}
-                                             priority={this.getPriority()}
-                                             toggleCurrentEvent={this.toggleCurrentEvent}
-                            />
-                        </Choices>
-                    </Content>
-                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                        {
-                            ['category', 'title', 'text', 'textSession', 'taglineSession', 'textPromo', 'taglinePromo', 'session', 'promo'].map(prop => {
-                                return <TypeSystem key={prop}
-                                                   label={prop}
-                                                   propertyName={prop}
-                                                   usePadding
-                                                   getSettingsByProperty={this.props.getSettingsByProperty}
-                                                   getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
-                                                   getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
-                                                   updateSettingsProperty={this.props.updateSettingsProperty}
-                                                   currentResponsiveMode={this.props.currentResponsiveMode}
+                    {
+                        this.props.openContent &&
+                        <Content>
+                            <Choices>
+                                <FormationSelector updateContent={this.props.updateContent}
+                                                   formations={this.getFormations()}
+                                                   priority={this.getPriority()}
+                                                   toggleCurrentEvent={this.toggleCurrentEvent}
                                 />
-                            })
-                        }
+                            </Choices>
+                        </Content>
+                    }
+                    {
+                        this.props.openSettings &&
+                        <Settings>
+                            {
+                                ['category', 'title', 'text', 'textSession', 'taglineSession', 'textPromo', 'taglinePromo', 'session', 'promo'].map(prop => {
+                                    return <TypeSystem key={prop}
+                                                       label={prop}
+                                                       propertyName={prop}
+                                                       usePadding
+                                                       getSettingsByProperty={this.props.getSettingsByProperty}
+                                                       getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
+                                                       getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
+                                                       updateSettingsProperty={this.props.updateSettingsProperty}
+                                                       currentResponsiveMode={this.props.currentResponsiveMode}
+                                    />
+                                })
+                            }
 
-                        {
-                            ['image'].map(prop => {
-                                return <ImageSystem key={prop}
-                                                    label={prop}
-                                                    propertyName={prop}
-                                                    getSettingsByProperty={this.props.getSettingsByProperty}
-                                                    getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
-                                                    getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
-                                                    updateSettingsProperty={this.props.updateSettingsProperty}
-                                />
-                            })
-                        }
-                    </Settings>
+                            {
+                                ['image'].map(prop => {
+                                    return <ImageSystem key={prop}
+                                                        label={prop}
+                                                        propertyName={prop}
+                                                        getSettingsByProperty={this.props.getSettingsByProperty}
+                                                        getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
+                                                        getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
+                                                        updateSettingsProperty={this.props.updateSettingsProperty}
+                                    />
+                                })
+                            }
+                        </Settings>
+                    }
+
+
                 </Field>
                 <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>

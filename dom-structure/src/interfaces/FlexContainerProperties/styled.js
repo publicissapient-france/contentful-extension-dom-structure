@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { extensionTheme } from '../../style/theme';
-import {IconContainer} from "../../style/styledComponentsFields";
 
 export const Container = styled.div`
   padding : 10px 5px;
@@ -10,8 +9,6 @@ export const Field = styled.div`
     display : flex; 
     flex-wrap : wrap;
 `;
-
-
 
 export const FlexProperty = styled.div`
     width : 100%;
@@ -39,9 +36,6 @@ export const MainProperties = styled.div`
             }
         }
     }
-    
-   
-    
 `;
 
 
@@ -74,7 +68,6 @@ export const ContainerProperty = styled.div`
         color :  ${ extensionTheme.white};
      }
    }
-   
 `;
 
 export const ContainerMainProperty = styled(ContainerProperty)`
@@ -82,9 +75,7 @@ export const ContainerMainProperty = styled(ContainerProperty)`
     flex-direction : column;
     width : auto;
     margin-right : 20px;
-
-`
-
+`;
 
 export const Grid = styled.ul`
     position : absolute;
@@ -118,7 +109,7 @@ export const Grid = styled.ul`
         }
     }
 
-`
+`;
 
 export const Preview = styled.div.attrs(props => ({
     columns : props.flex.columns,
@@ -199,10 +190,5 @@ ${ props => `
         }
         `  : ''
      }
-    
-    
-    
-   
    }
-    
 `;

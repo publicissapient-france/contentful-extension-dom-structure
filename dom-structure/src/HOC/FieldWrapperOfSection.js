@@ -252,7 +252,6 @@ const FieldWrapperOfSection = WrappedComponent => {
             }));
         }
         updateSettingsProperty = (property, subProperty, value, event) => {
-            console.log('UPDaTES SETTINGS')
             if (event) {
                 this.setState(prevState => ({
                     settings: update(prevState.settings, {

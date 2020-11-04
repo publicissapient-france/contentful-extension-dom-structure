@@ -1,214 +1,199 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Container, Field } from './styled';
-import { getCurrentExtension } from '../../actions/index';
+import {Container, Field} from './styled';
+import {getCurrentExtension} from '../../actions/index';
 import UploadView from '../../components/UploadView/index';
 import FileView from '../../components/FileView/index';
 import ReloadView from '../../components/RealoadView/index';
 
-class EntryUploader extends Component {
-    constructor (props) {
-        super(props);
+const EntryUploader = ({asset, updateStateAsset,updateStateTranslatedProps, alt,  index, extensionInfo}) => {
+    const [isDraggingOver, setIsDraggingOver] = useState(false);
+    const [valid, setValid] = useState(true);
+    const [innerAsset, setInnerAsset] = useState({});
 
-        this.state = {
-            isDraggingOver: false,
-            asset: {},
-            valid: true,
-        };
-    }
-
-    componentDidMount () {
-        if (this.props.asset) {
-            this.setSelectedAsset(this.props.asset);
+    useEffect(() => {
+        if (asset) {
+            setSelectedAsset(asset)
         }
-    };
+        if(!asset){
+            setInnerAsset({});
+        }
+    }, []);
 
-    componentDidUpdate (prevProps) {
-        if (this.props.asset !== prevProps.asset) {
-            if (this.props.asset && this.props.asset.sys) {
-                this.setState({
-                    ...this.state,
-                    asset: this.props.asset
-                }, () => {
-                    this.publishAsset();
-                });
-            } else {
-                this.setState({
-                    ...this.state,
-                    asset: {}
-                });
+    useEffect(() => {
+        if (asset && asset.sys) {
+            setInnerAsset(asset);
+            async function publish() {
+                if (!innerAsset || !innerAsset.sys) return;
+                try {
+                    if (innerAsset.sys.version === (innerAsset.sys.publishedVersion || 0) + 1) {
+
+                    } else {
+                        extensionInfo.extension.space.publishAsset(innerAsset);
+                    }
+                } catch (err) {
+                }
+            }
+            publish();
+        }
+    }, [asset]);
+
+
+    useEffect(() => {
+        updateStateAsset('images', 'asset', innerAsset, index);
+        async function publish() {
+            if (!innerAsset || !innerAsset.sys) return;
+            try {
+                if (innerAsset.sys.version === (innerAsset.sys.publishedVersion || 0) + 1) {
+
+                } else {
+                    extensionInfo.extension.space.publishAsset(innerAsset);
+                }
+            } catch (err) {
             }
         }
+        publish();
+    }, [innerAsset]);
+
+    const setSelectedAsset = asset => {
+        if (!asset) {
+            removeSelectedAsset()
+        }
+        setInnerAsset(asset)
     }
 
-    onClickNewAsset = async () => {
-        const result = await this.props.extensionInfo.extension.navigator.openNewAsset({ slideIn: true }).then(({ entity }) => {
+    const removeSelectedAsset = () => {
+        setInnerAsset({});
+    }
+
+    const onClickNewAsset = async () => {
+        const result = await extensionInfo.extension.navigator.openNewAsset({slideIn: true}).then(({entity}) => {
             return entity;
         });
-        this.reuseExistingAsset(result.sys.id);
+        reuseExistingAsset(result.sys.id);
     }
 
-    reuseExistingAsset = async assetId => {
+    const reuseExistingAsset = async assetId => {
         let asset;
         try {
-            asset = await this.props.extensionInfo.extension.space.getAsset(assetId);
+            asset = await extensionInfo.extension.space.getAsset(assetId);
         } catch (err) {
             this.onError(err);
         }
-        this.setSelectedAsset(asset);
+        setSelectedAsset(asset);
     }
 
-    onClickLinkExisting = async () => {
-        const selectedAsset = await this.props.extensionInfo.extension.dialogs.selectSingleAsset({
-            locale: this.props.extensionInfo.extension.field.locale
+    const onClickLinkExisting = async () => {
+        const selectedAsset = await extensionInfo.extension.dialogs.selectSingleAsset({
+            locale: extensionInfo.extension.field.locale
         });
         try {
-            this.setSelectedAsset(selectedAsset);
+            setSelectedAsset(selectedAsset);
         } catch (err) {
             this.onError(err);
         }
     }
 
-    findProperLocale () {
-        return this.props.extensionInfo.extension.locales.default;
+    const findProperLocale = () => {
+        return extensionInfo.extension.locales.default;
     }
 
-    setSelectedAsset = asset => {
-        if (!asset) {
-            this.removeSelectedAsset();
-        }
-        this.setState({
-            ...this.state,
-            asset: asset
-        }, () => {
-            this.assetIsValid();
-            this.props.updateStateAsset('images', 'asset', this.state.asset, this.props.index);
-        });
-    }
-
-    removeSelectedAsset = () => {
-        this.setState({
-            ...this.state,
-            asset: {}
-        }, () => {
-            this.props.updateStateAsset('images', 'asset', this.state.asset, this.props.index);
-        });
-    }
-
-    onError = error => {
+    const onError = error => {
         console.error(error);
-        this.props.extensionInfo.extension.notifier.error(error.message);
+        extensionInfo.extension.notifier.error(error.message);
     }
 
-    onCustomError = message => {
+    const onCustomError = message => {
         console.error(message);
-        this.props.extensionInfo.extension.notifier.error(message);
+        extensionInfo.extension.notifier.error(message);
     }
 
-    onClickRemove = () => {
-        this.removeSelectedAsset();
-    }
+    const onClickRemove = () => removeSelectedAsset();
 
-    reloadAsset = async () => {
-        let assetId = this.state.asset.sys.id;
+    const reloadAsset = async () => {
+        let assetId = innerAsset.sys.id;
         let asset;
 
         try {
-            asset = await this.props.extensionInfo.extension.space.getAsset(assetId);
+            asset = await extensionInfo.extension.space.getAsset(assetId);
             if (!asset.fields.file) {
-                this.removeSelectedAsset();
-                this.onCustomError('Request failed : Asset hasn\'t required data. Please complete Asset before');
+                removeSelectedAsset();
+                onCustomError('Request failed : Asset hasn\'t required data. Please complete Asset before');
             } else {
-                this.setSelectedAsset(asset);
+                setSelectedAsset(asset);
             }
         } catch (err) {
             this.onCustomError('Request failed : Asset doesn\'t exist anymore');
-            this.removeSelectedAsset();
+            //removeSelectedAsset();
         }
     }
 
-    assetIsValid = async () => {
-        if (!this.state.asset || !this.state.asset.sys) return;
-        let assetId = this.state.asset.sys.id;
+    const assetIsValid = async () => {
+        if (!innerAsset || !innerAsset.sys) return;
+        let assetId = innerAsset.sys.id;
         try {
-            let asset = await this.props.extensionInfo.extension.space.getAsset(assetId);
-            this.setState({
-                ...this.state,
-                valid: true
-            });
+            let asset = await extensionInfo.extension.space.getAsset(assetId);
+            setValid(true);
         } catch (err) {
-            this.setState({
-                ...this.state,
-                valid: false
-            });
+            setValid(false);
         }
     }
 
-    publishAsset = async () => {
-        if (!this.state.asset || !this.state.asset.sys) return;
-        try {
-            if (this.state.asset.sys.version === (this.state.asset.sys.publishedVersion || 0) + 1) {
-            } else {
-                this.props.extensionInfo.extension.space.publishAsset(this.state.asset);
+
+    let view;
+
+    if (!isDraggingOver && innerAsset && innerAsset.fields && !innerAsset.fields.file) {
+        view = <ReloadView
+            assetId={innerAsset.sys.id}
+            onClickReload={reloadAsset}
+        />;
+    } else if (!isDraggingOver && innerAsset && innerAsset.fields) {
+        view = <FileView
+            index={index}
+            file={innerAsset.fields.file[findProperLocale()]}
+            title={innerAsset.fields.title[findProperLocale()]}
+            alt={alt}
+            isPublished={
+                innerAsset.sys.version ===
+                (innerAsset.sys.publishedVersion || 0) + 1
             }
-        } catch (err) {}
+            onClickLinkExisting={onClickLinkExisting}
+            onClickNewAsset={onClickNewAsset}
+            onClickRemove={onClickRemove}
+            valid={valid}
+        />;
+    } else {
+        view = <UploadView
+            isDraggingOver={isDraggingOver}
+            onClickLinkExisting={onClickLinkExisting}
+            onClickNewAsset={onClickNewAsset}
+        />;
     }
 
-    render = () => {
-        const { alt, index } = this.props;
-        let view;
-
-        if (!this.state.isDraggingOver && this.state.asset && this.state.asset.fields && !this.state.asset.fields.file) {
-            view = <ReloadView
-                assetId={this.state.asset.sys.id}
-                onClickReload={this.reloadAsset}
-            />;
-        } else if (!this.state.isDraggingOver && this.state.asset && this.state.asset.fields) {
-            view = <FileView
-                index={this.props.index}
-                file={this.state.asset.fields.file[this.findProperLocale()]}
-                title={this.state.asset.fields.title[this.findProperLocale()]}
-                alt={alt}
-                isPublished={
-                    this.state.asset.sys.version ===
-                    (this.state.asset.sys.publishedVersion || 0) + 1
-                }
-                onClickLinkExisting={this.onClickLinkExisting}
-                onClickNewAsset={this.onClickNewAsset}
-                onClickRemove={this.onClickRemove}
-                valid={this.state.valid}
-            />;
-        } else {
-            view = <UploadView
-                isDraggingOver={this.state.isDraggingOver}
-                onClickLinkExisting={this.onClickLinkExisting}
-                onClickNewAsset={this.onClickNewAsset}
-            />;
-        }
-
-        return (
-            <Container>
-                {view}
-                <Field>
-                    <label>Alt (required)</label>
-                    <input type={'text'}
-                        value={alt}
-                        onChange={e => {
-                            this.props.updateStateTranslatedProps('images', 'alt', e.target.value, index);
-                        }}/>
-                </Field>
-            </Container>
-
-        );
-    }
+    return (
+        <Container>
+            {view}
+            <Field>
+                <label>Alt (required)</label>
+                <input type={'text'}
+                       value={alt}
+                       onChange={e => {
+                           updateStateTranslatedProps('images', 'alt', e.target.value, index);
+                       }}/>
+            </Field>
+        </Container>
+    );
 }
+
 
 EntryUploader.protoTypes = {
     asset: PropTypes.object,
     alt: PropTypes.string,
-    index: PropTypes.number
+    index: PropTypes.number,
+    updateStateAsset : PropTypes.func,
+    updateStateTranslatedProps : PropTypes.func
 };
 
 const mapStateToProps = state => ({

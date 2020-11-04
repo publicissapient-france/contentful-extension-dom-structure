@@ -62,98 +62,104 @@ class SelectSpeakers extends Component {
             <div>
                 <FieldBanner {...this.props}/>
                 <Field>
-                    <Content className={!this.props.openContent ? 'hidden' : ''}>
-                        <ChoicesSpeakers>
-                            <SpeakerSelector updateContent={this.props.updateContent}
-                                             speakers={this.getSpeakers()}
-                                             display={this.getDisplay()}
-                                             priority={this.getPriority()}
-                                             toggleCurrentEvent={this.toggleCurrentEvent}
-                            />
-                        </ChoicesSpeakers>
-                        <ChoicesContent>
-                            <Column>
-                                <label>Icon twitter</label>
-                                <InputIcon
-                                    font={this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null}
-                                    action={this.props.updateContent}
-                                    letters={'mn'}
-                                    targetProperty={'icon1'}
-                                    defaultValue={this.getIcon1()}/>
-                            </Column>
-                            <Column>
-                                <label>Icon Linkedin</label>
-                                <InputIcon
-                                    font={this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null}
-                                    action={this.props.updateContent}
-                                    letters={'op'}
-                                    targetProperty={'icon2'}
-                                    defaultValue={this.getIcon2()}/>
-                            </Column>
-                            <Column>
-                                <label>Icon Github</label>
-                                <InputIcon
-                                    font={this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null}
-                                    action={this.props.updateContent}
-                                    letters={'qr'}
-                                    targetProperty={'icon3'}
-                                    defaultValue={this.getIcon3()}/>
-                            </Column>
-                        </ChoicesContent>
-                    </Content>
-                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                        {
-                            ['name', 'job', 'company', 'title', 'text'].map(prop => {
-                                return <TypeSystem key={prop}
-                                                   label={prop}
-                                                   propertyName={prop}
-                                                   usePadding
-                                                   getSettingsByProperty={this.props.getSettingsByProperty}
-                                                   getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
-                                                   getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
-                                                   updateSettingsProperty={this.props.updateSettingsProperty}
-                                                   currentResponsiveMode={this.props.currentResponsiveMode}
+                    {
+                        this.props.openContent &&
+                        <Content>
+                            <ChoicesSpeakers>
+                                <SpeakerSelector updateContent={this.props.updateContent}
+                                                 speakers={this.getSpeakers()}
+                                                 display={this.getDisplay()}
+                                                 priority={this.getPriority()}
+                                                 toggleCurrentEvent={this.toggleCurrentEvent}
                                 />
-                            })
-                        }
-                        {
-                            ['photo', 'logo'].map(prop => {
-                                return <ImageSystem key={prop}
-                                                    label={prop}
-                                                    propertyName={prop}
-                                                    getSettingsByProperty={this.props.getSettingsByProperty}
-                                                    getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
-                                                    getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
-                                                    updateSettingsProperty={this.props.updateSettingsProperty}
-                                />
-                            })
-                        }
-                        {
-                            this.state.events && this.state.events.length !== 0 ?
-                                <ButtonEvents>
-                                    {
-                                        this.state.events.map((event, i) => {
-                                            return <button
-                                                key={i}
-                                                className={event === this.state.currentEvent ? 'current' : ''}
-                                                onClick={() => {
-                                                    this.toggleCurrentEvent(event)
-                                                }}>{event}</button>
-                                        })
-                                    }
-                                </ButtonEvents> : null
+                            </ChoicesSpeakers>
+                            <ChoicesContent>
+                                <Column>
+                                    <label>Icon twitter</label>
+                                    <InputIcon
+                                        font={this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null}
+                                        action={this.props.updateContent}
+                                        letters={'mn'}
+                                        targetProperty={'icon1'}
+                                        defaultValue={this.getIcon1()}/>
+                                </Column>
+                                <Column>
+                                    <label>Icon Linkedin</label>
+                                    <InputIcon
+                                        font={this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null}
+                                        action={this.props.updateContent}
+                                        letters={'op'}
+                                        targetProperty={'icon2'}
+                                        defaultValue={this.getIcon2()}/>
+                                </Column>
+                                <Column>
+                                    <label>Icon Github</label>
+                                    <InputIcon
+                                        font={this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null}
+                                        action={this.props.updateContent}
+                                        letters={'qr'}
+                                        targetProperty={'icon3'}
+                                        defaultValue={this.getIcon3()}/>
+                                </Column>
+                            </ChoicesContent>
+                        </Content>
+                    }
+                    {
+                        this.props.openSettings &&
+                        <Settings>
+                            {
+                                ['name', 'job', 'company', 'title', 'text'].map(prop => {
+                                    return <TypeSystem key={prop}
+                                                       label={prop}
+                                                       propertyName={prop}
+                                                       usePadding
+                                                       getSettingsByProperty={this.props.getSettingsByProperty}
+                                                       getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
+                                                       getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
+                                                       updateSettingsProperty={this.props.updateSettingsProperty}
+                                                       currentResponsiveMode={this.props.currentResponsiveMode}
+                                    />
+                                })
+                            }
+                            {
+                                ['photo', 'logo'].map(prop => {
+                                    return <ImageSystem key={prop}
+                                                        label={prop}
+                                                        propertyName={prop}
+                                                        getSettingsByProperty={this.props.getSettingsByProperty}
+                                                        getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
+                                                        getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
+                                                        updateSettingsProperty={this.props.updateSettingsProperty}
+                                    />
+                                })
+                            }
+                            {
+                                this.state.events && this.state.events.length !== 0 ?
+                                    <ButtonEvents>
+                                        {
+                                            this.state.events.map((event, i) => {
+                                                return <button
+                                                    key={i}
+                                                    className={event === this.state.currentEvent ? 'current' : ''}
+                                                    onClick={() => {
+                                                        this.toggleCurrentEvent(event)
+                                                    }}>{event}</button>
+                                            })
+                                        }
+                                    </ButtonEvents> : null
 
-                        }
-                        <IconSystem label={'Icon'}
-                                    propertyName={'icon'}
-                                    event={this.state.currentEvent}
-                                    currentResponsiveMode={this.props.currentResponsiveMode}
-                                    getSettingsByProperty={this.props.getSettingsByProperty}
-                                    getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
-                                    getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
-                                    updateSettingsProperty={this.props.updateSettingsProperty}
-                        />
-                    </Settings>
+                            }
+                            <IconSystem label={'Icon'}
+                                        propertyName={'icon'}
+                                        event={this.state.currentEvent}
+                                        currentResponsiveMode={this.props.currentResponsiveMode}
+                                        getSettingsByProperty={this.props.getSettingsByProperty}
+                                        getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
+                                        getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
+                                        updateSettingsProperty={this.props.updateSettingsProperty}
+                            />
+                        </Settings>
+                    }
                 </Field>
                 <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
             </div>

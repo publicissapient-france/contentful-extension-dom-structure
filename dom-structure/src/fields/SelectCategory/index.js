@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { getData} from "../../utils/Fields/getters";
+import {getData} from "../../utils/Fields/getters";
 
 import FieldWrapper from '../../HOC/FieldWrapper';
 import FieldWrapperOfSection from "../../HOC/FieldWrapperOfSection";
@@ -8,7 +8,7 @@ import FieldUpdateForm from "../../components/FieldUpdateForm";
 import CategorySelector from '../../interfaces/CategorySelector';
 
 import {Field} from '../../style/styledComponentsFields';
-import {Content, Choices } from './styled';
+import {Content, Choices} from './styled';
 
 class SelectCategory extends Component {
 
@@ -20,14 +20,18 @@ class SelectCategory extends Component {
             <div>
                 <FieldBanner {...this.props}/>
                 <Field>
-                    <Content className={!this.props.openContent ? 'hidden' : ''}>
-                        <Choices>
-                            <CategorySelector  updateContent={this.props.updateContent}
-                                               category={getData(content)}/>
-                        </Choices>
-                    </Content>
+                    {
+                        this.props.openContent &&
+                        <Content>
+                            <Choices>
+                                <CategorySelector updateContent={this.props.updateContent}
+                                                  category={getData(content)}/>
+                            </Choices>
+                        </Content>
+                    }
                 </Field>
-                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
+                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue}
+                                 updating={this.props.updateField}/>
             </div>
         );
     }

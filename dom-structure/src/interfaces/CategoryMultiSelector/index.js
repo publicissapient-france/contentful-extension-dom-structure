@@ -111,7 +111,8 @@ const CategoryMultiSelector = ({extensionInfo, categories, priority, updateConte
                 <label>Category</label>
                 <List>
                     {
-                        innerCategory ? innerCategory.sort((a, b) => a.name.localeCompare(b.name))
+                        innerCategory &&
+                        innerCategory.sort((a, b) => a.name.localeCompare(b.name))
                             .map((category, i) => {
                                 return <Select key={i}>
                                     <input checked={alreadySelected(category.id)} type={'checkbox'}
@@ -119,7 +120,7 @@ const CategoryMultiSelector = ({extensionInfo, categories, priority, updateConte
                                     <p className={alreadyOnPriority(category.id) ? 'active' : ''}
                                        onClick={() => updatePriority(category.id)}>{category.name}</p>
                                 </Select>
-                            }) : null
+                            })
                     }
                 </List>
             </Partners>
@@ -127,7 +128,8 @@ const CategoryMultiSelector = ({extensionInfo, categories, priority, updateConte
                 <label>Priority List</label>
                 <PriorityList>
                     {
-                        innerPriority ? innerPriority.map((id, i) => {
+                        innerPriority &&
+                        innerPriority.map((id, i) => {
                             const category = getById(id);
                             return <ItemPriority data={category}
                                                  index={i}
@@ -135,8 +137,7 @@ const CategoryMultiSelector = ({extensionInfo, categories, priority, updateConte
                                                  moveElementToBottom={moveElementToBottom}
                                                  moveElementToTop={moveElementToTop}
                             />
-
-                        }) : null
+                        })
                     }
                 </PriorityList>
             </Priority>
@@ -146,7 +147,8 @@ const CategoryMultiSelector = ({extensionInfo, categories, priority, updateConte
 
 CategoryMultiSelector.protoTypes = {
     categories: PropTypes.array,
-    priority: PropTypes.array
+    priority: PropTypes.array,
+    updateContent : PropTypes.func
 };
 
 const mapStateToProps = state => ({

@@ -13,7 +13,7 @@ class InputMarkdown extends Component {
         super(props);
 
         this.state = {
-            content: 'content'
+            content: ''
         };
     }
 
@@ -24,17 +24,17 @@ class InputMarkdown extends Component {
     }
 
     componentDidUpdate(prevProps) {
-         if (this.props.currentLanguage !== prevProps.currentLanguage) {
-             this.setState({
-                 content: this.props.defaultValue
-             });
-         }
+        if (this.props.currentLanguage !== prevProps.currentLanguage) {
+            this.setState({
+                content: this.props.defaultValue
+            });
+        }
 
-         if(this.props.defaultValue !== prevProps.defaultValue && this.props.defaultValue !== this.state.content){
-             this.setState({
-                 content: this.props.defaultValue
-             });
-         }
+        if(this.props.defaultValue !== prevProps.defaultValue && this.props.defaultValue !== this.state.content){
+            this.setState({
+                content: this.props.defaultValue
+            });
+        }
     }
 
     updateContent = (value) => {

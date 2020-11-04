@@ -281,7 +281,6 @@ class Section extends Component {
                         <FormSection onSubmit={e => {
                             e.preventDefault();
                             if (!this.isUpdated()) return;
-                            console.log('section3 ---- ', this.state.section)
                             dispatch(updateSection(this.state.section, index));
                         }}
                         >

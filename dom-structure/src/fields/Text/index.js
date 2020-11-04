@@ -39,17 +39,16 @@ class Text extends Component {
                 <FieldBanner {...this.props}/>
                 <Field>
                     {
-                        !isEmpty(this.props.content) ?
-                            <Content className={!this.props.openContent ? 'hidden' : ''}>
+                        !isEmpty(this.props.content) && this.props.openContent ?
+                            <Content>
                                 <InputText action={this.props.updateTranlatedContent} targetProperty={'text'}
                                            defaultValue={getText(content, indexLanguage)}/>
                             </Content>
                             : null
                     }
                     {
-                        !isEmpty(this.props.settings) ?
-
-                            <Settings className={!this.props.openSettings ? 'hidden' : ''}>
+                        !isEmpty(this.props.settings) && this.props.openSettings ?
+                            <Settings>
                                 <TypeSystem label={null}
                                             useSeo
                                             propertyName={'typography'}

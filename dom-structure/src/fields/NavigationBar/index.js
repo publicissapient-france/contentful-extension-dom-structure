@@ -63,7 +63,7 @@ class NavigationBar extends Component {
                 <FieldBanner {...this.props}/>
                 <Field>
                     {
-                        !isEmpty(this.props.defaultContent) ?
+                        !isEmpty(this.props.defaultContent) && this.props.openContent ?
                             <Content className={!this.props.openContent ? 'hidden' : ''}>
                                 <ImageUploader asset={getAsset(content, currentResponsiveMode)}
                                                alt={getAlt(content, indexLanguage)}

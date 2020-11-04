@@ -8,7 +8,7 @@ import PartnerSelector from '../../interfaces/PartnerSelector';
 import ImageSystem from '../../interfaces/system/ImageSystem'
 
 import {Field} from '../../style/styledComponentsFields';
-import {Content, Settings, Choices } from './styled';
+import {Content, Settings, Choices} from './styled';
 
 class SelectPartners extends Component {
 
@@ -25,7 +25,8 @@ class SelectPartners extends Component {
             <div>
                 <FieldBanner {...this.props}/>
                 <Field>
-                    <Content className={!this.props.openContent ? 'hidden' : ''}>
+                    {this.props.openContent &&
+                    <Content>
                         <Choices>
                             <PartnerSelector updateContent={this.props.updateContent}
                                              partners={this.getData()}
@@ -34,22 +35,27 @@ class SelectPartners extends Component {
                             />
                         </Choices>
                     </Content>
-                    <Settings className={!this.props.openSettings ? 'hidden' : ''}>
-                        {
-                            ['logo'].map(prop => {
-                                return <ImageSystem key={prop}
-                                                    label={prop}
-                                                    propertyName={prop}
-                                                    getSettingsByProperty={this.props.getSettingsByProperty}
-                                                    getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
-                                                    getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
-                                                    updateSettingsProperty={this.props.updateSettingsProperty}
-                                />
-                            })
-                        }
-                    </Settings>
+                    }
+                    {
+                        this.props.openSettings &&
+                        <Settings>
+                            {
+                                ['logo'].map(prop => {
+                                    return <ImageSystem key={prop}
+                                                        label={prop}
+                                                        propertyName={prop}
+                                                        getSettingsByProperty={this.props.getSettingsByProperty}
+                                                        getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
+                                                        getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
+                                                        updateSettingsProperty={this.props.updateSettingsProperty}
+                                    />
+                                })
+                            }
+                        </Settings>
+                    }
                 </Field>
-                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
+                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue}
+                                 updating={this.props.updateField}/>
             </div>
         );
     }
