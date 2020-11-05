@@ -11,7 +11,6 @@ export const Column = styled.div`
 
 export const Row = styled.div`
    display : flex;
-  // border-bottom : 1px solid ${ extensionTheme.grey20 };
    box-sizing : content-box;
 `;
 

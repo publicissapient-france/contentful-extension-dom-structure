@@ -7,7 +7,7 @@ import {getCurrentExtension} from '../../actions/index';
 import UploadView from '../../components/UploadView/index';
 import FileView from '../../components/FileView/index';
 
-const ImageUploader = ({asset,alt, index, updateStateAsset, updateStateTranslatedProps, extensionInfo}) => {
+const ImageUploader = ({asset,alt, index,currentResponsiveMode, updateStateAsset, updateStateTranslatedProps, extensionInfo}) => {
     const [isDraggingOver, setIsDraggingOver] = useState(false);
     const [innerAsset, setInnerAsset] = useState(asset);
     const [valid, setValid] = useState(true);
@@ -16,19 +16,18 @@ const ImageUploader = ({asset,alt, index, updateStateAsset, updateStateTranslate
         if (asset && asset.id) {
             setInnerAsset(asset);
         }
-        if(!asset){
-            setInnerAsset({});
-        }
     }, [asset]);
 
     useEffect(() => {
-        async function isValid() {
+        /*async function isValid() {
             if(innerAsset && innerAsset !== {}){
                 assetIsValid();
             }
         }
-        isValid();
-        updateStateAsset('images', 'asset', innerAsset, index);
+        isValid();*/
+        if(asset){
+            updateStateAsset('images', 'asset', innerAsset, index);
+        }
     }, [innerAsset]);
 
     const onClickNewAsset = async () => {

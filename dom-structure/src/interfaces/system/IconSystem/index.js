@@ -1,90 +1,83 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 
 import IconPreview from '../../../components/IconPreview';
 import ColorPicker from '../../ColorPicker';
 import IconTypography from '../../IconTypography';
 import Margin from '../../Margin';
 
-import {Choices, Column, Row, ElementName} from './styled'
+import {Choices, Column, Row, ElementName} from './styled';
 
-class IconSystem extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            openPreview: false,
-            openColor: false
-        };
-    }
+const IconSystem = ({label, propertyName, currentResponsiveMode, event, updateSettingsProperty, getSettingsByProperty, getStoreSettingsByProperty, getDefaultSettingsByProperty}) => {
+    const [openPreview, setOpenPreview] = useState(false);
+    const [openColor, setOpenColor] = useState(false);
 
-    toggleOpenPreview = () => {
-        this.setState(prevState => ({
-            openPreview: !prevState.openPreview
-        }));
-    };
+    const toggleOpenPreview = () => setOpenPreview(!openPreview);
 
-    toggleOpenColor = () => {
-        this.setState(prevState => ({
-            openColor: !prevState.openColor
-        }));
-    };
+    const toggleOpenColor = () => setOpenColor(!openColor);
 
-    updateSettings = (property, value, event) => this.props.updateSettingsProperty(this.props.propertyName, property, value, event);
+    const updateSettings = (property, value, event) => updateSettingsProperty(propertyName, property, value, event);
 
-    render() {
-        const {label, propertyName, currentResponsiveMode, event} = this.props;
-
-        return (
-            <Choices>
-                <ElementName><label>{label}</label></ElementName>
-                <Column
-                    className={this.state.openPreview || this.state.openColor ? 'full-width' : ''}>
-                    <IconPreview hidden={this.state.openColor}
-                                 color={this.props.getSettingsByProperty(propertyName, 'color', event)}
-                                 font={this.props.getSettingsByProperty(propertyName, 'font', event)}
-                                 opacity={this.props.getSettingsByProperty(propertyName, 'opacity', event)}
-                                 open={this.state.openColor}
-                                 toggleOpenPreview={this.toggleOpenPreview}
+    return (
+        <Choices>
+            <ElementName><label>{label}</label></ElementName>
+            <Column
+                className={openPreview || openColor ? 'full-width' : ''}>
+                <IconPreview hidden={openColor}
+                             color={getSettingsByProperty(propertyName, 'color', event)}
+                             font={getSettingsByProperty(propertyName, 'font', event)}
+                             opacity={getSettingsByProperty(propertyName, 'opacity', event)}
+                             open={openColor}
+                             toggleOpenPreview={toggleOpenPreview}
+                />
+                <ColorPicker hidden={openPreview}
+                             color={getSettingsByProperty(propertyName, 'color', event)}
+                             opacity={getSettingsByProperty(propertyName, 'opacity', event)}
+                             storeValueColor={getStoreSettingsByProperty(propertyName, 'color', event)}
+                             storeValueOpacity={getStoreSettingsByProperty(propertyName, 'opacity', event)}
+                             defaultColor={getDefaultSettingsByProperty(propertyName, 'color', event)}
+                             defaultOpacity={getDefaultSettingsByProperty(propertyName, 'opacity', event)}
+                             openView={openColor}
+                             updateStateProps={updateSettings}
+                             toggleOpenView={toggleOpenColor}
+                             customName={'Icon'}
+                             event={event}
+                />
+            </Column>
+            <Column
+                className={openPreview || openColor ? 'hidden' : ''}>
+                <Row>
+                    <IconTypography
+                        font={getSettingsByProperty(propertyName, 'font')}
+                        defaultFont={getDefaultSettingsByProperty(propertyName, 'font')}
+                        storeValueFont={getStoreSettingsByProperty(propertyName, 'font')}
+                        updateStateProps={updateSettings}
+                        currentMode={currentResponsiveMode}
                     />
-                    <ColorPicker hidden={this.state.openPreview}
-                                 color={this.props.getSettingsByProperty(propertyName, 'color', event)}
-                                 opacity={this.props.getSettingsByProperty(propertyName, 'opacity', event)}
-                                 storeValueColor={this.props.getStoreSettingsByProperty(propertyName, 'color', event)}
-                                 storeValueOpacity={this.props.getStoreSettingsByProperty(propertyName, 'opacity', event)}
-                                 defaultColor={this.props.getDefaultSettingsByProperty(propertyName, 'color', event)}
-                                 defaultOpacity={this.props.getDefaultSettingsByProperty(propertyName, 'opacity', event)}
-                                 openView={this.state.openColor}
-                                 updateStateProps={this.updateSettings}
-                                 toggleOpenView={this.toggleOpenColor}
-                                 customName={'Icon'}
-                                 event={event}
-                    />
+                </Row>
+            </Column>
+            <Column/>
+            <Column>
+                <Margin hidden={false}
+                        margin={getSettingsByProperty(propertyName, 'margin')}
+                        storeValueMargin={getStoreSettingsByProperty(propertyName, 'margin')}
+                        defaultMargin={getDefaultSettingsByProperty(propertyName, 'margin')}
+                        updateStateProps={updateSettings}
+                />
+            </Column>
+        </Choices>
+    );
+}
 
-                </Column>
-                <Column
-                    className={this.state.openPreview || this.state.openColor ? 'hidden' : ''}>
-                    <Row>
-                        <IconTypography
-                            font={this.props.getSettingsByProperty(propertyName, 'font')}
-                            defaultFont={this.props.getDefaultSettingsByProperty(propertyName, 'font')}
-                            storeValueFont={this.props.getStoreSettingsByProperty(propertyName, 'font')}
-                            updateStateProps={this.updateSettings}
-                            currentMode={currentResponsiveMode}
-                        />
-                    </Row>
-                </Column>
-                <Column/>
-                <Column>
-                    <Margin hidden={this.state.openColorView}
-                            margin={this.props.getSettingsByProperty(propertyName, 'margin')}
-                            storeValueMargin={this.props.getStoreSettingsByProperty(propertyName, 'margin')}
-                            defaultMargin={this.props.getDefaultSettingsByProperty(propertyName, 'margin')}
-                             updateStateProps={this.updateSettings}
-                    />
-
-                </Column>
-            </Choices>
-        )
-    }
+IconSystem.protoTypes = {
+    label : PropTypes.string,
+    propertyName: PropTypes.string,
+    event: PropTypes.string,
+    updateSettingsProperty : PropTypes.func,
+    getSettingsByProperty : PropTypes.func,
+    getDefaultSettingsByProperty : PropTypes.func,
+    getStoreSettingsByProperty : PropTypes.func,
+    currentResponsiveMode : PropTypes.string
 };
 
 export default IconSystem;

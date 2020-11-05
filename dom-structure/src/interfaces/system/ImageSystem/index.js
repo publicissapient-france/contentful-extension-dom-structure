@@ -1,4 +1,6 @@
-import React, {Component} from 'react';
+import React, { useState} from 'react';
+import PropTypes from 'prop-types';
+
 import { Choices, ElementName, Column, Row } from "./styled";
 
 import AssetPreview from '../../../components/AssetPreview';
@@ -7,86 +9,74 @@ import Padding from '../../../interfaces/Padding';
 import Alignment from '../../../interfaces/Alignment';
 import ColorPicker from '../../ColorPicker';
 
-class ImageSystem extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            openPreview: false,
-            openColor: false
-        };
-    }
+const ImageSystem = ({label, propertyName, updateSettingsProperty, getSettingsByProperty,getStoreSettingsByProperty, getDefaultSettingsByProperty }) => {
+    const [openPreview, setOpenPreview] = useState(false);
+    const [openColor, setOpenColor] = useState(false);
 
-    toggleOpenPreview = () => {
-        this.setState(prevState => ({
-            openPreview: !prevState.openPreview
-        }));
-    };
+    const toggleOpenPreview = () => setOpenPreview(!openPreview);
 
-    toggleOpenColor = () => {
-        this.setState(prevState => ({
-            openColor: !prevState.openColor
-        }));
-    };
+    const toggleOpenColor = () => setOpenColor(!openColor);
 
-    updateSettings = (property, value, event) => this.props.updateSettingsProperty(this.props.propertyName, property, value, event);
+    const updateSettings = (property, value, event) => updateSettingsProperty(propertyName, property, value, event);
 
-    render() {
-        const {label, propertyName} = this.props;
-
-        return (
-            <Choices>
-                <ElementName><label>{label}</label></ElementName>
-                <Column>
-                    <Row>
-                        <AssetPreview
-                            locale={null}
-                            asset={null}
-                        />
-                    </Row>
-                </Column>
-                <Column>
-                    <Row>
-                        <Size
-                            size={this.props.getSettingsByProperty(propertyName, 'size')}
-                            storeValueSize={this.props.getStoreSettingsByProperty(propertyName, 'size')}
-                            defaultSize={this.props.getDefaultSettingsByProperty(propertyName, 'size')}
-                            updateStateProps={this.updateSettings}
-                        />
-                    </Row>
-                    <Row>
-                        <Padding
-                            padding={this.props.getSettingsByProperty(propertyName, 'padding')}
-                            storeValuePadding={this.props.getStoreSettingsByProperty(propertyName, 'padding')}
-                            defaultPadding={this.props.getDefaultSettingsByProperty(propertyName, 'padding')}
-                            updateStateProps={this.updateSettings}
-                        />
-                        <Alignment
-                            alignment={this.props.getSettingsByProperty(propertyName, 'alignment')}
-                            storeValueAlignment={this.props.getStoreSettingsByProperty(propertyName, 'alignment')}
-                            defaultAlignment={this.props.getDefaultSettingsByProperty(propertyName, 'alignment')}
-                            updateStateProps={this.updateSettings}
-                        />
-                    </Row>
-                </Column>
-                <Column
-                    className={this.state.openPreview || this.state.openColor ? 'full-width' : ''}>
-                    <ColorPicker hidden={this.state.openPreview}
-                                 color={this.props.getSettingsByProperty(propertyName, 'color')}
-                                 opacity={this.props.getSettingsByProperty(propertyName, 'opacity')}
-                                 storeValueColor={this.props.getStoreSettingsByProperty(propertyName, 'color')}
-                                 storeValueOpacity={this.props.getStoreSettingsByProperty(propertyName, 'opacity')}
-                                 defaultColor={this.props.getDefaultSettingsByProperty(propertyName, 'color')}
-                                 defaultOpacity={this.props.getDefaultSettingsByProperty(propertyName, 'opacity')}
-                                 openView={this.state.openColor}
-                                 updateStateProps={this.updateSettings}
-                                 toggleOpenView={this.toggleOpenColor}
-                                 customName={'Backg.'}
+    return (
+        <Choices>
+            <ElementName><label>{label}</label></ElementName>
+            <Column>
+                <Row>
+                    <AssetPreview locale={null} asset={null}/>
+                </Row>
+            </Column>
+            <Column>
+                <Row>
+                    <Size
+                        size={getSettingsByProperty(propertyName, 'size')}
+                        storeValueSize={getStoreSettingsByProperty(propertyName, 'size')}
+                        defaultSize={getDefaultSettingsByProperty(propertyName, 'size')}
+                        updateStateProps={updateSettings}
                     />
+                </Row>
+                <Row>
+                    <Padding
+                        padding={getSettingsByProperty(propertyName, 'padding')}
+                        storeValuePadding={getStoreSettingsByProperty(propertyName, 'padding')}
+                        defaultPadding={getDefaultSettingsByProperty(propertyName, 'padding')}
+                        updateStateProps={updateSettings}
+                    />
+                    <Alignment
+                        alignment={getSettingsByProperty(propertyName, 'alignment')}
+                        storeValueAlignment={getStoreSettingsByProperty(propertyName, 'alignment')}
+                        defaultAlignment={getDefaultSettingsByProperty(propertyName, 'alignment')}
+                        updateStateProps={updateSettings}
+                    />
+                </Row>
+            </Column>
+            <Column
+                className={openPreview || openColor ? 'full-width' : ''}>
+                <ColorPicker hidden={openPreview}
+                             color={getSettingsByProperty(propertyName, 'color')}
+                             opacity={getSettingsByProperty(propertyName, 'opacity')}
+                             storeValueColor={getStoreSettingsByProperty(propertyName, 'color')}
+                             storeValueOpacity={getStoreSettingsByProperty(propertyName, 'opacity')}
+                             defaultColor={getDefaultSettingsByProperty(propertyName, 'color')}
+                             defaultOpacity={getDefaultSettingsByProperty(propertyName, 'opacity')}
+                             openView={openColor}
+                             updateStateProps={updateSettings}
+                             toggleOpenView={toggleOpenColor}
+                             customName={'Backg.'}
+                />
+            </Column>
+        </Choices>
+    );
+}
 
-                </Column>
-            </Choices>
-        )
-    }
+ImageSystem.protoTypes = {
+    label : PropTypes.string,
+    propertyName: PropTypes.string,
+    updateSettingsProperty : PropTypes.func,
+    getSettingsByProperty : PropTypes.func,
+    getDefaultSettingsByProperty : PropTypes.func,
+    getStoreSettingsByProperty : PropTypes.func
 };
 
 export default ImageSystem;

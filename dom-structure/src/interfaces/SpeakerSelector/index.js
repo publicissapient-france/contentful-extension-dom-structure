@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -17,237 +17,191 @@ import {
 import {getCurrentExtension} from '../../actions/index';
 import SvgArrowToTop from '../../components/svg/SvgArrowToTop';
 
-class SpeakerSelector extends Component {
-    constructor(props) {
-        super(props);
+const SpeakerSelector = ({speakers, priority, display, updateContent, extensionInfo}) => {
+    const [innerPriority, setInnerPriority] = useState(priority);
+    const [innerSpeakers, setInnerSpeakers] = useState([]);
+    const [selectedSpeakers, setSelectedSpeakers] = useState(speakers);
+    const [innerDisplay, setInnerDisplay] = useState(display);
 
-        this.state = {
-            speakers: [],
-            selectedSpeakers: [],
-            priority: []
-        };
-    }
-
-    componentDidMount = async () => {
-        await this.initSpeakersRessources();
-        this.setState({
-            selectedSpeakers: this.props.speakers,
-            display: this.props.display,
-            priority: this.props.priority
-        })
-    };
-
-    componentDidUpdate(prevProps) {
-        if (this.props.display !== prevProps.display) {
-            this.setState({
-                display: this.props.display
-            })
+    useEffect(() => {
+        async function initialization() {
+            await initRessources();
         }
-        if (this.props.speakers !== prevProps.speakers) {
-            this.setState({
-                selectedSpeakers: this.props.speakers
-            })
-        }
-        if (this.props.priority !== prevProps.priority) {
-            this.setState({
-                priority: this.props.priority,
-                selectedSpeakers : this.orderSelectedWithPriority()
-            }, () => {
-                this.props.updateContent(this.state.selectedSpeakers, 'speakers')
-            })
-        }
-    }
 
-    initSpeakersRessources = async () => {
-        await this.props.extensionInfo.extension.space.getEntries({
+        initialization();
+        setInnerPriority(priority);
+        setSelectedSpeakers(speakers);
+        setInnerDisplay(display);
+    }, []);
+
+    useEffect(() => {
+        setSelectedSpeakers(speakers);
+    }, [speakers]);
+
+    useEffect(() => {
+        setInnerDisplay(display);
+    }, [display]);
+
+    useEffect(() => {
+        updateContent(innerPriority, 'priority');
+    }, [innerPriority])
+
+    useEffect(() => {
+        updateContent(innerDisplay, 'display');
+    }, [innerDisplay])
+
+    useEffect(() => {
+        updateContent(selectedSpeakers, 'speakers');
+    }, [selectedSpeakers])
+
+    const initRessources = async () => {
+        await extensionInfo.extension.space.getEntries({
             'content_type': 'website',
         }).then(selectedEntry => {
-            const speakersUrl =  selectedEntry.items[0].fields.speakers[this.findProperLocale()];
+            const speakersUrl = selectedEntry.items[0].fields.speakers[findProperLocale()];
             fetch(speakersUrl)
                 .then(results => {
                     const result = results.json();
                     return result
                 })
-                .then(data =>{
-                    this.setState({ speakers: data })
+                .then(data => {
+                    setInnerSpeakers(data)
                 });
         })
     }
+    const findProperLocale = () => extensionInfo.extension.locales.default;
+    const alreadyOnPriority = (id) => innerPriority.find(item => item === id);
+    const alreadySelected = (id) => selectedSpeakers.find(item => item === id) ? true : false;
+    const orderSelectedWithNewPriority = (newPriority) => [...newPriority, ...selectedSpeakers.filter(id => !(newPriority.find(item => item === id)))];
+    const getById = (id) => innerSpeakers.find(element => element.id === id);
 
-    findProperLocale = () => this.props.extensionInfo.extension.locales.default;
-
-    alreadyOnPriority = (id) => this.state.priority.find(item => item === id)
-    alreadySelected = (id) => this.state.selectedSpeakers.find(item => item === id)
-
-    addPriority = (id) => {
-        this.setState(prevState => ({
-            priority: [...prevState.priority, id]
-        }), () => {
-            this.props.updateContent(this.state.priority, 'priority')
-        })
+    const addPriority = (id) => {
+        const newPriority = [...innerPriority, id];
+        setInnerPriority(newPriority);
+        setSelectedSpeakers(orderSelectedWithNewPriority(newPriority));
     }
 
-    removePriority = (id) => {
-        this.setState(prevState => ({
-            priority: prevState.priority.filter(item => item !== id)
-        }), () => {
-            this.props.updateContent(this.state.priority, 'priority')
-        })
+    const removePriority = (id) => {
+        const newPriority = innerPriority.filter(item => item !== id);
+        setInnerPriority(newPriority);
+        setSelectedSpeakers(orderSelectedWithNewPriority(newPriority));
     }
 
-    updatePriority = (id) => {
-        if (!this.alreadyOnPriority(id)) {
-            this.addPriority(id);
+    const updatePriority = (id) => !alreadyOnPriority(id) ? addPriority(id) : removePriority(id);
 
-            if (!this.alreadySelected(id)) {
-                this.addSelected(id);
+    const addSelected = (id) => {
+        setSelectedSpeakers([...selectedSpeakers, id])
+    }
+
+    const removeSelected = (id) => {
+        setSelectedSpeakers(selectedSpeakers.filter(item => item !== id));
+        setInnerPriority(innerPriority.filter(item => item !== id));
+    }
+
+    const updateSelected = (e, id) => (e.target.checked) ? addSelected(id) : removeSelected(id);
+
+    const toggleDisplay = (prop, subProp, value) => {
+        setInnerDisplay(prev => ({
+            ...prev,
+            [prop]: {
+                ...prev[prop],
+                [subProp]: value
             }
-        } else {
-            this.removePriority(id);
-        }
+        }))
     }
 
-    addSelected = (id) => {
-        this.setState(prevState => ({
-            selectedSpeakers: [...prevState.selectedSpeakers, id]
-        }), () => {
-            this.props.updateContent(this.state.selectedSpeakers, 'speakers')
-        })
-    }
-
-    removeSelected = (id) => {
-        this.setState(prevState => ({
-            selectedSpeakers: prevState.selectedSpeakers.filter(item => item !== id)
-        }), () => {
-            this.props.updateContent(this.state.selectedSpeakers, 'speakers')
-        })
-    }
-
-    updateSelected = (e, id) => {
-        if (e.target.checked) {
-            this.addSelected(id);
-        } else {
-            this.removeSelected(id);
-
-            if (this.alreadyOnPriority(id)) {
-                this.removePriority(id);
-            }
-        }
-    }
-
-    orderSelectedWithPriority = () => [...this.state.priority, ...this.state.selectedSpeakers.filter(id => !this.alreadyOnPriority(id))];
-
-    toggleDisplay = (prop, subProp, value) => {
-        this.setState(prevState => ({
-            display: {
-                ...prevState.display,
-                [prop]: {
-                    ...prevState.display[prop],
-                    [subProp]: value
-                }
-            }
-        }), () => {
-            this.props.updateContent(this.state.display, 'display')
-        })
-    }
-
-    getById = (id) => this.state.speakers.find(element => element.id === id);
-
-    moveElementToTop = (index) => {
+    const moveElementToTop = (index) => {
         if (index === 0) return
-        const a = this.props.priority[index];
-        const b = this.props.priority[index - 1];
-        let newOrder = [...this.props.priority];
+        const a = priority[index];
+        const b = priority[index - 1];
+        let newOrder = [...priority];
         newOrder[index - 1] = a;
         newOrder[index] = b;
 
-        this.setState({priority: newOrder}, () => {
-            this.props.updateContent(this.state.priority, 'priority')
-        })
+        setInnerPriority(newOrder);
+        setSelectedSpeakers(orderSelectedWithNewPriority(newOrder));
     }
 
-    moveElementToBottom = (index) => {
-        if (index === (this.props.priority.length - 1)) return
-        const a = this.props.priority[index];
-        const b = this.props.priority[index + 1];
-        let newOrder = [...this.props.priority];
+    const moveElementToBottom = (index) => {
+        if (index === (priority.length - 1)) return
+        const a = priority[index];
+        const b = priority[index + 1];
+        let newOrder = [...priority];
         newOrder[index] = b;
         newOrder[index + 1] = a;
 
-        this.setState({priority: newOrder}, () => {
-            this.props.updateContent(this.state.priority, 'priority')
-        })
+        setInnerPriority(newOrder);
+        setSelectedSpeakers(orderSelectedWithNewPriority(newOrder));
     }
 
-    render = () => {
-        return (
-            <Container>
-                <Speakers>
-                    <label>Speakers</label>
-                    <List>
-                        {
-                            this.state.speakers ? this.state.speakers.map((speaker, i) => {
-                                return <Select key={i}>
-                                    <input checked={this.state.selectedSpeakers.includes(speaker.id)} type={'checkbox'}
-                                           onChange={(e) => this.updateSelected(e, speaker.id)}/>
-                                    <p className={this.state.priority.includes(speaker.id) ? 'active' : ''}
-                                       onClick={() => {
-                                           this.updatePriority(speaker.id)
-                                       }}>{speaker.firstName} {speaker.lastName}</p>
-                                </Select>
-                            }) : null
-                        }
-                    </List>
-                </Speakers>
-                <Priority>
-                    <label>Priority List</label>
-                    <PriorityList>
-                        {
-                            this.state.priority ? this.state.priority.map((id, i) => {
-                                const speaker = this.getById(id);
-                                if(!speaker) return null
-                                return <Element>
-                                    <ButtonsMove>
-                                        <Button onClick={() => this.moveElementToBottom(i)}><SvgArrowToTop/></Button>
-                                        <Button onClick={() => this.moveElementToTop(i)}><SvgArrowToTop/></Button>
-                                    </ButtonsMove>
-                                    <Identity>{speaker.firstName} {speaker.lastName}</Identity>
-                                </Element>
-                            }) : null
-                        }
-                    </PriorityList>
-                    <Display>
-                        <div>
-                            <label>Tiny content</label>
-                            <Select>
-                                <input
-                                    checked={this.state.display && this.state.display.logo && this.state.display.logo.tiny ? this.state.display.logo.tiny : false}
-                                    type={'checkbox'}
-                                    onChange={(e) => this.toggleDisplay('logo', 'tiny', e.target.checked)}/>
-                                Logo
+    return (
+        <Container>
+            <Speakers>
+                <label>Speakers</label>
+                <List>
+                    {
+                        innerSpeakers && innerSpeakers.map((speaker, i) => {
+                            return <Select key={i}>
+                                <input checked={selectedSpeakers.includes(speaker.id)} type={'checkbox'}
+                                       onChange={(e) => updateSelected(e, speaker.id)}/>
+                                <p className={innerPriority.includes(speaker.id) ? 'active' : ''}
+                                   onClick={() => updatePriority(speaker.id)}>
+                                    {speaker.firstName} {speaker.lastName}
+                                    </p>
                             </Select>
-                        </div>
-                        <div>
-                            <label>Large content</label>
-                            <Select>
-                                <input
-                                    checked={this.state.display && this.state.display.logo && this.state.display.logo.tiny ? this.state.display.logo.tiny : false}
-                                    type={'checkbox'}
-                                    onChange={(e) => this.toggleDisplay('logo', 'large', e.target.checked)}/>
-                                Logo
-                            </Select>
-                        </div>
-                    </Display>
-                </Priority>
-            </Container>
-        );
-    }
+                        })
+                    }
+                </List>
+            </Speakers>
+            <Priority>
+                <label>Priority List</label>
+                <PriorityList>
+                    {
+                        innerPriority && innerPriority.map((id, i) => {
+                            const speaker = getById(id);
+                            if (!speaker) return null
+                            return <Element>
+                                <ButtonsMove>
+                                    <Button onClick={() => moveElementToBottom(i)}><SvgArrowToTop/></Button>
+                                    <Button onClick={() => moveElementToTop(i)}><SvgArrowToTop/></Button>
+                                </ButtonsMove>
+                                <Identity>{speaker.firstName} {speaker.lastName}</Identity>
+                            </Element>
+                        })
+                    }
+                </PriorityList>
+                <Display>
+                    <div>
+                        <label>Tiny content</label>
+                        <Select>
+                            <input
+                                checked={innerDisplay && innerDisplay.logo && innerDisplay.logo.tiny ? innerDisplay.logo.tiny : false}
+                                type={'checkbox'}
+                                onChange={(e) => toggleDisplay('logo', 'tiny', e.target.checked)}/>
+                            Logo
+                        </Select>
+                    </div>
+                    <div>
+                        <label>Large content</label>
+                        <Select>
+                            <input
+                                checked={innerDisplay && innerDisplay.logo && innerDisplay.logo.large ? innerDisplay.logo.large : false}
+                                type={'checkbox'}
+                                onChange={(e) => toggleDisplay('logo', 'large', e.target.checked)}/>
+                            Logo
+                        </Select>
+                    </div>
+                </Display>
+            </Priority>
+        </Container>
+    );
 }
 
 SpeakerSelector.protoTypes = {
     speakers: PropTypes.array,
     display: PropTypes.object,
-    priority: PropTypes.array
+    priority: PropTypes.array,
+    updateContent : PropTypes.func
 };
 
 const mapStateToProps = state => ({

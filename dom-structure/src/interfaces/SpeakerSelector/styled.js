@@ -8,73 +8,6 @@ export const Container = styled.div`
    padding-top : 20px;
    
 `;
-export const Field = styled.div`
-   margin-bottom : 20px;   
-   
-   & label{
-    font-size : 14px;
-   }
-   
-   & input{
-    padding-left : 0px;
-    width : 120px;
-   }
-`;
-
-export const Choice = styled.div`
-   display : flex;
-   
-   & input{
-    width : 20px;
-    height : 20px;
-   }
-`;
-
-export const Selector = styled.div`
-   display : flex;
-   flex-wrap : wrap;
-   
-   & ${Choice}{
-    width : calc(100% / 3);
-   }
-`;
-
-
-export const ButtonEvents = styled.div`
-   display : flex; 
-   width  : 100%;
-   justify-content : flex-start;
-   border-bottom : 1px solid ${extensionTheme.grey30};
-   background : ${extensionTheme.grey10};
-   
-   & button{
-    padding: 5px 10px;
-    background : ${extensionTheme.grey10};
-    transition:  background 0.2s ease,  color 0.2s ease;
-    border-width : 0 1px 0 0;
-    border-color :  solid ${extensionTheme.grey30};
-    border-style : solid;
-    margin-bottom : -1px;
-    color : ${extensionTheme.grey50};
-    border-bottom : 1px solid ${extensionTheme.grey30};
-    
-    &.current{
-        background : ${extensionTheme.white};
-        color : ${extensionTheme.grey80};
-        border-bottom : 1px solid ${extensionTheme.white};
-    }
-    
-    &:focus{
-        outline : none;
-    }
-    
-    &:hover{
-        background : ${extensionTheme.blueM};
-        color : ${extensionTheme.white};
-        
-    }
-   }
-`;
 
 export const Speakers = styled.div`
    width : 60%;
@@ -105,9 +38,6 @@ export const Select = styled.div`
    &>p.active{
         color : ${extensionTheme.blueM};
    }
-   
-  
-   
 `;
 
 export const Priority = styled.div`
@@ -131,7 +61,6 @@ export const PriorityList = styled.div`
     & ${ Element }:last-child{
         border-bottom : 1px solid ${ extensionTheme.grey50 };
     }
-
 `;
 
 export const Display = styled.div`
@@ -146,8 +75,6 @@ export const Display = styled.div`
     & input{
         margin-left : 0;
     }
-    
-    
   }
 `;
 
@@ -197,5 +124,4 @@ export const ButtonsMove = styled.div`
             transform : rotate(180deg);
         }
     }
-    
 `;

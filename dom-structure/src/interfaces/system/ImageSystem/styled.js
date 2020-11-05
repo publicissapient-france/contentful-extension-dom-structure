@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { extensionTheme } from '../../../style/theme';
 
-
 export const Row = styled.div`
    display : flex;
    flex-direction : column;

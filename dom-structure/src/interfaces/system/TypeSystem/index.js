@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 
 import TextPreview from '../../../components/TextPreview';
 import ColorPicker from '../../ColorPicker';
@@ -8,105 +9,101 @@ import Seo from '../../Seo';
 
 import {Choices, Column, ElementName, NoName} from './styled'
 
-class TypeSystem extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            openPreview: false,
-            openColor: false
-        };
-    }
+const TypeSystem = ({label, propertyName, currentResponsiveMode, useSeo, usePadding, event, updateSettingsProperty, getSettingsByProperty, getDefaultSettingsByProperty, getStoreSettingsByProperty, updateSettingsNoResponsive, getSettingsPropertyNoResponsive, getStoreSettingsPropertyNoResponsive, getDefaultSettingsPropertyNoResponsive}) => {
+    const [openPreview, setOpenPreview] = useState(false);
+    const [openColor, setOpenColor] = useState(false);
 
-    toggleOpenPreview = () => {
-        this.setState(prevState => ({
-            openPreview: !prevState.openPreview
-        }));
-    };
+    const toggleOpenPreview = () => setOpenPreview(!openPreview);
 
-    toggleOpenColor = () => {
-        this.setState(prevState => ({
-            openColor: !prevState.openColor
-        }));
-    };
+    const toggleOpenColor = () => setOpenColor(!openColor);
 
-    updateSettings = (property, value, event) => this.props.updateSettingsProperty(this.props.propertyName, property, value, event);
+    const updateSettings = (property, value, event) => updateSettingsProperty(propertyName, property, value, event);
 
-    render() {
-        const {label, propertyName, currentResponsiveMode, useSeo, usePadding, event} = this.props;
-
-        return (
-            <Choices>
+    return (
+        <Choices>
+            {
+                !label ? <NoName/> : <ElementName><label>{label}</label></ElementName>
+            }
+            <Column className={openPreview || openColor ? 'full-width' : ''}>
                 {
-                    !label ? <NoName/> : <ElementName><label>{label}</label></ElementName>
-                }
-                <Column
-                    className={this.state.openPreview || this.state.openColor ? 'full-width' : ''}>
-
-                    {
-                        !this.props.getDefaultSettingsByProperty(propertyName, 'font') ? null :
-                            <TextPreview hidden={this.state.openColor}
-                                         color={this.props.getSettingsByProperty(propertyName, 'color', event)}
-                                         font={this.props.getSettingsByProperty(propertyName, 'font')}
-                                         text={this.props.getSettingsByProperty(propertyName, 'text')}
-                                         opacity={this.props.getSettingsByProperty(propertyName, 'opacity', event)}
-                                         open={this.state.openPreview}
-                                         toggleOpenPreview={this.toggleOpenPreview}
-                            />
-                    }
-                    <ColorPicker hidden={this.state.openPreview}
-                                 color={this.props.getSettingsByProperty(propertyName, 'color', event)}
-                                 opacity={this.props.getSettingsByProperty(propertyName, 'opacity', event)}
-                                 storeValueColor={this.props.getStoreSettingsByProperty(propertyName, 'color', event)}
-                                 storeValueOpacity={this.props.getStoreSettingsByProperty(propertyName, 'opacity', event)}
-                                 defaultColor={this.props.getDefaultSettingsByProperty(propertyName, 'color', event)}
-                                 defaultOpacity={this.props.getDefaultSettingsByProperty(propertyName, 'opacity', event)}
-                                 openView={this.state.openColor}
-                                 updateStateProps={this.updateSettings}
-                                 toggleOpenView={this.toggleOpenColor}
-                                 event={this.props.event}
-                    />
-                    {
-                        !useSeo ? null :
-                            <Seo hidden={this.state.openPreview || this.state.openColor}
-                                 seo={this.props.getSettingsPropertyNoResponsive('seo')}
-                                 defaultSeo={this.props.getDefaultSettingsPropertyNoResponsive('seo')}
-                                 storeValueSeo={this.props.getStoreSettingsPropertyNoResponsive('seo')}
-                                 updateStateProps={this.props.updateSettingsNoResponsive}
-                            />
-                    }
-
-                </Column>
-                {
-                    !this.props.getDefaultSettingsByProperty(propertyName, 'font') ? null :
-                        <Column
-                            className={this.state.openPreview || this.state.openColor ? 'hidden' : ''}>
-                            <Typography
-                                font={this.props.getSettingsByProperty(propertyName, 'font')}
-                                text={this.props.getSettingsByProperty(propertyName, 'text')}
-                                defaultFont={this.props.getDefaultSettingsByProperty(propertyName, 'font')}
-                                defaultText={this.props.getDefaultSettingsByProperty(propertyName, 'text')}
-                                storeValueFont={this.props.getStoreSettingsByProperty(propertyName, 'font')}
-                                storeValueText={this.props.getStoreSettingsByProperty(propertyName, 'text')}
-                                updateStateProps={this.updateSettings}
-                                currentMode={currentResponsiveMode}
-                            />
-                        </Column>
-                }
-
-                <Column/>
-                {!usePadding ? null :
-                    <Column>
-                        <Padding hidden={this.state.openColorView}
-                                 padding={this.props.getSettingsByProperty(propertyName, 'padding')}
-                                 storeValuePadding={this.props.getStoreSettingsByProperty(propertyName, 'padding')}
-                                 defaultPadding={this.props.getDefaultSettingsByProperty(propertyName, 'padding')}
-                                 updateStateProps={this.updateSettings}
+                    !getDefaultSettingsByProperty(propertyName, 'font') ? null :
+                        <TextPreview hidden={openColor}
+                                     color={getSettingsByProperty(propertyName, 'color', event)}
+                                     font={getSettingsByProperty(propertyName, 'font')}
+                                     text={getSettingsByProperty(propertyName, 'text')}
+                                     opacity={getSettingsByProperty(propertyName, 'opacity', event)}
+                                     open={openPreview}
+                                     toggleOpenPreview={toggleOpenPreview}
                         />
-                    </Column>}
+                }
+                <ColorPicker hidden={openPreview}
+                             color={getSettingsByProperty(propertyName, 'color', event)}
+                             opacity={getSettingsByProperty(propertyName, 'opacity', event)}
+                             storeValueColor={getStoreSettingsByProperty(propertyName, 'color', event)}
+                             storeValueOpacity={getStoreSettingsByProperty(propertyName, 'opacity', event)}
+                             defaultColor={getDefaultSettingsByProperty(propertyName, 'color', event)}
+                             defaultOpacity={getDefaultSettingsByProperty(propertyName, 'opacity', event)}
+                             openView={openColor}
+                             updateStateProps={updateSettings}
+                             toggleOpenView={toggleOpenColor}
+                             event={event}
+                />
+                {
+                    useSeo &&
+                    <Seo hidden={openPreview || openColor}
+                         seo={getSettingsPropertyNoResponsive('seo')}
+                         defaultSeo={getDefaultSettingsPropertyNoResponsive('seo')}
+                         storeValueSeo={getStoreSettingsPropertyNoResponsive('seo')}
+                         updateStateProps={updateSettingsNoResponsive}
+                    />
+                }
+            </Column>
+            {
+                !getDefaultSettingsByProperty(propertyName, 'font') ? null :
+                    <Column
+                        className={openPreview || openColor ? 'hidden' : ''}>
+                        <Typography
+                            font={getSettingsByProperty(propertyName, 'font')}
+                            text={getSettingsByProperty(propertyName, 'text')}
+                            defaultFont={getDefaultSettingsByProperty(propertyName, 'font')}
+                            defaultText={getDefaultSettingsByProperty(propertyName, 'text')}
+                            storeValueFont={getStoreSettingsByProperty(propertyName, 'font')}
+                            storeValueText={getStoreSettingsByProperty(propertyName, 'text')}
+                            updateStateProps={updateSettings}
+                            currentMode={currentResponsiveMode}
+                        />
+                    </Column>
+            }
+            <Column/>
+            {usePadding &&
+            <Column>
+                <Padding hidden={false}
+                         padding={getSettingsByProperty(propertyName, 'padding')}
+                         storeValuePadding={getStoreSettingsByProperty(propertyName, 'padding')}
+                         defaultPadding={getDefaultSettingsByProperty(propertyName, 'padding')}
+                         updateStateProps={updateSettings}
+                />
+            </Column>
+            }
+        </Choices>
+    );
+}
 
-            </Choices>
-        )
-    }
+TypeSystem.protoTypes = {
+    label: PropTypes.string,
+    propertyName: PropTypes.string,
+    event: PropTypes.string,
+    useSeo : PropTypes.bool,
+    usePadding: PropTypes.bool,
+    updateSettingsProperty: PropTypes.func,
+    getSettingsByProperty: PropTypes.func,
+    getDefaultSettingsByProperty: PropTypes.func,
+    getStoreSettingsByProperty: PropTypes.func,
+    currentResponsiveMode : PropTypes.string,
+    updateSettingsNoResponsive : PropTypes.func,
+    getSettingsPropertyNoResponsive: PropTypes.func,
+    getStoreSettingsPropertyNoResponsive: PropTypes.func,
+    getDefaultSettingsPropertyNoResponsive: PropTypes.func
 };
 
 export default TypeSystem;

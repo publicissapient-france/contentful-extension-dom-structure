@@ -270,7 +270,7 @@ const FieldWrapper = WrappedComponent => {
 
         }
 
-        isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings, this.state.storeSettings))
+        isUpdated = () => (!isEqual(this.state.content, this.state.storeContent) || !isEqual(this.state.settings, this.state.storeSettings));
 
         updateContent = (targetProperty, value) => {
             this.setState(prevState => ({

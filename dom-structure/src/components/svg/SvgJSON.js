@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SvgJSON = () => {
-    return <svg enable-background="new 0 0 40 40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="40px" height="40px">
+    return <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="40px" height="40px">
         <g>
             <path d="m12 19h16v2h-16z" transform="matrix(.5 -.866 .866 .5 -7.3198 27.3207)"/>
             <path
