@@ -347,5 +347,5 @@ const mapStateToProps = state => ({
 
 const WrappedComponent = FieldWrapper(connect(mapStateToProps)(CTA));
 export default WrappedComponent;
-export const CTAForSection = FieldWrapperOfSection(CTA);
+export const CTAForSection = FieldWrapperOfSection(connect(mapStateToProps)(CTA));
 

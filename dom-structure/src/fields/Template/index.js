@@ -97,6 +97,7 @@ class Template extends Component {
                         !isEmpty(this.props.defaultContent) && this.props.openContent ?
                             <Content>
                                 <ImageUploader asset={getAsset(content, currentResponsiveMode)}
+                                               currentResponsiveMode={currentResponsiveMode}
                                                alt={getAlt(content, indexLanguage)}
                                                index={0}
                                                updateStateAsset={this.props.updateContentSubProperty}

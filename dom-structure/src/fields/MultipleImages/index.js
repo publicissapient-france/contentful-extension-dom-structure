@@ -32,6 +32,7 @@ class MultipleImages extends Component {
                                 this.props.content.images
                                     ? this.props.content.images.map((image, i) => {
                                         return <ImageUploader index={i} key={i}
+                                                              currentResponsiveMode={currentResponsiveMode}
                                                               asset={getAssetByIndex(content, currentResponsiveMode, i)}
                                                               alt={getAltByIndex(content, indexLanguage, i)}
                                                               updateStateAsset={this.props.updateContentSubProperty}

@@ -57,6 +57,7 @@ class SelectFormations extends Component {
                         <Settings>
                             {
                                 ['category', 'title', 'text', 'textSession', 'taglineSession', 'textPromo', 'taglinePromo', 'session', 'promo'].map(prop => {
+                                    if(!this.props.settings[prop]) return null;
                                     return <TypeSystem key={prop}
                                                        label={prop}
                                                        propertyName={prop}

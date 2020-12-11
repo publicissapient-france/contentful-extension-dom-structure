@@ -309,27 +309,6 @@ const FieldWrapperOfSection = WrappedComponent => {
             }
         }
 
-
-        /* updateSettingsProperty = (property, subProperty, value) => {
-             this.setState(prevState => ({
-                 settings: update(prevState.settings, {
-                     [property]: {
-                         [this.state.currentResponsiveMode]: {
-                            [subProperty]: { $set: value }
-                         }
-                     }
-                 })
-             }));
-         }*/
-
-      /*  updateSettingsNoResponsive = (targetProperty, value) => {
-            this.setState(prevState => ({
-                settings: update(prevState.settings, {
-                    [targetProperty]: {$set: value}
-                })
-            }));
-        }*/
-
         updateField = () => {
             const {dispatch, nameProperty, indexSection} = this.props;
             const {content, settings} = this.state;

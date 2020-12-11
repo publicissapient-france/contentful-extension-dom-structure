@@ -15,6 +15,7 @@ import BorderSystem from '../../interfaces/system/BorderSystem';
 
 import {Field} from '../../style/styledComponentsFields';
 import {Content, Settings, Choices, Column} from './styled';
+import FieldWrapperOfSection from "../../HOC/FieldWrapperOfSection";
 
 
 class Text extends Component {
@@ -97,3 +98,5 @@ const mapStateToProps = state => ({
 
 const WrappedComponent = FieldWrapper(connect(mapStateToProps)(Text));
 export default WrappedComponent;
+export const TextForSection = FieldWrapperOfSection(connect(mapStateToProps)(Text));
+

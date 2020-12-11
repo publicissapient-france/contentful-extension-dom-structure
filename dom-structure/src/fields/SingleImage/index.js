@@ -44,6 +44,7 @@ class SingleImage extends Component {
                         !isEmpty(this.props.content) ?
                             <Content className={!this.props.openContent ? 'hidden' : ''}>
                                 <ImageUploader asset={getAsset(content, currentResponsiveMode)}
+                                               currentResponsiveMode={currentResponsiveMode}
                                                alt={getAlt(content, indexLanguage)}
                                                index={0}
                                                updateStateAsset={this.props.updateContentSubProperty}

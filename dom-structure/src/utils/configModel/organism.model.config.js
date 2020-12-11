@@ -172,19 +172,25 @@ export const settingsSectionTemplate = {
     defaultValue: {
         basis: {
             M: {
+                size: size,
                 padding: paddingSection,
+                margin: margin,
                 color: colorAndGradient,
                 opacity: opacity,
                 background: backgroundPosition
             },
             T: {
+                size: size,
                 padding: paddingSection,
+                margin: margin,
                 color: colorAndGradient,
                 opacity: opacity,
                 background: backgroundPosition
             },
             D: {
+                size: size,
                 padding: paddingSection,
+                margin: margin,
                 color: colorAndGradient,
                 opacity: opacity,
                 background: backgroundPosition

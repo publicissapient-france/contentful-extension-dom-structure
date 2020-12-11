@@ -4,6 +4,8 @@ import {FieldContainer} from './styled';
 
 import {TemplateForSection} from '../../fields/Template/index';
 import {CTAForSection} from '../../fields/CTA/index';
+import {TextForSection} from '../../fields/Text/index';
+
 import {FlexContainerForSection} from '../../fields/FlexContainer/index';
 import {SelectSpeakersForSection} from '../../fields/SelectSpeakers/index';
 import {SingleImageForSection} from '../../fields/SingleImage/index';
@@ -43,6 +45,9 @@ const FieldsListOfSection = ({fields, index, triggerOpening}) => {
 
                         case 'CTA':
                             return <CTAForSection {...params}/>;
+
+                        case 'Text':
+                            return <TextForSection {...params}/>;
 
                         case 'SelectSpeakers':
                             return <SelectSpeakersForSection {...params}/>;

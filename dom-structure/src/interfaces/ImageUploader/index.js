@@ -13,12 +13,31 @@ const ImageUploader = ({asset,alt, index,currentResponsiveMode, updateStateAsset
     const [valid, setValid] = useState(true);
 
     useEffect(() => {
-        if (asset && asset.id) {
+        console.log('effect 1')
+        console.log(asset);
+        if (asset && asset.url) {
             setInnerAsset(asset);
+        }else{
+
         }
-    }, [asset]);
+    //}, [asset]);
+    }, []);
 
     useEffect(() => {
+        console.log('effect 2')
+        setInnerAsset(asset);
+       /* if(asset !== innerAsset){
+            setInnerAsset(asset);
+        }
+       /* if (asset && asset.id) {
+            setInnerAsset(asset);
+        }else{
+            setInnerAsset(null);
+        }*/
+    }, [currentResponsiveMode]);
+
+    useEffect(() => {
+        console.log('effect 3')
         /*async function isValid() {
             if(innerAsset && innerAsset !== {}){
                 assetIsValid();
@@ -26,6 +45,7 @@ const ImageUploader = ({asset,alt, index,currentResponsiveMode, updateStateAsset
         }
         isValid();*/
         if(asset){
+            console.log('update draft');
             updateStateAsset('images', 'asset', innerAsset, index);
         }
     }, [innerAsset]);

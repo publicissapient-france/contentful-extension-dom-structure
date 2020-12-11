@@ -17,6 +17,7 @@ import update from 'react-addons-update';
 import PropTypes from 'prop-types';
 
 const FieldWrapper = WrappedComponent => {
+
     class HOC extends Component {
         constructor(props) {
             super(props);

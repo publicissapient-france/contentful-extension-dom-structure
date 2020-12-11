@@ -3,7 +3,6 @@ export const contentfulTheme = {
     grey: '#8091a5',
     lightGrey: '#d3dce0',
     basicFont: 'Arial, sans-serif'
-
 };
 
 export const extensionTheme = {
