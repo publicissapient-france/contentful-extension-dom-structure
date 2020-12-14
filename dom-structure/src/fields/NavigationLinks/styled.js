@@ -183,6 +183,8 @@ export const Content = styled.div`
 export const LinkSettings = styled.div`
    display : flex;
    flex-direction : column;
+   border-bottom : 1px solid ${extensionTheme.grey20};
+   padding : 6px;
    
    &>div{
     display : flex;
@@ -190,8 +192,8 @@ export const LinkSettings = styled.div`
     & label{
        display : flex;
         & input[type=checkbox]{
-            width : 20px;
-            height: 20px;
+            width : 15px;
+            height: 15px;
             margin-right : 5px;
             align-self : center;
         }

@@ -65,7 +65,7 @@ class NavigationLinks extends Component {
                                                    onChange={(e) => {
                                                        this.props.updateSettingsNoResponsive('state', {noDepth: !this.getNoDepth()})
                                                    }}/>
-                                            noDepth</label>
+                                            noDepth links</label>
 
                                     </div>
                                 </LinkSettings>
