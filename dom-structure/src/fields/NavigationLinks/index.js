@@ -14,7 +14,8 @@ import BorderSystem from "../../interfaces/system/BorderSystem";
 import TypeSystem from "../../interfaces/system/TypeSystem";
 
 import {Field} from '../../style/styledComponentsFields';
-import {Settings, Column, Row, ChoicesCustom, ButtonEvents} from './styled';
+import {Settings, Column, Row, ChoicesCustom, ButtonEvents, Content, LinkSettings} from './styled';
+import {getLink} from "../../utils/Fields/getters";
 
 class NavigationLinks extends Component {
     constructor(props) {
@@ -40,6 +41,8 @@ class NavigationLinks extends Component {
 
     updateBasis = (property, value, event) => this.props.updateSettingsProperty('basis', property, value, event);
 
+    getNoDepth = () => this.props.getSettingsPropertyNoResponsive('state') ? this.props.getSettingsPropertyNoResponsive('state').noDepth : false;
+
     render() {
         const {updated} = this.props;
 
@@ -48,6 +51,25 @@ class NavigationLinks extends Component {
             <div>
                 <FieldBanner {...this.props}/>
                 <Field>
+                    {
+                        this.props.openContent && this.props.settings.state ?
+                            <Content>
+                                <LinkSettings>
+                                    <div>
+                                        <label>
+                                            <input type={'checkbox'} defaultChecked={this.getNoDepth()}
+                                                   onChange={(e) => {
+                                                       this.props.updateSettingsNoResponsive('state', {noDepth: !this.getNoDepth()})
+                                                   }}/>
+                                            noDepth</label>
+
+                                    </div>
+                                </LinkSettings>
+                            </Content>
+
+                            : null
+                    }
+
                     {
                         this.props.openSettings &&
                         <Settings>
@@ -141,7 +163,8 @@ class NavigationLinks extends Component {
                     }
 
                 </Field>
-                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue} updating={this.props.updateField}/>
+                <FieldUpdateForm updated={updated} canceling={this.props.cancelStateValue}
+                                 updating={this.props.updateField}/>
             </div>
         );
     }

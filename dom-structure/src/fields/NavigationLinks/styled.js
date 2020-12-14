@@ -1,5 +1,6 @@
 import { extensionTheme } from '../../style/theme';
 import styled from 'styled-components';
+import {ChoicesContent} from "../Link/styled";
 
 export const Row = styled.div`
    display : flex;
@@ -170,5 +171,30 @@ export const ButtonEvents = styled.div`
         color : ${extensionTheme.white};
         
     }
+   }
+`;
+
+
+export const Content = styled.div`
+   
+`;
+
+
+export const LinkSettings = styled.div`
+   display : flex;
+   flex-direction : column;
+   
+   &>div{
+    display : flex;
+    flex-direction : column;
+    & label{
+       display : flex;
+        & input[type=checkbox]{
+            width : 20px;
+            height: 20px;
+            margin-right : 5px;
+            align-self : center;
+        }
+       }
    }
 `;

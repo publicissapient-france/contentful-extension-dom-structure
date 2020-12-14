@@ -392,7 +392,9 @@ export default {
             content: {
                 responsive: ['M', 'T', 'D'],
                 parameters: {},
-                defaultValue: {}
+                defaultValue: {
+
+                }
             },
             settings: {
                 responsive: ['M', 'T', 'D'],
@@ -458,6 +460,9 @@ export default {
             settings: {
                 responsive: ['M', 'T', 'D'],
                 defaultValue: {
+                    state: {
+                        noDepth: false
+                    },
                     basis: {
                         M: {
                             size: size,
