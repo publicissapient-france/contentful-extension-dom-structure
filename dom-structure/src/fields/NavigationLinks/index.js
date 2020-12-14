@@ -51,9 +51,13 @@ class NavigationLinks extends Component {
             <div>
                 <FieldBanner {...this.props}/>
                 <Field>
+
+
                     {
-                        this.props.openContent && this.props.settings.state ?
-                            <Content>
+                        this.props.openSettings &&
+                        <Settings>
+                            {
+                                this.props.settings.state &&
                                 <LinkSettings>
                                     <div>
                                         <label>
@@ -65,14 +69,8 @@ class NavigationLinks extends Component {
 
                                     </div>
                                 </LinkSettings>
-                            </Content>
 
-                            : null
-                    }
-
-                    {
-                        this.props.openSettings &&
-                        <Settings>
+                            }
                             {
                                 this.state.events && this.state.events.length !== 0 ?
                                     <ButtonEvents>
