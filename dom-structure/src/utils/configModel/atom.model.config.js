@@ -142,6 +142,15 @@ export const colorAndGradient = {
     shade: null,
     gradient: ''
 }
+
+export const colorTransparentAndGradient = {
+    hex: 'transparent',
+    rgb: '',
+    name: 'Transparent',
+    shade: null,
+    gradient: ''
+}
+
 export const colorGreyAndGradient = {
     hex: '#666666',
     rgb: '102,102,102',

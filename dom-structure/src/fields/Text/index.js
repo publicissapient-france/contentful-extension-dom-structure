@@ -74,14 +74,17 @@ class Text extends Component {
                                         />
                                     </Column>
                                 </Choices>
-                                <BorderSystem
-                                    label={null}
-                                    propertyName={'border'}
-                                    getSettingsByProperty={this.props.getSettingsByProperty}
-                                    getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
-                                    getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
-                                    updateSettingsProperty={this.props.updateSettingsProperty}
-                                />
+                                {
+                                    this.props.settings.border &&
+                                    <BorderSystem
+                                        label={null}
+                                        propertyName={'border'}
+                                        getSettingsByProperty={this.props.getSettingsByProperty}
+                                        getStoreSettingsByProperty={this.props.getStoreSettingsByProperty}
+                                        getDefaultSettingsByProperty={this.props.getDefaultSettingsByProperty}
+                                        updateSettingsProperty={this.props.updateSettingsProperty}
+                                    />
+                                }
                             </Settings>
                             : null
                     }
