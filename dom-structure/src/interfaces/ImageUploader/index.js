@@ -13,7 +13,6 @@ const ImageUploader = ({asset,alt, index,currentResponsiveMode, updateStateAsset
     const [valid, setValid] = useState(true);
 
     useEffect(() => {
-        console.log('effect 1')
         console.log(asset);
         if (asset && asset.url) {
             setInnerAsset(asset);
@@ -24,7 +23,6 @@ const ImageUploader = ({asset,alt, index,currentResponsiveMode, updateStateAsset
     }, []);
 
     useEffect(() => {
-        console.log('effect 2')
         setInnerAsset(asset);
        /* if(asset !== innerAsset){
             setInnerAsset(asset);
@@ -45,7 +43,6 @@ const ImageUploader = ({asset,alt, index,currentResponsiveMode, updateStateAsset
         }
         isValid();*/
         if(asset){
-            console.log('update draft');
             updateStateAsset('images', 'asset', innerAsset, index);
         }
     }, [innerAsset]);

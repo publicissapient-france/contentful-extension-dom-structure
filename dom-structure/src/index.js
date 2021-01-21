@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import rootReducer from './reducers';
 import logger from 'redux-logger';
 
-import '@contentful/forma-36-fcss/dist/styles.css';
 import { init } from 'contentful-ui-extensions-sdk';
 
 import App from './containers/App';

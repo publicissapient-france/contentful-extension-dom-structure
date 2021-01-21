@@ -34,12 +34,14 @@ class TextMarkdown extends Component {
         const {updated, indexLanguage, content, currentResponsiveMode} = this.props;
         if (!this.props.settings) return null;
 
+
+        console.log('porps textMardown', this.props);
         return (
             <div>
                 <FieldBanner {...this.props}/>
                 <Field>
                     {
-                        !isEmpty(this.props.content) && this.props.openContent ?
+                        !isEmpty(content) && content !== {} && this.props.openContent ?
                             <Content>
                                 <InputMarkdown currentLanguage={indexLanguage}
                                                action={this.props.updateTranlatedContent} targetProperty={'html'}
@@ -62,17 +64,21 @@ class TextMarkdown extends Component {
                                         getStoreSettingsPropertyNoResponsive={this.props.getStoreSettingsPropertyNoResponsive}
                                         updateSettingsNoResponsive={this.props.updateSettingsNoResponsive}
                             />
-                            <Choices>
-                                <Column/>
-                                <Column>
-                                    <Padding hidden={false}
-                                             padding={this.props.getSettingsByProperty('basis', 'padding')}
-                                             storeValuePadding={this.props.getStoreSettingsByProperty('basis', 'padding')}
-                                             defaultPadding={this.props.getDefaultSettingsByProperty('basis', 'padding')}
-                                             updateStateProps={this.updateBasis}
-                                    />
-                                </Column>
-                            </Choices>
+                            {
+                                this.props.settings.padding &&
+                                <Choices>
+                                    <Column/>
+                                    <Column>
+                                        <Padding hidden={false}
+                                                 padding={this.props.getSettingsByProperty('basis', 'padding')}
+                                                 storeValuePadding={this.props.getStoreSettingsByProperty('basis', 'padding')}
+                                                 defaultPadding={this.props.getDefaultSettingsByProperty('basis', 'padding')}
+                                                 updateStateProps={this.updateBasis}
+                                        />
+                                    </Column>
+                                </Choices>
+                            }
+
                         </Settings>
                     }
                 </Field>
