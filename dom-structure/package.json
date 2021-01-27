@@ -31,7 +31,7 @@
     "contentful-ui-extensions-sdk": "3.5.0",
     "debounce-fn": "^1.0.0",
     "highlight.js": "9.18.1",
-    "jodit-react": "1.0.26",
+    "jodit-react": "1.0.70",
     "lodash": "4.17.19",
     "prop-types": "15.7.2",
     "react": "16.13.1",

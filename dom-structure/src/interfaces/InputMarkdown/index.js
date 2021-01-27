@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Container} from './styled';
 
-import 'jodit';
-import 'jodit/build/jodit.min.css';
 import JoditEditor from "jodit-react";
-
 
 class InputMarkdown extends Component {
     constructor(props) {
@@ -68,7 +65,7 @@ class InputMarkdown extends Component {
 
 InputMarkdown.propTypes = {
     action: PropTypes.func,
-    targetProperty: PropTypes.string.isRequired,
+    targetProperty: PropTypes.string,
     defaultValue: PropTypes.string,
     currentLanguage: PropTypes.number
 };

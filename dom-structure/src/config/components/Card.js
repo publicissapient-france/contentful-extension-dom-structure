@@ -73,7 +73,6 @@ export default {
                 }
             },
             settings: settingsText
-
         },
         {
             name: 'Content Bold',
