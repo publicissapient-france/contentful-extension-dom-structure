@@ -35,7 +35,6 @@ class TextMarkdown extends Component {
         if (!this.props.settings) return null;
 
 
-        console.log('porps textMardown', this.props);
         return (
             <div>
                 <FieldBanner {...this.props}/>

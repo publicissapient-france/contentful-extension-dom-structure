@@ -35,7 +35,6 @@ const ImageUploader = ({asset,alt, index,currentResponsiveMode, updateStateAsset
     }, [currentResponsiveMode]);
 
     useEffect(() => {
-        console.log('effect 3')
         /*async function isValid() {
             if(innerAsset && innerAsset !== {}){
                 assetIsValid();
