@@ -49,7 +49,7 @@ const FieldsList = ({fields, index, indexParent, triggerOpening, fieldsComponent
                         case key === 'FlexContainer':
                             return <FlexContainerForComponent {...params}/>;
 
-                        case key === 'Title' || key === 'Tagline' || key === 'Heading':
+                        case key === 'Title' || key === 'Tagline' || key === 'Heading' || key === 'CouponId':
                             return <Text {...params} />;
 
                         case  key === 'Content':
