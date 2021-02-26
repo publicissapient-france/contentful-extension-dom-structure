@@ -10,6 +10,7 @@ import {MultipleImagesForComponent} from '../../fields/MultipleImages/index';
 import CTA from '../../fields/CTA/index';
 import DuplicableCTA from '../../fields/DuplicableCTA/index';
 import Link from '../../fields/Link/index';
+import InputDate from '../../fields/InputDate/index';
 import NavigationLinks from '../../fields/NavigationLinks/index';
 import NavigationBar from '../../fields/NavigationBar/index';
 import SelectSpeakers from '../../fields/SelectSpeakers/index';
@@ -49,7 +50,7 @@ const FieldsList = ({fields, index, indexParent, triggerOpening, fieldsComponent
                         case key === 'FlexContainer':
                             return <FlexContainerForComponent {...params}/>;
 
-                        case key === 'Title' || key === 'Tagline' || key === 'Heading':
+                        case key === 'Title' || key === 'Tagline' || key === 'Heading' || key === 'Text':
                             return <Text {...params} />;
 
                         case  key === 'Content':
@@ -85,7 +86,7 @@ const FieldsList = ({fields, index, indexParent, triggerOpening, fieldsComponent
                         case key.includes('Template'):
                             return <TemplateForComponent {...params} />;
 
-                        case key.includes('Title') || key.includes('Tagline') || key.includes('Heading') :
+                        case key.includes('Title') || key.includes('Tagline') || key.includes('Heading')|| key.includes('Text') :
                             return <Text {...params} />;
 
                         case key.includes('Content'):
@@ -105,6 +106,9 @@ const FieldsList = ({fields, index, indexParent, triggerOpening, fieldsComponent
 
                         case  key.includes('Partners'):
                             return <SelectPartnersForComponent  {...params} />
+
+                        case key.includes('Date'):
+                            return <InputDate {...params} />;
 
                         default :
                             return <div className={'error'}><p>No

@@ -44,7 +44,10 @@ class NavigationBar extends Component {
 
     toggleCurrentEvent = (event) => this.setState({currentEvent: event});
 
-    updateBasis = (property, value, event) => this.props.updateSettingsProperty('basis', property, value, event);
+    updateBasis = (property, value, event) => {
+        console.log('update Basis')
+        this.props.updateSettingsProperty('basis', property, value, event);
+    }
     updateSVG = (property, value, event) => this.props.updateSettingsProperty('svg', property, value, event);
     updateBurger = (property, value, event) => this.props.updateSettingsProperty('burger', property, value, event);
 

@@ -191,6 +191,9 @@ const FieldWrapper = WrappedComponent => {
             }
         }
         updateSettingsProperty = (property, subProperty, value, event) => {
+            console.log('updateSettingsProperty',property, subProperty, value, event )
+            //updateSettingsProperty basis color {hex: "#000000", rgb: "0,0,0", name: "Black", shade: ""} basic
+            console.log('this.state.currentResponsiveMode', this.state.currentResponsiveMode)
             if (event) {
                 this.setState(prevState => ({
                     settings: update(prevState.settings, {
@@ -203,7 +206,9 @@ const FieldWrapper = WrappedComponent => {
                             }
                         }
                     })
-                }));
+                }), () => {
+                    console.log('update field', this.state)
+                });
             } else {
                 this.setState(prevState => ({
                     settings: update(prevState.settings, {
