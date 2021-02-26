@@ -30,7 +30,7 @@
     "@contentful/forma-36-tokens": "0.2.0",
     "contentful-ui-extensions-sdk": "3.5.0",
     "debounce-fn": "^1.0.0",
-    "highlight.js": "9.18.1",
+    "highlight.js": "10.4.1",
     "jodit-react": "1.0.70",
     "lodash": "4.17.19",
     "prop-types": "15.7.2",
