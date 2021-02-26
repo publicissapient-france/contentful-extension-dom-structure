@@ -1,11 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {Container, InputDate, Icon, CloseBox, DateBox} from './styled';
+import {Container, InputDate, Icon, CloseBox, DateBox, Labels} from './styled';
 import PropTypes from 'prop-types';
-import SvgCalendar from '../../components/svg/SvgCalendar';
-import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import DateTimePicker from 'react-datetime-picker';
-//import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-datetime-picker/dist/entry.nostyle';
 
 const DatePicker = ({action, targetProperty, defaultValue, updateContent}) => {
@@ -53,24 +50,11 @@ const DatePicker = ({action, targetProperty, defaultValue, updateContent}) => {
 
     return (
         <>
-            {
-                /*
-                <InputDate>
-                    <Icon onClick={() => setOpenedCalendar(true)}>
-                        <SvgCalendar/>
-                    </Icon>
-                    <p onClick={() => setOpenedCalendar(true)}>{innerDay && (innerDay !== undefined || innerDay !== '') ? innerDay.toLocaleDateString() : ''}</p>
-                    <DateBox className={!openedCalendar ? 'hidden' : ''}>
-                        <CloseBox onClick={() => setOpenedCalendar(false)}/>
-                        <DayPicker
-                            onDayClick={handleDay}
-                            selectedDays={innerDay}
-                        />
-                    </DateBox>
-                </InputDate>
-                 */
-            }
             <Container>
+                <Labels>
+                    <label>day</label>
+                    <label>time</label>
+                </Labels>
                 <DateTimePicker
                     locale={"en-EN"}
                     onChange={handleDateTime}

@@ -15,7 +15,16 @@ export const Container = styled.div`
   
   .react-datetime-picker__clear-button:enabled:hover svg line{
     stroke : ${ extensionTheme.redM };
+    
   }
+  .react-datetime-picker__wrapper{
+    border : 0px solid transparent;
+  }
+  
+  .react-datetime-picker__button{
+    display : none;
+  }
+  
 `;
 
 
@@ -103,6 +112,15 @@ export const DateBox = styled.div`
    
 `;
 
+
+export const Labels = styled.div`
+   display : flex;
+   
+   & label:nth-child(2){
+    margin-left : 90px;
+   }
+   
+`;
 
 export const CloseBox = styled.div`
    width : 30px;
