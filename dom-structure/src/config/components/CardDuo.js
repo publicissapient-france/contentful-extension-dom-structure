@@ -8,7 +8,13 @@ import {
     backgroundPosition,
     borderWidth, borderRadius, transparent, alignmentStart, black
 } from "../../utils/configModel/atom.model.config";
-import {settingsCTA, settingsTagline, settingsText, settingsTitle} from "../../utils/configModel/organism.model.config";
+import {
+    settingsCTA,
+    settingsSingleImage,
+    settingsTagline, settingsTemplate,
+    settingsText,
+    settingsTitle
+} from "../../utils/configModel/organism.model.config";
 
 export default {
     model: 'CardDuo',
@@ -32,31 +38,7 @@ export default {
                     ]
                 }
             },
-            settings: {
-                responsive: ['A'],
-                defaultValue: {
-                    basis: {
-                        A: {
-                            size: size,
-                            padding: padding,
-                            margin: margin,
-                            color: white,
-                            opacity: opacity,
-                            shadow: shadow,
-                            background: backgroundPosition
-                        }
-                    },
-                    border: {
-                        A: {
-                            width: borderWidth,
-                            radius: borderRadius,
-                            color: transparent,
-                            opacity: opacity,
-                            shadow: shadow
-                        }
-                    }
-                }
-            }
+            settings: settingsTemplate
         },
         {
             name: 'Title',
@@ -115,27 +97,7 @@ export default {
                     ]
                 }
             },
-            settings: {
-                responsive: ['A'],
-                defaultValue: {
-                    basis: {
-                        A: {
-                            size: size,
-                            padding: padding,
-                            margin: margin,
-                            alignment: alignmentStart
-                        }
-                    },
-                    border: {
-                        A: {
-                            width: borderWidth,
-                            radius: borderRadius,
-                            color: transparent,
-                            opacity: opacity
-                        }
-                    }
-                }
-            }
+            settings: settingsSingleImage
         },
         {
             name: 'CTA',
@@ -170,21 +132,7 @@ export default {
                     ]
                 }
             },
-            settings: {
-                responsive: ['A'],
-                defaultValue: {
-                    basis: {
-                        A: {
-                            size: size,
-                            padding: padding,
-                            margin: margin,
-                            color: black,
-                            opacity: opacity
-                        }
-                    }
-
-                }
-            }
+            settings: settingsTemplate
         },
         {
             name: 'Template 2',
@@ -204,31 +152,7 @@ export default {
                     ]
                 }
             },
-            settings: {
-                responsive: ['A'],
-                defaultValue: {
-                    basis: {
-                        A: {
-                            size: size,
-                            padding: padding,
-                            margin: margin,
-                            color: white,
-                            opacity: opacity,
-                            shadow: shadow,
-                            background: backgroundPosition
-                        }
-                    },
-                    border: {
-                        A: {
-                            width: borderWidth,
-                            radius: borderRadius,
-                            color: transparent,
-                            opacity: opacity,
-                            shadow: shadow
-                        }
-                    }
-                }
-            }
+            settings: settingsTemplate
         },
         {
             name: 'Title 2',
@@ -288,27 +212,7 @@ export default {
                     ]
                 }
             },
-            settings: {
-                responsive: ['A'],
-                defaultValue: {
-                    basis: {
-                        A: {
-                            size: size,
-                            padding: padding,
-                            margin: margin,
-                            alignment: alignmentStart
-                        }
-                    },
-                    border: {
-                        A: {
-                            width: borderWidth,
-                            radius: borderRadius,
-                            color: transparent,
-                            opacity: opacity
-                        }
-                    }
-                }
-            }
+            settings: settingsSingleImage
         },
         {
             name: 'CTA 2',
