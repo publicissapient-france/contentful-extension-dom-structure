@@ -109,7 +109,7 @@ export default {
         },
         {
             name: 'Talks Title',
-            nameProperty: 'ContentTalks',
+            nameProperty: 'ContentTalksInfo',
             typeField: 'TextMarkdown',
             content: {
                 responsive: ['A'],
