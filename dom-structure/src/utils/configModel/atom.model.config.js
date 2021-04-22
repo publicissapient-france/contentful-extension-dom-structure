@@ -38,12 +38,20 @@ export const borderWidth = {
     left: '0'
 }
 
+export const position = {
+    top: '0',
+    right: '0',
+    bottom: '0',
+    left: '0'
+}
+
 export const borderRadius = {
     topLeft: '0',
     topRight: '0',
     bottomLeft: '0',
     bottomRight: '0'
 }
+
 
 
 export const flexProperties1 = {

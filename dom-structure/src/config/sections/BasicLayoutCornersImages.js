@@ -1,4 +1,5 @@
 import {settingsFlexContainer, settingsTemplate} from "../../utils/configModel/organism.model.config";
+import {position} from '../../utils/configModel/atom.model.config'
 
 export default {
     model: 'BasicLayoutCornersImages',
@@ -107,6 +108,12 @@ export default {
                                     minWidth: '',
                                     minHeight: ''
                                 }
+                            },
+                            position: {
+                                1: position,
+                                2: position,
+                                3: position,
+                                4: position
                             }
                         },
                         T: {
@@ -143,6 +150,12 @@ export default {
                                     minWidth: '',
                                     minHeight: ''
                                 }
+                            },
+                            position: {
+                                1: position,
+                                2: position,
+                                3: position,
+                                4: position
                             }
                         },
                         D: {
@@ -179,6 +192,12 @@ export default {
                                     minWidth: '',
                                     minHeight: ''
                                 }
+                            },
+                            position: {
+                                1: position,
+                                2: position,
+                                3: position,
+                                4: position
                             }
                         }
                     }
