@@ -62,13 +62,17 @@ class MultipleImages extends Component {
                                                       event={i + 1}
 
                                                 />
-                                                <Position
-                                                    position={this.props.getSettingsByProperty('basis', 'position', i + 1)}
-                                                    storeValuePosition={this.props.getStoreSettingsByProperty('basis', 'position', i + 1)}
-                                                    defaultPosition={this.props.getDefaultSettingsByProperty('basis', 'position', i + 1)}
-                                                    updateStateProps={this.updateBasis}
-                                                    event={i + 1}
-                                                />
+                                                    {
+                                                        this.props.settings.basis && this.props.settings.basis[currentResponsiveMode]&& this.props.settings.basis[currentResponsiveMode].position ?
+                                                            <Position
+                                                                position={this.props.getSettingsByProperty('basis', 'position', i + 1)}
+                                                                storeValuePosition={this.props.getStoreSettingsByProperty('basis', 'position', i + 1)}
+                                                                defaultPosition={this.props.getDefaultSettingsByProperty('basis', 'position', i + 1)}
+                                                                updateStateProps={this.updateBasis}
+                                                                event={i + 1}
+                                                            /> : null
+                                                    }
+
                                             </Row>;
                                         }) : null
                                 }
