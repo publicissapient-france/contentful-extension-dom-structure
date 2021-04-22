@@ -39,10 +39,10 @@ export const borderWidth = {
 }
 
 export const position = {
-    top: '0',
-    right: '0',
-    bottom: '0',
-    left: '0'
+    top: '',
+    right: '',
+    bottom: '',
+    left: ''
 }
 
 export const borderRadius = {
