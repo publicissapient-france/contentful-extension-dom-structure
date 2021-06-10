@@ -14,6 +14,7 @@ import TypeSystem from '../../interfaces/system/TypeSystem';
 
 import {Field} from '../../style/styledComponentsFields';
 import {Content, Settings, Choices, Column} from './styled';
+import FieldWrapperOfSection from "../../HOC/FieldWrapperOfSection";
 
 class TextMarkdown extends Component {
     constructor(props) {
@@ -93,3 +94,5 @@ const mapStateToProps = state => ({
 });
 const WrappedComponent = FieldWrapper(connect(mapStateToProps)(TextMarkdown));
 export default WrappedComponent;
+export const TextMarkdownForSection = FieldWrapperOfSection(connect(mapStateToProps)(TextMarkdown));
+

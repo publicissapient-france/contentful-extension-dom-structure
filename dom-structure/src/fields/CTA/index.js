@@ -96,10 +96,18 @@ class CTA extends Component {
                     {this.props.openContent &&
                     <Content>
                         <ChoicesContent>
+
                             <Column>
-                                <label>Label</label>
-                                <InputText action={this.props.updateTranlatedContent} targetProperty={'text'}
-                                           defaultValue={getText(content, indexLanguage)}/>
+                                {
+                                    this.props.content.text &&
+                                        <>
+
+                                            <label>Label</label>
+                                            <InputText action={this.props.updateTranlatedContent} targetProperty={'text'}
+                                                       defaultValue={getText(content, indexLanguage)}/>
+                                        </>
+                                }
+
                             </Column>
                             <Column>
                                 {

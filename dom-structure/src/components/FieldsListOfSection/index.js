@@ -5,6 +5,7 @@ import {FieldContainer} from './styled';
 import {TemplateForSection} from '../../fields/Template/index';
 import {CTAForSection} from '../../fields/CTA/index';
 import {TextForSection} from '../../fields/Text/index';
+import {TextMarkdownForSection} from '../../fields/TextMarkdown/index';
 
 import {FlexContainerForSection} from '../../fields/FlexContainer/index';
 import {SelectSpeakersForSection} from '../../fields/SelectSpeakers/index';
@@ -49,6 +50,9 @@ const FieldsListOfSection = ({fields, index, triggerOpening}) => {
                         case 'Text':
                             return <TextForSection {...params}/>;
 
+                        case 'TextMarkdown':
+                            return <TextMarkdownForSection {...params}/>;
+
                         case 'SelectSpeakers':
                             return <SelectSpeakersForSection {...params}/>;
 
@@ -77,7 +81,7 @@ const FieldsListOfSection = ({fields, index, triggerOpening}) => {
                             return <ScheduleForSection {...params} />;
 
                         default :
-                            return <div className={'error'}><p>No field <strong>{field.typefield}</strong> matches</p>
+                            return <div className={'error'}><p>No field <strong>{field.typeField}</strong> matches</p>
                             </div>;
                     }
                 })

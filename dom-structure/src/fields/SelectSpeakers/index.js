@@ -74,33 +74,42 @@ class SelectSpeakers extends Component {
                                 />
                             </ChoicesSpeakers>
                             <ChoicesContent>
-                                <Column>
-                                    <label>Icon twitter</label>
-                                    <InputIcon
-                                        font={this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null}
-                                        action={this.props.updateContent}
-                                        letters={'mn'}
-                                        targetProperty={'icon1'}
-                                        defaultValue={this.getIcon1()}/>
-                                </Column>
-                                <Column>
-                                    <label>Icon Linkedin</label>
-                                    <InputIcon
-                                        font={this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null}
-                                        action={this.props.updateContent}
-                                        letters={'op'}
-                                        targetProperty={'icon2'}
-                                        defaultValue={this.getIcon2()}/>
-                                </Column>
-                                <Column>
-                                    <label>Icon Github</label>
-                                    <InputIcon
-                                        font={this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null}
-                                        action={this.props.updateContent}
-                                        letters={'qr'}
-                                        targetProperty={'icon3'}
-                                        defaultValue={this.getIcon3()}/>
-                                </Column>
+                                {
+                                    this.props.content.icon1 && <Column>
+                                        <label>Icon twitter</label>
+                                        <InputIcon
+                                            font={this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null}
+                                            action={this.props.updateContent}
+                                            letters={'mn'}
+                                            targetProperty={'icon1'}
+                                            defaultValue={this.getIcon1()}/>
+                                    </Column>
+                                }
+                                {
+                                    this.props.content.icon2 && <Column>
+                                        <label>Icon Linkedin</label>
+                                        <InputIcon
+                                            font={this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null}
+                                            action={this.props.updateContent}
+                                            letters={'op'}
+                                            targetProperty={'icon2'}
+                                            defaultValue={this.getIcon2()}/>
+                                    </Column>
+                                }
+                                {
+                                    this.props.content.icon3 && <Column>
+                                        <label>Icon Github</label>
+                                        <InputIcon
+                                            font={this.props.settings['icon'] ? this.props.settings['icon'][this.props.responsiveSettings[0]]['font'] : null}
+                                            action={this.props.updateContent}
+                                            letters={'qr'}
+                                            targetProperty={'icon3'}
+                                            defaultValue={this.getIcon3()}/>
+                                    </Column>
+                                }
+
+
+
                             </ChoicesContent>
                         </Content>
                     }
