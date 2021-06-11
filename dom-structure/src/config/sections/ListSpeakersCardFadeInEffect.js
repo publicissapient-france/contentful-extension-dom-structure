@@ -151,7 +151,7 @@ export default {
         {
             name: 'Job Active',
             nameProperty: 'TextJobActive',
-            typeField: 'TextMarkdown',
+            typeField: 'Text',
             content: {
                 responsive: ['A'],
                 parameters: {},
@@ -162,7 +162,7 @@ export default {
         {
             name: 'Info',
             nameProperty: 'ContentInfo',
-            typeField: 'TextMarkdown',
+            typeField: 'Text',
             content: {
                 responsive: ['A'],
                 parameters: {},
@@ -173,13 +173,13 @@ export default {
         {
             name: 'Info Bold',
             nameProperty: 'ContentBold',
-            typeField: 'TextMarkdown',
+            typeField: 'Text',
             content: {
                 responsive: ['A'],
                 parameters: {},
                 defaultValue: {}
             },
-            settings: settingsSimpleText
+            settings: settingsText
         },
         {
             name: 'CTA Social Twitter',
